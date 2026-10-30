@@ -3,9 +3,11 @@ import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import path from 'node:path';
-import { solveSystem, parseFrac, validate } from '../tools/verify-math.mjs';
+import { solveSystem, parseFrac, parseEquation, solveFinite, rowsFromEquations, validate } from '../tools/verify-math.mjs';
 
 const str = (sol) => sol.map(String);
+const dataFile = path.join(path.dirname(fileURLToPath(import.meta.url)), '..', 'data', 'math.json');
+const only = (errs) => errs.filter((e) => !e.includes('exercises, found'));
 
 test('parseFrac handles integers, fractions, decimals', () => {
   assert.equal(String(parseFrac('6/4')), '3/2');
@@ -53,32 +55,208 @@ test('fraction strings are accepted in system rows', () => {
   assert.deepEqual(str(r.solution), ['2', '2', '3']);
 });
 
+// ---------------------------------------------------------------- equation grammar
+const XYZ = ['x', 'y', 'z'];
+const evalAt = (eq, vals) => String(parseEquation(eq, XYZ).partial(vals.map(parseFrac)).constValue());
+
+test('parser: precedence, powers, unary minus, parentheses', () => {
+  assert.equal(evalAt('x^2+y^2=25', [3, 4, 0]), '0');
+  assert.equal(evalAt('-x^2=0', [3, 0, 0]), '-9'); // -(x^2) - 0
+  assert.equal(evalAt('2*(x+y)-3*(z-1)=-4', [2, -1, 3]), '0');
+  assert.equal(evalAt('(x-y)^2=0', [1, 4, 0]), '9');
+  assert.equal(evalAt('x^2-y^2=15', [4, 1, 0]), '0');
+});
+
+test('parser: fractions, decimals and implicit multiplication', () => {
+  assert.equal(evalAt('x/2+y/3-z/6=0', [4, -3, 6]), '0');
+  assert.equal(evalAt('(x+z)/5+y=-1', [4, -3, 6]), '0');
+  assert.equal(evalAt('0.5*x=1', [2, 0, 0]), '0');
+  assert.equal(evalAt('2xy+3(x+z)=0', [1, 2, 3]), '16');
+  assert.equal(evalAt('x(x-4)=-3', [1, 0, 0]), '0');
+});
+
+test('parser rejects bad input', () => {
+  assert.throws(() => parseEquation('x+y', XYZ), /expected "="/);
+  assert.throws(() => parseEquation('x+w=1', XYZ), /unknown variable/);
+  assert.throws(() => parseEquation('x/y=1', XYZ), /divide/);
+  assert.throws(() => parseEquation('x^y=1', XYZ), /exponent/);
+  assert.throws(() => parseEquation('(x+y=1', XYZ), /missing \)/);
+  assert.throws(() => parseEquation('x+$=1', XYZ), /unexpected character/);
+});
+
+test('rowsFromEquations rejects non-linear equations', () => {
+  assert.deepEqual(rowsFromEquations(['x+2y=3'], ['x', 'y']).map((r) => r.map(String)), [['1', '2', '3']]);
+  assert.throws(() => rowsFromEquations(['x*y=3'], ['x', 'y']), /not linear/);
+});
+
+// ---------------------------------------------------------------- finite solver
+const solveStr = (eqs, vars) => {
+  const polys = eqs.map((e) => parseEquation(e, vars));
+  const r = solveFinite(polys, vars.length);
+  return { sols: r.solutions.map((s) => s.map(String).join(',')).sort(), incomplete: r.incomplete };
+};
+
+test('finite solver: sphere + two planes has exactly two solutions', () => {
+  const r = solveStr(['5*x+y=7', '7*x+y+z=12', 'x^2+y^2+z^2=14'], XYZ);
+  assert.deepEqual(r.sols, ['1,2,3', '2,-3,1']);
+  assert.equal(r.incomplete, null);
+});
+
+test('finite solver: sum/product pair with a third unknown (four solutions)', () => {
+  const r = solveStr(['x^2+y^2=25', 'x*y=12', '2*x-y+z=9'], XYZ);
+  assert.deepEqual(r.sols, ['-3,-4,11', '-4,-3,14', '3,4,7', '4,3,4']);
+});
+
+test('finite solver: decoupled 4-unknown system and decimals', () => {
+  const r = solveStr(['3*x+3*y=18', 'x*y=5', 'x*z=4', 'y*z=5*w'], ['x', 'y', 'z', 'w']);
+  assert.deepEqual(r.sols, ['1,5,4,4', '5,1,4/5,4/25']);
+});
+
+test('finite solver: no real solutions, inconsistent linear part', () => {
+  assert.deepEqual(solveStr(['x^2+y^2=-1', 'z=0'], XYZ).sols, []);
+  assert.deepEqual(solveStr(['x+y=1', 'x+y=2', 'x^2=z'], XYZ).sols, []);
+});
+
+test('finite solver reports irrational roots and underdetermined systems', () => {
+  assert.match(solveStr(['x^2=2', 'y=1', 'z=1'], XYZ).incomplete, /irrational/);
+  assert.match(solveStr(['x^2=4', 'y=1'], XYZ).incomplete, /not determined/);
+});
+
+// ---------------------------------------------------------------- validate()
+const heb = { title: 'כותרת', tips: ['א', 'ב', 'ג'], solution: ['א', 'ב', 'ג'] };
+const linearBase = () => ({
+  id: 'math-3-001', topic: 'math-3', level: 1, ...heb, statement: 'פתרו: x + y + z = 6, 2x − y + z = 3, x + 2y − z = 2',
+  inputs: [{ label: 'x', unit: '', answer: '1', tolerance: 0.01 }, { label: 'y', unit: '', answer: '2', tolerance: 0.01 }, { label: 'z', unit: '', answer: '3', tolerance: 0.01 }],
+  verify: { system: [[1, 1, 1, 6], [2, -1, 1, 3], [1, 2, -1, 2]], kind: 'unique' },
+});
+const finiteBase = () => ({
+  id: 'math-3-002', topic: 'math-3', level: 3, ...heb, statement: 'מצאו: 5x + y = 7, 7x + y + z = 12, x² + y² + z² = 14',
+  answerSets: { labels: ['x', 'y', 'z'], count: 2, sets: [['1', '2', '3'], ['2', '-3', '1']], tolerance: 0.01 },
+  verify: { equations: ['5*x+y=7', '7*x+y+z=12', 'x^2+y^2+z^2=14'], vars: XYZ, solutions: [[1, 2, 3], [2, -3, 1]], kind: 'finite' },
+});
+
+test('validate: valid linear and finite exercises pass', () => {
+  assert.deepEqual(only(validate([linearBase()], { expectedPerTopic: 1 })).filter((e) => !e.includes('math-4')), []);
+  assert.deepEqual(only(validate([finiteBase()])).filter((e) => !e.includes('math-4')), []);
+});
+
 test('validate reports a wrong answer', () => {
-  const ex = {
-    id: 'math-3-001', topic: 'math-3', level: 1, title: 'כותרת', statement: 'x + y + z = 6',
-    inputs: [{ label: 'x', unit: '', answer: '9', tolerance: 0.01 }, { label: 'y', unit: '', answer: '2', tolerance: 0.01 }, { label: 'z', unit: '', answer: '3', tolerance: 0.01 }],
-    tips: ['א', 'ב', 'ג'], solution: ['א', 'ב', 'ג'],
-    verify: { system: [[1, 1, 1, 6], [2, -1, 1, 3], [1, 2, -1, 2]], kind: 'unique' },
-  };
-  const errs = validate([ex]);
-  assert.ok(errs.some((e) => e.includes('input 1 answer "9"')));
+  const ex = linearBase();
+  ex.inputs[0].answer = '9';
+  assert.ok(validate([ex]).some((e) => e.includes('input 1 answer "9"')));
 });
 
 test('validate rejects fraction answers and complex text', () => {
-  const base = {
-    id: 'math-3-001', topic: 'math-3', level: 1, title: 'כותרת', statement: 'פתרו: x + y + z = 6',
-    inputs: [{ label: 'x', unit: '', answer: '1', tolerance: 0.01 }, { label: 'y', unit: '', answer: '2', tolerance: 0.01 }, { label: 'z', unit: '', answer: '3', tolerance: 0.01 }],
-    tips: ['א', 'ב', 'ג'], solution: ['א', 'ב', 'ג'],
-    verify: { system: [[1, 1, 1, 6], [2, -1, 1, 3], [1, 2, -1, 2]], kind: 'unique' },
-  };
-  assert.deepEqual(validate([base]).filter((e) => !e.includes('expected 12')), []);
-  const frac = { ...base, inputs: [{ ...base.inputs[0], answer: '2/2' }, ...base.inputs.slice(1)] };
+  const frac = linearBase();
+  frac.inputs[0].answer = '2/2';
   assert.ok(validate([frac]).some((e) => e.includes('at most 2 decimal')));
-  const cx = { ...base, tips: ['x = 2 + 3 i', 'ב', 'ג'] };
+  const cx = linearBase();
+  cx.tips = ['x = 2 + 3 i', 'ב', 'ג'];
   assert.ok(validate([cx]).some((e) => e.includes('complex')));
 });
 
-test('data/math.json passes validation', () => {
-  const file = path.join(path.dirname(fileURLToPath(import.meta.url)), '..', 'data', 'math.json');
-  assert.deepEqual(validate(JSON.parse(readFileSync(file, 'utf8'))), []);
+test('validate rejects word problems (statement without equations)', () => {
+  const ex = linearBase();
+  ex.statement = 'דנה קנתה שלוש מחברות ועטים ושילמה סכום כלשהו';
+  assert.ok(validate([ex]).some((e) => e.includes('at least 3 equations')));
+});
+
+test('validate: equations and system must agree', () => {
+  const ex = linearBase();
+  ex.verify.equations = ['x+y+z=6', '2*x-y+z=3', 'x+2*y-z=3'];
+  assert.ok(validate([ex]).some((e) => e.includes('different systems')));
+});
+
+test('validate: finite claimed solution that is wrong', () => {
+  const ex = finiteBase();
+  ex.verify.solutions[1] = [2, -3, 2];
+  ex.answerSets.sets[1] = ['2', '-3', '2'];
+  assert.ok(validate([ex]).some((e) => e.includes('does not satisfy all equations exactly')));
+});
+
+test('validate: finite system with an unlisted solution is rejected', () => {
+  const ex = finiteBase();
+  ex.verify.solutions.pop();
+  ex.answerSets.sets.pop();
+  ex.answerSets.count = 1;
+  const errs = validate([ex]);
+  assert.ok(errs.some((e) => e.includes('not listed: (2, -3, 1)')), errs.join('\n'));
+});
+
+test('validate: answerSets must equal verify.solutions', () => {
+  const ex = finiteBase();
+  ex.answerSets.sets[1] = ['2', '-3', '0'];
+  assert.ok(validate([ex]).some((e) => e.includes('answerSets.sets differ')));
+});
+
+test('validate: several solutions need answerSets, decimals limited to 2 places', () => {
+  const ex = finiteBase();
+  delete ex.answerSets;
+  ex.inputs = [{ label: 'x', unit: '', answer: '1', tolerance: 0.01 }];
+  assert.ok(validate([ex]).some((e) => e.includes('several solutions: use answerSets')));
+  const none = finiteBase();
+  delete none.answerSets;
+  assert.ok(validate([none]).some((e) => e.includes('exactly one of inputs / choice / answerSets')));
+  const dec = finiteBase();
+  dec.verify.equations = ['x=1/3', 'y=0', 'z=0'];
+  dec.verify.solutions = [['1/3', 0, 0]];
+  assert.ok(validate([dec]).some((e) => e.includes('at most 2 decimal places')));
+});
+
+test('validate: wrong declared kind and wrong choice', () => {
+  const ex = linearBase();
+  ex.verify.kind = 'infinite';
+  assert.ok(validate([ex]).some((e) => e.includes('declared kind')));
+  const ch = linearBase();
+  delete ch.inputs;
+  ch.choice = { options: ['אין פתרון', 'פתרון יחיד', 'אינסוף פתרונות'], correct: 0 };
+  assert.ok(validate([ch]).some((e) => e.includes('choice marks')));
+});
+
+test('validate: also[] checks for parameter exercises', () => {
+  const ex = linearBase();
+  delete ex.inputs;
+  ex.inputs = [{ label: 'k', unit: '', answer: '1', tolerance: 0.01 }];
+  ex.verify = { system: [[1, 1, 1, 6], [2, 2, 2, 12], [1, 2, -1, 2]], kind: 'infinite', also: [{ system: [[1, 1, 1, 6], [2, 2, 2, 13], [1, 2, -1, 2]], kind: 'unique' }] };
+  assert.ok(validate([ex]).some((e) => e.includes('also[0]')));
+});
+
+// ---------------------------------------------------------------- the real data
+test('data/math.json passes validation (20 + 20 exercises)', () => {
+  const data = JSON.parse(readFileSync(dataFile, 'utf8'));
+  assert.deepEqual(validate(data), []);
+  assert.equal(data.length, 40);
+});
+
+test('data/math.json: ids unique, levels mostly 3, several multi-solution sets', () => {
+  const data = JSON.parse(readFileSync(dataFile, 'utf8'));
+  assert.equal(new Set(data.map((e) => e.id)).size, data.length);
+  assert.ok(data.filter((e) => e.level === 3).length >= 20);
+  assert.ok(data.filter((e) => e.level === 1).length <= 4);
+  assert.ok(data.filter((e) => e.answerSets).length >= 10);
+  for (const e of data) {
+    assert.equal(e.tips.length, 3);
+    assert.ok(e.solution.length >= 3);
+  }
+});
+
+test('independent float grid search agrees with the listed solutions (3 unknowns, step 1/4)', () => {
+  const data = JSON.parse(readFileSync(dataFile, 'utf8')).filter((e) => e.verify.kind === 'finite' && e.topic === 'math-3');
+  assert.ok(data.length >= 6);
+  for (const e of data) {
+    const vars = e.verify.vars;
+    // turn each equation into a JS function (test-only evaluator)
+    const fns = e.verify.equations.map((s) => {
+      const [l, r] = s.split('=');
+      const js = (t) => t.replace(/\^/g, '**').replace(/(\d)([a-z(])/g, '$1*$2').replace(/([a-z)])([a-z(])/g, '$1*$2').replace(/([a-z)])([a-z(])/g, '$1*$2');
+      return new Function(...vars, `return (${js(l)}) - (${js(r)});`);
+    });
+    const found = [];
+    for (let a = -60; a <= 60; a++) for (let b = -60; b <= 60; b++) for (let c = -60; c <= 60; c++) {
+      const v = [a / 4, b / 4, c / 4];
+      if (fns.every((f) => Math.abs(f(...v)) < 1e-9)) found.push(v.join(','));
+    }
+    const listed = e.verify.solutions.map((s) => s.map(Number)).filter((s) => s.every((x) => Math.abs(x * 4 - Math.round(x * 4)) < 1e-9)).map((s) => s.join(','));
+    assert.deepEqual(found.sort(), listed.sort(), e.id);
+  }
 });
