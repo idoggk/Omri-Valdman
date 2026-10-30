@@ -1,0 +1,4 @@
+preview/*.html text eol=lf
+data/*.json text eol=lf
+tools/*.mjs text eol=lf
+tests/*.mjs text eol=lf
