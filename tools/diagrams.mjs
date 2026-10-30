@@ -1,17 +1,26 @@
 // Generates the inline SVG "diagram" field of every exercise in data/physics.json from the
 // exercise's verify.model + verify.params, so the numbers on the figure match the statement.
-// Usage: node tools/diagrams.mjs --write   (regenerate the diagram fields, idempotent)
-//        node tools/diagrams.mjs --check   (fail if a diagram is missing, invalid or stale)
-import { readFileSync, writeFileSync } from 'node:fs';
+// Usage: node tools/diagrams.mjs --write    (regenerate the diagram fields, idempotent)
+//        node tools/diagrams.mjs --preview  (write preview/diagrams.html, a static gallery)
+//        node tools/diagrams.mjs --check    (fail if a diagram is missing, invalid, overlapping or stale)
+//
+// Layout model: every builder returns SVG primitives. svg() parses them into a geometric scene
+// (segments with stroke width, arrow heads, filled rects/circles/ellipses, curve samples, other
+// labels) and a placement function moves each label to the nearest candidate position whose text
+// box touches nothing. --check re-parses the stored SVG with the SAME scene model and fails on any
+// overlap, so a diagram can only ship if the engine that placed the labels also accepts them.
+import { readFileSync, writeFileSync, mkdirSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { dirname, join, resolve } from 'node:path';
 
 // ---------------------------------------------------------------- primitives
+// Namespaced vars the site never defines: the diagram panel is always white, so the dark-mode
+// site accent (light blue) would be illegible there. The fallbacks are the real colours.
 const COL = {
   k: 'currentColor',
-  a: 'var(--accent, #4c8bf5)',
-  b: 'var(--accent2, #e8590c)',
-  c: 'var(--accent3, #2f9e44)',
+  a: 'var(--dg-a, #1f5fae)',
+  b: 'var(--dg-b, #c2410c)',
+  c: 'var(--dg-c, #1e7a34)',
 };
 const r1 = (x) => String(Math.round(x * 10) / 10);
 export const num = (x) => String(Math.round(x * 100) / 100);
@@ -24,11 +33,14 @@ const markers = ['k', 'a', 'b', 'c']
   )
   .join('');
 
+const FS = 14;
+const VB_W = 320;
+
 export const svg = (title, h, body) =>
   relayout(
-    `<svg viewBox="0 0 320 ${h}" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="${esc(title)}">` +
+    `<svg viewBox="0 0 ${VB_W} ${h}" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="${esc(title)}">` +
       `<title>${esc(title)}</title><defs>${markers}</defs>` +
-      `<g direction="ltr" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" font-size="12">${body}</g></svg>`
+      `<g direction="ltr" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" font-size="${FS}">${body}</g></svg>`
   );
 
 export const line = (x1, y1, x2, y2, o = {}) =>
@@ -38,24 +50,27 @@ export const line = (x1, y1, x2, y2, o = {}) =>
 export const arrow = (x1, y1, x2, y2, c = 'k') =>
   `<line x1="${r1(x1)}" y1="${r1(y1)}" x2="${r1(x2)}" y2="${r1(y2)}" stroke="${COL[c]}" stroke-width="2" marker-end="url(#ph-${c})"/>`;
 
-// Label with a halo in the panel colour. Multi-line labels are one <text> with <tspan>s so the
-// layout pass moves them as a block. fix=true pins the label (axis ticks); it is still checked.
-const HALO = 'var(--card, #fff)';
-export const txt = (x, y, s, c = 'k', anc = 'middle', fix = false) => {
+// Label: thin dark/accent text with a white halo (the panel colour, never the theme colour).
+// Multi-line labels are one <text> with <tspan>s so the layout moves them as a block.
+// fix=true pins the label (axis ticks); it is still checked. own=true says the label belongs to the
+// filled rect it sits in (allowed there, must be fully inside with margin).
+const LINE_H = 16;
+export const txt = (x, y, s, c = 'k', anc = 'middle', fix = false, own = false) => {
   const lines = String(s).split('\n');
   const attrs =
-    `x="${r1(x)}" y="${r1(y)}" text-anchor="${anc}" fill="${COL[c]}" stroke="${HALO}" stroke-width="4" paint-order="stroke" stroke-linejoin="round"` +
-    (fix ? ' data-f="1"' : '');
+    `x="${r1(x)}" y="${r1(y)}" text-anchor="${anc}" fill="${COL[c]}" stroke="#fff" stroke-width="3" paint-order="stroke" stroke-linejoin="round" stroke-linecap="round" font-weight="400"` +
+    (fix ? ' data-f="1"' : '') +
+    (own ? ' data-in="1"' : '');
   if (lines.length === 1) return `<text ${attrs}>${esc(lines[0])}</text>`;
-  return `<text ${attrs}>${lines.map((ln, i) => `<tspan x="${r1(x)}" dy="${i ? 14 : 0}">${esc(ln)}</tspan>`).join('')}</text>`;
+  return `<text ${attrs}>${lines.map((ln, i) => `<tspan x="${r1(x)}" dy="${i ? LINE_H : 0}">${esc(ln)}</tspan>`).join('')}</text>`;
 };
+export const txtIn = (x, y, s, c = 'k', anc = 'middle') => txt(x, y, s, c, anc, false, true);
 
-// ---------------------------------------------------------------- automatic label layout
-const FS = 12;
+// ---------------------------------------------------------------- scene model
 const HEB = /[֐-׿]/;
 const textW = (s) => {
   let w = 0;
-  for (const ch of s) w += HEB.test(ch) ? FS * 0.55 : ch === ' ' ? FS * 0.3 : FS * 0.6;
+  for (const ch of s) w += HEB.test(ch) ? FS * 0.6 : ch === ' ' ? FS * 0.3 : FS * 0.62;
   return w;
 };
 const attr = (tag, name) => {
@@ -63,7 +78,7 @@ const attr = (tag, name) => {
   return m ? m[1] : null;
 };
 const TEXT_RE = /<text\b([^>]*)>([\s\S]*?)<\/text>/g;
-const stripEnt = (s) => s.replace(/&amp;|&lt;|&gt;/g, '_');
+const stripEnt = (s) => s.replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>');
 
 function pathSegs(d) {
   const tok = d.match(/[a-zA-Z]|-?\d*\.?\d+/g) || [];
@@ -87,11 +102,14 @@ function pathSegs(d) {
     else if (cmd === 'H') to(n(), cy);
     else if (cmd === 'v') to(cx, cy + n());
     else if (cmd === 'V') to(cx, n());
-    else if (cmd === 'Q') {
-      const qx = n(), qy = n(), ex = n(), ey = n();
+    else if (cmd === 'Q' || cmd === 'q' || cmd === 't') {
+      const rel = cmd !== 'Q';
       const x0 = cx, y0 = cy;
-      for (let k = 1; k <= 16; k++) {
-        const t = k / 16, u = 1 - t;
+      let qx, qy;
+      if (cmd === 't') { qx = x0; qy = y0; } else { qx = n() + (rel ? x0 : 0); qy = n() + (rel ? y0 : 0); }
+      const ex = n() + (rel ? x0 : 0), ey = n() + (rel ? y0 : 0);
+      for (let k = 1; k <= 24; k++) {
+        const t = k / 24, u = 1 - t;
         to(u * u * x0 + 2 * u * t * qx + t * t * ex, u * u * y0 + 2 * u * t * qy + t * t * ey);
       }
     } else if (cmd === 'A') { i += 5; to(n(), n()); }
@@ -101,31 +119,56 @@ function pathSegs(d) {
   return segs;
 }
 
-function parseLayout(s) {
+// Arrow head of a marker line: the 10x10 triangle scaled by markerWidth(7)/10 * stroke-width.
+function headTriangle(x1, y1, x2, y2, sw) {
+  const dx = x2 - x1, dy = y2 - y1, len = Math.hypot(dx, dy) || 1;
+  const ux = dx / len, uy = dy / len, s = 0.7 * sw;
+  const bx = x2 - ux * 9 * s, by = y2 - uy * 9 * s;
+  return [[x2 + ux * s, y2 + uy * s], [bx - uy * 5 * s, by + ux * 5 * s], [bx + uy * 5 * s, by - ux * 5 * s]];
+}
+
+export function parseScene(s) {
   const vb = /viewBox="0 0 (\d+(?:\.\d+)?) (\d+(?:\.\d+)?)"/.exec(s);
-  const W = vb ? Number(vb[1]) : 320;
+  const W = vb ? Number(vb[1]) : VB_W;
   const H = vb ? Number(vb[2]) : 200;
   const body = s.replace(/<defs>[\s\S]*?<\/defs>/, '').replace(/<title>[\s\S]*?<\/title>/, '');
-  const segs = [];
-  const boxes = [];
+  const segs = []; // {p:[x1,y1,x2,y2], w, what}
+  const polys = []; // arrow heads
+  const rects = []; // filled rects [x0,y0,x1,y1]
+  const rounds = []; // filled circles / ellipses {cx,cy,rx,ry}
   const solid = (tag) => {
     const op = attr(tag, 'opacity');
     return !(op !== null && Number(op) < 0.3);
+  };
+  const filled = (tag) => {
+    const f = attr(tag, 'fill');
+    return f !== null && f !== 'none';
   };
   for (const m of body.replace(TEXT_RE, '').matchAll(/<(line|polyline|path|rect|circle|ellipse)\b([^>]*?)\/?>/g)) {
     const [, kind, tag] = m;
     if (!solid(tag)) continue;
     const f = (k) => Number(attr(tag, k));
-    if (kind === 'line') segs.push([f('x1'), f('y1'), f('x2'), f('y2')]);
-    else if (kind === 'polyline') {
+    const sw = attr(tag, 'stroke-width') !== null ? f('stroke-width') : 1.5;
+    if (kind === 'line') {
+      const [x1, y1, x2, y2] = [f('x1'), f('y1'), f('x2'), f('y2')];
+      segs.push({ p: [x1, y1, x2, y2], w: sw, what: attr(tag, 'marker-end') || attr(tag, 'marker-start') ? 'arrow/dimension line' : 'line' });
+      if (attr(tag, 'marker-end')) polys.push({ pts: headTriangle(x1, y1, x2, y2, sw), what: 'arrow head' });
+      if (attr(tag, 'marker-start')) polys.push({ pts: headTriangle(x2, y2, x1, y1, sw), what: 'arrow head' });
+    } else if (kind === 'polyline') {
       const p = attr(tag, 'points').trim().split(/\s+/).map((q) => q.split(',').map(Number));
-      for (let i = 1; i < p.length; i++) segs.push([...p[i - 1], ...p[i]]);
-    } else if (kind === 'path') segs.push(...pathSegs(attr(tag, 'd')));
-    else if (kind === 'rect') {
+      for (let i = 1; i < p.length; i++) segs.push({ p: [...p[i - 1], ...p[i]], w: sw, what: 'graph line' });
+    } else if (kind === 'path') {
+      const what = /[QqAa]/.test(attr(tag, 'd')) || (attr(tag, 'd').match(/L/g) || []).length > 4 ? 'trajectory' : 'path';
+      for (const p of pathSegs(attr(tag, 'd'))) segs.push({ p, w: sw, what });
+    } else if (kind === 'rect') {
       const x = f('x'), y = f('y'), w = f('width'), h = f('height');
-      segs.push([x, y, x + w, y], [x + w, y, x + w, y + h], [x + w, y + h, x, y + h], [x, y + h, x, y]);
-    } else if (kind === 'circle') boxes.push([f('cx') - f('r'), f('cy') - f('r'), f('cx') + f('r'), f('cy') + f('r')]);
-    else boxes.push([f('cx') - f('rx'), f('cy') - f('ry'), f('cx') + f('rx'), f('cy') + f('ry')]);
+      for (const p of [[x, y, x + w, y], [x + w, y, x + w, y + h], [x + w, y + h, x, y + h], [x, y + h, x, y]]) segs.push({ p, w: sw, what: 'rect edge' });
+      if (filled(tag)) rects.push({ b: [x, y, x + w, y + h], what: `filled rect (${r1(x)},${r1(y)} ${r1(w)}x${r1(h)})` });
+    } else if (kind === 'circle') {
+      rounds.push({ cx: f('cx'), cy: f('cy'), rx: f('r') + 1, ry: f('r') + 1, what: `circle (${r1(f('cx'))},${r1(f('cy'))})` });
+    } else {
+      rounds.push({ cx: f('cx'), cy: f('cy'), rx: f('rx') + sw / 2, ry: f('ry') + sw / 2, what: `ellipse (${r1(f('cx'))},${r1(f('cy'))})` });
+    }
   }
   const texts = [];
   for (const m of s.matchAll(TEXT_RE)) {
@@ -137,12 +180,20 @@ function parseLayout(s) {
     const anc = attr(tag, 'text-anchor') || 'start';
     const w = Math.max(...lines.map(textW));
     const x0 = anc === 'start' ? x : anc === 'end' ? x - w : x - w / 2;
-    texts.push({ lines, fix: /data-f="1"/.test(tag), box: [x0, y - FS * 0.85, x0 + w, y + 14 * (lines.length - 1) + FS * 0.25], label: lines.join(' ') });
+    const top = y - FS * 0.95;
+    texts.push({
+      lines,
+      fix: /data-f="1"/.test(tag),
+      own: /data-in="1"/.test(tag),
+      box: [x0, top, x0 + w, top + FS * 1.25 + LINE_H * (lines.length - 1)],
+      label: lines.join(' '),
+    });
   }
-  return { W, H, segs, boxes, texts };
+  return { W, H, segs, polys, rects, rounds, texts };
 }
 
-const shrink = (b) => [b[0] + 1, b[1] + 1, b[2] - 1, b[3] - 1];
+// ---------------------------------------------------------------- geometry
+const inflate = (b, d) => [b[0] - d, b[1] - d, b[2] + d, b[3] + d];
 const boxHit = (a, b) => a[0] < b[2] && b[0] < a[2] && a[1] < b[3] && b[1] < a[3];
 function segHitsBox([x1, y1, x2, y2], b) {
   let t0 = 0, t1 = 1;
@@ -158,42 +209,86 @@ function segHitsBox([x1, y1, x2, y2], b) {
   }
   return true;
 }
-const MARGIN = 3;
-const inView = (b, W, H) => b[0] >= MARGIN && b[1] >= MARGIN && b[2] <= W - MARGIN && b[3] <= H - MARGIN;
-function blocked(box, lay, others) {
-  const b = shrink(box);
-  if (!inView(box, lay.W, lay.H)) return 'viewBox';
-  for (const g of lay.boxes) if (boxHit(b, g)) return 'shape';
-  for (const sg of lay.segs) if (segHitsBox(sg, b)) return 'line';
-  for (const o of others) if (boxHit(b, shrink(o.box))) return `text "${o.label}"`;
+function inTriangle([px, py], t) {
+  const sgn = (a, b) => (px - b[0]) * (a[1] - b[1]) - (a[0] - b[0]) * (py - b[1]);
+  const d1 = sgn(t[0], t[1]), d2 = sgn(t[1], t[2]), d3 = sgn(t[2], t[0]);
+  return !((d1 < 0 || d2 < 0 || d3 < 0) && (d1 > 0 || d2 > 0 || d3 > 0));
+}
+function roundHitsBox(r, b, m) {
+  const px = Math.max(b[0], Math.min(r.cx, b[2]));
+  const py = Math.max(b[1], Math.min(r.cy, b[3]));
+  return ((px - r.cx) / (r.rx + m)) ** 2 + ((py - r.cy) / (r.ry + m)) ** 2 < 1;
+}
+
+const VIEW_MARGIN = 6; // text box to viewBox edge
+const LINE_GAP = 3; // text box to a stroke, measured from the stroke edge
+const TEXT_GAP = 4; // text box to another text box
+const INSIDE_MARGIN = 4; // an owned label must clear its rect edge by this much
+
+// Returns a description of the first thing the text box (core metrics box) touches, or null.
+function conflict(t, box, sc, others, H) {
+  if (box[0] < VIEW_MARGIN || box[1] < VIEW_MARGIN || box[2] > sc.W - VIEW_MARGIN || box[3] > H - VIEW_MARGIN) return 'the viewBox border';
+  for (const sg of sc.segs) {
+    if (segHitsBox(sg.p, inflate(box, LINE_GAP + sg.w / 2))) return `${sg.what} (${sg.p.map(r1).join(',')})`;
+  }
+  for (const pl of sc.polys) {
+    if (inTriangle([(box[0] + box[2]) / 2, (box[1] + box[3]) / 2], pl.pts) || pl.pts.some((q) => q[0] > box[0] - 2 && q[0] < box[2] + 2 && q[1] > box[1] - 2 && q[1] < box[3] + 2)) return `${pl.what} (${pl.pts.map((q) => q.map(r1).join(',')).join(' ')})`;
+    for (let i = 0; i < 3; i++) {
+      const a = pl.pts[i], b = pl.pts[(i + 1) % 3];
+      if (segHitsBox([a[0], a[1], b[0], b[1]], inflate(box, 2))) return `${pl.what} (${pl.pts.map((q) => q.map(r1).join(',')).join(' ')})`;
+    }
+  }
+  for (const r of sc.rounds) if (roundHitsBox(r, box, LINE_GAP)) return r.what;
+  for (const r of sc.rects) {
+    if (!boxHit(box, inflate(r.b, 0))) continue;
+    const inside = box[0] >= r.b[0] + INSIDE_MARGIN && box[1] >= r.b[1] + INSIDE_MARGIN && box[2] <= r.b[2] - INSIDE_MARGIN && box[3] <= r.b[3] - INSIDE_MARGIN;
+    if (!(t.own && inside)) return `${r.what}${inside ? ' (label inside a rect it does not own)' : ''}`;
+  }
+  for (const o of others) if (boxHit(inflate(box, TEXT_GAP / 2), inflate(o.box, TEXT_GAP / 2))) return `text "${o.label}"`;
   return null;
 }
 
-export const layoutStats = [];
 const OFFSETS = [];
-for (let dx = -90; dx <= 90; dx += 4) for (let dy = -60; dy <= 60; dy += 4) OFFSETS.push([dx, dy, dx * dx + dy * dy * 1.5]);
+for (let dx = -150; dx <= 150; dx += 3) for (let dy = -110; dy <= 110; dy += 3) OFFSETS.push([dx, dy, dx * dx + dy * dy * 1.5]);
 OFFSETS.sort((a, b) => a[2] - b[2]);
 
-// Moves every label to the nearest position where it touches no line, shape, other label or the border.
+// Moves every label to the nearest candidate position (any side, increasing offsets) where it
+// touches nothing; grows the canvas downwards when nothing fits. Never emits an overlap: throws.
 export function relayout(s) {
-  const lay = parseLayout(s);
-  const placed = lay.texts.filter((t) => t.fix);
-  const shift = new Map();
-  lay.texts.forEach((t, idx) => {
-    if (t.fix) return;
-    for (const [dx, dy] of OFFSETS) {
-      const box = [t.box[0] + dx, t.box[1] + dy, t.box[2] + dx, t.box[3] + dy];
-      if (!blocked(box, lay, placed)) {
-        shift.set(idx, [dx, dy]);
-        if (dx || dy) layoutStats.push([t.label, dx, dy]);
-        placed.push({ box, label: t.label });
-        return;
+  const sc = parseScene(s);
+  let ext = 0;
+  let shift;
+  let fail = '';
+  for (; ext <= 160; ext += 20) {
+    const H = sc.H + ext;
+    const placed = sc.texts.filter((t) => t.fix);
+    shift = new Map();
+    let ok = true;
+    for (let idx = 0; idx < sc.texts.length && ok; idx++) {
+      const t = sc.texts[idx];
+      if (t.fix) {
+        const why = conflict(t, t.box, sc, placed.filter((o) => o !== t), H);
+        if (why) { ok = false; fail = `pinned label "${t.label}" overlaps ${why}`; }
+        continue;
       }
+      let found = false;
+      for (const [dx, dy] of OFFSETS) {
+        const box = [t.box[0] + dx, t.box[1] + dy, t.box[2] + dx, t.box[3] + dy];
+        if (!conflict(t, box, sc, placed, H)) {
+          shift.set(idx, [dx, dy]);
+          placed.push({ box, label: t.label });
+          found = true;
+          break;
+        }
+      }
+      if (!found) { ok = false; fail = `no free position for label "${t.label}"`; }
     }
-    placed.push(t);
-  });
+    if (ok) break;
+    shift = null;
+  }
+  if (!shift) throw new Error(`cannot lay out labels without overlap: ${fail}`);
   let idx = -1;
-  return s.replace(TEXT_RE, (all, tag, inner) => {
+  let out = s.replace(TEXT_RE, (all, tag, inner) => {
     idx++;
     const sh = shift.get(idx);
     if (!sh || (sh[0] === 0 && sh[1] === 0)) return all;
@@ -204,14 +299,16 @@ export function relayout(s) {
     const inner2 = inner.replace(/<tspan x="([^"]*)"/g, (q, v) => `<tspan x="${r1(Number(v) + dx)}"`);
     return `<text${tag2}>${inner2}</text>`;
   });
+  if (ext) out = out.replace(/viewBox="0 0 (\d+(?:\.\d+)?) (\d+(?:\.\d+)?)"/, (q, w, h) => `viewBox="0 0 ${w} ${Number(h) + ext}"`);
+  return out;
 }
 
-// Reports labels that overlap a line, shape, another label or leave the viewBox.
+// Same engine as relayout(): every label must touch nothing and stay inside the viewBox.
 export function layoutIssues(s) {
-  const lay = parseLayout(s);
+  const sc = parseScene(s);
   const out = [];
-  lay.texts.forEach((t, i) => {
-    const why = blocked(t.box, lay, lay.texts.slice(0, i));
+  sc.texts.forEach((t, i) => {
+    const why = conflict(t, t.box, sc, sc.texts.filter((o, j) => j !== i), sc.H);
     if (why) out.push(`label "${t.label}" overlaps ${why}`);
   });
   return out;
@@ -273,12 +370,14 @@ export function vtGraph({ pts, pts2, labelled2 = [], notes = [], xmax, vmin, vma
   const X = (t) => ox + t * sx;
   const Y = (v) => bot - (v - vmin) * sy;
   let g = '';
-  for (let t = 0; t <= xmax + 1e-9; t += xs) {
-    g += line(X(t), top, X(t), bot, { op: 0.18 }) + txt(X(t), bot + 14, num(t), 'k', 'middle', true);
+  const every = Math.max(1, Math.ceil(26 / (xs * sx))); // label every n-th tick so numbers never touch
+  for (let i = 0, t = 0; t <= xmax + 1e-9; i++, t = i * xs) {
+    g += line(X(t), top, X(t), bot, { op: 0.18 });
+    if (i % every === 0) g += txt(X(t), bot + 24, num(t), 'k', 'middle', true);
   }
   for (let v = vmin; v <= vmax + 1e-9; v += vs) {
     g += line(ox, Y(v), oxEnd, Y(v), { op: 0.18 });
-    g += txt(ox - 8, Y(v) + 4, num(v), 'k', 'end', true);
+    g += txt(ox - 10, Y(v) + 5, num(v), 'k', 'end', true);
   }
   g += arrow(ox, Y(0), oxEnd + 8, Y(0)) + arrow(ox, bot, ox, top - 10);
   g += txt(oxEnd + 10, Y(0) - 8, 't (ש\')', 'k', 'end') + txt(ox + 8, 16, 'v (מ/ש)', 'k', 'start');
@@ -291,7 +390,7 @@ export function vtGraph({ pts, pts2, labelled2 = [], notes = [], xmax, vmin, vma
     });
   }
   for (const [t, v, label, col] of notes) g += txt(X(t), Y(v), label, col || 'k');
-  return svg(title, 216, g);
+  return svg(title, 234, g);
 }
 
 // ------------------------------------------------------------ shared scenes
@@ -751,7 +850,8 @@ export const diagrams = {
     let s = road(RY) + car(14, RY, 'a') + arrow(62, RY - 40, 102, RY - 40, 'a') + txt(82, RY - 46, `${num(p.vc)} מ/ש`, 'a');
     s += rect(110, RY - 34, 70, 34, { c: 'b', fill: 'b' }) + ball(122, RY - 2, 'k', 5) + ball(168, RY - 2, 'k', 5) + arrow(184, RY - 20, 214, RY - 20, 'b') + txt(200, RY - 26, `${num(p.vt)} מ/ש`, 'b');
     s += `<g opacity="0.8">${car(250, RY, 'c')}</g>` + arrow(246, RY - 40, 206, RY - 40, 'c') + txt(226, RY - 66, `${num(p.vo)} מ/ש, בולם\na = ${num(p.ao)} מ/ש²`, 'c');
-    s += dim(58, RY + 24, 250, RY + 24, 'D = ?', { below: true }) + txt(147, RY + 62, `פער ${num(p.g1)} מ' · משאית ${num(p.Lt)} מ' · מכונית ${num(p.Lc)} מ' · פער ${num(p.g2)} מ'`, 'k');
+    s += dim(58, RY + 24, 250, RY + 24, 'D = ?', { below: true }) + txt(147, RY + 62, `פער ${num(p.g1)} מ' · משאית ${num(p.Lt)} מ'
+מכונית ${num(p.Lc)} מ' · פער ${num(p.g2)} מ'`, 'k');
     return svg('עקיפה כשרכב מתקרב בולם', 200, s);
   },
   dog_between_walkers: (p) => {
@@ -802,7 +902,8 @@ export function validateSvg(s) {
   if (FORBIDDEN.test(s)) errs.push('contains forbidden content (script, event handler, external ref)');
   if ((s.match(/https?:\/\//g) || []).length !== 1) errs.push('external URL other than the xmlns');
   if (!/<title>[^<]*[֐-׿][^<]*<\/title>/.test(s)) errs.push('missing Hebrew <title>');
-  if (/fill="(#000|#fff|black|white)/i.test(s) || /stroke="(#000|#fff|black|white)/i.test(s)) errs.push('fixed black/white color');
+  const noText = s.replace(/<text\b[^>]*>/g, '<text>'); // label halos are deliberately white
+  if (/fill="(#000|#fff|black|white)/i.test(noText) || /stroke="(#000|#fff|black|white)/i.test(noText)) errs.push('fixed black/white color');
   const stack = [];
   for (const m of s.matchAll(/<(\/?)([a-zA-Z][\w-]*)([^>]*?)(\/?)>/g)) {
     const [, close, name, , self] = m;
@@ -824,20 +925,47 @@ export function diagramFor(ex) {
   return fn(ex.verify.params);
 }
 
+// ------------------------------------------------------------ preview gallery
+// Line endings never matter for freshness: git autocrlf may turn LF into CRLF on Windows.
+export const lf = (s) => (typeof s === 'string' ? s.replace(/\r\n?/g, '\n') : s);
+export const sameText = (a, b) => lf(a) === lf(b);
+
+export function previewHtml(list) {
+  const card = (ex, cls) =>
+    `<figure class="card ${cls}"><div class="fig" role="img" aria-label="${esc(ex.title || ex.id)}">${ex.diagram}</div><figcaption><code>${esc(ex.id)}</code> ${esc(ex.title || '')}</figcaption></figure>`;
+  return (
+    `<!doctype html>\n<html lang="he" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">` +
+    `<title>תצוגת תרשימים – Brain Gains</title><style>` +
+    `body{margin:0;padding:16px;background:#eef1f5;color:#1d2733;font-family:system-ui,Arial,sans-serif;line-height:1.5}` +
+    `h1,h2{margin:.4em 0}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}` +
+    `.card{margin:0;background:#fff;color:#1d2733;border:1px solid #d5dde6;border-radius:12px;padding:10px;text-align:center}` +
+    `.fig{direction:ltr}.fig svg{display:block;width:100%;height:auto}` +
+    `figcaption{margin-top:6px;font-size:.95rem}code{direction:ltr;unicode-bidi:isolate;background:#eef1f5;padding:1px 6px;border-radius:6px}` +
+    `.phone{display:flex;flex-wrap:wrap;gap:14px}.phone .card{width:320px;box-sizing:content-box;padding:0;border-radius:0}.phone .fig svg{width:320px}` +
+    `.phone figcaption{padding:6px 8px}@media(max-width:700px){.grid{grid-template-columns:minmax(0,1fr)}}` +
+    `</style></head><body><h1>כל התרשימים (${list.length})</h1><p>נוצר אוטומטית על ידי tools/diagrams.mjs --preview</p>` +
+    `<h2>תצוגת רשת</h2><div class="grid">${list.map((e) => card(e, 'g')).join('')}</div>` +
+    `<h2>בגודל טלפון (320px)</h2><div class="phone">${list.map((e) => card(e, 'p')).join('')}</div></body></html>\n`
+  );
+}
+
 // ------------------------------------------------------------ CLI
 const here = dirname(fileURLToPath(import.meta.url));
 const isMain = process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.url);
 if (isMain) {
   const mode = process.argv[2];
-  const file = process.argv[3] || join(here, '..', 'data', 'physics.json');
-  if (mode !== '--write' && mode !== '--check') {
-    console.error('Usage: node tools/diagrams.mjs --write|--check [physics.json]');
+  const custom = process.argv[3];
+  const file = custom || join(here, '..', 'data', 'physics.json');
+  const previewFile = join(here, '..', 'preview', 'diagrams.html');
+  if (!['--write', '--check', '--preview'].includes(mode)) {
+    console.error('Usage: node tools/diagrams.mjs --write|--check|--preview [physics.json]');
     process.exit(2);
   }
   const raw = readFileSync(file, 'utf8');
-  const eol = raw.includes('\r\n') ? '\r\n' : '\n';
+  const eol = '\n'; // generated files are always LF (see .gitattributes)
   const list = JSON.parse(raw);
   const problems = [];
+  const gen = [];
   const out = list.map((ex) => {
     let d;
     try {
@@ -846,11 +974,15 @@ if (isMain) {
       problems.push(`${ex.id}: ${e.message}`);
       return ex;
     }
+    gen.push({ ...ex, diagram: d });
     validateSvg(d).forEach((m) => problems.push(`${ex.id}: generated diagram invalid: ${m}`));
     layoutIssues(d).forEach((m) => problems.push(`${ex.id}: layout: ${m}`));
     if (mode === '--check') {
       if (typeof ex.diagram !== 'string' || !ex.diagram) problems.push(`${ex.id}: diagram missing`);
-      else if (ex.diagram !== d) problems.push(`${ex.id}: stored diagram differs from generated (run --write)`);
+      else {
+        layoutIssues(ex.diagram).forEach((m) => problems.push(`${ex.id}: stored diagram layout: ${m}`));
+        if (!sameText(ex.diagram, d)) problems.push(`${ex.id}: stored diagram differs from generated (run --write)`);
+      }
       return ex;
     }
     const res = {};
@@ -862,6 +994,11 @@ if (isMain) {
     if (!('statement' in res)) res.diagram = d;
     return res;
   });
+  if (mode === '--check' && !custom) {
+    let cur = null;
+    try { cur = readFileSync(previewFile, 'utf8'); } catch { /* missing */ }
+    if (cur === null || !sameText(cur, previewHtml(list.map((ex) => ({ ...ex, diagram: diagramFor(ex) }))))) problems.push('preview/diagrams.html is missing or stale (run --preview)');
+  }
   if (problems.length) {
     console.error(`FAILED: ${problems.length} problem(s)`);
     problems.forEach((m) => console.error(' - ' + m));
@@ -871,5 +1008,9 @@ if (isMain) {
     const text = JSON.stringify(out, null, 2).replace(/\n/g, eol) + eol;
     if (text !== raw) writeFileSync(file, text);
     console.log(`wrote diagrams for ${out.length} exercises`);
-  } else console.log(`OK: ${list.length} diagrams present, valid and up to date`);
+  } else if (mode === '--preview') {
+    mkdirSync(dirname(previewFile), { recursive: true });
+    writeFileSync(previewFile, lf(previewHtml(gen)));
+    console.log(`wrote ${previewFile} (${gen.length} diagrams)`);
+  } else console.log(`OK: ${list.length} diagrams present, valid, overlap-free, up to date; preview current`);
 }
