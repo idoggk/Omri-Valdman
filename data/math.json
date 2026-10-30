@@ -1,0 +1,59 @@
+[
+  {
+    "id": "math-3-000",
+    "topic": "math-3",
+    "level": 1,
+    "title": "מערכת פשוטה (דוגמה)",
+    "statement": "פתרו את המערכת:<br><span dir=\"ltr\">x + y + z = 6</span><br><span dir=\"ltr\">x − y = 1</span><br><span dir=\"ltr\">y + z = 5</span>",
+    "inputs": [
+      { "label": "x", "unit": "", "answer": "1", "tolerance": 0.01 },
+      { "label": "y", "unit": "", "answer": "0", "tolerance": 0.01 },
+      { "label": "z", "unit": "", "answer": "5", "tolerance": 0.01 }
+    ],
+    "tips": ["נסו להוציא נעלם אחד מהמשוואות.", "הציבו את המשוואה השלישית בראשונה.", "x = 1, ומכאן קל למצוא את y ואת z."],
+    "solution": ["מהמשוואה הראשונה ומהשלישית: <span dir=\"ltr\">x + 5 = 6</span>, ולכן <span dir=\"ltr\">x = 1</span>.", "מהשנייה: <span dir=\"ltr\">y = x − 1 = 0</span>.", "מהשלישית: <span dir=\"ltr\">z = 5 − 0 = 5</span>."],
+    "verify": {}
+  },
+  {
+    "id": "math-3-001",
+    "topic": "math-3",
+    "level": 2,
+    "title": "מערכת עם פתרון שבר (דוגמה)",
+    "statement": "פתרו:<br><span dir=\"ltr\">2x = 3</span><br><span dir=\"ltr\">y = x + 1</span><br><span dir=\"ltr\">z = 2y</span>",
+    "inputs": [
+      { "label": "x", "unit": "", "answer": "3/2", "tolerance": 0.01 },
+      { "label": "y", "unit": "", "answer": "5/2", "tolerance": 0.01 },
+      { "label": "z", "unit": "", "answer": "5", "tolerance": 0.01 }
+    ],
+    "tips": ["התחילו מהמשוואה הראשונה.", "x = 3/2.", "y = 5/2 ולכן z = 5."],
+    "solution": ["<span dir=\"ltr\">x = 3/2</span>", "<span dir=\"ltr\">y = 3/2 + 1 = 5/2</span>", "<span dir=\"ltr\">z = 2 · 5/2 = 5</span>"],
+    "verify": {}
+  },
+  {
+    "id": "math-4-000",
+    "topic": "math-4",
+    "level": 1,
+    "title": "ארבעה נעלמים פשוטים (דוגמה)",
+    "statement": "פתרו:<br><span dir=\"ltr\">a = 1</span><br><span dir=\"ltr\">a + b = 3</span><br><span dir=\"ltr\">b + c = 5</span><br><span dir=\"ltr\">c + d = 7</span>",
+    "inputs": [
+      { "label": "a", "unit": "", "answer": "1", "tolerance": 0.01 },
+      { "label": "b", "unit": "", "answer": "2", "tolerance": 0.01 },
+      { "label": "c", "unit": "", "answer": "3", "tolerance": 0.01 },
+      { "label": "d", "unit": "", "answer": "4", "tolerance": 0.01 }
+    ],
+    "tips": ["יש משוואה שנותנת נעלם אחד ישירות.", "הציבו a בשנייה.", "המשיכו בשרשרת: b, אחר כך c, אחר כך d."],
+    "solution": ["<span dir=\"ltr\">a = 1</span>", "<span dir=\"ltr\">b = 3 − 1 = 2</span>", "<span dir=\"ltr\">c = 5 − 2 = 3</span>, <span dir=\"ltr\">d = 7 − 3 = 4</span>"],
+    "verify": {}
+  },
+  {
+    "id": "math-4-001",
+    "topic": "math-4",
+    "level": 2,
+    "title": "אין פתרון (דוגמה)",
+    "statement": "כמה פתרונות יש למערכת?<br><span dir=\"ltr\">a + b + c + d = 4</span><br><span dir=\"ltr\">a + b + c + d = 5</span><br><span dir=\"ltr\">a − b = 0</span><br><span dir=\"ltr\">c − d = 0</span>",
+    "choice": { "options": ["פתרון יחיד", "אין פתרון", "אינסוף פתרונות"], "correct": 1 },
+    "tips": ["שימו לב לשתי המשוואות הראשונות.", "האם אפשר ששני סכומים זהים יהיו שווים ל-4 ול-5 בו זמנית?", "סתירה."],
+    "solution": ["אגף שמאל זהה בשתי המשוואות הראשונות, אך אגף ימין שונה (4 ≠ 5).", "לכן יש סתירה ואין פתרון."],
+    "verify": {}
+  }
+]
