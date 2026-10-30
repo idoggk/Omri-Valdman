@@ -34,13 +34,47 @@ test('every diagram is well-formed, safe and readable', () => {
 
 test('numbers on the figure come from the exercise params and appear in the statement', () => {
   const ex = list.find((e) => e.id === 'phys-vertical-001');
-  assert.ok(ex.diagram.includes("h = 80 מ'"));
+  assert.ok(ex.diagram.includes('H₁ = 125') && ex.diagram.includes('H₂ = 80'));
   const rocket = list.find((e) => e.id === 'phys-vertical-013');
   assert.ok(rocket.diagram.includes('a = 8') && rocket.statement.includes('8 מ/ש²'));
   const g = list.find((e) => e.id === 'phys-horizontal-014');
-  assert.ok(g.diagram.includes('(5, 10)') && g.diagram.includes('(8, 10)'));
+  assert.ok(g.diagram.includes('(4, 12)') && g.diagram.includes('(6, 12)') && g.diagram.includes('(12, -6)'));
   const changed = diagrams.free_fall_from_height({ h: 45 });
-  assert.ok(changed.includes("h = 45 מ'") && !changed.includes('h = 80'));
+  assert.ok(changed.includes('h = 45') && !changed.includes('h = 80'));
+});
+
+const plain = (s) => s.replace(/<[^>]*>/g, '').replace(/[⁦-⁩]/g, '');
+
+test('bidi: every Hebrew label is built from separate isolated runs, never one mixed string', () => {
+  for (const ex of list) {
+    for (const [, inner] of ex.diagram.matchAll(/<text\b[^>]*>([\s\S]*?)<\/text>/g)) {
+      if (!/[א-ת]/.test(inner)) continue;
+      assert.ok(/<tspan direction="(rtl|ltr)" unicode-bidi="isolate">/.test(inner), `${ex.id}: Hebrew label without direction runs: ${plain(inner)}`);
+      // ASCII apostrophe after a Hebrew letter is neutral and drifts to the line start: labels use the geresh
+      assert.ok(!/[א-ת]'/.test(plain(inner)), `${ex.id}: ASCII apostrophe in ${plain(inner)}`);
+    }
+  }
+});
+
+test('bidi: runs are ordered by logic, with the colon glued to its Hebrew phrase', () => {
+  const t = txt(100, 40, "סוף שלב 2: t₂ = 5 ש'");
+  const runs = [...t.matchAll(/<tspan direction="(rtl|ltr)"[^>]*>/g)].map((m) => m[1]);
+  assert.deepEqual(runs, ['ltr', 'rtl', 'rtl']); // expression (with nested unit), then the Hebrew clause
+  assert.ok(t.indexOf('t₂ = 5') < t.indexOf('סוף שלב 2:'), 'visual order: expression left of the phrase');
+  assert.ok(/סוף שלב 2:/.test(plain(t)) && plain(t).includes('ש׳'));
+  const two = plain(txt(100, 40, "פער 8 מ' · משאית 16 מ'"));
+  assert.ok(two.indexOf('משאית') < two.indexOf('·') && two.indexOf('·') < two.indexOf('פער'), 'a Hebrew line is emitted in reverse clause order');
+  const ltr = txt(100, 40, 'v₀ = 20 מ/ש');
+  assert.ok(ltr.indexOf('v₀ = 20') < ltr.indexOf('מ/ש'), 'unit follows its number in an LTR expression');
+  assert.equal(txt(100, 40, 'v₀ = 0'), txt(100, 40, 'v₀ = 0'));
+  assert.ok(!txt(100, 40, 'v₀ = 0').includes('<tspan'), 'pure Latin labels stay plain text');
+});
+
+test('layout measurement follows the runs (tags and isolate marks have no width)', () => {
+  const wide = svg('בדיקה', 60, txt(160, 30, "t₂ = 5 ש' סוף שלב 2:"));
+  assert.deepEqual(layoutIssues(wide), []);
+  // a label of ~150 units centred at 160 must be measured by its visible text, so it fits the 320 box
+  assert.deepEqual(layoutIssues(svg('בדיקה', 60, txt(160, 30, 'הזנב עובר את העמוד אחרי 8 ש׳', 'k', 'middle', true))), []);
 });
 
 test('validateSvg rejects bad input', () => {

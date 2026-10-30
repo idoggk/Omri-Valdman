@@ -109,7 +109,7 @@ test('numbers glued to letters in a tip (v0, 2gh) are not treated as stated answ
 
 test('checker rejects a wrong answer', () => {
   const ex = sample();
-  ex.inputs[0].answer = '5';
+  ex.inputs[0].answer = String(Number(ex.inputs[0].answer) + 1);
   ex.inputs[0].tolerance = 0.05;
   assert.ok(checkExercise(ex).some((e) => e.includes('differs from recomputed')));
 });
@@ -222,4 +222,58 @@ test('guided schema is validated', () => {
   const ex = JSON.parse(JSON.stringify(JSON.parse(readFileSync(new URL('../data/physics.json', import.meta.url), 'utf8')).find((e) => e.guided)));
   ex.guided[0].correct = -1;
   assert.match(checkExercise(ex).join('\n'), /guided: step 1/);
+});
+
+test('upgraded vertical models (hand-checked values)', () => {
+  close(models.two_drops_same_landing({ H1: 125, H2: 80 }), [5, 4, 1, 40]);
+  close(models.free_fall_time_parts({ T: 6 }), [180, 100, 3, 30]);
+  close(models.throw_flight_time_levels({ T: 8, hq: 60 }), [40, 80, 20, 4]);
+  close(models.nth_second_given({ d: 75 }), [8, 320, 70, 65]);
+  close(models.half_speed_height({ h: 60 }), [40, 80, 2, 4]);
+  close(models.roof_throw_averages({ h: 25, v0: 20 }), [65, 13, 5, 30]);
+  close(models.down_throw_beats_drop({ h: 125, tB: 4, ts: 3 }), [5, 11.25, 51.25, 33.75]);
+  close(models.thrown_then_dropped({ h: 75, v0: 10 }), [2, 5, 30, 10]);
+  close(models.meet_vertical_after_apex({ H: 100, v0: 25 }), [4, 20, 40, 1.5]);
+  close(models.last_second_then_throw({ d: 35, w: 30 }), [4, 80, 2, 50]);
+  close(models.drop_height_ratio({ dt: 4, k: 9 }), [20, 2, 60, 160]);
+  close(models.vt_roof_throw_graph({ v0: 30, vEnd: -40, T: 7 }), [-10, 45, 35, 125]);
+  close(models.vt_elevator_chase({ t1: 3, v: 6, t2: 10, t3: 2, vB: 9, t0: 3 }), [2, 75, 6, 27]);
+  assert.throws(() => models.meet_vertical_after_apex({ H: 100, v0: 100 }));
+  assert.throws(() => models.vt_elevator_chase({ t1: 3, v: 6, t2: 10, t3: 2, vB: 9, t0: 30 }));
+});
+
+test('upgraded horizontal models (hand-checked values)', () => {
+  close(models.delayed_meet({ d: 1500, v1: 20, v2: 30, t0: 15 }), [39, 780, 24, 1200]);
+  close(models.accel_nth_second({ n: 4, d: 21, m: 8 }), [6, 24, 48, 45]);
+  close(models.brake_to_line({ v0: 30, D: 75, x: 48 }), [6, 5, 18, 2]);
+  close(models.convoy_overtake({ vf: 25, vs: 15, g: 10, L: 140, mid: 70 }), [15, 375, 225, 8]);
+  close(models.head_start_finish({ v_slow: 4, v_fast: 10, t0: 30, D: 500 }), [20, 200, 45, 180]);
+  close(models.accel_chase_max_gap({ v0: 10, a: 2, u: 16, d0: 16 }), [3, 25, 8, 26]);
+  close(models.train_passes_pole({ v1: 5, v2: 35, L: 150, t: 6 }), [4, 7.5, 25, 282]);
+  close(models.table_wall({ h: 1.8, vx: 8, xw: 4 }), [0.6, 4.8, 10, 0.55]);
+  close(models.opposite_throws({ h: 45, vA: 9, vB: 16 }), [3, 75, 1.2, 30]);
+  close(models.max_safe_speed({ D: 60, a: 5, tr: 1, v2: 15 }), [20, 40, 5, 2.5]);
+  close(models.race_accel_cruise({ a: 2, vmax: 20, D: 600, u: 16 }), [35, 25, 37.5, 40]);
+  close(models.roof_landing_range({ H: 45, h2: 25, x1: 12, x2: 30 }), [2, 6, 15, 25]);
+  close(models.vt_reverse_graph({ t1: 4, v: 12, t2: 2, t3: 6, w: 6 }), [-3, 72, 66, 6.5]);
+  close(models.dry_wet_braking({ v: 20, tr: 0.5, a1: 8, a2: 5, D: 40 }), [35, 50, 10, 2.5]);
+  close(models.kick_37_wall({ v0: 50, xw: 80, yq: 25 }), [6, 240, 40, 4]);
+  close(models.projectile_45_levels({ R: 160, yq: 38.4, xq: 100 }), [40, 64, 32, 37.5]);
+  close(models.projectile_down_37({ v0: 50, h: 236.25, xq: 80 }), [4.5, 180, 85, 156.25]);
+  assert.throws(() => models.race_accel_cruise({ a: 2, vmax: 20, D: 600, u: 18 }));
+});
+
+test('difficulty after the upgrade: at most 3 level-1, at least 70% level-3, 5+ steps and 3-4 parts for every upgraded exercise, 20+ guided', () => {
+  const list = JSON.parse(readFileSync(new URL('../data/physics.json', import.meta.url), 'utf8'));
+  assert.ok(list.filter((e) => e.level === 1).length <= 3);
+  assert.ok(list.filter((e) => e.level === 3).length >= 0.7 * list.length);
+  assert.ok(list.filter((e) => e.guided).length >= 20);
+  const upgraded = list.filter((e) => /^phys-vertical-0(0\d|10|12|2[12])$|^phys-horizontal-0(0\d|1[0-2]|14|16|17|19|21)$/.test(e.id));
+  assert.equal(upgraded.length, 30);
+  for (const e of upgraded) {
+    assert.equal(e.level, 3, e.id);
+    assert.ok(e.inputs.length >= 3 && e.inputs.length <= 4, `${e.id} sub-questions`);
+    assert.ok(e.solution.length >= 5, `${e.id} solution steps`);
+    assert.ok(e.statement.length > 220, `${e.id} is not a one-liner`);
+  }
 });

@@ -55,14 +55,102 @@ export const arrow = (x1, y1, x2, y2, c = 'k') =>
 // fix=true pins the label (axis ticks); it is still checked. own=true says the label belongs to the
 // filled rect it sits in (allowed there, must be fully inside with margin).
 const LINE_H = 16;
+
+// ---- bidi: a label is a list of separate runs, each with an explicit direction.
+// The page paragraph is LTR, so a Hebrew phrase, an LTR expression (symbols, numbers) and the
+// separators between them must never be left to the Unicode bidi algorithm to order. A line is
+// split into clauses at ":" "," ";" and "·"; every clause becomes one isolated run (a Hebrew clause
+// RTL, any other clause LTR, with a Hebrew unit inside an LTR clause as a nested RTL run and a
+// Latin expression inside a Hebrew clause as a nested LTR run). The separator stays glued to the end
+// of the clause it closes, so a colon is always on the correct side of its phrase. A line whose
+// first clause is Hebrew reads right-to-left, so its clauses are emitted in reverse (visual) order.
+const HEB_LETTER = /[א-ת]/;
+const HEB_UNIT = /^(?:ש['׳]|מ['׳]|מ\/ש[²2]?)$/;
+const LRI = '⁦'; // left-to-right isolate
+const RLI = '⁧'; // right-to-left isolate
+const PDI = '⁩'; // pop directional isolate
+const geresh = (s) => s.replace(/([א-ת])'/g, '$1׳');
+const run = (dir, inner) => `<tspan direction="${dir}" unicode-bidi="isolate">${dir === 'rtl' ? RLI : LRI}${inner}${PDI}</tspan>`;
+const hebRun = (t) => run('rtl', esc(t));
+
+// An LTR clause: Hebrew words are nested RTL runs; a unit right after a number is its own run.
+function ltrClause(c) {
+  const parts = [];
+  const re = /[א-ת][א-ת'׳״\/²]*(?: [א-ת][א-ת'׳״\/²]*)*/g;
+  let last = 0;
+  let m;
+  while ((m = re.exec(c))) {
+    parts.push(esc(c.slice(last, m.index)));
+    const words = m[0].split(' ');
+    const afterNumber = /[\d)]\s*$/.test(c.slice(0, m.index));
+    if (afterNumber && HEB_UNIT.test(words[0]) && words.length > 1) {
+      parts.push(hebRun(words[0]), ' ', hebRun(words.slice(1).join(' ')));
+    } else parts.push(hebRun(m[0]));
+    last = m.index + m[0].length;
+  }
+  parts.push(esc(c.slice(last)));
+  return run('ltr', parts.join(''));
+}
+
+// A Hebrew clause: a Latin expression (from its first Latin letter to the next Hebrew letter) is a nested LTR run.
+function rtlClause(c) {
+  const parts = [];
+  const re = /[A-Za-zΑ-ωₐ-ₜ][^א-ת]*/g;
+  let last = 0;
+  let m;
+  while ((m = re.exec(c))) {
+    parts.push(esc(c.slice(last, m.index)));
+    const expr = m[0].replace(/\s+$/, '');
+    parts.push(run('ltr', esc(expr)) + (m[0].length > expr.length ? ' ' : ''));
+    last = m.index + m[0].length;
+  }
+  parts.push(esc(c.slice(last)));
+  return run('rtl', parts.join(''));
+}
+
+export function bidiRuns(line) {
+  const text = geresh(String(line)).trim();
+  if (!HEB_LETTER.test(text)) return esc(text);
+  const clauses = [];
+  let cur = '';
+  for (let i = 0; i < text.length; i++) {
+    const ch = text[i];
+    if (ch === '·') {
+      if (cur.trim()) clauses.push(cur.trim());
+      clauses.push('·');
+      cur = '';
+    } else {
+      cur += ch;
+      if ((ch === ':' || ch === ';' || ch === ',') && (text[i + 1] === ' ' || i === text.length - 1)) {
+        clauses.push(cur.trim());
+        cur = '';
+      }
+    }
+  }
+  if (cur.trim()) clauses.push(cur.trim());
+  const dirOf = (c) => (HEB_LETTER.test(c[0]) ? 'rtl' : 'ltr');
+  const first = clauses.find((c) => c !== '·');
+  const rtlLine = first && dirOf(first) === 'rtl';
+  const rendered = clauses.map((c) => (c === '·' ? esc('·') : dirOf(c) === 'rtl' ? rtlClause(c) : ltrClause(c)));
+  return (rtlLine ? rendered.reverse() : rendered).join(' ');
+}
+
 export const txt = (x, y, s, c = 'k', anc = 'middle', fix = false, own = false) => {
   const lines = String(s).split('\n');
+  // A text chunk that holds an RTL run flips the meaning of start/end in the browser. Such labels are
+  // therefore always anchored in the middle (symmetric in both directions), at the centre of the box
+  // that the start/end anchor would have produced.
+  if (anc !== 'middle' && lines.some((l) => HEB_LETTER.test(l))) {
+    const w = Math.max(...lines.map((l) => textW(geresh(l))));
+    x += anc === 'start' ? w / 2 : -w / 2;
+    anc = 'middle';
+  }
   const attrs =
     `x="${r1(x)}" y="${r1(y)}" text-anchor="${anc}" fill="${COL[c]}" stroke="#fff" stroke-width="3" paint-order="stroke" stroke-linejoin="round" stroke-linecap="round" font-weight="400"` +
     (fix ? ' data-f="1"' : '') +
     (own ? ' data-in="1"' : '');
-  if (lines.length === 1) return `<text ${attrs}>${esc(lines[0])}</text>`;
-  return `<text ${attrs}>${lines.map((ln, i) => `<tspan x="${r1(x)}" dy="${i ? LINE_H : 0}">${esc(ln)}</tspan>`).join('')}</text>`;
+  if (lines.length === 1) return `<text ${attrs}>${bidiRuns(lines[0])}</text>`;
+  return `<text ${attrs}>${lines.map((ln, i) => `<tspan x="${r1(x)}" dy="${i ? LINE_H : 0}">${bidiRuns(ln)}</tspan>`).join('')}</text>`;
 };
 export const txtIn = (x, y, s, c = 'k', anc = 'middle') => txt(x, y, s, c, anc, false, true);
 
@@ -174,7 +262,9 @@ export function parseScene(s) {
   for (const m of s.matchAll(TEXT_RE)) {
     const tag = m[1];
     const inner = m[2];
-    const lines = inner.includes('<tspan') ? [...inner.matchAll(/<tspan\b[^>]*>([\s\S]*?)<\/tspan>/g)].map((q) => stripEnt(q[1])) : [stripEnt(inner)];
+    // Measurement follows the rendered runs: tags and isolate marks have no width, run gaps are the spaces between runs.
+    const plain = (x) => stripEnt(x.replace(/<[^>]*>/g, '').replace(/[⁦-⁩]/g, ''));
+    const lines = inner.includes('<tspan x=') ? inner.split(/(?=<tspan x=)/).map(plain) : [plain(inner)];
     const x = Number(attr(tag, 'x'));
     const y = Number(attr(tag, 'y'));
     const anc = attr(tag, 'text-anchor') || 'start';
@@ -777,7 +867,8 @@ export const diagrams = {
     let s = ground(10, 130, 60) + ground(190, 310, 60) + line(130, 60, 130, 190) + line(190, 60, 190, 190);
     s += `<path d="M130 190q15 -8 30 0t30 0" stroke="${COL.a}"/>` + ball(160, 70, 'b') + txt(170, 76, 'v₀ = 0', 'k', 'start') + arrow(160, 80, 160, 130, 'b');
     s += dim(110, 60, 110, 190, 'h = ?', { left: true }) + arrow(176, 180, 176, 100, 'c') + txt(204, 130, `קול\nc = ${num(p.c)} מ/ש`, 'c', 'start');
-    s += txt(160, 22, `T = ${num(p.T)} ש' מהשחרור עד ההתזה`, 'k');
+    s += txt(160, 22, `מהשחרור עד ההתזה:
+T = ${num(p.T)} ש'`, 'k');
     return svg('אבן נופלת לבאר והקול חוזר', 215, s);
   },
   two_stage_rocket: (p) => {
@@ -890,6 +981,213 @@ export const diagrams = {
     s += car(200, RY, 'a') + txt(222, RY - 40, 'v₀ = 0', 'k') + arrow(210, RY - 62, 260, RY - 62, 'a') + txt(235, RY - 68, `a = ${num(p.a)} מ/ש²`, 'a') + txt(222, RY + 22, 'א׳', 'a');
     s += dim(58, RY + 36, 200, RY + 36, `d₀ = ${num(p.d0)} מ'`, { below: true });
     return svg('מכונית נוסעת מאחורי מכונית שיוצאת מהמנוחה', 175, s);
+  },
+
+  // ---- upgraded vertical (multi-part)
+  two_drops_same_landing: (p) => {
+    const sc = 155 / p.H1, y1 = GY - p.H1 * sc, y2 = GY - p.H2 * sc;
+    let s = ground(10, 310, GY) + building(20, y1, 46, GY) + building(150, y2, 46, GY);
+    s += ball(80, y1, 'a') + arrow(80, y1 + 12, 80, y1 + 50, 'a') + txt(90, y1 + 4, 'כדור א׳', 'a', 'start');
+    s += ball(210, y2, 'b') + arrow(210, y2 + 12, 210, y2 + 50, 'b') + txt(220, y2 - 8, 'כדור ב׳', 'b', 'start');
+    s += line(66, y1, 130, y1, { dash: true, op: 0.6 }) + dim(130, y1, 130, GY, `H₁ = ${num(p.H1)} מ'`, { left: true });
+    s += dim(290, y2, 290, GY, `H₂ = ${num(p.H2)} מ'`, { left: true }) + txt(230, y2 + 70, 'ב׳ משוחרר אחרי\nΔt = ?', 'b', 'start');
+    return svg('שני כדורים נשמטים מגבהים שונים', 225, s);
+  },
+  free_fall_time_parts: (p) => {
+    const roof = 36, sc = 160 / ((10 * p.T * p.T) / 2), H = (10 * p.T * p.T) / 2, yq = roof + (H / 4) * sc, yl = roof + (H - (10 * (p.T - 2) ** 2) / 2) * sc;
+    let s = building(20, roof, 56, GY) + ground(10, 310, GY) + ball(100, roof, 'a') + txt(110, roof - 6, 'v₀ = 0', 'k', 'start');
+    s += path(`M100 ${roof}L100 ${GY - 6}`, 'k') + line(100, yq, 250, yq, { dash: true, op: 0.6 }) + txt(106, yq - 6, 'רבע מהגובה', 'b', 'start');
+    s += line(100, yl, 250, yl, { dash: true, op: 0.6 }) + `<line x1="100" y1="${r1(yl)}" x2="100" y2="${GY - 6}" stroke="${COL.b}" stroke-width="4"/>`;
+    s += dim(236, yl, 236, GY, 'd = ?', { c: 'b' }) + txt(228, (yl + GY) / 2 + 4, '2 ש׳ אחרונות', 'b', 'end');
+    s += dim(290, roof, 290, GY, 'H = ?', { left: true }) + txt(112, GY - 14, `T = ${num(p.T)} ש'`, 'k', 'start');
+    return svg('אבן נופלת במשך T שניות', 215, s);
+  },
+  throw_flight_time_levels: (p) => {
+    const hmax = (10 * (5 * p.T) ** 2) / 20, ly = GY - 6 - ((GY - 46) * p.hq) / hmax;
+    const extra = line(80, ly, 250, ly, { dash: true, op: 0.6 }) + ball(100, ly, 'c', 5) + txt(112, ly + 16, 'v = ?', 'c', 'start') + dim(250, ly, 250, GY, `h = ${num(p.hq)} מ'`) + txt(150, 100, `זמן באוויר T = ${num(p.T)} ש'`, 'b', 'start') + dim(222, 40, 222, ly, 'Δt = ?', { c: 'b' });
+    return svg('זריקה אנכית וזמן באוויר', 215, rise(p, { v0: 'v₀ = ?', top: 'שיא\nH = ?', extra }));
+  },
+  nth_second_given: (p) => {
+    const y0 = 36, y1 = 100, y2 = 160;
+    let s = ground(10, 310, GY) + path(`M100 ${y0}L100 ${GY - 6}`, 'k') + ball(100, y0, 'a') + txt(112, y0 + 4, 'v₀ = 0', 'k', 'start');
+    s += line(80, y1, 220, y1, { dash: true, op: 0.6 }) + ball(100, y1, 'a') + txt(112, y1 - 6, 't = n − 1', 'k', 'start');
+    s += line(80, y2, 220, y2, { dash: true, op: 0.6 }) + ball(100, y2, 'a') + txt(112, y2 + 16, 't = n', 'k', 'start');
+    s += dim(232, y1, 232, y2, `d = ${num(p.d)} מ'`, { c: 'b' }) + txt(240, (y1 + y2) / 2 - 12, 'בשנייה\nה־n', 'b', 'start') + arrow(60, 60, 60, 110, 'b') + txt(50, 90, 'g', 'b', 'end');
+    return svg('אבן נופלת: מרחק בשנייה מסוימת', 215, s);
+  },
+  half_speed_height: (p) => {
+    const ly = GY - 100;
+    const extra = line(80, ly, 250, ly, { dash: true, op: 0.6 }) + ball(100, ly, 'c', 5) + txt(112, ly + 16, 'v = v₀ / 2', 'c', 'start') + dim(250, ly, 250, GY, `h = ${num(p.h)} מ'`) + dim(250, 40, 250, ly, 'עוד עלייה', { c: 'b', left: true });
+    return svg('כדור בעלייה: מהירות חצי מהמהירות ההתחלתית', 215, rise(p, { v0: 'v₀ = ?', top: 'שיא', extra }));
+  },
+  roof_throw_averages: (p) => {
+    const apex = (p.v0 * p.v0) / 20, sc = 150 / (p.h + apex), roof = 24 + apex * sc;
+    let s = building(20, roof, 56, GY) + ground(10, 310, GY) + ball(100, roof, 'a') + arrow(100, roof - 8, 100, roof - 8 - apex * sc * 0.6, 'a') + txt(110, roof - 22, `v₀ = ${num(p.v0)} מ/ש`, 'a', 'start');
+    s += path(`M100 ${r1(roof)}L100 24`, 'k') + path(`M122 24L122 ${GY - 6}`, 'b') + ball(100, 24, 'b', 4) + txt(110, 30, 'שיא', 'b', 'start') + ball(122, GY - 6, 'a');
+    s += line(76, roof, 130, roof, { dash: true, op: 0.6 }) + dim(290, roof, 290, GY, `h = ${num(p.h)} מ'`, { left: true }) + txt(240, 110, 'מסלול כולל\nזמן T = ?', 'b', 'start');
+    return svg('כדור נזרק מגג: מסלול ותזוזה', 215, s);
+  },
+  down_throw_beats_drop: (p) => {
+    const extra = ball(150, 45, 'b') + arrow(150, 56, 150, 100, 'b') + txt(160, 90, 'v₀ = ?', 'b', 'start') + txt(122, 36, 'א׳', 'a', 'end') + txt(162, 36, 'ב׳', 'b', 'start') + path(`M150 45L150 ${GY - 6}`, 'b');
+    return svg('שתי אבנים נזרקות מאותו גובה', 215, tower(p, { extra: extra + txt(170, 150, `ב׳ נוחתת אחרי\ntB = ${num(p.tB)} ש'`, 'b', 'start') }));
+  },
+  thrown_then_dropped: (p) => {
+    const apex = (p.v0 * p.v0) / 20, sc = 150 / (p.h + apex), roof = 24 + apex * sc;
+    let s = building(20, roof, 56, GY) + ground(10, 310, GY) + ball(100, roof, 'a') + arrow(100, roof - 8, 100, Math.max(roof - 24, 14), 'a') + txt(108, roof - 16, `v₀ = ${num(p.v0)} מ/ש`, 'a', 'start');
+    s += path(`M100 ${r1(roof)}L100 24`, 'k') + path(`M120 24L120 ${GY - 6}`, 'k') + ball(120, GY - 6, 'a');
+    s += ball(160, roof, 'b') + path(`M160 ${r1(roof)}L160 ${GY - 6}`, 'b') + arrow(160, roof + 8, 160, roof + 44, 'b') + txt(170, roof - 8, 'ב׳ נשמטת\nכשא׳ חוזרת לגג', 'b', 'start');
+    s += line(76, roof, 170, roof, { dash: true, op: 0.6 }) + dim(290, roof, 290, GY, `h = ${num(p.h)} מ'`, { left: true });
+    return svg('אבן נזרקת מגג ואבן שנייה נשמטת אחריה', 215, s);
+  },
+  meet_vertical_after_apex: (p) => {
+    let s = ground(10, 310, GY) + building(190, 40, 40, GY) + ball(110, GY - 6, 'a') + arrow(110, GY - 14, 110, GY - 70, 'a');
+    s += txt(120, GY - 40, `v₀ = ${num(p.v0)} מ/ש`, 'a', 'start') + txt(100, GY - 90, 'ב׳', 'a', 'end');
+    s += ball(176, 40, 'b') + txt(170, 34, 'א׳ נשמט', 'b', 'end') + arrow(176, 52, 176, 92, 'b');
+    const my = GY - 6 - 0.3 * (GY - 46);
+    s += line(100, my, 180, my, { dash: true, op: 0.6 }) + ball(110, my, 'c', 5) + txt(120, my + 18, 'מפגש\ny = ?', 'c', 'start');
+    s += dim(262, 40, 262, GY, `H = ${num(p.H)} מ'`);
+    return svg('מפגש של שני כדורים כשאחד כבר יורד', 215, s);
+  },
+  last_second_then_throw: (p) => {
+    let s = ground(10, 310, GY) + path(`M100 36L100 ${GY - 6}`, 'k') + ball(100, 36, 'a') + txt(110, 30, 'א׳ נשמט', 'a', 'start');
+    s += `<line x1="100" y1="130" x2="100" y2="${GY - 6}" stroke="${COL.b}" stroke-width="4"/>` + dim(150, 130, 150, GY - 6, `d = ${num(p.d)} מ'`, { c: 'b' }) + txt(165, 150, 'בשנייה האחרונה', 'b', 'start');
+    s += ball(190, 36, 'c') + arrow(190, 48, 190, 90, 'c') + path(`M190 36L190 ${GY - 6}`, 'c') + txt(200, 70, `נזרק מטה\nw = ${num(p.w)} מ/ש`, 'c', 'start') + txt(196, 24, 'ב׳', 'c', 'start');
+    s += dim(260, 36, 260, GY, 'H = ?', { left: false }) + ball(100, GY - 6, 'a');
+    return svg('שני גופים מאותה נקודה: נפילה וזריקה כלפי מטה', 215, s);
+  },
+  drop_height_ratio: (p) => {
+    const hb = 162, ha = hb / p.k;
+    let s = ground(10, 310, GY) + line(90, GY - ha, 90, GY, { dash: true, op: 0.6 }) + line(230, GY - hb, 230, GY, { dash: true, op: 0.6 });
+    s += ball(90, GY - ha, 'a') + ball(230, GY - hb, 'b') + dim(60, GY - ha, 60, GY, 'h = ?') + dim(262, GY - hb, 262, GY, `${num(p.k)}h`);
+    s += txt(100, GY - ha - 8, 'כדור א׳', 'a', 'start') + txt(220, GY - hb - 8, 'כדור ב׳', 'b', 'end') + txt(150, 30, `ההפרש בין הנחיתות: Δt = ${num(p.dt)} ש'`, 'k');
+    return svg('שני כדורים נופלים מגבהים שונים', 230, s);
+  },
+  vt_roof_throw_graph: (p) =>
+    vtGraph({ pts: [[0, p.v0], [p.T, p.vEnd]], xmax: p.T, vmin: p.vEnd, vmax: p.v0, xs: 1, vs: 20, labelled: [0, 1], notes: [[(p.v0 * p.T) / (p.v0 - p.vEnd), 0, 'שיא', 'b']], title: 'גרף מהירות-זמן של אבן שנזרקה מגג' }),
+  vt_elevator_chase: (p) => {
+    const T = p.t1 + p.t2 + p.t3;
+    return vtGraph({ pts: [[0, 0], [p.t1, p.v], [p.t1 + p.t2, p.v], [T, 0]], pts2: [[p.t0, 0], [p.t0, p.vB], [T, p.vB]], xmax: T, vmin: 0, vmax: p.vB + 2, xs: 1, vs: 3, labelled: [1, 2, 3], labelled2: [1], notes: [[T - 1, p.vB, 'מעלית ב׳', 'c'], [p.t1 + 1, p.v - 1.2, 'מעלית א׳', 'a']], title: 'גרף מהירות-זמן של שתי מעליות' });
+  },
+
+  // ---- upgraded horizontal (multi-part)
+  delayed_meet: (p) => {
+    let s = road(RY) + car(20, RY, 'a') + car(250, RY, 'b') + arrow(68, RY - 40, 108, RY - 40, 'a') + txt(88, RY - 46, `${num(p.v1)} מ/ש`, 'a');
+    s += arrow(246, RY - 40, 206, RY - 40, 'b') + txt(226, RY - 46, `${num(p.v2)} מ/ש`, 'b') + dim(42, RY + 28, 272, RY + 28, `d = ${num(p.d)} מ'`, { below: true });
+    s += txt(160, RY - 84, `ב׳ יוצאת אחרי t₀ = ${num(p.t0)} ש'`, 'b') + txt(42, RY + 54, 'עיירה 1', 'a') + txt(272, RY + 54, 'עיירה 2', 'b');
+    return svg('שתי מכוניות יוצאות בזמנים שונים', 185, s);
+  },
+  accel_nth_second: (p) => {
+    const xs = [24, 140, 220];
+    let s = road(RY) + car(xs[0], RY, 'a') + txt(46, RY - 40, 'v₀ = 0', 'k') + arrow(30, RY - 62, 80, RY - 62, 'b') + txt(55, RY - 68, 'a = ?', 'b');
+    s += `<g opacity="0.55">${car(xs[1], RY, 'a')}</g><g opacity="0.55">${car(xs[2], RY, 'a')}</g>` + txt(162, RY - 40, `t = ${num(p.n - 1)} ש'`, 'k') + txt(242, RY - 40, `t = ${num(p.n)} ש'`, 'k');
+    s += dim(162, RY + 24, 242, RY + 24, `d = ${num(p.d)} מ'`, { below: true, c: 'b' }) + dim(46, RY + 48, 242, RY + 48, 'x = ?', { below: true });
+    return svg('מכונית מאיצה מהמנוחה: מרחק בשנייה מסוימת', 195, s);
+  },
+  brake_to_line: (p) => {
+    const f = 240 / p.D, mx = 30 + p.x * f;
+    let s = road(RY) + car(10, RY, 'a') + arrow(58, RY - 40, 98, RY - 40, 'a') + txt(78, RY - 46, `v₀ = ${num(p.v0)} מ/ש`, 'a') + line(278, RY - 40, 278, RY, { c: 'c', w: 3 }) + txt(278, RY - 46, 'קו עצירה', 'c');
+    s += line(mx, RY - 24, mx, RY + 36, { dash: true, op: 0.7 }) + ball(mx, RY - 24, 'b', 4) + txt(mx, RY - 32, 'v = ?', 'b');
+    s += dim(32, RY + 22, mx, RY + 22, `x = ${num(p.x)} מ'`, { below: true }) + dim(32, RY + 54, 278, RY + 54, `D = ${num(p.D)} מ'`, { below: true });
+    return svg('בלימה בדיוק עד קו עצירה', 195, s);
+  },
+  convoy_overtake: (p) => {
+    let s = road(RY) + ball(24, RY - 10, 'a', 6) + arrow(34, RY - 10, 64, RY - 10, 'a') + txt(48, RY - 18, `${num(p.vf)} מ/ש`, 'a') + txt(24, RY + 20, 'אופנוע', 'a');
+    for (let i = 0; i < 4; i++) s += rect(110 + i * 50, RY - 26, 42, 22, { c: 'b', fill: 'b', rx: 3 }) + ball(120 + i * 50, RY - 2, 'k', 3) + ball(140 + i * 50, RY - 2, 'k', 3);
+    s += arrow(244, RY - 36, 290, RY - 36, 'b') + txt(268, RY - 44, `${num(p.vs)} מ/ש`, 'b') + dim(30, RY + 30, 110, RY + 30, `g = ${num(p.g)} מ'`, { below: true }) + dim(110, RY + 30, 302, RY + 30, `L = ${num(p.L)} מ'`, { below: true });
+    s += txt(206, RY - 60, 'שיירת משאיות', 'b');
+    return svg('אופנוע עוקף שיירה', 185, s);
+  },
+  head_start_finish: (p) => {
+    let s = road(RY) + ball(30, RY - 12, 'a', 5) + arrow(44, RY - 14, 84, RY - 14, 'a') + txt(64, RY - 24, `${num(p.v_fast)} מ/ש`, 'a');
+    s += ball(120, RY - 12, 'b', 5) + arrow(134, RY - 14, 164, RY - 14, 'b') + txt(150, RY - 24, `${num(p.v_slow)} מ/ש`, 'b') + txt(120, RY + 18, 'אצן', 'b') + txt(30, RY + 18, 'רוכב', 'a');
+    s += line(290, RY - 44, 290, RY, { c: 'c', w: 3 }) + txt(290, RY - 50, 'קו הסיום', 'c') + dim(30, RY + 36, 290, RY + 36, `D = ${num(p.D)} מ'`, { below: true });
+    s += txt(160, RY - 80, `הרוכב יוצא אחרי t₀ = ${num(p.t0)} ש'`, 'a');
+    return svg('אצן ורוכב אל קו הסיום', 185, s);
+  },
+  accel_chase_max_gap: (p) => {
+    let s = road(RY) + car(14, RY, 'a') + arrow(62, RY - 40, 102, RY - 40, 'a') + txt(82, RY - 46, `v₀ = ${num(p.v0)} מ/ש`, 'a') + arrow(20, RY - 62, 60, RY - 62, 'a') + txt(40, RY - 68, `a = ${num(p.a)} מ/ש²`, 'a');
+    s += car(170, RY, 'b') + arrow(218, RY - 40, 258, RY - 40, 'b') + txt(238, RY - 46, `u = ${num(p.u)} מ/ש`, 'b') + dim(58, RY + 28, 170, RY + 28, `d₀ = ${num(p.d0)} מ'`, { below: true });
+    s += txt(36, RY + 54, 'אופנוע', 'a') + txt(192, RY + 54, 'מכונית', 'b');
+    return svg('אופנוע מאיץ אחרי מכונית', 185, s);
+  },
+  train_passes_pole: (p) => {
+    let s = road(RY);
+    for (let i = 0; i < 3; i++) s += rect(150 + i * 50, RY - 30, 44, 24, { c: 'a', fill: 'a', rx: 3 }) + ball(162 + i * 50, RY - 3, 'k', 3) + ball(182 + i * 50, RY - 3, 'k', 3);
+    s += line(140, RY - 64, 140, RY, { c: 'b', w: 3 }) + txt(140, RY - 70, 'עמוד', 'b') + arrow(150, RY - 42, 190, RY - 42, 'a') + txt(228, RY - 52, `a = ?  ·  מהירות הזנב ${num(p.v2)} מ/ש`, 'a');
+    s += dim(150, RY + 24, 300, RY + 24, `L = ${num(p.L)} מ'`, { below: true }) + txt(150, RY + 56, `חזית הרכבת עברה את העמוד במהירות ${num(p.v1)} מ/ש`, 'k', 'start');
+    return svg('רכבת מאיצה על פני עמוד', 195, s);
+  },
+  table_wall: (p) => {
+    const top = 55, f = (p.xw / (p.vx * Math.sqrt((2 * p.h) / 10))), wx = 104 + 142 * f, wy = top + (RY - 6 - top) * f * f;
+    const extra = rect(wx, 28, 8, RY - 28, { fill: 'k' }) + ball(wx, wy, 'c', 4) + dim(wx + 20, wy, wx + 20, RY, 'y = ?', { c: 'c' }) + dim(104, 22, wx, 22, `${num(p.xw)} מ'`, { below: false });
+    return svg('כדור מתגלגל מקצה שולחן אל קיר', 180, launchScene(p, { vx: `${num(p.vx)} מ/ש`, h: `h = ${num(p.h)} מ'`, R: 'x = ?', extra }));
+  },
+  opposite_throws: (p) => {
+    const top = 52, gy = 170, x0 = 160, k = 200 / (p.vA + p.vB), xl = x0 - k * p.vA, xr = x0 + k * p.vB;
+    let s = building(x0 - 22, top, 44, gy) + ground(10, 310, gy) + ball(x0 - 22, top, 'a', 5) + ball(x0 + 22, top, 'b', 5);
+    s += arrow(x0 - 26, top, x0 - 58, top, 'a') + txt(x0 - 42, top - 8, `${num(p.vA)} מ/ש`, 'a') + arrow(x0 + 26, top, x0 + 58, top, 'b') + txt(x0 + 42, top - 8, `${num(p.vB)} מ/ש`, 'b');
+    s += qpath(x0 - 22, top, (x0 - 22 + xl) / 2, top, xl, gy - 6, 'a') + qpath(x0 + 22, top, (x0 + 22 + xr) / 2, top, xr, gy - 6, 'b') + ball(xl, gy - 6, 'a', 4) + ball(xr, gy - 6, 'b', 4);
+    s += dim(xl, gy + 16, xr, gy + 16, 'D = ?', { below: true }) + dim(x0 + 36, top, x0 + 36, gy, `h = ${num(p.h)} מ'`, { left: false });
+    return svg('שתי אבנים נזרקות אופקית לשני הצדדים', 215, s);
+  },
+  max_safe_speed: (p) => {
+    let s = road(RY) + car(10, RY, 'a') + arrow(58, RY - 40, 98, RY - 40, 'a') + txt(78, RY - 46, 'v = ?', 'a');
+    s += line(120, RY - 8, 120, RY + 36, { dash: true, op: 0.6 }) + line(290, RY - 40, 290, RY, { c: 'c', w: 3 }) + txt(290, RY - 46, 'הולך רגל', 'c');
+    s += dim(32, RY + 20, 120, RY + 20, `tᵣ = ${num(p.tr)} ש'`, { below: true }) + dim(120, RY + 20, 290, RY + 20, `a = ${num(p.a)} מ/ש²`, { below: true }) + dim(32, RY + 52, 290, RY + 52, `D = ${num(p.D)} מ'`, { below: true });
+    return svg('המהירות הגבוהה ביותר לעצירה בטוחה', 195, s);
+  },
+  race_accel_cruise: (p) => {
+    let s = road(60) + car(10, 60, 'a') + arrow(58, 20, 88, 20, 'a') + txt(74, 12, `a = ${num(p.a)} מ/ש²`, 'a') + arrow(100, 20, 160, 20, 'a') + txt(130, 12, `עד ${num(p.vmax)} מ/ש`, 'a') + line(290, 24, 290, 60, { c: 'c', w: 3 });
+    s += road(150) + ball(30, 140, 'b', 6) + arrow(44, 140, 84, 140, 'b') + txt(64, 126, `u = ${num(p.u)} מ/ש`, 'b') + line(290, 114, 290, 150, { c: 'c', w: 3 });
+    s += dim(32, 78, 290, 78, `D = ${num(p.D)} מ'`, { below: true }) + txt(20, 100, 'מכונית', 'a', 'start') + txt(20, 176, 'אופנוע', 'b', 'start');
+    return svg('מכונית מאיצה מול אופנוע במהירות קבועה', 195, s);
+  },
+  roof_landing_range: (p) => {
+    const gy = 190, sy = 2.6, sx = 3, yA = gy - p.H * sy, yB = gy - p.h2 * sy, wall = 74;
+    const px1 = wall + p.x1 * sx, px2 = wall + p.x2 * sx;
+    let s = building(14, yA, 60, gy) + building(px1, yB, px2 - px1, gy) + ground(10, 310, gy) + ball(wall, yA, 'a', 5) + arrow(wall + 4, yA, wall + 34, yA, 'a') + txt(wall + 38, yA - 8, 'v = ?', 'a', 'start');
+    s += qpath(wall, yA, (wall + (px1 + px2) / 2) / 2, yA, (px1 + px2) / 2, yB - 6, 'k') + dim(wall, yB - 14, px1, yB - 14, `${num(p.x1)} מ'`, { below: true }) + dim(wall, yB + 40, px2, yB + 40, `${num(p.x2)} מ'`, { below: true });
+    s += dim(12, yA, 12, gy, `H = ${num(p.H)} מ'`, { left: false }) + dim(px2 + 24, yB, px2 + 24, gy, `h = ${num(p.h2)} מ'`);
+    return svg('כדור נזרק אופקית אל גג נמוך', 225, s);
+  },
+  vt_reverse_graph: (p) => {
+    const T = p.t1 + p.t2 + p.t3;
+    return vtGraph({ pts: [[0, 0], [p.t1, p.v], [p.t1 + p.t2, p.v], [T, -p.w]], xmax: T, vmin: -Math.ceil(p.w / 6) * 6, vmax: p.v + 2, xs: 1, vs: 6, labelled: [1, 2, 3], notes: [[p.t1 + p.t2 + (p.v * p.t3) / (p.v + p.w), 0, 'עוצרת', 'b']], title: 'גרף מהירות-זמן של מכונית שנוסעת ונוסעת לאחור' });
+  },
+  dry_wet_braking: (p) => {
+    const f = 230 / p.D;
+    let s = road(60) + car(10, 60, 'a') + arrow(58, 20, 98, 20, 'a') + txt(78, 12, `${num(p.v)} מ/ש`, 'a') + line(260, 24, 260, 60, { c: 'c', w: 3 }) + txt(160, 36, `כביש יבש: a₁ = ${num(p.a1)} מ/ש²`, 'a') + dim(32, 80, 260, 80, `D = ${num(p.D)} מ'`, { below: true });
+    s += road(160) + car(10, 160, 'b') + arrow(58, 120, 98, 120, 'b') + txt(78, 112, `${num(p.v)} מ/ש`, 'b') + line(260, 124, 260, 160, { c: 'c', w: 3 }) + txt(160, 136, `כביש רטוב: a₂ = ${num(p.a2)} מ/ש²`, 'b') + dim(32, 180, 260, 180, `לפני הבלימה: tᵣ = ${num(p.tr)} ש'`, { below: true });
+    return svg('בלימה על כביש יבש וכביש רטוב', 215, s);
+  },
+  kick_37_wall: (p) => {
+    const g0 = GY - 40, x0 = 30, xe = 280, ap = 70, sw = (p.xw / ((2 * 0.6 * p.v0 * 0.8 * p.v0) / 10)), wx = x0 + (xe - x0) * sw, wy = g0 - 6 - 4 * ap * sw * (1 - sw);
+    const hq = (ap * p.yq) / ((0.6 * p.v0) ** 2 / 20);
+    let s = ground(10, 310, g0) + ball(x0, g0 - 6, 'a', 5) + arrow(x0, g0 - 6, x0 + 28, g0 - 28, 'a') + txt(x0 + 32, g0 - 30, `v₀ = ${num(p.v0)} מ/ש`, 'a', 'start');
+    s += path(`M${x0} ${g0 - 6}Q155 ${g0 - 6 - 2 * ap} ${xe} ${g0 - 6}`, 'k') + rect(wx, g0 - 70, 8, 70, { fill: 'k' }) + ball(wx, wy, 'c', 4) + txt(wx - 8, wy - 12, 'y = ?', 'c', 'end');
+    s += line(10, g0 - 6 - hq, 310, g0 - 6 - hq, { dash: true, op: 0.5 }) + dim(296, g0 - 6 - hq, 296, g0 - 6, `${num(p.yq)} מ'`, { left: true }) + txt(14, g0 - 6 - hq - 6, 'זמן מעל הקו: Δt = ?', 'b', 'start');
+    s += dim(x0, g0 + 16, wx, g0 + 16, `${num(p.xw)} מ'`, { below: true }) + txt(40, g0 - 40, '37°', 'b', 'start');
+    return svg('כדור נבעט מעל קיר בזווית 37°', 225, s);
+  },
+  projectile_45_levels: (p) => {
+    const g0 = GY - 40, x0 = 30, xe = 280, ap = 62, hq = ((ap * p.yq) / (p.R / 4));
+    const fx = (x) => x0 + ((xe - x0) * x) / p.R;
+    const xs = (p.R - Math.sqrt(p.R * p.R - 4 * p.R * p.yq)) / 2, xt = (p.R + Math.sqrt(p.R * p.R - 4 * p.R * p.yq)) / 2;
+    let s = ground(10, 310, g0) + ball(x0, g0 - 6, 'a', 5) + arrow(x0, g0 - 6, x0 + 26, g0 - 32, 'a') + txt(x0 + 30, g0 - 32, 'v₀ = ?', 'a', 'start') + txt(46, g0 - 14, '45°', 'b', 'start');
+    s += path(`M${x0} ${g0 - 6}Q155 ${g0 - 6 - 2 * ap} ${xe} ${g0 - 6}`, 'k') + line(10, g0 - 6 - hq, 310, g0 - 6 - hq, { dash: true, op: 0.5 }) + ball(fx(xs), g0 - 6 - hq, 'b', 4) + ball(fx(xt), g0 - 6 - hq, 'b', 4);
+    s += dim(fx(xs), g0 - 6 - hq - 16, fx(xt), g0 - 6 - hq - 16, 'Δx = ?', { c: 'b' }) + dim(296, g0 - 6 - hq, 296, g0 - 6, `${num(p.yq)} מ'`, { left: true });
+    const qx = fx(p.xq), qs = p.xq / p.R;
+    s += line(qx, g0 - 6, qx, g0 - 6 - 4 * ap * qs * (1 - qs), { dash: true, c: 'c' }) + ball(qx, g0 - 6 - 4 * ap * qs * (1 - qs), 'c', 4) + txt(qx + 6, g0 - 14, 'y = ?', 'c', 'start');
+    s += dim(x0, g0 + 16, xe, g0 + 16, `R = ${num(p.R)} מ'`, { below: true });
+    return svg('זריקה בזווית 45° דרך שתי נקודות באותו גובה', 225, s);
+  },
+  projectile_down_37: (p) => {
+    const top = 40, gy = 190, x0 = 84, x1 = 282, R = 0.8 * p.v0 * ((Math.sqrt((0.6 * p.v0) ** 2 + 20 * p.h) - 0.6 * p.v0) / 10);
+    const yc = top + 0.75 * ((x1 - x0) / 2), s0 = p.xq / R, qy = (1 - s0) ** 2 * top + 2 * s0 * (1 - s0) * yc + s0 * s0 * (gy - 6), qx = x0 + (x1 - x0) * s0;
+    let s = building(14, top, 70, gy) + ground(10, 310, gy) + ball(x0, top, 'a', 5) + arrow(x0, top, x0 + 28, top + 21, 'a') + txt(x0 + 34, top + 14, `v₀ = ${num(p.v0)} מ/ש`, 'a', 'start') + txt(x0 + 6, top - 10, '37° מתחת לאופק', 'b', 'start');
+    s += qpath(x0, top, (x0 + x1) / 2, yc, x1, gy - 6, 'k') + line(qx, qy, qx, gy, { dash: true, c: 'c' }) + ball(qx, qy, 'c', 4) + txt(qx + 6, (qy + gy) / 2, 'y = ?', 'c', 'start');
+    s += dim(40, top, 40, gy, `h = ${num(p.h)} מ'`) + dim(x0, gy + 16, qx, gy + 16, `${num(p.xq)} מ'`, { below: true });
+    return svg('זריקה בזווית 37° מתחת לאופק ממגדל', 230, s);
   },
 };
 

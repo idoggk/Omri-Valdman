@@ -361,6 +361,196 @@ export const models = {
     const s = Math.sqrt(disc);
     return [(v - s) / a, (v + s) / a, a * ((v + s) / a), (v * v) / (2 * a) - d0];
   },
+
+  // ---- upgraded (multi-part) vertical models
+  // A dropped from H1, B dropped later from H2 < H1 so both land together: fall times, delay, gap at B's release
+  two_drops_same_landing: ({ H1, H2 }) => {
+    const tA = Math.sqrt((2 * H1) / G);
+    const tB = Math.sqrt((2 * H2) / G);
+    const dt = tA - tB;
+    return [tA, tB, dt, H1 - (G * dt * dt) / 2 - H2];
+  },
+  // free fall for T: height, last 2 s, time of the lower three quarters (the top quarter takes T/2), mean speed
+  free_fall_time_parts: ({ T }) => {
+    const H = (G * T * T) / 2;
+    return [H, H - (G * (T - 2) ** 2) / 2, T - T / 2, H / T];
+  },
+  // thrown up from the ground, in the air T: launch speed, apex, speed at height hq, time spent above hq
+  throw_flight_time_levels: ({ T, hq }) => {
+    const v0 = (G * T) / 2;
+    const s = Math.sqrt(v0 * v0 - 2 * G * hq);
+    return [v0, (v0 * v0) / (2 * G), s, (2 * s) / G];
+  },
+  // dropped from rest; d metres in some whole second n: find n, the height fallen by its end, speed at its start, previous second
+  nth_second_given: ({ d }) => {
+    const n = (d / (G / 2) + 1) / 2;
+    return [n, (G * n * n) / 2, G * (n - 1), d - G];
+  },
+  // thrown up from the ground; at height h the speed is half the launch speed
+  half_speed_height: ({ h }) => {
+    const v0 = Math.sqrt((8 * G * h) / 3);
+    return [v0, (v0 * v0) / (2 * G), v0 / (2 * G), v0 / G];
+  },
+  // thrown up from a roof of height h: path length, mean speed, mean velocity (magnitude), impact speed
+  roof_throw_averages: ({ h, v0 }) => {
+    const s = Math.sqrt(v0 * v0 + 2 * G * h);
+    const T = (v0 + s) / G;
+    const path = (v0 * v0) / (2 * G) + (s * s) / (2 * G);
+    return [path, path / T, h / T, s];
+  },
+  // A dropped from h; B thrown down so that it lands tB after release; gap between them ts after release
+  down_throw_beats_drop: ({ h, tB, ts }) => {
+    const v0 = (h - (G * tB * tB) / 2) / tB;
+    return [Math.sqrt((2 * h) / G), v0, v0 + G * tB, v0 * ts];
+  },
+  // thrown up from a roof; a second stone is dropped from the roof when the first is back at roof level
+  thrown_then_dropped: ({ h, v0 }) => {
+    const s = Math.sqrt(v0 * v0 + 2 * G * h);
+    const t1 = (2 * v0) / G;
+    const tL = (v0 + s) / G;
+    const tau = tL - t1;
+    return [t1, tL, h - (G * tau * tau) / 2, s - G * tau];
+  },
+  // A dropped from H, B thrown up from the ground below at v0 at the same moment: meeting time, height, speed of A, time since B's apex
+  meet_vertical_after_apex: ({ H, v0 }) => {
+    const t = H / v0;
+    if (t <= v0 / G) throw new Error('B must already be descending at the meeting');
+    return [t, H - (G * t * t) / 2, G * t, t - v0 / G];
+  },
+  // A dropped from rest, last second 35 m; B thrown down w from the same point: A's time, height, B's time (real root), B's impact speed
+  last_second_then_throw: ({ d, w }) => {
+    const T = (d + G / 2) / G;
+    const H = (G * T * T) / 2;
+    const s = Math.sqrt(w * w + 2 * G * H);
+    return [T, H, (s - w) / G, s];
+  },
+  // A dropped from h, B dropped from k*h; landing times differ by dt
+  drop_height_ratio: ({ dt, k }) => {
+    const r = Math.sqrt(k);
+    const tA = dt / (r - 1);
+    const h = (G * tA * tA) / 2;
+    return [h, tA, G * r * tA, k * h - h];
+  },
+  // v-t graph of a stone thrown from a roof: (0, v0) to (T, vEnd): slope, apex above the roof, roof height, path length
+  vt_roof_throw_graph: ({ v0, vEnd, T }) => {
+    const a = (vEnd - v0) / T;
+    const tz = v0 / -a;
+    const up = (v0 * tz) / 2;
+    const down = (-vEnd * (T - tz)) / 2;
+    return [a, up, down - up, up + down];
+  },
+  // elevator v-t trapezoid plus a second elevator started t0 later at constant vB from the same floor
+  vt_elevator_chase: ({ t1, v, t2, t3, vB, t0 }) => {
+    const H = v * (t1 / 2 + t2 + t3 / 2);
+    const tc = (vB * t0 - (v * t1) / 2) / (vB - v);
+    if (tc < t1 || tc > t1 + t2) throw new Error('the catch must happen in the constant-speed phase');
+    return [v / t1, H, tc, vB * (tc - t0)];
+  },
+
+  // ---- upgraded (multi-part) horizontal / 2D models
+  // car A leaves at 0, car B leaves t0 later from the other town: meeting time, A's distance, B's travel time, gap when B leaves
+  delayed_meet: ({ d, v1, v2, t0 }) => {
+    const t = (d + v2 * t0) / (v1 + v2);
+    return [t, v1 * t, t - t0, d - v1 * t0];
+  },
+  // from rest with constant a; d metres in the n-th second: a, speed at end of n s, distance in n s, distance in the m-th second
+  accel_nth_second: ({ n, d, m }) => {
+    const a = (2 * d) / (2 * n - 1);
+    return [a, a * n, (a * n * n) / 2, (a * (2 * m - 1)) / 2];
+  },
+  // brake from v0 and stop exactly after D: deceleration, stopping time, speed after x metres, time to reach x
+  brake_to_line: ({ v0, D, x }) => {
+    const a = (v0 * v0) / (2 * D);
+    const v = Math.sqrt(v0 * v0 - 2 * a * x);
+    return [a, v0 / a, v, (v0 - v) / a];
+  },
+  // fast vehicle starts g behind a convoy of length L: time to clear it, its distance, convoy distance, time to reach the convoy's middle
+  convoy_overtake: ({ vf, vs, g, L, mid }) => {
+    const t = (g + L) / (vf - vs);
+    return [t, vf * t, vs * t, (g + mid) / (vf - vs)];
+  },
+  // slow runner leaves at 0, fast rider t0 later; finish line at D: catch time (after rider's start), catch point, finish-time margin, gap at rider's finish
+  head_start_finish: ({ v_slow, v_fast, t0, D }) => {
+    const t = (v_slow * t0) / (v_fast - v_slow);
+    const rider = t0 + D / v_fast;
+    return [t, v_fast * t, D / v_slow - rider, D - v_slow * rider];
+  },
+  // bike starts at v0 with acceleration a, car ahead by d0 at constant u > v0: time and size of max gap, catch time, bike speed at the catch
+  accel_chase_max_gap: ({ v0, a, u, d0 }) => {
+    const tm = (u - v0) / a;
+    const gap = d0 + (u - v0) * tm - (a * tm * tm) / 2;
+    const t = (u - v0 + Math.sqrt((u - v0) ** 2 + 2 * a * d0)) / a;
+    return [tm, gap, t, v0 + a * t];
+  },
+  // train of length L accelerating uniformly: front passes a pole at v1, rear at v2
+  train_passes_pole: ({ v1, v2, L, t }) => {
+    const a = (v2 * v2 - v1 * v1) / (2 * L);
+    return [a, (v2 - v1) / a, Math.sqrt((v1 * v1 + v2 * v2) / 2), v2 * t + (a * t * t) / 2];
+  },
+  // ball leaves a table of height h at vx; a wall at distance xw: fall time, range, impact speed, height at the wall
+  table_wall: ({ h, vx, xw }) => {
+    const t = Math.sqrt((2 * h) / G);
+    const tw = xw / vx;
+    return [t, vx * t, Math.hypot(vx, G * t), h - (G * tw * tw) / 2];
+  },
+  // two stones thrown horizontally in opposite directions from height h: fall time, landing gap, time the velocities are perpendicular, gap then
+  opposite_throws: ({ h, vA, vB }) => {
+    const t = Math.sqrt((2 * h) / G);
+    const tp = Math.sqrt(vA * vB) / G;
+    return [t, (vA + vB) * t, tp, (vA + vB) * tp];
+  },
+  // greatest speed that stops within D including reaction tr, braking distance and total stopping time at it, reaction allowed at v2
+  max_safe_speed: ({ D, a, tr, v2 }) => {
+    const v = a * (-tr + Math.sqrt(tr * tr + (2 * D) / a));
+    return [v, (v * v) / (2 * a), tr + v / a, (D - (v2 * v2) / (2 * a)) / v2];
+  },
+  // car from rest, acceleration a up to vmax then constant, over D; a vehicle at constant u from the same line and time
+  race_accel_cruise: ({ a, vmax, D, u }) => {
+    const t1 = vmax / a;
+    const x1 = (vmax * vmax) / (2 * a);
+    const tCar = t1 + (D - x1) / vmax;
+    const tPass = (x1 - vmax * t1) / (u - vmax);
+    if (tPass < t1 || tPass > tCar) throw new Error('the pass must happen in the cruise phase');
+    return [tCar, tPass, D / u, D - u * tCar];
+  },
+  // ball thrown horizontally from a roof of height H onto a lower roof (height h2) spanning x1..x2 from the wall
+  roof_landing_range: ({ H, h2, x1, x2 }) => {
+    const t = Math.sqrt((2 * (H - h2)) / G);
+    return [t, x1 / t, x2 / t, Math.hypot(x2 / t, G * t)];
+  },
+  // v-t: 0 -> v in t1, constant t2, then linear to -w over t3: last slope, greatest distance from start, final displacement, mean speed
+  vt_reverse_graph: ({ t1, v, t2, t3, w }) => {
+    const tz = (v * t3) / (v + w);
+    const far = (v * t1) / 2 + v * t2 + (v * tz) / 2;
+    return [-(v + w) / t3, far, far - (w * (t3 - tz)) / 2, (far + (w * (t3 - tz)) / 2) / (t1 + t2 + t3)];
+  },
+  // braking on dry (a1) and wet (a2) road with reaction tr; obstacle at D: stopping distances, impact speed and time on the wet road
+  dry_wet_braking: ({ v, tr, a1, a2, D }) => {
+    const brakeRoom = D - v * tr;
+    const vi = Math.sqrt(v * v - 2 * a2 * brakeRoom);
+    return [v * tr + (v * v) / (2 * a1), v * tr + (v * v) / (2 * a2), vi, tr + (v - vi) / a2];
+  },
+  // sin 37 = 0.6, cos 37 = 0.8: range, height over a wall at xw, time spent above height yq
+  kick_37_wall: ({ v0, xw, yq }) => {
+    const vx = 0.8 * v0;
+    const vy = 0.6 * v0;
+    const tw = xw / vx;
+    return [(2 * vy) / G, vx * ((2 * vy) / G), vy * tw - (G * tw * tw) / 2, (2 * Math.sqrt(vy * vy - 2 * G * yq)) / G];
+  },
+  // 45 degrees, range R: launch speed, the two horizontal positions at height yq (first, gap), height at xq
+  projectile_45_levels: ({ R, yq, xq }) => {
+    const s = Math.sqrt(R * R - 4 * R * yq);
+    return [Math.sqrt(G * R), (R - s) / 2, s, xq - (xq * xq) / R];
+  },
+  // sin 37 = 0.6, cos 37 = 0.8, thrown 37 degrees below the horizontal from a tower of height h
+  projectile_down_37: ({ v0, h, xq }) => {
+    const vx = 0.8 * v0;
+    const vy0 = 0.6 * v0;
+    const vyEnd = Math.sqrt(vy0 * vy0 + 2 * G * h);
+    const t = (vyEnd - vy0) / G;
+    const tq = xq / vx;
+    return [t, vx * t, Math.hypot(vx, vyEnd), h - (vy0 * tq + (G * tq * tq) / 2)];
+  },
 };
 
 const COMPLEX = /מרוכב|דמיוני|שורש\s+של\s+מינוס|√\s*\(?\s*[-−–]|imaginary|complex/i;
