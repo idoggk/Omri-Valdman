@@ -718,7 +718,18 @@ export function validate(data, opts = {}) {
   return errors;
 }
 
-const isMain = process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url);
+// Difficulty policy for the whole set: at most 3 exercises at level 1, at least 70% at level 3.
+export function levelProblems(data) {
+  const out = [];
+  const n = data.length;
+  const l1 = data.filter((e) => e.level === 1).length;
+  const l3 = data.filter((e) => e.level === 3).length;
+  if (l1 > 3) out.push(`too many level 1 exercises: ${l1} (max 3)`);
+  if (l3 < Math.ceil(n * 0.7)) out.push(`too few level 3 exercises: ${l3} of ${n} (min 70%)`);
+  return out;
+}
+
+const isMain =process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url);
 if (isMain) {
   const file = process.argv[2] || path.join(path.dirname(fileURLToPath(import.meta.url)), '..', 'data', 'math.json');
   let data;
@@ -728,7 +739,7 @@ if (isMain) {
     console.error(`FAIL: cannot read/parse ${file}: ${e.message}`);
     process.exit(1);
   }
-  const errors = validate(data);
+  const errors = [...validate(data), ...levelProblems(data)];
   if (errors.length) {
     console.error(`FAIL: ${errors.length} problem(s)`);
     for (const e of errors) console.error(' - ' + e);

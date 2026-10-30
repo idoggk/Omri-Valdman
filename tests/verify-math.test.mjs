@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import path from 'node:path';
-import { solveSystem, parseFrac, parseEquation, solveFinite, rowsFromEquations, validate, tipLeaks, guidedProblems, inIdealDeg1 } from '../tools/verify-math.mjs';
+import { solveSystem, parseFrac, parseEquation, solveFinite, rowsFromEquations, validate, tipLeaks, guidedProblems, inIdealDeg1, levelProblems } from '../tools/verify-math.mjs';
 
 const str = (sol) => sol.map(String);
 const dataFile = path.join(path.dirname(fileURLToPath(import.meta.url)), '..', 'data', 'math.json');
@@ -393,6 +393,20 @@ test('guided steps: at least 10 new exercises and 8 existing level-3 exercises h
 // Data-vs-app contract: the app (js/app.js validExercise) only accepts inputs or choice, and
 // answerSets exercises are rendered by the answer-sets module (one row of labelled fields per
 // solution). Every exercise must therefore be renderable through one of the three forms.
+test('levelProblems enforces the difficulty policy', () => {
+  const mk = (levels) => levels.map((level) => ({ level }));
+  assert.deepEqual(levelProblems(mk([3, 3, 3, 3, 3, 3, 3, 2, 2, 1])), []);
+  assert.equal(levelProblems(mk([3, 3, 3, 3, 3, 3, 2, 2, 2, 2])).length, 1);
+  assert.equal(levelProblems(mk([1, 1, 1, 1, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3])).length, 1);
+});
+
+test('data/math.json: at most 3 level-1 and at least 70% level-3 exercises, 20+ guided, 6+ solution steps for upgraded ones', () => {
+  const data = JSON.parse(readFileSync(dataFile, 'utf8'));
+  assert.deepEqual(levelProblems(data), []);
+  assert.ok(data.filter((e) => e.guided).length >= 20);
+  for (const e of data) assert.ok(e.level === 3 ? e.solution.length >= 4 : e.solution.length >= 3, e.id);
+});
+
 for (const file of ['math', 'physics']) {
   test(`data/${file}.json: every exercise has renderable answer fields`, () => {
     const dataPath = path.join(path.dirname(dataFile), `${file}.json`);
