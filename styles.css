@@ -105,3 +105,21 @@ a { color: var(--accent); }
 .steps li { margin-bottom: .6em; }
 .nav { display: flex; justify-content: space-between; gap: 10px; margin: 20px 0 40px; }
 .nav .btn { flex: 1; text-align: center; text-decoration: none; display: flex; align-items: center; justify-content: center; }
+
+/* outcomes, review, diagrams, multi-solution rows */
+.tick.o-none { color: var(--muted); }
+.tick.o-hinted, .tick.o-review { min-width: 1.6em; }
+.legend { list-style: none; display: flex; flex-wrap: wrap; gap: 4px 16px; margin: 0 0 12px; padding: 0; font-size: .95rem; color: var(--muted); }
+.review-card { margin-bottom: 12px; }
+.review-list { margin: 6px 0; padding-inline-start: 0; list-style: none; }
+.diagram {
+  margin: 12px 0; padding: 10px; border-radius: var(--radius); border: 1px solid var(--border);
+  background: #fff; color: #1d2733; /* light panel keeps dark strokes visible in dark mode */
+  text-align: center; direction: ltr;
+}
+.diagram svg { max-width: 100%; height: auto; }
+.solution-row { border: 2px solid var(--border); border-radius: var(--radius); padding: 8px 12px 12px; margin: 0; }
+.solution-row legend { font-weight: 700; padding: 0 6px; }
+.solution-row.right { border-color: var(--ok); }
+.solution-row.wrong { border-color: var(--bad); }
+.solution-row .field + .field { margin-top: 8px; }
