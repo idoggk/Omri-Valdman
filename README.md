@@ -1,5 +1,7 @@
 # אתר תרגול למבחן – מתמטיקה ופיזיקה (3–5 יח״ל)
 
+Live site: https://idoggk.github.io/Omri-Valdman/
+
 אתר סטטי לגמרי: HTML + CSS + מודולי JavaScript. אין שלב build, אין תלויות npm, ואין שימוש ברשת בזמן ריצה. עובד בטלפון וב-GitHub Pages.
 
 ## הרצה מקומית
