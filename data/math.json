@@ -303,7 +303,69 @@
         ]
       ],
       "kind": "infinite"
-    }
+    },
+    "guided": [
+      {
+        "q": "מהי הדרך להשוות בין שלוש המשוואות?",
+        "options": [
+          "לחבר את שתי הראשונות ולהשוות לשלישית",
+          "להציב <span dir=\"ltr\">k = 0</span>",
+          "לחלק את השלישית ב־2"
+        ],
+        "correct": 0,
+        "explain": "החיבור מבטל את y ונותן משוואה שאגף שמאל שלה זהה לשלישית.",
+        "wrongExplain": [
+          "",
+          "הצבה מקרית לא מגלה את הערך הנכון.",
+          "חלוקה לא מגלה קשר בין המשוואות."
+        ]
+      },
+      {
+        "q": "מה מתקבל מחיבור שתי הראשונות?",
+        "options": [
+          "<span dir=\"ltr\">2x + 3z = 5</span>",
+          "<span dir=\"ltr\">2x + 3z = k</span>",
+          "<span dir=\"ltr\">x + 3z = 5</span>"
+        ],
+        "correct": 0,
+        "explain": "<span dir=\"ltr\">x + y + z + x − y + 2z = 2x + 3z</span> והאגף הימני <span dir=\"ltr\">2 + 3 = 5</span>.",
+        "wrongExplain": [
+          "",
+          "k מופיע רק בשלישית.",
+          "המקדם של x הוא 2."
+        ]
+      },
+      {
+        "q": "מתי השלישית לא סותרת את החיבור?",
+        "options": [
+          "כשאגף הימין שלה שווה ל־5",
+          "כש־<span dir=\"ltr\">k = 0</span>",
+          "לכל k"
+        ],
+        "correct": 0,
+        "explain": "אותו ביטוי <span dir=\"ltr\">2x + 3z</span> לא יכול להיות שווה לשני מספרים שונים.",
+        "wrongExplain": [
+          "",
+          "0 אינו קשור כאן.",
+          "ל־k אחר מתקבלת סתירה."
+        ]
+      },
+      {
+        "q": "מה קורה כאשר השלישית מתיישבת עם החיבור?",
+        "options": [
+          "היא כפולה של הידוע ולכן נשארות שתי משוואות עצמאיות, אינסוף פתרונות",
+          "יש פתרון יחיד",
+          "אין פתרון"
+        ],
+        "correct": 0,
+        "explain": "שתי משוואות עצמאיות לשלושה נעלמים משאירות נעלם חופשי.",
+        "wrongExplain": [
+          "",
+          "פתרון יחיד דורש שלוש עצמאיות.",
+          "אין סתירה."
+        ]
+      }
+    ]
   },
   {
     "id": "math-3-012",
@@ -353,7 +415,69 @@
         ]
       ],
       "kind": "none"
-    }
+    },
+    "guided": [
+      {
+        "q": "מה מחפשים כדי לגלות את הערך הקריטי?",
+        "options": [
+          "צירוף של שתי הראשונות שמתאים ל־x ול־y של השלישית",
+          "מציבים <span dir=\"ltr\">k = 0</span>",
+          "מחלקים את השלישית ב־k"
+        ],
+        "correct": 0,
+        "explain": "כך מפרידים את הקבוע שלא תלוי ב־k.",
+        "wrongExplain": [
+          "",
+          "ניחוש.",
+          "חלוקה ב־k אסורה כשהוא יכול להיות אפס."
+        ]
+      },
+      {
+        "q": "איזה צירוף נותן את המקדמים <span dir=\"ltr\">5x − y</span>?",
+        "options": [
+          "<span dir=\"ltr\">(1) + 2 · (2)</span>",
+          "<span dir=\"ltr\">(1) + (2)</span>",
+          "<span dir=\"ltr\">2 · (1) − (2)</span>"
+        ],
+        "correct": 0,
+        "explain": "מקדמי x: ‏<span dir=\"ltr\">1 + 4 = 5</span>, ומקדמי y: ‏<span dir=\"ltr\">1 − 2 = −1</span>.",
+        "wrongExplain": [
+          "",
+          "נותן <span dir=\"ltr\">3x</span>.",
+          "נותן <span dir=\"ltr\">0x</span>."
+        ]
+      },
+      {
+        "q": "מה מתקבל מחיסור הצירוף מהשלישית?",
+        "options": [
+          "<span dir=\"ltr\">(k − 3)z = 4</span>",
+          "<span dir=\"ltr\">(k + 3)z = 4</span>",
+          "<span dir=\"ltr\">kz = 7</span>"
+        ],
+        "correct": 0,
+        "explain": "<span dir=\"ltr\">kz − 3z</span> והאגף <span dir=\"ltr\">7 − 3</span>.",
+        "wrongExplain": [
+          "",
+          "שגיאת סימן.",
+          "לא חיסרו."
+        ]
+      },
+      {
+        "q": "מתי אין פתרון?",
+        "options": [
+          "כשהמקדם של z מתאפס והאגף הימני לא",
+          "תמיד",
+          "כשהאגף הימני מתאפס"
+        ],
+        "correct": 0,
+        "explain": "<span dir=\"ltr\">0 · z = 4</span> סתירה.",
+        "wrongExplain": [
+          "",
+          "לא תמיד.",
+          "האגף הימני הוא 4."
+        ]
+      }
+    ]
   },
   {
     "id": "math-3-013",
@@ -807,7 +931,69 @@
         ]
       ],
       "kind": "finite"
-    }
+    },
+    "guided": [
+      {
+        "q": "מה עושים עם שתי המשוואות הליניאריות?",
+        "options": [
+          "מבטאים את y ואת z באמצעות x",
+          "מעלים אותן בריבוע",
+          "מחלקים אותן"
+        ],
+        "correct": 0,
+        "explain": "כך כל המערכת הופכת למשוואה אחת בנעלם x.",
+        "wrongExplain": [
+          "",
+          "מגדיל את המעלה.",
+          "לא עוזר."
+        ]
+      },
+      {
+        "q": "מהם y ו־z?",
+        "options": [
+          "<span dir=\"ltr\">y = 7 − 5x</span> ו־<span dir=\"ltr\">z = 5 − 2x</span>",
+          "<span dir=\"ltr\">y = 7 + 5x</span>",
+          "<span dir=\"ltr\">z = 12 − 7x</span>"
+        ],
+        "correct": 0,
+        "explain": "z נקבע אחרי שמציבים את y: ‏<span dir=\"ltr\">12 − 7x − (7 − 5x)</span>.",
+        "wrongExplain": [
+          "",
+          "שגיאת סימן.",
+          "שכחו את y."
+        ]
+      },
+      {
+        "q": "איזו משוואה ריבועית מתקבלת?",
+        "options": [
+          "<span dir=\"ltr\">x<sup>2</sup> − 3x + 2 = 0</span>",
+          "<span dir=\"ltr\">x<sup>2</sup> − 3x − 2 = 0</span>",
+          "<span dir=\"ltr\">x<sup>2</sup> + 3x + 2 = 0</span>"
+        ],
+        "correct": 0,
+        "explain": "אחרי פתיחה וחילוק ב־30.",
+        "wrongExplain": [
+          "",
+          "שגיאת סימן של הקבוע.",
+          "שגיאת סימן של האיבר הליניארי."
+        ]
+      },
+      {
+        "q": "מה עושים אחרי שמצאו את x?",
+        "options": [
+          "מחשבים לכל x את y ואת z ובודקים בשלוש המשוואות",
+          "לוקחים רק את x הגדול",
+          "מסיימים"
+        ],
+        "correct": 0,
+        "explain": "שני ערכים של x הם שני פתרונות.",
+        "wrongExplain": [
+          "",
+          "שני הערכים תקפים.",
+          "צריך את כל הנעלמים."
+        ]
+      }
+    ]
   },
   {
     "id": "math-3-020",
@@ -892,7 +1078,69 @@
         ]
       ],
       "kind": "finite"
-    }
+    },
+    "guided": [
+      {
+        "q": "איך מקבלים את x + y?",
+        "options": [
+          "מחשבים את <span dir=\"ltr\">(x + y)<sup>2</sup> = x<sup>2</sup> + y<sup>2</sup> + 2xy</span>",
+          "מחסרים את המשוואות",
+          "מציבים <span dir=\"ltr\">y = 12/x</span> מיד"
+        ],
+        "correct": 0,
+        "explain": "הסכום והמכפלה ידועים, ומהם מקבלים את הסכום.",
+        "wrongExplain": [
+          "",
+          "חיסור נותן את x − y בלבד.",
+          "מוביל למשוואה מסדר רביעי."
+        ]
+      },
+      {
+        "q": "כמה אפשרויות יש ל־x + y?",
+        "options": [
+          "שתיים: חיובי ושלילי",
+          "אחת",
+          "ארבע"
+        ],
+        "correct": 0,
+        "explain": "שורש של 49 הוא ±7.",
+        "wrongExplain": [
+          "",
+          "הסימן השלילי חוקי.",
+          "יש שתיים."
+        ]
+      },
+      {
+        "q": "איך מוצאים את x ו־y כשסכומם ומכפלתם ידועים?",
+        "options": [
+          "פותרים <span dir=\"ltr\">t<sup>2</sup> − st + p = 0</span>",
+          "מחלקים בסכום",
+          "מנחשים"
+        ],
+        "correct": 0,
+        "explain": "שורשי המשוואה הם x ו־y.",
+        "wrongExplain": [
+          "",
+          "אין קשר.",
+          "ניחוש אינו מספיק."
+        ]
+      },
+      {
+        "q": "איך מקבלים את z?",
+        "options": [
+          "מהמשוואה הליניארית לכל זוג",
+          "מהמשוואה הריבועית",
+          "z תמיד זהה"
+        ],
+        "correct": 0,
+        "explain": "<span dir=\"ltr\">z = 9 − 2x + y</span>.",
+        "wrongExplain": [
+          "",
+          "z לא מופיע בה.",
+          "z משתנה בין הזוגות."
+        ]
+      }
+    ]
   },
   {
     "id": "math-3-021",
@@ -957,7 +1205,69 @@
         ]
       ],
       "kind": "finite"
-    }
+    },
+    "guided": [
+      {
+        "q": "מה עושים בשתי המשוואות הראשונות?",
+        "options": [
+          "מחלקים את הראשונה ב־3 ומקבלים סכום",
+          "מוסיפים את השנייה",
+          "מעלים בריבוע"
+        ],
+        "correct": 0,
+        "explain": "סכום ומכפלה של x ו־y.",
+        "wrongExplain": [
+          "",
+          "לא נחוץ.",
+          "לא נחוץ."
+        ]
+      },
+      {
+        "q": "איזו משוואה ב־x מתקבלת?",
+        "options": [
+          "<span dir=\"ltr\">x<sup>2</sup> − 7x + 10 = 0</span>",
+          "<span dir=\"ltr\">x<sup>2</sup> + 7x + 10 = 0</span>",
+          "<span dir=\"ltr\">x<sup>2</sup> − 7x − 10 = 0</span>"
+        ],
+        "correct": 0,
+        "explain": "<span dir=\"ltr\">x(7 − x) = 10</span>.",
+        "wrongExplain": [
+          "",
+          "שגיאת סימן.",
+          "שגיאת סימן."
+        ]
+      },
+      {
+        "q": "איך מוצאים את z?",
+        "options": [
+          "מחלקים ב־<span dir=\"ltr\">x − y</span> לכל זוג בנפרד",
+          "מחלקים ב־<span dir=\"ltr\">x + y</span>",
+          "z תמיד אחד"
+        ],
+        "correct": 0,
+        "explain": "<span dir=\"ltr\">z(x − y) = 6</span> ומותר לחלק כש־<span dir=\"ltr\">x ≠ y</span>.",
+        "wrongExplain": [
+          "",
+          "הסכום לא מופיע.",
+          "z שונה בין הזוגות."
+        ]
+      },
+      {
+        "q": "מה מראה הבדיקה?",
+        "options": [
+          "ששני הזוגות מקיימים גם את z",
+          "שאין פתרון",
+          "פתרון אחד"
+        ],
+        "correct": 0,
+        "explain": "מציבים בשלוש המשוואות.",
+        "wrongExplain": [
+          "",
+          "יש פתרונות.",
+          "יש שניים."
+        ]
+      }
+    ]
   },
   {
     "id": "math-3-022",
@@ -1217,7 +1527,69 @@
         ]
       ],
       "kind": "finite"
-    }
+    },
+    "guided": [
+      {
+        "q": "מה הרעיון המרכזי?",
+        "options": [
+          "להכפיל את שלוש המשוואות",
+          "לחבר אותן",
+          "לחסר אותן"
+        ],
+        "correct": 0,
+        "explain": "כל נעלם מופיע בשתי מכפלות, ולכן מקבלים ריבוע של xyz.",
+        "wrongExplain": [
+          "",
+          "חיבור לא נותן מכפלה.",
+          "חיסור לא עוזר."
+        ]
+      },
+      {
+        "q": "מה מתקבל?",
+        "options": [
+          "<span dir=\"ltr\">(xyz)<sup>2</sup> = 576</span>",
+          "<span dir=\"ltr\">xyz = 576</span>",
+          "<span dir=\"ltr\">(xyz)<sup>3</sup> = 576</span>"
+        ],
+        "correct": 0,
+        "explain": "כל נעלם מופיע פעמיים.",
+        "wrongExplain": [
+          "",
+          "חסרה חזקה.",
+          "החזקה שגויה."
+        ]
+      },
+      {
+        "q": "איך מוצאים את z?",
+        "options": [
+          "<span dir=\"ltr\">z = xyz/(xy)</span>",
+          "<span dir=\"ltr\">z = xy/xyz</span>",
+          "<span dir=\"ltr\">z = xyz · xy</span>"
+        ],
+        "correct": 0,
+        "explain": "מחלקים את המכפלה הכללית בכפולת הנעלמים האחרים.",
+        "wrongExplain": [
+          "",
+          "הפוך.",
+          "כפל במקום חילוק."
+        ]
+      },
+      {
+        "q": "כמה פתרונות יש?",
+        "options": [
+          "שניים: ‏<span dir=\"ltr\">xyz = 24</span> ו־<span dir=\"ltr\">xyz = −24</span>",
+          "אחד",
+          "ארבעה"
+        ],
+        "correct": 0,
+        "explain": "שורש בשני סימנים.",
+        "wrongExplain": [
+          "",
+          "הסימן השלילי חוקי.",
+          "יש שניים."
+        ]
+      }
+    ]
   },
   {
     "id": "math-4-001",
@@ -1945,7 +2317,69 @@
         ]
       ],
       "kind": "finite"
-    }
+    },
+    "guided": [
+      {
+        "q": "מה מבנה המערכת?",
+        "options": [
+          "שתי תת־מערכות: (x, y) ו־(z, w)",
+          "מערכת אחת בלתי ניתנת לפירוק",
+          "ארבע תת־מערכות"
+        ],
+        "correct": 0,
+        "explain": "כל זוג מופיע רק בשתי משוואות.",
+        "wrongExplain": [
+          "",
+          "יש פירוק.",
+          "יש שתיים."
+        ]
+      },
+      {
+        "q": "איך פותרים את (x, y)?",
+        "options": [
+          "מציבים <span dir=\"ltr\">y = 5 − x</span> במכפלה",
+          "מחסרים את המשוואות",
+          "מנחשים"
+        ],
+        "correct": 0,
+        "explain": "מתקבלת משוואה ריבועית ב־x.",
+        "wrongExplain": [
+          "",
+          "לא עוזר.",
+          "לא מובטח."
+        ]
+      },
+      {
+        "q": "איך פותרים את (z, w)?",
+        "options": [
+          "מציבים <span dir=\"ltr\">z = w + 1</span> בסכום ריבועים",
+          "מחברים",
+          "מחלקים"
+        ],
+        "correct": 0,
+        "explain": "מתקבלת משוואה ריבועית ב־w.",
+        "wrongExplain": [
+          "",
+          "לא עוזר.",
+          "לא עוזר."
+        ]
+      },
+      {
+        "q": "כמה פתרונות יש בסך הכול?",
+        "options": [
+          "שניים כפול שניים, כלומר ארבעה",
+          "שניים",
+          "ארבעה עשר"
+        ],
+        "correct": 0,
+        "explain": "כל פתרון של הזוג הראשון מתחבר לכל פתרון של השני.",
+        "wrongExplain": [
+          "",
+          "יש יותר.",
+          "יותר מדי."
+        ]
+      }
+    ]
   },
   {
     "id": "math-4-018",
@@ -2017,7 +2451,69 @@
         ]
       ],
       "kind": "finite"
-    }
+    },
+    "guided": [
+      {
+        "q": "איך מתחילים?",
+        "options": [
+          "מציבים <span dir=\"ltr\">y = 4 − x</span> במשוואה הריבועית",
+          "מעלים את הראשונה בריבוע",
+          "מחלקים את הריבועית"
+        ],
+        "correct": 0,
+        "explain": "מתקבלת משוואה בנעלם אחד.",
+        "wrongExplain": [
+          "",
+          "מסבך.",
+          "לא עוזר."
+        ]
+      },
+      {
+        "q": "מה מתקבל אחרי הפתיחה?",
+        "options": [
+          "<span dir=\"ltr\">x<sup>2</sup> − 4x + 16 = 13</span>",
+          "<span dir=\"ltr\">x<sup>2</sup> + 4x + 16 = 13</span>",
+          "<span dir=\"ltr\">3x<sup>2</sup> − 4x = 13</span>"
+        ],
+        "correct": 0,
+        "explain": "איברי <span dir=\"ltr\">x<sup>2</sup></span> מצטרפים: ‏<span dir=\"ltr\">x<sup>2</sup> − x<sup>2</sup> + x<sup>2</sup></span>.",
+        "wrongExplain": [
+          "",
+          "שגיאת סימן.",
+          "ספירה שגויה."
+        ]
+      },
+      {
+        "q": "איך מקבלים z ו־w?",
+        "options": [
+          "מהליניאריות לכל ערך של x",
+          "מהריבועית",
+          "מניחים z = w"
+        ],
+        "correct": 0,
+        "explain": "<span dir=\"ltr\">z = 7 − 2x</span> ו־<span dir=\"ltr\">w = z − 3</span>.",
+        "wrongExplain": [
+          "",
+          "לא מופיעים בה.",
+          "אין שוויון כזה."
+        ]
+      },
+      {
+        "q": "כמה פתרונות יש?",
+        "options": [
+          "שניים, אחד לכל ערך של x",
+          "אחד",
+          "ארבעה"
+        ],
+        "correct": 0,
+        "explain": "דיסקרימיננטה חיובית.",
+        "wrongExplain": [
+          "",
+          "יש שניים.",
+          "יש שניים."
+        ]
+      }
+    ]
   },
   {
     "id": "math-4-019",
@@ -2723,5 +3219,2345 @@
       ],
       "kind": "finite"
     }
+  },
+  {
+    "id": "math-3-026",
+    "topic": "math-3",
+    "level": 3,
+    "title": "פרמטר: אין פתרון, אינסוף פתרונות ופתרון עבור ערך נתון",
+    "statement": "נתונה המערכת, כאשר k הוא פרמטר:<br><span dir=\"ltr\">2x + y + z = 5</span><br><span dir=\"ltr\">x + ky + z = 2</span><br><span dir=\"ltr\">x + y + kz = 2</span><br>(א) עבור איזה ערך של k אין למערכת פתרון? (ב) עבור איזה ערך של k יש למערכת אינסוף פתרונות? (ג) עבור <span dir=\"ltr\">k = 2</span> פתרו את המערכת.",
+    "inputs": [
+      {
+        "label": "k שעבורו אין פתרון",
+        "unit": "",
+        "answer": "0",
+        "tolerance": 0.01
+      },
+      {
+        "label": "k שעבורו יש אינסוף פתרונות",
+        "unit": "",
+        "answer": "1",
+        "tolerance": 0.01
+      },
+      {
+        "label": "x (עבור k = 2)",
+        "unit": "",
+        "answer": "2.75",
+        "tolerance": 0.01
+      },
+      {
+        "label": "y (עבור k = 2)",
+        "unit": "",
+        "answer": "-0.25",
+        "tolerance": 0.01
+      },
+      {
+        "label": "z (עבור k = 2)",
+        "unit": "",
+        "answer": "-0.25",
+        "tolerance": 0.01
+      }
+    ],
+    "tips": [
+      "הפחיתו את המשוואה השלישית מהשנייה. מתקבלת משוואה שבה k מופיע בגורם משותף.",
+      "פרקו לגורמים: מכפלה שווה לאפס, ולכן בדקו בנפרד את המקרה שבו הגורם מתאפס ואת המקרה שבו הוא שונה מאפס.",
+      "בכל ערך קריטי הציבו אותו במערכת ובדקו אם מתקבלת משוואה כפולה או סתירה. בסעיף האחרון חברו את כל המשוואות כדי לקבל את סכום הנעלמים."
+    ],
+    "solution": [
+      "נחסר את המשוואה השלישית מהשנייה: <span dir=\"ltr\">(k − 1)y − (k − 1)z = 0</span>, כלומר <span dir=\"ltr\">(k − 1)(y − z) = 0</span>.",
+      "נניח <span dir=\"ltr\">k ≠ 1</span>. אז <span dir=\"ltr\">y = z</span> והמערכת הופכת ל־<span dir=\"ltr\">2x + 2y = 5</span> ול־<span dir=\"ltr\">x + (k + 1)y = 2</span>.",
+      "מהראשונה <span dir=\"ltr\">x = 2.5 − y</span>. נציב בשנייה: <span dir=\"ltr\">2.5 − y + (k + 1)y = 2</span>, כלומר <span dir=\"ltr\">ky = −0.5</span>.",
+      "אם <span dir=\"ltr\">k = 0</span> מקבלים <span dir=\"ltr\">0 = −0.5</span> – סתירה, ואין פתרון. אם <span dir=\"ltr\">k ≠ 0</span> (וגם <span dir=\"ltr\">k ≠ 1</span>) מקבלים <span dir=\"ltr\">y = −0.5/k</span> ופתרון יחיד. לכן אין פתרון רק עבור <span dir=\"ltr\">k = 0</span>.",
+      "נבדוק <span dir=\"ltr\">k = 1</span>: השנייה והשלישית הופכות לאותה משוואה <span dir=\"ltr\">x + y + z = 2</span>. יחד עם <span dir=\"ltr\">2x + y + z = 5</span> מקבלים <span dir=\"ltr\">x = 3</span> ו־<span dir=\"ltr\">y + z = −1</span>. יש שתי משוואות עצמאיות בלבד לשלושה נעלמים, ולכן אינסוף פתרונות, כלומר <span dir=\"ltr\">k = 1</span>.",
+      "סעיף ג, <span dir=\"ltr\">k = 2</span>: <span dir=\"ltr\">2x + y + z = 5</span>, ‏<span dir=\"ltr\">x + 2y + z = 2</span>, ‏<span dir=\"ltr\">x + y + 2z = 2</span>. נחבר את שלוש המשוואות: <span dir=\"ltr\">4(x + y + z) = 9</span>, כלומר <span dir=\"ltr\">x + y + z = 2.25</span>.",
+      "כל משוואה היא \"נעלם אחד + הסכום\": <span dir=\"ltr\">x = 5 − 2.25 = 2.75</span>, ‏<span dir=\"ltr\">y = 2 − 2.25 = −0.25</span>, ‏<span dir=\"ltr\">z = 2 − 2.25 = −0.25</span>.",
+      "בדיקה בשלוש המשוואות עבור <span dir=\"ltr\">k = 2</span>: <span dir=\"ltr\">5.5 − 0.25 − 0.25 = 5</span> ✓, ‏<span dir=\"ltr\">2.75 − 0.5 − 0.25 = 2</span> ✓, ‏<span dir=\"ltr\">2.75 − 0.25 − 0.5 = 2</span> ✓."
+    ],
+    "verify": {
+      "equations": [
+        "2*x+y+z=5",
+        "x+0*y+z=2",
+        "x+y+0*z=2"
+      ],
+      "vars": [
+        "x",
+        "y",
+        "z"
+      ],
+      "kind": "none",
+      "param": {
+        "input": 0,
+        "value": 0
+      },
+      "also": [
+        {
+          "equations": [
+            "2*x+y+z=5",
+            "x+y+z=2",
+            "x+y+z=2"
+          ],
+          "kind": "infinite",
+          "param": {
+            "input": 1,
+            "value": 1
+          }
+        },
+        {
+          "equations": [
+            "2*x+y+z=5",
+            "x+2*y+z=2",
+            "x+y+2*z=2"
+          ],
+          "kind": "unique",
+          "solution": [
+            2.75,
+            -0.25,
+            -0.25
+          ],
+          "bind": [
+            2,
+            3,
+            4
+          ]
+        }
+      ]
+    },
+    "guided": [
+      {
+        "q": "מה הצעד הראשון שחושף את הערכים הקריטיים של k?",
+        "options": [
+          "לחבר את שלוש המשוואות",
+          "להחסיר את המשוואה השלישית מהשנייה",
+          "להציב <span dir=\"ltr\">k = 0</span> ולפתור"
+        ],
+        "correct": 1,
+        "explain": "החיסור מבטל את x ומשאיר את k בגורם משותף, ולכן אפשר לפרק לגורמים.",
+        "wrongExplain": [
+          "חיבור לא מבטל נעלם ומשאיר את k בכל המקדמים.",
+          "",
+          "הצבה היא ניחוש: עדיין לא ידוע אילו ערכי k חשובים."
+        ]
+      },
+      {
+        "q": "מתקבל <span dir=\"ltr\">(k − 1)(y − z) = 0</span>. איך ממשיכים?",
+        "options": [
+          "בודקים בנפרד את <span dir=\"ltr\">k = 1</span> ואת <span dir=\"ltr\">k ≠ 1</span>",
+          "מחלקים ב־<span dir=\"ltr\">k − 1</span> בלי תנאי",
+          "מניחים ש־<span dir=\"ltr\">y = z</span> תמיד"
+        ],
+        "correct": 0,
+        "explain": "חילוק ב־<span dir=\"ltr\">k − 1</span> אסור כשהוא יכול להיות אפס, ולכן מפצלים למקרים.",
+        "wrongExplain": [
+          "",
+          "חילוק באפס אפשרי הוא טעות: מפסידים את המקרה <span dir=\"ltr\">k = 1</span>.",
+          "<span dir=\"ltr\">y = z</span> נובע רק כאשר <span dir=\"ltr\">k ≠ 1</span>."
+        ]
+      },
+      {
+        "q": "עבור <span dir=\"ltr\">k ≠ 1</span> מתקבל <span dir=\"ltr\">ky = −0.5</span>. מתי אין פתרון?",
+        "options": [
+          "כאשר <span dir=\"ltr\">k = 1</span>",
+          "כאשר k שלילי",
+          "כאשר <span dir=\"ltr\">k = 0</span>"
+        ],
+        "correct": 2,
+        "explain": "אם <span dir=\"ltr\">k = 0</span> מתקבל <span dir=\"ltr\">0 = −0.5</span>, סתירה. כל k אחר נותן y יחיד.",
+        "wrongExplain": [
+          "<span dir=\"ltr\">k = 1</span> הוא מקרה נפרד שנבדק בנפרד.",
+          "לכל k שלילי קיים <span dir=\"ltr\">y = −0.5/k</span>, ולכן יש פתרון.",
+          ""
+        ]
+      },
+      {
+        "q": "מה קורה עבור <span dir=\"ltr\">k = 1</span>?",
+        "options": [
+          "מתקבלת סתירה",
+          "השנייה והשלישית זהות, ולכן יש אינסוף פתרונות",
+          "יש פתרון יחיד"
+        ],
+        "correct": 1,
+        "explain": "שתי המשוואות הופכות ל־<span dir=\"ltr\">x + y + z = 2</span>. נשארות שתי משוואות עצמאיות לשלושה נעלמים.",
+        "wrongExplain": [
+          "אין סתירה: שתי משוואות זהות ולא סותרות.",
+          "",
+          "שתי משוואות עצמאיות בלבד אינן מספיקות לפתרון יחיד."
+        ]
+      },
+      {
+        "q": "בסעיף ג (<span dir=\"ltr\">k = 2</span>) מה הדרך הקצרה ביותר?",
+        "options": [
+          "לחבר את כל המשוואות כדי לקבל את <span dir=\"ltr\">x + y + z</span>",
+          "לחסל z מכל זוג בנפרד",
+          "לנחש ערכים שלמים"
+        ],
+        "correct": 0,
+        "explain": "בכל משוואה מופיע \"נעלם אחד + הסכום\", ולכן הסכום מפשט הכול.",
+        "wrongExplain": [
+          "",
+          "נכון אך ארוך.",
+          "הפתרון אינו שלם."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "math-3-027",
+    "topic": "math-3",
+    "level": 3,
+    "title": "משוואות ציקליות x(y + z)",
+    "statement": "מצאו את כל הפתרונות הממשיים של המערכת:<br><span dir=\"ltr\">x(y + z) = 7</span><br><span dir=\"ltr\">y(x + z) = 7.5</span><br><span dir=\"ltr\">z(x + y) = 2.5</span>",
+    "answerSets": {
+      "labels": [
+        "x",
+        "y",
+        "z"
+      ],
+      "count": 2,
+      "sets": [
+        [
+          "2",
+          "3",
+          "0.5"
+        ],
+        [
+          "-2",
+          "-3",
+          "-0.5"
+        ]
+      ],
+      "tolerance": 0.01
+    },
+    "tips": [
+      "פתחו סוגריים בכל משוואה. תופיעה כל אחת מהמכפלות xy, ‏yz, ‏xz בשתי משוואות.",
+      "סמנו p = xy, ‏q = yz, ‏r = xz. מתקבלת מערכת ליניארית בשלושה נעלמים חדשים. חברו את כולן וחסרו.",
+      "כדי לחזור ל־x, y, z כפלו את p, q, r. מתקבל ריבוע של xyz, ולכן יש שני סימנים אפשריים."
+    ],
+    "solution": [
+      "נפתח סוגריים: <span dir=\"ltr\">xy + xz = 7</span>, ‏<span dir=\"ltr\">xy + yz = 7.5</span>, ‏<span dir=\"ltr\">xz + yz = 2.5</span>.",
+      "נסמן <span dir=\"ltr\">p = xy</span>, ‏<span dir=\"ltr\">q = yz</span>, ‏<span dir=\"ltr\">r = xz</span>: <span dir=\"ltr\">p + r = 7</span>, ‏<span dir=\"ltr\">p + q = 7.5</span>, ‏<span dir=\"ltr\">q + r = 2.5</span>.",
+      "נחבר: <span dir=\"ltr\">2(p + q + r) = 17</span>, כלומר <span dir=\"ltr\">p + q + r = 8.5</span>.",
+      "נחסר מהסכום כל משוואה: <span dir=\"ltr\">q = 8.5 − 7 = 1.5</span>, ‏<span dir=\"ltr\">r = 8.5 − 7.5 = 1</span>, ‏<span dir=\"ltr\">p = 8.5 − 2.5 = 6</span>. כלומר <span dir=\"ltr\">xy = 6</span>, ‏<span dir=\"ltr\">yz = 1.5</span>, ‏<span dir=\"ltr\">xz = 1</span>.",
+      "נכפול את שלושתן: <span dir=\"ltr\">(xyz)<sup>2</sup> = 6 · 1.5 · 1 = 9</span>, ולכן <span dir=\"ltr\">xyz = 3</span> או <span dir=\"ltr\">xyz = −3</span>. אף נעלם אינו אפס, כי כל המכפלות שונות מאפס.",
+      "אם <span dir=\"ltr\">xyz = 3</span>: <span dir=\"ltr\">z = 3/(xy) = 0.5</span>, ‏<span dir=\"ltr\">x = 3/(yz) = 2</span>, ‏<span dir=\"ltr\">y = 3/(xz) = 3</span>. אם <span dir=\"ltr\">xyz = −3</span>: באותו אופן <span dir=\"ltr\">(x, y, z) = (−2, −3, −0.5)</span>.",
+      "בדיקה בשלוש המשוואות: ל־(2, 3, 0.5): <span dir=\"ltr\">2 · 3.5 = 7</span> ✓, ‏<span dir=\"ltr\">3 · 2.5 = 7.5</span> ✓, ‏<span dir=\"ltr\">0.5 · 5 = 2.5</span> ✓. ל־(-2, -3, -0.5): <span dir=\"ltr\">−2 · −3.5 = 7</span> ✓, ‏<span dir=\"ltr\">−3 · −2.5 = 7.5</span> ✓, ‏<span dir=\"ltr\">−0.5 · −5 = 2.5</span> ✓."
+    ],
+    "verify": {
+      "equations": [
+        "x*(y+z)=7",
+        "y*(x+z)=7.5",
+        "z*(x+y)=2.5"
+      ],
+      "vars": [
+        "x",
+        "y",
+        "z"
+      ],
+      "solutions": [
+        [
+          2,
+          3,
+          0.5
+        ],
+        [
+          -2,
+          -3,
+          -0.5
+        ]
+      ],
+      "kind": "finite"
+    },
+    "guided": [
+      {
+        "q": "מה עושים ראשון במערכת הציקלית?",
+        "options": [
+          "פותחים סוגריים ומסמנים את המכפלות xy, ‏yz, ‏xz",
+          "מחלקים את המשוואות זו בזו",
+          "מציבים ערכים שלמים"
+        ],
+        "correct": 0,
+        "explain": "אחרי הפתיחה כל משוואה היא סכום של שתי מכפלות, וזה מערכת ליניארית במכפלות.",
+        "wrongExplain": [
+          "",
+          "חלוקה מסבכת ואינה מפשטת.",
+          "ניחוש לא מוכיח שמצאנו את כל הפתרונות."
+        ]
+      },
+      {
+        "q": "איזו מערכת מתקבלת עבור <span dir=\"ltr\">p = xy</span>, ‏<span dir=\"ltr\">q = yz</span>, ‏<span dir=\"ltr\">r = xz</span>?",
+        "options": [
+          "<span dir=\"ltr\">p · r = 7</span>, ‏<span dir=\"ltr\">p · q = 7.5</span>, ‏<span dir=\"ltr\">q · r = 2.5</span>",
+          "<span dir=\"ltr\">p + q + r = 7</span>",
+          "<span dir=\"ltr\">p + r = 7</span>, ‏<span dir=\"ltr\">p + q = 7.5</span>, ‏<span dir=\"ltr\">q + r = 2.5</span>"
+        ],
+        "correct": 2,
+        "explain": "כל משוואה מכילה שתי מכפלות מצטרפות בחיבור.",
+        "wrongExplain": [
+          "הפעולה היא חיבור ולא כפל.",
+          "יש שלוש משוואות נפרדות.",
+          ""
+        ]
+      },
+      {
+        "q": "איך מקבלים את p, q, r מהר?",
+        "options": [
+          "מחסרים את הראשונה מהשנייה בלבד",
+          "מחברים את כולן, מחלקים בשתיים, ומחסרים כל משוואה",
+          "מציבים את p בכל משוואה"
+        ],
+        "correct": 1,
+        "explain": "הסכום <span dir=\"ltr\">p + q + r</span> נקבע, ואז כל נעלם הוא הסכום פחות משוואה אחת.",
+        "wrongExplain": [
+          "חיסור יחיד לא קובע את כולם.",
+          "",
+          "כך מסבכים בלי צורך."
+        ]
+      },
+      {
+        "q": "איך חוזרים מ־p, q, r אל x, y, z?",
+        "options": [
+          "מכפילים את שלושתן ומקבלים את <span dir=\"ltr\">(xyz)<sup>2</sup></span>, ואז לוקחים שורש בשני סימנים",
+          "מחברים אותן",
+          "לוקחים שורש של כל אחת"
+        ],
+        "correct": 0,
+        "explain": "<span dir=\"ltr\">pqr = (xyz)<sup>2</sup></span>, ושני הסימנים נותנים שני פתרונות.",
+        "wrongExplain": [
+          "",
+          "חיבור לא נותן מכפלה.",
+          "שורש של p אינו x."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "math-3-028",
+    "topic": "math-3",
+    "level": 3,
+    "title": "החלפת משתנים u = x + y, v = xy ודיסקרימיננטה",
+    "statement": "נתונה המערכת:<br><span dir=\"ltr\">x<sup>2</sup> + xy + y<sup>2</sup> = 7</span><br><span dir=\"ltr\">x + y + xy = 5</span><br><span dir=\"ltr\">z = 3x − y</span><br>(א) כמה פתרונות ממשיים יש למערכת? (ב) מהו ערכו של <span dir=\"ltr\">x + y</span> בכל אחד מהפתרונות? (ג) מהו סכום ערכי z של כל הפתרונות?",
+    "inputs": [
+      {
+        "label": "מספר הפתרונות",
+        "unit": "",
+        "answer": "2",
+        "tolerance": 0.01,
+        "count": true
+      },
+      {
+        "label": "x + y בכל פתרון",
+        "unit": "",
+        "answer": "3",
+        "tolerance": 0.01,
+        "expr": "x+y",
+        "agg": "same"
+      },
+      {
+        "label": "סכום ערכי z של כל הפתרונות",
+        "unit": "",
+        "answer": "6",
+        "tolerance": 0.01,
+        "expr": "z",
+        "agg": "sum"
+      }
+    ],
+    "tips": [
+      "x² + xy + y² = (x + y)² − xy. סמנו u = x + y ו־v = xy.",
+      "מתקבלת מערכת ב־u ו־v: האחת ליניארית. הציבו, וקבלו משוואה ריבועית ב־u.",
+      "לכל u ו־v ה־x וה־y הם שורשי t² − ut + v = 0, ולכן הדיסקרימיננטה חייבת להיות אי־שלילית. פסלו ערכים שלא עומדים בכך, ורק אז חשבו את z."
+    ],
+    "solution": [
+      "מתקיים <span dir=\"ltr\">x<sup>2</sup> + xy + y<sup>2</sup> = (x + y)<sup>2</sup> − xy</span>. נסמן <span dir=\"ltr\">u = x + y</span>, ‏<span dir=\"ltr\">v = xy</span>: <span dir=\"ltr\">u<sup>2</sup> − v = 7</span> ו־<span dir=\"ltr\">u + v = 5</span>.",
+      "מהשנייה <span dir=\"ltr\">v = 5 − u</span>. נציב: <span dir=\"ltr\">u<sup>2</sup> − 5 + u = 7</span>, כלומר <span dir=\"ltr\">u<sup>2</sup> + u − 12 = 0</span>.",
+      "דיסקרימיננטה: <span dir=\"ltr\">1 + 48 = 49</span>, ולכן <span dir=\"ltr\">u = (−1 ± 7)/2</span>, כלומר <span dir=\"ltr\">u = 3</span> או <span dir=\"ltr\">u = −4</span>. הערכים המתאימים של v: <span dir=\"ltr\">v = 2</span> או <span dir=\"ltr\">v = 9</span>.",
+      "x ו־y הם שורשי <span dir=\"ltr\">t<sup>2</sup> − ut + v = 0</span>. עבור <span dir=\"ltr\">u = 3, v = 2</span>: <span dir=\"ltr\">t<sup>2</sup> − 3t + 2 = 0</span>, דיסקרימיננטה 1, ‏<span dir=\"ltr\">t = 1, 2</span>. הזוגות: (1, 2) ו־(2, 1).",
+      "עבור <span dir=\"ltr\">u = −4, v = 9</span>: <span dir=\"ltr\">t<sup>2</sup> + 4t + 9 = 0</span>, דיסקרימיננטה <span dir=\"ltr\">16 − 36 = −20 < 0</span>. אין שורשים ממשיים, ולכן המקרה נפסל.",
+      "עבור (x, y) = (1, 2): <span dir=\"ltr\">z = 3 − 2 = 1</span>. עבור (2, 1): <span dir=\"ltr\">z = 6 − 1 = 5</span>.",
+      "בדיקה בשלוש המשוואות: ל־(1, 2, 1): <span dir=\"ltr\">1 + 2 + 4 = 7</span> ✓, ‏<span dir=\"ltr\">1 + 2 + 2 = 5</span> ✓, ‏<span dir=\"ltr\">1 = 3 − 2</span> ✓. ל־(2, 1, 5): <span dir=\"ltr\">4 + 2 + 1 = 7</span> ✓, ‏<span dir=\"ltr\">2 + 1 + 2 = 5</span> ✓, ‏<span dir=\"ltr\">5 = 6 − 1</span> ✓.",
+      "לכן שני פתרונות, ‏<span dir=\"ltr\">x + y = 3</span> בשניהם, וסכום ערכי z הוא <span dir=\"ltr\">1 + 5</span>."
+    ],
+    "verify": {
+      "equations": [
+        "x^2+x*y+y^2=7",
+        "x+y+x*y=5",
+        "z=3*x-y"
+      ],
+      "vars": [
+        "x",
+        "y",
+        "z"
+      ],
+      "solutions": [
+        [
+          1,
+          2,
+          1
+        ],
+        [
+          2,
+          1,
+          5
+        ]
+      ],
+      "kind": "finite"
+    },
+    "guided": [
+      {
+        "q": "איך מבטאים את <span dir=\"ltr\">x<sup>2</sup> + xy + y<sup>2</sup></span> באמצעות <span dir=\"ltr\">u = x + y</span> ו־<span dir=\"ltr\">v = xy</span>?",
+        "options": [
+          "<span dir=\"ltr\">u<sup>2</sup> − v</span>",
+          "<span dir=\"ltr\">u<sup>2</sup> + v</span>",
+          "<span dir=\"ltr\">u<sup>2</sup> − 2v</span>"
+        ],
+        "correct": 0,
+        "explain": "<span dir=\"ltr\">(x + y)<sup>2</sup> = x<sup>2</sup> + 2xy + y<sup>2</sup></span>, ולכן <span dir=\"ltr\">x<sup>2</sup> + xy + y<sup>2</sup> = u<sup>2</sup> − v</span>.",
+        "wrongExplain": [
+          "",
+          "הסימן של v הפוך.",
+          "זה הביטוי של <span dir=\"ltr\">x<sup>2</sup> + y<sup>2</sup></span> ולא של הביטוי הנתון."
+        ]
+      },
+      {
+        "q": "איזו משוואה מתקבלת ב־u אחרי הצבת <span dir=\"ltr\">v = 5 − u</span>?",
+        "options": [
+          "<span dir=\"ltr\">u<sup>2</sup> − u − 2 = 0</span>",
+          "<span dir=\"ltr\">u<sup>2</sup> + u − 12 = 0</span>",
+          "<span dir=\"ltr\">u<sup>2</sup> + u − 2 = 0</span>"
+        ],
+        "correct": 1,
+        "explain": "<span dir=\"ltr\">u<sup>2</sup> − (5 − u) = 7</span> מביא ל־<span dir=\"ltr\">u<sup>2</sup> + u − 12 = 0</span>.",
+        "wrongExplain": [
+          "שגיאת סימן בהצבה.",
+          "",
+          "חיברו 5 במקום 12."
+        ]
+      },
+      {
+        "q": "לכל זוג (u, v) מה בודקים לפני שממשיכים?",
+        "options": [
+          "שהדיסקרימיננטה של <span dir=\"ltr\">t<sup>2</sup> − ut + v</span> אי־שלילית",
+          "ש־u חיובי",
+          "ש־v שלם"
+        ],
+        "correct": 0,
+        "explain": "x ו־y ממשיים רק אם למשוואה הריבועית יש שורשים ממשיים.",
+        "wrongExplain": [
+          "",
+          "u יכול להיות שלילי ועדיין לתת פתרון.",
+          "שלמות אינה הדרישה."
+        ]
+      },
+      {
+        "q": "מה קורה עם <span dir=\"ltr\">u = −4, v = 9</span>?",
+        "options": [
+          "נותן שני פתרונות נוספים",
+          "נותן פתרון יחיד",
+          "נפסל: דיסקרימיננטה שלילית"
+        ],
+        "correct": 2,
+        "explain": "הדיסקרימיננטה היא −20, ולכן אין x ו־y ממשיים.",
+        "wrongExplain": [
+          "אין שורשים ממשיים בכלל.",
+          "פתרון יחיד היה דורש דיסקרימיננטה אפס.",
+          ""
+        ]
+      }
+    ]
+  },
+  {
+    "id": "math-3-029",
+    "topic": "math-3",
+    "level": 3,
+    "title": "שני כדורים ומישור: כמה פתרונות?",
+    "statement": "נתונה המערכת:<br><span dir=\"ltr\">x<sup>2</sup> + y<sup>2</sup> + z<sup>2</sup> = 26</span><br><span dir=\"ltr\">(x − 2)<sup>2</sup> + (y + 1)<sup>2</sup> + (z − 3)<sup>2</sup> = 6</span><br><span dir=\"ltr\">x + y = −2</span><br>(א) כמה פתרונות ממשיים יש למערכת? (ב) מצאו אותם.",
+    "inputs": [
+      {
+        "label": "מספר הפתרונות",
+        "unit": "",
+        "answer": "1",
+        "tolerance": 0.01,
+        "count": true
+      },
+      {
+        "label": "x",
+        "unit": "",
+        "answer": "1",
+        "tolerance": 0.01
+      },
+      {
+        "label": "y",
+        "unit": "",
+        "answer": "-3",
+        "tolerance": 0.01
+      },
+      {
+        "label": "z",
+        "unit": "",
+        "answer": "4",
+        "tolerance": 0.01
+      }
+    ],
+    "tips": [
+      "פתחו סוגריים במשוואה השנייה. אחרי חיסור המשוואה הראשונה ממנה כל הריבועים נעלמים.",
+      "מתקבלת משוואה ליניארית. יחד עם המשוואה השלישית בטאו שני נעלמים באמצעות הנעלם השלישי.",
+      "הציבו במשוואה הראשונה. בדקו את הדיסקרימיננטה: מה המשמעות כשהיא מתאפסת ומה מספר הפתרונות אז?"
+    ],
+    "solution": [
+      "נפתח את המשוואה השנייה: <span dir=\"ltr\">x<sup>2</sup> + y<sup>2</sup> + z<sup>2</sup> − 4x + 2y − 6z + 14 = 6</span>.",
+      "נציב <span dir=\"ltr\">x<sup>2</sup> + y<sup>2</sup> + z<sup>2</sup> = 26</span>: <span dir=\"ltr\">26 − 4x + 2y − 6z + 14 = 6</span>, כלומר <span dir=\"ltr\">−4x + 2y − 6z = −34</span>, ולכן <span dir=\"ltr\">2x − y + 3z = 17</span>.",
+      "מהמשוואה השלישית <span dir=\"ltr\">y = −2 − x</span>. נציב בליניארית: <span dir=\"ltr\">2x + 2 + x + 3z = 17</span>, כלומר <span dir=\"ltr\">3x + 3z = 15</span>, ולכן <span dir=\"ltr\">z = 5 − x</span>.",
+      "נציב במשוואה הראשונה: <span dir=\"ltr\">x<sup>2</sup> + (−2 − x)<sup>2</sup> + (5 − x)<sup>2</sup> = 26</span>. פתיחה: <span dir=\"ltr\">x<sup>2</sup> + 4 + 4x + x<sup>2</sup> + 25 − 10x + x<sup>2</sup> = 3x<sup>2</sup> − 6x + 29</span>.",
+      "מתקבל <span dir=\"ltr\">3x<sup>2</sup> − 6x + 29 = 26</span>, כלומר <span dir=\"ltr\">3x<sup>2</sup> − 6x + 3 = 0</span>, ואחרי חילוק: <span dir=\"ltr\">(x − 1)<sup>2</sup> = 0</span>.",
+      "הדיסקרימיננטה אפס, ולכן <span dir=\"ltr\">x = 1</span> בלבד: פתרון יחיד. אז <span dir=\"ltr\">y = −3</span> ו־<span dir=\"ltr\">z = 4</span>.",
+      "בדיקה בשלוש המשוואות: <span dir=\"ltr\">1 + 9 + 16 = 26</span> ✓, ‏<span dir=\"ltr\">(1 − 2)<sup>2</sup> + (−3 + 1)<sup>2</sup> + (4 − 3)<sup>2</sup> = 1 + 4 + 1 = 6</span> ✓, ‏<span dir=\"ltr\">1 − 3 = −2</span> ✓."
+    ],
+    "verify": {
+      "equations": [
+        "x^2+y^2+z^2=26",
+        "(x-2)^2+(y+1)^2+(z-3)^2=6",
+        "x+y=-2"
+      ],
+      "vars": [
+        "x",
+        "y",
+        "z"
+      ],
+      "solutions": [
+        [
+          1,
+          -3,
+          4
+        ]
+      ],
+      "kind": "finite",
+      "implied": [
+        "2*x-y+3*z=17"
+      ]
+    },
+    "guided": [
+      {
+        "q": "איזה צעד מבטל את כל הריבועים?",
+        "options": [
+          "לפתוח את הסוגריים ולהציב את המשוואה הראשונה בשנייה",
+          "להעלות את שתי המשוואות בריבוע",
+          "לחלק את השנייה בראשונה"
+        ],
+        "correct": 0,
+        "explain": "אחרי הפתיחה מופיע שוב <span dir=\"ltr\">x<sup>2</sup> + y<sup>2</sup> + z<sup>2</sup></span> ואפשר להחליפו ב־26, וכך נשארת משוואה ליניארית.",
+        "wrongExplain": [
+          "",
+          "העלאה בריבוע מגדילה את המעלה.",
+          "חלוקה אינה מבטלת ריבועים."
+        ]
+      },
+      {
+        "q": "איזו משוואה ליניארית מתקבלת?",
+        "options": [
+          "<span dir=\"ltr\">2x + y + 3z = 17</span>",
+          "<span dir=\"ltr\">2x − y + 3z = 17</span>",
+          "<span dir=\"ltr\">x − y + z = 17</span>"
+        ],
+        "correct": 1,
+        "explain": "מ־<span dir=\"ltr\">−4x + 2y − 6z = −34</span> מחלקים ב־<span dir=\"ltr\">−2</span>.",
+        "wrongExplain": [
+          "שגיאת סימן של y.",
+          "",
+          "לא חילקו נכון את כל המקדמים."
+        ]
+      },
+      {
+        "q": "איך מגיעים למשוואה בנעלם אחד?",
+        "options": [
+          "מבטאים y ו־z באמצעות x ומציבים במשוואה הראשונה",
+          "מציבים <span dir=\"ltr\">x = 0</span>",
+          "מחברים את שתי המשוואות הריבועיות"
+        ],
+        "correct": 0,
+        "explain": "שתי הליניאריות מאפשרות לבטא שני נעלמים באמצעות השלישי.",
+        "wrongExplain": [
+          "",
+          "הצבה שרירותית מפספסת פתרונות.",
+          "הסכום מחזיר את הריבועים."
+        ]
+      },
+      {
+        "q": "מתקבל <span dir=\"ltr\">(x − 1)<sup>2</sup> = 0</span>. מה המסקנה?",
+        "options": [
+          "אין פתרון",
+          "פתרון יחיד",
+          "שני פתרונות"
+        ],
+        "correct": 1,
+        "explain": "דיסקרימיננטה אפס פירושה שורש כפול, כלומר פתרון אחד בלבד.",
+        "wrongExplain": [
+          "יש את <span dir=\"ltr\">x = 1</span>.",
+          "",
+          "שני פתרונות היו דורשים דיסקרימיננטה חיובית."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "math-3-030",
+    "topic": "math-3",
+    "level": 2,
+    "title": "מקדמים לא נוחים וצירוף חכם של משוואות",
+    "statement": "פתרו את מערכת המשוואות:<br><span dir=\"ltr\">6x + 5y + 4z = 19</span><br><span dir=\"ltr\">9x + 7y + 6z = 30</span><br><span dir=\"ltr\">8x + 3y − 2z = 18</span>",
+    "inputs": [
+      {
+        "label": "x",
+        "unit": "",
+        "answer": "4",
+        "tolerance": 0.01
+      },
+      {
+        "label": "y",
+        "unit": "",
+        "answer": "-3",
+        "tolerance": 0.01
+      },
+      {
+        "label": "z",
+        "unit": "",
+        "answer": "2.5",
+        "tolerance": 0.01
+      }
+    ],
+    "tips": [
+      "הפחיתו את הראשונה מהשנייה. מתקבלת משוואה עם מקדמים קטנים.",
+      "כפלו את המשוואה החדשה בגורם מתאים והחסירו מהראשונה: שני נעלמים יתחסלו יחד.",
+      "אחרי שנקבע נעלם אחד, חיבור המשוואה החדשה עם השלישית נותן משוואה בנעלם יחיד."
+    ],
+    "solution": [
+      "נחסר את הראשונה מהשנייה: <span dir=\"ltr\">3x + 2y + 2z = 11</span> (א).",
+      "נכפול את (א) ב־2: <span dir=\"ltr\">6x + 4y + 4z = 22</span>. נחסר זאת מהמשוואה הראשונה: x ו־z מתחסלים יחד ונשאר <span dir=\"ltr\">y = −3</span>.",
+      "כדי לקבל משוואה ב־x וב־y בלבד נחבר את (א) עם המשוואה השלישית: z מתחסל ומתקבל <span dir=\"ltr\">11x + 5y = 29</span>.",
+      "נציב <span dir=\"ltr\">y = −3</span>: <span dir=\"ltr\">11x − 15 = 29</span>, כלומר <span dir=\"ltr\">11x = 44</span> ולכן <span dir=\"ltr\">x = 4</span>.",
+      "נציב ב־(א): <span dir=\"ltr\">12 − 6 + 2z = 11</span>, כלומר <span dir=\"ltr\">2z = 5</span> ולכן <span dir=\"ltr\">z = 2.5</span>.",
+      "בדיקה בשלוש המשוואות המקוריות: <span dir=\"ltr\">24 − 15 + 10 = 19</span> ✓, ‏<span dir=\"ltr\">36 − 21 + 15 = 30</span> ✓, ‏<span dir=\"ltr\">32 − 9 − 5 = 18</span> ✓."
+    ],
+    "verify": {
+      "equations": [
+        "6*x+5*y+4*z=19",
+        "9*x+7*y+6*z=30",
+        "8*x+3*y-2*z=18"
+      ],
+      "vars": [
+        "x",
+        "y",
+        "z"
+      ],
+      "kind": "unique"
+    }
+  },
+  {
+    "id": "math-3-031",
+    "topic": "math-3",
+    "level": 3,
+    "title": "פרמטר ודיסקרימיננטה: מתי יש פתרון אחד בדיוק?",
+    "statement": "נתונה המערכת, כאשר k הוא פרמטר:<br><span dir=\"ltr\">x + y = 6</span><br><span dir=\"ltr\">xy = k</span><br><span dir=\"ltr\">x − y = z</span><br>(א) עבור איזה ערך של k יש למערכת פתרון ממשי אחד בדיוק? (ב) מצאו אותו. (ג) כמה פתרונות ממשיים יש כאשר <span dir=\"ltr\">k = 5</span>?",
+    "inputs": [
+      {
+        "label": "k",
+        "unit": "",
+        "answer": "9",
+        "tolerance": 0.01,
+        "given": "k"
+      },
+      {
+        "label": "x",
+        "unit": "",
+        "answer": "3",
+        "tolerance": 0.01
+      },
+      {
+        "label": "y",
+        "unit": "",
+        "answer": "3",
+        "tolerance": 0.01
+      },
+      {
+        "label": "z",
+        "unit": "",
+        "answer": "0",
+        "tolerance": 0.01
+      },
+      {
+        "label": "מספר הפתרונות כאשר k = 5",
+        "unit": "",
+        "answer": "2",
+        "tolerance": 0.01,
+        "alsoCount": 0
+      }
+    ],
+    "tips": [
+      "x ו־y הם שורשי המשוואה t² − 6t + k = 0. הסבירו מדוע.",
+      "שני פתרונות שונים, פתרון יחיד או אף אחד נקבעים לפי הדיסקרימיננטה. שימו לב שהסדר של (x, y) משנה את z.",
+      "כשהדיסקרימיננטה מתאפסת שני השורשים שווים. מצאו אז את x ואת y ואת z מהמשוואה השלישית."
+    ],
+    "solution": [
+      "מהמשוואה הראשונה והשנייה: סכום x ו־y הוא 6 ומכפלתם k, ולכן הם שורשי <span dir=\"ltr\">t<sup>2</sup> − 6t + k = 0</span>.",
+      "שורשים ממשיים קיימים אם ורק אם הדיסקרימיננטה <span dir=\"ltr\">Δ = 36 − 4k ≥ 0</span>.",
+      "אם <span dir=\"ltr\">Δ > 0</span>, שני שורשים שונים a ו־b, ויש שני פתרונות סדורים (a, b) ו־(b, a), ובהם z שונה: <span dir=\"ltr\">z = a − b</span> או <span dir=\"ltr\">z = b − a</span>.",
+      "אם <span dir=\"ltr\">Δ = 0</span>, כלומר <span dir=\"ltr\">k = 9</span>, יש שורש כפול <span dir=\"ltr\">t = 3</span>. אז <span dir=\"ltr\">x = y = 3</span>, ‏<span dir=\"ltr\">z = 0</span>: פתרון יחיד.",
+      "אם <span dir=\"ltr\">Δ < 0</span>, כלומר <span dir=\"ltr\">k > 9</span>, אין פתרון ממשי.",
+      "עבור <span dir=\"ltr\">k = 5</span>: <span dir=\"ltr\">Δ = 16 > 0</span>, ‏<span dir=\"ltr\">t = (6 ± 4)/2 = 5, 1</span>. הפתרונות: (1, 5, -4) ו־(5, 1, 4). כלומר שני פתרונות.",
+      "בדיקה עבור <span dir=\"ltr\">k = 9</span>: <span dir=\"ltr\">3 + 3 = 6</span> ✓, ‏<span dir=\"ltr\">3 · 3 = 9</span> ✓, ‏<span dir=\"ltr\">3 − 3 = 0</span> ✓. ועבור <span dir=\"ltr\">k = 5</span>: <span dir=\"ltr\">1 + 5 = 6</span> ✓, ‏<span dir=\"ltr\">1 · 5 = 5</span> ✓, ‏<span dir=\"ltr\">1 − 5 = −4</span> ✓."
+    ],
+    "verify": {
+      "equations": [
+        "x+y=6",
+        "x*y=9",
+        "x-y=z"
+      ],
+      "vars": [
+        "x",
+        "y",
+        "z"
+      ],
+      "solutions": [
+        [
+          3,
+          3,
+          0
+        ]
+      ],
+      "kind": "finite",
+      "given": {
+        "k": 9
+      },
+      "also": [
+        {
+          "equations": [
+            "x+y=6",
+            "x*y=5",
+            "x-y=z"
+          ],
+          "solutions": [
+            [
+              1,
+              5,
+              -4
+            ],
+            [
+              5,
+              1,
+              4
+            ]
+          ]
+        },
+        {
+          "equations": [
+            "x+y=6",
+            "x*y=10",
+            "x-y=z"
+          ],
+          "solutions": []
+        }
+      ]
+    },
+    "guided": [
+      {
+        "q": "איך קושרים את x ו־y למשוואה ריבועית?",
+        "options": [
+          "הם שורשי <span dir=\"ltr\">t<sup>2</sup> − 6t + k = 0</span>",
+          "הם שורשי <span dir=\"ltr\">t<sup>2</sup> + 6t + k = 0</span>",
+          "הם שורשי <span dir=\"ltr\">t<sup>2</sup> − kt + 6 = 0</span>"
+        ],
+        "correct": 0,
+        "explain": "סכום השורשים הוא 6 ומכפלתם k.",
+        "wrongExplain": [
+          "",
+          "שגיאת סימן של הסכום.",
+          "התחלפו תפקידי הסכום והמכפלה."
+        ]
+      },
+      {
+        "q": "מה קובע את מספר הפתרונות?",
+        "options": [
+          "סימן הדיסקרימיננטה <span dir=\"ltr\">36 − 4k</span>",
+          "גודל k בלבד",
+          "סימן z"
+        ],
+        "correct": 0,
+        "explain": "דיסקרימיננטה חיובית: שני זוגות (x, y) סדורים, אפס: אחד, שלילית: אף אחד.",
+        "wrongExplain": [
+          "",
+          "k לבדו אינו מספיק בלי הדיסקרימיננטה.",
+          "z נקבע אחרי x ו־y."
+        ]
+      },
+      {
+        "q": "מתי יש פתרון ממשי אחד בדיוק?",
+        "options": [
+          "כשהדיסקרימיננטה שווה אפס",
+          "כשהיא חיובית",
+          "כש־k = 0"
+        ],
+        "correct": 0,
+        "explain": "רק שורש כפול נותן זוג יחיד, כי החלפת הסדר לא משנה אותו.",
+        "wrongExplain": [
+          "",
+          "כשהיא חיובית יש שני זוגות.",
+          "ל־k = 0 יש שני פתרונות."
+        ]
+      },
+      {
+        "q": "מה z בפתרון היחיד?",
+        "options": [
+          "אפס, כי <span dir=\"ltr\">x = y</span>",
+          "חיובי",
+          "תלוי ב־k"
+        ],
+        "correct": 0,
+        "explain": "<span dir=\"ltr\">z = x − y = 0</span>.",
+        "wrongExplain": [
+          "",
+          "x ו־y שווים.",
+          "k כבר נקבע."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "math-3-032",
+    "topic": "math-3",
+    "level": 2,
+    "title": "מכפלה שווה לאפס: פיצול למקרים",
+    "statement": "נתונה המערכת:<br><span dir=\"ltr\">xy = 3x</span><br><span dir=\"ltr\">x + y + z = 8</span><br><span dir=\"ltr\">x<sup>2</sup> + z<sup>2</sup> = 25</span><br>(א) כמה פתרונות ממשיים יש למערכת? (ב) מהו סכום כל ערכי y בפתרונות? (ג) מהו סכום כל ערכי x בפתרונות?",
+    "inputs": [
+      {
+        "label": "מספר הפתרונות",
+        "unit": "",
+        "answer": "3",
+        "tolerance": 0.01,
+        "count": true
+      },
+      {
+        "label": "סכום ערכי y",
+        "unit": "",
+        "answer": "19",
+        "tolerance": 0.01,
+        "expr": "y",
+        "agg": "sum"
+      },
+      {
+        "label": "סכום ערכי x",
+        "unit": "",
+        "answer": "5",
+        "tolerance": 0.01,
+        "expr": "x",
+        "agg": "sum"
+      }
+    ],
+    "tips": [
+      "העבירו אגף והוציאו את x כגורם משותף. מכפלה שווה לאפס כאשר לפחות אחד הגורמים שווה לאפס.",
+      "פצלו לשני מקרים. בכל מקרה הציבו במשוואה הריבועית ופתרו.",
+      "אחד הפתרונות עשוי להופיע בשני המקרים. ספרו אותו פעם אחת בלבד."
+    ],
+    "solution": [
+      "נעביר אגף: <span dir=\"ltr\">xy − 3x = 0</span>, כלומר <span dir=\"ltr\">x(y − 3) = 0</span>. לכן <span dir=\"ltr\">x = 0</span> או <span dir=\"ltr\">y = 3</span>.",
+      "מקרה א, <span dir=\"ltr\">x = 0</span>: מהמשוואה השלישית <span dir=\"ltr\">z<sup>2</sup> = 25</span>, כלומר <span dir=\"ltr\">z = 5</span> או <span dir=\"ltr\">z = −5</span>.",
+      "במקרה א מהמשוואה השנייה <span dir=\"ltr\">y = 8 − z</span>: הפתרונות (0, 3, 5) ו־(0, 13, -5).",
+      "מקרה ב, <span dir=\"ltr\">y = 3</span>: <span dir=\"ltr\">x + z = 5</span>, ולכן <span dir=\"ltr\">z = 5 − x</span>. נציב: <span dir=\"ltr\">x<sup>2</sup> + (5 − x)<sup>2</sup> = 25</span>, כלומר <span dir=\"ltr\">2x<sup>2</sup> − 10x = 0</span>, ולכן <span dir=\"ltr\">x = 0</span> או <span dir=\"ltr\">x = 5</span>.",
+      "במקרה ב הפתרונות: (0, 3, 5) ו־(5, 3, 0). הפתרון (0, 3, 5) הופיע בשני המקרים ונספר פעם אחת.",
+      "בסך הכול שלושה פתרונות: (0, 3, 5), ‏(0, 13, -5), ‏(5, 3, 0). סכום ערכי y: <span dir=\"ltr\">3 + 13 + 3 = 19</span>. סכום ערכי x: <span dir=\"ltr\">0 + 0 + 5 = 5</span>.",
+      "בדיקה של (0, 13, -5): <span dir=\"ltr\">0 = 0</span> ✓, ‏<span dir=\"ltr\">0 + 13 − 5 = 8</span> ✓, ‏<span dir=\"ltr\">0 + 25 = 25</span> ✓. בדיקה של (5, 3, 0): <span dir=\"ltr\">15 = 15</span> ✓, ‏<span dir=\"ltr\">5 + 3 + 0 = 8</span> ✓, ‏<span dir=\"ltr\">25 + 0 = 25</span> ✓."
+    ],
+    "verify": {
+      "equations": [
+        "x*y=3*x",
+        "x+y+z=8",
+        "x^2+z^2=25"
+      ],
+      "vars": [
+        "x",
+        "y",
+        "z"
+      ],
+      "solutions": [
+        [
+          0,
+          3,
+          5
+        ],
+        [
+          0,
+          13,
+          -5
+        ],
+        [
+          5,
+          3,
+          0
+        ]
+      ],
+      "kind": "finite"
+    }
+  },
+  {
+    "id": "math-3-033",
+    "topic": "math-3",
+    "level": 3,
+    "title": "הפרש ריבועים והצבת מכפלה",
+    "statement": "נתונה המערכת:<br><span dir=\"ltr\">x<sup>2</sup> − y<sup>2</sup> = 16</span><br><span dir=\"ltr\">(x + y)z = −8</span><br><span dir=\"ltr\">x − y + z = 1</span><br>(א) כמה פתרונות ממשיים יש למערכת? (ב) מצאו אותם.",
+    "inputs": [
+      {
+        "label": "מספר הפתרונות",
+        "unit": "",
+        "answer": "1",
+        "tolerance": 0.01,
+        "count": true
+      },
+      {
+        "label": "x",
+        "unit": "",
+        "answer": "5",
+        "tolerance": 0.01
+      },
+      {
+        "label": "y",
+        "unit": "",
+        "answer": "3",
+        "tolerance": 0.01
+      },
+      {
+        "label": "z",
+        "unit": "",
+        "answer": "-1",
+        "tolerance": 0.01
+      }
+    ],
+    "tips": [
+      "x² − y² = (x − y)(x + y). סמנו u = x + y ו־d = x − y.",
+      "שתי המשוואות הראשונות הן u·d = 16 ו־u·z = −8. בטאו את d ואת z באמצעות u (שימו לב ש־u ≠ 0).",
+      "הציבו בליניארית d + z = 1 וקבלו משוואה ב־u בלבד. ממנה חזרו אל x, y, z."
+    ],
+    "solution": [
+      "נסמן <span dir=\"ltr\">u = x + y</span>, ‏<span dir=\"ltr\">d = x − y</span>. המערכת: <span dir=\"ltr\">ud = 16</span>, ‏<span dir=\"ltr\">uz = −8</span>, ‏<span dir=\"ltr\">d + z = 1</span>.",
+      "מ־<span dir=\"ltr\">ud = 16</span> נובע <span dir=\"ltr\">u ≠ 0</span>, ולכן אפשר לחלק: <span dir=\"ltr\">d = 16/u</span> ו־<span dir=\"ltr\">z = −8/u</span>.",
+      "נציב ב־<span dir=\"ltr\">d + z = 1</span>: <span dir=\"ltr\">16/u − 8/u = 1</span>, כלומר <span dir=\"ltr\">8/u = 1</span> ולכן <span dir=\"ltr\">u = 8</span>.",
+      "אז <span dir=\"ltr\">d = 2</span> ו־<span dir=\"ltr\">z = −1</span>.",
+      "מ־<span dir=\"ltr\">x + y = 8</span> ו־<span dir=\"ltr\">x − y = 2</span>: <span dir=\"ltr\">x = 5</span>, ‏<span dir=\"ltr\">y = 3</span>.",
+      "כל הצעדים הכרחיים, ולכן הפתרון יחיד.",
+      "בדיקה בשלוש המשוואות: <span dir=\"ltr\">25 − 9 = 16</span> ✓, ‏<span dir=\"ltr\">8 · (−1) = −8</span> ✓, ‏<span dir=\"ltr\">5 − 3 − 1 = 1</span> ✓."
+    ],
+    "verify": {
+      "equations": [
+        "x^2-y^2=16",
+        "(x+y)*z=-8",
+        "x-y+z=1"
+      ],
+      "vars": [
+        "x",
+        "y",
+        "z"
+      ],
+      "solutions": [
+        [
+          5,
+          3,
+          -1
+        ]
+      ],
+      "kind": "finite",
+      "implied": [
+        "x+y=8"
+      ]
+    },
+    "guided": [
+      {
+        "q": "איזו החלפת משתנים מפשטת את המערכת?",
+        "options": [
+          "<span dir=\"ltr\">u = x + y</span> ו־<span dir=\"ltr\">d = x − y</span>",
+          "<span dir=\"ltr\">u = xy</span> ו־<span dir=\"ltr\">d = x<sup>2</sup></span>",
+          "<span dir=\"ltr\">u = x + z</span>"
+        ],
+        "correct": 0,
+        "explain": "<span dir=\"ltr\">x<sup>2</sup> − y<sup>2</sup> = ud</span> ו־<span dir=\"ltr\">(x + y)z = uz</span>.",
+        "wrongExplain": [
+          "",
+          "xy אינו מופיע.",
+          "x + z אינו מופיע כצירוף."
+        ]
+      },
+      {
+        "q": "מדוע מותר לחלק ב־u?",
+        "options": [
+          "כי <span dir=\"ltr\">ud = 16</span> ולכן <span dir=\"ltr\">u ≠ 0</span>",
+          "כי u חיובי",
+          "כי z שלם"
+        ],
+        "correct": 0,
+        "explain": "אם u היה אפס, המכפלה ud לא הייתה 16.",
+        "wrongExplain": [
+          "",
+          "לא נתון ש־u חיובי.",
+          "שלמות אינה רלוונטית."
+        ]
+      },
+      {
+        "q": "איזו משוואה בנעלם u בלבד מתקבלת?",
+        "options": [
+          "<span dir=\"ltr\">16/u − 8/u = 1</span>",
+          "<span dir=\"ltr\">16u − 8u = 1</span>",
+          "<span dir=\"ltr\">u + 8u = 1</span>"
+        ],
+        "correct": 0,
+        "explain": "<span dir=\"ltr\">d = 16/u</span> ו־<span dir=\"ltr\">z = −8/u</span> מוצבים ב־<span dir=\"ltr\">d + z = 1</span>.",
+        "wrongExplain": [
+          "",
+          "המכנה u נעלם בטעות.",
+          "הצבה שגויה."
+        ]
+      },
+      {
+        "q": "איך חוזרים מ־u ו־d אל x ו־y?",
+        "options": [
+          "<span dir=\"ltr\">x = (u + d)/2</span> ו־<span dir=\"ltr\">y = (u − d)/2</span>",
+          "<span dir=\"ltr\">x = u · d</span>",
+          "<span dir=\"ltr\">x = u − d</span>"
+        ],
+        "correct": 0,
+        "explain": "חיבור וחיסור של <span dir=\"ltr\">u = x + y</span> ו־<span dir=\"ltr\">d = x − y</span>.",
+        "wrongExplain": [
+          "",
+          "מכפלה אינה הקשר.",
+          "הפרש בלבד נותן 2y."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "math-3-034",
+    "topic": "math-3",
+    "level": 3,
+    "title": "חיבור משוואות ריבועיות ומקרי x",
+    "statement": "נתונה המערכת:<br><span dir=\"ltr\">x<sup>2</sup> + y<sup>2</sup> + z = 14</span><br><span dir=\"ltr\">x<sup>2</sup> − y<sup>2</sup> − z = 4</span><br><span dir=\"ltr\">y − z = 1</span><br>(א) כמה פתרונות ממשיים יש למערכת? (ב) מהו סכום ערכי y בכל הפתרונות? (ג) מהו הערך הגדול ביותר של המכפלה <span dir=\"ltr\">xyz</span> בין הפתרונות?",
+    "inputs": [
+      {
+        "label": "מספר הפתרונות",
+        "unit": "",
+        "answer": "4",
+        "tolerance": 0.01,
+        "count": true
+      },
+      {
+        "label": "סכום ערכי y",
+        "unit": "",
+        "answer": "-2",
+        "tolerance": 0.01,
+        "expr": "y",
+        "agg": "sum"
+      },
+      {
+        "label": "הערך הגדול ביותר של xyz",
+        "unit": "",
+        "answer": "36",
+        "tolerance": 0.01,
+        "expr": "x*y*z",
+        "agg": "max"
+      }
+    ],
+    "tips": [
+      "חברו את שתי המשוואות הראשונות.",
+      "מתקבל ערך של x²: שתי אפשרויות ל־x. אחרי ההצבה נשארת משוואה ב־y וב־z בלבד.",
+      "הציבו את הליניארית במשוואה שנותרה. כל זוג (y, z) מתחבר לכל אחד משני ערכי x, ולכן ספרו בזהירות."
+    ],
+    "solution": [
+      "נחבר את שתי המשוואות הראשונות: <span dir=\"ltr\">2x<sup>2</sup> = 18</span>, כלומר <span dir=\"ltr\">x<sup>2</sup> = 9</span> ו־<span dir=\"ltr\">x = 3</span> או <span dir=\"ltr\">x = −3</span>.",
+      "נציב <span dir=\"ltr\">x<sup>2</sup> = 9</span> במשוואה הראשונה: <span dir=\"ltr\">y<sup>2</sup> + z = 5</span>.",
+      "מהליניארית <span dir=\"ltr\">y = z + 1</span>. נציב: <span dir=\"ltr\">(z + 1)<sup>2</sup> + z = 5</span>, כלומר <span dir=\"ltr\">z<sup>2</sup> + 3z − 4 = 0</span>.",
+      "דיסקרימיננטה <span dir=\"ltr\">9 + 16 = 25</span>, ולכן <span dir=\"ltr\">z = (−3 ± 5)/2</span>, כלומר <span dir=\"ltr\">z = 1</span> או <span dir=\"ltr\">z = −4</span>. אז <span dir=\"ltr\">y = 2</span> או <span dir=\"ltr\">y = −3</span>.",
+      "הזוגות (y, z) הם (2, 1) ו־(-3, -4), וכל אחד מהם מתחבר לשני ערכי x. סה\"כ ארבעה פתרונות: (±3, 2, 1) ו־(±3, -3, -4).",
+      "סכום ערכי y: <span dir=\"ltr\">2 + 2 − 3 − 3 = −2</span>. ערכי xyz: ‏<span dir=\"ltr\">6</span>, ‏<span dir=\"ltr\">−6</span>, ‏<span dir=\"ltr\">36</span>, ‏<span dir=\"ltr\">−36</span>, והגדול ביותר <span dir=\"ltr\">36</span>.",
+      "בדיקה של (3, -3, -4): <span dir=\"ltr\">9 + 9 − 4 = 14</span> ✓, ‏<span dir=\"ltr\">9 − 9 + 4 = 4</span> ✓, ‏<span dir=\"ltr\">−3 + 4 = 1</span> ✓. ושל (-3, 2, 1): <span dir=\"ltr\">9 + 4 + 1 = 14</span> ✓, ‏<span dir=\"ltr\">9 − 4 − 1 = 4</span> ✓, ‏<span dir=\"ltr\">2 − 1 = 1</span> ✓."
+    ],
+    "verify": {
+      "equations": [
+        "x^2+y^2+z=14",
+        "x^2-y^2-z=4",
+        "y-z=1"
+      ],
+      "vars": [
+        "x",
+        "y",
+        "z"
+      ],
+      "solutions": [
+        [
+          3,
+          2,
+          1
+        ],
+        [
+          -3,
+          2,
+          1
+        ],
+        [
+          3,
+          -3,
+          -4
+        ],
+        [
+          -3,
+          -3,
+          -4
+        ]
+      ],
+      "kind": "finite",
+      "implied": [
+        "x^2=9"
+      ]
+    }
+  },
+  {
+    "id": "math-3-035",
+    "topic": "math-3",
+    "level": 3,
+    "title": "מכפלות של סכומים",
+    "statement": "נתונה המערכת:<br><span dir=\"ltr\">(x + y)(x + z) = 15</span><br><span dir=\"ltr\">(x + y)(y + z) = 18</span><br><span dir=\"ltr\">(x + z)(y + z) = 30</span><br>(א) כמה פתרונות ממשיים יש למערכת? (ב) מהו הערך הגדול ביותר של <span dir=\"ltr\">x + y + z</span> בין הפתרונות? (ג) מהו הערך הגדול ביותר של <span dir=\"ltr\">xyz</span>?",
+    "inputs": [
+      {
+        "label": "מספר הפתרונות",
+        "unit": "",
+        "answer": "2",
+        "tolerance": 0.01,
+        "count": true
+      },
+      {
+        "label": "הערך הגדול ביותר של x + y + z",
+        "unit": "",
+        "answer": "7",
+        "tolerance": 0.01,
+        "expr": "x+y+z",
+        "agg": "max"
+      },
+      {
+        "label": "הערך הגדול ביותר של xyz",
+        "unit": "",
+        "answer": "8",
+        "tolerance": 0.01,
+        "expr": "x*y*z",
+        "agg": "max"
+      }
+    ],
+    "tips": [
+      "סמנו u = y + z, ‏v = x + z, ‏w = x + y.",
+      "מתקבלות שלוש מכפלות של זוגות. כפלו את שלושתן וקבלו את הריבוע של uvw.",
+      "מצאו את uvw בשני הסימנים, חלקו כדי לקבל כל אחד מ־u, v, w, וחזרו אל x, y, z באמצעות חיבור וחיסור."
+    ],
+    "solution": [
+      "נסמן <span dir=\"ltr\">u = y + z</span>, ‏<span dir=\"ltr\">v = x + z</span>, ‏<span dir=\"ltr\">w = x + y</span>. המערכת: <span dir=\"ltr\">wv = 15</span>, ‏<span dir=\"ltr\">wu = 18</span>, ‏<span dir=\"ltr\">vu = 30</span>.",
+      "נכפול: <span dir=\"ltr\">(uvw)<sup>2</sup> = 15 · 18 · 30 = 8100</span>, ולכן <span dir=\"ltr\">uvw = 90</span> או <span dir=\"ltr\">uvw = −90</span>.",
+      "אם <span dir=\"ltr\">uvw = 90</span>: <span dir=\"ltr\">u = 90/(wv) = 90/15 = 6</span>, ‏<span dir=\"ltr\">v = 90/(wu) = 90/18 = 5</span>, ‏<span dir=\"ltr\">w = 90/(vu) = 90/30 = 3</span>.",
+      "נחזור: <span dir=\"ltr\">x = (v + w − u)/2 = 1</span>, ‏<span dir=\"ltr\">y = (u + w − v)/2 = 2</span>, ‏<span dir=\"ltr\">z = (u + v − w)/2 = 4</span>.",
+      "אם <span dir=\"ltr\">uvw = −90</span>: כל אחד מ־u, v, w מתהפך, ומקבלים (x, y, z) = (-1, -2, -4).",
+      "בדיקה של (1, 2, 4): <span dir=\"ltr\">3 · 5 = 15</span> ✓, ‏<span dir=\"ltr\">3 · 6 = 18</span> ✓, ‏<span dir=\"ltr\">5 · 6 = 30</span> ✓. ושל (-1, -2, -4): <span dir=\"ltr\">(−3)(−5) = 15</span> ✓, ‏<span dir=\"ltr\">(−3)(−6) = 18</span> ✓, ‏<span dir=\"ltr\">(−5)(−6) = 30</span> ✓.",
+      "שני פתרונות. ערכי <span dir=\"ltr\">x + y + z</span> הם 7 ו־-7, וערכי <span dir=\"ltr\">xyz</span> הם 8 ו־-8, ולכן המקסימום הוא 7 ו־8."
+    ],
+    "verify": {
+      "equations": [
+        "(x+y)*(x+z)=15",
+        "(x+y)*(y+z)=18",
+        "(x+z)*(y+z)=30"
+      ],
+      "vars": [
+        "x",
+        "y",
+        "z"
+      ],
+      "solutions": [
+        [
+          1,
+          2,
+          4
+        ],
+        [
+          -1,
+          -2,
+          -4
+        ]
+      ],
+      "kind": "finite"
+    },
+    "guided": [
+      {
+        "q": "איזו החלפה הופכת את המערכת למערכת של מכפלות פשוטות?",
+        "options": [
+          "<span dir=\"ltr\">u = y + z</span>, ‏<span dir=\"ltr\">v = x + z</span>, ‏<span dir=\"ltr\">w = x + y</span>",
+          "<span dir=\"ltr\">u = xy</span>, ‏<span dir=\"ltr\">v = yz</span>, ‏<span dir=\"ltr\">w = xz</span>",
+          "<span dir=\"ltr\">u = x + y + z</span>"
+        ],
+        "correct": 0,
+        "explain": "כל גורם בסוגריים הוא אחד מהסכומים האלה.",
+        "wrongExplain": [
+          "",
+          "המכפלות אינן מופיעות בצורה הזו.",
+          "סכום שלם אינו גורם בסוגריים."
+        ]
+      },
+      {
+        "q": "איך מקבלים את uvw?",
+        "options": [
+          "מכפילים את שלוש המשוואות ומקבלים <span dir=\"ltr\">(uvw)<sup>2</sup></span>",
+          "מחברים את שלוש המשוואות",
+          "מחסרים את הראשונה מהשנייה"
+        ],
+        "correct": 0,
+        "explain": "כל אחד מ־u, v, w מופיע בשתי המכפלות.",
+        "wrongExplain": [
+          "",
+          "חיבור לא נותן את המכפלה.",
+          "חיסור מסבך."
+        ]
+      },
+      {
+        "q": "כמה אפשרויות יש ל־uvw ומדוע?",
+        "options": [
+          "שתיים: ‏<span dir=\"ltr\">+90</span> ו־<span dir=\"ltr\">−90</span>, כי ריבוע",
+          "אחת בלבד",
+          "ארבע"
+        ],
+        "correct": 0,
+        "explain": "<span dir=\"ltr\">(uvw)<sup>2</sup> = 8100</span> נותן שורש חיובי ושלילי.",
+        "wrongExplain": [
+          "",
+          "הסימן השלילי חוקי.",
+          "יש רק שני שורשים."
+        ]
+      },
+      {
+        "q": "איך חוזרים מ־u, v, w אל x?",
+        "options": [
+          "<span dir=\"ltr\">x = (v + w − u)/2</span>",
+          "<span dir=\"ltr\">x = u + v + w</span>",
+          "<span dir=\"ltr\">x = (u + v)/2</span>"
+        ],
+        "correct": 0,
+        "explain": "<span dir=\"ltr\">v + w − u = (x + z) + (x + y) − (y + z) = 2x</span>.",
+        "wrongExplain": [
+          "",
+          "הסכום הוא פעמיים x+y+z.",
+          "חסר חיסור של u."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "math-4-028",
+    "topic": "math-4",
+    "level": 3,
+    "title": "ארבעה נעלמים ופרמטר: חיבור וחיסור לפני החלפת k",
+    "statement": "נתונה המערכת, כאשר k הוא פרמטר:<br><span dir=\"ltr\">x + y + z + w = 10</span><br><span dir=\"ltr\">x − y + z − w = 2</span><br><span dir=\"ltr\">x + (k + 1)z = 7</span><br><span dir=\"ltr\">y + (k + 1)w = 8</span><br>(א) עבור איזה ערך של k אין למערכת פתרון? (ב) עבור <span dir=\"ltr\">k = 2</span> פתרו את המערכת.",
+    "inputs": [
+      {
+        "label": "k שעבורו אין פתרון",
+        "unit": "",
+        "answer": "0",
+        "tolerance": 0.01
+      },
+      {
+        "label": "x (עבור k = 2)",
+        "unit": "",
+        "answer": "5.5",
+        "tolerance": 0.01
+      },
+      {
+        "label": "y (עבור k = 2)",
+        "unit": "",
+        "answer": "2",
+        "tolerance": 0.01
+      },
+      {
+        "label": "z (עבור k = 2)",
+        "unit": "",
+        "answer": "0.5",
+        "tolerance": 0.01
+      },
+      {
+        "label": "w (עבור k = 2)",
+        "unit": "",
+        "answer": "2",
+        "tolerance": 0.01
+      }
+    ],
+    "tips": [
+      "חברו וחסרו את שתי המשוואות הראשונות: מתקבלות שתי משוואות, בכל אחת רק שני נעלמים.",
+      "הפחיתו אותן מהשלישית והרביעית. מתקבלות משוואות שבהן k כפול נעלם.",
+      "משוואה מהצורה k·z = מספר: מה קורה כשהמקדם מתאפס, ומה קורה כשהוא שונה מאפס?"
+    ],
+    "solution": [
+      "נחבר את שתי המשוואות הראשונות: <span dir=\"ltr\">2x + 2z = 12</span>, כלומר <span dir=\"ltr\">x + z = 6</span>.",
+      "נחסר אותן זו מזו: <span dir=\"ltr\">2y + 2w = 8</span>, כלומר <span dir=\"ltr\">y + w = 4</span>.",
+      "נחסר <span dir=\"ltr\">x + z = 6</span> מהשלישית: <span dir=\"ltr\">(k + 1)z − z = 1</span>, כלומר <span dir=\"ltr\">kz = 1</span>.",
+      "נחסר <span dir=\"ltr\">y + w = 4</span> מהרביעית: <span dir=\"ltr\">kw = 4</span>.",
+      "אם <span dir=\"ltr\">k = 0</span> מתקבל <span dir=\"ltr\">0 = 1</span> – סתירה, ואין פתרון. אם <span dir=\"ltr\">k ≠ 0</span> אז <span dir=\"ltr\">z = 1/k</span> ו־<span dir=\"ltr\">w = 4/k</span>, ויש פתרון יחיד. לכן <span dir=\"ltr\">k = 0</span>.",
+      "עבור <span dir=\"ltr\">k = 2</span>: <span dir=\"ltr\">z = 0.5</span>, ‏<span dir=\"ltr\">w = 2</span>, ‏<span dir=\"ltr\">x = 6 − 0.5 = 5.5</span>, ‏<span dir=\"ltr\">y = 4 − 2 = 2</span>.",
+      "בדיקה בארבע המשוואות: <span dir=\"ltr\">5.5 + 2 + 0.5 + 2 = 10</span> ✓, ‏<span dir=\"ltr\">5.5 − 2 + 0.5 − 2 = 2</span> ✓, ‏<span dir=\"ltr\">5.5 + 3 · 0.5 = 7</span> ✓, ‏<span dir=\"ltr\">2 + 3 · 2 = 8</span> ✓."
+    ],
+    "verify": {
+      "equations": [
+        "x+y+z+w=10",
+        "x-y+z-w=2",
+        "x+z=7",
+        "y+w=8"
+      ],
+      "vars": [
+        "x",
+        "y",
+        "z",
+        "w"
+      ],
+      "kind": "none",
+      "param": {
+        "input": 0,
+        "value": 0
+      },
+      "also": [
+        {
+          "equations": [
+            "x+y+z+w=10",
+            "x-y+z-w=2",
+            "x+3*z=7",
+            "y+3*w=8"
+          ],
+          "kind": "unique",
+          "solution": [
+            5.5,
+            2,
+            0.5,
+            2
+          ],
+          "bind": [
+            1,
+            2,
+            3,
+            4
+          ]
+        }
+      ]
+    },
+    "guided": [
+      {
+        "q": "איזה חיבור או חיסור פותח את התרגיל?",
+        "options": [
+          "חיבור וחיסור של שתי המשוואות הראשונות",
+          "הצבת <span dir=\"ltr\">k = 0</span> מיד",
+          "חיבור המשוואה השלישית והרביעית"
+        ],
+        "correct": 0,
+        "explain": "מתקבלות <span dir=\"ltr\">x + z = 6</span> ו־<span dir=\"ltr\">y + w = 4</span>, בלי k.",
+        "wrongExplain": [
+          "",
+          "בלי לדעת מה קורה, הצבה היא ניחוש.",
+          "כך לא מקבלים משוואות פשוטות יותר."
+        ]
+      },
+      {
+        "q": "מה מתקבל כשמחסרים את <span dir=\"ltr\">x + z = 6</span> מהמשוואה השלישית?",
+        "options": [
+          "<span dir=\"ltr\">kz = 1</span>",
+          "<span dir=\"ltr\">(k + 1)z = 1</span>",
+          "<span dir=\"ltr\">kz = 7</span>"
+        ],
+        "correct": 0,
+        "explain": "<span dir=\"ltr\">(k + 1)z − z = kz</span> והאגף הימני <span dir=\"ltr\">7 − 6 = 1</span>.",
+        "wrongExplain": [
+          "",
+          "המקדם של z הצטמצם.",
+          "שכחו להחסיר את הקבוע."
+        ]
+      },
+      {
+        "q": "מתי אין פתרון?",
+        "options": [
+          "כש־<span dir=\"ltr\">k = 0</span>",
+          "כש־<span dir=\"ltr\">k = 1</span>",
+          "לכל k"
+        ],
+        "correct": 0,
+        "explain": "עבור <span dir=\"ltr\">k = 0</span> מתקבל <span dir=\"ltr\">0 = 1</span>.",
+        "wrongExplain": [
+          "",
+          "עבור <span dir=\"ltr\">k = 1</span> יש פתרון יחיד.",
+          "לכל k אחר יש פתרון."
+        ]
+      },
+      {
+        "q": "איך מחשבים את x ו־y עבור <span dir=\"ltr\">k = 2</span>?",
+        "options": [
+          "מ־<span dir=\"ltr\">x = 6 − z</span> ו־<span dir=\"ltr\">y = 4 − w</span>",
+          "מחלקים את המשוואה הראשונה ב־2",
+          "מציבים ערכים אקראיים"
+        ],
+        "correct": 0,
+        "explain": "z ו־w כבר ידועים, ו־x, y נשארים בקשרים הפשוטים.",
+        "wrongExplain": [
+          "",
+          "אין בכך צורך.",
+          "לא מובטח לקבל פתרון."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "math-4-029",
+    "topic": "math-4",
+    "level": 2,
+    "title": "ארבע משוואות עם סימנים מתחלפים",
+    "statement": "פתרו את מערכת המשוואות:<br><span dir=\"ltr\">x + y + z + w = 5</span><br><span dir=\"ltr\">x + y − z − w = −2</span><br><span dir=\"ltr\">x − y + z − w = 6</span><br><span dir=\"ltr\">x − y − z + w = 1</span><br>לאחר מכן חשבו את הערך של <span dir=\"ltr\">xw − yz</span>.",
+    "inputs": [
+      {
+        "label": "x",
+        "unit": "",
+        "answer": "2.5",
+        "tolerance": 0.01
+      },
+      {
+        "label": "y",
+        "unit": "",
+        "answer": "-1",
+        "tolerance": 0.01
+      },
+      {
+        "label": "z",
+        "unit": "",
+        "answer": "3",
+        "tolerance": 0.01
+      },
+      {
+        "label": "w",
+        "unit": "",
+        "answer": "0.5",
+        "tolerance": 0.01
+      },
+      {
+        "label": "xw − yz",
+        "unit": "",
+        "answer": "4.25",
+        "tolerance": 0.01,
+        "expr": "x*w-y*z"
+      }
+    ],
+    "tips": [
+      "שימו לב לסימנים: חיבור וחיסור של זוגות משוואות מבודדים סכומים והפרשים.",
+      "מהזוג הראשון מתקבלים x + y ו־z + w, ומהזוג השני x − y ו־z − w.",
+      "כל נעלם הוא חצי מסכום או חצי מהפרש של שני ערכים שכבר נמצאו."
+    ],
+    "solution": [
+      "נחבר את שתי המשוואות הראשונות: <span dir=\"ltr\">2x + 2y = 3</span>, כלומר <span dir=\"ltr\">x + y = 1.5</span>.",
+      "נחסר אותן: <span dir=\"ltr\">2z + 2w = 7</span>, כלומר <span dir=\"ltr\">z + w = 3.5</span>.",
+      "נחבר את שתי האחרונות: <span dir=\"ltr\">2x − 2y = 7</span>, כלומר <span dir=\"ltr\">x − y = 3.5</span>.",
+      "נחסר אותן: <span dir=\"ltr\">2z − 2w = 5</span>, כלומר <span dir=\"ltr\">z − w = 2.5</span>.",
+      "מ־<span dir=\"ltr\">x + y = 1.5</span> ו־<span dir=\"ltr\">x − y = 3.5</span>: <span dir=\"ltr\">x = 2.5</span>, ‏<span dir=\"ltr\">y = −1</span>.",
+      "מ־<span dir=\"ltr\">z + w = 3.5</span> ו־<span dir=\"ltr\">z − w = 2.5</span>: <span dir=\"ltr\">z = 3</span>, ‏<span dir=\"ltr\">w = 0.5</span>.",
+      "בדיקה: <span dir=\"ltr\">2.5 − 1 + 3 + 0.5 = 5</span> ✓, ‏<span dir=\"ltr\">2.5 − 1 − 3 − 0.5 = −2</span> ✓, ‏<span dir=\"ltr\">2.5 + 1 + 3 − 0.5 = 6</span> ✓, ‏<span dir=\"ltr\">2.5 + 1 − 3 + 0.5 = 1</span> ✓. הערך: <span dir=\"ltr\">xw − yz = 1.25 + 3 = 4.25</span>."
+    ],
+    "verify": {
+      "equations": [
+        "x+y+z+w=5",
+        "x+y-z-w=-2",
+        "x-y+z-w=6",
+        "x-y-z+w=1"
+      ],
+      "vars": [
+        "x",
+        "y",
+        "z",
+        "w"
+      ],
+      "kind": "unique"
+    }
+  },
+  {
+    "id": "math-4-030",
+    "topic": "math-4",
+    "level": 3,
+    "title": "שרשרת מכפלות וסכום",
+    "statement": "נתונה המערכת:<br><span dir=\"ltr\">xy = 2</span><br><span dir=\"ltr\">yz = 6</span><br><span dir=\"ltr\">zw = 12</span><br><span dir=\"ltr\">x + w = 5</span><br>(א) כמה פתרונות ממשיים יש למערכת? (ב) מהו סכום ערכי y של כל הפתרונות? (ג) מהו הערך הגדול ביותר של z?",
+    "inputs": [
+      {
+        "label": "מספר הפתרונות",
+        "unit": "",
+        "answer": "2",
+        "tolerance": 0.01,
+        "count": true
+      },
+      {
+        "label": "סכום ערכי y",
+        "unit": "",
+        "answer": "2.5",
+        "tolerance": 0.01,
+        "expr": "y",
+        "agg": "sum"
+      },
+      {
+        "label": "הערך הגדול ביותר של z",
+        "unit": "",
+        "answer": "12",
+        "tolerance": 0.01,
+        "expr": "z",
+        "agg": "max"
+      }
+    ],
+    "tips": [
+      "אף נעלם אינו אפס, כי המכפלות שונות מאפס. לכן מותר לחלק.",
+      "בטאו את y, ‏z ו־w באמצעות x בזה אחר זה. הציבו בסכום וכפלו ב־x כדי להיפטר ממכנה.",
+      "מתקבלת משוואה ריבועית ב־x. לכל פתרון חשבו את שאר הנעלמים."
+    ],
+    "solution": [
+      "ממכפלות שונות מאפס נובע שאף נעלם אינו אפס, ולכן אפשר לחלק.",
+      "מהראשונה <span dir=\"ltr\">y = 2/x</span>. מהשנייה <span dir=\"ltr\">z = 6/y = 3x</span>. מהשלישית <span dir=\"ltr\">w = 12/z = 4/x</span>.",
+      "נציב ב־<span dir=\"ltr\">x + w = 5</span>: <span dir=\"ltr\">x + 4/x = 5</span>.",
+      "נכפול ב־x: <span dir=\"ltr\">x<sup>2</sup> − 5x + 4 = 0</span>. דיסקרימיננטה <span dir=\"ltr\">25 − 16 = 9</span>, ולכן <span dir=\"ltr\">x = (5 ± 3)/2</span>, כלומר <span dir=\"ltr\">x = 4</span> או <span dir=\"ltr\">x = 1</span>.",
+      "עבור <span dir=\"ltr\">x = 1</span>: <span dir=\"ltr\">y = 2</span>, ‏<span dir=\"ltr\">z = 3</span>, ‏<span dir=\"ltr\">w = 4</span>. עבור <span dir=\"ltr\">x = 4</span>: <span dir=\"ltr\">y = 0.5</span>, ‏<span dir=\"ltr\">z = 12</span>, ‏<span dir=\"ltr\">w = 1</span>.",
+      "בדיקה של (4, 0.5, 12, 1): <span dir=\"ltr\">4 · 0.5 = 2</span> ✓, ‏<span dir=\"ltr\">0.5 · 12 = 6</span> ✓, ‏<span dir=\"ltr\">12 · 1 = 12</span> ✓, ‏<span dir=\"ltr\">4 + 1 = 5</span> ✓. ושל (1, 2, 3, 4): <span dir=\"ltr\">2</span> ✓, ‏<span dir=\"ltr\">6</span> ✓, ‏<span dir=\"ltr\">12</span> ✓, ‏<span dir=\"ltr\">5</span> ✓.",
+      "שני פתרונות. סכום ערכי y הוא <span dir=\"ltr\">2 + 0.5 = 2.5</span>, והערך הגדול ביותר של z הוא <span dir=\"ltr\">12</span>."
+    ],
+    "verify": {
+      "equations": [
+        "x*y=2",
+        "y*z=6",
+        "z*w=12",
+        "x+w=5"
+      ],
+      "vars": [
+        "x",
+        "y",
+        "z",
+        "w"
+      ],
+      "solutions": [
+        [
+          1,
+          2,
+          3,
+          4
+        ],
+        [
+          4,
+          0.5,
+          12,
+          1
+        ]
+      ],
+      "kind": "finite"
+    },
+    "guided": [
+      {
+        "q": "מדוע מותר לבטא נעלם אחד כחילוק בשני?",
+        "options": [
+          "כי כל המכפלות שונות מאפס ולכן אף נעלם אינו אפס",
+          "כי כל הנעלמים חיוביים",
+          "כי x שלם"
+        ],
+        "correct": 0,
+        "explain": "אם אחד הנעלמים היה אפס, אחת המכפלות הייתה אפס.",
+        "wrongExplain": [
+          "",
+          "לא נתון שהם חיוביים.",
+          "שלמות אינה הנימוק."
+        ]
+      },
+      {
+        "q": "מה הם y, z, w כפונקציות של x?",
+        "options": [
+          "<span dir=\"ltr\">y = 2/x</span>, ‏<span dir=\"ltr\">z = 3x</span>, ‏<span dir=\"ltr\">w = 4/x</span>",
+          "<span dir=\"ltr\">y = 2x</span>, ‏<span dir=\"ltr\">z = 3x</span>, ‏<span dir=\"ltr\">w = 4x</span>",
+          "<span dir=\"ltr\">y = 2/x</span>, ‏<span dir=\"ltr\">z = 6/x</span>, ‏<span dir=\"ltr\">w = 2/x</span>"
+        ],
+        "correct": 0,
+        "explain": "כל נעלם מתקבל מהקודם: ‏<span dir=\"ltr\">z = 6/y</span> ו־<span dir=\"ltr\">w = 12/z</span>.",
+        "wrongExplain": [
+          "",
+          "שכחו שמחלקים.",
+          "לא הציבו את הנעלם הקודם."
+        ]
+      },
+      {
+        "q": "איזו משוואה מתקבלת ב־x?",
+        "options": [
+          "<span dir=\"ltr\">x<sup>2</sup> − 5x + 4 = 0</span>",
+          "<span dir=\"ltr\">x<sup>2</sup> − 5x − 4 = 0</span>",
+          "<span dir=\"ltr\">x<sup>2</sup> + 5x + 4 = 0</span>"
+        ],
+        "correct": 0,
+        "explain": "<span dir=\"ltr\">x + 4/x = 5</span> כפול x.",
+        "wrongExplain": [
+          "",
+          "שגיאת סימן של הקבוע.",
+          "שגיאת סימן של האיבר הליניארי."
+        ]
+      },
+      {
+        "q": "איך משלימים את הפתרונות?",
+        "options": [
+          "מציבים כל ערך של x בביטויים של y, z, w",
+          "מניחים שכל הנעלמים שווים",
+          "לוקחים רק את הערך הגדול של x"
+        ],
+        "correct": 0,
+        "explain": "שני ערכים של x נותנים שני פתרונות.",
+        "wrongExplain": [
+          "",
+          "אין שוויון כזה.",
+          "שני הערכים תקפים."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "math-4-031",
+    "topic": "math-4",
+    "level": 3,
+    "title": "שני זוגות שתלויים זה בזה דרך מכפלה וסכום",
+    "statement": "נתונה המערכת:<br><span dir=\"ltr\">x + y = 7</span><br><span dir=\"ltr\">x<sup>2</sup> + y<sup>2</sup> = 25</span><br><span dir=\"ltr\">z + w = xy</span><br><span dir=\"ltr\">zw = x<sup>2</sup> + y<sup>2</sup> + 10</span><br>(א) כמה פתרונות ממשיים יש למערכת? (ב) מהו סכום ערכי z של כל הפתרונות? (ג) מהו הערך הגדול ביותר של <span dir=\"ltr\">xw</span>?",
+    "inputs": [
+      {
+        "label": "מספר הפתרונות",
+        "unit": "",
+        "answer": "4",
+        "tolerance": 0.01,
+        "count": true
+      },
+      {
+        "label": "סכום ערכי z",
+        "unit": "",
+        "answer": "24",
+        "tolerance": 0.01,
+        "expr": "z",
+        "agg": "sum"
+      },
+      {
+        "label": "הערך הגדול ביותר של xw",
+        "unit": "",
+        "answer": "28",
+        "tolerance": 0.01,
+        "expr": "x*w",
+        "agg": "max"
+      }
+    ],
+    "tips": [
+      "מהשתיים הראשונות מצאו את xy, באמצעות (x + y)² = x² + y² + 2xy.",
+      "לכל (x, y) מתקבלים סכום ומכפלה של z ו־w: הם שורשי משוואה ריבועית.",
+      "ספרו: כמה זוגות (x, y), ולכל אחד כמה זוגות (z, w). הסדר חשוב."
+    ],
+    "solution": [
+      "מ־<span dir=\"ltr\">(x + y)<sup>2</sup> = x<sup>2</sup> + y<sup>2</sup> + 2xy</span>: <span dir=\"ltr\">49 = 25 + 2xy</span>, כלומר <span dir=\"ltr\">xy = 12</span>.",
+      "x ו־y הם שורשי <span dir=\"ltr\">t<sup>2</sup> − 7t + 12 = 0</span>: ‏<span dir=\"ltr\">t = 3, 4</span>. הזוגות: (3, 4) ו־(4, 3).",
+      "עבור כל זוג: <span dir=\"ltr\">z + w = xy = 12</span> ו־<span dir=\"ltr\">zw = 25 + 10 = 35</span>.",
+      "z ו־w הם שורשי <span dir=\"ltr\">s<sup>2</sup> − 12s + 35 = 0</span>. דיסקרימיננטה <span dir=\"ltr\">144 − 140 = 4</span>, ולכן <span dir=\"ltr\">s = 5, 7</span>. הזוגות (z, w): (5, 7) ו־(7, 5).",
+      "כל זוג (x, y) מתחבר לכל זוג (z, w): <span dir=\"ltr\">2 · 2 = 4</span> פתרונות: (3, 4, 5, 7), ‏(3, 4, 7, 5), ‏(4, 3, 5, 7), ‏(4, 3, 7, 5).",
+      "סכום ערכי z: <span dir=\"ltr\">5 + 7 + 5 + 7 = 24</span>. ערכי <span dir=\"ltr\">xw</span>: ‏21, ‏15, ‏28, ‏20, והגדול ביותר 28.",
+      "בדיקה של (4, 3, 7, 5): <span dir=\"ltr\">4 + 3 = 7</span> ✓, ‏<span dir=\"ltr\">16 + 9 = 25</span> ✓, ‏<span dir=\"ltr\">7 + 5 = 12 = 4 · 3</span> ✓, ‏<span dir=\"ltr\">7 · 5 = 35 = 25 + 10</span> ✓."
+    ],
+    "verify": {
+      "equations": [
+        "x+y=7",
+        "x^2+y^2=25",
+        "z+w=x*y",
+        "z*w=x^2+y^2+10"
+      ],
+      "vars": [
+        "x",
+        "y",
+        "z",
+        "w"
+      ],
+      "solutions": [
+        [
+          3,
+          4,
+          5,
+          7
+        ],
+        [
+          3,
+          4,
+          7,
+          5
+        ],
+        [
+          4,
+          3,
+          5,
+          7
+        ],
+        [
+          4,
+          3,
+          7,
+          5
+        ]
+      ],
+      "kind": "finite"
+    }
+  },
+  {
+    "id": "math-4-032",
+    "topic": "math-4",
+    "level": 2,
+    "title": "מקדמים כמעט זהים ובדיקת סכום הנעלמים",
+    "statement": "פתרו את מערכת המשוואות:<br><span dir=\"ltr\">2x + y + z + w = 8.5</span><br><span dir=\"ltr\">x + 2y + z + w = 4.5</span><br><span dir=\"ltr\">x + y + 2z + w = 7.5</span><br><span dir=\"ltr\">x + y + z + 2w = 7</span>",
+    "inputs": [
+      {
+        "label": "x",
+        "unit": "",
+        "answer": "3",
+        "tolerance": 0.01
+      },
+      {
+        "label": "y",
+        "unit": "",
+        "answer": "-1",
+        "tolerance": 0.01
+      },
+      {
+        "label": "z",
+        "unit": "",
+        "answer": "2",
+        "tolerance": 0.01
+      },
+      {
+        "label": "w",
+        "unit": "",
+        "answer": "1.5",
+        "tolerance": 0.01
+      }
+    ],
+    "tips": [
+      "שימו לב שכל משוואה היא \"נעלם אחד נוסף על הסכום x + y + z + w\".",
+      "חברו את כל ארבע המשוואות וחלקו כדי לקבל את הסכום.",
+      "הפחיתו את הסכום מכל משוואה, ומתקבל נעלם אחד בכל פעם."
+    ],
+    "solution": [
+      "בכל משוואה מופיע הסכום <span dir=\"ltr\">S = x + y + z + w</span> ועוד נעלם אחד: ‏<span dir=\"ltr\">x + S = 8.5</span>, ‏<span dir=\"ltr\">y + S = 4.5</span>, ‏<span dir=\"ltr\">z + S = 7.5</span>, ‏<span dir=\"ltr\">w + S = 7</span>.",
+      "נחבר את כל המשוואות: <span dir=\"ltr\">(x + y + z + w) + 4S = 27.5</span>, כלומר <span dir=\"ltr\">5S = 27.5</span>.",
+      "לכן <span dir=\"ltr\">S = 5.5</span>.",
+      "מהמשוואה הראשונה <span dir=\"ltr\">x = 8.5 − 5.5 = 3</span>.",
+      "מהשנייה <span dir=\"ltr\">y = 4.5 − 5.5 = −1</span>.",
+      "מהשלישית והרביעית: <span dir=\"ltr\">z = 7.5 − 5.5 = 2</span> ו־<span dir=\"ltr\">w = 7 − 5.5 = 1.5</span>.",
+      "בדיקה: <span dir=\"ltr\">6 − 1 + 2 + 1.5 = 8.5</span> ✓, ‏<span dir=\"ltr\">3 − 2 + 2 + 1.5 = 4.5</span> ✓, ‏<span dir=\"ltr\">3 − 1 + 4 + 1.5 = 7.5</span> ✓, ‏<span dir=\"ltr\">3 − 1 + 2 + 3 = 7</span> ✓."
+    ],
+    "verify": {
+      "equations": [
+        "2*x+y+z+w=8.5",
+        "x+2*y+z+w=4.5",
+        "x+y+2*z+w=7.5",
+        "x+y+z+2*w=7"
+      ],
+      "vars": [
+        "x",
+        "y",
+        "z",
+        "w"
+      ],
+      "kind": "unique"
+    }
+  },
+  {
+    "id": "math-4-033",
+    "topic": "math-4",
+    "level": 3,
+    "title": "סכום ריבועים של ארבעה נעלמים",
+    "statement": "נתונה המערכת:<br><span dir=\"ltr\">x<sup>2</sup> + y<sup>2</sup> + z<sup>2</sup> + w<sup>2</sup> = 30</span><br><span dir=\"ltr\">x + y + z + w = 10</span><br><span dir=\"ltr\">x − y = −1</span><br><span dir=\"ltr\">z − w = −1</span><br>(א) כמה פתרונות ממשיים יש למערכת? (ב) מהו סכום ערכי x של כל הפתרונות? (ג) מהו סכום ערכי w של כל הפתרונות?",
+    "inputs": [
+      {
+        "label": "מספר הפתרונות",
+        "unit": "",
+        "answer": "2",
+        "tolerance": 0.01,
+        "count": true
+      },
+      {
+        "label": "סכום ערכי x",
+        "unit": "",
+        "answer": "4",
+        "tolerance": 0.01,
+        "expr": "x",
+        "agg": "sum"
+      },
+      {
+        "label": "סכום ערכי w",
+        "unit": "",
+        "answer": "6",
+        "tolerance": 0.01,
+        "expr": "w",
+        "agg": "sum"
+      }
+    ],
+    "tips": [
+      "בטאו את x ואת w באמצעות y ו־z בעזרת שתי המשוואות הליניאריות הקצרות.",
+      "הציבו במשוואת הסכום: מתקבל קשר ליניארי בין y ל־z. בטאו z והציבו במשוואת הריבועים.",
+      "מתקבלת משוואה ריבועית בנעלם אחד. לכל פתרון חזרו לכל הנעלמים. שני הפתרונות הם \"תמונת ראי\" זה של זה."
+    ],
+    "solution": [
+      "מהליניאריות: <span dir=\"ltr\">x = y − 1</span> ו־<span dir=\"ltr\">w = z + 1</span>.",
+      "נציב במשוואת הסכום: <span dir=\"ltr\">(y − 1) + y + z + (z + 1) = 10</span>, כלומר <span dir=\"ltr\">2y + 2z = 10</span>, ולכן <span dir=\"ltr\">z = 5 − y</span>. אז <span dir=\"ltr\">w = 6 − y</span>.",
+      "נציב במשוואת הריבועים: <span dir=\"ltr\">(y − 1)<sup>2</sup> + y<sup>2</sup> + (5 − y)<sup>2</sup> + (6 − y)<sup>2</sup> = 30</span>.",
+      "פתיחה: <span dir=\"ltr\">(y<sup>2</sup> − 2y + 1) + y<sup>2</sup> + (25 − 10y + y<sup>2</sup>) + (36 − 12y + y<sup>2</sup>) = 4y<sup>2</sup> − 24y + 62</span>.",
+      "מתקבל <span dir=\"ltr\">4y<sup>2</sup> − 24y + 62 = 30</span>, כלומר <span dir=\"ltr\">4y<sup>2</sup> − 24y + 32 = 0</span>, ואחרי חילוק ב־4: <span dir=\"ltr\">y<sup>2</sup> − 6y + 8 = 0</span>, ולכן <span dir=\"ltr\">y = 2</span> או <span dir=\"ltr\">y = 4</span>.",
+      "עבור <span dir=\"ltr\">y = 2</span>: ‏<span dir=\"ltr\">x = 1</span>, ‏<span dir=\"ltr\">z = 3</span>, ‏<span dir=\"ltr\">w = 4</span>. עבור <span dir=\"ltr\">y = 4</span>: ‏<span dir=\"ltr\">x = 3</span>, ‏<span dir=\"ltr\">z = 1</span>, ‏<span dir=\"ltr\">w = 2</span>.",
+      "בדיקה של (3, 4, 1, 2): <span dir=\"ltr\">9 + 16 + 1 + 4 = 30</span> ✓, ‏<span dir=\"ltr\">3 + 4 + 1 + 2 = 10</span> ✓, ‏<span dir=\"ltr\">3 − 4 = −1</span> ✓, ‏<span dir=\"ltr\">1 − 2 = −1</span> ✓. סכום ערכי x הוא <span dir=\"ltr\">1 + 3</span>, וסכום ערכי w הוא <span dir=\"ltr\">4 + 2</span>."
+    ],
+    "verify": {
+      "equations": [
+        "x^2+y^2+z^2+w^2=30",
+        "x+y+z+w=10",
+        "x-y=-1",
+        "z-w=-1"
+      ],
+      "vars": [
+        "x",
+        "y",
+        "z",
+        "w"
+      ],
+      "solutions": [
+        [
+          1,
+          2,
+          3,
+          4
+        ],
+        [
+          3,
+          4,
+          1,
+          2
+        ]
+      ],
+      "kind": "finite"
+    }
+  },
+  {
+    "id": "math-4-034",
+    "topic": "math-4",
+    "level": 3,
+    "title": "שלוש משוואות ליניאריות ומשוואה ריבועית: פתרון יחיד",
+    "statement": "נתונה המערכת:<br><span dir=\"ltr\">x − 2y = 0</span><br><span dir=\"ltr\">z − 3w = 0</span><br><span dir=\"ltr\">x + z = 13</span><br><span dir=\"ltr\">y<sup>2</sup> + w<sup>2</sup> = 13</span><br>(א) כמה פתרונות ממשיים יש למערכת? (ב) מצאו אותם.",
+    "inputs": [
+      {
+        "label": "מספר הפתרונות",
+        "unit": "",
+        "answer": "1",
+        "tolerance": 0.01,
+        "count": true
+      },
+      {
+        "label": "x",
+        "unit": "",
+        "answer": "4",
+        "tolerance": 0.01
+      },
+      {
+        "label": "y",
+        "unit": "",
+        "answer": "2",
+        "tolerance": 0.01
+      },
+      {
+        "label": "z",
+        "unit": "",
+        "answer": "9",
+        "tolerance": 0.01
+      },
+      {
+        "label": "w",
+        "unit": "",
+        "answer": "3",
+        "tolerance": 0.01
+      }
+    ],
+    "tips": [
+      "בטאו את x ואת z באמצעות y ו־w, והציבו במשוואה השלישית.",
+      "מתקבל קשר ליניארי בין y ל־w. בטאו את y והציבו במשוואה הריבועית.",
+      "בדקו את הדיסקרימיננטה של המשוואה שהתקבלה: מה מסתבר, ומה זה אומר על מספר הפתרונות?"
+    ],
+    "solution": [
+      "מהשתיים הראשונות: <span dir=\"ltr\">x = 2y</span> ו־<span dir=\"ltr\">z = 3w</span>.",
+      "נציב ב־<span dir=\"ltr\">x + z = 13</span>: <span dir=\"ltr\">2y + 3w = 13</span>, ולכן <span dir=\"ltr\">y = (13 − 3w)/2</span>.",
+      "נציב ב־<span dir=\"ltr\">y<sup>2</sup> + w<sup>2</sup> = 13</span>: <span dir=\"ltr\">(13 − 3w)<sup>2</sup>/4 + w<sup>2</sup> = 13</span>.",
+      "נכפול ב־4 ונפתח: <span dir=\"ltr\">169 − 78w + 9w<sup>2</sup> + 4w<sup>2</sup> = 52</span>, כלומר <span dir=\"ltr\">13w<sup>2</sup> − 78w + 117 = 0</span>.",
+      "נחלק ב־13: <span dir=\"ltr\">w<sup>2</sup> − 6w + 9 = 0</span>, כלומר <span dir=\"ltr\">(w − 3)<sup>2</sup> = 0</span>. הדיסקרימיננטה אפס, ולכן <span dir=\"ltr\">w = 3</span> בלבד.",
+      "אז <span dir=\"ltr\">y = (13 − 9)/2 = 2</span>, ‏<span dir=\"ltr\">x = 4</span>, ‏<span dir=\"ltr\">z = 9</span>. יש פתרון יחיד.",
+      "בדיקה: <span dir=\"ltr\">4 − 4 = 0</span> ✓, ‏<span dir=\"ltr\">9 − 9 = 0</span> ✓, ‏<span dir=\"ltr\">4 + 9 = 13</span> ✓, ‏<span dir=\"ltr\">4 + 9 = 13</span> ✓."
+    ],
+    "verify": {
+      "equations": [
+        "x-2*y=0",
+        "z-3*w=0",
+        "x+z=13",
+        "y^2+w^2=13"
+      ],
+      "vars": [
+        "x",
+        "y",
+        "z",
+        "w"
+      ],
+      "solutions": [
+        [
+          4,
+          2,
+          9,
+          3
+        ]
+      ],
+      "kind": "finite"
+    },
+    "guided": [
+      {
+        "q": "איך מצמצמים את ארבעת הנעלמים?",
+        "options": [
+          "מבטאים את x ואת z באמצעות y ו־w",
+          "מעלים את הכול בריבוע",
+          "מחלקים את המשוואה השלישית ב־2"
+        ],
+        "correct": 0,
+        "explain": "שתי הראשונות הן קשרים ישירים: <span dir=\"ltr\">x = 2y</span> ו־<span dir=\"ltr\">z = 3w</span>.",
+        "wrongExplain": [
+          "",
+          "העלאה בריבוע מוסיפה פתרונות מזויפים.",
+          "חלוקה כזו לא מפשטת."
+        ]
+      },
+      {
+        "q": "איזה קשר מתקבל בין y ל־w?",
+        "options": [
+          "<span dir=\"ltr\">2y + 3w = 13</span>",
+          "<span dir=\"ltr\">y + w = 13</span>",
+          "<span dir=\"ltr\">2y − 3w = 13</span>"
+        ],
+        "correct": 0,
+        "explain": "מציבים <span dir=\"ltr\">x = 2y</span> ו־<span dir=\"ltr\">z = 3w</span> ב־<span dir=\"ltr\">x + z = 13</span>.",
+        "wrongExplain": [
+          "",
+          "המקדמים נעלמו.",
+          "שגיאת סימן."
+        ]
+      },
+      {
+        "q": "איזו משוואה ריבועית ב־w מתקבלת?",
+        "options": [
+          "<span dir=\"ltr\">w<sup>2</sup> − 6w + 9 = 0</span>",
+          "<span dir=\"ltr\">w<sup>2</sup> − 6w + 8 = 0</span>",
+          "<span dir=\"ltr\">w<sup>2</sup> − 6w − 9 = 0</span>"
+        ],
+        "correct": 0,
+        "explain": "אחרי כפל ב־4 וחילוק ב־13.",
+        "wrongExplain": [
+          "",
+          "שגיאה בחישוב הקבוע.",
+          "שגיאת סימן."
+        ]
+      },
+      {
+        "q": "מה אומרת דיסקרימיננטה אפס?",
+        "options": [
+          "שורש כפול – פתרון יחיד",
+          "שני פתרונות",
+          "אין פתרון"
+        ],
+        "correct": 0,
+        "explain": "<span dir=\"ltr\">(w − 3)<sup>2</sup> = 0</span> נותן רק <span dir=\"ltr\">w = 3</span>.",
+        "wrongExplain": [
+          "",
+          "שני פתרונות היו נדרשים לדיסקרימיננטה חיובית.",
+          "יש פתרון, הוא פשוט יחיד."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "math-4-035",
+    "topic": "math-4",
+    "level": 3,
+    "title": "מכפלת סכומים וסכום כולל",
+    "statement": "מצאו את כל הפתרונות הממשיים של המערכת:<br><span dir=\"ltr\">(x + y)(z + w) = 21</span><br><span dir=\"ltr\">x + y + z + w = 10</span><br><span dir=\"ltr\">x − y = 2</span><br><span dir=\"ltr\">z − w = 4</span>",
+    "answerSets": {
+      "labels": [
+        "x",
+        "y",
+        "z",
+        "w"
+      ],
+      "count": 2,
+      "sets": [
+        [
+          "2.5",
+          "0.5",
+          "5.5",
+          "1.5"
+        ],
+        [
+          "4.5",
+          "2.5",
+          "3.5",
+          "-0.5"
+        ]
+      ],
+      "tolerance": 0.01
+    },
+    "tips": [
+      "סמנו u = x + y ו־v = z + w.",
+      "ידועים הסכום והמכפלה של u ו־v. מצאו אותם כשורשי משוואה ריבועית. הסדר חשוב.",
+      "לכל זוג (u, v) מצאו את x ו־y מתוך הסכום u וההפרש הנתון, ובדרך דומה את z ו־w."
+    ],
+    "solution": [
+      "נסמן <span dir=\"ltr\">u = x + y</span>, ‏<span dir=\"ltr\">v = z + w</span>. מתקבל <span dir=\"ltr\">u + v = 10</span> ו־<span dir=\"ltr\">uv = 21</span>.",
+      "נציב <span dir=\"ltr\">v = 10 − u</span>: <span dir=\"ltr\">u(10 − u) = 21</span>, כלומר <span dir=\"ltr\">u<sup>2</sup> − 10u + 21 = 0</span>.",
+      "דיסקרימיננטה <span dir=\"ltr\">100 − 84 = 16</span>, ולכן <span dir=\"ltr\">u = (10 ± 4)/2</span>, כלומר <span dir=\"ltr\">u = 7</span> או <span dir=\"ltr\">u = 3</span>. אז <span dir=\"ltr\">v = 3</span> או <span dir=\"ltr\">v = 7</span>.",
+      "אם <span dir=\"ltr\">x + y = u</span> ו־<span dir=\"ltr\">x − y = 2</span> אז <span dir=\"ltr\">x = (u + 2)/2</span> ו־<span dir=\"ltr\">y = (u − 2)/2</span>. באותו אופן <span dir=\"ltr\">z = (v + 4)/2</span> ו־<span dir=\"ltr\">w = (v − 4)/2</span>.",
+      "עבור <span dir=\"ltr\">u = 3, v = 7</span>: <span dir=\"ltr\">x = 2.5</span>, ‏<span dir=\"ltr\">y = 0.5</span>, ‏<span dir=\"ltr\">z = 5.5</span>, ‏<span dir=\"ltr\">w = 1.5</span>.",
+      "עבור <span dir=\"ltr\">u = 7, v = 3</span>: <span dir=\"ltr\">x = 4.5</span>, ‏<span dir=\"ltr\">y = 2.5</span>, ‏<span dir=\"ltr\">z = 3.5</span>, ‏<span dir=\"ltr\">w = −0.5</span>.",
+      "בדיקה של (4.5, 2.5, 3.5, -0.5): <span dir=\"ltr\">7 · 3 = 21</span> ✓, ‏<span dir=\"ltr\">4.5 + 2.5 + 3.5 − 0.5 = 10</span> ✓, ‏<span dir=\"ltr\">4.5 − 2.5 = 2</span> ✓, ‏<span dir=\"ltr\">3.5 + 0.5 = 4</span> ✓. ושל (2.5, 0.5, 5.5, 1.5): <span dir=\"ltr\">3 · 7 = 21</span> ✓, ‏<span dir=\"ltr\">10</span> ✓, ‏<span dir=\"ltr\">2</span> ✓, ‏<span dir=\"ltr\">4</span> ✓."
+    ],
+    "verify": {
+      "equations": [
+        "(x+y)*(z+w)=21",
+        "x+y+z+w=10",
+        "x-y=2",
+        "z-w=4"
+      ],
+      "vars": [
+        "x",
+        "y",
+        "z",
+        "w"
+      ],
+      "solutions": [
+        [
+          2.5,
+          0.5,
+          5.5,
+          1.5
+        ],
+        [
+          4.5,
+          2.5,
+          3.5,
+          -0.5
+        ]
+      ],
+      "kind": "finite"
+    }
+  },
+  {
+    "id": "math-4-036",
+    "topic": "math-4",
+    "level": 3,
+    "title": "שוויון מכפלות ופירוק לגורמים",
+    "statement": "נתונה המערכת:<br><span dir=\"ltr\">x + y = 5</span><br><span dir=\"ltr\">z + w = 5</span><br><span dir=\"ltr\">xy = zw</span><br><span dir=\"ltr\">x − z = 1</span><br>(א) כמה פתרונות ממשיים יש למערכת? (ב) מצאו אותם.",
+    "inputs": [
+      {
+        "label": "מספר הפתרונות",
+        "unit": "",
+        "answer": "1",
+        "tolerance": 0.01,
+        "count": true
+      },
+      {
+        "label": "x",
+        "unit": "",
+        "answer": "3",
+        "tolerance": 0.01
+      },
+      {
+        "label": "y",
+        "unit": "",
+        "answer": "2",
+        "tolerance": 0.01
+      },
+      {
+        "label": "z",
+        "unit": "",
+        "answer": "2",
+        "tolerance": 0.01
+      },
+      {
+        "label": "w",
+        "unit": "",
+        "answer": "3",
+        "tolerance": 0.01
+      }
+    ],
+    "tips": [
+      "הציבו y ו־w באמצעות x ו־z במשוואה xy = zw.",
+      "העבירו אגף ופרקו לגורמים: ההפרש x² − z² מופיע יחד עם הפרש ליניארי.",
+      "מתקבלת מכפלה השווה לאפס. אחד הגורמים סותר את המשוואה האחרונה: איזה?"
+    ],
+    "solution": [
+      "מהשתיים הראשונות <span dir=\"ltr\">y = 5 − x</span> ו־<span dir=\"ltr\">w = 5 − z</span>.",
+      "נציב ב־<span dir=\"ltr\">xy = zw</span>: <span dir=\"ltr\">x(5 − x) = z(5 − z)</span>, כלומר <span dir=\"ltr\">5x − x<sup>2</sup> − 5z + z<sup>2</sup> = 0</span>.",
+      "נסדר: <span dir=\"ltr\">5(x − z) − (x<sup>2</sup> − z<sup>2</sup>) = 0</span>, ולפירוק: <span dir=\"ltr\">(x − z)(5 − x − z) = 0</span>.",
+      "לכן <span dir=\"ltr\">x = z</span> או <span dir=\"ltr\">x + z = 5</span>.",
+      "המקרה <span dir=\"ltr\">x = z</span> סותר את <span dir=\"ltr\">x − z = 1</span>, ולכן נשאר <span dir=\"ltr\">x + z = 5</span>.",
+      "מ־<span dir=\"ltr\">x + z = 5</span> ו־<span dir=\"ltr\">x − z = 1</span>: <span dir=\"ltr\">x = 3</span>, ‏<span dir=\"ltr\">z = 2</span>. אז <span dir=\"ltr\">y = 2</span> ו־<span dir=\"ltr\">w = 3</span>. הפתרון יחיד.",
+      "בדיקה: <span dir=\"ltr\">3 + 2 = 5</span> ✓, ‏<span dir=\"ltr\">2 + 3 = 5</span> ✓, ‏<span dir=\"ltr\">3 · 2 = 6 = 2 · 3</span> ✓, ‏<span dir=\"ltr\">3 − 2 = 1</span> ✓."
+    ],
+    "verify": {
+      "equations": [
+        "x+y=5",
+        "z+w=5",
+        "x*y=z*w",
+        "x-z=1"
+      ],
+      "vars": [
+        "x",
+        "y",
+        "z",
+        "w"
+      ],
+      "solutions": [
+        [
+          3,
+          2,
+          2,
+          3
+        ]
+      ],
+      "kind": "finite"
+    },
+    "guided": [
+      {
+        "q": "מה הצעד הראשון?",
+        "options": [
+          "להציב <span dir=\"ltr\">y = 5 − x</span> ו־<span dir=\"ltr\">w = 5 − z</span> בשוויון המכפלות",
+          "להעלות בריבוע את <span dir=\"ltr\">x − z = 1</span>",
+          "לחבר את שתי הראשונות"
+        ],
+        "correct": 0,
+        "explain": "כך נשארת משוואה בשני נעלמים בלבד.",
+        "wrongExplain": [
+          "",
+          "העלאה בריבוע מוסיפה פתרונות.",
+          "חיבור לא מנצל את שוויון המכפלות."
+        ]
+      },
+      {
+        "q": "איך מפרקים את <span dir=\"ltr\">5x − x<sup>2</sup> − 5z + z<sup>2</sup> = 0</span>?",
+        "options": [
+          "<span dir=\"ltr\">(x − z)(5 − x − z) = 0</span>",
+          "<span dir=\"ltr\">(x + z)(5 − x + z) = 0</span>",
+          "<span dir=\"ltr\">(x − z)(5 + x + z) = 0</span>"
+        ],
+        "correct": 0,
+        "explain": "<span dir=\"ltr\">5(x − z) − (x − z)(x + z)</span> עם גורם משותף <span dir=\"ltr\">x − z</span>.",
+        "wrongExplain": [
+          "",
+          "הגורמים לא מתאימים.",
+          "שגיאת סימן בגורם השני."
+        ]
+      },
+      {
+        "q": "איזה מקרה נפסל?",
+        "options": [
+          "<span dir=\"ltr\">x = z</span>, כי הוא סותר את <span dir=\"ltr\">x − z = 1</span>",
+          "<span dir=\"ltr\">x + z = 5</span>, כי הוא סותר את הסכום",
+          "אף מקרה לא נפסל"
+        ],
+        "correct": 0,
+        "explain": "אם <span dir=\"ltr\">x = z</span> אז <span dir=\"ltr\">x − z = 0</span> ולא 1.",
+        "wrongExplain": [
+          "",
+          "הסכום לא סותר.",
+          "יש מקרה אחד שנפסל."
+        ]
+      },
+      {
+        "q": "איך מוצאים את x ו־z?",
+        "options": [
+          "פותרים את <span dir=\"ltr\">x + z = 5</span> יחד עם <span dir=\"ltr\">x − z = 1</span>",
+          "מציבים <span dir=\"ltr\">x = z</span>",
+          "מחלקים את המשוואות"
+        ],
+        "correct": 0,
+        "explain": "חיבור וחיסור נותנים אותם מיד.",
+        "wrongExplain": [
+          "",
+          "המקרה הזה נפסל.",
+          "אין צורך בחלוקה."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "math-4-037",
+    "topic": "math-4",
+    "level": 3,
+    "title": "שתי תת־מערכות ופרמטר משותף",
+    "statement": "נתונה המערכת, כאשר k הוא פרמטר:<br><span dir=\"ltr\">x + ky = 2</span><br><span dir=\"ltr\">kx + 4y = −4</span><br><span dir=\"ltr\">z + w = 3</span><br><span dir=\"ltr\">2z + kw = 8</span><br>(א) עבור איזה ערך של k אין למערכת פתרון? (ב) עבור איזה ערך של k יש למערכת אינסוף פתרונות? (ג) עבור <span dir=\"ltr\">k = 1</span> פתרו את המערכת.",
+    "inputs": [
+      {
+        "label": "k שעבורו אין פתרון",
+        "unit": "",
+        "answer": "2",
+        "tolerance": 0.01
+      },
+      {
+        "label": "k שעבורו יש אינסוף פתרונות",
+        "unit": "",
+        "answer": "-2",
+        "tolerance": 0.01
+      },
+      {
+        "label": "x (עבור k = 1)",
+        "unit": "",
+        "answer": "4",
+        "tolerance": 0.01
+      },
+      {
+        "label": "y (עבור k = 1)",
+        "unit": "",
+        "answer": "-2",
+        "tolerance": 0.01
+      },
+      {
+        "label": "z (עבור k = 1)",
+        "unit": "",
+        "answer": "5",
+        "tolerance": 0.01
+      },
+      {
+        "label": "w (עבור k = 1)",
+        "unit": "",
+        "answer": "-2",
+        "tolerance": 0.01
+      }
+    ],
+    "tips": [
+      "המערכת מתפרקת לשתי תת־מערכות בלתי תלויות: (x, y) ו־(z, w). בדקו כל אחת בנפרד.",
+      "בכל תת־מערכת של 2×2 חשבו מכפלת האלכסון הראשי פחות מכפלת האלכסון המשני ומצאו מתי היא מתאפסת.",
+      "בכל ערך קריטי בדקו אם המשוואות כפולות זו של זו (אינסוף פתרונות) או סותרות (אין פתרון), ובדקו את שתי התת־מערכות יחד."
+    ],
+    "solution": [
+      "המשוואות הראשונות מכילות רק x ו־y, והאחרונות רק z ו־w, ולכן אפשר לפתור כל תת־מערכת בנפרד.",
+      "עבור (x, y): <span dir=\"ltr\">1 · 4 − k · k = 4 − k<sup>2</sup></span>, המתאפס כאשר <span dir=\"ltr\">k = 2</span> או <span dir=\"ltr\">k = −2</span>. עבור (z, w): ‏<span dir=\"ltr\">1 · k − 1 · 2 = k − 2</span>, המתאפס כאשר <span dir=\"ltr\">k = 2</span>.",
+      "<span dir=\"ltr\">k = 2</span>: <span dir=\"ltr\">x + 2y = 2</span> ו־<span dir=\"ltr\">2x + 4y = −4</span>. הכפלת הראשונה ב־2 נותנת <span dir=\"ltr\">2x + 4y = 4</span>, סתירה. לכן אין פתרון.",
+      "<span dir=\"ltr\">k = −2</span>: <span dir=\"ltr\">x − 2y = 2</span> ו־<span dir=\"ltr\">−2x + 4y = −4</span>, והשנייה היא <span dir=\"ltr\">−2</span> כפול הראשונה, ולכן קיימים אינסוף זוגות (x, y). תת־המערכת (z, w): ‏<span dir=\"ltr\">z + w = 3</span> ו־<span dir=\"ltr\">2z − 2w = 8</span> נותנת <span dir=\"ltr\">z = 3.5</span>, ‏<span dir=\"ltr\">w = −0.5</span>. בסך הכול אינסוף פתרונות.",
+      "לכל k אחר שתי תת־המערכות בעלות פתרון יחיד. לכן אין פתרון רק עבור <span dir=\"ltr\">k = 2</span>, ואינסוף רק עבור <span dir=\"ltr\">k = −2</span>.",
+      "עבור <span dir=\"ltr\">k = 1</span>: <span dir=\"ltr\">x + y = 2</span> ו־<span dir=\"ltr\">x + 4y = −4</span>. נחסר: <span dir=\"ltr\">3y = −6</span>, ‏<span dir=\"ltr\">y = −2</span>, ‏<span dir=\"ltr\">x = 4</span>.",
+      "ועבור (z, w): <span dir=\"ltr\">z + w = 3</span> ו־<span dir=\"ltr\">2z + w = 8</span>. נחסר: <span dir=\"ltr\">z = 5</span>, ‏<span dir=\"ltr\">w = −2</span>.",
+      "בדיקה בארבע המשוואות עבור <span dir=\"ltr\">k = 1</span>: <span dir=\"ltr\">4 − 2 = 2</span> ✓, ‏<span dir=\"ltr\">4 − 8 = −4</span> ✓, ‏<span dir=\"ltr\">5 − 2 = 3</span> ✓, ‏<span dir=\"ltr\">10 − 2 = 8</span> ✓."
+    ],
+    "verify": {
+      "equations": [
+        "x+2*y=2",
+        "2*x+4*y=-4",
+        "z+w=3",
+        "2*z+2*w=8"
+      ],
+      "vars": [
+        "x",
+        "y",
+        "z",
+        "w"
+      ],
+      "kind": "none",
+      "param": {
+        "input": 0,
+        "value": 2
+      },
+      "also": [
+        {
+          "equations": [
+            "x-2*y=2",
+            "-2*x+4*y=-4",
+            "z+w=3",
+            "2*z-2*w=8"
+          ],
+          "kind": "infinite",
+          "param": {
+            "input": 1,
+            "value": -2
+          }
+        },
+        {
+          "equations": [
+            "x+y=2",
+            "x+4*y=-4",
+            "z+w=3",
+            "2*z+w=8"
+          ],
+          "kind": "unique",
+          "solution": [
+            4,
+            -2,
+            5,
+            -2
+          ],
+          "bind": [
+            2,
+            3,
+            4,
+            5
+          ]
+        }
+      ]
+    },
+    "guided": [
+      {
+        "q": "מה מבנה המערכת מאפשר?",
+        "options": [
+          "לפתור את (x, y) ואת (z, w) בנפרד",
+          "לחבר את כל ארבע המשוואות",
+          "להציב <span dir=\"ltr\">k = 0</span> בלבד"
+        ],
+        "correct": 0,
+        "explain": "המשוואות מתחלקות לשתי קבוצות בלי נעלמים משותפים.",
+        "wrongExplain": [
+          "",
+          "חיבור מערב את הקבוצות בלי צורך.",
+          "הצבה אחת לא מספיקה לניתוח הפרמטר."
+        ]
+      },
+      {
+        "q": "מתי לתת־מערכת 2×2 אין פתרון יחיד?",
+        "options": [
+          "כשמכפלת האלכסון הראשי שווה למכפלת האלכסון המשני",
+          "כשכל המקדמים חיוביים",
+          "כש־<span dir=\"ltr\">k = 1</span>"
+        ],
+        "correct": 0,
+        "explain": "זה התנאי לשורות שהן כפולות זו של זו במקדמים.",
+        "wrongExplain": [
+          "",
+          "סימן המקדמים אינו הקובע.",
+          "k = 1 הוא ערך רגיל."
+        ]
+      },
+      {
+        "q": "מה הערכים הקריטיים של k?",
+        "options": [
+          "<span dir=\"ltr\">k = 2</span> ו־<span dir=\"ltr\">k = −2</span>",
+          "רק <span dir=\"ltr\">k = 2</span>",
+          "<span dir=\"ltr\">k = 0</span> ו־<span dir=\"ltr\">k = 4</span>"
+        ],
+        "correct": 0,
+        "explain": "התת־מערכת הראשונה נותנת <span dir=\"ltr\">4 − k<sup>2</sup> = 0</span> והשנייה נותנת <span dir=\"ltr\">k − 2 = 0</span>.",
+        "wrongExplain": [
+          "",
+          "חסר הערך השלילי.",
+          "אלה אינם שורשי הביטויים."
+        ]
+      },
+      {
+        "q": "איך מבדילים בין \"אין פתרון\" לבין \"אינסוף פתרונות\"?",
+        "options": [
+          "בודקים אם גם האגף הימני יחסי באותו יחס",
+          "תמיד אינסוף",
+          "תמיד אין"
+        ],
+        "correct": 0,
+        "explain": "משוואות כפולות עם אגף ימין תואם: אינסוף. אגף ימין לא תואם: סתירה.",
+        "wrongExplain": [
+          "",
+          "לא תמיד.",
+          "לא תמיד."
+        ]
+      }
+    ]
   }
 ]

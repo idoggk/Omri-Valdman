@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import path from 'node:path';
-import { solveSystem, parseFrac, parseEquation, solveFinite, rowsFromEquations, validate, tipLeaks } from '../tools/verify-math.mjs';
+import { solveSystem, parseFrac, parseEquation, solveFinite, rowsFromEquations, validate, tipLeaks, guidedProblems, inIdealDeg1 } from '../tools/verify-math.mjs';
 
 const str = (sol) => sol.map(String);
 const dataFile = path.join(path.dirname(fileURLToPath(import.meta.url)), '..', 'data', 'math.json');
@@ -222,10 +222,10 @@ test('validate: also[] checks for parameter exercises', () => {
 });
 
 // ---------------------------------------------------------------- the real data
-test('data/math.json passes validation (20 + 20 exercises)', () => {
+test('data/math.json passes validation (30 + 30 exercises)', () => {
   const data = JSON.parse(readFileSync(dataFile, 'utf8'));
   assert.deepEqual(validate(data), []);
-  assert.equal(data.length, 40);
+  assert.equal(data.length, 60);
 });
 
 test('data/math.json: ids unique, levels mostly 3, several multi-solution sets', () => {
@@ -277,6 +277,117 @@ test('tipLeaks flags an answer value in a tip but allows numbers from the statem
 test('no tip in data/math.json leaks an answer value', () => {
   const data = JSON.parse(readFileSync(dataFile, 'utf8'));
   for (const e of data) assert.deepEqual(tipLeaks(e), [], e.id);
+});
+
+// ---------------------------------------------------------------- guided steps, derived inputs, implied equations
+const step = () => ({ q: 'מה עושים עכשיו?', options: ['א', 'ב', 'ג'], correct: 1, explain: 'כי כך', wrongExplain: ['לא', '', 'לא'] });
+const cleanErrs = (errs) => errs.filter((e) => !e.includes('exercises, found') && !e.includes('math-4'));
+
+test('guidedProblems accepts a valid guided list and rejects schema violations', () => {
+  assert.deepEqual(guidedProblems(undefined), []);
+  assert.deepEqual(guidedProblems([step(), step(), step()]), []);
+  assert.equal(guidedProblems([step()]).length, 1); // too few steps
+  const bad = (patch) => guidedProblems([step(), { ...step(), ...patch }, step()]);
+  assert.ok(bad({ correct: 3 }).some((m) => m.includes('correct index')));
+  assert.ok(bad({ correct: -1 }).some((m) => m.includes('correct index')));
+  assert.ok(bad({ options: ['א'] }).some((m) => m.includes('2-4')));
+  assert.ok(bad({ options: ['א', 'ב', 'ג', 'ד', 'ה'] }).some((m) => m.includes('2-4')));
+  assert.ok(bad({ explain: '  ' }).some((m) => m.includes('explain')));
+  assert.ok(bad({ wrongExplain: ['לא'] }).some((m) => m.includes('wrongExplain length')));
+  assert.ok(bad({ wrongExplain: ['', '', 'לא'] }).some((m) => m.includes('wrongExplain[0]')));
+  assert.deepEqual(bad({ wrongExplain: undefined }), []);
+});
+
+test('validate reports guided problems with the exercise id', () => {
+  const ex = linearBase();
+  ex.guided = [step(), { ...step(), correct: 9 }, step()];
+  assert.ok(validate([ex]).some((e) => e.startsWith('math-3-001: guided: step 2')));
+});
+
+test('derived inputs: count, expr with aggregate and base inputs are verified', () => {
+  const mk = () => {
+    const ex = finiteBase();
+    delete ex.answerSets;
+    ex.inputs = [
+      { label: 'כמה', unit: '', answer: '2', tolerance: 0.01, count: true },
+      { label: 'סכום x', unit: '', answer: '3', tolerance: 0.01, expr: 'x', agg: 'sum' },
+      { label: 'מקסימום z', unit: '', answer: '3', tolerance: 0.01, expr: 'z', agg: 'max' },
+    ];
+    return ex;
+  };
+  assert.deepEqual(cleanErrs(validate([mk()])), []);
+  const wrongCount = mk(); wrongCount.inputs[0].answer = '3';
+  assert.ok(validate([wrongCount]).some((e) => e.includes('number of solutions is 2')));
+  const wrongSum = mk(); wrongSum.inputs[1].answer = '4';
+  assert.ok(validate([wrongSum]).some((e) => e.includes('sum of x is 3')));
+  const noAgg = mk(); delete noAgg.inputs[1].agg;
+  assert.ok(validate([noAgg]).some((e) => e.includes('give agg')));
+  const same = mk(); same.inputs[1] = { label: 'x', unit: '', answer: '1', tolerance: 0.01, expr: 'x', agg: 'same' };
+  assert.ok(validate([same]).some((e) => e.includes('not the same in all solutions')));
+  const base = mk(); base.inputs.push({ label: 'x', unit: '', answer: '1', tolerance: 0.01 });
+  assert.ok(validate([base]).some((e) => e.includes('several solutions')));
+});
+
+test('parameter checks: bind, param and finite variants in verify.also', () => {
+  const mk = () => ({
+    ...linearBase(),
+    inputs: [{ label: 'k', unit: '', answer: '0', tolerance: 0.01 }, { label: 'x', unit: '', answer: '1', tolerance: 0.01 }, { label: 'y', unit: '', answer: '2', tolerance: 0.01 }, { label: 'z', unit: '', answer: '3', tolerance: 0.01 }],
+    verify: {
+      equations: ['x+y+z=6', 'x+y+z=7', 'x+2*y=0'], kind: 'none', param: { input: 0, value: 0 },
+      also: [{ equations: ['x+y+z=6', '2*x-y+z=3', 'x+2*y-z=2'], kind: 'unique', bind: [1, 2, 3] }],
+    },
+  });
+  assert.deepEqual(cleanErrs(validate([mk()])), []);
+  const badBind = mk(); badBind.inputs[2].answer = '5';
+  assert.ok(validate([badBind]).some((e) => e.includes('also[0]: input 3 should be 2')));
+  const badParam = mk(); badParam.inputs[0].answer = '4';
+  assert.ok(validate([badParam]).some((e) => e.includes('should be the parameter value 0')));
+  // finite variants: another parameter value is solved exactly and compared with the listed solutions
+  const fin = finiteBase();
+  fin.verify.also = [{ equations: ['x+y=1', 'x*y=1', 'z=0'], solutions: [] }, { equations: ['x+y=2', 'x*y=1', 'z=0'], solutions: [] }];
+  assert.ok(validate([fin]).some((e) => e.includes('also[1]: expected 0 solution(s) but the solver found 1')));
+  assert.ok(!validate([fin]).some((e) => e.includes('also[0]')));
+});
+
+test('implied equations must be combinations of the system and enable the completeness proof', () => {
+  const polys = ['x^2+y^2+z^2=26', '(x-2)^2+(y+1)^2+(z-3)^2=6', 'x+y=-2'].map((s) => parseEquation(s, XYZ));
+  assert.ok(inIdealDeg1(parseEquation('2*x-y+3*z=17', XYZ), polys, 3));
+  assert.ok(!inIdealDeg1(parseEquation('x=1', XYZ), polys, 3));
+  const ex = finiteBase();
+  ex.verify.implied = ['x=1'];
+  assert.ok(validate([ex]).some((e) => e.includes('verify.implied[0] is not a combination')));
+});
+
+// ---------------------------------------------------------------- the 20 harder exercises
+const newIds = [];
+for (let i = 26; i <= 35; i++) newIds.push(`math-3-0${i}`);
+for (let i = 28; i <= 37; i++) newIds.push(`math-4-0${i}`);
+
+test('20 new hard exercises: ids, levels, long solutions, equation-only', () => {
+  const data = JSON.parse(readFileSync(dataFile, 'utf8'));
+  const fresh = newIds.map((id) => data.find((e) => e.id === id));
+  assert.ok(fresh.every(Boolean));
+  assert.equal(fresh.filter((e) => e.topic === 'math-3').length, 10);
+  assert.equal(fresh.filter((e) => e.topic === 'math-4').length, 10);
+  assert.ok(fresh.filter((e) => e.level === 3).length >= 12);
+  for (const e of fresh) {
+    assert.ok(e.solution.length >= 6, `${e.id}: at least 6 solution steps`);
+    assert.equal(e.tips.length, 3);
+  }
+  assert.equal(data.filter((e) => !newIds.includes(e.id)).length, 40); // the original 40 keep their ids
+});
+
+test('guided steps: at least 10 new exercises and 8 existing level-3 exercises have them, all valid', () => {
+  const data = JSON.parse(readFileSync(dataFile, 'utf8'));
+  const withGuided = data.filter((e) => e.guided);
+  assert.ok(withGuided.filter((e) => newIds.includes(e.id)).length >= 10);
+  assert.ok(withGuided.filter((e) => !newIds.includes(e.id) && e.level === 3).length >= 8);
+  const correctIdx = new Set();
+  for (const e of withGuided) {
+    assert.deepEqual(guidedProblems(e.guided), [], e.id);
+    e.guided.forEach((s) => correctIdx.add(s.correct));
+  }
+  assert.ok(correctIdx.size >= 2, 'the correct option position varies');
 });
 
 // Data-vs-app contract: the app (js/app.js validExercise) only accepts inputs or choice, and

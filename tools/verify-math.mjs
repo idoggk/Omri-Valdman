@@ -406,6 +406,17 @@ export function solveFinite(polys, nv) {
 }
 
 const evalAll = (polys, sol) => polys.every((p) => p.partial(sol).constValue().isZero());
+
+// Is `target` an exact combination of the equations, each multiplied by 1 or by a single variable?
+// Used for hand-derived consequences ("verify.implied") that help the solver certify completeness.
+export function inIdealDeg1(target, polys, nv) {
+  const mults = [Poly.constant(nv, ONE), ...[...Array(nv).keys()].map((i) => Poly.variable(nv, i))];
+  const gens = polys.flatMap((p) => mults.map((m) => p.mul(m)));
+  const keys = new Map();
+  for (const q of [target, ...gens]) for (const k of q.terms.keys()) if (!keys.has(k)) keys.set(k, keys.size);
+  const rows = [...keys.keys()].map((k) => [...gens.map((g) => (g.terms.get(k) ? g.terms.get(k).c : ZERO)), target.terms.get(k) ? target.terms.get(k).c : ZERO]);
+  return !rref(rows, gens.length).inconsistent;
+}
 const key = (sol) => sol.map(String).join('|');
 function sameSets(a, b) {
   const ka = a.map(key).sort();
@@ -439,8 +450,33 @@ export function tipLeaks(ex) {
   return [...new Set(out)];
 }
 
+// Optional "guided" field: 3-6 multiple-choice steps that follow the real solution path.
+export function guidedProblems(g) {
+  if (g === undefined) return [];
+  const out = [];
+  const text = (s) => typeof s === 'string' && s.trim() && HEB.test(s);
+  if (!Array.isArray(g) || g.length < 3 || g.length > 6) return ['must be an array of 3-6 steps'];
+  g.forEach((s, i) => {
+    const at = `step ${i + 1}`;
+    if (!s || typeof s !== 'object') { out.push(`${at}: not an object`); return; }
+    if (!text(s.q)) out.push(`${at}: q empty or not Hebrew`);
+    if (!Array.isArray(s.options) || s.options.length < 2 || s.options.length > 4 || s.options.some((o) => typeof o !== 'string' || !o.trim())) {
+      out.push(`${at}: options must be 2-4 non-empty strings`);
+      return;
+    }
+    if (new Set(s.options).size !== s.options.length) out.push(`${at}: duplicate options`);
+    if (!Number.isInteger(s.correct) || s.correct < 0 || s.correct >= s.options.length) out.push(`${at}: correct index invalid`);
+    if (typeof s.explain !== 'string' || !s.explain.trim()) out.push(`${at}: explain empty`);
+    if (s.wrongExplain !== undefined) {
+      if (!Array.isArray(s.wrongExplain) || s.wrongExplain.length !== s.options.length) out.push(`${at}: wrongExplain length must equal options length`);
+      else s.wrongExplain.forEach((w, j) => { if (j !== s.correct && !text(w)) out.push(`${at}: wrongExplain[${j}] empty or not Hebrew`); });
+    }
+  });
+  return out;
+}
+
 export function validate(data, opts = {}) {
-  const expected = opts.expectedPerTopic ?? 20;
+  const expected = opts.expectedPerTopic ?? 30;
   const errors = [];
   const err = (id, msg) => errors.push(`${id}: ${msg}`);
   if (!Array.isArray(data)) return ['top level must be an array'];
@@ -464,8 +500,9 @@ export function validate(data, opts = {}) {
     else ex.tips.forEach((t, i) => { if (typeof t !== 'string' || !HEB.test(t)) err(id, `tip ${i + 1} empty or not Hebrew`); });
     if (!Array.isArray(ex.solution) || ex.solution.length < 3) err(id, 'solution needs at least 3 steps');
     else ex.solution.forEach((t, i) => { if (typeof t !== 'string' || !HEB.test(t)) err(id, `solution step ${i + 1} empty or not Hebrew`); });
+    for (const m of guidedProblems(ex.guided)) err(id, `guided: ${m}`);
 
-    const COMPLEX = /sqrt\(\s*-|(?<![A-Za-z])i(?![A-Za-z])|imaginary|complex|מרוכב|דמיוני/i;
+    const COMPLEX =/sqrt\(\s*-|(?<![A-Za-z])i(?![A-Za-z])|imaginary|complex|מרוכב|דמיוני/i;
     const strings = [ex.title, ex.statement, ...(ex.tips || []), ...(ex.solution || []), ...(ex.inputs || []).flatMap((x) => [x.label, x.answer])];
     for (const s of strings) if (typeof s === 'string' && COMPLEX.test(s.replace(/<[^>]*>/g, ' '))) err(id, `complex/imaginary text found: "${s.slice(0, 40)}"`);
     for (const inp of ex.inputs || []) {
@@ -482,6 +519,11 @@ export function validate(data, opts = {}) {
     const vars = Array.isArray(v.vars) ? v.vars : defaultVars(n);
     if (vars.length !== n || vars.some((x) => typeof x !== 'string' || !/^[A-Za-z]$/.test(x))) { err(id, `verify.vars must be ${n} single letters`); continue; }
 
+    // A parameter value the student has to enter must match the value the verified variant uses.
+    const paramCheck = (where, p) => {
+      const inp = (ex.inputs || [])[p.input];
+      if (!inp || !parseFrac(inp.answer).equals(parseFrac(p.value))) err(id, `${where}: input ${Number(p.input) + 1} should be the parameter value ${p.value}`);
+    };
     let uniqueSol = null; // Frac[] when the exercise has exactly one solution
     let solList = null; // Frac[][] for finite
     let resKind = null;
@@ -515,11 +557,22 @@ export function validate(data, opts = {}) {
       if (res.kind === 'unique') uniqueSol = res.solution;
       for (const [j, a] of (v.also || []).entries()) {
         try {
-          const r = solveSystem(a.system, n);
+          const aRows = a.system || rowsFromEquations(a.equations, vars);
+          const r = solveSystem(aRows, n);
           if (r.kind !== a.kind) err(id, `also[${j}]: declared "${a.kind}" but system is "${r.kind}"`);
           if (a.solution && !(r.solution && sameSets([r.solution], [a.solution.map(parseFrac)]))) err(id, `also[${j}]: solution mismatch`);
+          // bind: input indexes that must hold this variant's solution (in variable order)
+          if (a.bind) {
+            if (!r.solution) err(id, `also[${j}]: bind needs a unique solution`);
+            else a.bind.forEach((ii, i) => {
+              const inp = (ex.inputs || [])[ii];
+              if (!inp || !parseFrac(inp.answer).equals(r.solution[i])) err(id, `also[${j}]: input ${ii + 1} should be ${r.solution[i]}`);
+            });
+          }
+          if (a.param) paramCheck(`also[${j}]`, a.param);
         } catch (e) { err(id, `also[${j}] invalid: ${e.message}`); }
       }
+      if (v.param) paramCheck('verify', v.param);
     } else {
       if (!Array.isArray(v.equations) || !v.equations.length) { err(id, 'finite: verify.equations missing'); continue; }
       if (!Array.isArray(v.solutions) || !v.solutions.length) { err(id, 'finite: verify.solutions missing'); continue; }
@@ -534,7 +587,12 @@ export function validate(data, opts = {}) {
       } catch (e) { err(id, `verify invalid: ${e.message}`); continue; }
       if (new Set(solList.map(key)).size !== solList.length) err(id, 'duplicate solutions listed');
       solList.forEach((s, j) => { if (!evalAll(polys, s)) err(id, `claimed solution #${j + 1} (${s.map(String).join(', ')}) does not satisfy all equations exactly`); });
-      const { solutions: found, incomplete } = solveFinite(polys, n);
+      let implied = [];
+      try {
+        implied = (v.implied || []).map((s) => parseEquation(s, vars));
+        implied.forEach((p, j) => { if (!inIdealDeg1(p, polys, n)) err(id, `verify.implied[${j}] is not a combination of the equations`); });
+      } catch (e) { err(id, `verify.implied invalid: ${e.message}`); }
+      const { solutions: found, incomplete } = solveFinite([...polys, ...implied], n);
       if (incomplete) err(id, `completeness not certified: ${incomplete}`);
       else if (!sameSets(found, solList)) {
         const listed = new Set(solList.map(key));
@@ -544,6 +602,18 @@ export function validate(data, opts = {}) {
       }
       resKind = 'finite';
       if (solList.length === 1) uniqueSol = solList[0];
+      // other parameter values: each variant is solved and compared with its listed solutions (possibly none)
+      for (const [j, a] of (v.also || []).entries()) {
+        try {
+          const ap = a.equations.map((s) => parseEquation(s, vars));
+          const want = (a.solutions || []).map((s) => s.map(parseFrac));
+          const { solutions: got, incomplete: inc } = solveFinite(ap, n);
+          if (inc) err(id, `also[${j}]: completeness not certified: ${inc}`);
+          else if (!sameSets(got, want)) err(id, `also[${j}]: expected ${want.length} solution(s) but the solver found ${got.length}`);
+          if (a.param) paramCheck(`also[${j}]`, a.param);
+        } catch (e) { err(id, `also[${j}] invalid: ${e.message}`); }
+      }
+      if (v.param) paramCheck('verify', v.param);
     }
 
     try {
@@ -559,15 +629,55 @@ export function validate(data, opts = {}) {
         if (typeof inp.unit !== 'string') err(id, `input ${i + 1} unit must be a string`);
         if (typeof inp.tolerance !== 'number' || !(inp.tolerance > 0)) err(id, `input ${i + 1} tolerance must be > 0`);
       });
-      if (finite && solList && solList.length > 1) err(id, 'several solutions: use answerSets instead of inputs');
-      if (uniqueSol) {
-        if (ex.inputs.length !== n) err(id, `unique system needs ${n} inputs`);
-        else ex.inputs.forEach((inp, i) => {
+      // Inputs are either the unknowns themselves (base), a derived quantity ({expr, agg?} or {count}),
+      // or a parameter value ({given}, checked against verify.given).
+      const isDerived = (inp) => inp && (inp.expr !== undefined || inp.count === true || inp.alsoCount !== undefined);
+      const base = ex.inputs.filter((inp) => inp && !isDerived(inp) && inp.given === undefined);
+      if (finite && solList && solList.length > 1 && base.length) err(id, 'several solutions: use answerSets instead of inputs (or ask only for derived quantities)');
+      if (uniqueSol && base.length) {
+        if (base.length !== n) err(id, `unique system needs ${n} inputs`);
+        else base.forEach((inp, i) => {
           try {
             if (!parseFrac(inp.answer).equals(uniqueSol[i])) err(id, `input ${i + 1} answer "${inp.answer}" but exact solution is ${uniqueSol[i]}`);
           } catch (e) { err(id, `input ${i + 1}: ${e.message}`); }
         });
       }
+      const sols = solList || (uniqueSol ? [uniqueSol] : null);
+      const sign = (f) => (f.n < 0n ? -1 : f.n > 0n ? 1 : 0);
+      ex.inputs.forEach((inp, i) => {
+        try {
+          if (inp.given !== undefined) {
+            const g = v.given && v.given[inp.given];
+            if (g === undefined || !parseFrac(inp.answer).equals(parseFrac(g))) err(id, `input ${i + 1} (${inp.given}) does not match verify.given`);
+          } else if (inp.alsoCount !== undefined) {
+            // number of solutions of another parameter variant listed in verify.also
+            const variant = (v.also || [])[inp.alsoCount];
+            if (!variant || !Array.isArray(variant.solutions)) throw new Error('alsoCount needs a finite verify.also entry');
+            if (!parseFrac(inp.answer).equals(new Frac(BigInt(variant.solutions.length)))) err(id, `input ${i + 1}: that variant has ${variant.solutions.length} solution(s), not "${inp.answer}"`);
+          } else if (inp.count === true) {
+            const want = resKind === 'finite' ? sols.length : resKind === 'unique' ? 1 : resKind === 'none' ? 0 : null;
+            if (want === null) err(id, `input ${i + 1}: count is meaningless for "${resKind}"`);
+            else if (!parseFrac(inp.answer).equals(new Frac(BigInt(want)))) err(id, `input ${i + 1}: number of solutions is ${want}, not "${inp.answer}"`);
+          } else if (inp.expr !== undefined) {
+            if (!sols) throw new Error('derived input needs a finite or unique system');
+            const p = parseEquation(`${inp.expr}=0`, vars);
+            const vals = sols.map((s) => p.partial(s).constValue());
+            let got;
+            if (!inp.agg) {
+              if (vals.length !== 1) throw new Error('several solutions: give agg (sum, prod, max, min, same)');
+              got = vals[0];
+            } else if (inp.agg === 'sum') got = vals.reduce((a, b) => a.add(b), ZERO);
+            else if (inp.agg === 'prod') got = vals.reduce((a, b) => a.mul(b), ONE);
+            else if (inp.agg === 'max') got = vals.reduce((a, b) => (sign(b.sub(a)) > 0 ? b : a));
+            else if (inp.agg === 'min') got = vals.reduce((a, b) => (sign(b.sub(a)) < 0 ? b : a));
+            else if (inp.agg === 'same') {
+              if (!vals.every((x) => x.equals(vals[0]))) throw new Error(`"${inp.expr}" is not the same in all solutions`);
+              got = vals[0];
+            } else throw new Error(`unknown agg ${inp.agg}`);
+            if (!parseFrac(inp.answer).equals(got)) err(id, `input ${i + 1}: ${inp.agg || 'value'} of ${inp.expr} is ${got}, not "${inp.answer}"`);
+          }
+        } catch (e) { err(id, `input ${i + 1}: ${e.message}`); }
+      });
     }
     if (ex.choice) {
       const c = ex.choice;
