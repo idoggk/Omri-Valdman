@@ -1,6 +1,6 @@
 // Service worker. Bump CACHE_VERSION when the shell list changes.
 // All URLs are relative to the SW scope, so it works under /Omri-Valdman/.
-const CACHE_VERSION = 'v3';
+const CACHE_VERSION = 'v4';
 const CACHE_NAME = 'omri-study-' + CACHE_VERSION;
 
 const PRECACHE = [
@@ -16,8 +16,16 @@ const PRECACHE = [
   'js/progress.js',
   'js/sanitize.js',
   'js/pwa.js',
+  'js/dom.js',
+  'js/exam.js',
+  'js/exam-ui.js',
+  'js/guided.js',
+  'js/examples.js',
+  'js/sheet.js',
   'data/math.json',
   'data/physics.json',
+  'data/formulas.json',
+  'data/examples.json',
   'icons/icon-192.png',
   'icons/icon-512.png',
   'icons/icon-maskable-512.png',
@@ -29,7 +37,7 @@ self.addEventListener('install', (event) => {
   event.waitUntil((async () => {
     const cache = await caches.open(CACHE_NAME);
     // One bad URL must not abort the whole install.
-    await Promise.all(PRECACHE.map((u) => cache.add(new Request(u, { cache: 'reload' })).catch(() => {})));
+    await Promise.allSettled(PRECACHE.map((u) => cache.add(new Request(u, { cache: 'reload' }))));
     await self.skipWaiting();
   })());
 });

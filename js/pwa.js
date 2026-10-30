@@ -56,7 +56,7 @@ function toast(msg) {
 }
 
 async function share() {
-  const data = { title: document.title, url: location.href.split('#')[0] };
+  const data = { title: 'Brain Gains', text: 'Brain Gains – תרגול מתמטיקה ופיזיקה', url: location.href.split('#')[0] };
   if (navigator.share) {
     try { await navigator.share(data); return; } catch (e) { if (e && e.name === 'AbortError') return; }
   }
@@ -78,7 +78,7 @@ function buildHelpDialog() {
   close.addEventListener('click', () => dlg.close());
   dlg.addEventListener('click', (e) => { if (e.target === dlg) dlg.close(); });
   dlg.append(
-    $('h2', { id: 'pwa-help-title', textContent: 'איך מוסיפים למסך הבית' }),
+    $('h2', { id: 'pwa-help-title', textContent: 'איך מוסיפים את Brain Gains למסך הבית' }),
     $('h3', { textContent: 'אייפון (Safari)' }),
     Object.assign($('ol'), {
       innerHTML: '<li>לוחצים על כפתור השיתוף בתחתית המסך.</li><li>גוללים למטה ובוחרים ״הוסף למסך הבית״ (Add to Home Screen).</li><li>לוחצים ״הוסף״ (Add).</li>',
@@ -87,7 +87,7 @@ function buildHelpDialog() {
     Object.assign($('ol'), {
       innerHTML: '<li>פותחים את התפריט (שלוש הנקודות).</li><li>בוחרים ״התקן אפליקציה״ (Install app) או ״הוסף למסך הבית״ (Add to Home screen).</li><li>מאשרים.</li>',
     }),
-    $('p', { textContent: 'אחרי ההוספה האפליקציה נפתחת במסך מלא וגם עובדת בלי אינטרנט.' }),
+    $('p', { textContent: 'אחרי ההוספה Brain Gains נפתחת במסך מלא וגם עובדת בלי אינטרנט.' }),
     close,
   );
   document.body.append(dlg);

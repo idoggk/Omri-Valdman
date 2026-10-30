@@ -72,3 +72,30 @@ export function sanitizeSvgSafe(input) {
   const s = sanitizeSvg(input);
   return s ? allowlistDom(s) : '';
 }
+
+const HTML_ALLOWED = new Set(['span', 'sup', 'sub', 'b', 'strong', 'i', 'em', 'br', 'code', 'small', 'bdi']);
+const HTML_VOID = new Set(['br']);
+
+/**
+ * Allowlist sanitizer for formula/example HTML from our own data. Keeps only a few inline tags and
+ * only the dir attribute (ltr|rtl|auto); everything else (tags, attributes, comments) is dropped.
+ * Text is re-escaped, so the result can be assigned to innerHTML.
+ */
+export function sanitizeHtml(input) {
+  if (typeof input !== 'string') return '';
+  const s = input.replace(/<!--[\s\S]*?(-->|$)/g, '').replace(/<(script|style|iframe|object|embed|svg|math)\b[\s\S]*?(<\/\1\s*>|$)/gi, '');
+  let out = '';
+  let last = 0;
+  const esc = (t) => t.replace(/&(?!(?:[a-zA-Z]+|#\d+|#x[0-9a-fA-F]+);)/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  const re = /<(\/?)([a-zA-Z][a-zA-Z0-9]*)((?:"[^"]*"|'[^']*'|[^>"'])*)>/g;
+  for (const m of s.matchAll(re)) {
+    out += esc(s.slice(last, m.index));
+    last = m.index + m[0].length;
+    const name = m[2].toLowerCase();
+    if (!HTML_ALLOWED.has(name)) continue;
+    if (m[1]) { if (!HTML_VOID.has(name)) out += `</${name}>`; continue; }
+    const dir = /\bdir\s*=\s*["']?(ltr|rtl|auto)["']?/i.exec(m[3]);
+    out += `<${name}${dir ? ` dir="${dir[1].toLowerCase()}"` : ''}>`;
+  }
+  return out + esc(s.slice(last));
+}

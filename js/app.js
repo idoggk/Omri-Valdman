@@ -2,7 +2,10 @@ import { checkAll } from './check.js';
 import * as store from './store.js';
 import { matchSets, validAnswerSets } from './answersets.js';
 import { sanitizeSvgSafe as sanitizeSvg } from './sanitize.js';
-import { isolateRanges, isolateHtml } from './bidi.js';
+import { isolateTitle } from './bidi.js';
+import { h, ltr } from './dom.js';
+import { loadExtras, openFormulaSheet, formulaButton, examplesSection, guidedStepper } from './sheet.js';
+import { viewExam } from './exam-ui.js';
 
 const TOPICS = [
   { id: 'math-3', title: 'מערכת משוואות עם 3 נעלמים', file: 'math' },
@@ -17,22 +20,6 @@ let exercises = []; // flat list, file order preserved
 let loadErrors = [];
 
 /* ---------- helpers ---------- */
-function h(tag, attrs = {}, ...kids) {
-  const el = document.createElement(tag);
-  for (const [k, v] of Object.entries(attrs)) {
-    if (v === false || v == null) continue;
-    if (k === 'class') el.className = v;
-    else if (k === 'html') el.innerHTML = isolateHtml(v);
-    else if (k.startsWith('on')) el.addEventListener(k.slice(2), v);
-    else el.setAttribute(k, v === true ? '' : v);
-  }
-  for (const kid of kids.flat()) {
-    if (kid == null || kid === false) continue;
-    el.append(kid.nodeType ? kid : document.createTextNode(isolateRanges(kid)));
-  }
-  return el;
-}
-
 const OUTCOME_UI = {
   alone: { icon: '✓', label: 'נפתר לבד' },
   hinted: { icon: '💡', label: 'נפתר עם רמזים' },
@@ -43,7 +30,6 @@ let reviewSeen = new Set(); // exercises already visited in the current review r
 const topicOf = (id) => TOPICS.find((t) => t.id === id);
 const inTopic = (id) => exercises.filter((e) => e.topic === id);
 const byId = (id) => exercises.find((e) => e.id === id);
-const ltr = (text) => h('span', { dir: 'ltr' }, text);
 
 function show(...nodes) {
   // null/false entries must be dropped: replaceChildren(null) would insert the text "null"
@@ -82,8 +68,10 @@ async function loadData() {
 }
 
 /* ---------- views ---------- */
+const openSheet = openFormulaSheet;
+
 function viewHome() {
-  document.title = 'תרגול למבחן – מתמטיקה ופיזיקה';
+  document.title = 'Brain Gains – תרגול למבחן';
   const cards = TOPICS.map((t) => {
     const list = inTopic(t.id);
     const done = store.countDone(list.map((e) => e.id));
@@ -100,7 +88,7 @@ function viewHome() {
       ? [h('span', { class: 'muted' }, `${queue.length} תרגילים לחזרה (נפתרו עם רמזים או עם הצגת פתרון)`),
         h('ul', { class: 'review-list' }, queue.slice(0, 5).map((id) => {
           const ex = byId(id);
-          return h('li', {}, h('span', { 'aria-hidden': 'true' }, OUTCOME_UI[store.outcomeOf(id)].icon), ' ', ex.title || ex.id);
+          return h('li', {}, h('span', { 'aria-hidden': 'true' }, OUTCOME_UI[store.outcomeOf(id)].icon), ' ', isolateTitle(ex.title || ex.id));
         })),
         queue.length > 5 ? h('span', { class: 'muted' }, `ועוד ${queue.length - 5}…`) : null,
         h('div', { class: 'btn-row' }, h('a', { class: 'btn primary', href: '#/review/start' }, 'התחל חזרה'))]
@@ -110,13 +98,17 @@ function viewHome() {
     h('p', { class: 'muted' }, 'בחרו נושא, פתרו תרגילים ובדקו את עצמכם. רמזים ופתרון מלא זמינים בכל תרגיל.'),
     loadErrors.length ? h('p', { class: 'error', role: 'alert' }, 'לא ניתן לטעון חלק מקבצי התרגילים. נסו לרענן את הדף.') : null,
     exercises.length ? reviewCard : null,
-    h('div', { class: 'cards' }, cards));
+    h('div', { class: 'cards' }, cards),
+    h('h2', {}, 'כלים'),
+    h('div', { class: 'cards' },
+      h('a', { class: 'card', href: '#/exam' }, h('strong', {}, '📝 מצב מבחן'), h('span', { class: 'muted' }, 'שאלות מעורבות, שעון, בלי רמזים ועם דוח בסוף')),
+      h('button', { class: 'card card-btn', type: 'button', onclick: (ev) => openSheet(null, ev.currentTarget) }, h('strong', {}, '📐 דף נוסחאות'), h('span', { class: 'muted' }, 'כל הנוסחאות וטעויות נפוצות במקום אחד'))));
 }
 
 function viewTopic(topicId, levelFilter = 0) {
   const topic = topicOf(topicId);
   if (!topic) return viewNotFound();
-  document.title = `${topic.title} – תרגול למבחן`;
+  document.title = `${topic.title} – Brain Gains`;
   const list = inTopic(topicId);
   const shown = levelFilter ? list.filter((e) => e.level === levelFilter) : list;
 
@@ -130,7 +122,7 @@ function viewTopic(topicId, levelFilter = 0) {
   const items = shown.map((e) =>
     h('li', {}, h('a', { class: 'ex-item', href: `#/ex/${e.id}` },
       badge(e.level),
-      h('span', { class: 't' }, e.title || e.id),
+      h('span', { class: 't' }, isolateTitle(e.title || e.id)),
       outcomeIcon(store.outcomeOf(e.id)))));
   const legend = h('ul', { class: 'legend', 'aria-label': 'מקרא' },
     ['alone', 'hinted', 'review', 'none'].map((k) =>
@@ -141,6 +133,8 @@ function viewTopic(topicId, levelFilter = 0) {
     h('h1', {}, topic.title),
     topicId.startsWith('phys-')
       ? h('p', { class: 'notice' }, 'בתרגילי הפיזיקה נקח ', ltr('g = 10 m/s²'), '.') : null,
+    h('div', { class: 'btn-row' }, formulaButton(topicId)),
+    examplesSection(topicId),
     filters,
     legend,
     items.length ? h('ul', { class: 'ex-list' }, items)
@@ -152,7 +146,7 @@ function viewExercise(id, reviewMode = false) {
   if (!ex) return viewNotFound();
   if (reviewMode) reviewSeen.add(id);
   const topic = topicOf(ex.topic);
-  document.title = `${ex.title || ex.id} – תרגול למבחן`;
+  document.title = `${isolateTitle(ex.title || ex.id)} – Brain Gains`;
   const siblings = inTopic(ex.topic);
   const idx = siblings.indexOf(ex);
   const prev = siblings[idx - 1];
@@ -311,7 +305,7 @@ function viewExercise(id, reviewMode = false) {
   renderTips();
   show(
     h('p', { class: 'crumbs' }, h('a', { href: `#/topic/${ex.topic}` }, `→ ${topic ? topic.title : 'חזרה'}`)),
-    h('h1', {}, ex.title || ex.id, ' ', badge(ex.level)),
+    h('h1', {}, isolateTitle(ex.title || ex.id), ' ', badge(ex.level)),
     ex.topic.startsWith('phys-') ? h('p', { class: 'muted' }, 'נקח ', ltr('g = 10 m/s²'), '.') : null,
     reviewMode ? h('p', { class: 'notice' }, 'מצב חזרה על טעויות. פתרו לבד, בלי רמזים, כדי להוריד את התרגיל מהרשימה.') : null,
     h('div', { class: 'panel statement', html: ex.statement || '' }),
@@ -319,6 +313,8 @@ function viewExercise(id, reviewMode = false) {
     form,
     outcomeLine,
     h('h2', {}, 'עזרה'),
+    h('div', { class: 'btn-row' }, formulaButton(ex.topic)),
+    guidedStepper(ex.guided, () => store.markGuided(ex.id)),
     tips.length ? h('div', { class: 'btn-row' }, tipButtons) : h('p', { class: 'muted' }, 'אין רמזים בתרגיל הזה.'),
     tipList,
     solution.length ? h('div', { class: 'btn-row' }, solutionBtn) : null,
@@ -344,7 +340,7 @@ function reviewNextHref(currentId) {
 }
 
 function viewReviewDone() {
-  document.title = 'סיום חזרה – תרגול למבחן';
+  document.title = 'סיום חזרה – Brain Gains';
   const left = store.reviewQueue(exercises.map((e) => e.id)).length;
   show(h('h1', {}, 'סיימנו את סבב החזרה'),
     h('p', {}, left ? `נשארו ${left} תרגילים לחזרה. אפשר להתחיל סבב נוסף.` : 'אין יותר תרגילים לחזרה. כל הכבוד!'),
@@ -358,11 +354,20 @@ function viewNotFound() {
 }
 
 /* ---------- router ---------- */
+const examCtx = {
+  topics: TOPICS,
+  get exercises() { return exercises; },
+  byId: (id) => byId(id),
+  show: (...n) => show(...n),
+  diagramFigure: (ex) => diagramFigure(ex),
+};
+
 function route() {
   const parts = decodeURIComponent(location.hash.replace(/^#\/?/, '')).split('/').filter(Boolean);
   try {
     if (parts[0] === 'topic' && parts[1]) viewTopic(parts[1]);
     else if (parts[0] === 'ex' && parts[1]) viewExercise(parts[1]);
+    else if (parts[0] === 'exam') viewExam(examCtx, parts[1]);
     else if (parts[0] === 'review' && parts[1] === 'start') {
       reviewSeen = new Set();
       const first = store.reviewQueue(exercises.map((e) => e.id))[0];
@@ -379,4 +384,4 @@ function route() {
 }
 
 window.addEventListener('hashchange', route);
-loadData().then(route);
+Promise.all([loadData(), loadExtras()]).then(route);

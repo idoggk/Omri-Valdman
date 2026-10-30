@@ -26,12 +26,16 @@ export function migrate(raw) {
             attempts: Number.isFinite(e.attempts) && e.attempts > 0 ? Math.floor(e.attempts) : 1,
             ts: Number.isFinite(e.ts) ? e.ts : 0,
           };
+          if (e.guided) s.ex[id].guided = true;
         }
       }
     }
     if (isObj(raw.att)) {
       for (const [id, a] of Object.entries(raw.att)) {
-        if (isObj(a)) s.att[id] = { tips: clampTips(a.tips), revealed: !!a.revealed };
+        if (isObj(a)) {
+          s.att[id] = { tips: clampTips(a.tips), revealed: !!a.revealed };
+          if (a.guided) s.att[id].guided = true;
+        }
       }
     }
     return s;
@@ -85,8 +89,9 @@ export function completeCorrect(state, id, now = Date.now()) {
   if (a.revealed && prev) {
     state.ex[id] = { outcome: 'review', attempts: prev.attempts, ts: now };
   } else {
-    const outcome = a.revealed ? 'review' : a.tips > 0 ? 'hinted' : 'alone';
+    const outcome = a.revealed ? 'review' : (a.tips > 0 || a.guided) ? 'hinted' : 'alone';
     state.ex[id] = { outcome, attempts: (prev ? prev.attempts : 0) + 1, ts: now };
+    if (a.guided) state.ex[id].guided = true;
   }
   delete state.att[id];
   return state;
@@ -106,4 +111,23 @@ export function countOutcomes(state, ids) {
   const c = { alone: 0, hinted: 0, review: 0, none: 0 };
   for (const id of ids) c[outcomeOf(state, id) || 'none']++;
   return c;
+}
+
+/* ---------- guided solving and exam results ---------- */
+
+/** Using the guided stepper counts like using tips (outcome 'hinted' at best). Never solves the exercise. */
+export function markGuided(state, id) {
+  attempt(state, id).guided = true;
+  return state;
+}
+export function usedGuided(state, id) {
+  return !!(state.att[id] && state.att[id].guided) || !!(state.ex[id] && state.ex[id].guided);
+}
+
+/** An exam result: correct => 'alone', wrong or skipped => 'review' (joins the mistakes queue). */
+export function recordExamResult(state, id, correct, now = Date.now()) {
+  const prev = state.ex[id];
+  state.ex[id] = { outcome: correct ? 'alone' : 'review', attempts: (prev ? prev.attempts : 0) + 1, ts: now };
+  delete state.att[id];
+  return state;
 }

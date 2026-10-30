@@ -34,3 +34,21 @@ export const reviewQueue = (ids) => P.reviewQueue(load(), ids);
 export function setTipsUsed(id, n) { P.openTip(load(), id, n); save(); }
 export function revealSolution(id) { P.revealSolution(load(), id); save(); }
 export function markCorrect(id) { P.completeCorrect(load(), id); save(); }
+export const usedGuided = (id) => P.usedGuided(load(), id);
+export function markGuided(id) { P.markGuided(load(), id); save(); }
+export function recordExamResults(results) { // [{id, correct}]
+  for (const r of results) P.recordExamResult(load(), r.id, r.correct);
+  save();
+}
+
+/* running exam, autosaved so a refresh can resume it */
+const EXAM_KEY = 'omri-study-exam-v1';
+export function loadExam() {
+  try { const raw = localStorage.getItem(EXAM_KEY); return raw ? JSON.parse(raw) : null; } catch (e) { return null; }
+}
+export function saveExam(exam) {
+  try { localStorage.setItem(EXAM_KEY, JSON.stringify(exam)); } catch (e) { /* ignore */ }
+}
+export function clearExam() {
+  try { localStorage.removeItem(EXAM_KEY); } catch (e) { /* ignore */ }
+}
