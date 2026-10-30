@@ -1,7 +1,7 @@
 // Sanitizer for trusted-but-defensive inline SVG diagrams. No DOM.
 // Removes scripts and other active content, on*= attributes, and non-local hrefs.
 
-const BLOCKED_TAGS = new Set(['script', 'foreignobject', 'iframe', 'object', 'embed', 'animate', 'set', 'animatetransform', 'animatemotion', 'handler', 'listener']);
+const BLOCKED_TAGS = new Set(['script', 'style','foreignobject', 'iframe', 'object', 'embed', 'animate', 'set', 'animatetransform', 'animatemotion', 'handler', 'listener']);
 const TAG_RE = /<(\/?)([a-zA-Z][^\s/>]*)((?:"[^"]*"|'[^']*'|[^>"'])*)>/g;
 const ATTR_RE = /([^\s=\/"'<>]+)(?:\s*=\s*("[^"]*"|'[^']*'|[^\s"'>]+))?/g;
 
@@ -28,7 +28,7 @@ export function sanitizeSvg(input) {
   let s = input.replace(/<!--[\s\S]*?(-->|$)/g, '').replace(/<!\[CDATA\[[\s\S]*?(\]\]>|$)/g, '');
   // drop <script>…</script> including content; an unclosed script drops everything after it
   s = s.replace(/<script\b[\s\S]*?(<\/script\s*>|$)/gi, '');
-  s = s.replace(/<(foreignObject|iframe|object|embed)\b[\s\S]*?(<\/\1\s*>|$)/gi, '');
+  s = s.replace(/<(foreignObject|iframe|object|embed|style)\b[\s\S]*?(<\/\1\s*>|$)/gi, '');
   s = s.replace(TAG_RE, (all, slash, name, attrs) => {
     if (BLOCKED_TAGS.has(name.toLowerCase())) return '';
     if (slash) return `</${name}>`;
