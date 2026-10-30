@@ -43,12 +43,68 @@ test('horizontal models', () => {
 
 const sample = () => JSON.parse(JSON.stringify(JSON.parse(readFileSync(new URL('../data/physics.json', import.meta.url), 'utf8'))[0]));
 
-test('shipped data is valid, 24 exercises, 12 per topic', () => {
+test('shipped data is valid: 50 exercises, mostly level 3, 24 vertical + 26 horizontal', () => {
   const list = JSON.parse(readFileSync(new URL('../data/physics.json', import.meta.url), 'utf8'));
   assert.deepEqual(checkAll(list), []);
-  assert.equal(list.length, 24);
-  assert.equal(list.filter((e) => e.topic === 'phys-vertical').length, 12);
-  assert.equal(list.filter((e) => e.topic === 'phys-horizontal').length, 12);
+  assert.equal(list.length, 50);
+  assert.equal(list.filter((e) => e.topic === 'phys-vertical').length, 24);
+  assert.equal(list.filter((e) => e.topic === 'phys-horizontal').length, 26);
+  const lv = (n) => list.filter((e) => e.level === n).length;
+  assert.ok(lv(3) > lv(1) + lv(2), 'level 3 must be the majority');
+  for (const e of list) assert.ok(e.diagram.startsWith('<svg'), e.id);
+});
+
+test('multi-step vertical models', () => {
+  close(models.rocket_cutoff({ a: 8, t1: 5 }), [40, 100, 180, 15, 60]);
+  close(models.two_stones_different_times({ h: 80, dt: 2 }), [30, 50, 40]);
+  close(models.meet_different_start({ v0: 30, H: 105, dt: 1 }), [5, 25, -20, 40]);
+  close(models.bolt_in_elevator({ v: 4, hc: 1.8 }), [0.6, 6, 0.6, -2]);
+  close(models.balloon_release({ h: 75, v: 10 }), [80, 5, 40, 125]);
+  close(models.last_k_seconds({ d: 100, k: 2 }), [6, 180, 60]);
+  close(models.compare_two_throws({ h: 60, v0: 20 }), [6, 2, 4, 40]);
+  close(models.known_pass_speed({ h: 40, v1: 10 }), [30, 45, 6, 2]);
+  close(models.vt_vertical_graph({ v0: 20, vEnd: -30, T: 5 }), [-10, 2, 20, 25]);
+  close(models.vt_elevator_graph({ t1: 3, v: 6, t2: 10, t3: 2 }), [2, -3, 75, 5]);
+  close(models.window_pass({ w: 15, dt: 1 }), [10, 5, 20]);
+  close(models.parachute_fall({ t1: 5, a: 5, vland: 5 }), [125, 247.5, 372.5, 14]);
+});
+
+test('multi-step horizontal and 2D models', () => {
+  close(models.three_stage_trip({ a1: 2, v: 20, tc: 36, a3: 5 }), [40, 860, 50, 17.2]);
+  close(models.vt_graph_car({ t1: 5, v: 10, t2: 3, t3: 4 }), [2, -2.5, 75, 6.25]);
+  close(models.chase_reaction({ v: 12, a: 1.5, tr: 5 }), [20, 25, 300, 30]);
+  close(models.braking_ratio({ v1: 20, d1: 40, v2: 30 }), [5, 90, 6]);
+  close(models.projectile_37({ v0: 50 }), [6, 240, 45]);
+  close(models.projectile_cliff_53({ v0: 25, h: 44.8 }), [5.6, 84, 39, 64.8]);
+  close(models.projectile_45({ v0: 30, x: 30 }), [90, 22.5, 20]);
+  close(models.projectile_60({ v0: 20, v1: 15 }), [10, 15, 8.75]);
+  close(models.projectile_30_down({ v0: 20, h: 75 }), [10, 3, 40]);
+  close(models.moving_target({ h: 45, d0: 102, u: 6 }), [3, 40, 50]);
+  close(models.plane_drop({ h: 180, vp: 80, vs: 30 }), [6, 480, 300, 100]);
+  close(models.catch_up_accel({ a: 3, v: 15 }), [5, 37.5, 10, 150]);
+  close(models.braking_obstacle({ v: 20, tr: 0.5, a: 5, D: 47.5 }), [10, 37.5, 5, 3.5]);
+  close(models.table_roll({ v0: 5, a: 2, L: 4, h: 0.8 }), [3, 1.4, 1.2, 5]);
+});
+
+test('checker rejects a missing or unsafe diagram, a leaking early tip, and complex wording', () => {
+  const noDiagram = sample();
+  delete noDiagram.diagram;
+  assert.match(checkExercise(noDiagram).join('\n'), /diagram missing/);
+  const unsafe = sample();
+  unsafe.diagram = unsafe.diagram.replace('</svg>', '<script>alert(1)</script></svg>');
+  assert.match(checkExercise(unsafe).join('\n'), /diagram: contains forbidden/);
+  const leak = sample();
+  leak.tips[0] = `התשובה היא ${leak.inputs[1].answer}`;
+  assert.match(checkExercise(leak).join('\n'), /tip 1 contains the requested answer/);
+  const cx = sample();
+  cx.solution[1] += ' ונקבל מספר מרוכב';
+  assert.match(checkExercise(cx).join('\n'), /complex-number wording/);
+});
+
+test('numbers glued to letters in a tip (v0, 2gh) are not treated as stated answers', () => {
+  const ex = sample();
+  ex.tips[1] = 'השתמשו ב-v0 וב-2gh ובמקדם 5t';
+  assert.ok(!checkExercise(ex).some((e) => e.includes('tip 2 contains')));
 });
 
 test('checker rejects a wrong answer', () => {

@@ -4,6 +4,7 @@
 import { readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { dirname, join, resolve } from 'node:path';
+import { validateSvg } from './diagrams.mjs';
 
 export const G = 10;
 
@@ -88,15 +89,150 @@ export const models = {
     const t = Math.sqrt((2 * h) / G);
     return [t, R / t, Math.hypot(R / t, G * t)];
   },
+
+  // ---- multi-step vertical models
+  // engine gives constant net acceleration a for t1, then free flight (up positive)
+  rocket_cutoff: ({ a, t1 }) => {
+    const v1 = a * t1;
+    const h1 = (a * t1 * t1) / 2;
+    const vImp = Math.sqrt(v1 * v1 + 2 * G * h1);
+    return [v1, h1, h1 + (v1 * v1) / (2 * G), t1 + (v1 + vImp) / G, vImp];
+  },
+  // A dropped at t=0, B thrown down dt later, both land together: find v0 of B
+  two_stones_different_times: ({ h, dt }) => {
+    const tA = Math.sqrt((2 * h) / G);
+    const tB = tA - dt;
+    const v0 = (h - (G * tB * tB) / 2) / tB;
+    return [v0, v0 + G * tB, G * tA];
+  },
+  // A thrown up from the ground at t=0; B dropped from H at t=dt. Up positive.
+  meet_different_start: ({ v0, H, dt }) => {
+    const t = (H - (G * dt * dt) / 2) / (v0 - G * dt);
+    return [t, v0 * t - (G * t * t) / 2, v0 - G * t, G * (t - dt)];
+  },
+  bolt_in_elevator: ({ v, hc }) => {
+    const t = Math.sqrt((2 * hc) / G);
+    return [t, G * t, v * t - (G * t * t) / 2, v - G * t];
+  },
+  balloon_release: ({ h, v }) => {
+    const vImp = Math.sqrt(v * v + 2 * G * h);
+    const T = (v + vImp) / G;
+    return [h + (v * v) / (2 * G), T, vImp, h + v * T];
+  },
+  last_k_seconds: ({ d, k }) => {
+    const T = (d / (G / 2) + k * k) / (2 * k);
+    return [T, (G * T * T) / 2, G * T];
+  },
+  compare_two_throws: ({ h, v0 }) => {
+    const s = Math.sqrt(v0 * v0 + 2 * G * h);
+    const tA = (v0 + s) / G;
+    const tB = (-v0 + s) / G;
+    return [tA, tB, tA - tB, s];
+  },
+  known_pass_speed: ({ h, v1 }) => {
+    const v0 = Math.sqrt(v1 * v1 + 2 * G * h);
+    return [v0, (v0 * v0) / (2 * G), (2 * v0) / G, (2 * v1) / G];
+  },
+  vt_vertical_graph: ({ v0, vEnd, T }) => {
+    const a = (vEnd - v0) / T;
+    return [a, v0 / -a, (v0 * v0) / (2 * -a), (-T * (v0 + vEnd)) / 2];
+  },
+  vt_elevator_graph: ({ t1, v, t2, t3 }) => {
+    const H = v * (t1 / 2 + t2 + t3 / 2);
+    return [v / t1, -v / t3, H, H / (t1 + t2 + t3)];
+  },
+  window_pass: ({ w, dt }) => {
+    const vt = (w - (G * dt * dt) / 2) / dt;
+    return [vt, (vt * vt) / (2 * G), vt + G * dt];
+  },
+  parachute_fall: ({ t1, a, vland }) => {
+    const v1 = G * t1;
+    const d1 = (G * t1 * t1) / 2;
+    const d2 = (v1 * v1 - vland * vland) / (2 * a);
+    return [d1, d2, d1 + d2, t1 + (v1 - vland) / a];
+  },
+
+  // ---- multi-step horizontal / 2D models
+  three_stage_trip: ({ a1, v, tc, a3 }) => {
+    const D = (v * v) / (2 * a1) + v * tc + (v * v) / (2 * a3);
+    const T = v / a1 + tc + v / a3;
+    return [(v * v) / (2 * a3), D, T, D / T];
+  },
+  vt_graph_car: ({ t1, v, t2, t3 }) => {
+    const D = v * (t1 / 2 + t2 + t3 / 2);
+    return [v / t1, -v / t3, D, D / (t1 + t2 + t3)];
+  },
+  // vehicle passes a stationary police car (constant v); police start after tr with acceleration a
+  chase_reaction: ({ v, a, tr }) => {
+    const s = (v + Math.sqrt(v * v + 2 * a * v * tr)) / a;
+    return [s, s + tr, v * (s + tr), a * s];
+  },
+  braking_ratio: ({ v1, d1, v2 }) => {
+    const a = (v1 * v1) / (2 * d1);
+    return [a, (v2 * v2) / (2 * a), v2 / a];
+  },
+  // sin 37 = 0.6, cos 37 = 0.8
+  projectile_37: ({ v0 }) => {
+    const vx = 0.8 * v0;
+    const vy = 0.6 * v0;
+    const T = (2 * vy) / G;
+    return [T, vx * T, (vy * vy) / (2 * G)];
+  },
+  // sin 53 = 0.8, cos 53 = 0.6, thrown upward from a cliff of height h
+  projectile_cliff_53: ({ v0, h }) => {
+    const vx = 0.6 * v0;
+    const vy = 0.8 * v0;
+    const vyEnd = Math.sqrt(vy * vy + 2 * G * h);
+    const T = (vy + vyEnd) / G;
+    return [T, vx * T, Math.hypot(vx, vyEnd), h + (vy * vy) / (2 * G)];
+  },
+  // sin 45 = cos 45 = 1/sqrt2: R = v0^2/g, H = v0^2/(4g), y(x) = x - g x^2 / v0^2
+  projectile_45: ({ v0, x }) => [(v0 * v0) / G, (v0 * v0) / (4 * G), x - (G * x * x) / (v0 * v0)],
+  // sin^2 60 = 0.75, cos 60 = 0.5
+  projectile_60: ({ v0, v1 }) => {
+    const vx = v0 / 2;
+    const vy2 = v1 * v1 - vx * vx;
+    return [vx, (0.75 * v0 * v0) / (2 * G), (0.75 * v0 * v0 - vy2) / (2 * G)];
+  },
+  // thrown 30 degrees below horizontal from a tower: vy0 = v0 / 2
+  projectile_30_down: ({ v0, h }) => {
+    const vy0 = v0 / 2;
+    const vyEnd = Math.sqrt(vy0 * vy0 + 2 * G * h);
+    return [vy0, (vyEnd - vy0) / G, vyEnd];
+  },
+  moving_target: ({ h, d0, u }) => {
+    const t = Math.sqrt((2 * h) / G);
+    const vx = (d0 + u * t) / t;
+    return [t, vx, Math.hypot(vx, G * t)];
+  },
+  plane_drop: ({ h, vp, vs }) => {
+    const t = Math.sqrt((2 * h) / G);
+    return [t, vp * t, (vp - vs) * t, Math.hypot(vp, G * t)];
+  },
+  catch_up_accel: ({ a, v }) => [v / a, (v * v) / (2 * a), (2 * v) / a, (2 * v * v) / a],
+  braking_obstacle: ({ v, tr, a, D }) => {
+    const react = v * tr;
+    const brake = D - react;
+    const vImp = Math.sqrt(v * v - 2 * a * brake);
+    return [react, brake, vImp, tr + (v - vImp) / a];
+  },
+  table_roll: ({ v0, a, L, h }) => {
+    const ve = Math.sqrt(v0 * v0 - 2 * a * L);
+    const tf = Math.sqrt((2 * h) / G);
+    return [ve, (v0 - ve) / a + tf, ve * tf, Math.hypot(ve, G * tf)];
+  },
 };
 
-const HEBREW = /[֐-׿]/;
+const COMPLEX = /מרוכב|דמיוני|שורש\s+של\s+מינוס|√\s*\(?\s*[-−–]|imaginary|complex/i;
+const HEBREW =/[֐-׿]/;
 // Owner rule: every answer is a real integer or a finite decimal with at most 2 decimals.
 const DECIMAL = /^-?\d+(\.\d{1,2})?$/;
 // Latin unit labels (m, s, m/s, m/s², km/h ...) directly after a number or in a unit field.
 const LATIN_UNIT = /(\d|^)\s*(km\/h|m\/s²?|m\/s\^2|km|m|s)(?![\p{L}\d])/iu;
 const stripTags = (s) => String(s).replace(/<[^>]*>/g, ' ');
-const numbersIn = (s) => (stripTags(s).match(/\d+(?:\.\d+)?/g) || []).map(Number);
+// Stated values in a tip: standalone numbers; digits glued to letters (v0, 2gh, 5t) are coefficients/subscripts.
+const numbersIn = (s) =>
+  (String(s).replace(/<[^>]*>/g, '').match(/(?<![\p{L}\d.])\d+(?:\.\d+)?(?![\p{L}\d])/gu) || []).map(Number);
 const nonEmpty = (s) => typeof s === 'string' && s.trim().length > 0;
 const hebrew = (s) => nonEmpty(s) && HEBREW.test(s);
 
@@ -122,13 +258,23 @@ export function checkExercise(ex, idx = 0) {
   for (const [field, text] of [['statement', ex.statement], ...(ex.solution || []).map((s, i) => [`solution step ${i + 1}`, s])]) {
     if (typeof text === 'string' && LATIN_UNIT.test(stripTags(text))) err(`${field}: Latin unit label, use Hebrew units (מ/ש, מ', ש')`);
   }
-  // Tip 3 must not reveal any requested answer.
-  if (Array.isArray(ex.tips) && typeof ex.tips[2] === 'string') {
-    const nums = numbersIn(ex.tips[2]);
-    for (const inp of ex.inputs) {
-      if (nums.includes(Number(inp.answer))) err(`tip 3 contains the requested answer ${inp.answer} ("${inp.label}")`);
-    }
+  // No tip may reveal a requested answer.
+  if (Array.isArray(ex.tips)) {
+    ex.tips.forEach((tip, i) => {
+      if (typeof tip !== 'string') return;
+      const nums = numbersIn(tip);
+      for (const inp of ex.inputs) {
+        if (nums.includes(Math.abs(Number(inp.answer)))) err(`tip ${i + 1} contains the requested answer ${inp.answer} ("${inp.label}")`);
+      }
+    });
   }
+  // Owner rule: no complex numbers anywhere.
+  for (const [field, text] of [['title', ex.title], ['statement', ex.statement], ...(ex.tips || []).map((t, i) => [`tip ${i + 1}`, t]), ...(ex.solution || []).map((s, i) => [`solution step ${i + 1}`, s])]) {
+    if (COMPLEX.test(stripTags(text))) err(`${field}: complex-number wording`);
+  }
+  // Diagram: inline SVG generated by tools/diagrams.mjs
+  if (typeof ex.diagram !== 'string' || !ex.diagram) err('diagram missing');
+  else validateSvg(ex.diagram).forEach((m) => err(`diagram: ${m}`));
   for (const inp of ex.inputs) {
     if (!hebrew(inp.label)) err('input label missing or not Hebrew');
     if (!nonEmpty(inp.unit)) err(`input "${inp.label}": unit missing`);
