@@ -68,10 +68,11 @@ export function openTip(state, id, n) {
 
 /** Revealing the solution before solving counts as giving up: outcome 'review' right away. */
 export function revealSolution(state, id, now = Date.now()) {
+  const prev = state.ex[id];
+  if (prev && prev.outcome === 'alone') return state; // already solved alone: never demote
   const a = attempt(state, id);
   if (!a.revealed) {
     a.revealed = true;
-    const prev = state.ex[id];
     state.ex[id] = { outcome: 'review', attempts: (prev ? prev.attempts : 0) + 1, ts: now };
   }
   return state;

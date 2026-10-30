@@ -40,5 +40,5 @@ export function validAnswerSets(a) {
   return !!a && Array.isArray(a.labels) && a.labels.length > 0 &&
     Array.isArray(a.sets) && a.sets.length > 0 &&
     a.sets.every((s) => Array.isArray(s) && s.length === a.labels.length) &&
-    Number.isInteger(a.count) && a.count >= a.sets.length;
+    Number.isInteger(a.count) && a.count >= a.sets.length && a.count >= 1 && a.count <= 6;
 }

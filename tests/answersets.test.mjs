@@ -61,3 +61,11 @@ test('validAnswerSets', () => {
   assert.ok(!validAnswerSets({ labels: ['x', 'y'], count: 1, sets: SETS }));
   assert.ok(!validAnswerSets(null));
 });
+
+test('validAnswerSets caps count at 6', async () => {
+  const { validAnswerSets } = await import('../js/answersets.js');
+  const mk = (count) => ({ labels: ['x'], count, sets: [['1']] });
+  assert.equal(validAnswerSets(mk(6)), true);
+  assert.equal(validAnswerSets(mk(7)), false);
+  assert.equal(validAnswerSets(mk(0)), false);
+});

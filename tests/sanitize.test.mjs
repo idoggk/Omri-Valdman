@@ -47,3 +47,27 @@ test('bidi: ranges are isolated, plain numbers untouched', () => {
   assert.equal(isolateRanges('תרגיל 3 מתוך 5'), 'תרגיל 3 מתוך 5');
   assert.equal(isolateRanges(isolateRanges('3–5')), ltrIsolate('3–5'));
 });
+
+test('style, link, image, a and off-origin url() are removed', () => {
+  const cases = [
+    '<svg><style>@import url(http://evil/x.css);</style><rect width="1" height="1"/></svg>',
+    '<svg><style>rect{fill:url(http://evil)}</style><rect width="1" height="1"/></svg>',
+    '<svg><link rel="stylesheet" href="http://evil/x.css"/><rect/></svg>',
+    '<svg><image href="http://evil/x.png"/><rect/></svg>',
+    '<svg><a href="javascript:alert(1)"><rect/></a></svg>',
+    '<svg><rect fill="url(http://evil/p)" style="fill:url(http://evil)"/></svg>',
+  ];
+  for (const c of cases) {
+    const out = sanitizeSvg(c);
+    assert.ok(out.startsWith('<svg'), c);
+    assert.doesNotMatch(out, /evil|<style|<link|<image|<a[\s>]|javascript|@import/i, c);
+  }
+  assert.match(sanitizeSvg('<svg><rect fill="url(#g)"/></svg>'), /url\(#g\)/);
+});
+
+test('bidi: isolateHtml isolates ranges in text but not in tags', async () => {
+  const { isolateHtml } = await import('../js/bidi.js');
+  const out = isolateHtml('<span title="3-5">בין 3–5 מטר</span>');
+  assert.ok(out.includes('title="3-5"'));
+  assert.ok(out.includes('⁦3–5⁩'));
+});

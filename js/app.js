@@ -1,8 +1,8 @@
 import { checkAll } from './check.js';
 import * as store from './store.js';
 import { matchSets, validAnswerSets } from './answersets.js';
-import { sanitizeSvg } from './sanitize.js';
-import { isolateRanges } from './bidi.js';
+import { sanitizeSvgSafe as sanitizeSvg } from './sanitize.js';
+import { isolateRanges, isolateHtml } from './bidi.js';
 
 const TOPICS = [
   { id: 'math-3', title: 'מערכת משוואות עם 3 נעלמים', file: 'math' },
@@ -22,7 +22,7 @@ function h(tag, attrs = {}, ...kids) {
   for (const [k, v] of Object.entries(attrs)) {
     if (v === false || v == null) continue;
     if (k === 'class') el.className = v;
-    else if (k === 'html') el.innerHTML = v;
+    else if (k === 'html') el.innerHTML = isolateHtml(v);
     else if (k.startsWith('on')) el.addEventListener(k.slice(2), v);
     else el.setAttribute(k, v === true ? '' : v);
   }

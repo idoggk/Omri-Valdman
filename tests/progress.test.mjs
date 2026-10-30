@@ -74,3 +74,14 @@ test('migrate tolerates garbage and round-trips v2', () => {
   assert.equal(P.outcomeOf(dirty, 'a'), null);
   assert.equal(dirty.ex.b.attempts, 1);
 });
+
+test('revealSolution does not demote an exercise solved alone', async () => {
+  const p = await import('../js/progress.js');
+  const s = p.emptyState ? p.emptyState() : p.load?.(null);
+  assert.ok(s);
+  p.completeCorrect(s, 'x1', 1);
+  assert.equal(s.ex.x1.outcome, 'alone');
+  p.revealSolution(s, 'x1', 2);
+  assert.equal(s.ex.x1.outcome, 'alone');
+  assert.equal(s.ex.x1.attempts, 1);
+});

@@ -12,3 +12,8 @@ const RANGE_RE = /(?<![\d⁦])\d+(?:\.\d+)?(?:\s?[-–−]\s?\d+(?:\.\d+)?)+(?![
 export function isolateRanges(text) {
   return String(text).replace(RANGE_RE, (m) => ltrIsolate(m));
 }
+
+/** Isolate numeric ranges in the text parts of an HTML string (tags and attributes are left alone). */
+export function isolateHtml(html) {
+  return String(html).split(/(<[^>]*>)/).map((part) => (part.startsWith('<') ? part : isolateRanges(part))).join('');
+}
