@@ -5,8 +5,8 @@ import { validAnswerSets } from './answersets.js';
 import * as X from './exam.js';
 import * as store from './store.js';
 
-let timerId = null;
-const stopTimer = () => { if (timerId) clearInterval(timerId); timerId = null; };
+const ticker = X.createTicker();
+const stopTimer = () => ticker.stop();
 const STATUS_UI = {
   right: { icon: '✓', label: 'נכון' },
   wrong: { icon: '✗', label: 'שגוי' },
@@ -95,7 +95,10 @@ function viewSetup(ctx, running) {
 /* ---------- running ---------- */
 function answerWidget(ex, exam) {
   const saved = exam.answers[ex.id];
-  const commit = (value) => { X.setAnswer(exam, ex.id, value); store.saveExam(exam); };
+  const commit = (value) => {
+    if (X.isExpired(exam, Date.now())) return endExam(ctx, exam);
+    X.setAnswer(exam, ex.id, value); store.saveExam(exam);
+  };
   if (validAnswerSets(ex.answerSets)) {
     const sets = ex.answerSets;
     const rows = Array.from({ length: sets.count }, (_, r) =>
@@ -188,7 +191,7 @@ function viewRun(ctx, exam) {
       h('button', { class: 'btn danger', type: 'button', onclick: askFinish }, 'סיום מבחן')),
     confirmBox);
   tick();
-  timerId = setInterval(tick, 1000);
+  ticker.start(tick, 1000);
 }
 
 function endExam(ctx, exam) {

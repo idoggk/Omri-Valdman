@@ -143,3 +143,11 @@ export function gradeExam(exam, byId, now) {
     usedMs: elapsedMs(exam, now), perTopic, items, weakest: weakest ? weakest.topic : null,
   };
 }
+
+/** Single-slot interval: start() always replaces the previous one, so re-rendering can never orphan a timer. */
+export function createTicker(setIv = setInterval, clearIv = clearInterval) {
+  let id = null;
+  const stop = () => { if (id != null) clearIv(id); id = null; };
+  const start = (fn, ms = 1000) => { stop(); id = setIv(fn, ms); };
+  return { start, stop, active: () => id != null };
+}

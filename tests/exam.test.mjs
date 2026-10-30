@@ -85,3 +85,20 @@ test('state validation survives JSON round trip and rejects garbage', () => {
   assert.ok(X.validExamState(JSON.parse(JSON.stringify(exam))));
   for (const bad of [null, {}, { ...exam, idx: 3 }, { ...exam, ids: [] }, { ...exam, v: 2 }, 'x']) assert.equal(X.validExamState(bad), false);
 });
+
+test('ticker: re-arming on navigation keeps exactly one live interval and wall-clock expiry works', () => {
+  let now = 0, nextId = 1;
+  const live = new Map();
+  const T = X.createTicker((fn) => { live.set(nextId, fn); return nextId++; }, (id) => live.delete(id));
+  const exam = X.createExam({ ids: ['a', 'b'], seed: 1, limitMs: 10000, now: 0 });
+  const render = () => { T.start(() => {}); }; // viewRun re-render
+  render(); render(); render(); // three in-exam navigations
+  assert.equal(live.size, 1);
+  assert.ok(T.active());
+  now = 4000;
+  assert.equal(X.remainingMs(exam, now), 6000);
+  now = 10000;
+  assert.ok(X.isExpired(exam, now));
+  T.stop();
+  assert.equal(live.size, 0);
+});
