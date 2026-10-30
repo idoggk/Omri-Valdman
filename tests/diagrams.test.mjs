@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { spawnSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
-import { diagrams, diagramFor, validateSvg, svg, arrow, dim, ground, ball, car, building, vtGraph, curve } from '../tools/diagrams.mjs';
+import { diagrams, diagramFor, validateSvg, layoutIssues, svg, txt, line, arrow, dim, ground, ball, car, building, vtGraph, curve } from '../tools/diagrams.mjs';
 import { models } from '../tools/verify-physics.mjs';
 
 const list = JSON.parse(readFileSync(new URL('../data/physics.json', import.meta.url), 'utf8'));
@@ -66,5 +66,29 @@ test('CLI --check passes on the shipped data and --write is idempotent', () => {
   const script = fileURLToPath(new URL('../tools/diagrams.mjs', import.meta.url));
   const r = spawnSync(process.execPath, [script, '--check'], { encoding: 'utf8' });
   assert.equal(r.status, 0, r.stderr);
-  assert.match(r.stdout, /OK: 50 diagrams/);
+  assert.match(r.stdout, /OK: 70 diagrams/);
+});
+
+test('every label has a halo and every diagram passes the automatic layout check', () => {
+  for (const ex of list) {
+    assert.deepEqual(layoutIssues(ex.diagram), [], ex.id);
+    for (const t of ex.diagram.match(/<text\b[^>]*>/g) || []) {
+      assert.ok(/paint-order="stroke"/.test(t) && /stroke-width="4"/.test(t) && /stroke-linejoin="round"/.test(t), `${ex.id}: label without halo`);
+    }
+  }
+});
+
+test('layout check detects a label crossing a line, another label, or the border', () => {
+  const wrap = (body) => `<svg viewBox="0 0 320 100" xmlns="http://www.w3.org/2000/svg"><g>${body}</g></svg>`;
+  const pinned = (x, y, s, anc = 'middle') => txt(x, y, s, 'k', anc, true);
+  assert.deepEqual(layoutIssues(wrap(pinned(100, 40, 'שלום'))), []);
+  assert.match(layoutIssues(wrap(line(0, 38, 300, 38) + pinned(100, 40, 'v₀ = 20'))).join(), /overlaps line/);
+  assert.match(layoutIssues(wrap(pinned(100, 40, 'אבגד') + pinned(104, 42, 'הוזח'))).join(), /overlaps text/);
+  assert.match(layoutIssues(wrap(pinned(2, 40, 'אבגדהוזח', 'start'))).join(), /viewBox/);
+});
+
+test('svg() moves a colliding label to a clear spot automatically', () => {
+  const fig = svg('בדיקה', 100, line(0, 38, 300, 38) + txt(100, 40, 'v₀ = 20 מ/ש'));
+  assert.deepEqual(layoutIssues(fig), []);
+  assert.ok(!fig.includes('x="100" y="40"'));
 });

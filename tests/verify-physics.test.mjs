@@ -1,7 +1,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
-import { models, checkExercise, checkAll } from '../tools/verify-physics.mjs';
+import { models, checkExercise, checkAll, checkGuided } from '../tools/verify-physics.mjs';
 
 const close = (actual, expected) => {
   assert.equal(actual.length, expected.length);
@@ -43,12 +43,12 @@ test('horizontal models', () => {
 
 const sample = () => JSON.parse(JSON.stringify(JSON.parse(readFileSync(new URL('../data/physics.json', import.meta.url), 'utf8'))[0]));
 
-test('shipped data is valid: 50 exercises, mostly level 3, 24 vertical + 26 horizontal', () => {
+test('shipped data is valid: 70 exercises, mostly level 3, 34 vertical + 36 horizontal', () => {
   const list = JSON.parse(readFileSync(new URL('../data/physics.json', import.meta.url), 'utf8'));
   assert.deepEqual(checkAll(list), []);
-  assert.equal(list.length, 50);
-  assert.equal(list.filter((e) => e.topic === 'phys-vertical').length, 24);
-  assert.equal(list.filter((e) => e.topic === 'phys-horizontal').length, 26);
+  assert.equal(list.length, 70);
+  assert.equal(list.filter((e) => e.topic === 'phys-vertical').length, 34);
+  assert.equal(list.filter((e) => e.topic === 'phys-horizontal').length, 36);
   const lv = (n) => list.filter((e) => e.level === n).length;
   assert.ok(lv(3) > lv(1) + lv(2), 'level 3 must be the majority');
   for (const e of list) assert.ok(e.diagram.startsWith('<svg'), e.id);
@@ -155,4 +155,71 @@ test('checker rejects duplicate ids and unknown models', () => {
   b.id = 'phys-vertical-099';
   b.verify.model = 'nope';
   assert.ok(checkAll([a, b]).some((e) => e.includes('unknown model')));
+});
+
+test('exam-level vertical models', () => {
+  close(models.elevator_throw_relative({ u: 5, w: 10, h: 20 }), [2, 31.25, 4, 25]);
+  close(models.overtake_fall({ d: 45, dt: 1 }), [5, 3, 12.5, 32.5]);
+  close(models.vt_free_fall_graph({ t1: 4, t2: 8, vland: 8, t3: 10, vq: 20 }), [8, 6.5, 192, 19.2]);
+  close(models.balloon_two_packages({ h: 40, u: 10, dt: 2, w: 15 }), [4, 3, 1, 90]);
+  close(models.same_throw_delay({ v0: 40, y: 75 }), [3, 5, 2, 10]);
+  close(models.well_sound({ T: 4.2, c: 400 }), [4, 80, 0.2, 40]);
+  close(models.two_stage_rocket({ a1: 5, t1: 3, a2: 3, t2: 5 }), [30, 135, 180, 17]);
+  close(models.diver_plunge({ h: 10, v0: 5, d: 4.5 }), [11.25, 15, 25, 2.6]);
+  close(models.meet_at_apex({ H: 120, w: 10 }), [3, 30, 45, 40]);
+  close(models.tower_last_second({ v0: 10, d: 35 }), [40, 5, 75, 80]);
+});
+
+test('exam-level horizontal models', () => {
+  close(models.projectile_wall({ vx: 16, vy: 18, x: 48 }), [3, 9, 20, 0.75]);
+  close(models.platform_landing_53({ v0: 25, hp: 15 }), [1, 3, 45, 10]);
+  close(models.two_car_graph({ vA: 15, vB: 25, tB: 10 }), [2.5, 6, 45, 12.5]);
+  close(models.train_accel_platform({ v0: 10, t1: 8, t2: 18, P: 230 }), [1, 112, 28, 19]);
+  close(models.overtake_oncoming_stop({ vc: 25, vt: 15, g1: 8, Lt: 16, Lc: 4, g2: 12, vo: 20, ao: 6.25 }), [4, 100, 32, 132]);
+  close(models.dog_between_walkers({ d: 120, vA: 3, vB: 5, vd: 15 }), [15, 6, 10, 225]);
+  close(models.rear_end({ v: 25, a1: 6, a2: 4, tr: 1, g: 30 }), [4, 1, 13, 12]);
+  close(models.river_two_ways({ vb: 5, vc: 3, w: 120 }), [24, 72, 30, 0.75]);
+  close(models.cliff_moving_boat({ H: 60, vy: 20, D: 156, u: 4 }), [6, 30, 50, 80]);
+  close(models.double_catch({ v: 30, a: 2, d0: 125 }), [5, 25, 50, 100]);
+  assert.throws(() => models.double_catch({ v: 10, a: 2, d0: 125 }));
+  assert.throws(() => models.rear_end({ v: 25, a1: 6, a2: 4, tr: 1, g: 500 }));
+});
+
+test('shipped data: 70 exercises, 20 new exam-level ones with 5+ solution steps and 4 or fewer inputs', () => {
+  const list = JSON.parse(readFileSync(new URL('../data/physics.json', import.meta.url), 'utf8'));
+  assert.equal(list.length, 70);
+  const fresh = list.filter((e) => /^phys-vertical-0(2[5-9]|3\d)$|^phys-horizontal-0(2[7-9]|3\d)$/.test(e.id));
+  assert.equal(fresh.length, 20);
+  for (const e of fresh) {
+    assert.ok(e.solution.length >= 5, `${e.id} needs 5+ solution steps`);
+    assert.ok(e.inputs.length >= 2 && e.inputs.length <= 4, `${e.id} sub-questions`);
+  }
+  assert.ok(fresh.filter((e) => e.guided).length >= 10, 'at least 10 new exercises are guided');
+  const old3 = list.filter((e) => !fresh.includes(e) && e.level === 3 && e.guided);
+  assert.ok(old3.length >= 8, 'at least 8 existing level-3 exercises are guided');
+  assert.ok(fresh.filter((e) => /סימלי/.test(e.statement)).length >= 8, 'at least 8 ask for a symbolic setup');
+  assert.equal(new Set(list.map((e) => e.id)).size, 70);
+});
+
+const guidedSample = () =>
+  JSON.parse(JSON.stringify(JSON.parse(readFileSync(new URL('../data/physics.json', import.meta.url), 'utf8')).find((e) => e.guided)));
+
+test('guided schema is validated', () => {
+  assert.deepEqual(checkGuided(guidedSample().guided), []);
+  const bad = (mutate) => {
+    const g = guidedSample().guided;
+    mutate(g);
+    return checkGuided(g);
+  };
+  assert.match(bad((g) => (g[0].options = ['רק אחת'])).join('\n'), /2-4 items/);
+  assert.match(bad((g) => (g[0].options = ['א', 'ב', 'ג', 'ד', 'ה'])).join('\n'), /2-4 items/);
+  assert.match(bad((g) => (g[0].correct = 9)).join('\n'), /valid option index/);
+  assert.match(bad((g) => (g[1].explain = '  ')).join('\n'), /explain/);
+  assert.match(bad((g) => (g[1].wrongExplain = ['אחד'])).join('\n'), /wrongExplain length/);
+  assert.match(bad((g) => g.splice(2)).join('\n'), /3-6 steps/);
+  assert.match(bad((g) => delete g[0].q).join('\n'), /q missing/);
+  assert.deepEqual(bad((g) => delete g[0].wrongExplain), []);
+  const ex = JSON.parse(JSON.stringify(JSON.parse(readFileSync(new URL('../data/physics.json', import.meta.url), 'utf8')).find((e) => e.guided)));
+  ex.guided[0].correct = -1;
+  assert.match(checkExercise(ex).join('\n'), /guided: step 1/);
 });

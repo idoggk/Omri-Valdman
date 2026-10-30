@@ -25,9 +25,11 @@ const markers = ['k', 'a', 'b', 'c']
   .join('');
 
 export const svg = (title, h, body) =>
-  `<svg viewBox="0 0 320 ${h}" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="${esc(title)}">` +
-  `<title>${esc(title)}</title><defs>${markers}</defs>` +
-  `<g direction="ltr" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" font-size="12">${body}</g></svg>`;
+  relayout(
+    `<svg viewBox="0 0 320 ${h}" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="${esc(title)}">` +
+      `<title>${esc(title)}</title><defs>${markers}</defs>` +
+      `<g direction="ltr" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" font-size="12">${body}</g></svg>`
+  );
 
 export const line = (x1, y1, x2, y2, o = {}) =>
   `<line x1="${r1(x1)}" y1="${r1(y1)}" x2="${r1(x2)}" y2="${r1(y2)}" stroke="${COL[o.c || 'k']}"` +
@@ -36,11 +38,184 @@ export const line = (x1, y1, x2, y2, o = {}) =>
 export const arrow = (x1, y1, x2, y2, c = 'k') =>
   `<line x1="${r1(x1)}" y1="${r1(y1)}" x2="${r1(x2)}" y2="${r1(y2)}" stroke="${COL[c]}" stroke-width="2" marker-end="url(#ph-${c})"/>`;
 
-export const txt = (x, y, s, c = 'k', anc = 'middle') =>
-  String(s)
-    .split('\n')
-    .map((ln, i) => `<text x="${r1(x)}" y="${r1(y + 14 * i)}" text-anchor="${anc}" fill="${COL[c]}" stroke="none">${esc(ln)}</text>`)
-    .join('');
+// Label with a halo in the panel colour. Multi-line labels are one <text> with <tspan>s so the
+// layout pass moves them as a block. fix=true pins the label (axis ticks); it is still checked.
+const HALO = 'var(--card, #fff)';
+export const txt = (x, y, s, c = 'k', anc = 'middle', fix = false) => {
+  const lines = String(s).split('\n');
+  const attrs =
+    `x="${r1(x)}" y="${r1(y)}" text-anchor="${anc}" fill="${COL[c]}" stroke="${HALO}" stroke-width="4" paint-order="stroke" stroke-linejoin="round"` +
+    (fix ? ' data-f="1"' : '');
+  if (lines.length === 1) return `<text ${attrs}>${esc(lines[0])}</text>`;
+  return `<text ${attrs}>${lines.map((ln, i) => `<tspan x="${r1(x)}" dy="${i ? 14 : 0}">${esc(ln)}</tspan>`).join('')}</text>`;
+};
+
+// ---------------------------------------------------------------- automatic label layout
+const FS = 12;
+const HEB = /[֐-׿]/;
+const textW = (s) => {
+  let w = 0;
+  for (const ch of s) w += HEB.test(ch) ? FS * 0.55 : ch === ' ' ? FS * 0.3 : FS * 0.6;
+  return w;
+};
+const attr = (tag, name) => {
+  const m = new RegExp(`(?:^|\\s)${name}="([^"]*)"`).exec(tag);
+  return m ? m[1] : null;
+};
+const TEXT_RE = /<text\b([^>]*)>([\s\S]*?)<\/text>/g;
+const stripEnt = (s) => s.replace(/&amp;|&lt;|&gt;/g, '_');
+
+function pathSegs(d) {
+  const tok = d.match(/[a-zA-Z]|-?\d*\.?\d+/g) || [];
+  const segs = [];
+  let i = 0, cx = 0, cy = 0, sx = 0, sy = 0, cmd = '';
+  const n = () => Number(tok[i++]);
+  const to = (x, y) => {
+    segs.push([cx, cy, x, y]);
+    cx = x;
+    cy = y;
+  };
+  while (i < tok.length) {
+    if (/[a-zA-Z]/.test(tok[i])) cmd = tok[i++];
+    else if (cmd === 'M') cmd = 'L';
+    else if (cmd === 'm') cmd = 'l';
+    if (cmd === 'M') { cx = sx = n(); cy = sy = n(); }
+    else if (cmd === 'm') { cx = sx = cx + n(); cy = sy = cy + n(); }
+    else if (cmd === 'L') to(n(), n());
+    else if (cmd === 'l') { const dx = n(); const dy = n(); to(cx + dx, cy + dy); }
+    else if (cmd === 'h') to(cx + n(), cy);
+    else if (cmd === 'H') to(n(), cy);
+    else if (cmd === 'v') to(cx, cy + n());
+    else if (cmd === 'V') to(cx, n());
+    else if (cmd === 'Q') {
+      const qx = n(), qy = n(), ex = n(), ey = n();
+      const x0 = cx, y0 = cy;
+      for (let k = 1; k <= 16; k++) {
+        const t = k / 16, u = 1 - t;
+        to(u * u * x0 + 2 * u * t * qx + t * t * ex, u * u * y0 + 2 * u * t * qy + t * t * ey);
+      }
+    } else if (cmd === 'A') { i += 5; to(n(), n()); }
+    else if (cmd === 'z' || cmd === 'Z') to(sx, sy);
+    else break;
+  }
+  return segs;
+}
+
+function parseLayout(s) {
+  const vb = /viewBox="0 0 (\d+(?:\.\d+)?) (\d+(?:\.\d+)?)"/.exec(s);
+  const W = vb ? Number(vb[1]) : 320;
+  const H = vb ? Number(vb[2]) : 200;
+  const body = s.replace(/<defs>[\s\S]*?<\/defs>/, '').replace(/<title>[\s\S]*?<\/title>/, '');
+  const segs = [];
+  const boxes = [];
+  const solid = (tag) => {
+    const op = attr(tag, 'opacity');
+    return !(op !== null && Number(op) < 0.3);
+  };
+  for (const m of body.replace(TEXT_RE, '').matchAll(/<(line|polyline|path|rect|circle|ellipse)\b([^>]*?)\/?>/g)) {
+    const [, kind, tag] = m;
+    if (!solid(tag)) continue;
+    const f = (k) => Number(attr(tag, k));
+    if (kind === 'line') segs.push([f('x1'), f('y1'), f('x2'), f('y2')]);
+    else if (kind === 'polyline') {
+      const p = attr(tag, 'points').trim().split(/\s+/).map((q) => q.split(',').map(Number));
+      for (let i = 1; i < p.length; i++) segs.push([...p[i - 1], ...p[i]]);
+    } else if (kind === 'path') segs.push(...pathSegs(attr(tag, 'd')));
+    else if (kind === 'rect') {
+      const x = f('x'), y = f('y'), w = f('width'), h = f('height');
+      segs.push([x, y, x + w, y], [x + w, y, x + w, y + h], [x + w, y + h, x, y + h], [x, y + h, x, y]);
+    } else if (kind === 'circle') boxes.push([f('cx') - f('r'), f('cy') - f('r'), f('cx') + f('r'), f('cy') + f('r')]);
+    else boxes.push([f('cx') - f('rx'), f('cy') - f('ry'), f('cx') + f('rx'), f('cy') + f('ry')]);
+  }
+  const texts = [];
+  for (const m of s.matchAll(TEXT_RE)) {
+    const tag = m[1];
+    const inner = m[2];
+    const lines = inner.includes('<tspan') ? [...inner.matchAll(/<tspan\b[^>]*>([\s\S]*?)<\/tspan>/g)].map((q) => stripEnt(q[1])) : [stripEnt(inner)];
+    const x = Number(attr(tag, 'x'));
+    const y = Number(attr(tag, 'y'));
+    const anc = attr(tag, 'text-anchor') || 'start';
+    const w = Math.max(...lines.map(textW));
+    const x0 = anc === 'start' ? x : anc === 'end' ? x - w : x - w / 2;
+    texts.push({ lines, fix: /data-f="1"/.test(tag), box: [x0, y - FS * 0.85, x0 + w, y + 14 * (lines.length - 1) + FS * 0.25], label: lines.join(' ') });
+  }
+  return { W, H, segs, boxes, texts };
+}
+
+const shrink = (b) => [b[0] + 1, b[1] + 1, b[2] - 1, b[3] - 1];
+const boxHit = (a, b) => a[0] < b[2] && b[0] < a[2] && a[1] < b[3] && b[1] < a[3];
+function segHitsBox([x1, y1, x2, y2], b) {
+  let t0 = 0, t1 = 1;
+  const dx = x2 - x1, dy = y2 - y1;
+  for (const [p, q] of [[-dx, x1 - b[0]], [dx, b[2] - x1], [-dy, y1 - b[1]], [dy, b[3] - y1]]) {
+    if (p === 0) {
+      if (q < 0) return false;
+    } else {
+      const r = q / p;
+      if (p < 0) { if (r > t1) return false; if (r > t0) t0 = r; }
+      else { if (r < t0) return false; if (r < t1) t1 = r; }
+    }
+  }
+  return true;
+}
+const MARGIN = 3;
+const inView = (b, W, H) => b[0] >= MARGIN && b[1] >= MARGIN && b[2] <= W - MARGIN && b[3] <= H - MARGIN;
+function blocked(box, lay, others) {
+  const b = shrink(box);
+  if (!inView(box, lay.W, lay.H)) return 'viewBox';
+  for (const g of lay.boxes) if (boxHit(b, g)) return 'shape';
+  for (const sg of lay.segs) if (segHitsBox(sg, b)) return 'line';
+  for (const o of others) if (boxHit(b, shrink(o.box))) return `text "${o.label}"`;
+  return null;
+}
+
+export const layoutStats = [];
+const OFFSETS = [];
+for (let dx = -90; dx <= 90; dx += 4) for (let dy = -60; dy <= 60; dy += 4) OFFSETS.push([dx, dy, dx * dx + dy * dy * 1.5]);
+OFFSETS.sort((a, b) => a[2] - b[2]);
+
+// Moves every label to the nearest position where it touches no line, shape, other label or the border.
+export function relayout(s) {
+  const lay = parseLayout(s);
+  const placed = lay.texts.filter((t) => t.fix);
+  const shift = new Map();
+  lay.texts.forEach((t, idx) => {
+    if (t.fix) return;
+    for (const [dx, dy] of OFFSETS) {
+      const box = [t.box[0] + dx, t.box[1] + dy, t.box[2] + dx, t.box[3] + dy];
+      if (!blocked(box, lay, placed)) {
+        shift.set(idx, [dx, dy]);
+        if (dx || dy) layoutStats.push([t.label, dx, dy]);
+        placed.push({ box, label: t.label });
+        return;
+      }
+    }
+    placed.push(t);
+  });
+  let idx = -1;
+  return s.replace(TEXT_RE, (all, tag, inner) => {
+    idx++;
+    const sh = shift.get(idx);
+    if (!sh || (sh[0] === 0 && sh[1] === 0)) return all;
+    const [dx, dy] = sh;
+    const tag2 = tag
+      .replace(/(^|\s)x="([^"]*)"/, (q, a, v) => `${a}x="${r1(Number(v) + dx)}"`)
+      .replace(/(^|\s)y="([^"]*)"/, (q, a, v) => `${a}y="${r1(Number(v) + dy)}"`);
+    const inner2 = inner.replace(/<tspan x="([^"]*)"/g, (q, v) => `<tspan x="${r1(Number(v) + dx)}"`);
+    return `<text${tag2}>${inner2}</text>`;
+  });
+}
+
+// Reports labels that overlap a line, shape, another label or leave the viewBox.
+export function layoutIssues(s) {
+  const lay = parseLayout(s);
+  const out = [];
+  lay.texts.forEach((t, i) => {
+    const why = blocked(t.box, lay, lay.texts.slice(0, i));
+    if (why) out.push(`label "${t.label}" overlaps ${why}`);
+  });
+  return out;
+}
 
 export const ball = (x, y, c = 'a', r = 6) =>
   `<circle cx="${r1(x)}" cy="${r1(y)}" r="${r}" fill="${COL[c]}" stroke="none"/>`;
@@ -91,7 +266,7 @@ export const axes = (ox, oy, w, h, xl, yl) =>
   arrow(ox, oy, ox + w, oy, 'k') + arrow(ox, oy, ox, oy - h, 'k') + txt(ox + w, oy + 14, xl, 'k', 'end') + txt(ox + 4, oy - h - 4, yl, 'k', 'start');
 
 // velocity-time graph with grid. pts: [[t, v]]; labelled: indices whose (t, v) are written.
-export function vtGraph({ pts, xmax, vmin, vmax, xs, vs, labelled = [], title }) {
+export function vtGraph({ pts, pts2, labelled2 = [], notes = [], xmax, vmin, vmax, xs, vs, labelled = [], title }) {
   const ox = 52, oxEnd = 292, top = 40, bot = 190;
   const sx = (oxEnd - ox) / xmax;
   const sy = (bot - top) / (vmax - vmin);
@@ -99,26 +274,28 @@ export function vtGraph({ pts, xmax, vmin, vmax, xs, vs, labelled = [], title })
   const Y = (v) => bot - (v - vmin) * sy;
   let g = '';
   for (let t = 0; t <= xmax + 1e-9; t += xs) {
-    g += line(X(t), top, X(t), bot, { op: 0.18 }) + txt(X(t), Y(0) + 14, num(t));
+    g += line(X(t), top, X(t), bot, { op: 0.18 }) + txt(X(t), bot + 14, num(t), 'k', 'middle', true);
   }
   for (let v = vmin; v <= vmax + 1e-9; v += vs) {
     g += line(ox, Y(v), oxEnd, Y(v), { op: 0.18 });
-    if (Math.abs(v) > 1e-9) g += txt(ox - 6, Y(v) + 4, num(v), 'k', 'end');
+    g += txt(ox - 8, Y(v) + 4, num(v), 'k', 'end', true);
   }
   g += arrow(ox, Y(0), oxEnd + 8, Y(0)) + arrow(ox, bot, ox, top - 10);
-  g += txt(oxEnd + 14, Y(0) - 10, 't (ש\')', 'k', 'end') + txt(ox + 8, 14, 'v (מ/ש)', 'k', 'start');
-  g += `<polyline points="${pts.map(([t, v]) => `${r1(X(t))},${r1(Y(v))}`).join(' ')}" stroke="${COL.a}" stroke-width="2.5"/>`;
-  pts.forEach(([t, v], i) => {
-    g += ball(X(t), Y(v), 'b', 3.5);
-    if (labelled.includes(i) && v !== 0) {
-      const up = v >= 0;
-      g += txt(X(t) + (t === 0 ? 6 : 0), Y(v) + (up ? -8 : 16), v === 0 ? `t = ${num(t)}` : `(${num(t)}, ${num(v)})`, 'k', t === 0 ? 'start' : 'middle');
-    }
-  });
+  g += txt(oxEnd + 10, Y(0) - 8, 't (ש\')', 'k', 'end') + txt(ox + 8, 16, 'v (מ/ש)', 'k', 'start');
+  const series = [[pts, labelled, 'a'], ...(pts2 ? [[pts2, labelled2, 'c']] : [])];
+  for (const [P, lab, col] of series) {
+    g += `<polyline points="${P.map(([t, v]) => `${r1(X(t))},${r1(Y(v))}`).join(' ')}" stroke="${COL[col]}" stroke-width="2.5"/>`;
+    P.forEach(([t, v], i) => {
+      g += ball(X(t), Y(v), 'b', 3.5);
+      if (lab.includes(i)) g += txt(X(t) + (t === 0 ? 6 : 0), Y(v) + (v >= 0 ? -8 : 16), `(${num(t)}, ${num(v)})`, 'k', t === 0 ? 'start' : 'middle');
+    });
+  }
+  for (const [t, v, label, col] of notes) g += txt(X(t), Y(v), label, col || 'k');
   return svg(title, 216, g);
 }
 
 // ------------------------------------------------------------ shared scenes
+const G10 = 10;
 const GY = 205; // ground level of vertical scenes
 
 // tall building; ball released at the roof level; height dimension on the right
@@ -460,6 +637,160 @@ export const diagrams = {
     s += qpath(154, top - 6, 205, top - 6, 256, RY - 6) + dim(306, top, 306, RY, `h = ${num(p.h)} מ'`, { left: true }) + dim(154, RY + 16, 256, RY + 16, 'x = ?', { below: true });
     return svg('כדור מתגלגל על שולחן ונופל', 180, s);
   },
+
+  // ---- vertical (exam level)
+  elevator_throw_relative: (p) => {
+    let s = ground(10, 310, GY) + line(70, 30, 70, GY, { op: 0.4 }) + line(190, 30, 190, GY, { op: 0.4 });
+    s += line(86, 150, 174, 150, { w: 3, c: 'a' }) + line(86, 110, 86, 150) + line(174, 110, 174, 150);
+    s += ball(130, 142, 'b', 5) + arrow(130, 132, 130, 66, 'b') + txt(140, 80, `w = ${num(p.w)} מ/ש\nביחס למעלית`, 'b', 'start');
+    s += arrow(212, 144, 212, 104, 'a') + txt(220, 126, `u = ${num(p.u)} מ/ש`, 'a', 'start');
+    s += line(174, 150, 250, 150, { dash: true, op: 0.6 }) + dim(250, 150, 250, GY, `h = ${num(p.h)} מ'`);
+    return svg('כדור נזרק מתוך מעלית עולה', 215, s);
+  },
+  overtake_fall: (p) => {
+    const ym = 140;
+    let s = building(24, 45, 72, GY) + ground(10, 310, GY) + line(96, 45, 260, 45, { dash: true, op: 0.6 });
+    s += ball(112, 45, 'a') + path(`M112 45L112 ${ym}`, 'a') + txt(112, 32, 'א׳', 'a');
+    s += ball(150, 45, 'b') + arrow(150, 56, 150, 96, 'b') + path(`M150 96L150 ${ym}`, 'b') + txt(150, 32, 'ב׳', 'b');
+    s += line(100, ym, 250, ym, { dash: true, op: 0.6 }) + ball(112, ym, 'c', 4) + ball(150, ym, 'c', 4);
+    s += dim(270, 45, 270, ym, `d = ${num(p.d)} מ'`) + txt(176, 70, `v₀ = ?\nנזרקת אחרי\nΔt = ${num(p.dt)} ש'`, 'b', 'start');
+    return svg('שתי אבנים מראש מגדל: ההשגה בעומק נתון', 215, s);
+  },
+  vt_free_fall_graph: (p) =>
+    vtGraph({ pts: [[0, 0], [p.t1, G10 * p.t1], [p.t2, p.vland], [p.t3, p.vland]], xmax: p.t3, vmin: 0, vmax: G10 * p.t1 + 5, xs: 1, vs: 10, labelled: [2, 3], title: 'גרף מהירות-זמן של צנחן' }),
+  balloon_two_packages: (p) => {
+    let s = ground(10, 310, GY) + `<ellipse cx="90" cy="60" rx="22" ry="28" stroke="${COL.a}" fill="${COL.a}" fill-opacity="0.18"/>`;
+    s += line(90, 88, 90, 100) + ball(90, 104, 'a', 4) + path(`M90 108L90 ${GY - 6}`, 'a') + arrow(130, 60, 130, 28, 'k') + txt(138, 48, `u = ${num(p.u)} מ/ש`, 'k', 'start');
+    s += `<ellipse cx="200" cy="40" rx="22" ry="28" stroke="${COL.b}" fill="${COL.b}" fill-opacity="0.12"/>` + line(200, 68, 200, 78) + ball(200, 82, 'b', 4);
+    s += arrow(200, 90, 200, 130, 'b') + path(`M200 134L200 ${GY - 6}`, 'b') + txt(210, 112, `נזרקת אחרי\nΔt = ${num(p.dt)} ש'\nw = ${num(p.w)} מ/ש`, 'b', 'start');
+    s += txt(90, 124, 'א׳ נשמטת', 'a') + line(40, 104, 70, 104, { dash: true, op: 0.6 }) + dim(40, 104, 40, GY, `h = ${num(p.h)} מ'`);
+    return svg('שתי חבילות מבלון עולה', 215, s);
+  },
+  same_throw_delay: (p) => {
+    const ly = GY - 110;
+    let s = ground(10, 310, GY) + ball(90, GY - 6, 'a') + arrow(90, GY - 14, 90, GY - 60, 'a') + txt(80, GY - 36, `v₀ = ${num(p.v0)} מ/ש`, 'a', 'end');
+    s += ball(170, GY - 6, 'b') + arrow(170, GY - 14, 170, GY - 60, 'b') + txt(180, GY - 36, `v₀ = ${num(p.v0)} מ/ש\nנזרקת אחרי Δt`, 'b', 'start');
+    s += line(70, ly, 260, ly, { dash: true, op: 0.6 }) + ball(90, ly, 'a', 5) + arrow(90, ly + 8, 90, ly + 36, 'a') + ball(170, ly, 'b', 5) + arrow(170, ly + 36, 170, ly + 8, 'b');
+    s += dim(290, ly, 290, GY, `y = ${num(p.y)} מ'`, { left: true }) + txt(130, ly - 12, 'נפגשות', 'c');
+    return svg('שני כדורים באותה מהירות, זריקה מאוחרת', 215, s);
+  },
+  well_sound: (p) => {
+    let s = ground(10, 130, 60) + ground(190, 310, 60) + line(130, 60, 130, 190) + line(190, 60, 190, 190);
+    s += `<path d="M130 190q15 -8 30 0t30 0" stroke="${COL.a}"/>` + ball(160, 70, 'b') + txt(170, 76, 'v₀ = 0', 'k', 'start') + arrow(160, 80, 160, 130, 'b');
+    s += dim(110, 60, 110, 190, 'h = ?', { left: true }) + arrow(176, 180, 176, 100, 'c') + txt(204, 130, `קול\nc = ${num(p.c)} מ/ש`, 'c', 'start');
+    s += txt(160, 22, `T = ${num(p.T)} ש' מהשחרור עד ההתזה`, 'k');
+    return svg('אבן נופלת לבאר והקול חוזר', 215, s);
+  },
+  two_stage_rocket: (p) => {
+    const v1 = p.a1 * p.t1, h1 = (p.a1 * p.t1 * p.t1) / 2, v2 = v1 + p.a2 * p.t2, h2 = h1 + v1 * p.t2 + (p.a2 * p.t2 * p.t2) / 2;
+    const Hm = h2 + (v2 * v2) / 20, k = 150 / Hm, base = GY - 6;
+    let s = ground(10, 310, GY) + path(`M100 ${base}L100 ${base - Hm * k}`, 'k') + rect(94, base - 14, 12, 18, { c: 'a', fill: 'a', rx: 3 });
+    s += line(70, base - h1 * k, 250, base - h1 * k, { dash: true, op: 0.6 }) + ball(100, base - h1 * k, 'b', 4) + txt(110, base - h1 * k + 16, `סוף שלב 1: t₁ = ${num(p.t1)} ש'`, 'b', 'start');
+    s += line(70, base - h2 * k, 250, base - h2 * k, { dash: true, op: 0.6 }) + ball(100, base - h2 * k, 'b', 4) + txt(110, base - h2 * k - 6, `סוף שלב 2: t₂ = ${num(p.t2)} ש'`, 'b', 'start');
+    s += ball(100, base - Hm * k, 'c', 4) + txt(110, base - Hm * k + 4, 'שיא', 'c', 'start');
+    s += arrow(60, base - 30, 60, base - 70, 'a') + txt(52, base - 50, `a₁ = ${num(p.a1)} מ/ש²`, 'a', 'end');
+    s += arrow(60, base - 80, 60, base - 120, 'a') + txt(52, base - 100, `a₂ = ${num(p.a2)} מ/ש²`, 'a', 'end') + dim(290, base - Hm * k, 290, base, 'H = ?', { left: true });
+    return svg('רקטה בשני שלבי הנעה', 215, s);
+  },
+  diver_plunge: (p) => {
+    const ty = 70, wy = 140, sc = 7;
+    let s = building(24, ty, 80, 205) + rect(10, wy, 300, 65, { c: 'a', fill: 'a' }) + line(10, wy, 310, wy, { c: 'a', w: 2 });
+    s += ball(104, ty - 6, 'b') + arrow(104, ty - 14, 104, ty - 14 - 5 * 3, 'b') + path(`M120 ${ty - 6 - (p.v0 * p.v0 * sc) / 20}L120 ${wy + p.d * sc}`, 'k');
+    s += ball(120, ty - 6 - (p.v0 * p.v0 * sc) / 20, 'c', 4) + txt(132, ty - 12 - (p.v0 * p.v0 * sc) / 20, 'שיא', 'c', 'start') + txt(96, ty - 40, `v₀ = ${num(p.v0)} מ/ש`, 'b', 'end');
+    s += dim(250, ty, 250, wy, `h = ${num(p.h)} מ'`) + dim(250, wy, 250, wy + p.d * sc, `d = ${num(p.d)} מ'`, { c: 'b' }) + ball(120, wy + p.d * sc, 'c', 4) + txt(130, wy + p.d * sc + 14, 'עצירה', 'c', 'start');
+    return svg('צולל קופץ למים', 215, s);
+  },
+  meet_at_apex: (p) => {
+    const k = 150 / p.H, base = GY - 6, top = base - p.H * k;
+    const t = (-p.w + Math.sqrt(p.w * p.w + 40 * p.H)) / 20;
+    const ym = base - 5 * t * t * k;
+    let s = building(24, top, 72, GY) + ground(10, 310, GY) + ball(112, top, 'a') + arrow(112, top + 8, 112, top + 44, 'a') + txt(122, top + 30, `w = ${num(p.w)} מ/ש`, 'a', 'start') + txt(112, top - 10, 'א׳', 'a');
+    s += ball(190, base, 'b') + arrow(190, base - 8, 190, base - 50, 'b') + txt(180, base - 30, 'v₀ = ?', 'b', 'end');
+    s += line(100, ym, 230, ym, { dash: true, op: 0.6 }) + ball(190, ym, 'c', 5) + txt(200, ym - 8, 'שיא של ב׳\nנפגשות כאן', 'c', 'start');
+    s += dim(290, top, 290, base, `H = ${num(p.H)} מ'`, { left: true });
+    return svg('מפגש בשיא התנועה של אבן עולה', 215, s);
+  },
+  tower_last_second: (p) => {
+    const roof = 70, base = GY - 6;
+    let s = building(24, roof, 72, GY) + ground(10, 310, GY) + ball(112, roof, 'a') + arrow(112, roof - 6, 112, roof - 40, 'a') + txt(122, roof - 22, `v₀ = ${num(p.v0)} מ/ש`, 'a', 'start');
+    s += path(`M112 ${roof - 40}L112 ${roof - 20}`, 'k') + path(`M130 ${roof - 20}L130 ${base}`, 'k');
+    s += `<line x1="130" y1="140" x2="130" y2="${base}" stroke="${COL.b}" stroke-width="4"/>` + dim(170, 140, 170, base, `${num(p.d)} מ'`, { c: 'b' }) + txt(186, 120, 'בשנייה האחרונה', 'b', 'start');
+    s += dim(280, roof, 280, GY, 'h = ?', { left: true }) + line(96, roof, 280, roof, { dash: true, op: 0.4 });
+    return svg('אבן נזרקת כלפי מעלה מראש מגדל', 215, s);
+  },
+
+  // ---- horizontal (exam level)
+  projectile_wall: (p) => {
+    const g0 = 175, sc = 3.2, x0 = 30, y0 = g0 - 6, t = p.x / p.vx;
+    const hx = x0 + p.x * sc, hy = y0 - (p.vy * t - 5 * t * t) * sc;
+    let s = ground(10, 310, g0) + ball(x0, y0, 'a', 5) + arrow(x0, y0, x0 + p.vx * 2, y0 - p.vy * 2, 'a') + txt(x0 + 4, y0 - p.vy * 2 - 10, `vₓ = ${num(p.vx)} מ/ש , vᵧ = ${num(p.vy)} מ/ש`, 'a', 'start');
+    s += curve(x0, y0, p.vx * sc, p.vy * sc, 10 * sc, t, 'k') + rect(hx, g0 - 120, 12, 120, { fill: 'k' }) + ball(hx, hy, 'b', 5);
+    s += line(hx, hy, 270, hy, { dash: true, c: 'b' }) + dim(286, hy, 286, y0, 'y = ?', { c: 'b', left: true }) + dim(x0, g0 + 16, hx, g0 + 16, `x = ${num(p.x)} מ'`, { below: true });
+    return svg('כדור בדרכו אל קיר', 215, s);
+  },
+  platform_landing_53: (p) => {
+    const g0 = 185, sc = 3.4, x0 = 30, y0 = g0 - 6, vx = 0.6 * p.v0, vy = 0.8 * p.v0, t2 = (vy + Math.sqrt(vy * vy - 2 * 10 * p.hp)) / 10;
+    const top = y0 - p.hp * sc, px = x0 + vx * t2 * sc;
+    let s = building(px - 36, top, 320 - px, g0 - top) + ground(10, 310, g0) + ball(x0, y0, 'a', 5) + arrow(x0, y0, x0 + 0.6 * 44, y0 - 0.8 * 44, 'a') + txt(x0 + 34, y0 - 44, `v₀ = ${num(p.v0)} מ/ש`, 'a', 'start');
+    s += curve(x0, y0, vx * sc, vy * sc, 10 * sc, t2, 'k') + ball(px, top, 'b', 5) + txt(x0 + 44, y0 - 14, '53°', 'b', 'start');
+    s += dim(24, top, 24, y0, `hₚ = ${num(p.hp)} מ'`, { c: 'b' }) + line(24, top, px - 36, top, { dash: true, op: 0.6 }) + dim(x0, g0 + 16, px, g0 + 16, 'x = ?', { below: true });
+    return svg('כדור נוחת על גג נמוך', 215, s);
+  },
+  two_car_graph: (p) =>
+    vtGraph({ pts: [[0, p.vA], [p.tEnd, p.vA]], pts2: [[0, 0], [p.tB, p.vB], [p.tEnd, p.vB]], xmax: p.tEnd, vmin: 0, vmax: p.vB + 5, xs: 2, vs: 5, labelled: [0], labelled2: [1], notes: [[p.tEnd, p.vA, 'א׳', 'a'], [p.tEnd, p.vB, 'ב׳', 'c']], title: 'גרף מהירות-זמן של שתי מכוניות' }),
+  train_accel_platform: (p) => {
+    let s = road(RY);
+    for (let i = 0; i < 3; i++) s += rect(20 + i * 40, RY - 30, 36, 24, { c: 'a', fill: 'a', rx: 3 }) + ball(32 + i * 40, RY - 3, 'k', 3) + ball(48 + i * 40, RY - 3, 'k', 3);
+    s += arrow(14, RY - 46, 54, RY - 46, 'a') + txt(70, RY - 52, `v₀ = ${num(p.v0)} מ/ש  ·  a = ?`, 'a', 'start');
+    s += rect(170, RY - 12, 130, 12, { c: 'c', fill: 'c' }) + line(170, RY - 60, 170, RY, { c: 'b', w: 3 }) + txt(170, RY - 66, 'עמוד', 'b');
+    s += dim(20, RY + 22, 140, RY + 22, 'L = ?', { below: true }) + dim(170, RY + 22, 300, RY + 22, `P = ${num(p.P)} מ'`, { below: true });
+    s += txt(160, RY + 66, `הזנב עובר את העמוד אחרי ${num(p.t1)} ש'\nהזנב יוצא מהרציף אחרי ${num(p.t2)} ש'`, 'k');
+    return svg('רכבת מאיצה על פני עמוד ורציף', 195, s);
+  },
+  overtake_oncoming_stop: (p) => {
+    let s = road(RY) + car(14, RY, 'a') + arrow(62, RY - 40, 102, RY - 40, 'a') + txt(82, RY - 46, `${num(p.vc)} מ/ש`, 'a');
+    s += rect(110, RY - 34, 70, 34, { c: 'b', fill: 'b' }) + ball(122, RY - 2, 'k', 5) + ball(168, RY - 2, 'k', 5) + arrow(184, RY - 20, 214, RY - 20, 'b') + txt(200, RY - 26, `${num(p.vt)} מ/ש`, 'b');
+    s += `<g opacity="0.8">${car(250, RY, 'c')}</g>` + arrow(246, RY - 40, 206, RY - 40, 'c') + txt(226, RY - 66, `${num(p.vo)} מ/ש, בולם\na = ${num(p.ao)} מ/ש²`, 'c');
+    s += dim(58, RY + 24, 250, RY + 24, 'D = ?', { below: true }) + txt(147, RY + 62, `פער ${num(p.g1)} מ' · משאית ${num(p.Lt)} מ' · מכונית ${num(p.Lc)} מ' · פער ${num(p.g2)} מ'`, 'k');
+    return svg('עקיפה כשרכב מתקרב בולם', 200, s);
+  },
+  dog_between_walkers: (p) => {
+    const man = (x, c) => ball(x, RY - 32, c, 5) + line(x, RY - 27, x, RY - 10, { c }) + line(x, RY - 10, x - 5, RY) + line(x, RY - 10, x + 5, RY) + line(x - 6, RY - 22, x + 6, RY - 22, { c });
+    let s = road(RY) + man(30, 'a') + man(290, 'b') + arrow(44, RY - 50, 84, RY - 50, 'a') + txt(64, RY - 56, `${num(p.vA)} מ/ש`, 'a') + arrow(276, RY - 50, 236, RY - 50, 'b') + txt(256, RY - 56, `${num(p.vB)} מ/ש`, 'b');
+    s += `<ellipse cx="60" cy="${RY - 6}" rx="9" ry="5" stroke="${COL.c}" fill="${COL.c}" fill-opacity="0.2"/>` + arrow(76, RY - 18, 126, RY - 18, 'c') + txt(100, RY - 26, `כלב ${num(p.vd)} מ/ש`, 'c');
+    s += dim(30, RY + 24, 290, RY + 24, `d = ${num(p.d)} מ'`, { below: true });
+    return svg('כלב רץ בין שני הולכים', 175, s);
+  },
+  rear_end: (p) => {
+    let s = road(RY) + car(14, RY, 'b') + arrow(62, RY - 40, 102, RY - 40, 'b') + txt(82, RY - 46, `${num(p.v)} מ/ש`, 'b') + txt(36, RY + 22, 'ב׳', 'b');
+    s += car(170, RY, 'a') + arrow(218, RY - 40, 258, RY - 40, 'a') + txt(238, RY - 46, `${num(p.v)} מ/ש`, 'a') + txt(192, RY + 22, 'א׳', 'a');
+    s += dim(58, RY + 36, 170, RY + 36, `g = ${num(p.g)} מ'`, { below: true });
+    s += txt(60, RY - 80, `בולמת אחרי tᵣ = ${num(p.tr)} ש'\na₂ = ${num(p.a2)} מ/ש²`, 'b') + txt(240, RY - 80, `בולמת מיד\na₁ = ${num(p.a1)} מ/ש²`, 'a');
+    return svg('התנגשות מאחור: זמן תגובה ובלימה', 185, s);
+  },
+  river_two_ways: (p) => {
+    const x0 = 100, drift = (p.vc / p.vb) * p.w * 0.8;
+    let s = rect(10, 40, 300, 120, { c: 'a', fill: 'a' }) + line(10, 40, 310, 40, { w: 2 }) + line(10, 160, 310, 160, { w: 2 });
+    s += rect(x0 - 8, 148, 16, 8, { c: 'b', fill: 'b', rx: 3 }) + arrow(x0, 146, x0, 96, 'b') + txt(x0 + 8, 120, `v = ${num(p.vb)} מ/ש\nביחס למים`, 'b', 'start');
+    s += arrow(190, 100, 250, 100, 'c') + txt(220, 90, `זרם ${num(p.vc)} מ/ש`, 'c') + path(`M${x0} 148L${x0 + drift} 44`, 'k') + dim(24, 40, 24, 160, `w = ${num(p.w)} מ'`, {});
+    s += dim(x0, 28, x0 + drift, 28, 'x = ?', {});
+    return svg('סירה חוצה נהר עם זרם', 175, s);
+  },
+  cliff_moving_boat: (p) => {
+    const sc = 0.9, top = 70, gy = top + p.H * sc, x0 = 94, t = (p.vy + Math.sqrt(p.vy * p.vy + 20 * p.H)) / 10, vx = (p.D + p.u * t) / t;
+    const bx0 = x0 + p.D * sc, bx1 = x0 + vx * t * sc;
+    let s = building(14, top, 80, gy - top) + ground(10, 310, gy) + ball(x0, top, 'a', 5) + arrow(x0, top, x0 + 14, top - 34, 'a') + txt(x0 + 22, top - 26, `vᵧ = ${num(p.vy)} מ/ש`, 'a', 'start');
+    s += curve(x0, top, vx * sc, p.vy * sc, 10 * sc, t, 'k') + `<g opacity="0.5">${rect(bx0 - 14, gy - 10, 28, 8, { c: 'b', fill: 'b', rx: 3 })}</g>` + rect(bx1 - 14, gy - 10, 28, 8, { c: 'b', fill: 'b', rx: 3 });
+    s += arrow(bx0 + 18, gy - 14, bx0 + 38, gy - 14, 'b') + txt(bx0 + 24, gy - 22, `${num(p.u)} מ/ש`, 'b', 'start') + dim(54, top, 54, gy, `H = ${num(p.H)} מ'`, {});
+    s += dim(14, gy + 18, bx0, gy + 18, `D = ${num(p.D)} מ'`, { below: true });
+    return svg('אבן נזרקת בזווית ממצוק אל סירה נעה', 185, s);
+  },
+  double_catch: (p) => {
+    let s = road(RY) + car(14, RY, 'b') + arrow(62, RY - 40, 102, RY - 40, 'b') + txt(82, RY - 46, `${num(p.v)} מ/ש`, 'b') + txt(36, RY + 22, 'ב׳', 'b');
+    s += car(200, RY, 'a') + txt(222, RY - 40, 'v₀ = 0', 'k') + arrow(210, RY - 62, 260, RY - 62, 'a') + txt(235, RY - 68, `a = ${num(p.a)} מ/ש²`, 'a') + txt(222, RY + 22, 'א׳', 'a');
+    s += dim(58, RY + 36, 200, RY + 36, `d₀ = ${num(p.d0)} מ'`, { below: true });
+    return svg('מכונית נוסעת מאחורי מכונית שיוצאת מהמנוחה', 175, s);
+  },
 };
 
 // ------------------------------------------------------------ validation
@@ -516,6 +847,7 @@ if (isMain) {
       return ex;
     }
     validateSvg(d).forEach((m) => problems.push(`${ex.id}: generated diagram invalid: ${m}`));
+    layoutIssues(d).forEach((m) => problems.push(`${ex.id}: layout: ${m}`));
     if (mode === '--check') {
       if (typeof ex.diagram !== 'string' || !ex.diagram) problems.push(`${ex.id}: diagram missing`);
       else if (ex.diagram !== d) problems.push(`${ex.id}: stored diagram differs from generated (run --write)`);

@@ -221,6 +221,146 @@ export const models = {
     const tf = Math.sqrt((2 * h) / G);
     return [ve, (v0 - ve) / a + tf, ve * tf, Math.hypot(ve, G * tf)];
   },
+
+  // ---- exam-level vertical models
+  // ball thrown up with w relative to an elevator rising at u from height h; ground frame afterwards
+  elevator_throw_relative: ({ u, w, h }) => {
+    const v0 = u + w;
+    const vImp = Math.sqrt(v0 * v0 + 2 * G * h);
+    return [(2 * w) / G, h + (v0 * v0) / (2 * G), (v0 + vImp) / G, vImp];
+  },
+  // A dropped at t=0; B thrown down with v0 at t=dt; B catches A at depth d
+  overtake_fall: ({ d, dt }) => {
+    const t = Math.sqrt((2 * d) / G);
+    const tau = t - dt;
+    const v0 = (d - (G * tau * tau) / 2) / tau;
+    return [(G * dt * dt) / 2, t, v0, v0 + G * tau];
+  },
+  // free fall to t1, linear slow-down to vland at t2, constant speed to t3; vq = a speed asked about
+  vt_free_fall_graph: ({ t1, t2, vland, t3, vq }) => {
+    const v1 = G * t1;
+    const a = (v1 - vland) / (t2 - t1);
+    const H = (G * t1 * t1) / 2 + ((v1 + vland) / 2) * (t2 - t1) + vland * (t3 - t2);
+    return [a, t1 + (v1 - vq) / a, H, H / t3];
+  },
+  // two packages from a balloon rising at u: A dropped at h, B thrown down w (relative) dt later
+  balloon_two_packages: ({ h, u, dt, w }) => {
+    const fall = (v, y) => (v + Math.sqrt(v * v + 2 * G * y)) / G;
+    const tA = fall(u, h);
+    const yb = h + u * dt;
+    const tB = fall(u - w, yb);
+    return [tA, tB, dt + tB - tA, yb + u * tB];
+  },
+  // two balls from the ground with the same v0; A descending meets B ascending at height y
+  same_throw_delay: ({ v0, y }) => {
+    const s = Math.sqrt(v0 * v0 - 2 * G * y);
+    const t1 = (v0 - s) / G;
+    const t2 = (v0 + s) / G;
+    return [t1, t2, t2 - t1, s];
+  },
+  // stone dropped into a well, splash heard after T; sound speed c
+  well_sound: ({ T, c }) => {
+    const t = (c / G) * (Math.sqrt(1 + (2 * G * T) / c) - 1);
+    const h = (G * t * t) / 2;
+    return [t, h, h / c, G * t];
+  },
+  two_stage_rocket: ({ a1, t1, a2, t2 }) => {
+    const v1 = a1 * t1;
+    const h1 = (a1 * t1 * t1) / 2;
+    const v2 = v1 + a2 * t2;
+    const h2 = h1 + v1 * t2 + (a2 * t2 * t2) / 2;
+    const H = h2 + (v2 * v2) / (2 * G);
+    return [v2, h2, H, t1 + t2 + v2 / G + Math.sqrt((2 * H) / G)];
+  },
+  // jump up v0 from height h above water, stop after depth d (uniform slow-down)
+  diver_plunge: ({ h, v0, d }) => {
+    const v = Math.sqrt(v0 * v0 + 2 * G * h);
+    const a = (v * v) / (2 * d);
+    return [h + (v0 * v0) / (2 * G), v, a, (v0 + v) / G + v / a];
+  },
+  // A thrown down w from height H; B thrown up from the ground; they meet when B is at its apex
+  meet_at_apex: ({ H, w }) => {
+    const t = (-w + Math.sqrt(w * w + 4 * G * H)) / (2 * G);
+    return [t, G * t, (G * t * t) / 2, w + G * t];
+  },
+  // thrown up v0 from a tower; d metres in the last second
+  tower_last_second: ({ v0, d }) => {
+    const vf = d + G / 2;
+    const h = (vf * vf - v0 * v0) / (2 * G);
+    return [vf, (v0 + vf) / G, h, h + (v0 * v0) / (2 * G)];
+  },
+
+  // ---- exam-level horizontal / 2D models
+  projectile_wall: ({ vx, vy, x }) => {
+    const t = x / vx;
+    const vyEnd = vy - G * t;
+    return [t, vy * t - (G * t * t) / 2, Math.hypot(vx, vyEnd), Math.abs(vyEnd) / vx];
+  },
+  // sin 53 = 0.8, cos 53 = 0.6, ball lands on a roof of height hp after the apex
+  platform_landing_53: ({ v0, hp }) => {
+    const vx = 0.6 * v0;
+    const vy = 0.8 * v0;
+    const s = Math.sqrt(vy * vy - 2 * G * hp);
+    const t2 = (vy + s) / G;
+    return [(vy - s) / G, t2, vx * t2, s];
+  },
+  // car A: constant vA; car B from rest, accelerates to vB at tB, then constant. Same start point.
+  two_car_graph: ({ vA, vB, tB }) => {
+    const a = vB / tB;
+    const tc = (vB * tB) / (2 * (vB - vA));
+    if (tc < tB) throw new Error('B must catch A after its acceleration phase');
+    return [a, vA / a, (vA * vA) / (2 * a), tc];
+  },
+  // train front passes the pole (at the platform start) at v0, uniform acceleration; tail passes pole at t1, leaves platform at t2
+  train_accel_platform: ({ v0, t1, t2, P }) => {
+    const a = (2 * (P - v0 * (t2 - t1))) / (t2 * t2 - t1 * t1);
+    const L = v0 * t1 + (a * t1 * t1) / 2;
+    return [a, L, v0 + a * t2, (L + P) / t2];
+  },
+  overtake_oncoming_stop: ({ vc, vt, g1, Lt, Lc, g2, vo, ao }) => {
+    const t = (g1 + Lt + Lc + g2) / (vc - vt);
+    const stopT = vo / ao;
+    const dOn = t >= stopT ? (vo * vo) / (2 * ao) : vo * t - (ao * t * t) / 2;
+    return [t, vc * t, dOn, vc * t + dOn];
+  },
+  // walkers A and B approach from distance d; dog starts at A, runs to B, back to A, ...
+  dog_between_walkers: ({ d, vA, vB, vd }) => {
+    const tm = d / (vA + vB);
+    const t1 = d / (vd + vB);
+    const t2 = t1 + (vd * t1 - vA * t1) / (vd + vA);
+    return [tm, t1, t2, vd * tm];
+  },
+  // lead car A (front) brakes at once; B follows at gap g, reacts after tr, brakes at a2 < a1 (both at speed v)
+  rear_end: ({ v, a1, a2, tr, g }) => {
+    const A = (a2 - a1) / 2;
+    const B = -a2 * tr;
+    const C = (a2 * tr * tr) / 2 + g;
+    const disc = B * B - 4 * A * C;
+    if (disc < 0) throw new Error('no collision');
+    const roots = [(-B - Math.sqrt(disc)) / (2 * A), (-B + Math.sqrt(disc)) / (2 * A)].filter((t) => t > tr).sort((p, q) => p - q);
+    const t = roots[0];
+    if (t === undefined || t > v / a1 || t - tr > v / a2) throw new Error('collision outside the common braking phase');
+    const vA = v - a1 * t;
+    const vB = v - a2 * (t - tr);
+    return [t, vA, vB, vB - vA];
+  },
+  river_two_ways: ({ vb, vc, w }) => {
+    const root = Math.sqrt(vb * vb - vc * vc);
+    return [w / vb, (vc * w) / vb, w / root, vc / root];
+  },
+  // stone thrown up (vy) with horizontal speed from a cliff of height H at a boat starting D away, receding at u
+  cliff_moving_boat: ({ H, vy, D, u }) => {
+    const t = (vy + Math.sqrt(vy * vy + 2 * G * H)) / G;
+    const vx = (D + u * t) / t;
+    return [t, vx, Math.hypot(vx, vy - G * t), H + (vy * vy) / (2 * G)];
+  },
+  // car B (constant v) is d0 behind car A which starts from rest with acceleration a
+  double_catch: ({ v, a, d0 }) => {
+    const disc = v * v - 2 * a * d0;
+    if (disc < 0) throw new Error('B never reaches A');
+    const s = Math.sqrt(disc);
+    return [(v - s) / a, (v + s) / a, a * ((v + s) / a), (v * v) / (2 * a) - d0];
+  },
 };
 
 const COMPLEX = /מרוכב|דמיוני|שורש\s+של\s+מינוס|√\s*\(?\s*[-−–]|imaginary|complex/i;
@@ -235,6 +375,29 @@ const numbersIn = (s) =>
   (String(s).replace(/<[^>]*>/g, '').match(/(?<![\p{L}\d.])\d+(?:\.\d+)?(?![\p{L}\d])/gu) || []).map(Number);
 const nonEmpty = (s) => typeof s === 'string' && s.trim().length > 0;
 const hebrew = (s) => nonEmpty(s) && HEBREW.test(s);
+
+// Optional multiple-choice walk through the solution path ("guided").
+export function checkGuided(g) {
+  const errs = [];
+  if (!Array.isArray(g) || g.length < 3 || g.length > 6) return ['guided must be an array of 3-6 steps'];
+  g.forEach((st, i) => {
+    const w = `step ${i + 1}`;
+    if (!st || typeof st !== 'object') return errs.push(`${w}: not an object`);
+    if (!hebrew(st.q)) errs.push(`${w}: q missing or not Hebrew`);
+    if (!Array.isArray(st.options) || st.options.length < 2 || st.options.length > 4) return errs.push(`${w}: options must have 2-4 items`);
+    st.options.forEach((o, j) => nonEmpty(o) || errs.push(`${w}: option ${j + 1} empty`));
+    if (!Number.isInteger(st.correct) || st.correct < 0 || st.correct >= st.options.length) errs.push(`${w}: correct is not a valid option index`);
+    if (!hebrew(st.explain)) errs.push(`${w}: explain missing or not Hebrew`);
+    if (st.wrongExplain !== undefined) {
+      if (!Array.isArray(st.wrongExplain) || st.wrongExplain.length !== st.options.length) errs.push(`${w}: wrongExplain length must equal options length`);
+      else st.wrongExplain.forEach((x, j) => j === st.correct || hebrew(x) || errs.push(`${w}: wrongExplain ${j + 1} empty or not Hebrew`));
+    }
+    for (const text of [st.q, ...(st.options || []), st.explain, ...(st.wrongExplain || [])]) {
+      if (typeof text === 'string' && LATIN_UNIT.test(stripTags(text))) errs.push(`${w}: Latin unit label, use Hebrew units`);
+    }
+  });
+  return errs;
+}
 
 export function checkExercise(ex, idx = 0) {
   const errs = [];
@@ -268,6 +431,7 @@ export function checkExercise(ex, idx = 0) {
       }
     });
   }
+  if (ex.guided !== undefined) checkGuided(ex.guided).forEach((m) => err(`guided: ${m}`));
   // Owner rule: no complex numbers anywhere.
   for (const [field, text] of [['title', ex.title], ['statement', ex.statement], ...(ex.tips || []).map((t, i) => [`tip ${i + 1}`, t]), ...(ex.solution || []).map((s, i) => [`solution step ${i + 1}`, s])]) {
     if (COMPLEX.test(stripTags(text))) err(`${field}: complex-number wording`);
