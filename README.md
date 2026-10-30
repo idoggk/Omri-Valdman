@@ -1,1 +1,63 @@
-﻿# Omri Study Site
+# אתר תרגול למבחן – מתמטיקה ופיזיקה (3–5 יח״ל)
+
+אתר סטטי לגמרי: HTML + CSS + מודולי JavaScript. אין שלב build, אין תלויות npm, ואין שימוש ברשת בזמן ריצה. עובד בטלפון וב-GitHub Pages.
+
+## הרצה מקומית
+
+דרוש Node.js (גרסה 18 ומעלה) בלבד:
+
+```
+node tools/serve.mjs          # http://localhost:8080/
+node tools/serve.mjs 3000     # פורט אחר
+```
+
+שרת מקומי נדרש כי הדף טוען את `data/*.json` באמצעות `fetch` (לא עובד מ-`file://`).
+
+## בדיקות
+
+```
+node --test
+```
+
+הבדיקות בודקות את `js/check.js` (פענוח תשובות: שברים, פסיק עשרוני, מינוס יוניקוד, ספרות ערביות-הודיות, סטייה מותרת, קלט לא תקין).
+
+## פרסום ב-GitHub Pages
+
+Settings → Pages → Deploy from a branch → `main` / root. כל הנתיבים יחסיים, ולכן זה עובד גם תחת `/שם-המאגר/`.
+
+## מבנה
+
+- `index.html`, `styles.css` – מעטפת העמוד (עברית, RTL, מובייל קודם, מצב בהיר/כהה לפי המכשיר).
+- `js/app.js` – ניווט (hash), תצוגות, אינטראקציה.
+- `js/check.js` – פענוח ובדיקת תשובות (פונקציות טהורות).
+- `js/store.js` – שמירת התקדמות ב-`localStorage` (עם try/catch).
+- `data/math.json`, `data/physics.json` – התרגילים.
+
+קישורים לשיתוף: `#/topic/math-3`, `#/ex/math-3-001`.
+
+## הוספת תרגילים
+
+מוסיפים אובייקט למערך בקובץ `data/math.json` (נושאים `math-3`, `math-4`) או `data/physics.json` (נושאים `phys-vertical`, `phys-horizontal`):
+
+```json
+{
+  "id": "math-3-002",
+  "topic": "math-3",
+  "level": 1,
+  "title": "כותרת בעברית",
+  "statement": "טקסט HTML בעברית. ביטוי מתמטי: <span dir=\"ltr\">x + y = 3</span>",
+  "inputs": [
+    { "label": "x", "unit": "", "answer": "3/2", "tolerance": 0.01 }
+  ],
+  "tips": ["רמז כללי", "צעד ראשון", "כמעט התשובה"],
+  "solution": ["צעד 1", "צעד 2"]
+}
+```
+
+- `id` ייחודי; התקדמות נשמרת לפיו. אל תשנו מזהה של תרגיל קיים.
+- `level`: 1, 2 או 3. `topic`: אחד מארבעת הנושאים.
+- `answer`: מספר או מחרוזת (`"3/2"`, `"-0.5"`). `tolerance` הוא סטייה מוחלטת (ברירת מחדל 0.01).
+- תרגיל בחירה (למשל "אין פתרון"): במקום `inputs` שמים `"choice": {"options": ["...", "..."], "correct": 1}` (האינדקס מתחיל מ-0).
+- `statement`, `tips`, `solution` הם HTML מהימן (מותר `<br>`, `<sub>`, `<sup>`, `<span dir="ltr">`). ביטויים מתמטיים תמיד בתוך `<span dir="ltr">`.
+- השדה `verify` מתעלמים ממנו באתר.
+- בפיזיקה מניחים `g = 10 m/s²`.
