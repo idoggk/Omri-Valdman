@@ -93,7 +93,7 @@ function viewSetup(ctx, running) {
 }
 
 /* ---------- running ---------- */
-function answerWidget(ex, exam) {
+function answerWidget(ctx, ex, exam) {
   const saved = exam.answers[ex.id];
   const commit = (value) => {
     if (X.isExpired(exam, Date.now())) return endExam(ctx, exam);
@@ -179,7 +179,7 @@ function viewRun(ctx, exam) {
     h('h1', {}, h('span', {}, isolateTitle(ex.title || ex.id))),
     h('div', { class: 'panel statement', html: ex.statement || '' }),
     ctx.diagramFigure ? ctx.diagramFigure(ex) : null,
-    h('form', { onsubmit: (ev) => ev.preventDefault() }, answerWidget(ex, exam)),
+    h('form', { onsubmit: (ev) => ev.preventDefault() }, answerWidget(ctx, ex, exam)),
     h('div', { class: 'btn-row exam-nav' },
       h('button', { class: 'btn', type: 'button', disabled: idx === 0, onclick: () => goto(idx - 1) }, '→ הקודמת'),
       h('button', {
