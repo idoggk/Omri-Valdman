@@ -423,6 +423,22 @@ function numberAppears(text, value) {
   return new RegExp(`(?<![\\d.])${value}(?!\\d)`).test(text);
 }
 
+// Numbers in a tip that match a requested answer value (by absolute value) and that do not
+// also occur in the statement. Coefficients written next to a letter ("4x", "2y²") are ignored.
+export function tipLeaks(ex) {
+  const plain = (s) => String(s).replace(/<[^>]*>/g, ' ').replace(/[−‒–—]/g, '-');
+  const nums = (s) => [...plain(s).matchAll(/(?<![\d.A-Za-z])(\d+(?:\.\d+)?)(?![\d.]|\s?[A-Za-z²³·])/g)].map((m) => Number(m[1]));
+  const answers = new Set();
+  for (const i of ex.inputs || []) answers.add(Math.abs(Number(parseFrac(i.answer).n) / Number(parseFrac(i.answer).d)));
+  for (const s of (ex.answerSets && ex.answerSets.sets) || []) for (const x of s) answers.add(Math.abs(Number(x)));
+  const inStatement = new Set(nums(ex.statement || ''));
+  const out = [];
+  for (const [i, t] of (ex.tips || []).entries()) {
+    for (const v of nums(t)) if (answers.has(v) && !inStatement.has(v)) out.push(`tip ${i + 1} contains ${v}`);
+  }
+  return [...new Set(out)];
+}
+
 export function validate(data, opts = {}) {
   const expected = opts.expectedPerTopic ?? 20;
   const errors = [];
@@ -529,6 +545,10 @@ export function validate(data, opts = {}) {
       resKind = 'finite';
       if (solList.length === 1) uniqueSol = solList[0];
     }
+
+    try {
+      for (const l of tipLeaks(ex)) err(id, `tip leaks an answer value: ${l}`);
+    } catch (e) { err(id, `tip leak check failed: ${e.message}`); }
 
     const hasInputs = Array.isArray(ex.inputs) && ex.inputs.length > 0;
     const forms = [hasInputs, !!ex.choice, !!ex.answerSets].filter(Boolean).length;

@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import path from 'node:path';
-import { solveSystem, parseFrac, parseEquation, solveFinite, rowsFromEquations, validate } from '../tools/verify-math.mjs';
+import { solveSystem, parseFrac, parseEquation, solveFinite, rowsFromEquations, validate, tipLeaks } from '../tools/verify-math.mjs';
 
 const str = (sol) => sol.map(String);
 const dataFile = path.join(path.dirname(fileURLToPath(import.meta.url)), '..', 'data', 'math.json');
@@ -260,3 +260,40 @@ test('independent float grid search agrees with the listed solutions (3 unknowns
     assert.deepEqual(found.sort(), listed.sort(), e.id);
   }
 });
+
+test('tipLeaks flags an answer value in a tip but allows numbers from the statement', () => {
+  const base = {
+    statement: 'x + 2y = 7', tips: ['a', 'b', 'c'],
+    inputs: [{ label: 'x', answer: '3' }, { label: 'y', answer: '2' }],
+  };
+  assert.deepEqual(tipLeaks(base), []);
+  assert.deepEqual(tipLeaks({ ...base, tips: ['הערך הוא 3', 'b', 'c'] }), ['tip 1 contains 3']);
+  assert.deepEqual(tipLeaks({ ...base, statement: 'x + 2y = 3', tips: ['a', 'כפלו ב־3', 'c'] }), []);
+  assert.deepEqual(tipLeaks({ ...base, tips: ['a', 'b', 'פתרון: 4x − 3'] }), ['tip 3 contains 3']);
+  const sets = { statement: 'xy = 6', tips: ['a', 'x = 0.8', 'c'], answerSets: { sets: [['1', '0.8'], ['2', '3']] } };
+  assert.deepEqual(tipLeaks(sets), ['tip 2 contains 0.8']);
+});
+
+test('no tip in data/math.json leaks an answer value', () => {
+  const data = JSON.parse(readFileSync(dataFile, 'utf8'));
+  for (const e of data) assert.deepEqual(tipLeaks(e), [], e.id);
+});
+
+// Data-vs-app contract: the app (js/app.js validExercise) only accepts inputs or choice, and
+// answerSets exercises are rendered by the answer-sets module (one row of labelled fields per
+// solution). Every exercise must therefore be renderable through one of the three forms.
+for (const file of ['math', 'physics']) {
+  test(`data/${file}.json: every exercise has renderable answer fields`, () => {
+    const dataPath = path.join(path.dirname(dataFile), `${file}.json`);
+    const data = JSON.parse(readFileSync(dataPath, 'utf8'));
+    for (const e of data) {
+      const hasInputs = Array.isArray(e.inputs) && e.inputs.length > 0 && e.inputs.every((i) => typeof i.label === 'string' && i.label && i.answer !== undefined);
+      const hasChoice = !!(e.choice && Array.isArray(e.choice.options) && e.choice.options.length >= 2 && e.choice.options[e.choice.correct] !== undefined);
+      const a = e.answerSets;
+      const hasSets = !!(a && Array.isArray(a.labels) && a.labels.length > 0 && Array.isArray(a.sets) && a.count === a.sets.length &&
+        a.sets.every((s) => Array.isArray(s) && s.length === a.labels.length && s.every((x) => Number.isFinite(Number(x)))));
+      assert.equal([hasInputs, hasChoice, hasSets].filter(Boolean).length, 1, `${e.id}: exactly one renderable answer form`);
+      assert.ok(typeof e.id === 'string' && typeof e.topic === 'string', e.id);
+    }
+  });
+}
