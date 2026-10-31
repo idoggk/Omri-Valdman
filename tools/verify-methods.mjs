@@ -66,6 +66,15 @@ export function validateMethods(data) {
       if (typeof o.why !== 'string' || !o.why.trim()) e(`option ${o.id} has an empty explanation`);
       else if (!hasHebrew(o.why)) e(`option ${o.id} explanation must contain Hebrew`);
     }
+    // "z appears in N equations" claims in explanations must match the shown equation list
+    const NUMS = { 'שתי': 2, 'שלוש': 3, 'ארבע': 4 };
+    for (const o of it.options) {
+      const text = o && typeof o.why === 'string' ? o.why : '';
+      for (const m of text.matchAll(/(?:^|[\s.,;(])([a-zA-Z]) מופיע ב(שתי|שלוש|ארבע) משוואות/g)) {
+        const actual = eqs.filter((q) => new RegExp(`(^|[^A-Za-z])${m[1]}([^A-Za-z]|$)`).test(q)).length;
+        if (actual !== NUMS[m[2]]) e(`option ${o.id} says ${m[1]} appears in ${NUMS[m[2]]} equations, but it appears in ${actual}`);
+      }
+    }
     // numeric checks
     const needsVars = eqs.length > 0 || it.options.some((o) => o && o.eq);
     if (!needsVars) continue;
