@@ -40,7 +40,7 @@ test('ladder.json: six Hebrew stages, every ref resolves to a physics exercise, 
   }
   const all = L.allRefs(stages);
   assert.equal(new Set(all).size, all.length, 'an exercise appears in two stages');
-  assert.deepEqual(stages.map((s) => s.items.length), [12, 22, 13, 12, 40, 0]);
+  assert.deepEqual(stages.map((s) => s.items.length), [12, 22, 13, 12, 40, 8]);
 });
 
 test('needed(): ceil of 70%', () => {
@@ -126,8 +126,9 @@ test('UI: overview shows six cards with status, progress and soon note; locked s
   assert.match(text, /🔓 פתוח/);
   assert.match(text, /🔒 נעול/);
   assert.match(text, /0\/13 לבד/);
-  assert.equal((text.match(/⏳ בקרוב/g) || []).length, 1);
-  assert.deepEqual(hrefs().filter((h) => h.startsWith('#/ladder/')), ['#/ladder/S1', '#/ladder/S2', '#/ladder/S3', '#/ladder/S4', '#/ladder/S5']);
+  assert.match(text, /0\/8 לבד/);
+  assert.equal((text.match(/⏳ בקרוב/g) || []).length, 0);
+  assert.deepEqual(hrefs().filter((h) => h.startsWith('#/ladder/')), ['#/ladder/S1', '#/ladder/S2', '#/ladder/S3', '#/ladder/S4', '#/ladder/S5', '#/ladder/S6']);
 
   await U.viewLadderRoute(ctx, 'S2'); // locked: no item list, skip button
   assert.match(dom.root.textContent, /השלב נעול/);
@@ -136,8 +137,8 @@ test('UI: overview shows six cards with status, progress and soon note; locked s
   assert.equal(hrefs().filter((h) => /^#\/ladder\/S2\/\d+$/.test(h)).length, 22);
   assert.deepEqual(L.loadLadder().skip, { S2: true });
 
-  await U.viewLadderRoute(ctx, 'S6');
-  assert.match(dom.root.textContent, /יתווספו בקרוב/);
+  await U.viewLadderRoute(ctx, 'S6'); // locked behind S5
+  assert.match(dom.root.textContent, /השלב נעול/);
   await U.viewLadderRoute(ctx, 'nope');
   assert.match(dom.root.textContent, /הסלם לרמת מבחן/);
 });
@@ -262,5 +263,77 @@ test('UI: an inline S3 item renders with its graph, and a correct answer is reco
   assert.match(dom.root.textContent, /1\/13 לבד/);
   await U.viewLadderRoute(ctx, 'S3', '99');
   assert.match(dom.root.textContent, /1\/13 לבד/);
+  localStorage.removeItem(L.LADDER_KEY);
+});
+
+// ---- stage S6: sketch parts
+const s6 = stages.find((x) => x.id === 'S6');
+const boxes = () => dom.root.all((n) => n.tagName === 'INPUT' && n.getAttribute('type') === 'checkbox');
+const answerAll = (it) => {
+  press();
+  dom.root.all((n) => n.tagName === 'INPUT' && n.getAttribute('type') !== 'checkbox').forEach((inp, i) => { inp.value = it.inputs[i].answer; });
+  dom.root.querySelector('form').dispatch('submit');
+};
+
+test('S6 data: >= 8 items, 5-6 parts each, every item has a sketch part with a 3-line checklist and a reference graph', () => {
+  assert.ok(s6.items.length >= 8);
+  for (const it of s6.items) {
+    assert.match(it.id, /^lad-s6-[0-9]{2}$/);
+    assert.ok(it.inputs.length + it.sketches.length >= 5 && it.inputs.length + it.sketches.length <= 6, it.id);
+    assert.ok(it.sketches.length >= 1, it.id);
+    for (const sk of it.sketches) {
+      assert.equal(sk.checklist.length, 3, it.id);
+      assert.match(sk.svg, /^<svg /, it.id);
+    }
+    assert.match(it.statement, /<br>ו\. /, it.id);
+  }
+});
+
+test('S6 UI: the sketch part reveals the graph and the checklist, never blocks the numeric parts, and counts only when every box is ticked', async () => {
+  store.resetCache();
+  localStorage.removeItem(L.LADDER_KEY);
+  L.setSkip('S6');
+  const it = s6.items[0];
+  await U.viewLadderRoute(ctx, 'S6', '1');
+  assert.equal(boxes().length, 0, 'the checklist is hidden until the correct graph is shown');
+  assert.equal(dom.root.querySelector('svg'), null);
+  // numeric answers first: the item is not yet recorded, and the page says what is left
+  answerAll(it);
+  assert.match(dom.root.textContent, /נכון/);
+  assert.equal(L.inlineOutcome(it.id), null);
+  assert.match(dom.root.textContent, /נותר לסמן את סעיף השרטוט/);
+  dom.root.byText('button', 'הצג את הגרף הנכון').click();
+  assert.equal(boxes().length, 3);
+  assert.match(dom.root.textContent, /בדיקה עצמית/);
+  boxes()[0].checked = true; boxes()[0].dispatch('change');
+  boxes()[1].checked = true; boxes()[1].dispatch('change');
+  assert.equal(L.inlineOutcome(it.id), null, 'two of three boxes do not count');
+  boxes()[2].checked = true; boxes()[2].dispatch('change');
+  assert.equal(L.inlineOutcome(it.id), 'alone');
+  assert.equal(store.outcomeOf(it.id), null);
+  boxes()[1].checked = false; boxes()[1].dispatch('change');
+  assert.equal(L.inlineOutcome(it.id), 'alone', 'unticking later does not undo a recorded outcome');
+  localStorage.removeItem(L.LADDER_KEY);
+});
+
+test('S6 UI: ticking the sketch first, then solving, records the item; an unticked sketch with a revealed solution never gives "alone"', async () => {
+  store.resetCache();
+  localStorage.removeItem(L.LADDER_KEY);
+  L.setSkip('S6');
+  const it = s6.items[1];
+  await U.viewLadderRoute(ctx, 'S6', '2');
+  dom.root.byText('button', 'הצג את הגרף הנכון').click();
+  boxes().forEach((b) => { b.checked = true; b.dispatch('change'); });
+  assert.equal(L.inlineOutcome(it.id), null, 'a sketch alone records nothing');
+  answerAll(it);
+  assert.equal(L.inlineOutcome(it.id), 'alone');
+  // item 3: numeric answers right but the sketch left unticked
+  const it3 = s6.items[2];
+  await U.viewLadderRoute(ctx, 'S6', '3');
+  answerAll(it3);
+  assert.equal(L.inlineOutcome(it3.id), null);
+  const { sketchGate } = U;
+  const gate = sketchGate(it3.sketches);
+  assert.equal(gate.done(), false);
   localStorage.removeItem(L.LADDER_KEY);
 });

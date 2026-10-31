@@ -4676,8 +4676,1578 @@
       "id": "S6",
       "title": "רמת מבחן",
       "intro": "בשלב הזה פותרים תרגיל מלא בסגנון מבחן: חמישה או שישה סעיפים, שרטוט, תנאי מפגש או פגיעה, ומהירות וכיוון בסוף. רמת מבחן אומרת לפתור הכול לבד, בלי רמזים.",
-      "soon": "התרגילים בשלב הזה יתווספו בקרוב.",
-      "items": []
+      "items": [
+        {
+          "id": "lad-s6-01",
+          "topic": "phys-horizontal",
+          "level": 6,
+          "title": "כדור מתגלגל מגג מחסן וכדור שנזרק כלפי מטה",
+          "statement": "כדור A מתגלגל על גג שטוח של מחסן שגובהו 6.2 מ' ונופל מקצהו במהירות אופקית של 3 מ/ש. ברגע שהוא עוזב את הגג נזרק כדור B אנכית כלפי מטה במהירות u, מנקודה שגובהה 8.2 מ' מעל הרצפה ושמרחקה האופקי מקצה הגג 3 מ'. הכדורים נפגשים באוויר לפני שאחד מהם פוגע ברצפה. בחישובים השתמשו ב־g = 10 מ/ש² והתעלמו מהתנגדות האוויר. כיוון המהירות = זווית מעל (+) או מתחת (−) לאופק.<br>א. כמה זמן היה נמשכת נפילת כדור A עד הרצפה, אילו לא היה נפגש?<br>ב. מהי מהירות הזריקה u של כדור B?<br>ג. באיזה גובה מעל הרצפה נפגשים הכדורים?<br>ד. מהו גודל מהירות כדור A ברגע המפגש?<br>ה. מהו כיוון מהירות כדור A ברגע המפגש?<br>ו. (סעיף שרטוט) שרטטו בטיוטה, על אותם צירים, את גרף המהירות האנכית של שני הכדורים מרגע השחרור ועד המפגש, וסמנו את שני ערכי המהירות ברגע המפגש. אחרי השרטוט לחצו על ״הצג את הגרף הנכון״ ובדקו את עצמכם (סעיף השרטוט אינו נבדק אוטומטית).",
+          "diagram": "<svg viewBox=\"0 0 320 194\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" aria-label=\"כדור מתגלגל מגג מחסן וכדור שנזרק כלפי מטה\"><title>כדור מתגלגל מגג מחסן וכדור שנזרק כלפי מטה</title><defs><marker id=\"ph-k\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"currentColor\"/></marker><marker id=\"ph-a\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"var(--dg-a, #1f5fae)\"/></marker><marker id=\"ph-b\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"var(--dg-b, #c2410c)\"/></marker><marker id=\"ph-c\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"var(--dg-c, #1e7a34)\"/></marker></defs><g direction=\"ltr\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-size=\"14\"><line x1=\"10\" y1=\"150\" x2=\"310\" y2=\"150\" stroke=\"currentColor\" stroke-width=\"2\"/><path d=\"M18 150l-6 8M28 150l-6 8M38 150l-6 8M48 150l-6 8M58 150l-6 8M68 150l-6 8M78 150l-6 8M88 150l-6 8M98 150l-6 8M108 150l-6 8M118 150l-6 8M128 150l-6 8M138 150l-6 8M148 150l-6 8M158 150l-6 8M168 150l-6 8M178 150l-6 8M188 150l-6 8M198 150l-6 8M208 150l-6 8M218 150l-6 8M228 150l-6 8M238 150l-6 8M248 150l-6 8M258 150l-6 8M268 150l-6 8M278 150l-6 8M288 150l-6 8M298 150l-6 8M308 150l-6 8\" opacity=\"0.5\"/><rect x=\"100\" y=\"106\" width=\"50\" height=\"44\" stroke=\"currentColor\" fill=\"currentColor\" fill-opacity=\"0.18\"/><line x1=\"30\" y1=\"106\" x2=\"30\" y2=\"150\" stroke=\"currentColor\" marker-start=\"url(#ph-k)\" marker-end=\"url(#ph-k)\"/><text x=\"72.4\" y=\"97\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\"><tspan direction=\"ltr\" unicode-bidi=\"isolate\">⁦h = 6.2 <tspan direction=\"rtl\" unicode-bidi=\"isolate\">⁧מ׳⁩</tspan>⁩</tspan></text><line x1=\"30\" y1=\"106\" x2=\"100\" y2=\"106\" stroke=\"currentColor\" stroke-dasharray=\"5 4\" opacity=\"0.6\"/><circle cx=\"150\" cy=\"101\" r=\"5\" fill=\"var(--dg-a, #1f5fae)\" stroke=\"none\"/><line x1=\"157\" y1=\"101\" x2=\"197\" y2=\"101\" stroke=\"var(--dg-a, #1f5fae)\" stroke-width=\"2\" marker-end=\"url(#ph-a)\"/><text x=\"177\" y=\"87\" text-anchor=\"middle\" fill=\"var(--dg-a, #1f5fae)\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\"><tspan direction=\"ltr\" unicode-bidi=\"isolate\">⁦v₁ = 3 <tspan direction=\"rtl\" unicode-bidi=\"isolate\">⁧מ/ש⁩</tspan>⁩</tspan></text><line x1=\"228\" y1=\"48\" x2=\"228\" y2=\"150\" stroke=\"currentColor\" stroke-dasharray=\"5 4\" opacity=\"0.6\"/><circle cx=\"228\" cy=\"48\" r=\"6\" fill=\"var(--dg-b, #c2410c)\" stroke=\"none\"/><line x1=\"228\" y1=\"56\" x2=\"228\" y2=\"90\" stroke=\"var(--dg-b, #c2410c)\" stroke-width=\"2\" marker-end=\"url(#ph-b)\"/><text x=\"272\" y=\"79\" text-anchor=\"start\" fill=\"var(--dg-b, #c2410c)\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\">u = ?</text><line x1=\"268\" y1=\"48\" x2=\"268\" y2=\"150\" stroke=\"currentColor\" marker-start=\"url(#ph-k)\" marker-end=\"url(#ph-k)\"/><text x=\"180.6\" y=\"65\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\"><tspan direction=\"ltr\" unicode-bidi=\"isolate\">⁦H = 8.2 <tspan direction=\"rtl\" unicode-bidi=\"isolate\">⁧מ׳⁩</tspan>⁩</tspan></text><line x1=\"150\" y1=\"168\" x2=\"228\" y2=\"168\" stroke=\"currentColor\" marker-start=\"url(#ph-k)\" marker-end=\"url(#ph-k)\"/><text x=\"189\" y=\"140\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\"><tspan direction=\"ltr\" unicode-bidi=\"isolate\">⁦d = 3 <tspan direction=\"rtl\" unicode-bidi=\"isolate\">⁧מ׳⁩</tspan>⁩</tspan></text></g></svg>",
+          "scene": {
+            "title": "כדור מתגלגל מגג מחסן וכדור שנזרק כלפי מטה",
+            "kind": "table",
+            "labels": {
+              "h": "h = 6.2 מ'",
+              "v1": "v₁ = 3 מ/ש",
+              "d": "d = 3 מ'",
+              "H": "H = 8.2 מ'",
+              "u": "u = ?"
+            }
+          },
+          "inputs": [
+            {
+              "label": "זמן הנפילה של A עד הרצפה",
+              "unit": "ש'",
+              "answer": "1.11",
+              "tolerance": 0.02
+            },
+            {
+              "label": "מהירות הזריקה u של B",
+              "unit": "מ/ש",
+              "answer": "2",
+              "tolerance": 0.03
+            },
+            {
+              "label": "גובה המפגש מעל הרצפה",
+              "unit": "מ'",
+              "answer": "1.2",
+              "tolerance": 0.02
+            },
+            {
+              "label": "גודל מהירות A במפגש",
+              "unit": "מ/ש",
+              "answer": "10.44",
+              "tolerance": 0.16
+            },
+            {
+              "label": "כיוון מהירות A במפגש",
+              "unit": "מעלות",
+              "answer": "-73.3",
+              "tolerance": 0.3
+            }
+          ],
+          "sketches": [
+            {
+              "label": "סעיף ו: גרף המהירות האנכית של שני הכדורים",
+              "prompt": "שרטטו את המהירות האנכית (כלפי מעלה חיובי) של A ושל B כפונקציה של הזמן, מהשחרור ועד המפגש.",
+              "graph": {
+                "kind": "vt",
+                "series": [
+                  {
+                    "body": "A",
+                    "q": "vy",
+                    "fn": [
+                      0,
+                      -10
+                    ],
+                    "t1": 1,
+                    "label": "A"
+                  },
+                  {
+                    "body": "B",
+                    "q": "vy",
+                    "fn": [
+                      -1.9999999999999991,
+                      -10
+                    ],
+                    "t1": 1,
+                    "label": "B"
+                  }
+                ],
+                "marks": [
+                  {
+                    "t": 1,
+                    "y": -10,
+                    "s": 0
+                  },
+                  {
+                    "t": 1,
+                    "y": -12,
+                    "s": 1
+                  }
+                ]
+              },
+              "svg": "<svg viewBox=\"0 0 320 304\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" aria-label=\"סעיף ו: גרף המהירות האנכית של שני הכדורים\"><title>סעיף ו: גרף המהירות האנכית של שני הכדורים</title><defs><marker id=\"ph-k\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"currentColor\"/></marker><marker id=\"ph-a\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"var(--dg-a, #1f5fae)\"/></marker><marker id=\"ph-b\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"var(--dg-b, #c2410c)\"/></marker><marker id=\"ph-c\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"var(--dg-c, #1e7a34)\"/></marker></defs><g direction=\"ltr\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-size=\"14\"><line x1=\"52\" y1=\"40\" x2=\"52\" y2=\"260\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"52\" y=\"284\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">0</text><line x1=\"172\" y1=\"40\" x2=\"172\" y2=\"260\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"172\" y=\"284\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">0.5</text><line x1=\"292\" y1=\"40\" x2=\"292\" y2=\"260\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"292\" y=\"284\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">1</text><line x1=\"52\" y1=\"260\" x2=\"292\" y2=\"260\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"42\" y=\"265\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">-12</text><line x1=\"52\" y1=\"223.3\" x2=\"292\" y2=\"223.3\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"42\" y=\"228.3\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">-10</text><line x1=\"52\" y1=\"186.7\" x2=\"292\" y2=\"186.7\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"42\" y=\"191.7\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">-8</text><line x1=\"52\" y1=\"150\" x2=\"292\" y2=\"150\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"42\" y=\"155\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">-6</text><line x1=\"52\" y1=\"113.3\" x2=\"292\" y2=\"113.3\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"42\" y=\"118.3\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">-4</text><line x1=\"52\" y1=\"76.7\" x2=\"292\" y2=\"76.7\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"42\" y=\"81.7\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">-2</text><line x1=\"52\" y1=\"40\" x2=\"292\" y2=\"40\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"42\" y=\"45\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">0</text><line x1=\"52\" y1=\"40\" x2=\"300\" y2=\"40\" stroke=\"currentColor\" stroke-width=\"2\" marker-end=\"url(#ph-k)\"/><line x1=\"52\" y1=\"260\" x2=\"52\" y2=\"30\" stroke=\"currentColor\" stroke-width=\"2\" marker-end=\"url(#ph-k)\"/><text x=\"278.5\" y=\"24\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\"><tspan direction=\"ltr\" unicode-bidi=\"isolate\">⁦t (<tspan direction=\"rtl\" unicode-bidi=\"isolate\">⁧ש׳⁩</tspan>)⁩</tspan></text><text x=\"87.9\" y=\"20\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\"><tspan direction=\"ltr\" unicode-bidi=\"isolate\">⁦v (<tspan direction=\"rtl\" unicode-bidi=\"isolate\">⁧מ/ש⁩</tspan>)⁩</tspan></text><polyline points=\"52,40 292,223.3\" stroke=\"var(--dg-a, #1f5fae)\" stroke-width=\"2.5\"/><polyline points=\"52,76.7 292,260\" stroke=\"var(--dg-c, #1e7a34)\" stroke-width=\"2.5\"/><line x1=\"292\" y1=\"223.3\" x2=\"292\" y2=\"260\" stroke=\"currentColor\" stroke-dasharray=\"5 4\" opacity=\"0.5\"/><line x1=\"52\" y1=\"223.3\" x2=\"292\" y2=\"223.3\" stroke=\"currentColor\" stroke-dasharray=\"5 4\" opacity=\"0.5\"/><line x1=\"292\" y1=\"260\" x2=\"292\" y2=\"260\" stroke=\"currentColor\" stroke-dasharray=\"5 4\" opacity=\"0.5\"/><line x1=\"52\" y1=\"260\" x2=\"292\" y2=\"260\" stroke=\"currentColor\" stroke-dasharray=\"5 4\" opacity=\"0.5\"/><circle cx=\"292\" cy=\"223.3\" r=\"3.5\" fill=\"var(--dg-b, #c2410c)\" stroke=\"none\"/><circle cx=\"292\" cy=\"260\" r=\"3.5\" fill=\"var(--dg-b, #c2410c)\" stroke=\"none\"/><text x=\"234.8\" y=\"167\" text-anchor=\"start\" fill=\"var(--dg-a, #1f5fae)\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\">A</text><text x=\"258.8\" y=\"185.7\" text-anchor=\"start\" fill=\"var(--dg-c, #1e7a34)\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\">B</text></g></svg>",
+              "checklist": [
+                "הצירים מסומנים בשם ובמידה, עם יחידות: v (מ/ש) ו־t (ש').",
+                "סימנתי על הגרף את הערכים המרכזיים (נקודת ההתחלה, נקודת הסיום והנקודות המסומנות) ואת המפגש.",
+                "הצורה והשיפוע נכונים: שני קווים ישרים במקביל, שניהם יורדים באותו שיפוע, וסימן הערכים (מעל או מתחת לציר הזמן) מתאים."
+              ]
+            }
+          ],
+          "tips": [
+            "כדור A נופל מהגג כמו גוף שנזרק אופקית: זמן הנפילה תלוי רק בגובה, והמהירות האופקית נשארת קבועה.",
+            "הכדורים נפגשים כשכדור A מגיע לקו האנכי של כדור B. את הזמן הזה מוצאים מהמרחק האופקי ומהמהירות האופקית של A.",
+            "שני הכדורים נופלים בתאוצה זהה. לכן רק המהירות ההתחלתית של B סוגרת את הפרש הגבהים ההתחלתי בזמן המפגש."
+          ],
+          "solution": [
+            "נפילת A: <span dir=\"ltr\">6.2 = 5·t²</span>, לכן <span dir=\"ltr\">t = √1.24 ≈ 1.11 ש'</span>.",
+            "זמן המפגש: A מגיע לקו האנכי של B אחרי <span dir=\"ltr\">t = d / vₓ = 3 / 3 = 1 ש'</span>. זה קטן מזמן הנפילה, ולכן A עדיין באוויר.",
+            "בזמן המפגש הגבהים שווים: <span dir=\"ltr\">6.2 − 5t² = 8.2 − u·t − 5t²</span>, כלומר <span dir=\"ltr\">u·t = 2</span>, ולכן <span dir=\"ltr\">u = 2 / 1 = 2 מ/ש</span>.",
+            "גובה המפגש: <span dir=\"ltr\">y = 6.2 − 5·1² = 1.2 מ'</span>.",
+            "רכיבי המהירות של A במפגש: <span dir=\"ltr\">vₓ = 3 מ/ש, vᵧ = −10·1 = −10 מ/ש</span>, והגודל <span dir=\"ltr\">v = √(3² + 10²) ≈ 10.44 מ/ש</span>.",
+            "<span dir=\"ltr\">tan θ = −10 / 3</span>, לכן <span dir=\"ltr\">θ ≈ -73.3°</span>: המהירות מצביעה כ־73.3 מעלות מתחת לאופק.",
+            "בגרף: <span dir=\"ltr\">vᵧ(A) = −10t</span> ו־<span dir=\"ltr\">vᵧ(B) = −2 − 10t</span>. שני קווים ישרים מקבילים, ובמפגש הערכים הם <span dir=\"ltr\">−10</span> ו־<span dir=\"ltr\">−12</span> מ/ש."
+          ],
+          "verify": {
+            "floor": true,
+            "bodies": [
+              {
+                "id": "A",
+                "x0": 0,
+                "y0": 6.2,
+                "vx": 3,
+                "vy": 0
+              },
+              {
+                "id": "B",
+                "x0": 3,
+                "y0": 8.2,
+                "vx": 0,
+                "vy": -1.9999999999999991
+              }
+            ],
+            "meet": {
+              "a": "A",
+              "b": "B",
+              "axis": "x"
+            },
+            "claims": [
+              {
+                "q": {
+                  "body": "A",
+                  "what": "t",
+                  "at": "meet"
+                },
+                "value": 1,
+                "tol": 0.005
+              }
+            ],
+            "queries": [
+              {
+                "body": "A",
+                "what": "t",
+                "at": {
+                  "land": "A"
+                }
+              },
+              {
+                "body": "B",
+                "what": "speed",
+                "at": "start"
+              },
+              {
+                "body": "A",
+                "what": "y",
+                "at": "meet"
+              },
+              {
+                "body": "A",
+                "what": "speed",
+                "at": "meet"
+              },
+              {
+                "body": "A",
+                "what": "ang",
+                "at": "meet"
+              }
+            ]
+          }
+        },
+        {
+          "id": "lad-s6-02",
+          "topic": "phys-horizontal",
+          "level": 6,
+          "title": "שלושה גופים שמגיעים בו־זמנית לאותה נקודה",
+          "statement": "שלושה גופים, A, B ו־C, מגיעים באותו רגע לנקודה P על הקרקע. גוף B נשמט ממנוחה מגובה 20 מ' מעל P. באותו רגע נזרק גוף C אופקית מאותו גובה, מנקודה שמרחקה האופקי מ־P הוא 12 מ'. ובאותו רגע נזרק גוף A מהקרקע, בזווית 45° מעל האופק לכיוון P, ופוגע ב־P. בחישובים השתמשו ב־g = 10 מ/ש² והתעלמו מהתנגדות האוויר. כיוון המהירות = זווית מעל (+) או מתחת (−) לאופק.<br>א. כמה זמן נמשכת תנועת הגופים עד שהם מגיעים ל־P?<br>ב. מהו המרחק האופקי בין נקודת הזריקה של A לבין P?<br>ג. מהי מהירות הזריקה של A?<br>ד. מהי מהירות הזריקה של C?<br>ה. מהו כיוון מהירות C ברגע שהוא מגיע ל־P?<br>ו. (סעיף שרטוט) שרטטו בטיוטה את גרף הגובה כפונקציה של הזמן, על אותם צירים, עבור A ועבור B, עד הרגע שהם מגיעים ל־P, וסמנו את הגובה המרבי של A. אחרי השרטוט לחצו על ״הצג את הגרף הנכון״ ובדקו את עצמכם (סעיף השרטוט אינו נבדק אוטומטית).",
+          "diagram": "<svg viewBox=\"0 0 320 194\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" aria-label=\"שלושה גופים שמגיעים לאותה נקודה\"><title>שלושה גופים שמגיעים לאותה נקודה</title><defs><marker id=\"ph-k\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"currentColor\"/></marker><marker id=\"ph-a\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"var(--dg-a, #1f5fae)\"/></marker><marker id=\"ph-b\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"var(--dg-b, #c2410c)\"/></marker><marker id=\"ph-c\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"var(--dg-c, #1e7a34)\"/></marker></defs><g direction=\"ltr\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-size=\"14\"><line x1=\"10\" y1=\"150\" x2=\"310\" y2=\"150\" stroke=\"currentColor\" stroke-width=\"2\"/><path d=\"M18 150l-6 8M28 150l-6 8M38 150l-6 8M48 150l-6 8M58 150l-6 8M68 150l-6 8M78 150l-6 8M88 150l-6 8M98 150l-6 8M108 150l-6 8M118 150l-6 8M128 150l-6 8M138 150l-6 8M148 150l-6 8M158 150l-6 8M168 150l-6 8M178 150l-6 8M188 150l-6 8M198 150l-6 8M208 150l-6 8M218 150l-6 8M228 150l-6 8M238 150l-6 8M248 150l-6 8M258 150l-6 8M268 150l-6 8M278 150l-6 8M288 150l-6 8M298 150l-6 8M308 150l-6 8\" opacity=\"0.5\"/><line x1=\"292\" y1=\"50\" x2=\"292\" y2=\"150\" stroke=\"currentColor\" marker-start=\"url(#ph-k)\" marker-end=\"url(#ph-k)\"/><text x=\"193.9\" y=\"141\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\"><tspan direction=\"ltr\" unicode-bidi=\"isolate\">⁦H = 20 <tspan direction=\"rtl\" unicode-bidi=\"isolate\">⁧מ׳⁩</tspan>⁩</tspan></text><path d=\"M130 50Q190 50 250 144\" stroke=\"currentColor\" stroke-dasharray=\"5 4\"/><circle cx=\"130\" cy=\"50\" r=\"5\" fill=\"var(--dg-a, #1f5fae)\" stroke=\"none\"/><line x1=\"136\" y1=\"50\" x2=\"166\" y2=\"50\" stroke=\"var(--dg-a, #1f5fae)\" stroke-width=\"2\" marker-end=\"url(#ph-a)\"/><text x=\"192\" y=\"44\" text-anchor=\"middle\" fill=\"var(--dg-a, #1f5fae)\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\">vC = ?</text><circle cx=\"250\" cy=\"50\" r=\"5\" fill=\"var(--dg-b, #c2410c)\" stroke=\"none\"/><line x1=\"250\" y1=\"58\" x2=\"250\" y2=\"86\" stroke=\"var(--dg-b, #c2410c)\" stroke-width=\"2\" marker-end=\"url(#ph-b)\"/><text x=\"222.2\" y=\"75\" text-anchor=\"middle\" fill=\"var(--dg-b, #c2410c)\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\"><tspan direction=\"rtl\" unicode-bidi=\"isolate\">⁧נשמט⁩</tspan></text><path d=\"M36 144Q143 20 250 144\" stroke=\"currentColor\" stroke-dasharray=\"5 4\"/><circle cx=\"36\" cy=\"144\" r=\"5\" fill=\"var(--dg-a, #1f5fae)\" stroke=\"none\"/><line x1=\"40\" y1=\"140\" x2=\"64\" y2=\"112\" stroke=\"var(--dg-a, #1f5fae)\" stroke-width=\"2\" marker-end=\"url(#ph-a)\"/><text x=\"77\" y=\"126\" text-anchor=\"start\" fill=\"var(--dg-a, #1f5fae)\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\">v₀ = ?</text><line x1=\"36\" y1=\"144\" x2=\"96\" y2=\"144\" stroke=\"currentColor\" stroke-dasharray=\"5 4\" opacity=\"0.6\"/><text x=\"127\" y=\"141\" text-anchor=\"start\" fill=\"var(--dg-b, #c2410c)\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\">45°</text><circle cx=\"250\" cy=\"144\" r=\"4\" fill=\"var(--dg-c, #1e7a34)\" stroke=\"none\"/><text x=\"260\" y=\"131\" text-anchor=\"end\" fill=\"var(--dg-c, #1e7a34)\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\">P</text><line x1=\"130\" y1=\"26\" x2=\"250\" y2=\"26\" stroke=\"currentColor\" marker-start=\"url(#ph-k)\" marker-end=\"url(#ph-k)\"/><text x=\"94\" y=\"21\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\"><tspan direction=\"ltr\" unicode-bidi=\"isolate\">⁦d = 12 <tspan direction=\"rtl\" unicode-bidi=\"isolate\">⁧מ׳⁩</tspan>⁩</tspan></text><line x1=\"36\" y1=\"168\" x2=\"250\" y2=\"168\" stroke=\"currentColor\" marker-start=\"url(#ph-k)\" marker-end=\"url(#ph-k)\"/><text x=\"143\" y=\"119\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\">d = ?</text></g></svg>",
+          "scene": {
+            "title": "שלושה גופים שמגיעים לאותה נקודה",
+            "kind": "trio",
+            "labels": {
+              "A": "v₀ = ?",
+              "ang": "45°",
+              "B": "נשמט",
+              "C": "vC = ?",
+              "dA": "d = ?",
+              "dC": "d = 12 מ'",
+              "H": "H = 20 מ'",
+              "P": "P"
+            }
+          },
+          "inputs": [
+            {
+              "label": "זמן התנועה עד P",
+              "unit": "ש'",
+              "answer": "2",
+              "tolerance": 0.03
+            },
+            {
+              "label": "מרחק נקודת הזריקה של A מ־P",
+              "unit": "מ'",
+              "answer": "20",
+              "tolerance": 0.3
+            },
+            {
+              "label": "מהירות הזריקה של A",
+              "unit": "מ/ש",
+              "answer": "14.14",
+              "tolerance": 0.21
+            },
+            {
+              "label": "מהירות הזריקה של C",
+              "unit": "מ/ש",
+              "answer": "6",
+              "tolerance": 0.09
+            },
+            {
+              "label": "כיוון מהירות C ב־P",
+              "unit": "מעלות",
+              "answer": "-73.3",
+              "tolerance": 0.3
+            }
+          ],
+          "sketches": [
+            {
+              "label": "סעיף ו: גרף הגובה של A ושל B",
+              "prompt": "שרטטו את הגובה מעל הקרקע של A ושל B כפונקציה של הזמן עד שהם מגיעים ל־P. סמנו את הגובה המרבי של A ואת זמן ההגעה.",
+              "graph": {
+                "kind": "yt",
+                "series": [
+                  {
+                    "body": "A",
+                    "q": "y",
+                    "fn": [
+                      0,
+                      10,
+                      -5
+                    ],
+                    "t1": 2,
+                    "label": "A"
+                  },
+                  {
+                    "body": "B",
+                    "q": "y",
+                    "fn": [
+                      20,
+                      0,
+                      -5
+                    ],
+                    "t1": 2,
+                    "color": "b",
+                    "label": "B"
+                  }
+                ],
+                "marks": [
+                  {
+                    "t": 1,
+                    "y": 5,
+                    "s": 0
+                  },
+                  {
+                    "t": 2,
+                    "y": 0,
+                    "s": 1
+                  }
+                ]
+              },
+              "svg": "<svg viewBox=\"0 0 320 304\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" aria-label=\"סעיף ו: גרף הגובה של A ושל B\"><title>סעיף ו: גרף הגובה של A ושל B</title><defs><marker id=\"ph-k\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"currentColor\"/></marker><marker id=\"ph-a\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"var(--dg-a, #1f5fae)\"/></marker><marker id=\"ph-b\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"var(--dg-b, #c2410c)\"/></marker><marker id=\"ph-c\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"var(--dg-c, #1e7a34)\"/></marker></defs><g direction=\"ltr\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-size=\"14\"><line x1=\"52\" y1=\"40\" x2=\"52\" y2=\"260\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"52\" y=\"284\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">0</text><line x1=\"112\" y1=\"40\" x2=\"112\" y2=\"260\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"112\" y=\"284\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">0.5</text><line x1=\"172\" y1=\"40\" x2=\"172\" y2=\"260\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"172\" y=\"284\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">1</text><line x1=\"232\" y1=\"40\" x2=\"232\" y2=\"260\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"232\" y=\"284\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">1.5</text><line x1=\"292\" y1=\"40\" x2=\"292\" y2=\"260\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"292\" y=\"284\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">2</text><line x1=\"52\" y1=\"260\" x2=\"292\" y2=\"260\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"42\" y=\"265\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">0</text><line x1=\"52\" y1=\"232.5\" x2=\"292\" y2=\"232.5\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"42\" y=\"237.5\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">2.5</text><line x1=\"52\" y1=\"205\" x2=\"292\" y2=\"205\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"42\" y=\"210\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">5</text><line x1=\"52\" y1=\"177.5\" x2=\"292\" y2=\"177.5\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"42\" y=\"182.5\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">7.5</text><line x1=\"52\" y1=\"150\" x2=\"292\" y2=\"150\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"42\" y=\"155\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">10</text><line x1=\"52\" y1=\"122.5\" x2=\"292\" y2=\"122.5\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"42\" y=\"127.5\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">12.5</text><line x1=\"52\" y1=\"95\" x2=\"292\" y2=\"95\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"42\" y=\"100\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">15</text><line x1=\"52\" y1=\"67.5\" x2=\"292\" y2=\"67.5\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"42\" y=\"72.5\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">17.5</text><line x1=\"52\" y1=\"40\" x2=\"292\" y2=\"40\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"42\" y=\"45\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">20</text><line x1=\"52\" y1=\"260\" x2=\"300\" y2=\"260\" stroke=\"currentColor\" stroke-width=\"2\" marker-end=\"url(#ph-k)\"/><line x1=\"52\" y1=\"260\" x2=\"52\" y2=\"30\" stroke=\"currentColor\" stroke-width=\"2\" marker-end=\"url(#ph-k)\"/><text x=\"227.5\" y=\"250\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\"><tspan direction=\"ltr\" unicode-bidi=\"isolate\">⁦t (<tspan direction=\"rtl\" unicode-bidi=\"isolate\">⁧ש׳⁩</tspan>)⁩</tspan></text><text x=\"83.5\" y=\"20\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\"><tspan direction=\"ltr\" unicode-bidi=\"isolate\">⁦y (<tspan direction=\"rtl\" unicode-bidi=\"isolate\">⁧מ׳⁩</tspan>)⁩</tspan></text><path d=\"M52 260Q172 150 292 260\" stroke=\"var(--dg-a, #1f5fae)\" stroke-width=\"2.5\"/><path d=\"M52 40Q172 40 292 260\" stroke=\"var(--dg-b, #c2410c)\" stroke-width=\"2.5\"/><line x1=\"172\" y1=\"205\" x2=\"172\" y2=\"260\" stroke=\"currentColor\" stroke-dasharray=\"5 4\" opacity=\"0.5\"/><line x1=\"52\" y1=\"205\" x2=\"172\" y2=\"205\" stroke=\"currentColor\" stroke-dasharray=\"5 4\" opacity=\"0.5\"/><line x1=\"292\" y1=\"260\" x2=\"292\" y2=\"260\" stroke=\"currentColor\" stroke-dasharray=\"5 4\" opacity=\"0.5\"/><line x1=\"52\" y1=\"260\" x2=\"292\" y2=\"260\" stroke=\"currentColor\" stroke-dasharray=\"5 4\" opacity=\"0.5\"/><circle cx=\"172\" cy=\"205\" r=\"3.5\" fill=\"var(--dg-b, #c2410c)\" stroke=\"none\"/><circle cx=\"292\" cy=\"260\" r=\"3.5\" fill=\"var(--dg-b, #c2410c)\" stroke=\"none\"/><text x=\"234.8\" y=\"207.6\" text-anchor=\"start\" fill=\"var(--dg-a, #1f5fae)\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\">A</text><text x=\"234.8\" y=\"149\" text-anchor=\"start\" fill=\"var(--dg-b, #c2410c)\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\">B</text></g></svg>",
+              "checklist": [
+                "הצירים מסומנים בשם ובמידה, עם יחידות: y (מ') ו־t (ש').",
+                "סימנתי על הגרף את הערכים המרכזיים (נקודת ההתחלה, נקודת הסיום והנקודות המסומנות) ואת המפגש.",
+                "הצורה והשיפוע נכונים: פרבולה הפוכה עבור A שמתחילה ונגמרת על הקרקע, ופרבולה יורדת עבור B, וסימן הערכים (מעל או מתחת לציר הזמן) מתאים."
+              ]
+            }
+          ],
+          "tips": [
+            "גוף B נופל חופשית מגובה נתון, ולכן אפשר למצוא ממנו את זמן התנועה המשותף של שלושת הגופים.",
+            "באותו זמן C צריך לעבור את המרחק האופקי שלו, ו־A צריך לחזור לגובה הקרקע. בכל ציר משתמשים בזמן שמצאתם.",
+            "בזווית כזו הרכיבים האופקי והאנכי של מהירות A שווים. הרכיב האנכי נקבע מכך ש־A חוזר לקרקע בדיוק בזמן הנפילה."
+          ],
+          "solution": [
+            "נפילת B: <span dir=\"ltr\">20 = 5·t²</span>, לכן <span dir=\"ltr\">t = 2 ש'</span>. זה הזמן של שלושת הגופים.",
+            "A חוזר לגובה הקרקע בזמן <span dir=\"ltr\">t = 2</span>: <span dir=\"ltr\">v_y·t − 5t² = 0</span>, לכן <span dir=\"ltr\">v_y = 5t = 10 מ/ש</span>.",
+            "בזווית 45° הרכיבים שווים: <span dir=\"ltr\">vₓ = v_y = 10 מ/ש</span>. המרחק האופקי הוא <span dir=\"ltr\">d = vₓ·t = 10·2 = 20 מ'</span>.",
+            "מהירות הזריקה של A: <span dir=\"ltr\">v₀ = √(10² + 10²) ≈ 14.14 מ/ש</span>.",
+            "C נזרק אופקית, ולכן <span dir=\"ltr\">vC = 12 / 2 = 6 מ/ש</span>.",
+            "ב־P מהירות C: <span dir=\"ltr\">vₓ = 6, v_y = −10·2 = −20 מ/ש</span>, לכן <span dir=\"ltr\">tan θ = −20 / 6</span> ו־<span dir=\"ltr\">θ ≈ -73.3°</span>.",
+            "בגרף: <span dir=\"ltr\">y(A) = 10t − 5t²</span> עם שיא <span dir=\"ltr\">5 מ'</span> ב־<span dir=\"ltr\">t = 1</span>, ו־<span dir=\"ltr\">y(B) = 20 − 5t²</span>; שניהם מגיעים לקרקע ב־<span dir=\"ltr\">t = 2</span>."
+          ],
+          "verify": {
+            "floor": true,
+            "together": [
+              "A",
+              "B",
+              "C"
+            ],
+            "bodies": [
+              {
+                "id": "A",
+                "x0": 0,
+                "y0": 0,
+                "vx": 10,
+                "vy": 10
+              },
+              {
+                "id": "B",
+                "x0": 20,
+                "y0": 20,
+                "vx": 0,
+                "vy": 0
+              },
+              {
+                "id": "C",
+                "x0": 8,
+                "y0": 20,
+                "vx": 6,
+                "vy": 0
+              }
+            ],
+            "claims": [
+              {
+                "q": {
+                  "op": "gapAt",
+                  "a": "C",
+                  "b": "B",
+                  "axis": "x",
+                  "t": 0
+                },
+                "value": 12,
+                "tol": 0.005
+              },
+              {
+                "q": {
+                  "body": "A",
+                  "what": "ang",
+                  "at": "start"
+                },
+                "value": 45,
+                "tol": 0.005
+              },
+              {
+                "q": {
+                  "body": "B",
+                  "what": "y",
+                  "at": "start"
+                },
+                "value": 20,
+                "tol": 0.005
+              }
+            ],
+            "queries": [
+              {
+                "body": "B",
+                "what": "t",
+                "at": {
+                  "land": "B"
+                }
+              },
+              {
+                "op": "gapAt",
+                "a": "A",
+                "b": "B",
+                "axis": "x",
+                "t": 0
+              },
+              {
+                "body": "A",
+                "what": "speed",
+                "at": "start"
+              },
+              {
+                "body": "C",
+                "what": "vx",
+                "at": "start"
+              },
+              {
+                "body": "C",
+                "what": "ang",
+                "at": {
+                  "land": "C"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "id": "lad-s6-03",
+          "topic": "phys-horizontal",
+          "level": 6,
+          "title": "מטען שנופל ממטוס על ג׳יפ נוסע",
+          "statement": "מטוס טס אופקית בגובה 180 מ' במהירות קבועה של 50 מ/ש. הוא משחרר מטען, והמטען נופל ופוגע בג׳יפ שנוסע על הקרקע, מתחת למטוס, באותו כיוון תנועה. בחישובים השתמשו ב־g = 10 מ/ש² והתעלמו מהתנגדות האוויר. כיוון המהירות = זווית מעל (+) או מתחת (−) לאופק.<br>א. כמה זמן נמשכת נפילת המטען?<br>ב. מהו גודל מהירות המטען ברגע הפגיעה?<br>ג. מהו כיוון מהירות המטען ברגע הפגיעה?<br>ד. הג׳יפ נוסע במהירות קבועה של 20 מ/ש. מהו המרחק האופקי בין הג׳יפ למטוס ברגע השחרור, כדי שהמטען יפגע בג׳יפ?<br>ה. עכשיו הג׳יפ מאיץ: ברגע השחרור מהירותו 10 מ/ש והתאוצה שלו 2 מ/ש². מהו המרחק האופקי הדרוש בין הג׳יפ למטוס ברגע השחרור?<br>ו. (סעיף שרטוט) שרטטו בטיוטה את גרף המיקום האופקי של המטען ושל הג׳יפ הנוסע במהירות קבועה (סעיף ד) כפונקציה של הזמן, עד הפגיעה, כשהמיקום נמדד מהנקודה שמתחת למטוס ברגע השחרור. אחרי השרטוט לחצו על ״הצג את הגרף הנכון״ ובדקו את עצמכם (סעיף השרטוט אינו נבדק אוטומטית).",
+          "diagram": "<svg viewBox=\"0 0 320 194\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" aria-label=\"מטען שנופל ממטוס על ג׳יפ\"><title>מטען שנופל ממטוס על ג׳יפ</title><defs><marker id=\"ph-k\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"currentColor\"/></marker><marker id=\"ph-a\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"var(--dg-a, #1f5fae)\"/></marker><marker id=\"ph-b\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"var(--dg-b, #c2410c)\"/></marker><marker id=\"ph-c\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"var(--dg-c, #1e7a34)\"/></marker></defs><g direction=\"ltr\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-size=\"14\"><line x1=\"10\" y1=\"150\" x2=\"310\" y2=\"150\" stroke=\"currentColor\" stroke-width=\"2\"/><path d=\"M18 150l-6 8M28 150l-6 8M38 150l-6 8M48 150l-6 8M58 150l-6 8M68 150l-6 8M78 150l-6 8M88 150l-6 8M98 150l-6 8M108 150l-6 8M118 150l-6 8M128 150l-6 8M138 150l-6 8M148 150l-6 8M158 150l-6 8M168 150l-6 8M178 150l-6 8M188 150l-6 8M198 150l-6 8M208 150l-6 8M218 150l-6 8M228 150l-6 8M238 150l-6 8M248 150l-6 8M258 150l-6 8M268 150l-6 8M278 150l-6 8M288 150l-6 8M298 150l-6 8M308 150l-6 8\" opacity=\"0.5\"/><line x1=\"24\" y1=\"46\" x2=\"24\" y2=\"150\" stroke=\"currentColor\" marker-start=\"url(#ph-k)\" marker-end=\"url(#ph-k)\"/><text x=\"102.4\" y=\"103\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\"><tspan direction=\"ltr\" unicode-bidi=\"isolate\">⁦H = 180 <tspan direction=\"rtl\" unicode-bidi=\"isolate\">⁧מ׳⁩</tspan>⁩</tspan></text><path d=\"M42 44h36l-6 -8h-8l-4 8M42 44l-6 -8\" stroke=\"var(--dg-a, #1f5fae)\" fill=\"var(--dg-a, #1f5fae)\" fill-opacity=\"0.18\"/><line x1=\"82\" y1=\"40\" x2=\"120\" y2=\"40\" stroke=\"var(--dg-a, #1f5fae)\" stroke-width=\"2\" marker-end=\"url(#ph-a)\"/><text x=\"102\" y=\"24\" text-anchor=\"middle\" fill=\"var(--dg-a, #1f5fae)\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\"><tspan direction=\"ltr\" unicode-bidi=\"isolate\">⁦v = 50 <tspan direction=\"rtl\" unicode-bidi=\"isolate\">⁧מ/ש⁩</tspan>⁩</tspan></text><path d=\"M62 52Q162 52 262 144\" stroke=\"currentColor\" stroke-dasharray=\"5 4\"/><circle cx=\"62\" cy=\"52\" r=\"5\" fill=\"var(--dg-b, #c2410c)\" stroke=\"none\"/><circle cx=\"262\" cy=\"144\" r=\"4\" fill=\"var(--dg-c, #1e7a34)\" stroke=\"none\"/><rect x=\"150\" y=\"128\" width=\"44\" height=\"14\" rx=\"3\" stroke=\"var(--dg-b, #c2410c)\" fill=\"var(--dg-b, #c2410c)\" fill-opacity=\"0.18\"/><rect x=\"160\" y=\"119\" width=\"22\" height=\"9\" rx=\"2\" stroke=\"var(--dg-b, #c2410c)\"/><circle cx=\"161\" cy=\"144\" r=\"5\" fill=\"currentColor\" stroke=\"none\"/><circle cx=\"183\" cy=\"144\" r=\"5\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"198\" y1=\"138\" x2=\"232\" y2=\"138\" stroke=\"var(--dg-b, #c2410c)\" stroke-width=\"2\" marker-end=\"url(#ph-b)\"/><text x=\"252\" y=\"95\" text-anchor=\"middle\" fill=\"var(--dg-b, #c2410c)\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\"><tspan direction=\"ltr\" unicode-bidi=\"isolate\">⁦u = 20 <tspan direction=\"rtl\" unicode-bidi=\"isolate\">⁧מ/ש⁩</tspan>⁩</tspan></text><line x1=\"62\" y1=\"58\" x2=\"62\" y2=\"162\" stroke=\"currentColor\" stroke-dasharray=\"5 4\" opacity=\"0.5\"/><line x1=\"62\" y1=\"172\" x2=\"172\" y2=\"172\" stroke=\"currentColor\" marker-start=\"url(#ph-k)\" marker-end=\"url(#ph-k)\"/><text x=\"117\" y=\"141\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\">D = ?</text></g></svg>",
+          "scene": {
+            "title": "מטען שנופל ממטוס על ג׳יפ",
+            "kind": "drop",
+            "labels": {
+              "H": "H = 180 מ'",
+              "v": "v = 50 מ/ש",
+              "j": "u = 20 מ/ש",
+              "D": "D = ?"
+            }
+          },
+          "inputs": [
+            {
+              "label": "זמן הנפילה של המטען",
+              "unit": "ש'",
+              "answer": "6",
+              "tolerance": 0.09
+            },
+            {
+              "label": "גודל מהירות המטען בפגיעה",
+              "unit": "מ/ש",
+              "answer": "78.1",
+              "tolerance": 1.17
+            },
+            {
+              "label": "כיוון מהירות המטען בפגיעה",
+              "unit": "מעלות",
+              "answer": "-50.19",
+              "tolerance": 0.3
+            },
+            {
+              "label": "המרחק הדרוש לג׳יפ במהירות קבועה",
+              "unit": "מ'",
+              "answer": "180",
+              "tolerance": 2.7
+            },
+            {
+              "label": "המרחק הדרוש לג׳יפ מאיץ",
+              "unit": "מ'",
+              "answer": "204",
+              "tolerance": 3.06
+            }
+          ],
+          "sketches": [
+            {
+              "label": "סעיף ו: גרף המיקום האופקי של המטען ושל הג׳יפ",
+              "prompt": "שרטטו את המיקום האופקי של המטען ושל הג׳יפ (במהירות קבועה) כפונקציה של הזמן עד הפגיעה, כשהמיקום נמדד מהנקודה שמתחת למטוס ברגע השחרור.",
+              "graph": {
+                "kind": "xt",
+                "series": [
+                  {
+                    "body": "S",
+                    "q": "x",
+                    "fn": [
+                      0,
+                      50
+                    ],
+                    "t1": 6,
+                    "label": "מטען"
+                  },
+                  {
+                    "body": "J1",
+                    "q": "x",
+                    "fn": [
+                      180,
+                      20
+                    ],
+                    "t1": 6,
+                    "color": "b",
+                    "label": "ג׳יפ"
+                  }
+                ],
+                "marks": [
+                  {
+                    "t": 6,
+                    "y": 300,
+                    "s": 0
+                  }
+                ]
+              },
+              "svg": "<svg viewBox=\"0 0 320 304\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" aria-label=\"סעיף ו: גרף המיקום האופקי של המטען ושל הג׳יפ\"><title>סעיף ו: גרף המיקום האופקי של המטען ושל הג׳יפ</title><defs><marker id=\"ph-k\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"currentColor\"/></marker><marker id=\"ph-a\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"var(--dg-a, #1f5fae)\"/></marker><marker id=\"ph-b\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"var(--dg-b, #c2410c)\"/></marker><marker id=\"ph-c\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"var(--dg-c, #1e7a34)\"/></marker></defs><g direction=\"ltr\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-size=\"14\"><line x1=\"52\" y1=\"40\" x2=\"52\" y2=\"260\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"52\" y=\"284\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">0</text><line x1=\"92\" y1=\"40\" x2=\"92\" y2=\"260\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"92\" y=\"284\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">1</text><line x1=\"132\" y1=\"40\" x2=\"132\" y2=\"260\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"132\" y=\"284\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">2</text><line x1=\"172\" y1=\"40\" x2=\"172\" y2=\"260\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"172\" y=\"284\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">3</text><line x1=\"212\" y1=\"40\" x2=\"212\" y2=\"260\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"212\" y=\"284\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">4</text><line x1=\"252\" y1=\"40\" x2=\"252\" y2=\"260\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"252\" y=\"284\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">5</text><line x1=\"292\" y1=\"40\" x2=\"292\" y2=\"260\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"292\" y=\"284\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">6</text><line x1=\"52\" y1=\"260\" x2=\"292\" y2=\"260\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"42\" y=\"265\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">0</text><line x1=\"52\" y1=\"223.3\" x2=\"292\" y2=\"223.3\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"42\" y=\"228.3\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">50</text><line x1=\"52\" y1=\"186.7\" x2=\"292\" y2=\"186.7\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"42\" y=\"191.7\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">100</text><line x1=\"52\" y1=\"150\" x2=\"292\" y2=\"150\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"42\" y=\"155\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">150</text><line x1=\"52\" y1=\"113.3\" x2=\"292\" y2=\"113.3\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"42\" y=\"118.3\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">200</text><line x1=\"52\" y1=\"76.7\" x2=\"292\" y2=\"76.7\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"42\" y=\"81.7\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">250</text><line x1=\"52\" y1=\"40\" x2=\"292\" y2=\"40\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"42\" y=\"45\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">300</text><line x1=\"52\" y1=\"260\" x2=\"300\" y2=\"260\" stroke=\"currentColor\" stroke-width=\"2\" marker-end=\"url(#ph-k)\"/><line x1=\"52\" y1=\"260\" x2=\"52\" y2=\"30\" stroke=\"currentColor\" stroke-width=\"2\" marker-end=\"url(#ph-k)\"/><text x=\"263.5\" y=\"244\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\"><tspan direction=\"ltr\" unicode-bidi=\"isolate\">⁦t (<tspan direction=\"rtl\" unicode-bidi=\"isolate\">⁧ש׳⁩</tspan>)⁩</tspan></text><text x=\"83.5\" y=\"20\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\"><tspan direction=\"ltr\" unicode-bidi=\"isolate\">⁦x (<tspan direction=\"rtl\" unicode-bidi=\"isolate\">⁧מ׳⁩</tspan>)⁩</tspan></text><polyline points=\"52,260 292,40\" stroke=\"var(--dg-a, #1f5fae)\" stroke-width=\"2.5\"/><polyline points=\"52,128 292,40\" stroke=\"var(--dg-b, #c2410c)\" stroke-width=\"2.5\"/><line x1=\"292\" y1=\"40\" x2=\"292\" y2=\"260\" stroke=\"currentColor\" stroke-dasharray=\"5 4\" opacity=\"0.5\"/><line x1=\"52\" y1=\"40\" x2=\"292\" y2=\"40\" stroke=\"currentColor\" stroke-dasharray=\"5 4\" opacity=\"0.5\"/><circle cx=\"292\" cy=\"40\" r=\"3.5\" fill=\"var(--dg-b, #c2410c)\" stroke=\"none\"/><text x=\"257.6\" y=\"108.6\" text-anchor=\"middle\" fill=\"var(--dg-a, #1f5fae)\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\"><tspan direction=\"rtl\" unicode-bidi=\"isolate\">⁧מטען⁩</tspan></text><text x=\"251.6\" y=\"29.6\" text-anchor=\"middle\" fill=\"var(--dg-b, #c2410c)\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\"><tspan direction=\"rtl\" unicode-bidi=\"isolate\">⁧ג׳יפ⁩</tspan></text></g></svg>",
+              "checklist": [
+                "הצירים מסומנים בשם ובמידה, עם יחידות: x (מ') ו־t (ש').",
+                "סימנתי על הגרף את הערכים המרכזיים (נקודת ההתחלה, נקודת הסיום והנקודות המסומנות) ואת המפגש.",
+                "הצורה והשיפוע נכונים: שני קווים ישרים, של המטען תלול יותר, שנפגשים בסוף, וסימן הערכים (מעל או מתחת לציר הזמן) מתאים."
+              ]
+            }
+          ],
+          "tips": [
+            "המטען משוחרר ממטוס שטס אופקית, ולכן הוא נע כמו גוף שנזרק אופקית: המהירות האופקית ההתחלתית שלו היא מהירות המטוס.",
+            "זמן הנפילה תלוי רק בגובה. בזמן הזה המטען מתקדם אופקית, והג׳יפ גם מתקדם. ההפרש בין שני המרחקים הוא המרחק ההתחלתי הדרוש.",
+            "בסעיף האחרון המרחק שהג׳יפ עובר כולל גם את התוספת בגלל התאוצה שלו, ולכן הוא קטן מזה של מהירות קבועה באותה מהירות התחלתית."
+          ],
+          "solution": [
+            "נפילת המטען: <span dir=\"ltr\">180 = 5·t²</span>, לכן <span dir=\"ltr\">t = 6 ש'</span>.",
+            "ברגע הפגיעה: <span dir=\"ltr\">vₓ = 50 מ/ש, v_y = −10·6 = −60 מ/ש</span>, והגודל <span dir=\"ltr\">v = √(50² + 60²) ≈ 78.1 מ/ש</span>.",
+            "<span dir=\"ltr\">tan θ = −60 / 50</span>, לכן <span dir=\"ltr\">θ ≈ -50.19°</span>: 50.19 מעלות מתחת לאופק.",
+            "המטען עובר אופקית <span dir=\"ltr\">x = 50·6 = 300 מ'</span>. הג׳יפ במהירות קבועה עובר <span dir=\"ltr\">20·6 = 120 מ'</span>, ולכן <span dir=\"ltr\">D = 300 − 120 = 180 מ'</span>.",
+            "הג׳יפ המאיץ עובר <span dir=\"ltr\">10·6 + ½·2·6² = 96 מ'</span>, ולכן <span dir=\"ltr\">D = 300 − 96 = 204 מ'</span>.",
+            "בגרף: <span dir=\"ltr\">x(מטען) = 50t</span> ו־<span dir=\"ltr\">x(ג׳יפ) = 180 + 20t</span>. שני הקווים נפגשים ב־<span dir=\"ltr\">t = 6 ש', x = 300 מ'</span>."
+          ],
+          "verify": {
+            "floor": true,
+            "bodies": [
+              {
+                "id": "S",
+                "x0": 0,
+                "y0": 180,
+                "vx": 50,
+                "vy": 0
+              },
+              {
+                "id": "J1",
+                "x0": 180,
+                "y0": 0,
+                "vx": 20,
+                "vy": 0,
+                "ay": 0
+              },
+              {
+                "id": "J2",
+                "x0": 204,
+                "y0": 0,
+                "vx": 10,
+                "vy": 0,
+                "ax": 2,
+                "ay": 0
+              }
+            ],
+            "meets": [
+              {
+                "a": "S",
+                "b": "J1",
+                "axis": "x"
+              },
+              {
+                "a": "S",
+                "b": "J2",
+                "axis": "x"
+              }
+            ],
+            "queries": [
+              {
+                "body": "S",
+                "what": "t",
+                "at": {
+                  "land": "S"
+                }
+              },
+              {
+                "body": "S",
+                "what": "speed",
+                "at": {
+                  "land": "S"
+                }
+              },
+              {
+                "body": "S",
+                "what": "ang",
+                "at": {
+                  "land": "S"
+                }
+              },
+              {
+                "body": "J1",
+                "what": "x",
+                "at": "start"
+              },
+              {
+                "body": "J2",
+                "what": "x",
+                "at": "start"
+              }
+            ]
+          }
+        },
+        {
+          "id": "lad-s6-04",
+          "topic": "phys-horizontal",
+          "level": 6,
+          "title": "זריקה לסל בשתי זוויות שונות",
+          "statement": "שחקן זורק כדור כדורסל מגובה 2.05 מ' מעל הרצפה במהירות התחלתית של 10 מ/ש. הסל נמצא בגובה 3.05 מ' מעל הרצפה, במרחק אופקי של 8 מ' מנקודת הזריקה. הכדור צריך להיכנס לסל כשהוא בדרך למטה, ויש שתי זוויות זריקה אפשריות באותה מהירות. בחישובים השתמשו ב־g = 10 מ/ש² והתעלמו מהתנגדות האוויר.<br>א. באיזו זווית מעל האופק נזרק הכדור בזריקה עם הזווית הקטנה יותר?<br>ב. מהי הזווית השנייה שבה אפשר לפגוע בסל באותה מהירות?<br>ג. מהו הגובה המרבי של הכדור מעל הרצפה בזריקה עם הזווית הקטנה?<br>ד. מהו הגובה המרבי של הכדור מעל הרצפה בזריקה עם הזווית הגדולה?<br>ה. כמה זמן נמשכת הזריקה עם הזווית הגדולה, מרגע הזריקה ועד הכניסה לסל?<br>ו. (סעיף שרטוט) שרטטו בטיוטה את גרף המהירות האנכית של הכדור כפונקציה של הזמן בזריקה עם הזווית הקטנה, מרגע הזריקה ועד הסל, וסמנו את ערכי המהירות בתחילת הדרך ובסל. אחרי השרטוט לחצו על ״הצג את הגרף הנכון״ ובדקו את עצמכם (סעיף השרטוט אינו נבדק אוטומטית).",
+          "diagram": "<svg viewBox=\"0 0 320 209\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" aria-label=\"זריקה לסל בכדורסל\"><title>זריקה לסל בכדורסל</title><defs><marker id=\"ph-k\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"currentColor\"/></marker><marker id=\"ph-a\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"var(--dg-a, #1f5fae)\"/></marker><marker id=\"ph-b\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"var(--dg-b, #c2410c)\"/></marker><marker id=\"ph-c\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"var(--dg-c, #1e7a34)\"/></marker></defs><g direction=\"ltr\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-size=\"14\"><line x1=\"10\" y1=\"165\" x2=\"310\" y2=\"165\" stroke=\"currentColor\" stroke-width=\"2\"/><path d=\"M18 165l-6 8M28 165l-6 8M38 165l-6 8M48 165l-6 8M58 165l-6 8M68 165l-6 8M78 165l-6 8M88 165l-6 8M98 165l-6 8M108 165l-6 8M118 165l-6 8M128 165l-6 8M138 165l-6 8M148 165l-6 8M158 165l-6 8M168 165l-6 8M178 165l-6 8M188 165l-6 8M198 165l-6 8M208 165l-6 8M218 165l-6 8M228 165l-6 8M238 165l-6 8M248 165l-6 8M258 165l-6 8M268 165l-6 8M278 165l-6 8M288 165l-6 8M298 165l-6 8M308 165l-6 8\" opacity=\"0.5\"/><path d=\"M46 116.3L51.9 112L57.9 107.9L63.8 104L69.8 100.4L75.7 96.9L81.6 93.8L87.6 90.8L93.5 88.1L99.4 85.6L105.4 83.4L111.3 81.4L117.3 79.6L123.2 78L129.1 76.7L135.1 75.6L141 74.8L146.9 74.1L152.9 73.7L158.8 73.6L164.8 73.6L170.7 73.9L176.6 74.5L182.6 75.2L188.5 76.2L194.4 77.5L200.4 78.9L206.3 80.6L212.3 82.5L218.2 84.7L224.1 87.1L230.1 89.7L236 92.6\" stroke=\"currentColor\" stroke-dasharray=\"5 4\"/><circle cx=\"46\" cy=\"116.3\" r=\"5\" fill=\"var(--dg-a, #1f5fae)\" stroke=\"none\"/><line x1=\"50\" y1=\"113.3\" x2=\"78\" y2=\"92.3\" stroke=\"var(--dg-a, #1f5fae)\" stroke-width=\"2\" marker-end=\"url(#ph-a)\"/><text x=\"135.9\" y=\"106.9\" text-anchor=\"middle\" fill=\"var(--dg-a, #1f5fae)\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\"><tspan direction=\"ltr\" unicode-bidi=\"isolate\">⁦v₀ = 10 <tspan direction=\"rtl\" unicode-bidi=\"isolate\">⁧מ/ש⁩</tspan>⁩</tspan></text><line x1=\"46\" y1=\"116.3\" x2=\"100\" y2=\"116.3\" stroke=\"currentColor\" stroke-dasharray=\"5 4\" opacity=\"0.6\"/><path d=\"M72 116.3A26 26 0 0 0 66.8 100.7\" stroke=\"var(--dg-b, #c2410c)\"/><text x=\"106\" y=\"130.3\" text-anchor=\"start\" fill=\"var(--dg-b, #c2410c)\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\">θ = ?</text><line x1=\"24\" y1=\"116.3\" x2=\"24\" y2=\"165\" stroke=\"currentColor\" marker-start=\"url(#ph-k)\" marker-end=\"url(#ph-k)\"/><text x=\"57.9\" y=\"145.7\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\"><tspan direction=\"ltr\" unicode-bidi=\"isolate\">⁦2.05 <tspan direction=\"rtl\" unicode-bidi=\"isolate\">⁧מ׳⁩</tspan>⁩</tspan></text><line x1=\"220\" y1=\"92.6\" x2=\"236\" y2=\"92.6\" stroke=\"var(--dg-c, #1e7a34)\" stroke-width=\"3\"/><line x1=\"236\" y1=\"66.6\" x2=\"236\" y2=\"96.6\" stroke=\"currentColor\" stroke-width=\"3\"/><line x1=\"258\" y1=\"92.6\" x2=\"258\" y2=\"165\" stroke=\"currentColor\" marker-start=\"url(#ph-k)\" marker-end=\"url(#ph-k)\"/><text x=\"285.9\" y=\"82.8\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\"><tspan direction=\"ltr\" unicode-bidi=\"isolate\">⁦3.05 <tspan direction=\"rtl\" unicode-bidi=\"isolate\">⁧מ׳⁩</tspan>⁩</tspan></text><line x1=\"46\" y1=\"183\" x2=\"236\" y2=\"183\" stroke=\"currentColor\" marker-start=\"url(#ph-k)\" marker-end=\"url(#ph-k)\"/><text x=\"141\" y=\"155\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\"><tspan direction=\"ltr\" unicode-bidi=\"isolate\">⁦8 <tspan direction=\"rtl\" unicode-bidi=\"isolate\">⁧מ׳⁩</tspan>⁩</tspan></text></g></svg>",
+          "scene": {
+            "title": "זריקה לסל בכדורסל",
+            "kind": "ground",
+            "h0": 2.05,
+            "vx": 8,
+            "vy": 6,
+            "end": "target",
+            "target": {
+              "x": 8,
+              "y": 3.05,
+              "kind": "hoop"
+            },
+            "labels": {
+              "v0": "v₀ = 10 מ/ש",
+              "ang": "θ = ?",
+              "h": "2.05 מ'",
+              "y": "3.05 מ'",
+              "x": "8 מ'"
+            }
+          },
+          "inputs": [
+            {
+              "label": "הזווית הקטנה",
+              "unit": "מעלות",
+              "answer": "36.87",
+              "tolerance": 0.3
+            },
+            {
+              "label": "הזווית השנייה",
+              "unit": "מעלות",
+              "answer": "60.26",
+              "tolerance": 0.3
+            },
+            {
+              "label": "הגובה המרבי בזריקה הקטנה",
+              "unit": "מ'",
+              "answer": "3.85",
+              "tolerance": 0.06
+            },
+            {
+              "label": "הגובה המרבי בזריקה הגדולה",
+              "unit": "מ'",
+              "answer": "5.82",
+              "tolerance": 0.09
+            },
+            {
+              "label": "זמן הזריקה הגדולה עד הסל",
+              "unit": "ש'",
+              "answer": "1.61",
+              "tolerance": 0.02
+            }
+          ],
+          "sketches": [
+            {
+              "label": "סעיף ו: גרף המהירות האנכית בזריקה הקטנה",
+              "prompt": "שרטטו את המהירות האנכית של הכדור (כלפי מעלה חיובי) כפונקציה של הזמן בזריקה עם הזווית הקטנה, מהזריקה ועד הכניסה לסל.",
+              "graph": {
+                "kind": "vt",
+                "series": [
+                  {
+                    "body": "A",
+                    "q": "vy",
+                    "fn": [
+                      6,
+                      -10
+                    ],
+                    "t1": 1,
+                    "label": "vᵧ"
+                  }
+                ],
+                "marks": [
+                  {
+                    "t": 0,
+                    "y": 6,
+                    "s": 0
+                  },
+                  {
+                    "t": 1,
+                    "y": -4,
+                    "s": 0
+                  }
+                ]
+              },
+              "svg": "<svg viewBox=\"0 0 320 304\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" aria-label=\"סעיף ו: גרף המהירות האנכית בזריקה הקטנה\"><title>סעיף ו: גרף המהירות האנכית בזריקה הקטנה</title><defs><marker id=\"ph-k\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"currentColor\"/></marker><marker id=\"ph-a\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"var(--dg-a, #1f5fae)\"/></marker><marker id=\"ph-b\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"var(--dg-b, #c2410c)\"/></marker><marker id=\"ph-c\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"var(--dg-c, #1e7a34)\"/></marker></defs><g direction=\"ltr\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-size=\"14\"><line x1=\"52\" y1=\"40\" x2=\"52\" y2=\"260\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"52\" y=\"284\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">0</text><line x1=\"172\" y1=\"40\" x2=\"172\" y2=\"260\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"172\" y=\"284\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">0.5</text><line x1=\"292\" y1=\"40\" x2=\"292\" y2=\"260\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"292\" y=\"284\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">1</text><line x1=\"52\" y1=\"260\" x2=\"292\" y2=\"260\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"42\" y=\"265\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">-4</text><line x1=\"52\" y1=\"216\" x2=\"292\" y2=\"216\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"42\" y=\"221\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">-2</text><line x1=\"52\" y1=\"172\" x2=\"292\" y2=\"172\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"42\" y=\"177\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">0</text><line x1=\"52\" y1=\"128\" x2=\"292\" y2=\"128\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"42\" y=\"133\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">2</text><line x1=\"52\" y1=\"84\" x2=\"292\" y2=\"84\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"42\" y=\"89\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">4</text><line x1=\"52\" y1=\"40\" x2=\"292\" y2=\"40\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"42\" y=\"45\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">6</text><line x1=\"52\" y1=\"172\" x2=\"300\" y2=\"172\" stroke=\"currentColor\" stroke-width=\"2\" marker-end=\"url(#ph-k)\"/><line x1=\"52\" y1=\"260\" x2=\"52\" y2=\"30\" stroke=\"currentColor\" stroke-width=\"2\" marker-end=\"url(#ph-k)\"/><text x=\"278.5\" y=\"156\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\"><tspan direction=\"ltr\" unicode-bidi=\"isolate\">⁦t (<tspan direction=\"rtl\" unicode-bidi=\"isolate\">⁧ש׳⁩</tspan>)⁩</tspan></text><text x=\"87.9\" y=\"20\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\"><tspan direction=\"ltr\" unicode-bidi=\"isolate\">⁦v (<tspan direction=\"rtl\" unicode-bidi=\"isolate\">⁧מ/ש⁩</tspan>)⁩</tspan></text><polyline points=\"52,40 292,260\" stroke=\"var(--dg-a, #1f5fae)\" stroke-width=\"2.5\"/><line x1=\"52\" y1=\"40\" x2=\"52\" y2=\"260\" stroke=\"currentColor\" stroke-dasharray=\"5 4\" opacity=\"0.5\"/><line x1=\"52\" y1=\"40\" x2=\"52\" y2=\"40\" stroke=\"currentColor\" stroke-dasharray=\"5 4\" opacity=\"0.5\"/><line x1=\"292\" y1=\"260\" x2=\"292\" y2=\"260\" stroke=\"currentColor\" stroke-dasharray=\"5 4\" opacity=\"0.5\"/><line x1=\"52\" y1=\"260\" x2=\"292\" y2=\"260\" stroke=\"currentColor\" stroke-dasharray=\"5 4\" opacity=\"0.5\"/><circle cx=\"52\" cy=\"40\" r=\"3.5\" fill=\"var(--dg-b, #c2410c)\" stroke=\"none\"/><circle cx=\"292\" cy=\"260\" r=\"3.5\" fill=\"var(--dg-b, #c2410c)\" stroke=\"none\"/><text x=\"234.8\" y=\"193.4\" text-anchor=\"start\" fill=\"var(--dg-a, #1f5fae)\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\">vᵧ</text></g></svg>",
+              "checklist": [
+                "הצירים מסומנים בשם ובמידה, עם יחידות: v (מ/ש) ו־t (ש').",
+                "סימנתי על הגרף את הערכים המרכזיים (נקודת ההתחלה, נקודת הסיום והנקודות המסומנות) ואת המפגש.",
+                "הצורה והשיפוע נכונים: קו ישר יורד שחוצה את ציר הזמן ברגע השיא, וסימן הערכים (מעל או מתחת לציר הזמן) מתאים."
+              ]
+            }
+          ],
+          "tips": [
+            "כתבו את גובה הכדור כפונקציה של המרחק האופקי, כשהמהירות ההתחלתית היא v₀ והזווית היא θ: תקבלו משוואה ב־tan θ.",
+            "המשוואה ב־tan θ היא ריבועית, ולכן יש לה שני פתרונות. שניהם זוויות שמביאות לסל. מצאו את שניהם ובדקו שהכדור יורד.",
+            "הגובה המרבי נקבע לפי הרכיב האנכי של מהירות ההתחלה: מתוספת הגובה v_y² / 20. הזמן עד הסל מגיע מהרכיב האופקי: t = x / vₓ."
+          ],
+          "solution": [
+            "משוואת המסלול: <span dir=\"ltr\">y = h₀ + x·tan θ − 5x² / (v₀² cos²θ)</span>, ועם <span dir=\"ltr\">1/cos²θ = 1 + tan²θ</span>: <span dir=\"ltr\">3.05 = 2.05 + 8T − 3.2(1 + T²)</span>, עבור <span dir=\"ltr\">T = tan θ</span>.",
+            "מקבלים <span dir=\"ltr\">3.2T² − 8T + 4.2 = 0</span>, כלומר <span dir=\"ltr\">3.2T² − 8T + 4.2 = 0</span>, שפתרונותיה <span dir=\"ltr\">T = 0.75</span> ו־<span dir=\"ltr\">T = 1.75</span>.",
+            "לכן <span dir=\"ltr\">θ₁ = arctan 0.75 ≈ 36.87°</span> ו־<span dir=\"ltr\">θ₂ = arctan 1.75 ≈ 60.26°</span>.",
+            "בזריקה הקטנה <span dir=\"ltr\">v_y = 10·sin θ₁ = 6 מ/ש</span>, הגובה המרבי <span dir=\"ltr\">2.05 + 6² / 20 = 3.85 מ'</span>.",
+            "בזריקה הגדולה <span dir=\"ltr\">v_y = 8.68 מ/ש</span>, <span dir=\"ltr\">vₓ = 4.96 מ/ש</span>, והגובה המרבי <span dir=\"ltr\">2.05 + 8.68² / 20 ≈ 5.82 מ'</span>.",
+            "הזמן בזריקה הגדולה: <span dir=\"ltr\">t = 8 / 4.96 ≈ 1.61 ש'</span>. בזריקה הקטנה <span dir=\"ltr\">t = 8 / 8 = 1 ש'</span> והמהירות האנכית בסל <span dir=\"ltr\">6 − 10 = -4 מ/ש</span> (יורד)."
+          ],
+          "verify": {
+            "floor": true,
+            "bodies": [
+              {
+                "id": "A",
+                "x0": 0,
+                "y0": 2.05,
+                "vx": 8,
+                "vy": 6
+              },
+              {
+                "id": "B",
+                "x0": 0,
+                "y0": 2.05,
+                "vx": 4.961389383568338,
+                "vy": 8.682431421244592
+              }
+            ],
+            "targets": [
+              {
+                "body": "A",
+                "x": 8,
+                "y": 3.05,
+                "descending": true
+              },
+              {
+                "body": "B",
+                "x": 8,
+                "y": 3.05,
+                "descending": true
+              }
+            ],
+            "claims": [
+              {
+                "q": {
+                  "body": "A",
+                  "what": "speed",
+                  "at": "start"
+                },
+                "value": 10,
+                "tol": 0.005
+              },
+              {
+                "q": {
+                  "body": "B",
+                  "what": "speed",
+                  "at": "start"
+                },
+                "value": 10,
+                "tol": 0.005
+              }
+            ],
+            "queries": [
+              {
+                "body": "A",
+                "what": "ang",
+                "at": "start"
+              },
+              {
+                "body": "B",
+                "what": "ang",
+                "at": "start"
+              },
+              {
+                "body": "A",
+                "what": "y",
+                "at": "peak"
+              },
+              {
+                "body": "B",
+                "what": "y",
+                "at": "peak"
+              },
+              {
+                "body": "B",
+                "what": "t",
+                "at": {
+                  "x": 8
+                }
+              }
+            ]
+          }
+        },
+        {
+          "id": "lad-s6-05",
+          "topic": "phys-horizontal",
+          "level": 6,
+          "title": "שני רכבים לפי גרפי מיקום־זמן",
+          "statement": "הגרף מראה את המיקום של שני רכבים על כביש ישר כפונקציה של הזמן, באותו ציר. רכב A נוסע במהירות קבועה. רכב B יוצא ממנוחה מהנקודה x = 0 ונע בתאוצה קבועה, ולכן הגרף שלו הוא פרבולה שקודקודה בראשית הצירים. הנקודות המסומנות בגרף נמצאות על העקומות.<br>א. מהי מהירות רכב A?<br>ב. מהי התאוצה של רכב B?<br>ג. בעזרת משוואות המיקום x(t) של שני הרכבים, מצאו באיזה רגע נפגשים הרכבים.<br>ד. מהי מהירות רכב B ברגע המפגש?<br>ה. מהו המרחק המרבי בין הרכבים בטווח הזמן שלפני המפגש?<br>ו. (סעיף שרטוט) שרטטו בטיוטה את גרף המהירות של שני הרכבים כפונקציה של הזמן, מ־t = 0 ועד המפגש, וסמנו את שני ערכי המהירות ברגע המפגש. אחרי השרטוט לחצו על ״הצג את הגרף הנכון״ ובדקו את עצמכם (סעיף השרטוט אינו נבדק אוטומטית).",
+          "diagram": "<svg viewBox=\"0 0 320 304\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" aria-label=\"גרפי מיקום־זמן של שני רכבים\"><title>גרפי מיקום־זמן של שני רכבים</title><defs><marker id=\"ph-k\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"currentColor\"/></marker><marker id=\"ph-a\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"var(--dg-a, #1f5fae)\"/></marker><marker id=\"ph-b\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"var(--dg-b, #c2410c)\"/></marker><marker id=\"ph-c\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"var(--dg-c, #1e7a34)\"/></marker></defs><g direction=\"ltr\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-size=\"14\"><line x1=\"52\" y1=\"40\" x2=\"52\" y2=\"260\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"52\" y=\"284\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">0</text><line x1=\"92\" y1=\"40\" x2=\"92\" y2=\"260\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"92\" y=\"284\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">1</text><line x1=\"132\" y1=\"40\" x2=\"132\" y2=\"260\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"132\" y=\"284\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">2</text><line x1=\"172\" y1=\"40\" x2=\"172\" y2=\"260\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"172\" y=\"284\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">3</text><line x1=\"212\" y1=\"40\" x2=\"212\" y2=\"260\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"212\" y=\"284\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">4</text><line x1=\"252\" y1=\"40\" x2=\"252\" y2=\"260\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"252\" y=\"284\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">5</text><line x1=\"292\" y1=\"40\" x2=\"292\" y2=\"260\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"292\" y=\"284\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">6</text><line x1=\"52\" y1=\"260\" x2=\"292\" y2=\"260\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"42\" y=\"265\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">0</text><line x1=\"52\" y1=\"235.6\" x2=\"292\" y2=\"235.6\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"42\" y=\"240.6\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">4</text><line x1=\"52\" y1=\"211.1\" x2=\"292\" y2=\"211.1\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"42\" y=\"216.1\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">8</text><line x1=\"52\" y1=\"186.7\" x2=\"292\" y2=\"186.7\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"42\" y=\"191.7\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">12</text><line x1=\"52\" y1=\"162.2\" x2=\"292\" y2=\"162.2\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"42\" y=\"167.2\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">16</text><line x1=\"52\" y1=\"137.8\" x2=\"292\" y2=\"137.8\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"42\" y=\"142.8\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">20</text><line x1=\"52\" y1=\"113.3\" x2=\"292\" y2=\"113.3\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"42\" y=\"118.3\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">24</text><line x1=\"52\" y1=\"88.9\" x2=\"292\" y2=\"88.9\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"42\" y=\"93.9\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">28</text><line x1=\"52\" y1=\"64.4\" x2=\"292\" y2=\"64.4\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"42\" y=\"69.4\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">32</text><line x1=\"52\" y1=\"40\" x2=\"292\" y2=\"40\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"42\" y=\"45\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">36</text><line x1=\"52\" y1=\"260\" x2=\"300\" y2=\"260\" stroke=\"currentColor\" stroke-width=\"2\" marker-end=\"url(#ph-k)\"/><line x1=\"52\" y1=\"260\" x2=\"52\" y2=\"30\" stroke=\"currentColor\" stroke-width=\"2\" marker-end=\"url(#ph-k)\"/><text x=\"278.5\" y=\"244\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\"><tspan direction=\"ltr\" unicode-bidi=\"isolate\">⁦t (<tspan direction=\"rtl\" unicode-bidi=\"isolate\">⁧ש׳⁩</tspan>)⁩</tspan></text><text x=\"83.5\" y=\"20\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\"><tspan direction=\"ltr\" unicode-bidi=\"isolate\">⁦x (<tspan direction=\"rtl\" unicode-bidi=\"isolate\">⁧מ׳⁩</tspan>)⁩</tspan></text><polyline points=\"52,211.1 292,137.8\" stroke=\"var(--dg-a, #1f5fae)\" stroke-width=\"2.5\"/><path d=\"M52 260Q172 260 292 40\" stroke=\"var(--dg-b, #c2410c)\" stroke-width=\"2.5\"/><line x1=\"52\" y1=\"211.1\" x2=\"52\" y2=\"260\" stroke=\"currentColor\" stroke-dasharray=\"5 4\" opacity=\"0.5\"/><line x1=\"52\" y1=\"211.1\" x2=\"52\" y2=\"211.1\" stroke=\"currentColor\" stroke-dasharray=\"5 4\" opacity=\"0.5\"/><line x1=\"132\" y1=\"186.7\" x2=\"132\" y2=\"260\" stroke=\"currentColor\" stroke-dasharray=\"5 4\" opacity=\"0.5\"/><line x1=\"52\" y1=\"186.7\" x2=\"132\" y2=\"186.7\" stroke=\"currentColor\" stroke-dasharray=\"5 4\" opacity=\"0.5\"/><line x1=\"132\" y1=\"235.6\" x2=\"132\" y2=\"260\" stroke=\"currentColor\" stroke-dasharray=\"5 4\" opacity=\"0.5\"/><line x1=\"52\" y1=\"235.6\" x2=\"132\" y2=\"235.6\" stroke=\"currentColor\" stroke-dasharray=\"5 4\" opacity=\"0.5\"/><circle cx=\"52\" cy=\"211.1\" r=\"3.5\" fill=\"var(--dg-b, #c2410c)\" stroke=\"none\"/><circle cx=\"132\" cy=\"186.7\" r=\"3.5\" fill=\"var(--dg-b, #c2410c)\" stroke=\"none\"/><circle cx=\"132\" cy=\"235.6\" r=\"3.5\" fill=\"var(--dg-b, #c2410c)\" stroke=\"none\"/><text x=\"249.8\" y=\"135.3\" text-anchor=\"start\" fill=\"var(--dg-a, #1f5fae)\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\">A</text><text x=\"216.8\" y=\"129\" text-anchor=\"start\" fill=\"var(--dg-b, #c2410c)\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\">B</text></g></svg>",
+          "graph": {
+            "kind": "xt",
+            "series": [
+              {
+                "body": "A",
+                "q": "x",
+                "fn": [
+                  8,
+                  2
+                ],
+                "t1": 6,
+                "label": "A"
+              },
+              {
+                "body": "B",
+                "q": "x",
+                "fn": [
+                  0,
+                  0,
+                  1
+                ],
+                "t1": 6,
+                "color": "b",
+                "label": "B"
+              }
+            ],
+            "marks": [
+              {
+                "t": 0,
+                "y": 8,
+                "s": 0
+              },
+              {
+                "t": 2,
+                "y": 12,
+                "s": 0
+              },
+              {
+                "t": 2,
+                "y": 4,
+                "s": 1
+              }
+            ],
+            "title": "גרפי מיקום־זמן של שני רכבים"
+          },
+          "inputs": [
+            {
+              "label": "מהירות רכב A",
+              "unit": "מ/ש",
+              "answer": "2",
+              "tolerance": 0.03
+            },
+            {
+              "label": "תאוצת רכב B",
+              "unit": "מ/ש²",
+              "answer": "2",
+              "tolerance": 0.03
+            },
+            {
+              "label": "זמן המפגש",
+              "unit": "ש'",
+              "answer": "4",
+              "tolerance": 0.06
+            },
+            {
+              "label": "מהירות B ברגע המפגש",
+              "unit": "מ/ש",
+              "answer": "8",
+              "tolerance": 0.12
+            },
+            {
+              "label": "המרחק המרבי בין הרכבים לפני המפגש",
+              "unit": "מ'",
+              "answer": "9",
+              "tolerance": 0.14
+            }
+          ],
+          "sketches": [
+            {
+              "label": "סעיף ו: גרף המהירות של שני הרכבים",
+              "prompt": "שרטטו את המהירות של A ושל B כפונקציה של הזמן, מ־t = 0 ועד המפגש.",
+              "graph": {
+                "kind": "vt",
+                "series": [
+                  {
+                    "body": "A",
+                    "q": "vx",
+                    "fn": [
+                      2
+                    ],
+                    "t1": 4,
+                    "label": "A"
+                  },
+                  {
+                    "body": "B",
+                    "q": "vx",
+                    "fn": [
+                      0,
+                      2
+                    ],
+                    "t1": 4,
+                    "color": "b",
+                    "label": "B"
+                  }
+                ],
+                "marks": [
+                  {
+                    "t": 4,
+                    "y": 2,
+                    "s": 0
+                  },
+                  {
+                    "t": 4,
+                    "y": 8,
+                    "s": 1
+                  }
+                ]
+              },
+              "svg": "<svg viewBox=\"0 0 320 304\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" aria-label=\"סעיף ו: גרף המהירות של שני הרכבים\"><title>סעיף ו: גרף המהירות של שני הרכבים</title><defs><marker id=\"ph-k\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"currentColor\"/></marker><marker id=\"ph-a\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"var(--dg-a, #1f5fae)\"/></marker><marker id=\"ph-b\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"var(--dg-b, #c2410c)\"/></marker><marker id=\"ph-c\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"var(--dg-c, #1e7a34)\"/></marker></defs><g direction=\"ltr\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-size=\"14\"><line x1=\"52\" y1=\"40\" x2=\"52\" y2=\"260\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"52\" y=\"284\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">0</text><line x1=\"82\" y1=\"40\" x2=\"82\" y2=\"260\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"82\" y=\"284\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">0.5</text><line x1=\"112\" y1=\"40\" x2=\"112\" y2=\"260\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"112\" y=\"284\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">1</text><line x1=\"142\" y1=\"40\" x2=\"142\" y2=\"260\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"142\" y=\"284\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">1.5</text><line x1=\"172\" y1=\"40\" x2=\"172\" y2=\"260\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"172\" y=\"284\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">2</text><line x1=\"202\" y1=\"40\" x2=\"202\" y2=\"260\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"202\" y=\"284\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">2.5</text><line x1=\"232\" y1=\"40\" x2=\"232\" y2=\"260\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"232\" y=\"284\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">3</text><line x1=\"262\" y1=\"40\" x2=\"262\" y2=\"260\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"262\" y=\"284\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">3.5</text><line x1=\"292\" y1=\"40\" x2=\"292\" y2=\"260\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"292\" y=\"284\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">4</text><line x1=\"52\" y1=\"260\" x2=\"292\" y2=\"260\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"42\" y=\"265\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">0</text><line x1=\"52\" y1=\"232.5\" x2=\"292\" y2=\"232.5\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"42\" y=\"237.5\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">1</text><line x1=\"52\" y1=\"205\" x2=\"292\" y2=\"205\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"42\" y=\"210\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">2</text><line x1=\"52\" y1=\"177.5\" x2=\"292\" y2=\"177.5\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"42\" y=\"182.5\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">3</text><line x1=\"52\" y1=\"150\" x2=\"292\" y2=\"150\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"42\" y=\"155\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">4</text><line x1=\"52\" y1=\"122.5\" x2=\"292\" y2=\"122.5\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"42\" y=\"127.5\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">5</text><line x1=\"52\" y1=\"95\" x2=\"292\" y2=\"95\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"42\" y=\"100\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">6</text><line x1=\"52\" y1=\"67.5\" x2=\"292\" y2=\"67.5\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"42\" y=\"72.5\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">7</text><line x1=\"52\" y1=\"40\" x2=\"292\" y2=\"40\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"42\" y=\"45\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">8</text><line x1=\"52\" y1=\"260\" x2=\"300\" y2=\"260\" stroke=\"currentColor\" stroke-width=\"2\" marker-end=\"url(#ph-k)\"/><line x1=\"52\" y1=\"260\" x2=\"52\" y2=\"30\" stroke=\"currentColor\" stroke-width=\"2\" marker-end=\"url(#ph-k)\"/><text x=\"263.5\" y=\"244\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\"><tspan direction=\"ltr\" unicode-bidi=\"isolate\">⁦t (<tspan direction=\"rtl\" unicode-bidi=\"isolate\">⁧ש׳⁩</tspan>)⁩</tspan></text><text x=\"87.9\" y=\"20\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\"><tspan direction=\"ltr\" unicode-bidi=\"isolate\">⁦v (<tspan direction=\"rtl\" unicode-bidi=\"isolate\">⁧מ/ש⁩</tspan>)⁩</tspan></text><polyline points=\"52,205 292,205\" stroke=\"var(--dg-a, #1f5fae)\" stroke-width=\"2.5\"/><polyline points=\"52,260 292,40\" stroke=\"var(--dg-b, #c2410c)\" stroke-width=\"2.5\"/><line x1=\"292\" y1=\"205\" x2=\"292\" y2=\"260\" stroke=\"currentColor\" stroke-dasharray=\"5 4\" opacity=\"0.5\"/><line x1=\"52\" y1=\"205\" x2=\"292\" y2=\"205\" stroke=\"currentColor\" stroke-dasharray=\"5 4\" opacity=\"0.5\"/><line x1=\"292\" y1=\"40\" x2=\"292\" y2=\"260\" stroke=\"currentColor\" stroke-dasharray=\"5 4\" opacity=\"0.5\"/><line x1=\"52\" y1=\"40\" x2=\"292\" y2=\"40\" stroke=\"currentColor\" stroke-dasharray=\"5 4\" opacity=\"0.5\"/><circle cx=\"292\" cy=\"205\" r=\"3.5\" fill=\"var(--dg-b, #c2410c)\" stroke=\"none\"/><circle cx=\"292\" cy=\"40\" r=\"3.5\" fill=\"var(--dg-b, #c2410c)\" stroke=\"none\"/><text x=\"234.8\" y=\"194\" text-anchor=\"start\" fill=\"var(--dg-a, #1f5fae)\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\">A</text><text x=\"240.8\" y=\"108.6\" text-anchor=\"start\" fill=\"var(--dg-b, #c2410c)\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\">B</text></g></svg>",
+              "checklist": [
+                "הצירים מסומנים בשם ובמידה, עם יחידות: v (מ/ש) ו־t (ש').",
+                "סימנתי על הגרף את הערכים המרכזיים (נקודת ההתחלה, נקודת הסיום והנקודות המסומנות) ואת המפגש.",
+                "הצורה והשיפוע נכונים: קו אופקי עבור A וקו ישר עולה מהראשית עבור B, וסימן הערכים (מעל או מתחת לציר הזמן) מתאים."
+              ]
+            }
+          ],
+          "tips": [
+            "שיפוע גרף מיקום־זמן הוא מהירות. ברכב A קו ישר, ולכן שתי נקודות עליו מספיקות כדי למצוא את השיפוע שלו.",
+            "עבור B, שיוצא ממנוחה מהראשית, המיקום הוא x = ½·a·t². נקודה אחת על הפרבולה קובעת את a.",
+            "בנקודת המפגש x(A) = x(B): פותרים משוואה ריבועית ובוחרים את השורש החיובי. המרחק בין הרכבים הוא פרבולה הפוכה, וערכה המרבי בקודקוד."
+          ],
+          "solution": [
+            "מהגרף: A נמצא ב־<span dir=\"ltr\">x = 8</span> ב־<span dir=\"ltr\">t = 0</span> וב־<span dir=\"ltr\">x = 12</span> ב־<span dir=\"ltr\">t = 2</span>, לכן <span dir=\"ltr\">v_A = 2 מ/ש</span>.",
+            "B: <span dir=\"ltr\">x = ½·a·t²</span> ובנקודה <span dir=\"ltr\">(2, 4)</span> מקבלים <span dir=\"ltr\">4 = ½·a·4</span>, כלומר <span dir=\"ltr\">a = 2 מ/ש²</span>.",
+            "משוואות המיקום: <span dir=\"ltr\">x_A = 8 + 2t</span> ו־<span dir=\"ltr\">x_B = t²</span>.",
+            "מפגש: <span dir=\"ltr\">t² = 8 + 2t</span>, כלומר <span dir=\"ltr\">t² − 2t − 8 = 0</span>, ולכן <span dir=\"ltr\">t = 1 + 3 = 4 ש'</span> (השורש השני שלילי), במקום <span dir=\"ltr\">x = 16 מ'</span>.",
+            "מהירות B במפגש: <span dir=\"ltr\">v_B = a·t = 2·4 = 8 מ/ש</span>.",
+            "המרחק בין הרכבים: <span dir=\"ltr\">d(t) = 8 + 2t − t²</span>, פרבולה הפוכה עם מקסימום ב־<span dir=\"ltr\">t = 1</span>: <span dir=\"ltr\">d = 8 + 2 − 1 = 9 מ'</span>.",
+            "בגרף המהירות: <span dir=\"ltr\">v_A = 2</span> קבוע, <span dir=\"ltr\">v_B = 2t</span> עולה מאפס; ב־<span dir=\"ltr\">t = 4</span> הערכים <span dir=\"ltr\">2</span> ו־<span dir=\"ltr\">8</span> מ/ש."
+          ],
+          "verify": {
+            "bodies": [
+              {
+                "id": "A",
+                "x0": 8,
+                "y0": 0,
+                "vx": 2,
+                "vy": 0,
+                "ay": 0
+              },
+              {
+                "id": "B",
+                "x0": 0,
+                "y0": 0,
+                "vx": 0,
+                "vy": 0,
+                "ax": 2,
+                "ay": 0
+              }
+            ],
+            "meet": {
+              "a": "A",
+              "b": "B",
+              "axis": "x"
+            },
+            "claims": [
+              {
+                "q": {
+                  "body": "A",
+                  "what": "x",
+                  "at": {
+                    "t": 2
+                  }
+                },
+                "value": 12,
+                "tol": 0.005
+              },
+              {
+                "q": {
+                  "body": "B",
+                  "what": "x",
+                  "at": {
+                    "t": 2
+                  }
+                },
+                "value": 4,
+                "tol": 0.005
+              }
+            ],
+            "queries": [
+              {
+                "body": "A",
+                "what": "vx",
+                "at": "start"
+              },
+              {
+                "op": "accel",
+                "body": "B",
+                "axis": "x"
+              },
+              {
+                "body": "A",
+                "what": "t",
+                "at": "meet"
+              },
+              {
+                "body": "B",
+                "what": "speed",
+                "at": "meet"
+              },
+              {
+                "op": "maxGap",
+                "a": "A",
+                "b": "B",
+                "axis": "x"
+              }
+            ]
+          }
+        },
+        {
+          "id": "lad-s6-06",
+          "topic": "phys-vertical",
+          "level": 6,
+          "title": "שתי אבנים שנזרקות ממגדל לפי גרף מהירות־זמן",
+          "statement": "שתי אבנים נזרקות באותו רגע אנכית מראש מגדל: אבן A כלפי מעלה ואבן B כלפי מטה. הגרף מראה את המהירות של כל אבן כפונקציה של הזמן (כלפי מעלה חיובי). אבן A פוגעת בקרקע 4 ש' אחרי הזריקה, ואבן B פוגעת בקרקע 2.5 ש' אחרי הזריקה. בחישובים השתמשו ב־g = 10 מ/ש² והתעלמו מהתנגדות האוויר.<br>א. מהי מהירות הזריקה של אבן A, לפי הגרף?<br>ב. מהו גובה המגדל?<br>ג. מהו גודל מהירות הזריקה של אבן B?<br>ד. מהו גודל מהירות אבן B ברגע הפגיעה בקרקע?<br>ה. באיזה גובה מעל הקרקע נמצאת אבן A ברגע שאבן B פוגעת בקרקע?<br>ו. (סעיף שרטוט) שרטטו בטיוטה את גרף הגובה מעל הקרקע של שתי האבנים כפונקציה של הזמן, עד הפגיעה של כל אחת, וסמנו את הגובה המרבי של A ואת זמן הפגיעה שלה. אחרי השרטוט לחצו על ״הצג את הגרף הנכון״ ובדקו את עצמכם (סעיף השרטוט אינו נבדק אוטומטית).",
+          "diagram": "<svg viewBox=\"0 0 320 304\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" aria-label=\"גרף מהירות־זמן של שתי אבנים\"><title>גרף מהירות־זמן של שתי אבנים</title><defs><marker id=\"ph-k\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"currentColor\"/></marker><marker id=\"ph-a\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"var(--dg-a, #1f5fae)\"/></marker><marker id=\"ph-b\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"var(--dg-b, #c2410c)\"/></marker><marker id=\"ph-c\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"var(--dg-c, #1e7a34)\"/></marker></defs><g direction=\"ltr\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-size=\"14\"><line x1=\"52\" y1=\"40\" x2=\"52\" y2=\"260\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"52\" y=\"284\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">0</text><line x1=\"82\" y1=\"40\" x2=\"82\" y2=\"260\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"82\" y=\"284\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">0.5</text><line x1=\"112\" y1=\"40\" x2=\"112\" y2=\"260\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"112\" y=\"284\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">1</text><line x1=\"142\" y1=\"40\" x2=\"142\" y2=\"260\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"142\" y=\"284\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">1.5</text><line x1=\"172\" y1=\"40\" x2=\"172\" y2=\"260\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"172\" y=\"284\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">2</text><line x1=\"202\" y1=\"40\" x2=\"202\" y2=\"260\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"202\" y=\"284\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">2.5</text><line x1=\"232\" y1=\"40\" x2=\"232\" y2=\"260\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"232\" y=\"284\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">3</text><line x1=\"262\" y1=\"40\" x2=\"262\" y2=\"260\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"262\" y=\"284\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">3.5</text><line x1=\"292\" y1=\"40\" x2=\"292\" y2=\"260\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"292\" y=\"284\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">4</text><line x1=\"52\" y1=\"260\" x2=\"292\" y2=\"260\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"42\" y=\"265\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">-30</text><line x1=\"52\" y1=\"232.5\" x2=\"292\" y2=\"232.5\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"42\" y=\"237.5\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">-25</text><line x1=\"52\" y1=\"205\" x2=\"292\" y2=\"205\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"42\" y=\"210\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">-20</text><line x1=\"52\" y1=\"177.5\" x2=\"292\" y2=\"177.5\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"42\" y=\"182.5\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">-15</text><line x1=\"52\" y1=\"150\" x2=\"292\" y2=\"150\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"42\" y=\"155\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">-10</text><line x1=\"52\" y1=\"122.5\" x2=\"292\" y2=\"122.5\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"42\" y=\"127.5\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">-5</text><line x1=\"52\" y1=\"95\" x2=\"292\" y2=\"95\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"42\" y=\"100\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">0</text><line x1=\"52\" y1=\"67.5\" x2=\"292\" y2=\"67.5\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"42\" y=\"72.5\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">5</text><line x1=\"52\" y1=\"40\" x2=\"292\" y2=\"40\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"42\" y=\"45\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">10</text><line x1=\"52\" y1=\"95\" x2=\"300\" y2=\"95\" stroke=\"currentColor\" stroke-width=\"2\" marker-end=\"url(#ph-k)\"/><line x1=\"52\" y1=\"260\" x2=\"52\" y2=\"30\" stroke=\"currentColor\" stroke-width=\"2\" marker-end=\"url(#ph-k)\"/><text x=\"278.5\" y=\"79\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\"><tspan direction=\"ltr\" unicode-bidi=\"isolate\">⁦t (<tspan direction=\"rtl\" unicode-bidi=\"isolate\">⁧ש׳⁩</tspan>)⁩</tspan></text><text x=\"87.9\" y=\"20\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\"><tspan direction=\"ltr\" unicode-bidi=\"isolate\">⁦v (<tspan direction=\"rtl\" unicode-bidi=\"isolate\">⁧מ/ש⁩</tspan>)⁩</tspan></text><polyline points=\"52,40 292,260\" stroke=\"var(--dg-a, #1f5fae)\" stroke-width=\"2.5\"/><polyline points=\"52,114.3 202,251.8\" stroke=\"var(--dg-b, #c2410c)\" stroke-width=\"2.5\"/><line x1=\"52\" y1=\"40\" x2=\"52\" y2=\"260\" stroke=\"currentColor\" stroke-dasharray=\"5 4\" opacity=\"0.5\"/><line x1=\"52\" y1=\"40\" x2=\"52\" y2=\"40\" stroke=\"currentColor\" stroke-dasharray=\"5 4\" opacity=\"0.5\"/><line x1=\"292\" y1=\"260\" x2=\"292\" y2=\"260\" stroke=\"currentColor\" stroke-dasharray=\"5 4\" opacity=\"0.5\"/><line x1=\"52\" y1=\"260\" x2=\"292\" y2=\"260\" stroke=\"currentColor\" stroke-dasharray=\"5 4\" opacity=\"0.5\"/><circle cx=\"52\" cy=\"40\" r=\"3.5\" fill=\"var(--dg-b, #c2410c)\" stroke=\"none\"/><circle cx=\"292\" cy=\"260\" r=\"3.5\" fill=\"var(--dg-b, #c2410c)\" stroke=\"none\"/><text x=\"234.8\" y=\"193.4\" text-anchor=\"start\" fill=\"var(--dg-a, #1f5fae)\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\">A</text><text x=\"170\" y=\"208.3\" text-anchor=\"start\" fill=\"var(--dg-b, #c2410c)\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\">B</text></g></svg>",
+          "graph": {
+            "kind": "vt",
+            "series": [
+              {
+                "body": "A",
+                "q": "vy",
+                "fn": [
+                  10,
+                  -10
+                ],
+                "t1": 4,
+                "label": "A"
+              },
+              {
+                "body": "B",
+                "q": "vy",
+                "fn": [
+                  -3.5,
+                  -10
+                ],
+                "t1": 2.5,
+                "color": "b",
+                "label": "B"
+              }
+            ],
+            "marks": [
+              {
+                "t": 0,
+                "y": 10,
+                "s": 0
+              },
+              {
+                "t": 4,
+                "y": -30,
+                "s": 0
+              }
+            ],
+            "title": "גרף מהירות־זמן של שתי אבנים"
+          },
+          "inputs": [
+            {
+              "label": "מהירות הזריקה של A",
+              "unit": "מ/ש",
+              "answer": "10",
+              "tolerance": 0.15
+            },
+            {
+              "label": "גובה המגדל",
+              "unit": "מ'",
+              "answer": "40",
+              "tolerance": 0.6
+            },
+            {
+              "label": "מהירות הזריקה של B",
+              "unit": "מ/ש",
+              "answer": "3.5",
+              "tolerance": 0.05
+            },
+            {
+              "label": "גודל מהירות B בפגיעה",
+              "unit": "מ/ש",
+              "answer": "28.5",
+              "tolerance": 0.43
+            },
+            {
+              "label": "גובה A כש־B פוגעת בקרקע",
+              "unit": "מ'",
+              "answer": "33.75",
+              "tolerance": 0.51
+            }
+          ],
+          "sketches": [
+            {
+              "label": "סעיף ו: גרף הגובה של שתי האבנים",
+              "prompt": "שרטטו את הגובה מעל הקרקע של A ושל B כפונקציה של הזמן, עד שכל אחת פוגעת בקרקע. סמנו את הגובה המרבי של A ואת זמן הפגיעה שלה.",
+              "graph": {
+                "kind": "yt",
+                "series": [
+                  {
+                    "body": "A",
+                    "q": "y",
+                    "fn": [
+                      40,
+                      10,
+                      -5
+                    ],
+                    "t1": 4,
+                    "label": "A"
+                  },
+                  {
+                    "body": "B",
+                    "q": "y",
+                    "fn": [
+                      40,
+                      -3.5,
+                      -5
+                    ],
+                    "t1": 2.5,
+                    "color": "b",
+                    "label": "B"
+                  }
+                ],
+                "marks": [
+                  {
+                    "t": 1,
+                    "y": 45,
+                    "s": 0
+                  },
+                  {
+                    "t": 4,
+                    "y": 0,
+                    "s": 0
+                  }
+                ]
+              },
+              "svg": "<svg viewBox=\"0 0 320 304\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" aria-label=\"סעיף ו: גרף הגובה של שתי האבנים\"><title>סעיף ו: גרף הגובה של שתי האבנים</title><defs><marker id=\"ph-k\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"currentColor\"/></marker><marker id=\"ph-a\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"var(--dg-a, #1f5fae)\"/></marker><marker id=\"ph-b\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"var(--dg-b, #c2410c)\"/></marker><marker id=\"ph-c\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"var(--dg-c, #1e7a34)\"/></marker></defs><g direction=\"ltr\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-size=\"14\"><line x1=\"52\" y1=\"40\" x2=\"52\" y2=\"260\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"52\" y=\"284\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">0</text><line x1=\"82\" y1=\"40\" x2=\"82\" y2=\"260\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"82\" y=\"284\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">0.5</text><line x1=\"112\" y1=\"40\" x2=\"112\" y2=\"260\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"112\" y=\"284\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">1</text><line x1=\"142\" y1=\"40\" x2=\"142\" y2=\"260\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"142\" y=\"284\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">1.5</text><line x1=\"172\" y1=\"40\" x2=\"172\" y2=\"260\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"172\" y=\"284\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">2</text><line x1=\"202\" y1=\"40\" x2=\"202\" y2=\"260\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"202\" y=\"284\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">2.5</text><line x1=\"232\" y1=\"40\" x2=\"232\" y2=\"260\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"232\" y=\"284\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">3</text><line x1=\"262\" y1=\"40\" x2=\"262\" y2=\"260\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"262\" y=\"284\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">3.5</text><line x1=\"292\" y1=\"40\" x2=\"292\" y2=\"260\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"292\" y=\"284\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">4</text><line x1=\"52\" y1=\"260\" x2=\"292\" y2=\"260\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"42\" y=\"265\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">0</text><line x1=\"52\" y1=\"235.6\" x2=\"292\" y2=\"235.6\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"42\" y=\"240.6\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">5</text><line x1=\"52\" y1=\"211.1\" x2=\"292\" y2=\"211.1\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"42\" y=\"216.1\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">10</text><line x1=\"52\" y1=\"186.7\" x2=\"292\" y2=\"186.7\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"42\" y=\"191.7\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">15</text><line x1=\"52\" y1=\"162.2\" x2=\"292\" y2=\"162.2\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"42\" y=\"167.2\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">20</text><line x1=\"52\" y1=\"137.8\" x2=\"292\" y2=\"137.8\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"42\" y=\"142.8\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">25</text><line x1=\"52\" y1=\"113.3\" x2=\"292\" y2=\"113.3\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"42\" y=\"118.3\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">30</text><line x1=\"52\" y1=\"88.9\" x2=\"292\" y2=\"88.9\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"42\" y=\"93.9\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">35</text><line x1=\"52\" y1=\"64.4\" x2=\"292\" y2=\"64.4\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"42\" y=\"69.4\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">40</text><line x1=\"52\" y1=\"40\" x2=\"292\" y2=\"40\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"42\" y=\"45\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">45</text><line x1=\"52\" y1=\"260\" x2=\"300\" y2=\"260\" stroke=\"currentColor\" stroke-width=\"2\" marker-end=\"url(#ph-k)\"/><line x1=\"52\" y1=\"260\" x2=\"52\" y2=\"30\" stroke=\"currentColor\" stroke-width=\"2\" marker-end=\"url(#ph-k)\"/><text x=\"251.5\" y=\"250\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\"><tspan direction=\"ltr\" unicode-bidi=\"isolate\">⁦t (<tspan direction=\"rtl\" unicode-bidi=\"isolate\">⁧ש׳⁩</tspan>)⁩</tspan></text><text x=\"83.5\" y=\"20\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\"><tspan direction=\"ltr\" unicode-bidi=\"isolate\">⁦y (<tspan direction=\"rtl\" unicode-bidi=\"isolate\">⁧מ׳⁩</tspan>)⁩</tspan></text><path d=\"M52 64.4Q172 -33.3 292 260\" stroke=\"var(--dg-a, #1f5fae)\" stroke-width=\"2.5\"/><path d=\"M52 64.4Q127 85.8 202 260\" stroke=\"var(--dg-b, #c2410c)\" stroke-width=\"2.5\"/><line x1=\"112\" y1=\"40\" x2=\"112\" y2=\"260\" stroke=\"currentColor\" stroke-dasharray=\"5 4\" opacity=\"0.5\"/><line x1=\"52\" y1=\"40\" x2=\"112\" y2=\"40\" stroke=\"currentColor\" stroke-dasharray=\"5 4\" opacity=\"0.5\"/><line x1=\"292\" y1=\"260\" x2=\"292\" y2=\"260\" stroke=\"currentColor\" stroke-dasharray=\"5 4\" opacity=\"0.5\"/><line x1=\"52\" y1=\"260\" x2=\"292\" y2=\"260\" stroke=\"currentColor\" stroke-dasharray=\"5 4\" opacity=\"0.5\"/><circle cx=\"112\" cy=\"40\" r=\"3.5\" fill=\"var(--dg-b, #c2410c)\" stroke=\"none\"/><circle cx=\"292\" cy=\"260\" r=\"3.5\" fill=\"var(--dg-b, #c2410c)\" stroke=\"none\"/><text x=\"234.8\" y=\"121.4\" text-anchor=\"start\" fill=\"var(--dg-a, #1f5fae)\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\">A</text><text x=\"170\" y=\"169.4\" text-anchor=\"start\" fill=\"var(--dg-b, #c2410c)\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\">B</text></g></svg>",
+              "checklist": [
+                "הצירים מסומנים בשם ובמידה, עם יחידות: y (מ') ו־t (ש').",
+                "סימנתי על הגרף את הערכים המרכזיים (נקודת ההתחלה, נקודת הסיום והנקודות המסומנות) ואת המפגש.",
+                "הצורה והשיפוע נכונים: פרבולה הפוכה עבור A שעולה ואז יורדת, ופרבולה יורדת בלבד עבור B, וסימן הערכים (מעל או מתחת לציר הזמן) מתאים."
+              ]
+            }
+          ],
+          "tips": [
+            "בגרף מהירות־זמן ערך המהירות ב־t = 0 הוא מהירות הזריקה, והשיפוע של שני הקווים הוא התאוצה.",
+            "אפשר למצוא את גובה המגדל משינוי המקום של A בארבע השניות, כשהתזוזה הכוללת שלילית (עד הקרקע) ושווה לגובה המגדל.",
+            "אבן B נעה כלפי מטה: בזמן הפגיעה עוברת בדיוק את גובה המגדל. כתבו את משוואת התנועה שלה וחלצו ממנה את מהירות הזריקה."
+          ],
+          "solution": [
+            "מהגרף: ב־<span dir=\"ltr\">t = 0</span> המהירות של A היא <span dir=\"ltr\">10 מ/ש</span> כלפי מעלה, ושיפוע הקו הוא <span dir=\"ltr\">−10 מ/ש²</span>.",
+            "A פוגעת בקרקע אחרי <span dir=\"ltr\">4 ש'</span>: <span dir=\"ltr\">0 = h + 10·4 − 5·4²</span>, לכן <span dir=\"ltr\">h = 40 מ'</span>.",
+            "B נזרקת מטה: <span dir=\"ltr\">h = u·t + 5t²</span> ב־<span dir=\"ltr\">t = 2.5</span>: <span dir=\"ltr\">40 = 2.5u + 31.25</span>, ולכן <span dir=\"ltr\">u = 3.5 מ/ש</span>.",
+            "מהירות B בפגיעה: <span dir=\"ltr\">3.5 + 10·2.5 = 28.5 מ/ש</span> (כלפי מטה).",
+            "גובה A ב־<span dir=\"ltr\">t = 2.5</span>: <span dir=\"ltr\">40 + 10·2.5 − 5·2.5² = 33.75 מ'</span>.",
+            "בגרף הגובה: <span dir=\"ltr\">y_A = 40 + 10t − 5t²</span> עם שיא <span dir=\"ltr\">45 מ'</span> ב־<span dir=\"ltr\">t = 1</span> ונפילה לקרקע ב־<span dir=\"ltr\">t = 4</span>; <span dir=\"ltr\">y_B = 40 − 3.5t − 5t²</span> יורדת לקרקע ב־<span dir=\"ltr\">t = 2.5</span>."
+          ],
+          "verify": {
+            "floor": true,
+            "bodies": [
+              {
+                "id": "A",
+                "x0": 0,
+                "y0": 40,
+                "vx": 0,
+                "vy": 10
+              },
+              {
+                "id": "B",
+                "x0": 0,
+                "y0": 40,
+                "vx": 0,
+                "vy": -3.5
+              }
+            ],
+            "claims": [
+              {
+                "q": {
+                  "body": "A",
+                  "what": "t",
+                  "at": {
+                    "land": "A"
+                  }
+                },
+                "value": 4,
+                "tol": 0.005
+              },
+              {
+                "q": {
+                  "body": "B",
+                  "what": "t",
+                  "at": {
+                    "land": "B"
+                  }
+                },
+                "value": 2.5,
+                "tol": 0.005
+              }
+            ],
+            "queries": [
+              {
+                "body": "A",
+                "what": "vy",
+                "at": "start"
+              },
+              {
+                "body": "A",
+                "what": "y",
+                "at": "start"
+              },
+              {
+                "body": "B",
+                "what": "speed",
+                "at": "start"
+              },
+              {
+                "body": "B",
+                "what": "speed",
+                "at": {
+                  "land": "B"
+                }
+              },
+              {
+                "body": "A",
+                "what": "y",
+                "at": {
+                  "land": "B"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "id": "lad-s6-07",
+          "topic": "phys-horizontal",
+          "level": 6,
+          "title": "מרדף: רכב במהירות קבועה ורכב שיוצא באיחור",
+          "statement": "רכב A עובר בנקודה O במהירות קבועה של 8 מ/ש. 2 ש' אחר כך יוצא מהנקודה O, ממנוחה, רכב B באותו כיוון ובתאוצה קבועה של 2.5 מ/ש². ברגע שבו A עובר ב־O מתחיל מדידת הזמן, t = 0.<br>א. איזה מרחק עבר רכב A מהנקודה O עד הרגע ש־B יוצא?<br>ב. באיזה רגע (מ־t = 0) משיג B את A?<br>ג. באיזה מרחק מהנקודה O B משיג את A?<br>ד. מהי מהירות B ברגע שהוא משיג את A?<br>ה. מהו המרחק המרבי בין A ל־B לפני ש־B משיג אותו?<br>ו. (סעיף שרטוט) שרטטו בטיוטה את גרף המהירות של שני הרכבים כפונקציה של הזמן, מ־t = 0 ועד הרגע ש־B משיג את A, וסמנו את שני ערכי המהירות ברגע ההשגה ואת רגע היציאה של B. אחרי השרטוט לחצו על ״הצג את הגרף הנכון״ ובדקו את עצמכם (סעיף השרטוט אינו נבדק אוטומטית).",
+          "diagram": "<svg viewBox=\"0 0 320 186\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" aria-label=\"רכב A במהירות קבועה ורכב B שיוצא באיחור\"><title>רכב A במהירות קבועה ורכב B שיוצא באיחור</title><defs><marker id=\"ph-k\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"currentColor\"/></marker><marker id=\"ph-a\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"var(--dg-a, #1f5fae)\"/></marker><marker id=\"ph-b\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"var(--dg-b, #c2410c)\"/></marker><marker id=\"ph-c\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"var(--dg-c, #1e7a34)\"/></marker></defs><g direction=\"ltr\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-size=\"14\"><line x1=\"10\" y1=\"100\" x2=\"310\" y2=\"100\" stroke=\"currentColor\" stroke-width=\"2\"/><path d=\"M18 100l-6 8M28 100l-6 8M38 100l-6 8M48 100l-6 8M58 100l-6 8M68 100l-6 8M78 100l-6 8M88 100l-6 8M98 100l-6 8M108 100l-6 8M118 100l-6 8M128 100l-6 8M138 100l-6 8M148 100l-6 8M158 100l-6 8M168 100l-6 8M178 100l-6 8M188 100l-6 8M198 100l-6 8M208 100l-6 8M218 100l-6 8M228 100l-6 8M238 100l-6 8M248 100l-6 8M258 100l-6 8M268 100l-6 8M278 100l-6 8M288 100l-6 8M298 100l-6 8M308 100l-6 8\" opacity=\"0.5\"/><line x1=\"10\" y1=\"140\" x2=\"310\" y2=\"140\" stroke=\"currentColor\" stroke-width=\"2\"/><path d=\"M18 140l-6 8M28 140l-6 8M38 140l-6 8M48 140l-6 8M58 140l-6 8M68 140l-6 8M78 140l-6 8M88 140l-6 8M98 140l-6 8M108 140l-6 8M118 140l-6 8M128 140l-6 8M138 140l-6 8M148 140l-6 8M158 140l-6 8M168 140l-6 8M178 140l-6 8M188 140l-6 8M198 140l-6 8M208 140l-6 8M218 140l-6 8M228 140l-6 8M238 140l-6 8M248 140l-6 8M258 140l-6 8M268 140l-6 8M278 140l-6 8M288 140l-6 8M298 140l-6 8M308 140l-6 8\" opacity=\"0.5\"/><rect x=\"20\" y=\"118\" width=\"44\" height=\"14\" rx=\"3\" stroke=\"var(--dg-a, #1f5fae)\" fill=\"var(--dg-a, #1f5fae)\" fill-opacity=\"0.18\"/><rect x=\"30\" y=\"109\" width=\"22\" height=\"9\" rx=\"2\" stroke=\"var(--dg-a, #1f5fae)\"/><circle cx=\"31\" cy=\"134\" r=\"5\" fill=\"currentColor\" stroke=\"none\"/><circle cx=\"53\" cy=\"134\" r=\"5\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"20\" y=\"78\" width=\"44\" height=\"14\" rx=\"3\" stroke=\"var(--dg-b, #c2410c)\" fill=\"var(--dg-b, #c2410c)\" fill-opacity=\"0.18\"/><rect x=\"30\" y=\"69\" width=\"22\" height=\"9\" rx=\"2\" stroke=\"var(--dg-b, #c2410c)\"/><circle cx=\"31\" cy=\"94\" r=\"5\" fill=\"currentColor\" stroke=\"none\"/><circle cx=\"53\" cy=\"94\" r=\"5\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"70\" y1=\"100\" x2=\"110\" y2=\"100\" stroke=\"var(--dg-a, #1f5fae)\" stroke-width=\"2\" marker-end=\"url(#ph-a)\"/><text x=\"102\" y=\"86\" text-anchor=\"middle\" fill=\"var(--dg-a, #1f5fae)\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\"><tspan direction=\"ltr\" unicode-bidi=\"isolate\">⁦v = 8 <tspan direction=\"rtl\" unicode-bidi=\"isolate\">⁧מ/ש⁩</tspan>⁩</tspan></text><line x1=\"70\" y1=\"60\" x2=\"110\" y2=\"60\" stroke=\"var(--dg-b, #c2410c)\" stroke-width=\"2\" marker-end=\"url(#ph-b)\"/><text x=\"90\" y=\"46\" text-anchor=\"middle\" fill=\"var(--dg-b, #c2410c)\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\"><tspan direction=\"ltr\" unicode-bidi=\"isolate\">⁦a = 2.5 <tspan direction=\"rtl\" unicode-bidi=\"isolate\">⁧מ/ש²⁩</tspan>⁩</tspan></text><text x=\"42\" y=\"167\" text-anchor=\"middle\" fill=\"var(--dg-a, #1f5fae)\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\">A</text><text x=\"102\" y=\"166\" text-anchor=\"middle\" fill=\"var(--dg-b, #c2410c)\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\"><tspan direction=\"ltr\" unicode-bidi=\"isolate\">⁦B <tspan direction=\"rtl\" unicode-bidi=\"isolate\">⁧יוצא ב⁩</tspan>־t = 2⁩</tspan></text></g></svg>",
+          "scene": {
+            "title": "רכב A במהירות קבועה ורכב B שיוצא באיחור",
+            "kind": "cars",
+            "same": true,
+            "dirB": 1,
+            "labels": {
+              "a": "v = 8 מ/ש",
+              "b": "a = 2.5 מ/ש²",
+              "na": "A",
+              "nb": "B יוצא ב־t = 2"
+            }
+          },
+          "inputs": [
+            {
+              "label": "המרחק ש־A עבר עד יציאת B",
+              "unit": "מ'",
+              "answer": "16",
+              "tolerance": 0.24
+            },
+            {
+              "label": "רגע ההשגה",
+              "unit": "ש'",
+              "answer": "10",
+              "tolerance": 0.15
+            },
+            {
+              "label": "מרחק ההשגה מ־O",
+              "unit": "מ'",
+              "answer": "80",
+              "tolerance": 1.2
+            },
+            {
+              "label": "מהירות B בהשגה",
+              "unit": "מ/ש",
+              "answer": "20",
+              "tolerance": 0.3
+            },
+            {
+              "label": "המרחק המרבי בין הרכבים",
+              "unit": "מ'",
+              "answer": "28.8",
+              "tolerance": 0.43
+            }
+          ],
+          "sketches": [
+            {
+              "label": "סעיף ו: גרף המהירות של שני הרכבים",
+              "prompt": "שרטטו את המהירות של A ושל B כפונקציה של הזמן, מ־t = 0 ועד רגע ההשגה. שימו לב ש־B עומד במקום עד יציאתו.",
+              "graph": {
+                "kind": "vt",
+                "series": [
+                  {
+                    "body": "A",
+                    "q": "vx",
+                    "fn": [
+                      8
+                    ],
+                    "t1": 10,
+                    "label": "A"
+                  },
+                  {
+                    "body": "B",
+                    "q": "vx",
+                    "pts": [
+                      [
+                        0,
+                        0
+                      ],
+                      [
+                        2,
+                        0
+                      ],
+                      [
+                        10,
+                        20
+                      ]
+                    ],
+                    "color": "b"
+                  }
+                ],
+                "marks": [
+                  {
+                    "t": 10,
+                    "y": 8,
+                    "s": 0
+                  },
+                  {
+                    "t": 10,
+                    "y": 20,
+                    "s": 1
+                  },
+                  {
+                    "t": 2,
+                    "y": 0,
+                    "s": 1
+                  }
+                ]
+              },
+              "svg": "<svg viewBox=\"0 0 320 304\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" aria-label=\"סעיף ו: גרף המהירות של שני הרכבים\"><title>סעיף ו: גרף המהירות של שני הרכבים</title><defs><marker id=\"ph-k\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"currentColor\"/></marker><marker id=\"ph-a\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"var(--dg-a, #1f5fae)\"/></marker><marker id=\"ph-b\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"var(--dg-b, #c2410c)\"/></marker><marker id=\"ph-c\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"var(--dg-c, #1e7a34)\"/></marker></defs><g direction=\"ltr\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-size=\"14\"><line x1=\"52\" y1=\"40\" x2=\"52\" y2=\"260\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"52\" y=\"284\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">0</text><line x1=\"100\" y1=\"40\" x2=\"100\" y2=\"260\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"100\" y=\"284\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">2</text><line x1=\"148\" y1=\"40\" x2=\"148\" y2=\"260\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"148\" y=\"284\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">4</text><line x1=\"196\" y1=\"40\" x2=\"196\" y2=\"260\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"196\" y=\"284\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">6</text><line x1=\"244\" y1=\"40\" x2=\"244\" y2=\"260\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"244\" y=\"284\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">8</text><line x1=\"292\" y1=\"40\" x2=\"292\" y2=\"260\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"292\" y=\"284\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">10</text><line x1=\"52\" y1=\"260\" x2=\"292\" y2=\"260\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"42\" y=\"265\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">0</text><line x1=\"52\" y1=\"216\" x2=\"292\" y2=\"216\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"42\" y=\"221\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">4</text><line x1=\"52\" y1=\"172\" x2=\"292\" y2=\"172\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"42\" y=\"177\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">8</text><line x1=\"52\" y1=\"128\" x2=\"292\" y2=\"128\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"42\" y=\"133\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">12</text><line x1=\"52\" y1=\"84\" x2=\"292\" y2=\"84\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"42\" y=\"89\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">16</text><line x1=\"52\" y1=\"40\" x2=\"292\" y2=\"40\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"42\" y=\"45\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">20</text><line x1=\"52\" y1=\"260\" x2=\"300\" y2=\"260\" stroke=\"currentColor\" stroke-width=\"2\" marker-end=\"url(#ph-k)\"/><line x1=\"52\" y1=\"260\" x2=\"52\" y2=\"30\" stroke=\"currentColor\" stroke-width=\"2\" marker-end=\"url(#ph-k)\"/><text x=\"263.5\" y=\"244\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\"><tspan direction=\"ltr\" unicode-bidi=\"isolate\">⁦t (<tspan direction=\"rtl\" unicode-bidi=\"isolate\">⁧ש׳⁩</tspan>)⁩</tspan></text><text x=\"87.9\" y=\"20\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\"><tspan direction=\"ltr\" unicode-bidi=\"isolate\">⁦v (<tspan direction=\"rtl\" unicode-bidi=\"isolate\">⁧מ/ש⁩</tspan>)⁩</tspan></text><polyline points=\"52,172 292,172\" stroke=\"var(--dg-a, #1f5fae)\" stroke-width=\"2.5\"/><polyline points=\"52,260 100,260 292,40\" stroke=\"var(--dg-b, #c2410c)\" stroke-width=\"2.5\"/><line x1=\"292\" y1=\"172\" x2=\"292\" y2=\"260\" stroke=\"currentColor\" stroke-dasharray=\"5 4\" opacity=\"0.5\"/><line x1=\"52\" y1=\"172\" x2=\"292\" y2=\"172\" stroke=\"currentColor\" stroke-dasharray=\"5 4\" opacity=\"0.5\"/><line x1=\"292\" y1=\"40\" x2=\"292\" y2=\"260\" stroke=\"currentColor\" stroke-dasharray=\"5 4\" opacity=\"0.5\"/><line x1=\"52\" y1=\"40\" x2=\"292\" y2=\"40\" stroke=\"currentColor\" stroke-dasharray=\"5 4\" opacity=\"0.5\"/><line x1=\"100\" y1=\"260\" x2=\"100\" y2=\"260\" stroke=\"currentColor\" stroke-dasharray=\"5 4\" opacity=\"0.5\"/><line x1=\"52\" y1=\"260\" x2=\"100\" y2=\"260\" stroke=\"currentColor\" stroke-dasharray=\"5 4\" opacity=\"0.5\"/><circle cx=\"292\" cy=\"172\" r=\"3.5\" fill=\"var(--dg-b, #c2410c)\" stroke=\"none\"/><circle cx=\"292\" cy=\"40\" r=\"3.5\" fill=\"var(--dg-b, #c2410c)\" stroke=\"none\"/><circle cx=\"100\" cy=\"260\" r=\"3.5\" fill=\"var(--dg-b, #c2410c)\" stroke=\"none\"/><text x=\"234.8\" y=\"161\" text-anchor=\"start\" fill=\"var(--dg-a, #1f5fae)\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\">A</text></g></svg>",
+              "checklist": [
+                "הצירים מסומנים בשם ובמידה, עם יחידות: v (מ/ש) ו־t (ש').",
+                "סימנתי על הגרף את הערכים המרכזיים (נקודת ההתחלה, נקודת הסיום והנקודות המסומנות) ואת המפגש.",
+                "הצורה והשיפוע נכונים: קו אופקי עבור A, וקו שנשאר על ציר הזמן עד היציאה ואז עולה בשיפוע קבוע עבור B, וסימן הערכים (מעל או מתחת לציר הזמן) מתאים."
+              ]
+            }
+          ],
+          "tips": [
+            "עד הרגע ש־B יוצא, A נע במהירות קבועה. זה קובע את ההפרש ההתחלתי בין המיקומים.",
+            "זמן התנועה של B קצר מזמן המדידה בזמן העיכוב: x_B = ½·a·(t − עיכוב)². שוו את מיקומי הרכבים ופתרו משוואה ריבועית.",
+            "המרחק בין הרכבים הוא פרבולה הפוכה בזמן שאחרי היציאה. הערך המרבי מתקבל כשמהירויות שני הרכבים שוות."
+          ],
+          "solution": [
+            "עד יציאת B: <span dir=\"ltr\">x_A = 8·2 = 16 מ'</span>.",
+            "המיקומים: <span dir=\"ltr\">x_A = 8t</span> ו־<span dir=\"ltr\">x_B = ½·2.5·(t − 2)² = 1.25(t − 2)²</span>.",
+            "השוואה: <span dir=\"ltr\">1.25(t − 2)² = 8t</span>, כלומר <span dir=\"ltr\">1.25t² − 13t + 5 = 0</span>, ופתרונה <span dir=\"ltr\">t = (13 ± 12) / 2.5</span>: <span dir=\"ltr\">t = 10 ש'</span> (הפתרון <span dir=\"ltr\">0.4</span> קטן מ־<span dir=\"ltr\">2</span>, כש־B עוד לא יצא, ולכן נפסל).",
+            "מקום ההשגה: <span dir=\"ltr\">x = 8·10 = 80 מ'</span>.",
+            "מהירות B: <span dir=\"ltr\">v = 2.5·(10 − 2) = 20 מ/ש</span>.",
+            "המרחק המרבי כשהמהירויות שוות: <span dir=\"ltr\">2.5(t − 2) = 8</span>, כלומר <span dir=\"ltr\">t = 5.2 ש'</span>. אז <span dir=\"ltr\">d = 8·5.2 − 1.25·3.2² = 28.8 מ'</span>.",
+            "בגרף המהירות: A קבוע <span dir=\"ltr\">8</span>; B על הציר עד <span dir=\"ltr\">t = 2</span> ואז עולה עד <span dir=\"ltr\">20 מ/ש</span> ב־<span dir=\"ltr\">t = 10</span>."
+          ],
+          "verify": {
+            "bodies": [
+              {
+                "id": "A",
+                "x0": 0,
+                "y0": 0,
+                "vx": 8,
+                "vy": 0,
+                "ay": 0
+              },
+              {
+                "id": "B",
+                "x0": 0,
+                "y0": 0,
+                "vx": 0,
+                "vy": 0,
+                "ax": 2.5,
+                "ay": 0,
+                "t0": 2
+              }
+            ],
+            "meet": {
+              "a": "A",
+              "b": "B",
+              "axis": "x"
+            },
+            "queries": [
+              {
+                "body": "A",
+                "what": "x",
+                "at": {
+                  "t": 2
+                }
+              },
+              {
+                "body": "A",
+                "what": "t",
+                "at": "meet"
+              },
+              {
+                "body": "A",
+                "what": "x",
+                "at": "meet"
+              },
+              {
+                "body": "B",
+                "what": "speed",
+                "at": "meet"
+              },
+              {
+                "op": "maxGap",
+                "a": "A",
+                "b": "B",
+                "axis": "x"
+              }
+            ]
+          }
+        },
+        {
+          "id": "lad-s6-08",
+          "topic": "phys-horizontal",
+          "level": 6,
+          "title": "כדור שנזרק אופקית דרך שתי טבעות",
+          "statement": "כדור נזרק אופקית ממצוק שגובהו 12 מ' מעל הקרקע. בדרכו הוא עובר דרך שתי טבעות. טבעת 1 נמצאת במרחק אופקי 4 מ' מהמצוק, 1.25 מ' מתחת לנקודת הזריקה. טבעת 2 נמצאת במרחק אופקי 8 מ' מהמצוק. בחישובים השתמשו ב־g = 10 מ/ש² והתעלמו מהתנגדות האוויר. כיוון המהירות = זווית מעל (+) או מתחת (−) לאופק.<br>א. מהי מהירות הזריקה של הכדור?<br>ב. באיזה גובה מעל הקרקע נמצאת טבעת 2?<br>ג. מהו גודל מהירות הכדור כשהוא עובר בטבעת 2?<br>ד. מהו כיוון מהירות הכדור כשהוא עובר בטבעת 2?<br>ה. באיזה מרחק אופקי מהמצוק פוגע הכדור בקרקע?<br>ו. (סעיף שרטוט) שרטטו בטיוטה את גרף המהירות האנכית של הכדור כפונקציה של הזמן, מרגע הזריקה ועד שהוא עובר בטבעת 2, וסמנו את ערך המהירות האנכית בטבעת 2. אחרי השרטוט לחצו על ״הצג את הגרף הנכון״ ובדקו את עצמכם (סעיף השרטוט אינו נבדק אוטומטית).",
+          "diagram": "<svg viewBox=\"0 0 320 209\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" aria-label=\"כדור שנזרק אופקית דרך שתי טבעות\"><title>כדור שנזרק אופקית דרך שתי טבעות</title><defs><marker id=\"ph-k\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"currentColor\"/></marker><marker id=\"ph-a\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"var(--dg-a, #1f5fae)\"/></marker><marker id=\"ph-b\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"var(--dg-b, #c2410c)\"/></marker><marker id=\"ph-c\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"var(--dg-c, #1e7a34)\"/></marker></defs><g direction=\"ltr\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-size=\"14\"><line x1=\"10\" y1=\"165\" x2=\"310\" y2=\"165\" stroke=\"currentColor\" stroke-width=\"2\"/><path d=\"M18 165l-6 8M28 165l-6 8M38 165l-6 8M48 165l-6 8M58 165l-6 8M68 165l-6 8M78 165l-6 8M88 165l-6 8M98 165l-6 8M108 165l-6 8M118 165l-6 8M128 165l-6 8M138 165l-6 8M148 165l-6 8M158 165l-6 8M168 165l-6 8M178 165l-6 8M188 165l-6 8M198 165l-6 8M208 165l-6 8M218 165l-6 8M228 165l-6 8M238 165l-6 8M248 165l-6 8M258 165l-6 8M268 165l-6 8M278 165l-6 8M288 165l-6 8M298 165l-6 8M308 165l-6 8\" opacity=\"0.5\"/><rect x=\"14\" y=\"60\" width=\"78\" height=\"105\" stroke=\"currentColor\" fill=\"currentColor\" fill-opacity=\"0.18\"/><path d=\"M92 60L95.4 60.1L98.8 60.4L102.2 60.9L105.6 61.6L108.9 62.6L112.3 63.7L115.7 65L119.1 66.6L122.5 68.3L125.9 70.3L129.3 72.4L132.7 74.8L136.1 77.3L139.4 80.1L142.8 83.1L146.2 86.3L149.6 89.6L153 93.2L156.4 97L159.8 101L163.2 105.2L166.6 109.6L169.9 114.2L173.3 119.1L176.7 124.1L180.1 129.3L183.5 134.8L186.9 140.4L190.3 146.2L193.7 152.3L197.1 158.5L200.4 165\" stroke=\"currentColor\" stroke-dasharray=\"5 4\"/><line x1=\"127\" y1=\"60.9\" x2=\"127\" y2=\"80.9\" stroke=\"var(--dg-c, #1e7a34)\" stroke-width=\"3\"/><text x=\"138\" y=\"57.9\" text-anchor=\"start\" fill=\"var(--dg-c, #1e7a34)\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\">1</text><line x1=\"162\" y1=\"93.8\" x2=\"162\" y2=\"113.8\" stroke=\"var(--dg-c, #1e7a34)\" stroke-width=\"3\"/><text x=\"170\" y=\"90.8\" text-anchor=\"start\" fill=\"var(--dg-c, #1e7a34)\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\">2</text><circle cx=\"92\" cy=\"60\" r=\"5\" fill=\"var(--dg-a, #1f5fae)\" stroke=\"none\"/><line x1=\"97\" y1=\"60\" x2=\"132\" y2=\"60\" stroke=\"var(--dg-a, #1f5fae)\" stroke-width=\"2\" marker-end=\"url(#ph-a)\"/><text x=\"153\" y=\"59\" text-anchor=\"start\" fill=\"var(--dg-a, #1f5fae)\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\">v₀ = ?</text><line x1=\"24\" y1=\"60\" x2=\"24\" y2=\"165\" stroke=\"currentColor\" marker-start=\"url(#ph-k)\" marker-end=\"url(#ph-k)\"/><text x=\"115.2\" y=\"117.5\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\"><tspan direction=\"ltr\" unicode-bidi=\"isolate\">⁦12 <tspan direction=\"rtl\" unicode-bidi=\"isolate\">⁧מ׳⁩</tspan>⁩</tspan></text><circle cx=\"200.4\" cy=\"161\" r=\"4\" fill=\"var(--dg-c, #1e7a34)\" stroke=\"none\"/><line x1=\"92\" y1=\"183\" x2=\"200.4\" y2=\"183\" stroke=\"currentColor\" marker-start=\"url(#ph-k)\" marker-end=\"url(#ph-k)\"/><text x=\"146.2\" y=\"155\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\">R = ?</text></g></svg>",
+          "scene": {
+            "title": "כדור שנזרק אופקית דרך שתי טבעות",
+            "kind": "cliff",
+            "h0": 12,
+            "vx": 8,
+            "vy": 0,
+            "end": "ground",
+            "rings": [
+              {
+                "x": 4,
+                "y": 10.75,
+                "label": "1"
+              },
+              {
+                "x": 8,
+                "y": 7,
+                "label": "2"
+              }
+            ],
+            "labels": {
+              "v0": "v₀ = ?",
+              "h": "12 מ'",
+              "x": "R = ?"
+            }
+          },
+          "inputs": [
+            {
+              "label": "מהירות הזריקה",
+              "unit": "מ/ש",
+              "answer": "8",
+              "tolerance": 0.12
+            },
+            {
+              "label": "גובה טבעת 2 מעל הקרקע",
+              "unit": "מ'",
+              "answer": "7",
+              "tolerance": 0.11
+            },
+            {
+              "label": "גודל המהירות בטבעת 2",
+              "unit": "מ/ש",
+              "answer": "12.81",
+              "tolerance": 0.19
+            },
+            {
+              "label": "כיוון המהירות בטבעת 2",
+              "unit": "מעלות",
+              "answer": "-51.34",
+              "tolerance": 0.3
+            },
+            {
+              "label": "הטווח האופקי עד הקרקע",
+              "unit": "מ'",
+              "answer": "12.39",
+              "tolerance": 0.19
+            }
+          ],
+          "sketches": [
+            {
+              "label": "סעיף ו: גרף המהירות האנכית עד טבעת 2",
+              "prompt": "שרטטו את המהירות האנכית של הכדור (כלפי מעלה חיובי) כפונקציה של הזמן, מרגע הזריקה ועד שהוא עובר בטבעת 2, וסמנו את ערך המהירות האנכית בטבעת.",
+              "graph": {
+                "kind": "vt",
+                "series": [
+                  {
+                    "body": "R",
+                    "q": "vy",
+                    "fn": [
+                      0,
+                      -10
+                    ],
+                    "t1": 1,
+                    "label": "vᵧ"
+                  }
+                ],
+                "marks": [
+                  {
+                    "t": 1,
+                    "y": -10,
+                    "s": 0
+                  }
+                ]
+              },
+              "svg": "<svg viewBox=\"0 0 320 304\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" aria-label=\"סעיף ו: גרף המהירות האנכית עד טבעת 2\"><title>סעיף ו: גרף המהירות האנכית עד טבעת 2</title><defs><marker id=\"ph-k\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"currentColor\"/></marker><marker id=\"ph-a\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"var(--dg-a, #1f5fae)\"/></marker><marker id=\"ph-b\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"var(--dg-b, #c2410c)\"/></marker><marker id=\"ph-c\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"var(--dg-c, #1e7a34)\"/></marker></defs><g direction=\"ltr\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-size=\"14\"><line x1=\"52\" y1=\"40\" x2=\"52\" y2=\"260\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"52\" y=\"284\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">0</text><line x1=\"172\" y1=\"40\" x2=\"172\" y2=\"260\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"172\" y=\"284\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">0.5</text><line x1=\"292\" y1=\"40\" x2=\"292\" y2=\"260\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"292\" y=\"284\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">1</text><line x1=\"52\" y1=\"260\" x2=\"292\" y2=\"260\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"42\" y=\"265\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">-10</text><line x1=\"52\" y1=\"216\" x2=\"292\" y2=\"216\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"42\" y=\"221\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">-8</text><line x1=\"52\" y1=\"172\" x2=\"292\" y2=\"172\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"42\" y=\"177\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">-6</text><line x1=\"52\" y1=\"128\" x2=\"292\" y2=\"128\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"42\" y=\"133\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">-4</text><line x1=\"52\" y1=\"84\" x2=\"292\" y2=\"84\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"42\" y=\"89\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">-2</text><line x1=\"52\" y1=\"40\" x2=\"292\" y2=\"40\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"42\" y=\"45\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">0</text><line x1=\"52\" y1=\"40\" x2=\"300\" y2=\"40\" stroke=\"currentColor\" stroke-width=\"2\" marker-end=\"url(#ph-k)\"/><line x1=\"52\" y1=\"260\" x2=\"52\" y2=\"30\" stroke=\"currentColor\" stroke-width=\"2\" marker-end=\"url(#ph-k)\"/><text x=\"278.5\" y=\"24\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\"><tspan direction=\"ltr\" unicode-bidi=\"isolate\">⁦t (<tspan direction=\"rtl\" unicode-bidi=\"isolate\">⁧ש׳⁩</tspan>)⁩</tspan></text><text x=\"87.9\" y=\"20\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\"><tspan direction=\"ltr\" unicode-bidi=\"isolate\">⁦v (<tspan direction=\"rtl\" unicode-bidi=\"isolate\">⁧מ/ש⁩</tspan>)⁩</tspan></text><polyline points=\"52,40 292,260\" stroke=\"var(--dg-a, #1f5fae)\" stroke-width=\"2.5\"/><line x1=\"292\" y1=\"260\" x2=\"292\" y2=\"260\" stroke=\"currentColor\" stroke-dasharray=\"5 4\" opacity=\"0.5\"/><line x1=\"52\" y1=\"260\" x2=\"292\" y2=\"260\" stroke=\"currentColor\" stroke-dasharray=\"5 4\" opacity=\"0.5\"/><circle cx=\"292\" cy=\"260\" r=\"3.5\" fill=\"var(--dg-b, #c2410c)\" stroke=\"none\"/><text x=\"234.8\" y=\"193.4\" text-anchor=\"start\" fill=\"var(--dg-a, #1f5fae)\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\">vᵧ</text></g></svg>",
+              "checklist": [
+                "הצירים מסומנים בשם ובמידה, עם יחידות: v (מ/ש) ו־t (ש').",
+                "סימנתי על הגרף את הערכים המרכזיים (נקודת ההתחלה, נקודת הסיום והנקודות המסומנות) ואת המפגש.",
+                "הצורה והשיפוע נכונים: קו ישר יורד מהראשית, וסימן הערכים (מעל או מתחת לציר הזמן) מתאים."
+              ]
+            }
+          ],
+          "tips": [
+            "בטבעת 1 ידועים הירידה האנכית והמרחק האופקי. הירידה קובעת את הזמן, והזמן עם המרחק קובע את המהירות האופקית.",
+            "המהירות האופקית קבועה, ולכן הזמן לטבעת 2 נובע מהמרחק האופקי שלה. מהזמן מוצאים את הירידה האנכית ואת הרכיב האנכי של המהירות.",
+            "לקרקע: מגובה המצוק מוצאים את זמן הנפילה הכולל, ומכפילים אותו במהירות האופקית כדי לקבל את הטווח."
+          ],
+          "solution": [
+            "טבעת 1: <span dir=\"ltr\">1.25 = 5·t²</span>, לכן <span dir=\"ltr\">t = 0.5 ש'</span>, ו־<span dir=\"ltr\">vₓ = 4 / 0.5 = 8 מ/ש</span>.",
+            "טבעת 2: <span dir=\"ltr\">t = 8 / 8 = 1 ש'</span>, והירידה <span dir=\"ltr\">5·1² = 5 מ'</span>. הגובה <span dir=\"ltr\">12 − 5 = 7 מ'</span>.",
+            "בטבעת 2: <span dir=\"ltr\">vₓ = 8, v_y = −10·1 = −10 מ/ש</span>, והגודל <span dir=\"ltr\">v = √(8² + 10²) ≈ 12.81 מ/ש</span>.",
+            "<span dir=\"ltr\">tan θ = −10 / 8</span>, לכן <span dir=\"ltr\">θ ≈ -51.34°</span>: מתחת לאופק.",
+            "זמן הנפילה הכולל: <span dir=\"ltr\">12 = 5t²</span>, <span dir=\"ltr\">t = √2.4 ≈ 1.55 ש'</span>, והטווח <span dir=\"ltr\">R = 8·1.55 ≈ 12.39 מ'</span>.",
+            "בגרף: <span dir=\"ltr\">v_y = −10t</span> מהראשית עד <span dir=\"ltr\">−10 מ/ש</span> ב־<span dir=\"ltr\">t = 1</span>."
+          ],
+          "verify": {
+            "floor": true,
+            "bodies": [
+              {
+                "id": "R",
+                "x0": 0,
+                "y0": 12,
+                "vx": 8,
+                "vy": 0
+              }
+            ],
+            "claims": [
+              {
+                "q": {
+                  "body": "R",
+                  "what": "y",
+                  "at": {
+                    "x": 4
+                  }
+                },
+                "value": 10.75,
+                "tol": 0.005
+              }
+            ],
+            "queries": [
+              {
+                "body": "R",
+                "what": "vx",
+                "at": "start"
+              },
+              {
+                "body": "R",
+                "what": "y",
+                "at": {
+                  "x": 8
+                }
+              },
+              {
+                "body": "R",
+                "what": "speed",
+                "at": {
+                  "x": 8
+                }
+              },
+              {
+                "body": "R",
+                "what": "ang",
+                "at": {
+                  "x": 8
+                }
+              },
+              {
+                "body": "R",
+                "what": "x",
+                "at": {
+                  "land": "R"
+                }
+              }
+            ]
+          }
+        }
+      ]
     }
   ]
 }

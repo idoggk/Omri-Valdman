@@ -144,7 +144,7 @@ export function renderExercise(ex, o) {
     offerFeedback();
     if (!solutionNoted) note(shownTips > 0 ? 'hinted' : 'alone');
     sink.correct();
-    const ui = OUTCOME_UI[sink.outcome()];
+    const ui = OUTCOME_UI[sink.outcome()] || { icon: '✏️', label: 'התשובות נכונות, נותר לסמן את סעיף השרטוט' }; // a sink may hold the result back
     outcomeLine.replaceChildren(`${ui.icon} ${ui.label}`);
   }
 

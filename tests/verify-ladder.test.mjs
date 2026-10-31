@@ -13,7 +13,7 @@ const first = () => clone(items[0]);
 
 test('ladder data: at least 12 inline S3 items, all verified by the independent simulator', () => {
   assert.ok(items.length >= 12);
-  assert.ok(inlineItems(data).every((x) => ['S3', 'S4', 'S5'].includes(x.stage)));
+  assert.ok(inlineItems(data).every((x) => ['S3', 'S4', 'S5', 'S6'].includes(x.stage)));
   assert.deepEqual(checkLadder(data), []);
 });
 
@@ -183,4 +183,38 @@ test('S5 verifier catches: wrong answer, wrong yes/no, a no-meet item that meets
   assert.match(mutate('lad-s5-06', (it) => { it.statement = it.statement.replace('כיוון חיובי הוא כלפי מעלה.', ''); }), /signed-velocity/);
   assert.match(mutate('lad-s5-09', (it) => { it.statement = it.statement.replace('כיוון המהירות = זווית מעל (+) או מתחת (−) לאופק.', ''); }), /sign-convention/);
   assert.match(mutate('lad-s5-04', (it) => { it.verify.bodies[1].t0 = 0; }), /differs from simulated/);
+});
+
+// ---- stage S6 (full exam items with sketch parts)
+import { checkItemS6, evalS6 } from '../tools/verify-ladder.mjs';
+const s6 = inlineItems(data).filter((x) => x.stage === 'S6').map((x) => x.it);
+
+test('S6 data: at least 8 items, 5-6 parts, each with a sketch part whose reference graph follows the simulator', () => {
+  assert.ok(s6.length >= 8);
+  for (const it of s6) {
+    assert.deepEqual(checkItemS6(it), [], it.id);
+    assert.ok(it.inputs.length + it.sketches.length >= 5, it.id);
+    for (const sk of it.sketches) {
+      assert.equal(sk.checklist.length, 3, it.id);
+      assert.deepEqual(validateSvg(sk.svg), [], it.id);
+      assert.deepEqual(layoutIssues(sk.svg), [], it.id);
+    }
+  }
+  assert.ok(s6.some((i) => i.inputs.some((p) => p.unit === 'מעלות' && Number(p.answer) < 0)), 'signed directions');
+  assert.ok(s6.some((i) => i.graph) && s6.some((i) => i.scene && i.scene.kind === 'drop'), 'graph-given and plane/jeep items');
+});
+
+test('S6 verifier catches: wrong answer, bad sketch graph, missing sketch, too few parts, wrong hoop, unequal landing', () => {
+  const mutate = (idx, fn) => { const it = clone(s6[idx]); fn(it); return checkItemS6(it).join('|'); };
+  assert.match(mutate(0, (it) => { it.inputs[1].answer = '3'; it.inputs[1].tolerance = 0.04; }), /differs from simulated/);
+  assert.match(mutate(0, (it) => { it.sketches[0].graph.series[0].fn[1] = -9; }), /plotted|stored graph differs/);
+  assert.match(mutate(0, (it) => { it.sketches[0].svg = it.sketches[0].svg.replace('<svg', '<svg data-x="1"'); }), /stored graph differs/);
+  assert.match(mutate(0, (it) => { it.sketches = []; }), /at least one sketch part/);
+  assert.match(mutate(0, (it) => { it.inputs.pop(); it.verify.queries.pop(); }), /5-6 lettered parts|more lettered parts|lacks part marker/);
+  assert.match(mutate(0, (it) => { it.sketches[0].checklist.pop(); }), /exactly 3 Hebrew lines/);
+  assert.match(mutate(3, (it) => { it.verify.targets[0].y = 3.5; }), /target 1/);
+  assert.match(mutate(1, (it) => { it.verify.bodies[2].vx = 5; }), /together/);
+  assert.match(mutate(2, (it) => { it.verify.bodies[1].x0 = 150; }), /no real meeting|stored answer|differs/);
+  assert.match(mutate(0, (it) => { it.statement = it.statement.replace('g = 10', 'g'); }), /g = 10/);
+  assert.ok(Math.abs(evalS6({ op: 'accel', body: 'B', axis: 'x' }, { B: { b: { id: 'B' }, t0: 0, X: trace({ p0: 0, v0: 0, a: 2 }), Y: trace({ p0: 0, v0: 0, a: 0 }) } }, {}) - 2) < 1e-6);
 });

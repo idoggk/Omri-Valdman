@@ -1359,6 +1359,7 @@ export function shot(sc) {
   let d = '';
   for (let i = 0; i <= 32; i++) { const x = (xEnd * i) / 32; d += `${i ? 'L' : 'M'}${r1(X(x))} ${r1(Y(yAt(x)))}`; }
   s += path(d, 'k');
+  for (const r of sc.rings || []) s += line(X(r.x), Y(r.y) - 10, X(r.x), Y(r.y) + 10, { w: 3, c: 'c' }) + txt(X(r.x) + 8, Y(r.y) - 14, r.label, 'c', 'start'); // rings the path passes through (S6)
   // launch: velocity arrow, horizontal reference and angle arc
   const ph = Math.atan2(vy, vx), ux = Math.cos(ph), uy = -Math.sin(ph);
   s += ball(ox, sy, 'a', 5) + arrow(ox + 5 * ux, sy + 5 * uy, ox + 40 * ux, sy + 40 * uy, 'a');
@@ -1388,7 +1389,9 @@ export function shot(sc) {
 //   tower3     L: h, c: [text for the down / up / dropped stone], t: [landing-time label per stone]
 //   columns    L: A, B, H, note?
 //   intercept  L: v0, ang, X, H, hit
-export const DUO_KINDS = ['table', 'cars', 'tower3', 'columns', 'intercept'];
+//   drop       L: H, v (plane), j (jeep), D (distance jeep - plane at release)
+//   trio       L: A (angled launch), ang, B (dropped), C (thrown horizontally), dA, dC, H, P (meeting point)
+export const DUO_KINDS = ['table', 'cars', 'tower3', 'columns', 'intercept', 'drop', 'trio'];
 export function duo(sc) {
   const L = sc.labels || {};
   let s = '', h;
@@ -1431,6 +1434,25 @@ export function duo(sc) {
     s += txt(ax + 8, 40, L.A, 'a', 'start') + dim(56, 44, 56, gy, L.H, { left: true });
     s += ball(bx, gy - 6, 'b') + arrow(bx, gy - 14, bx, gy - 62, 'b') + txt(bx + 8, gy - 34, L.B, 'b', 'start');
     if (L.note) s += txt(160, 18, L.note, 'k');
+  } else if (sc.kind === 'drop') {
+    const gy = 150, px = 62, py = 46, jx = 150, ex = 262;
+    h = gy + 44;
+    s += ground(10, 310, gy) + dim(24, py, 24, gy, L.H);
+    s += `<path d="M${r1(px - 20)} ${r1(py - 2)}h36l-6 -8h-8l-4 8M${r1(px - 20)} ${r1(py - 2)}l-6 -8" stroke="${COL.a}" fill="${COL.a}" fill-opacity="0.18"/>`;
+    s += arrow(px + 20, py - 6, px + 58, py - 6, 'a') + txt(px + 40, py - 14, L.v, 'a');
+    s += qpath(px, py + 6, (px + ex) / 2, py + 6, ex, gy - 6, 'k') + ball(px, py + 6, 'b', 5) + ball(ex, gy - 6, 'c', 4);
+    s += car(jx, gy, 'b') + arrow(jx + 48, gy - 12, jx + 82, gy - 12, 'b') + txt(jx + 66, gy - 20, L.j, 'b');
+    s += line(px, py + 12, px, gy + 12, { dash: true, op: 0.5 }) + dim(px, gy + 22, jx + 22, gy + 22, L.D, { below: true });
+  } else if (sc.kind === 'trio') {
+    const gy = 150, top = 50, px = 250, cx = 130, ax = 36;
+    h = gy + 44;
+    s += ground(10, 310, gy) + dim(292, top, 292, gy, L.H, { left: true });
+    s += qpath(cx, top, (cx + px) / 2, top, px, gy - 6, 'k') + ball(cx, top, 'a', 5) + arrow(cx + 6, top, cx + 36, top, 'a') + txt(cx + 20, top - 10, L.C, 'a');
+    s += ball(px, top, 'b', 5) + arrow(px, top + 8, px, top + 36, 'b') + txt(px - 8, top + 24, L.B, 'b', 'end');
+    s += qpath(ax, gy - 6, (ax + px) / 2, gy - 6 - 2 * 62, px, gy - 6, 'k') + ball(ax, gy - 6, 'a', 5) + arrow(ax + 4, gy - 10, ax + 28, gy - 38, 'a') + txt(ax + 32, gy - 40, L.A, 'a', 'start');
+    s += line(ax, gy - 6, ax + 60, gy - 6, { dash: true, op: 0.6 }) + txt(ax + 64, gy - 10, L.ang, 'b', 'start');
+    s += ball(px, gy - 6, 'c', 4) + txt(px - 8, gy - 14, L.P, 'c', 'end');
+    s += dim(cx, top - 24, px, top - 24, L.dC) + dim(ax, gy + 18, px, gy + 18, L.dA, { below: true });
   } else if (sc.kind === 'intercept') {
     const gy = 150, lx = 36, cxo = 136, oy = 44;
     h = gy + 44;
@@ -1447,6 +1469,8 @@ export function duo(sc) {
 /** Inline exam-ladder items (data/ladder.json) carry a declarative `graph` (S3), `scene` (S4 shot, S5 two-body duo) spec instead of a verify.model. */
 export const ladderDiagram = (item) => (item.scene ? (DUO_KINDS.includes(item.scene.kind) ? duo(item.scene) : shot(item.scene)) : graph(item.graph));
 export const ladderInline = (data) => ((data && data.stages) || []).flatMap((st) => (st.items || []).filter((it) => it && (it.graph || it.scene)));
+/** Reference graphs of the sketch parts (exam stage S6): each `sketches[i].graph` spec generates `sketches[i].svg`. */
+export const sketchGraphs = (item) => (Array.isArray(item.sketches) ? item.sketches : []).filter((sk) => sk && sk.graph);
 
 export function diagramFor(ex) {
   const fn = diagrams[ex.verify && ex.verify.model];
@@ -1543,6 +1567,14 @@ if (isMain) {
       if (typeof it.diagram !== 'string' || !it.diagram) problems.push(`${it.id}: diagram missing`);
       else if (!sameText(it.diagram, d)) problems.push(`${it.id}: stored diagram differs from generated (run --write)`);
     } else if (mode === '--write' && it.diagram !== d) { it.diagram = d; ladderChanged = true; }
+    sketchGraphs(it).forEach((sk, i) => {
+      let sd;
+      try { sd = graph({ ...sk.graph, title: sk.label }); } catch (e) { return problems.push(`${it.id}: sketch ${i + 1}: ${e.message}`); }
+      validateSvg(sd).forEach((m) => problems.push(`${it.id}: sketch ${i + 1} graph invalid: ${m}`));
+      layoutIssues(sd).forEach((m) => problems.push(`${it.id}: sketch ${i + 1} layout: ${m}`));
+      if (mode === '--check') { if (!sameText(sk.svg, sd)) problems.push(`${it.id}: sketch ${i + 1} graph differs from generated (run --write)`); }
+      else if (mode === '--write' && sk.svg !== sd) { sk.svg = sd; ladderChanged = true; }
+    });
   }
   if (problems.length) {
     console.error(`FAILED: ${problems.length} problem(s)`);

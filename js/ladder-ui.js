@@ -6,7 +6,7 @@ import { h } from './dom.js';
 import { isolateTitle } from './bidi.js';
 import * as store from './store.js';
 import { ladderStatus, loadLadder, setSkip, needed, outcomeLookup, inlineSink, isInline, itemId } from './ladder.js';
-import { OUTCOME_UI, badge } from './exercise-view.js';
+import { OUTCOME_UI, badge, diagramFigure } from './exercise-view.js';
 
 let loaded = null;
 async function loadStages(ctx) {
@@ -76,6 +76,53 @@ function viewStage(ctx, stages, stage) {
     })));
 }
 
+/**
+ * Sketch parts (ex.sketches: [{ label, prompt, svg, checklist: [3 lines] }]): the student draws on paper, taps "show the correct
+ * graph" and ticks a self-check list. A sketch is done only when every box is ticked. It never blocks the numeric parts, and the
+ * item is recorded as solved only once the numeric answers are right AND every sketch is done (see gatedSink).
+ */
+export function sketchGate(sketches) {
+  const ticks = sketches.map((sk) => (sk.checklist || []).map(() => false));
+  const status = h('p', { class: 'muted', 'aria-live': 'polite' });
+  const listeners = [];
+  const done = () => ticks.every((t) => t.length > 0 && t.every(Boolean));
+  const refresh = (extra) => {
+    status.replaceChildren(done() ? `✏️ סעיפי השרטוט הושלמו${extra ? ` · ${extra}` : ''}` : '✏️ סעיף השרטוט נחשב רק אחרי שמסמנים את כל תיבות הבדיקה העצמית. הוא לא נבדק אוטומטית.');
+  };
+  refresh();
+  const panels = sketches.map((sk, i) => {
+    const out = h('div');
+    const btn = h('button', { class: 'btn', type: 'button', 'aria-expanded': 'false' }, 'הצג את הגרף הנכון');
+    btn.addEventListener('click', () => {
+      if (out.children.length) return;
+      btn.setAttribute('aria-expanded', 'true');
+      out.append(
+        diagramFigure({ diagram: sk.svg, title: sk.label }),
+        h('p', {}, h('strong', {}, 'בדיקה עצמית: סמנו מה שהצלחתם בשרטוט שלכם')),
+        h('ul', { class: 'tips' }, (sk.checklist || []).map((line, j) => {
+          const box = h('input', { type: 'checkbox', id: `sk-${i}-${j}` });
+          box.addEventListener('change', () => { ticks[i][j] = !!box.checked; refresh(); listeners.forEach((f) => f()); });
+          return h('li', {}, box, ' ', h('label', { for: `sk-${i}-${j}` }, line));
+        })));
+    });
+    return h('div', { class: 'panel' }, h('h2', {}, sk.label || 'סעיף שרטוט'), h('p', { html: sk.prompt || '' }), h('div', { class: 'btn-row' }, btn), out);
+  });
+  return { node: h('div', {}, panels, status), done, refresh, onChange: (f) => listeners.push(f) };
+}
+
+/** Sink wrapper: the item counts as solved (correct()) only when the numeric answers AND the sketch parts are done. */
+export function gatedSink(base, gate) {
+  let numeric = false;
+  const finish = () => {
+    if (!numeric || !gate.done()) return;
+    base.correct();
+    const o = OUTCOME_UI[base.outcome()];
+    gate.refresh(o ? `${o.icon} ${o.label}` : '');
+  };
+  gate.onChange(finish);
+  return { ...base, correct: () => { numeric = true; finish(); } };
+}
+
 function viewItem(ctx, stages, stage, n) {
   const e = statuses(stages)[stages.indexOf(stage)];
   const total = stage.items.length;
@@ -85,9 +132,17 @@ function viewItem(ctx, stages, stage, n) {
   const nav = h('nav', { class: 'nav', 'aria-label': 'ניווט בשלב' },
     n > 1 ? h('a', { class: 'btn', href: `#/ladder/${stage.id}/${n - 1}` }, '→ התרגיל הקודם') : h('a', { class: 'btn', href: `#/ladder/${stage.id}` }, 'לרשימת השלב'),
     n < total ? h('a', { class: 'btn primary', href: `#/ladder/${stage.id}/${n + 1}` }, 'התרגיל הבא ←') : h('a', { class: 'btn primary', href: '#/ladder' }, 'סיום השלב ←'));
+  const sketches = isInline(item) && Array.isArray(ex.sketches) ? ex.sketches : [];
+  const gate = sketches.length ? sketchGate(sketches) : null;
+  const sink = isInline(item) ? inlineSink(item.id) : undefined;
+  // the sketch panel goes right under the answer form
+  const show = gate ? (...nodes) => {
+    const k = nodes.findIndex((x) => x && x.tagName === 'FORM');
+    ctx.show(...(k < 0 ? [...nodes, gate.node] : [...nodes.slice(0, k + 1), gate.node, ...nodes.slice(k + 1)]));
+  } : ctx.show;
   ctx.renderExercise(ex, {
-    ctx, nav,
-    sink: isInline(item) ? inlineSink(item.id) : undefined,
+    ctx: gate ? { ...ctx, show } : ctx, nav,
+    sink: gate ? gatedSink(sink, gate) : sink,
     crumbs: h('p', { class: 'crumbs' }, h('a', { href: `#/ladder/${stage.id}` }, `→ ${stage.title} (${n}/${total})`)),
   });
 }

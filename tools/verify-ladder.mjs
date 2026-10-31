@@ -1,4 +1,4 @@
-// Independent verifier for the INLINE items of data/ladder.json (exam ladder, graph-reading stage S3, angled launch stage S4, two-body meetings S5).
+// Independent verifier for the INLINE items of data/ladder.json (exam ladder, graph-reading stage S3, angled launch stage S4, two-body meetings S5, full exam items with sketch parts S6).
 // It never uses an item's closed form. Every body is stepped numerically (dt = 0.001) and every root,
 // maximum and meeting time is found by scanning for a sign change and bisecting. Then it checks:
 //  (a) every stored answer equals the simulated value of its query (verify.queries[i]),
@@ -9,7 +9,7 @@
 import { readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { resolve } from 'node:path';
-import { seriesSamples, polyAt, ladderDiagram, validateSvg, layoutIssues, DUO_KINDS } from './diagrams.mjs';
+import { seriesSamples, polyAt, ladderDiagram, validateSvg, layoutIssues, DUO_KINDS, graph, sketchGraphs } from './diagrams.mjs';
 
 export const G = 10;
 const DT = 0.001;
@@ -495,6 +495,178 @@ export function checkItemS5(it) {
   return errs;
 }
 
+// ---------------------------------------------------------------- stage S6 (full exam items: 5-6 parts, one or more SKETCH parts)
+// Same body model as S5 (x0, y0, vx, vy, ax, ay, t0). Extra verify fields:
+//   meet / meets[]  every listed pair must really meet (queries can pick one with { meet: index });
+//   together        ids that must land at the same time AND at the same x (three bodies reaching one point);
+//   targets         [{ body, x, y, descending? }]: the body passes the hoop point (x, y) (descending);
+//   claims          [{ q, value, tol }]: numbers the statement gives, checked against the simulation.
+// Extra queries: at: { x } (first time the body is at that x), { op: 'accel', body, axis } (constant acceleration along an axis).
+// A sketch part is { label, prompt, graph, svg, checklist }: the graph spec must follow the simulation (series.body + series.q),
+// its stored svg must equal the generated one, and it carries a 3-line self-check list. Sketch parts are not graded automatically.
+const PART_LETTERS_6 = ['א', 'ב', 'ג', 'ד', 'ה', 'ו'];
+const SKETCH_QUANTITY = { yt: 'y', vt: 'vy', xt: 'x' };
+export function evalS6(q, tbs, v) {
+  if (q.meet !== undefined) return evalS5(q, tbs, { ...v, meet: v.meets[q.meet] });
+  if (q.op === 'accel') return duoAt(tbs[q.body], 1)[q.axis === 'x' ? 'vx' : 'vy'] - duoAt(tbs[q.body], 0)[q.axis === 'x' ? 'vx' : 'vy'];
+  if (q.at && Number.isFinite(q.at.x)) {
+    const tb = tbs[q.body];
+    if (!tb) throw new Error(`unknown body "${q.body}"`);
+    const t = firstCross((s) => duoAt(tb, s).x - q.at.x);
+    return t === null ? null : duoAt(tb, t)[q.what];
+  }
+  return evalS5(q, tbs, v);
+}
+
+export function checkItemS6(it) {
+  const errs = [];
+  const where = it && it.id ? it.id : '?';
+  const err = (m) => errs.push(`${where}: ${m}`);
+  if (!it || typeof it !== 'object') return [`${where}: not an object`];
+  if (!/^lad-s6-\d{2}$/.test(it.id || '')) err('bad id (expected lad-s6-NN)');
+  if (!['phys-vertical', 'phys-horizontal'].includes(it.topic)) err('bad topic');
+  if (it.level !== 6) err('level must be 6');
+  if (!heb(it.title)) err('title missing or not Hebrew');
+  if (!heb(it.statement)) err('statement missing or not Hebrew');
+  if (!Array.isArray(it.tips) || it.tips.length !== 3) err('tips must have exactly 3 items');
+  else it.tips.forEach((t, i) => heb(t) || err(`tip ${i + 1} empty or not Hebrew`));
+  if (!Array.isArray(it.solution) || it.solution.length < 5) err('solution needs at least 5 steps');
+  else it.solution.forEach((s, i) => heb(s) || err(`solution step ${i + 1} empty or not Hebrew`));
+  const texts = [['title', it.title], ['statement', it.statement], ...(it.tips || []).map((t, i) => [`tip ${i + 1}`, t]), ...(it.solution || []).map((s, i) => [`solution step ${i + 1}`, s])];
+  for (const [f, t] of texts) {
+    if (typeof t !== 'string') continue;
+    if (LATIN_UNIT.test(stripTags(t))) err(`${f}: Latin unit label, use Hebrew units`);
+    if (COMPLEX.test(stripTags(t))) err(`${f}: complex-number wording`);
+  }
+  const inputs = it.inputs, sketches = it.sketches;
+  if (!Array.isArray(inputs) || inputs.length < 4 || inputs.length > 5) { err('4-5 graded parts (inputs) required'); return errs; }
+  if (!Array.isArray(sketches) || sketches.length < 1) { err('at least one sketch part required'); return errs; }
+  const parts = inputs.length + sketches.length;
+  if (parts < 5 || parts > 6) { err(`5-6 lettered parts required (found ${parts})`); return errs; }
+  const plainStatement = stripTags(it.statement || '');
+  const marker = (l) => new RegExp(`(?<![א-ת])${l}\\.`);
+  PART_LETTERS_6.forEach((l, i) => {
+    if (i < parts && !marker(l).test(plainStatement)) err(`statement lacks part marker "${l}."`);
+    if (i >= parts && marker(l).test(plainStatement)) err('statement has more lettered parts than inputs + sketches');
+  });
+  const v = it.verify;
+  if (!v || !Array.isArray(v.bodies) || !Array.isArray(v.queries)) { err('verify {bodies, queries} missing'); return errs; }
+  if (v.queries.length !== inputs.length) { err('verify.queries must have one entry per graded input'); return errs; }
+  const tbs = {};
+  for (const b of v.bodies) {
+    if (![b.x0, b.y0, b.vx, b.vy].every(Number.isFinite) || !nonEmpty(b.id)) { err('body needs id, x0, y0, vx, vy'); return errs; }
+    tbs[b.id] = traceDuo(b);
+  }
+  const noGravity = v.bodies.every((b) => b.ay === 0);
+  if (!noGravity && !/g = 10/.test(plainStatement)) err('statement must state g = 10');
+  if (inputs.some((inp) => /כיוון/.test(inp.label || '')) && !plainStatement.includes(S4_DIRECTION_RULE)) err('a direction part needs the sign-convention line in the statement');
+  const meets = v.meets || (v.meet ? [v.meet] : []);
+  v.meets = v.meets || (v.meet ? [v.meet] : undefined);
+  const vv = { ...v, meets: v.meets, meet: meets[0] };
+  for (const [mi, m] of meets.entries()) {
+    if (!tbs[m.a] || !tbs[m.b] || !['x', 'y'].includes(m.axis)) { err(`meet ${mi + 1}: must name two bodies and an axis`); continue; }
+    if (!duoMeeting(m, tbs, !!v.floor).ok) err(`meet ${mi + 1}: the simulation finds no real meeting of ${m.a} and ${m.b}`);
+  }
+  inputs.forEach((inp, i) => {
+    const angle = inp.unit === 'מעלות';
+    if (!heb(inp.label)) err(`part ${i + 1}: label missing or not Hebrew`);
+    if (!nonEmpty(inp.unit) || !HEBREW.test(inp.unit) || LATIN_UNIT.test(inp.unit)) err(`part ${i + 1}: unit must be a Hebrew unit label`);
+    if (!DECIMAL.test(String(inp.answer))) return err(`part ${i + 1}: answer "${inp.answer}" must be a plain decimal with at most 2 decimals (ASCII minus)`);
+    const a = Number(inp.answer);
+    if (a === 0) err(`part ${i + 1}: answer 0 cannot carry a relative tolerance`);
+    if (typeof inp.tolerance !== 'number' || !(inp.tolerance > 0)) err(`part ${i + 1}: tolerance must be > 0`);
+    else if (angle && inp.tolerance > 0.5) err(`part ${i + 1}: angle tolerance ${inp.tolerance} exceeds 0.5 degrees`);
+    else if (!angle && inp.tolerance > 0.02 * Math.abs(a) + 1e-12) err(`part ${i + 1}: tolerance ${inp.tolerance} exceeds 2% of ${a}`);
+    if (angle && Math.abs(a) > 90) err(`part ${i + 1}: angle ${a} outside -90..90`);
+    if (!angle && /^(כיוון|הזווית|זווית)/.test(inp.label || '')) err(`part ${i + 1}: an angle part must use the unit מעלות`);
+    let sim;
+    try { sim = evalS6(v.queries[i], tbs, vv); } catch (e) { return err(`part ${i + 1}: query failed: ${e.message}`); }
+    if (!Number.isFinite(sim)) return err(`part ${i + 1}: simulation found no finite value`);
+    if (!close(sim, a, 0.005) || !close(sim, a, inp.tolerance ?? 0)) err(`part ${i + 1}: stored answer ${a} differs from simulated ${Math.round(sim * 1e4) / 1e4}`);
+    if (angle && Math.sign(sim) !== Math.sign(a)) err(`part ${i + 1}: angle sign differs from the simulation`);
+    if (it.tips && numbersIn(it.tips.join(' ')).includes(Math.abs(a))) err(`part ${i + 1}: a tip contains the answer ${a}`);
+  });
+  for (const [ci, c] of (v.claims || []).entries()) {
+    let sim;
+    try { sim = evalS6(c.q, tbs, vv); } catch (e) { err(`claim ${ci + 1}: ${e.message}`); continue; }
+    if (!Number.isFinite(sim) || !close(sim, c.value, c.tol)) err(`claim ${ci + 1}: statement value ${c.value} but the simulation gives ${Math.round(sim * 1e4) / 1e4}`);
+  }
+  for (const [ti, tg] of (v.targets || []).entries()) {
+    const tb = tbs[tg.body];
+    const t = tb && firstCross((s) => duoAt(tb, s).x - tg.x);
+    if (!tb || t === null) { err(`target ${ti + 1}: the body never reaches x = ${tg.x}`); continue; }
+    const st = duoAt(tb, t);
+    if (!close(st.y, tg.y, 0.01)) err(`target ${ti + 1}: at x = ${tg.x} ${tg.body} is at height ${Math.round(st.y * 1e3) / 1e3}, not ${tg.y}`);
+    if (tg.descending && !(st.vy < 0)) err(`target ${ti + 1}: ${tg.body} must be descending at the target`);
+  }
+  if (v.together) {
+    const lands = v.together.map((id) => (tbs[id] ? firstCross((s) => duoAt(tbs[id], s).y) : null));
+    const xs = v.together.map((id, k) => (lands[k] === null ? null : duoAt(tbs[id], lands[k]).x));
+    if (lands.some((x) => x === null) || !lands.every((x) => close(x, lands[0], 1e-3))) err(`together: landing times differ (${lands.map((x) => x && Math.round(x * 1e3) / 1e3).join(', ')})`);
+    if (xs.some((x) => x === null) || !xs.every((x) => close(x, xs[0], 0.01))) err(`together: landing points differ (${xs.map((x) => x && Math.round(x * 1e3) / 1e3).join(', ')})`);
+  }
+  // the main drawing
+  try {
+    const d = ladderDiagram(it);
+    if (d.replace(/\r\n?/g, '\n') !== String(it.diagram || '').replace(/\r\n?/g, '\n')) err('stored diagram differs from the generated one (run node tools/diagrams.mjs --write)');
+    validateSvg(d).forEach((x) => err(`diagram: ${x}`));
+    layoutIssues(d).forEach((x) => err(`diagram layout: ${x}`));
+  } catch (e) { err(`diagram generation failed: ${e.message}`); }
+  const checkSeries = (g, w) => {
+  g.series.forEach((s, k) => {
+    const tb = tbs[s.body];
+    if (!tb) return err(`${w}: series ${k + 1}: unknown body "${s.body}"`);
+    const q = s.q || SKETCH_QUANTITY[g.kind];
+    const pts = seriesSamples(s, 0.25);
+    if (pts.length < 2) err(`${w}: series ${k + 1}: too few samples`);
+    for (const [x, y] of pts) {
+      const sim = duoAt(tb, x)[q];
+      if (!close(sim, y, 1e-6)) { err(`${w}: series ${k + 1}: plotted ${y} at t=${x} but the simulation gives ${Math.round(sim * 1e6) / 1e6}`); break; }
+    }
+  });
+  (g.marks || []).forEach((m, mi) => {
+    const s = g.series[m.s || 0];
+    const tb = s && tbs[s.body];
+    if (!tb) return err(`${w}: mark ${mi + 1}: unknown series`);
+    const sim = duoAt(tb, m.t)[s.q || SKETCH_QUANTITY[g.kind]];
+    if (!close(sim, m.y, 1e-6)) err(`${w}: mark ${mi + 1}: (${m.t}, ${m.y}) is not on the simulated curve (value ${Math.round(sim * 1e6) / 1e6})`);
+  });
+  };
+  if (it.graph) checkSeries(it.graph, 'main graph');
+  // sketch parts: reference graph generated from the same parameters, sampled data equal to the simulation
+  const sketchSpecs = sketchGraphs(it);
+  if (sketchSpecs.length !== sketches.length) err('every sketch part needs a graph spec');
+  sketches.forEach((sk, si) => {
+    const w = `sketch ${si + 1}`;
+    if (!heb(sk.label) || !heb(sk.prompt)) err(`${w}: label and prompt must be Hebrew`);
+    if (!Array.isArray(sk.checklist) || sk.checklist.length !== 3 || !sk.checklist.every(heb)) err(`${w}: the self-check list must have exactly 3 Hebrew lines`);
+    else {
+      const list = sk.checklist.join(' ');
+      if (!/ציר/.test(list) || !/יחידות/.test(list)) err(`${w}: checklist must cover labelled axes with units`);
+      if (!/ערכ|נקוד/.test(list)) err(`${w}: checklist must cover the marked key values`);
+      if (!/צורה|שיפוע|סימן/.test(list)) err(`${w}: checklist must cover shape / slope / sign`);
+    }
+    const g = sk.graph;
+    if (!g || !SKETCH_QUANTITY[g.kind] || !Array.isArray(g.series) || !g.series.length) return err(`${w}: graph {kind, series} missing`);
+    if (typeof sk.svg !== 'string' || !sk.svg) return err(`${w}: reference graph (svg) missing`);
+    let want;
+    try { want = graph({ ...g, title: sk.label }); } catch (e) { return err(`${w}: graph generation failed: ${e.message}`); }
+    if (want.replace(/\r\n?/g, '\n') !== sk.svg.replace(/\r\n?/g, '\n')) err(`${w}: stored graph differs from the generated one (run node tools/diagrams.mjs --write)`);
+    validateSvg(sk.svg).forEach((x) => err(`${w}: ${x}`));
+    layoutIssues(sk.svg).forEach((x) => err(`${w}: layout: ${x}`));
+    checkSeries(g, w);
+  });
+  const sc = it.scene;
+  if (sc) {
+    if (DUO_KINDS.includes(sc.kind)) {
+      const given = new Set(numbersIn(plainStatement));
+      const stray = numbersIn([].concat(...Object.values(sc.labels || {}).map((l) => (Array.isArray(l) ? l : [l]))).join(' ')).filter((n) => n !== 0 && !given.has(n));
+      if (stray.length) err(`scene labels print numbers that the statement does not give: ${stray.join(', ')}`);
+    } else if (v.bodies[0] && (sc.vx !== v.bodies[0].vx || sc.vy !== v.bodies[0].vy || (sc.h0 || 0) !== v.bodies[0].y0)) err('scene shape must equal the first simulated body (h0, vx, vy)');
+  } else if (!it.graph) err('a main diagram (scene or graph) is required');
+  return errs;
+}
+
 /** Inline items = stage items without a ref. */
 export const inlineItems = (data) => ((data && data.stages) || []).flatMap((st) => (st.items || []).filter((it) => it && !it.ref).map((it) => ({ stage: st.id, it })));
 
@@ -507,7 +679,8 @@ export function checkLadder(data) {
     if (stage === 'S3') errs.push(...checkItem(it));
     else if (stage === 'S4') errs.push(...checkItemS4(it));
     else if (stage === 'S5') errs.push(...checkItemS5(it));
-    else errs.push(`${it.id}: inline items are only verified for S3, S4 and S5 (found in ${stage})`);
+    else if (stage === 'S6') errs.push(...checkItemS6(it));
+    else errs.push(`${it.id}: inline items are only verified for S3 to S6 (found in ${stage})`);
   }
   return errs;
 }
