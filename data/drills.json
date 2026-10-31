@@ -1,0 +1,551 @@
+{
+  "traps": [
+    {
+      "id": "trap-m-01", "kind": "trap", "topic": "math-3", "trapId": "divide-by-zero", "tags": ["algebra", "division", "lost-solution"],
+      "question": "פותרים את המשוואה x(x - 3) = 2(x - 3). תלמיד חילק את שני האגפים ב-(x - 3) וקיבל x = 2 בלבד. מה הטעות ומהם הפתרונות?",
+      "options": ["אין טעות, הפתרון היחיד הוא x = 2", "חילק בביטוי שעלול להיות אפס; הפתרונות הם x = 2 ו-x = 3", "חילק בביטוי שעלול להיות אפס; הפתרון היחיד הוא x = 3"],
+      "correct": 1,
+      "explain": "אסור לחלק בביטוי שעלול להיות אפס. מעבירים אגף: (x - 3)(x - 2) = 0, ולכן x = 3 או x = 2. הצבה: עבור x = 3 שני האגפים שווים 0.",
+      "verify": [
+        { "expr": "x*(x-3)-2*(x-3)", "vars": { "x": 3 }, "equals": 0 },
+        { "expr": "x*(x-3)-2*(x-3)", "vars": { "x": 2 }, "equals": 0 }
+      ]
+    },
+    {
+      "id": "trap-m-02", "kind": "trap", "topic": "math-4", "trapId": "drop-negative-root", "tags": ["quadratic", "roots"],
+      "question": "במערכת מתקבלת המשוואה x² = 16. תלמיד כתב x = 4 בלבד. איזה פתרון חסר?",
+      "options": ["x = 0", "x = 8, כי 8 = 16 / 2", "x = -4, כי גם (-4)² = 16"],
+      "correct": 2,
+      "explain": "למשוואה x² = c עם c חיובי יש שני שורשים, חיובי ושלילי: x = 4 ו-x = -4. בודקים שגם -4 מקיים את המשוואה המקורית.",
+      "verify": [{ "expr": "x*x", "vars": { "x": -4 }, "equals": 16 }]
+    },
+    {
+      "id": "trap-m-03", "kind": "trap", "topic": "math-3", "trapId": "extraneous-root", "tags": ["radical", "squaring", "check-solution"],
+      "question": "פותרים √(x + 6) = x. אחרי העלאה בריבוע מתקבלים x = 3 ו-x = -2. מה נכון?",
+      "options": ["שני הפתרונות מתאימים", "רק x = 3 מתאים; x = -2 נפסל כי לאחר הצבה מתקבל 2 = -2", "רק x = -2 מתאים", "אין פתרון"],
+      "correct": 1,
+      "explain": "העלאה בריבוע יכולה להוסיף פתרון מדומה. מציבים במשוואה המקורית: x = 3 נותן 3 = 3, אבל x = -2 נותן √4 = 2, שאינו שווה ל--2.",
+      "verify": [
+        { "expr": "Math.sqrt(x+6)-x", "vars": { "x": 3 }, "equals": 0 },
+        { "expr": "Math.sqrt(x+6)-x", "vars": { "x": -2 }, "notEquals": 0 }
+      ]
+    },
+    {
+      "id": "trap-m-04", "kind": "trap", "topic": "math-4", "trapId": "excluded-denominator", "tags": ["fractions", "domain"],
+      "question": "פותרים (x² - 4) / (x - 2) = 4. אחרי צמצום מתקבל x + 2 = 4 ולכן x = 2. מה המסקנה הנכונה?",
+      "options": ["x = 2", "x = 6", "אין פתרון: הערך x = 2 מאפס את המכנה ולכן אסור", "x = 0"],
+      "correct": 2,
+      "explain": "הצמצום תקף רק כאשר x שונה מ-2. הערך היחיד שהתקבל הוא בדיוק הערך האסור, שבו המכנה שווה 0, ולכן אין פתרון.",
+      "verify": [{ "expr": "x-2", "vars": { "x": 2 }, "equals": 0 }]
+    },
+    {
+      "id": "trap-m-05", "kind": "trap", "topic": "math-3", "trapId": "forget-rhs", "tags": ["elimination", "multiplication"],
+      "question": "במערכת של שלושה נעלמים רוצים להכפיל את משוואה (1): x + y + z = 6 ב-2 לצורך חיסול. מהי המשוואה הנכונה?",
+      "options": ["2x + 2y + 2z = 6", "2x + y + z = 12", "2x + 2y + 2z = 12"],
+      "correct": 2,
+      "explain": "כופלים את כל איברי המשוואה, כולל אגף ימין: 2 · 6 = 12. שכחת אגף ימין משנה את המשוואה ולכן הפתרון יהיה שגוי.",
+      "verify": [{ "expr": "2*6", "equals": 12 }]
+    },
+    {
+      "id": "trap-m-06", "kind": "trap", "topic": "math-3", "trapId": "subtract-sign", "tags": ["elimination", "signs"],
+      "question": "במערכת: (1) 5x + 3y = 21, (2) 2x + 3y = 12. מחסרים את (2) מ-(1). מה מתקבל ומהו x?",
+      "options": ["7x = 33", "3x = 9 ולכן x = 3", "3x + 6y = 33", "7x + 6y = 9"],
+      "correct": 1,
+      "explain": "בחיסור מחסרים כל איבר באיבר, גם באגף ימין: 5x - 2x = 3x, 3y - 3y = 0, 21 - 12 = 9. לכן x = 3 ואז y = 2.",
+      "verify": [
+        { "expr": "21-12", "equals": 9 },
+        { "system": [[5, 3, 21], [2, 3, 12]], "kind": "unique", "solution": ["3", "2"] }
+      ]
+    },
+    {
+      "id": "trap-m-07", "kind": "trap", "topic": "math-3", "trapId": "reuse-same-equation", "tags": ["substitution", "identity"],
+      "question": "במערכת x + y = 5 ו-2x - y = 1 מבודדים y = 5 - x מתוך המשוואה הראשונה ומציבים אותו בחזרה בראשונה. מתקבל 5 = 5. מה עושים?",
+      "options": ["מסיקים שיש אינסוף פתרונות", "מציבים y = 5 - x במשוואה השנייה: 2x - (5 - x) = 1, ולכן x = 2 ו-y = 3", "מסיקים שאין פתרון"],
+      "correct": 1,
+      "explain": "הצבה באותה משוואה שממנה בודדנו תמיד נותנת זהות ולכן אין בה מידע. מציבים במשוואה האחרת: 3x - 5 = 1, x = 2, y = 3.",
+      "verify": [{ "system": [[1, 1, 5], [2, -1, 1]], "kind": "unique", "solution": ["2", "3"] }]
+    },
+    {
+      "id": "trap-m-08", "kind": "trap", "topic": "math-3", "trapId": "dependent-equations", "tags": ["infinite-solutions", "rank"],
+      "question": "במערכת: (1) x + y + z = 6, (2) x - y + z = 2, (3) 2x + 2z = 8. חיבור (1) ו-(2) נותן בדיוק את (3), ולכן אחרי חיסול מתקבל 0 = 0. מה המסקנה?",
+      "options": ["אין פתרון", "יש אינסוף פתרונות: משוואה (3) תלויה בשתיים הראשונות", "הפתרון היחיד הוא x = y = z = 0"],
+      "correct": 1,
+      "explain": "0 = 0 פירושו שהמשוואה אינה מוסיפה מידע. נשארות שתי משוואות בשלושה נעלמים, ולכן יש אינסוף פתרונות, למשל (1, 2, 3) ו-(2, 2, 2).",
+      "verify": [{ "system": [[1, 1, 1, 6], [1, -1, 1, 2], [2, 0, 2, 8]], "kind": "infinite" }]
+    },
+    {
+      "id": "trap-m-09", "kind": "trap", "topic": "math-3", "trapId": "inconsistent-system", "tags": ["no-solution", "contradiction"],
+      "question": "במערכת: (1) x + y + z = 3, (2) 2x + 2y + 2z = 7, (3) x - y = 0. כופלים את (1) ב-2 ומחסרים מ-(2) ומקבלים 0 = 1. מה המסקנה?",
+      "options": ["יש אינסוף פתרונות כי המקדמים התאפסו", "הפתרון הוא x = y = z = 1", "אין פתרון: מתקבלת סתירה 0 = 1"],
+      "correct": 2,
+      "explain": "משוואה שגורמת ל-0 = 1 היא סתירה: אין שלשה שמקיימת את כל המשוואות. 0 = 0 הוא תלות, ו-0 = 1 הוא סתירה.",
+      "verify": [
+        { "expr": "7-2*3", "equals": 1 },
+        { "system": [[1, 1, 1, 3], [2, 2, 2, 7], [1, -1, 0, 0]], "kind": "none" }
+      ]
+    },
+    {
+      "id": "trap-m-10", "kind": "trap", "topic": "math-4", "trapId": "expand-square", "tags": ["quadratic-system", "expansion"],
+      "question": "במערכת y = x + 1 ו-x² + y² = 25 מציבים y. איזו משוואה נכונה ומהם הפתרונות ל-x?",
+      "options": ["2x² + 1 = 25 כי (x + 1)² = x² + 1", "2x² + 2x + 1 = 25 ולכן x = 3 או x = -4", "2x² + 2x + 1 = 25 ולכן x = 3 בלבד"],
+      "correct": 1,
+      "explain": "(x + 1)² = x² + 2x + 1, לא x² + 1. מתקבל x² + x - 12 = 0 ולכן x = 3 או x = -4. בדיקה: 9 + 16 = 25 וגם 16 + 9 = 25.",
+      "verify": [
+        { "expr": "x*x+(x+1)*(x+1)", "vars": { "x": 3 }, "equals": 25 },
+        { "expr": "x*x+(x+1)*(x+1)", "vars": { "x": -4 }, "equals": 25 },
+        { "expr": "(x+1)*(x+1)", "vars": { "x": 3 }, "notEquals": 10 }
+      ]
+    },
+    {
+      "id": "trap-m-11", "kind": "trap", "topic": "math-4", "trapId": "lost-second-pair", "tags": ["quadratic-system", "symmetry"],
+      "question": "במערכת x · y = 12 ו-x + y = 7 תלמיד מצא x = 3, y = 4 וסיים. כמה פתרונות יש למערכת?",
+      "options": ["פתרון אחד", "ארבעה פתרונות", "שני פתרונות: (3, 4) וגם (4, 3)"],
+      "correct": 2,
+      "explain": "המערכת סימטרית ב-x וב-y, לכן גם הזוג ההפוך מקיים אותה: 4 · 3 = 12 ו-4 + 3 = 7. משוואת הריבוע t² - 7t + 12 = 0 נותנת 3 ו-4 ושני סידורים.",
+      "verify": [
+        { "expr": "x*y", "vars": { "x": 4, "y": 3 }, "equals": 12 },
+        { "expr": "x+y", "vars": { "x": 4, "y": 3 }, "equals": 7 }
+      ]
+    },
+    {
+      "id": "trap-m-12", "kind": "trap", "topic": "math-4", "trapId": "too-few-equations", "tags": ["four-unknowns", "rank"],
+      "question": "במערכת של 4 נעלמים יש רק 3 משוואות בלתי תלויות, למשל x + y + z + w = 10, x - y = 0, z - w = 0. מה אפשר להסיק?",
+      "options": ["יש בדיוק פתרון יחיד", "אין פתרון", "יש אינסוף פתרונות (נעלם חופשי), ואי אפשר לקבל ערך יחיד לכל נעלם"],
+      "correct": 2,
+      "explain": "כדי לקבל פתרון יחיד לארבעה נעלמים נדרשות ארבע משוואות בלתי תלויות. עם שלוש נשאר נעלם חופשי, למשל (1, 1, 4, 4) או (2, 2, 3, 3).",
+      "verify": [{ "system": [[1, 1, 1, 1, 10], [1, -1, 0, 0, 0], [0, 0, 1, -1, 0]], "kind": "infinite" }]
+    },
+    {
+      "id": "trap-m-13", "kind": "trap", "topic": "math-3", "trapId": "divide-by-parameter", "tags": ["parameter", "division", "lost-solution"],
+      "question": "פותרים (a - 2)x = 3(a - 2) עם פרמטר a. תלמיד חילק ב-(a - 2) וכתב x = 3 לכל a. מה חסר?",
+      "options": ["כאשר a = 2 כל מספר x הוא פתרון", "כאשר a = 2 אין פתרון", "כאשר a = 3 אין פתרון"],
+      "correct": 0,
+      "explain": "החלוקה אסורה כאשר a - 2 = 0. עבור a = 2 המשוואה היא 0 = 0 ולכן כל x מתאים. עבור a שונה מ-2 מתקבל x = 3.",
+      "verify": [{ "expr": "(a-2)*x-3*(a-2)", "vars": { "a": 2, "x": 5 }, "equals": 0 }]
+    },
+    {
+      "id": "trap-m-14", "kind": "trap", "topic": "math-3", "trapId": "clear-fractions", "tags": ["fractions", "common-denominator"],
+      "question": "במשוואה x/2 + y/3 = 5 רוצים להיפטר משברים. מכפילים את כל המשוואה ב-6. מה מתקבל?",
+      "options": ["3x + 2y = 5", "2x + 3y = 30", "3x + 2y = 30", "x + y = 5"],
+      "correct": 2,
+      "explain": "כופלים כל איבר: 6 · x/2 = 3x, 6 · y/3 = 2y, ואגף ימין 6 · 5 = 30. שכחת הכפלת אגף ימין היא טעות נפוצה.",
+      "verify": [{ "expr": "6*5", "equals": 30 }, { "expr": "6*(x/2)-3*x", "vars": { "x": 7 }, "equals": 0 }]
+    },
+    {
+      "id": "trap-m-15", "kind": "trap", "topic": "math-4", "trapId": "discriminant-zero", "tags": ["discriminant", "quadratic"],
+      "question": "במשוואה x² - 6x + 9 = 0 מחשבים דיסקרימיננטה ומקבלים Δ = 0. מה נכון?",
+      "options": ["Δ = 0 ולכן אין פתרון", "Δ = 0 ולכן יש פתרון אחד (כפול): x = 3", "Δ = 0 ולכן x = 0 או x = 6"],
+      "correct": 1,
+      "explain": "Δ = b² - 4ac = 36 - 36 = 0 פירושו שורש אחד כפול ולא היעדר שורשים. x = 6/2 = 3. בדיקה: 9 - 18 + 9 = 0.",
+      "verify": [
+        { "expr": "b*b-4*a*c", "vars": { "a": 1, "b": -6, "c": 9 }, "equals": 0 },
+        { "expr": "x*x-6*x+9", "vars": { "x": 3 }, "equals": 0 }
+      ]
+    },
+    {
+      "id": "trap-p-01", "kind": "trap", "topic": "phys-vertical", "trapId": "peak-vs-flight", "tags": ["time", "symmetry"],
+      "question": "כדור נזרק אנכית כלפי מעלה מהקרקע במהירות 20 מ/ש (g = 10). מהו זמן הטיסה הכולל עד החזרה לקרקע?",
+      "options": ["2 שניות", "4 שניות", "8 שניות"],
+      "correct": 1,
+      "explain": "הזמן עד הנקודה הגבוהה הוא v0/g = 2 שניות, אבל זה רק חצי מהמסלול. הירידה לוקחת עוד 2 שניות, לכן סך הכול 4 שניות.",
+      "verify": [{ "expr": "v0/g", "vars": { "v0": 20, "g": 10 }, "equals": 2 }, { "expr": "2*v0/g", "vars": { "v0": 20, "g": 10 }, "equals": 4 }]
+    },
+    {
+      "id": "trap-p-02", "kind": "trap", "topic": "phys-vertical", "trapId": "g-sign", "tags": ["gravity", "signs", "velocity"],
+      "question": "גוף נזרק כלפי מעלה במהירות 30 מ/ש. מהי המהירות שלו אחרי 2 שניות (למעלה חיובי, g = 10)?",
+      "options": ["50 מ/ש כלפי מעלה", "10 מ/ש כלפי מעלה", "10 מ/ש כלפי מטה"],
+      "correct": 1,
+      "explain": "התאוצה מופנית מטה, לכן v = v0 - g·t = 30 - 10 · 2 = 10 מ/ש. חיבור g במקום חיסור נותן תוצאה שגויה של 50.",
+      "verify": [{ "expr": "v0-g*t", "vars": { "v0": 30, "g": 10, "t": 2 }, "equals": 10 }]
+    },
+    {
+      "id": "trap-p-03", "kind": "trap", "topic": "phys-horizontal", "trapId": "fall-time-ignores-vx", "tags": ["time", "independence"],
+      "question": "כדור נזרק אופקית במהירות 15 מ/ש ממצוק בגובה 80 מ' (g = 10). איך מחשבים את זמן הנפילה?",
+      "options": ["t = 80 / 15 ≈ 5.33 שניות", "רק לפי הגובה: t = √(2·80/10) = 4 שניות", "t = √(80/10) ≈ 2.83 שניות"],
+      "correct": 1,
+      "explain": "התנועה האנכית אינה תלויה במהירות האופקית. זמן הנפילה נקבע מ-h = 5t² בלבד: t = √(2h/g) = 4 שניות.",
+      "verify": [{ "expr": "Math.sqrt(2*h/g)", "vars": { "h": 80, "g": 10 }, "equals": 4 }]
+    },
+    {
+      "id": "trap-p-04", "kind": "trap", "topic": "phys-horizontal", "trapId": "speed-vector-sum", "tags": ["speed", "pythagoras", "components"],
+      "question": "גוף נזרק אופקית ב-15 מ/ש מגובה 20 מ' (g = 10). מהי המהירות הכוללת ברגע פגיעתו בקרקע?",
+      "options": ["35 מ/ש", "25 מ/ש", "20 מ/ש", "15 מ/ש"],
+      "correct": 1,
+      "explain": "הרכיב האנכי בפגיעה: vy = √(2gh) = 20 מ/ש. הרכיבים מאונכים זה לזה ולכן המהירות הכוללת היא √(15² + 20²) = 25 ולא הסכום 35.",
+      "verify": [
+        { "expr": "Math.sqrt(2*g*h)", "vars": { "g": 10, "h": 20 }, "equals": 20 },
+        { "expr": "Math.sqrt(vx*vx+vy*vy)", "vars": { "vx": 15, "vy": 20 }, "equals": 25 }
+      ]
+    },
+    {
+      "id": "trap-p-05", "kind": "trap", "topic": "phys-horizontal", "trapId": "flight-time-components", "tags": ["projectile", "range", "components"],
+      "question": "קליע נורה מהקרקע, והרכיבים של מהירותו ההתחלתית הם vx = 30 מ/ש ו-vy = 40 מ/ש (g = 10). מה הטווח האופקי עד החזרה לגובה הקרקע?",
+      "options": ["50 · 8 = 400 מ'", "30 · 8 = 240 מ'", "40 · 8 = 320 מ'"],
+      "correct": 1,
+      "explain": "זמן הטיסה נקבע מהרכיב האנכי: 2·40/10 = 8 שניות. הטווח הוא הרכיב האופקי כפול הזמן: 30 · 8 = 240 מ'. אין להשתמש במהירות הכוללת 50.",
+      "verify": [
+        { "expr": "2*vy/g", "vars": { "vy": 40, "g": 10 }, "equals": 8 },
+        { "expr": "vx*2*vy/g", "vars": { "vx": 30, "vy": 40, "g": 10 }, "equals": 240 }
+      ]
+    },
+    {
+      "id": "trap-p-06", "kind": "trap", "topic": "phys-horizontal", "trapId": "max-height-vy-only", "tags": ["projectile", "height", "components"],
+      "question": "קליע נורה מהקרקע עם vx = 15 מ/ש ו-vy = 20 מ/ש (המהירות הכוללת 25 מ/ש, g = 10). מהו הגובה המרבי?",
+      "options": ["25² / 20 = 31.25 מ'", "20² / 20 = 20 מ'", "15² / 20 = 11.25 מ'"],
+      "correct": 1,
+      "explain": "הגובה המרבי תלוי רק ברכיב האנכי: H = vy²/(2g) = 400/20 = 20 מ'. ברגע השיא נשאר רק הרכיב האופקי.",
+      "verify": [{ "expr": "vy*vy/(2*g)", "vars": { "vy": 20, "g": 10 }, "equals": 20 }]
+    },
+    {
+      "id": "trap-p-07", "kind": "trap", "topic": "phys-horizontal", "trapId": "unit-conversion", "tags": ["units", "km-per-hour"],
+      "question": "גוף נזרק אופקית במהירות 72 קמ״ש מגובה 80 מ' (g = 10). מהו הטווח האופקי?",
+      "options": ["72 · 4 = 288 מ'", "20 · 4 = 80 מ'", "72 · 2.83 ≈ 204 מ'"],
+      "correct": 1,
+      "explain": "ממירים ליחידות SI: 72 קמ״ש = 72 / 3.6 = 20 מ/ש. זמן הנפילה √(2·80/10) = 4 שניות, ולכן הטווח 20 · 4 = 80 מ'.",
+      "verify": [
+        { "expr": "72/3.6", "equals": 20 },
+        { "expr": "(72/3.6)*Math.sqrt(2*80/10)", "equals": 80 }
+      ]
+    },
+    {
+      "id": "trap-p-08", "kind": "trap", "topic": "phys-vertical", "trapId": "impact-speed-formula", "tags": ["free-fall", "speed"],
+      "question": "גוף נופל חופשית מגובה 20 מ' (g = 10). מהי מהירות הפגיעה בקרקע?",
+      "options": ["200 מ/ש (v = g · h)", "20 מ/ש (v = √(2gh))", "10 מ/ש"],
+      "correct": 1,
+      "explain": "מ-v² = 2gh מתקבל v = √(2 · 10 · 20) = 20 מ/ש. הנוסחה v = g·h שגויה כי חסרה בה ממד (g מוכפל בזמן ולא בגובה).",
+      "verify": [{ "expr": "Math.sqrt(2*g*h)", "vars": { "g": 10, "h": 20 }, "equals": 20 }]
+    },
+    {
+      "id": "trap-p-09", "kind": "trap", "topic": "phys-vertical", "trapId": "reject-negative-time", "tags": ["quadratic", "time", "roots"],
+      "question": "גוף נזרק כלפי מעלה במהירות 10 מ/ש ממצוק בגובה 15 מ' (g = 10). המשוואה -15 = 10t - 5t² נותנת t = 3 ו-t = -1. מה זמן הפגיעה בקרקע שמתחת למצוק?",
+      "options": ["t = 3 שניות בלבד, כי t = -1 אינו זמן אפשרי", "t = -1 שניות", "שני הזמנים, 3 ו--1 שניות"],
+      "correct": 0,
+      "explain": "שני הערכים פותרים את המשוואה אלא שזמן שלילי הוא לפני הזריקה. לכן רק t = 3 שניות. הצבה: 10·3 - 5·9 = -15.",
+      "verify": [
+        { "expr": "10*t-5*t*t+15", "vars": { "t": 3 }, "equals": 0 },
+        { "expr": "10*t-5*t*t+15", "vars": { "t": -1 }, "equals": 0 }
+      ]
+    },
+    {
+      "id": "trap-p-10", "kind": "trap", "topic": "phys-vertical", "trapId": "accel-at-peak", "tags": ["acceleration", "peak"],
+      "question": "גוף נזרק למעלה ב-30 מ/ש. אחרי 3 שניות הוא בנקודה הגבוהה ביותר (g = 10). מהי התאוצה שלו שם?",
+      "options": ["0, כי המהירות שם 0", "10 מ/ש² כלפי מטה", "10 מ/ש² כלפי מעלה"],
+      "correct": 1,
+      "explain": "בשיא המהירות היא 0 (30 - 10 · 3 = 0) אבל התאוצה נשארת g = 10 מ/ש² מטה. המהירות רק משנה כיוון.",
+      "verify": [{ "expr": "v0-g*t", "vars": { "v0": 30, "g": 10, "t": 3 }, "equals": 0 }]
+    },
+    {
+      "id": "trap-p-11", "kind": "trap", "topic": "phys-vertical", "trapId": "distance-vs-displacement", "tags": ["displacement", "distance"],
+      "question": "גוף נזרק למעלה ב-20 מ/ש וחוזר לנקודת הזריקה אחרי 4 שניות (g = 10). מה ההעתק והדרך הכוללת?",
+      "options": ["העתק 40 מ', דרך 40 מ'", "העתק 0, דרך 40 מ'", "העתק 0, דרך 0"],
+      "correct": 1,
+      "explain": "ההעתק הוא שינוי המקום: 20·4 - 5·16 = 0. הדרך היא הכול: עלייה של 20 מ' וירידה של 20 מ', כלומר 40 מ'.",
+      "verify": [
+        { "expr": "v0*t-5*t*t", "vars": { "v0": 20, "t": 4 }, "equals": 0 },
+        { "expr": "2*v0*v0/(2*g)", "vars": { "v0": 20, "g": 10 }, "equals": 40 }
+      ]
+    },
+    {
+      "id": "trap-p-12", "kind": "trap", "topic": "phys-horizontal", "trapId": "same-fall-time", "tags": ["independence", "time"],
+      "question": "מגובה 20 מ' משחררים כדור אחד ללא מהירות, ובו בזמן זורקים כדור שני אופקית ב-10 מ/ש (g = 10). מה נכון?",
+      "options": ["הכדור שנזרק אופקית מגיע לקרקע מאוחר יותר", "הכדור שנפל חופשית מגיע לקרקע מאוחר יותר", "שניהם פוגעים בו זמנית, אחרי 2 שניות"],
+      "correct": 2,
+      "explain": "התנועה האנכית זהה בשני הכדורים, ולכן t = √(2·20/10) = 2 שניות לשניהם. המהירות האופקית משנה רק את הטווח.",
+      "verify": [{ "expr": "Math.sqrt(2*h/g)", "vars": { "h": 20, "g": 10 }, "equals": 2 }]
+    },
+    {
+      "id": "trap-p-13", "kind": "trap", "topic": "phys-horizontal", "trapId": "vx-constant", "tags": ["horizontal-velocity", "no-acceleration"],
+      "question": "כדור נזרק אופקית ב-8 מ/ש (g = 10), ומתעלמים מהתנגדות האוויר. אחרי 2 שניות, מהו הרכיב האופקי של המהירות ומה ההעתק האופקי?",
+      "options": ["28 מ/ש ו-56 מ'", "8 מ/ש ו-16 מ'", "8 מ/ש ו-8 מ'"],
+      "correct": 1,
+      "explain": "אין תאוצה אופקית, לכן vx נשאר 8 מ/ש לאורך כל התנועה, ו-x = vx · t = 16 מ'. g משפיע רק על הכיוון האנכי.",
+      "verify": [{ "expr": "vx*t", "vars": { "vx": 8, "t": 2 }, "equals": 16 }]
+    },
+    {
+      "id": "trap-p-14", "kind": "trap", "topic": "phys-vertical", "trapId": "coefficient-half", "tags": ["free-fall", "formula", "half-g"],
+      "question": "גוף נופל חופשית מגובה 80 מ' (g = 10). איזו משוואה נכונה לזמן הנפילה?",
+      "options": ["80 = 10t² ולכן t ≈ 2.83 שניות", "80 = 5t² ולכן t = 4 שניות", "80 = 5t ולכן t = 16 שניות"],
+      "correct": 1,
+      "explain": "h = ½gt² = 5t². לכן t² = 16 ו-t = 4 שניות. שכחת הגורם ½ מובילה לזמן שגוי.",
+      "verify": [{ "expr": "0.5*g*t*t", "vars": { "g": 10, "t": 4 }, "equals": 80 }]
+    },
+    {
+      "id": "trap-p-15", "kind": "trap", "topic": "phys-horizontal", "trapId": "range-scaling", "tags": ["range", "proportion"],
+      "question": "גוף נזרק אופקית ב-10 מ/ש מגובה 20 מ' ופוגע במרחק 20 מ' (g = 10). מה יהיה הטווח אם המהירות האופקית תוכפל ל-20 מ/ש?",
+      "options": ["40 מ' (כפול)", "80 מ' (פי 4)", "20 מ' (ללא שינוי)"],
+      "correct": 0,
+      "explain": "זמן הנפילה קבוע (2 שניות) ולכן x = vx · t משתנה ביחס ישר למהירות: 20 · 2 = 40 מ'. הטווח אינו פרופורציוני לריבוע המהירות.",
+      "verify": [
+        { "expr": "vx*Math.sqrt(2*h/g)", "vars": { "vx": 10, "h": 20, "g": 10 }, "equals": 20 },
+        { "expr": "vx*Math.sqrt(2*h/g)", "vars": { "vx": 20, "h": 20, "g": 10 }, "equals": 40 }
+      ]
+    }
+  ],
+  "sanity": [
+    {
+      "id": "sanity-01", "kind": "sanity", "topic": "phys-vertical", "trapId": "san-negative-time", "tags": ["negative-time", "domain"],
+      "question": "בבעיית נפילה נפתרה המשוואה t² - 2t - 3 = 0 והתלמיד דיווח שזמן הפגיעה הוא t = 3 וגם t = -1 שניות. איזו בדיקת סבירות תופסת את הבעיה?",
+      "options": ["בדיקה שהזמן אינו שלילי: t = -1 נפסל", "בדיקה שהזמן מספר שלם", "בדיקה שהמהירות קטנה מ-100"],
+      "correct": 0,
+      "explain": "זמן הוא גודל שאינו שלילי בבעיית תנועה שמתחילה ב-t = 0. הצבה: 3² - 2·3 - 3 = 0, אבל t = -1 לפני תחילת התנועה ולכן נפסל.",
+      "verify": [{ "expr": "t*t-2*t-3", "vars": { "t": 3 }, "equals": 0 }, { "expr": "t", "vars": { "t": -1 }, "lt": 0 }]
+    },
+    {
+      "id": "sanity-02", "kind": "sanity", "topic": "math-3", "trapId": "san-plug-original", "tags": ["residual", "extraneous"],
+      "question": "פתרון המשוואה √(x + 6) = x דרך העלאה בריבוע נתן x = 3 וגם x = -2. איזו בדיקה מגלה אם שני הפתרונות באמת נכונים?",
+      "options": ["בדיקה שסכום השורשים שווה 1", "הצבה במשוואה המקורית: עבור x = -2 מתקבל 2 = -2, ולכן הוא נפסל", "בדיקה שהדיסקרימיננטה חיובית"],
+      "correct": 1,
+      "explain": "הצבה במשוואה המקורית (ולא באחרי הריבוע) חושפת פתרון מדומה. השארית √(x + 6) - x שווה 0 עבור 3, אך 4 עבור -2.",
+      "verify": [
+        { "expr": "Math.sqrt(x+6)-x", "vars": { "x": 3 }, "equals": 0 },
+        { "expr": "Math.sqrt(x+6)-x", "vars": { "x": -2 }, "equals": 4 }
+      ]
+    },
+    {
+      "id": "sanity-03", "kind": "sanity", "topic": "phys-horizontal", "trapId": "san-range-bound", "tags": ["range", "recompute"],
+      "question": "מצוק בגובה 20 מ'. כדור נזרק ממנו אופקית ב-10 מ/ש, והתלמיד חישב טווח של 40 מ'. איזו בדיקה תופסת את השגיאה?",
+      "options": ["בדיקה שהטווח חיובי", "בדיקה שהזמן קטן מ-10 שניות", "חישוב זמן הנפילה √(2h/g) = 2 שניות ואז x = 10 · 2 = 20 מ', לא 40"],
+      "correct": 2,
+      "explain": "הטווח חייב להתאים לזמן הנפילה שנקבע מהגובה. עם t = 2 שניות הטווח המרבי באותה מהירות הוא 20 מ', ולכן 40 מ' אינו אפשרי.",
+      "verify": [
+        { "expr": "Math.sqrt(2*h/g)", "vars": { "h": 20, "g": 10 }, "equals": 2 },
+        { "expr": "vx*Math.sqrt(2*h/g)", "vars": { "vx": 10, "h": 20, "g": 10 }, "equals": 20 }
+      ]
+    },
+    {
+      "id": "sanity-04", "kind": "sanity", "topic": "phys-vertical", "trapId": "san-height-energy", "tags": ["height", "energy-check"],
+      "question": "גוף נזרק מהקרקע למעלה ב-20 מ/ש. התלמיד קיבל גובה מרבי H = 40 מ'. איזו בדיקה חושפת את הטעות?",
+      "options": ["בדיקת אנרגיה: g·H = v0²/2, כלומר 10·H = 200 ולכן H = 20 מ', לא 40", "בדיקה שהגובה שלם", "בדיקה שהזמן עד השיא שווה לגובה"],
+      "correct": 0,
+      "explain": "אנרגיית התנועה ליחידת מסה ½v0² = 200 הופכת לאנרגיית גובה gH. לכן H = 200/10 = 20 מ'. תוצאה של 40 מ' מצביעה על שכחת הגורם ½.",
+      "verify": [{ "expr": "v0*v0/(2*g)", "vars": { "v0": 20, "g": 10 }, "equals": 20 }]
+    },
+    {
+      "id": "sanity-05", "kind": "sanity", "topic": "phys-horizontal", "trapId": "san-speed-component", "tags": ["speed", "components", "bound"],
+      "question": "גוף נזרק אופקית ב-15 מ/ש מגובה 20 מ'. התלמיד דיווח מהירות פגיעה כוללת של 12 מ/ש. איזו בדיקה קצרה מגלה שהיא שגויה?",
+      "options": ["המהירות הכוללת קטנה מ-100", "המהירות הכוללת חייבת להיות לפחות כמו כל רכיב שלה, ו-12 < 15", "המהירות הכוללת חייבת להיות זוגית"],
+      "correct": 1,
+      "explain": "מהירות כוללת = √(vx² + vy²) ≥ vx = 15. בפועל מתקבל 25 מ/ש. ערך קטן מהרכיב האופקי אינו ייתכן.",
+      "verify": [{ "expr": "Math.sqrt(vx*vx+vy*vy)", "vars": { "vx": 15, "vy": 20 }, "gt": 15 }]
+    },
+    {
+      "id": "sanity-06", "kind": "sanity", "topic": "phys-vertical", "trapId": "san-fall-time", "tags": ["free-fall", "plug-back"],
+      "question": "גוף נופל חופשית מגובה 20 מ' והתלמיד קיבל זמן נפילה t = 4 שניות. איזו בדיקה תופסת את הטעות?",
+      "options": ["בדיקה שהזמן חיובי", "הצבה בנוסחת המרחק: 5 · 4² = 80 מ', שגדול מהגובה 20 מ'", "בדיקה שהמהירות שווה לזמן"],
+      "correct": 1,
+      "explain": "הצבת התוצאה חזרה ב-h = 5t² נותנת 80 מ' במקום 20 מ'. התשובה הנכונה היא t = √(2·20/10) = 2 שניות.",
+      "verify": [{ "expr": "5*t*t", "vars": { "t": 4 }, "equals": 80 }, { "expr": "Math.sqrt(2*h/g)", "vars": { "h": 20, "g": 10 }, "equals": 2 }]
+    },
+    {
+      "id": "sanity-07", "kind": "sanity", "topic": "math-3", "trapId": "san-plug-all-equations", "tags": ["residual", "three-unknowns"],
+      "question": "במערכת (1) x + y + z = 6, (2) x - y + z = 2, (3) 2x + y - z = 1 התלמיד טען שהפתרון הוא (2, 2, 2). איזו בדיקה מגלה שהוא שגוי?",
+      "options": ["בדיקה שכל הנעלמים שווים זה לזה", "הצבה במשוואה הראשונה בלבד", "הצבה בכל שלוש המשוואות: ב-(3) מתקבל 4 במקום 1"],
+      "correct": 2,
+      "explain": "הפתרון חייב לקיים את כל המשוואות. (2, 2, 2) מקיים את (1) ואת (2), אך ב-(3) מתקבל 2·2 + 2 - 2 = 4. הפתרון הנכון הוא (1, 2, 3).",
+      "verify": [
+        { "expr": "x+y+z", "vars": { "x": 2, "y": 2, "z": 2 }, "equals": 6 },
+        { "expr": "x-y+z", "vars": { "x": 2, "y": 2, "z": 2 }, "equals": 2 },
+        { "expr": "2*x+y-z", "vars": { "x": 2, "y": 2, "z": 2 }, "equals": 4 },
+        { "system": [[1, 1, 1, 6], [1, -1, 1, 2], [2, 1, -1, 1]], "kind": "unique", "solution": ["1", "2", "3"] }
+      ]
+    },
+    {
+      "id": "sanity-08", "kind": "sanity", "topic": "phys-vertical", "trapId": "san-velocity-sign", "tags": ["velocity-sign", "direction"],
+      "question": "גוף נזרק למעלה ב-20 מ/ש. התלמיד דיווח שאחרי 3 שניות מהירותו +10 מ/ש (כלפי מעלה). איזו בדיקה תופסת זאת?",
+      "options": ["זמן השיא הוא 2 שניות, ולכן אחרי 3 שניות הגוף כבר יורד והמהירות שלילית: 20 - 30 = -10", "בדיקה שהמהירות קטנה מ-100", "בדיקה שהמהירות מספר שלם"],
+      "correct": 0,
+      "explain": "אחרי זמן השיא (v0/g = 2 שניות) הגוף נע כלפי מטה, ולכן הסימן חייב להיות שלילי: v = 20 - 10·3 = -10 מ/ש.",
+      "verify": [{ "expr": "v0/g", "vars": { "v0": 20, "g": 10 }, "equals": 2 }, { "expr": "v0-g*t", "vars": { "v0": 20, "g": 10, "t": 3 }, "equals": -10 }]
+    },
+    {
+      "id": "sanity-09", "kind": "sanity", "topic": "math-4", "trapId": "san-sum-check", "tags": ["residual", "four-unknowns"],
+      "question": "אחת ממשוואות המערכת היא x + y + z + w = 10. התלמיד טוען שהפתרון הוא (1, 2, 3, 5). איזו בדיקה מהירה פוסלת אותו?",
+      "options": ["בדיקה שהמספרים עולים", "בדיקה שאין מספר ראשוני", "הצבה בכל משוואה: 1 + 2 + 3 + 5 = 11 ולא 10"],
+      "correct": 2,
+      "explain": "הצבת הפתרון בכל משוואה מקורית היא הבדיקה הטובה ביותר. כאן סכום האיברים 11 שונה מ-10, ולכן זה אינו פתרון.",
+      "verify": [{ "expr": "x+y+z+w", "vars": { "x": 1, "y": 2, "z": 3, "w": 5 }, "equals": 11 }]
+    },
+    {
+      "id": "sanity-10", "kind": "sanity", "topic": "phys-vertical", "trapId": "san-magnitude", "tags": ["order-of-magnitude", "free-fall"],
+      "question": "גוף נופל חופשית מגובה 20 מ'. התלמיד חישב מהירות פגיעה של 200 מ/ש. איזו בדיקה תופסת זאת?",
+      "options": ["בדיקה שהמהירות חיובית", "בדיקה שהזמן שלם", "הערכת סדר גודל: v = √(2gh) = √400 = 20 מ/ש, פי 10 פחות"],
+      "correct": 2,
+      "explain": "200 מ/ש הם 720 קמ״ש, מהירות לא סבירה לנפילה של 20 מ'. החישוב הנכון הוא v = √(2 · 10 · 20) = 20 מ/ש.",
+      "verify": [{ "expr": "Math.sqrt(2*g*h)", "vars": { "g": 10, "h": 20 }, "equals": 20 }, { "expr": "200*3.6", "equals": 720 }]
+    },
+    {
+      "id": "sanity-11", "kind": "sanity", "topic": "math-4", "trapId": "san-discriminant", "tags": ["discriminant", "no-real-roots"],
+      "question": "תלמיד טען שלמשוואה x² + 2x + 5 = 0 יש שני פתרונות ממשיים. איזו בדיקה קצרה בודקת זאת?",
+      "options": ["חישוב הדיסקרימיננטה: Δ = 4 - 20 = -16 < 0, ולכן אין פתרונות ממשיים", "בדיקה שסכום המקדמים 0", "בדיקה ש-x חיובי"],
+      "correct": 0,
+      "explain": "פתרונות ממשיים קיימים רק אם Δ אינו שלילי. כאן Δ = b² - 4ac = 4 - 20 = -16, ולכן אין פתרונות ממשיים.",
+      "verify": [{ "expr": "b*b-4*a*c", "vars": { "a": 1, "b": 2, "c": 5 }, "equals": -16 }]
+    },
+    {
+      "id": "sanity-12", "kind": "sanity", "topic": "phys-vertical", "trapId": "san-plug-y0", "tags": ["flight-time", "plug-back"],
+      "question": "גוף נזרק מהקרקע למעלה ב-20 מ/ש. התלמיד קיבל זמן טיסה כולל של 3 שניות. איזו בדיקה מגלה שהתוצאה שגויה?",
+      "options": ["בדיקה שהזמן חיובי", "הצבה במשוואת המקום y = 20t - 5t²: ב-t = 3 מתקבל 15 מ' ולא 0 (לא חזר לקרקע)", "בדיקה שהזמן גדול מ-10"],
+      "correct": 1,
+      "explain": "בזמן הטיסה הכולל הגוף חוזר לגובה 0. ב-t = 3 מתקבל y = 60 - 45 = 15, ולכן הזמן שגוי. הנכון הוא 4 שניות.",
+      "verify": [
+        { "expr": "v0*t-5*t*t", "vars": { "v0": 20, "t": 3 }, "equals": 15 },
+        { "expr": "v0*t-5*t*t", "vars": { "v0": 20, "t": 4 }, "equals": 0 }
+      ]
+    },
+    {
+      "id": "sanity-13", "kind": "sanity", "topic": "phys-vertical", "trapId": "san-time-scale", "tags": ["free-fall", "plug-back"],
+      "question": "גוף נופל חופשית מגובה 45 מ' והתלמיד קיבל זמן נפילה של 9 שניות. איזו בדיקה פוסלת את התוצאה?",
+      "options": ["הצבה ב-h = 5t²: ב-9 שניות הגוף היה נופל 405 מ' ולא 45 מ'", "בדיקה שהזמן קטן מהגובה", "בדיקה שהזמן אי-זוגי"],
+      "correct": 0,
+      "explain": "5 · 9² = 405 מ' רחוק מאוד מ-45 מ'. הנכון: t = √(2·45/10) = 3 שניות, ובדיקה 5 · 9 = 45.",
+      "verify": [{ "expr": "5*t*t", "vars": { "t": 9 }, "equals": 405 }, { "expr": "Math.sqrt(2*h/g)", "vars": { "h": 45, "g": 10 }, "equals": 3 }]
+    },
+    {
+      "id": "sanity-14", "kind": "sanity", "topic": "math-3", "trapId": "san-plug-equation", "tags": ["residual", "elimination"],
+      "question": "מהמשוואה 3x + 2y = 19 עם x = 3 התלמיד קיבל y = 4. איזו בדיקה פשוטה תופסת את הטעות?",
+      "options": ["בדיקה ש-y שלם", "בדיקה ש-y קטן מ-x", "הצבה בחזרה: 3·3 + 2·4 = 17 ולא 19, ולכן y = 5"],
+      "correct": 2,
+      "explain": "הצבה בחזרה במשוואה המקורית מגלה שארית: 17 - 19 = -2. לכן 2y = 10 ו-y = 5.",
+      "verify": [{ "expr": "3*x+2*y", "vars": { "x": 3, "y": 4 }, "equals": 17 }, { "expr": "3*x+2*y", "vars": { "x": 3, "y": 5 }, "equals": 19 }]
+    },
+    {
+      "id": "sanity-15", "kind": "sanity", "topic": "math-4", "trapId": "san-plug-both", "tags": ["residual", "quadratic-system"],
+      "question": "במערכת y = x + 1 ו-x² + y² = 25 התלמיד טוען שהפתרון הוא x = 3, y = 5. איזו בדיקה פוסלת אותו?",
+      "options": ["בדיקה שהמספרים חיוביים", "הצבה בשתי המשוואות המקוריות: y = x + 1 נותן 4 ולא 5, ו-9 + 25 = 34 ולא 25", "בדיקה ש-y גדול מ-x"],
+      "correct": 1,
+      "explain": "בדיקה במערכת ריבועית חייבת לכלול את שתי המשוואות. הזוג הנכון הוא (3, 4) או (-4, -3).",
+      "verify": [
+        { "expr": "x+1", "vars": { "x": 3 }, "equals": 4 },
+        { "expr": "x*x+y*y", "vars": { "x": 3, "y": 5 }, "equals": 34 },
+        { "expr": "x*x+y*y", "vars": { "x": 3, "y": 4 }, "equals": 25 }
+      ]
+    }
+  ],
+  "cards": [
+    {
+      "id": "card-01", "kind": "card", "topic": "phys-vertical", "tags": ["velocity", "formula"], "trapId": "g-sign", "formulaRef": "phys-vertical",
+      "front": "זריקה אנכית (למעלה חיובי): מהי נוסחת המהירות בזמן t?",
+      "back": "v = v0 - g·t, עם g = 10. אחרי השיא v שלילית."
+    },
+    {
+      "id": "card-02", "kind": "card", "topic": "phys-vertical", "tags": ["position", "formula"], "trapId": "coefficient-half", "formulaRef": "phys-vertical",
+      "front": "מהי נוסחת המקום בתנועה אנכית עם g = 10?",
+      "back": "y = y0 + v0·t - 5t². המקדם 5 הוא ½g."
+    },
+    {
+      "id": "card-03", "kind": "card", "topic": "phys-vertical", "tags": ["velocity", "no-time", "formula"], "formulaRef": "phys-vertical",
+      "front": "איזו נוסחה קושרת מהירות ומקום בלי זמן?",
+      "back": "v² = v0² - 2g·(y - y0), כלומר v² = v0² - 20·Δy."
+    },
+    {
+      "id": "card-04", "kind": "card", "topic": "phys-vertical", "tags": ["peak", "time"], "trapId": "peak-vs-flight",
+      "front": "מהו הזמן עד הנקודה הגבוהה ביותר בזריקה מהקרקע?",
+      "back": "t = v0 / g. בשיא המהירות 0, אבל התאוצה נשארת g מטה."
+    },
+    {
+      "id": "card-05", "kind": "card", "topic": "phys-vertical", "tags": ["height", "formula"], "trapId": "max-height-vy-only",
+      "front": "מהו הגובה המרבי של גוף שנזרק למעלה במהירות v0?",
+      "back": "H = v0² / (2g) = v0² / 20. למשל v0 = 20 נותן H = 20 מ'."
+    },
+    {
+      "id": "card-06", "kind": "card", "topic": "phys-vertical", "tags": ["flight-time", "symmetry"], "trapId": "peak-vs-flight",
+      "front": "מהו זמן הטיסה הכולל של זריקה אנכית מהקרקע וחזרה אליה?",
+      "back": "T = 2·v0 / g. מהירות החזרה שווה בגודלה למהירות הזריקה."
+    },
+    {
+      "id": "card-07", "kind": "card", "topic": "phys-vertical", "tags": ["free-fall", "time"], "trapId": "coefficient-half",
+      "front": "גוף נופל חופשית מגובה h. מהו זמן הנפילה?",
+      "back": "t = √(2h / g) = √(h / 5). למשל h = 45 נותן t = 3 שניות."
+    },
+    {
+      "id": "card-08", "kind": "card", "topic": "phys-vertical", "tags": ["free-fall", "speed"], "trapId": "impact-speed-formula",
+      "front": "מהי מהירות הפגיעה בנפילה חופשית מגובה h?",
+      "back": "v = √(2gh) = √(20h). למשל h = 20 נותן v = 20 מ/ש."
+    },
+    {
+      "id": "card-09", "kind": "card", "topic": "phys-horizontal", "tags": ["horizontal", "formula"], "trapId": "vx-constant", "formulaRef": "phys-horizontal",
+      "front": "בזריקה אופקית: מהי התנועה האופקית?",
+      "back": "מהירות קבועה: x = vx·t, ו-vx אינה משתנה (אין תאוצה אופקית)."
+    },
+    {
+      "id": "card-10", "kind": "card", "topic": "phys-horizontal", "tags": ["vertical", "formula"], "formulaRef": "phys-horizontal",
+      "front": "בזריקה אופקית: מהי התנועה האנכית?",
+      "back": "נפילה חופשית: vy = g·t ו-y = 5t² (מטה)."
+    },
+    {
+      "id": "card-11", "kind": "card", "topic": "phys-horizontal", "tags": ["time", "independence"], "trapId": "fall-time-ignores-vx",
+      "front": "מה קובע את זמן הנפילה בזריקה אופקית ממצוק בגובה h?",
+      "back": "רק הגובה: t = √(2h/g). המהירות האופקית אינה משפיעה."
+    },
+    {
+      "id": "card-12", "kind": "card", "topic": "phys-horizontal", "tags": ["range", "formula"], "trapId": "range-scaling",
+      "front": "מהו הטווח האופקי של זריקה אופקית מגובה h במהירות v0?",
+      "back": "x = v0·√(2h/g). הטווח פרופורציוני ל-v0 ולא לריבועו."
+    },
+    {
+      "id": "card-13", "kind": "card", "topic": "phys-horizontal", "tags": ["speed", "pythagoras"], "trapId": "speed-vector-sum",
+      "front": "איך מחשבים את המהירות הכוללת בפגיעה לאחר זריקה אופקית?",
+      "back": "v = √(vx² + vy²) כשרכיבי המהירות מאונכים. לא מחברים אותם ישירות."
+    },
+    {
+      "id": "card-14", "kind": "card", "topic": "phys-horizontal", "tags": ["components", "projectile"], "trapId": "flight-time-components",
+      "front": "בקליע שנורה מהקרקע, מהו הרכיב שקובע את זמן הטיסה ומהו הרכיב שקובע את הטווח?",
+      "back": "זמן הטיסה: T = 2·vy/g (הרכיב האנכי). הטווח: x = vx·T (הרכיב האופקי)."
+    },
+    {
+      "id": "card-15", "kind": "card", "topic": "phys-horizontal", "tags": ["projectile", "peak"], "trapId": "max-height-vy-only",
+      "front": "מה המהירות של קליע בנקודה הגבוהה ביותר שלו?",
+      "back": "vy = 0 ו-vx ללא שינוי, ולכן המהירות שווה ל-vx. התאוצה עדיין g מטה."
+    },
+    {
+      "id": "card-16", "kind": "card", "topic": "math-3", "tags": ["method-choice", "elimination"], "formulaRef": "math-3",
+      "front": "מתי נבחרת שיטת החיסול במערכת משוואות?",
+      "back": "כשאפשר להפוך את המקדמים של נעלם להפוכים בכפל פשוט ולחבר. כופלים את כל המשוואה, כולל אגף ימין."
+    },
+    {
+      "id": "card-17", "kind": "card", "topic": "math-3", "tags": ["method-choice", "substitution"], "trapId": "reuse-same-equation", "formulaRef": "math-3",
+      "front": "מתי נבחרת שיטת ההצבה?",
+      "back": "כשיש נעלם עם מקדם 1 או -1 שקל לבודד, או במערכת ריבועית. מציבים במשוואה אחרת, לא באותה משוואה."
+    },
+    {
+      "id": "card-18", "kind": "card", "topic": "math-3", "tags": ["three-unknowns", "plan"], "formulaRef": "math-3",
+      "front": "איך פותרים מערכת של שלושה נעלמים?",
+      "back": "מחסלים נעלם אחד פעמיים (עם שני זוגות משוואות), פותרים את המערכת של שני נעלמים, ומציבים חזרה למציאת השלישי."
+    },
+    {
+      "id": "card-19", "kind": "card", "topic": "math-4", "tags": ["four-unknowns", "plan"], "trapId": "too-few-equations", "formulaRef": "math-4",
+      "front": "כמה משוואות בלתי תלויות דרושות לפתרון יחיד של ארבעה נעלמים, ומה התהליך?",
+      "back": "ארבע. מחסלים נעלם אחד ומקבלים 3 משוואות בשלושה נעלמים, ואז 2 בשניים, ואז אחת בנעלם אחד."
+    },
+    {
+      "id": "card-20", "kind": "card", "topic": "math-4", "tags": ["discriminant", "formula"], "trapId": "discriminant-zero",
+      "front": "מהי הדיסקרימיננטה של ax² + bx + c = 0?",
+      "back": "Δ = b² - 4ac, כאשר a, b, c הם המקדמים."
+    },
+    {
+      "id": "card-21", "kind": "card", "topic": "math-4", "tags": ["quadratic", "formula"], "trapId": "drop-negative-root",
+      "front": "מהי נוסחת השורשים של משוואה ריבועית?",
+      "back": "x = (-b ± √Δ) / (2a). הסימן ± נותן שני שורשים, ואסור לשכוח את אחד מהם."
+    },
+    {
+      "id": "card-22", "kind": "card", "topic": "math-4", "tags": ["discriminant", "cases"], "trapId": "discriminant-zero",
+      "front": "מה אומר סימן הדיסקרימיננטה Δ על מספר הפתרונות הממשיים?",
+      "back": "Δ > 0: שני פתרונות. Δ = 0: פתרון אחד כפול. Δ < 0: אין פתרונות ממשיים."
+    },
+    {
+      "id": "card-23", "kind": "card", "topic": "math-3", "tags": ["check", "residual"], "trapId": "extraneous-root",
+      "front": "איך בודקים פתרון של מערכת או משוואה?",
+      "back": "מציבים בכל המשוואות המקוריות (לא בשלבי הביניים) ובודקים ששארית כל אחת היא 0."
+    },
+    {
+      "id": "card-24", "kind": "card", "topic": "math-4", "tags": ["vieta", "roots"],
+      "front": "מהם סכום ומכפלת השורשים של x² + bx + c = 0?",
+      "back": "סכום השורשים -b, מכפלתם c. למשל t² - 7t + 12 = 0 נותן 3 ו-4."
+    },
+    {
+      "id": "card-25", "kind": "card", "topic": "math-3", "tags": ["no-solution", "infinite-solutions"], "trapId": "inconsistent-system",
+      "front": "איך מזהים מערכת בלי פתרון ומערכת עם אינסוף פתרונות באחרי חיסול?",
+      "back": "0 = 0 פירושו משוואה תלויה (אינסוף פתרונות). 0 = c עם c שונה מאפס פירושו סתירה (אין פתרון)."
+    }
+  ]
+}
