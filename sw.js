@@ -1,6 +1,6 @@
 // Service worker. Bump CACHE_VERSION when the shell list changes.
 // All URLs are relative to the SW scope, so it works under /Omri-Valdman/.
-const CACHE_VERSION = 'v10';
+const CACHE_VERSION = 'v11';
 const CACHE_NAME = 'omri-study-' + CACHE_VERSION;
 
 const PRECACHE = [
@@ -57,12 +57,26 @@ self.addEventListener('activate', (event) => {
   })());
 });
 
+// Online visits get the newest files; a slow or dead network falls back to the cache after this long.
+const NETWORK_TIMEOUT_MS = 4000;
+
+self.addEventListener('message', (event) => {
+  if (event.data === 'skip-waiting') self.skipWaiting();
+});
+
 async function networkFirst(request) {
   const cache = await caches.open(CACHE_NAME);
   try {
-    const res = await fetch(request, { cache: 'no-cache' });
-    if (res && res.ok) cache.put(request, res.clone());
-    return res;
+    const net = fetch(request, { cache: 'no-cache' }).then((res) => {
+      if (res && res.ok) cache.put(request, res.clone());
+      return res;
+    });
+    const cached = await cache.match(request, { ignoreSearch: true });
+    if (!cached) return await net;
+    net.catch(() => {});
+    let timer;
+    const timeout = new Promise((resolve) => { timer = setTimeout(() => resolve(cached), NETWORK_TIMEOUT_MS); });
+    try { return await Promise.race([net, timeout]); } finally { clearTimeout(timer); }
   } catch (err) {
     const hit = await cache.match(request, { ignoreSearch: true });
     if (hit) return hit;

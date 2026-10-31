@@ -385,6 +385,7 @@ function viewReviewDone() {
 }
 
 function viewNotFound() {
+  if (window.omriSelfHeal) window.omriSelfHeal(); // maybe a stale cached app that predates this route
   show(h('h1', {}, 'העמוד לא נמצא'), h('p', {}, h('a', { href: '#/' }, 'חזרה לדף הבית')));
 }
 
@@ -431,6 +432,7 @@ function route() {
     else viewNotFound();
   } catch (err) {
     console.error('route failed for', location.hash, err && err.stack ? err.stack : err);
+    if (window.omriSelfHeal) window.omriSelfHeal();
     show(h('p', { class: 'error', role: 'alert' }, 'אירעה שגיאה בהצגת העמוד.'),
       h('p', { class: 'muted', dir: 'ltr' }, `${location.hash} — ${err && err.name ? err.name : 'Error'}: ${err && err.message ? err.message : String(err)}`),
       h('p', {}, h('a', { href: '#/' }, 'חזרה לדף הבית')));

@@ -14,7 +14,7 @@ const isMobile = () => /Android|iPhone|iPad|iPod/i.test(navigator.userAgent) ||
 const isIOS = () => /iPhone|iPad|iPod/i.test(navigator.userAgent) ||
   (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
 
-const APP_VERSION = '10'; // keep equal to CACHE_VERSION in sw.js
+const APP_VERSION = '11'; // keep equal to CACHE_VERSION in sw.js
 const RELOAD_KEY = 'omri-sw-reloaded-' + APP_VERSION;
 let hadControllerAtLoad = false;
 
@@ -158,6 +158,40 @@ function reloadOnTakeover() {
   });
 }
 
+// Called by app.js on an unknown route or a render error: a stale cached app is the likely cause right after a
+// deploy. Look for a newer worker, activate it and reload ONCE per session (never loops on a truly missing route).
+const HEAL_KEY = 'omri-selfheal-reloaded';
+let swReg = null;
+
+function waitInstalled(w, ms) {
+  return new Promise((resolve) => {
+    if (w.state === 'installed' || w.state === 'activated') return resolve(true);
+    const t = setTimeout(() => resolve(false), ms);
+    w.addEventListener('statechange', () => {
+      if (w.state === 'installed' || w.state === 'activated') { clearTimeout(t); resolve(true); }
+    });
+  });
+}
+
+async function selfHeal() {
+  if (!swReg || store('get', HEAL_KEY, null, 'session')) return false;
+  store('set', HEAL_KEY, '1', 'session');
+  try {
+    await swReg.update();
+    const w = swReg.waiting || swReg.installing;
+    if (!w || !(await waitInstalled(w, 8000))) return false;
+    const taken = new Promise((res) => {
+      navigator.serviceWorker.addEventListener('controllerchange', res);
+      setTimeout(res, 1500);
+    });
+    try { w.postMessage('skip-waiting'); } catch { /* ignore */ }
+    await taken;
+    location.reload();
+    return true;
+  } catch { return false; }
+}
+window.omriSelfHeal = selfHeal;
+
 async function registerSW() {
   if (!('serviceWorker' in navigator)) return;
   const secure = location.protocol === 'https:' || ['localhost', '127.0.0.1'].includes(location.hostname);
@@ -167,6 +201,7 @@ async function registerSW() {
     hadControllerAtLoad = hadController;
     reloadOnTakeover();
     const reg = await navigator.serviceWorker.register('sw.js', { scope: './' });
+    swReg = reg;
     reg.addEventListener('updatefound', () => {
       const w = reg.installing;
       if (!w) return;
