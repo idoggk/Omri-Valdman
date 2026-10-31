@@ -100,7 +100,7 @@ test('CLI --check passes on the shipped data and --write is idempotent', () => {
   const script = fileURLToPath(new URL('../tools/diagrams.mjs', import.meta.url));
   const r = spawnSync(process.execPath, [script, '--check'], { encoding: 'utf8' });
   assert.equal(r.status, 0, r.stderr);
-  assert.match(r.stdout, /OK: 70 diagrams/);
+  assert.match(r.stdout, /OK: 94 diagrams/);
 });
 
 

@@ -90,6 +90,20 @@ export const models = {
     return [t, R / t, Math.hypot(R / t, G * t)];
   },
 
+  // ---- level-1 models: one formula, one unknown
+  l1_ff_time: ({ h }) => [Math.sqrt((2 * h) / G)],
+  l1_ff_speed_t: ({ t }) => [G * t],
+  l1_ff_height_t: ({ t }) => [(G * t * t) / 2],
+  l1_ff_speed_h: ({ h }) => [Math.sqrt(2 * G * h)],
+  l1_up_time: ({ v0 }) => [v0 / G],
+  l1_up_height: ({ v0 }) => [(v0 * v0) / (2 * G)],
+  l1_launch_time: ({ h }) => [Math.sqrt((2 * h) / G)],
+  l1_launch_range: ({ h, vx }) => [vx * Math.sqrt((2 * h) / G)],
+  l1_launch_vx: ({ h, R }) => [R / Math.sqrt((2 * h) / G)],
+  l1_accel_speed: ({ a, t }) => [a * t],
+  l1_brake_dist: ({ v, a }) => [(v * v) / (2 * a)],
+  l1_meet_time: ({ d, v1, v2 }) => [d / (v1 + v2)],
+
   // ---- multi-step vertical models
   // engine gives constant net acceleration a for t1, then free flight (up positive)
   rocket_cutoff: ({ a, t1 }) => {
