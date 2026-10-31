@@ -111,6 +111,38 @@ export function weakTraps(limit = 5) {
     .slice(0, limit);
 }
 
+/* find the mistake: { v, items: {id: {right, wrong, solved, ts}}, types: {errorType: {right, wrong}} }.
+   Own key; anything malformed reads as empty. */
+const FM_KEY = 'omri-study-findmistake-v1';
+export function sanitizeFindMistake(raw) {
+  const out = { v: 1, items: {}, types: {} };
+  if (!isRec(raw)) return out;
+  if (isRec(raw.items)) {
+    for (const [id, e] of Object.entries(raw.items)) {
+      if (!isRec(e)) continue;
+      out.items[id] = { right: cnt(e.right), wrong: cnt(e.wrong), solved: e.solved === true, ts: Number.isFinite(e.ts) ? e.ts : 0 };
+    }
+  }
+  if (isRec(raw.types)) {
+    for (const [t, e] of Object.entries(raw.types)) if (isRec(e)) out.types[t] = { right: cnt(e.right), wrong: cnt(e.wrong) };
+  }
+  return out;
+}
+export function loadFindMistake() {
+  try { return sanitizeFindMistake(JSON.parse(localStorage.getItem(FM_KEY))); } catch (e) { return sanitizeFindMistake(null); }
+}
+/** One tap on a step: correct = the learner found the first wrong step. */
+export function recordFindMistake(id, errorType, correct) {
+  const d = loadFindMistake();
+  const f = correct ? 'right' : 'wrong';
+  const it = d.items[id] || (d.items[id] = { right: 0, wrong: 0, solved: false, ts: 0 });
+  it[f]++; it.ts = Date.now();
+  if (correct) it.solved = true;
+  if (typeof errorType === 'string' && errorType) { const t = d.types[errorType] || (d.types[errorType] = { right: 0, wrong: 0 }); t[f]++; }
+  try { localStorage.setItem(FM_KEY, JSON.stringify(d)); } catch (e) { /* ignore */ }
+}
+export const countFindMistakeSolved = () => Object.values(loadFindMistake().items).filter((x) => x.solved).length;
+
 /* running workout: { ids, startedAt } */
 const WORKOUT_KEY = 'omri-study-workout-v1';
 export function loadWorkout() {

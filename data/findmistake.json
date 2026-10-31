@@ -801,15 +801,15 @@
         }
       },
       {
-        "text": "<span dir=\"ltr\">z = 4 − 3 = 1</span>. ממשוואה 3 פחות 4: <span dir=\"ltr\">y − z = −2</span>, ולכן <span dir=\"ltr\">y = −1</span> ו־<span dir=\"ltr\">w = 6 − y = 7</span>. הפתרון: <span dir=\"ltr\">(3, −1, 1, 7)</span>.",
+        "text": "<span dir=\"ltr\">z = 4 − 3 = 1</span>. ממשוואה 3 פחות משוואה 4: <span dir=\"ltr\">2y − 2w = −4</span>, כלומר <span dir=\"ltr\">y − w = −2</span>. יחד עם <span dir=\"ltr\">y + w = 6</span> נקבל <span dir=\"ltr\">y = 2</span> ו־<span dir=\"ltr\">w = 4</span>. הפתרון: <span dir=\"ltr\">(3, 2, 1, 4)</span>.",
         "check": {
           "type": "sols",
           "sols": [
             [
               3,
-              -1,
+              2,
               1,
-              7
+              4
             ]
           ]
         }
