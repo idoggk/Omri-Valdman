@@ -180,11 +180,11 @@ function viewExample(ctx, data, id) {
     const head = [h('p', { class: 'muted' }, `${STAGE_NAMES[stage - 1]}.`), h('div', { class: 'panel example-problem', ...safe(ex.problem) })];
     let content;
     if (stage === 1) {
-      content = [h('ol', { class: 'steps' }, ex.steps.map((s) => h('li', { ...safe(s) }))),
+      content = [h('ol', { class: 'steps' }, ex.steps.map((s) => h('li', { steps: s }))),
         h('div', { class: 'btn-row' }, h('button', { class: 'btn primary', type: 'button', onclick: finishStage }, 'הבנתי'))];
     } else if (stage < 4) {
       content = [h('ol', { class: 'steps' }, ex.steps.map((s, i) => {
-        if (!hiddenSteps.has(i)) return h('li', { ...safe(s) });
+        if (!hiddenSteps.has(i)) return h('li', { steps: s });
         const ki = hiddenSteps.get(i);
         return h('li', {}, h('div', { class: 'panel' }, h('strong', {}, 'שלב מוסתר: '), 'חשבו את התוצאה והזינו אותה.',
           keys[ki].asks.map(mkAsk).map((w) => w.box)));

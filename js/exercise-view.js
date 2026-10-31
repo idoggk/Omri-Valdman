@@ -190,7 +190,7 @@ export function renderExercise(ex, o) {
   function renderTips() {
     const used = shownTips;
     tipList.replaceChildren(...tips.slice(0, used).map((t, i) =>
-      h('li', {}, h('strong', {}, `רמז ${i + 1}: `), h('span', { html: t }))));
+      h('li', {}, h('strong', {}, `רמז ${i + 1}: `), h('div', { class: 'tip-body', steps: t }))));
     tipButtons.forEach((b, i) => {
       b.disabled = i !== used; // only the next tip is available
       b.setAttribute('aria-disabled', String(b.disabled));
@@ -224,7 +224,7 @@ export function renderExercise(ex, o) {
     renderTips();
     solutionBox.replaceChildren(h('div', { class: 'panel' },
       h('h2', {}, 'פתרון מלא'),
-      h('ol', { class: 'steps' }, solution.map((s) => h('li', { html: s })))));
+      h('ol', { class: 'steps' }, solution.map((s) => h('li', { steps: s })))));
   }
   const solutionBtn = h('button', { class: 'btn', type: 'button', onclick: showConfirm }, 'הציגו פתרון מלא');
 
