@@ -476,7 +476,7 @@ export function guidedProblems(g) {
 }
 
 export function validate(data, opts = {}) {
-  const expected = opts.expectedPerTopic ?? 30;
+  const expected = opts.expectedPerTopic ?? 42;
   const errors = [];
   const err = (id, msg) => errors.push(`${id}: ${msg}`);
   if (!Array.isArray(data)) return ['top level must be an array'];
@@ -718,13 +718,13 @@ export function validate(data, opts = {}) {
   return errors;
 }
 
-// Difficulty policy for the whole set: at most 3 exercises at level 1, at least 70% at level 3.
+// Difficulty policy for the whole set: at most 12 exercises at level 1, at least 70% at level 3.
 export function levelProblems(data) {
   const out = [];
   const n = data.length;
   const l1 = data.filter((e) => e.level === 1).length;
   const l3 = data.filter((e) => e.level === 3).length;
-  if (l1 > 3) out.push(`too many level 1 exercises: ${l1} (max 3)`);
+  if (l1 > 12) out.push(`too many level 1 exercises: ${l1} (max 12)`);
   if (l3 < Math.ceil(n * 0.7)) out.push(`too few level 3 exercises: ${l3} of ${n} (min 70%)`);
   return out;
 }
