@@ -56,15 +56,15 @@ function endlessSink(tplId) {
 export function endlessSection() {
   const t = store.endlessTotals();
   return h('div', { class: 'endless-progress' },
-    h('h2', {}, '♾️ תרגול בלי די'),
+    h('h2', {}, '♾️ תרגול ללא הגבלה'),
     t.attempts
       ? h('p', {}, `ניסיונות: ${t.attempts} · נפתרו לבד: ${t.alone} · נפתרו עם רמזים או פתרון: ${t.hinted}`)
       : h('p', { class: 'muted' }, 'עדיין לא תרגלתם תרגילים חדשים.'),
-    h('div', { class: 'btn-row' }, h('a', { class: 'btn', href: '#/endless' }, 'לתרגול בלי די')));
+    h('div', { class: 'btn-row' }, h('a', { class: 'btn', href: '#/endless' }, 'לתרגול ללא הגבלה')));
 }
 
 function viewPicker(ctx) {
-  document.title = 'תרגול בלי די – Brain Gains';
+  document.title = 'תרגול ללא הגבלה – Brain Gains';
   if (!filter) filter = { topic: 'all', tpl: null };
   const render = () => {
     const list = templatesFor(filter.topic);
@@ -80,7 +80,7 @@ function viewPicker(ctx) {
       }, t.title)));
     ctx.show(
       h('p', { class: 'crumbs' }, h('a', { href: '#/' }, '→ חזרה לדף הבית')),
-      h('h1', {}, '♾️ תרגול בלי די בריגים'),
+      h('h1', {}, '♾️ תרגול ללא הגבלה'),
       h('p', { class: 'muted' }, 'תרגילים חדשים בכל פעם, עם בדיקת תשובה, שלושה רמזים ופתרון מלא. התוצאות נשמרות בנפרד ולא נכנסות לרשימת החזרה.'),
       h('h2', {}, 'נושא'), topicChips,
       h('h2', {}, 'סוג תרגיל (לא חובה)'), tplChips,
@@ -99,7 +99,7 @@ function viewVariant(ctx, tplId, seedStr) {
     try { ex = generate(tplId, seed); } catch (e) { ex = null; }
   }
   if (!ex) {
-    document.title = 'תרגול בלי די – Brain Gains';
+    document.title = 'תרגול ללא הגבלה – Brain Gains';
     return ctx.show(h('h1', {}, 'התרגיל לא נמצא'),
       h('p', {}, 'הקישור לא תקין. אפשר לבחור תרגיל חדש.'),
       h('p', {}, h('a', { class: 'btn primary', href: '#/endless' }, 'לבחירת נושא')));
@@ -116,7 +116,7 @@ function viewVariant(ctx, tplId, seedStr) {
     h('a', { class: 'btn', href: '#/endless' }, 'לבחירת נושא'));
   ctx.renderExercise(ex, {
     ctx, sink: endlessSink(tplId), nav,
-    crumbs: h('p', { class: 'crumbs' }, h('a', { href: '#/endless' }, '→ תרגול בלי די')),
+    crumbs: h('p', { class: 'crumbs' }, h('a', { href: '#/endless' }, '→ תרגול ללא הגבלה')),
   });
 }
 

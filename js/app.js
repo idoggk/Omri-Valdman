@@ -99,7 +99,7 @@ function viewHome() {
     h('div', { class: 'cards' },
       h('a', { class: 'card', href: '#/drills' }, h('strong', {}, '⚡ תרגולים מהירים'), h('span', { class: 'muted' }, 'מלכודות, בדיקות שפיות וכרטיסיות בסשן של 10 פריטים')),
       h('a', { class: 'card', href: '#/hunt' }, h('strong', {}, '🔎 מצאו את הטעות'), h('span', { class: 'muted' }, 'פתרון מלא עם טעות אחת: מצאו את השלב הראשון השגוי')),
-      h('a', { class: 'card', href: '#/endless' }, h('strong', {}, '♾️ תרגול בלי די בריגים'), h('span', { class: 'muted' }, 'תרגילים חדשים בכל פעם, באותה רמה ועם רמזים ופתרון מלא')),
+      h('a', { class: 'card', href: '#/endless' }, h('strong', {}, '♾️ תרגול ללא הגבלה'), h('span', { class: 'muted' }, 'תרגילים חדשים בכל פעם, באותה רמה ועם רמזים ופתרון מלא')),
       h('a', { class: 'card', href: '#/summary' }, h('strong', {}, '🖨️ סיכום להדפסה'), h('span', { class: 'muted' }, 'דף אחד מהנתונים שלכם: חולשות, נוסחאות ורשימת בדיקה לפני המבחן')),
       h('a', { class: 'card', href: '#/backup' }, h('strong', {}, '💾 גיבוי והעברה'), h('span', { class: 'muted' }, 'שמרו את ההתקדמות או העבירו אותה למכשיר אחר')),
       h('a', { class: 'card', href: '#/exam' }, h('strong', {}, '📝 מצב מבחן'), h('span', { class: 'muted' }, 'שאלות מעורבות, שעון, בלי רמזים ועם דוח בסוף')),
