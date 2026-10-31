@@ -82,7 +82,7 @@ export function examplesSection(topicId) {
       return h('div', { class: 'example open' }, head,
         h('div', { class: 'panel' },
           h('div', { class: 'example-problem', ...safe(ex.problem) }),
-          h('ol', { class: 'steps' }, ex.steps.slice(0, shown).map((s) => h('li', { ...safe(s) }))),
+          h('ol', { class: 'steps' }, ex.steps.slice(0, shown).map((s) => h('li', { steps: s }))),
           shown < ex.steps.length
             ? h('button', {
               class: 'btn primary', type: 'button',
@@ -132,8 +132,8 @@ export function guidedStepper(steps, onUse) {
     });
     const fbNode = fb ? h('div', { class: `feedback guided-fb ${fb.ok ? 'ok' : 'bad'}`, tabindex: '-1', role: 'status' },
       fb.ok ? 'נכון! ' : 'לא מדויק. ',
-      fb.why ? h('span', { ...safe(fb.why) }) : null,
-      !fb.ok && fb.explain ? h('div', {}, h('span', { ...safe('התשובה הנכונה: ' + step.options[fb.correct]) }), ' – ', h('span', { ...safe(fb.explain) })) : null) : null;
+      fb.why ? h('div', { steps: fb.why }) : null,
+      !fb.ok && fb.explain ? h('div', {}, h('span', { ...safe('התשובה הנכונה: ' + step.options[fb.correct]) }), ' – ', h('div', { steps: fb.explain })) : null) : null;
     box.replaceChildren(h('div', { class: 'panel' },
       h('div', { class: 'muted' }, `צעד ${p.current} מתוך ${p.total}`),
       h('div', { class: 'progress-bar', 'aria-hidden': 'true' }, h('span', { style: `width:${Math.round(((state.i + (fb ? 1 : 0)) / p.total) * 100)}%` })),

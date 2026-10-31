@@ -13,6 +13,7 @@ const PRECACHE = [
   'js/store.js',
   'js/answersets.js',
   'js/bidi.js',
+  'js/eqblocks.js',
   'js/progress.js',
   'js/sanitize.js',
   'js/pwa.js',

@@ -247,3 +247,11 @@ body.no-tabs { padding-block-end: 0; }
 .signkey { min-width: 44px; min-height: 44px; padding: 0 10px; font-size: 1.25rem; line-height: 1; flex: none; margin-inline-start: 8px; touch-action: manipulation; }
 .field .row .signkey { margin-inline-start: 0; }
 @media (max-width: 420px) { .signkey { min-width: 44px; padding: 0 6px; } }
+
+/* solution steps: Hebrew sentence line + each equation chain as its own ltr display block */
+.step-text { margin: .1em 0; }
+.eq-block { direction: ltr; text-align: left; unicode-bidi: isolate; font-size: 1.15em; line-height: 1.7; margin: .2em 0; padding: .1em 0; overflow-x: auto; max-width: 100%; white-space: nowrap; }
+.steps > li { border-inline-start: 3px solid var(--accent); padding-inline-start: .6em; }
+.tips .tip-body { margin-top: .1em; }
+/* iOS standalone (black-translucent status bar): content must not show through the clock area */
+body::before { content: ''; position: fixed; top: 0; left: 0; right: 0; height: env(safe-area-inset-top, 0px); background: var(--bg); z-index: 40; pointer-events: none; }
