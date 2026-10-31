@@ -222,17 +222,17 @@ test('validate: also[] checks for parameter exercises', () => {
 });
 
 // ---------------------------------------------------------------- the real data
-test('data/math.json passes validation (30 + 30 exercises)', () => {
+test('data/math.json passes validation (42 + 42 exercises)', () => {
   const data = JSON.parse(readFileSync(dataFile, 'utf8'));
   assert.deepEqual(validate(data), []);
-  assert.equal(data.length, 60);
+  assert.equal(data.length, 84);
 });
 
 test('data/math.json: ids unique, levels mostly 3, several multi-solution sets', () => {
   const data = JSON.parse(readFileSync(dataFile, 'utf8'));
   assert.equal(new Set(data.map((e) => e.id)).size, data.length);
   assert.ok(data.filter((e) => e.level === 3).length >= 20);
-  assert.ok(data.filter((e) => e.level === 1).length <= 4);
+  assert.ok(data.filter((e) => e.level === 1).length <= 12);
   assert.ok(data.filter((e) => e.answerSets).length >= 10);
   for (const e of data) {
     assert.equal(e.tips.length, 3);
@@ -374,7 +374,7 @@ test('20 new hard exercises: ids, levels, long solutions, equation-only', () => 
     assert.ok(e.solution.length >= 6, `${e.id}: at least 6 solution steps`);
     assert.equal(e.tips.length, 3);
   }
-  assert.equal(data.filter((e) => !newIds.includes(e.id)).length, 40); // the original 40 keep their ids
+  assert.equal(data.filter((e) => !newIds.includes(e.id)).length, 64); // the original 40 keep their ids, plus 24 level 1/2 exercises
 });
 
 test('guided steps: at least 10 new exercises and 8 existing level-3 exercises have them, all valid', () => {
@@ -397,10 +397,10 @@ test('levelProblems enforces the difficulty policy', () => {
   const mk = (levels) => levels.map((level) => ({ level }));
   assert.deepEqual(levelProblems(mk([3, 3, 3, 3, 3, 3, 3, 2, 2, 1])), []);
   assert.equal(levelProblems(mk([3, 3, 3, 3, 3, 3, 2, 2, 2, 2])).length, 1);
-  assert.equal(levelProblems(mk([1, 1, 1, 1, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3])).length, 1);
+  assert.equal(levelProblems(mk([...Array(13).fill(1), ...Array(40).fill(3)])).length, 1);
 });
 
-test('data/math.json: at most 3 level-1 and at least 70% level-3 exercises, 20+ guided, 6+ solution steps for upgraded ones', () => {
+test('data/math.json: at most 12 level-1 and at least 70% level-3 exercises, 20+ guided, 6+ solution steps for upgraded ones', () => {
   const data = JSON.parse(readFileSync(dataFile, 'utf8'));
   assert.deepEqual(levelProblems(data), []);
   assert.ok(data.filter((e) => e.guided).length >= 20);

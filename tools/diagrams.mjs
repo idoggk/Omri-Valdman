@@ -509,6 +509,16 @@ function rise(p, o = {}) {
   return s;
 }
 
+// stone released from rest, falls for t seconds; q is the unknown shown on the right
+function ffTime(p, q) {
+  let s = ground(10, 310, GY) + line(100, 40, 100, GY, { dash: true, op: 0.6 });
+  s += ball(100, 40, 'a') + txt(112, 44, 't = 0, v₀ = 0', 'k', 'start');
+  s += ball(100, 108, 'a') + txt(112, 112, '...', 'k', 'start');
+  s += ball(100, GY - 6, 'a') + txt(112, GY - 14, `t = ${num(p.t)} ש'`, 'b', 'start');
+  s += (q.startsWith('h') ? dim(240, 40, 240, GY, q) : txt(240, 120, q, 'c')) + arrow(70, 70, 70, 120, 'b') + txt(60, 100, 'g', 'b', 'end');
+  return s;
+}
+
 const road = (y, x1 = 10, x2 = 310) => ground(x1, x2, y);
 const RY = 118; // road level
 
@@ -730,6 +740,24 @@ export const diagrams = {
   },
   horizontal_launch_from_range: (p) =>
     svg('כדור נזרק אופקית מגג', 180, launchScene(p, { vx: 'vₓ = ?', h: `h = ${num(p.h)} מ'`, R: `R = ${num(p.R)} מ'` })),
+
+  // ---- level-1 scenes (one unknown each)
+  l1_ff_time: (p) => svg('כדור נשמט ממנוחה מגובה h', 215, tower(p, { extra: txt(120, 36, 'v₀ = 0', 'k', 'start') + arrow(112, 70, 112, 110, 'b') + txt(122, 98, 'g', 'b', 'start') + txt(122, 150, 't = ?', 'c', 'start') })),
+  l1_ff_speed_h: (p) => svg('כדור נשמט ממנוחה מגובה h', 215, tower(p, { extra: txt(120, 36, 'v₀ = 0', 'k', 'start') + arrow(112, 70, 112, 110, 'b') + txt(122, 98, 'g', 'b', 'start') + txt(122, 150, 'v = ?', 'c', 'start') })),
+  l1_ff_speed_t: (p) => svg('אבן נופלת במשך t שניות', 215, ffTime(p, 'v = ?')),
+  l1_ff_height_t: (p) => svg('אבן נופלת במשך t שניות', 215, ffTime(p, 'h = ?')),
+  l1_up_time: (p) => svg('כדור נזרק אנכית כלפי מעלה', 215, rise(p, { top: 'שיא\nt = ?' })),
+  l1_up_height: (p) => svg('כדור נזרק אנכית כלפי מעלה', 215, rise(p, { extra: dim(250, 40, 250, GY, 'H = ?') })),
+  l1_launch_time: (p) => svg('גוף נזרק אופקית משולחן', 180, launchScene(p, { vx: `${num(p.vx)} מ/ש`, h: `h = ${num(p.h)} מ'`, R: 't = ?' })),
+  l1_launch_range: (p) => svg('גוף נזרק אופקית משולחן', 180, launchScene(p, { vx: `${num(p.vx)} מ/ש`, h: `h = ${num(p.h)} מ'`, R: 'x = ?' })),
+  l1_launch_vx: (p) => svg('כדור נזרק אופקית מגג', 180, launchScene(p, { vx: 'vₓ = ?', h: `h = ${num(p.h)} מ'`, R: `R = ${num(p.R)} מ'` })),
+  l1_accel_speed: (p) => {
+    let s = road(RY) + car(20, RY, 'a') + txt(42, RY - 40, 'v₀ = 0', 'k') + arrow(30, RY - 62, 80, RY - 62, 'b') + txt(55, RY - 68, `a = ${num(p.a)} מ/ש²`, 'b');
+    s += `<g opacity="0.55">${car(220, RY, 'a')}</g>` + txt(242, RY - 40, `t = ${num(p.t)} ש'`, 'k') + txt(242, RY - 60, 'v = ?', 'c');
+    return svg('מכונית מאיצה מהמנוחה', 185, s);
+  },
+  l1_brake_dist: (p) => diagrams.braking_only(p),
+  l1_meet_time: (p) => diagrams.const_velocity_meet(p),
 
   // ---- horizontal (new)
   three_stage_trip: (p) => {
