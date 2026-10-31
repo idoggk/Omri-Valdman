@@ -21,6 +21,7 @@ export const KNOWN_KEYS = {
   'omri-study-methods-v1': 'בחירת שיטה',
   'omri-study-repair-v1': 'חיזוק יסודות',
   'omri-study-edgecases-v1': 'מקרי קצה',
+  'omri-study-confidence-v1': 'ביטחון בפתרון מלא',
 };
 
 const isRec = (x) => x && typeof x === 'object' && !Array.isArray(x);

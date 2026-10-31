@@ -15,7 +15,7 @@ export const TABS = [
 ];
 
 /** Routes whose first segment alone is enough to resolve (the rest are optional arguments). */
-const SIMPLE = ['progress', 'practice-hub', 'backup', 'summary', 'drills', 'endless', 'order', 'methods', 'edge',
+const SIMPLE = ['progress', 'practice-hub', 'backup', 'summary', 'drills', 'endless', 'order', 'methods', 'edge', 'solve',
   'repair', 'checkpoints', 'hunt', 'workout', 'exam'];
 
 /** hash -> { name, args } or { name: 'notfound' }. One parser shared by app.js and the tests. */
@@ -146,6 +146,7 @@ export function viewHub(ctx) {
     ],
     endless: [tile('#/endless', '♾️ תרגול ללא הגבלה', 'תרגילים חדשים בכל פעם, באותה רמה ועם רמזים ופתרון מלא')],
     exams: [
+      tile('#/solve', '✍️ פתרון מלא כמו במבחן', 'פותרים על דף, בלי רמזים: תשובה, רמת ביטחון, פתרון רשמי ורשימת בדיקה עצמית'),
       tile('#/exam', '📝 מצב מבחן', 'שאלות מעורבות, שעון, בלי רמזים ועם דוח בסוף'),
       tile('#/exam', '🎯 מבחן חכם', 'מבחן שנבנה לפי החולשות שלכם (מסמנים במסך ההגדרות)'),
       tile('#/summary', '🖨️ סיכום להדפסה', 'דף אחד מהנתונים שלכם: חולשות, נוסחאות ורשימת בדיקה לפני המבחן'),
