@@ -21,6 +21,7 @@ import * as solve from './fullsolve-ui.js';
 import * as repair from './skills-ui.js';
 import * as nav from './nav.js';
 import * as feedbackUi from './feedback-ui.js';
+import { installSignKeys } from './signkey.js';
 import { renderExercise, diagramFigure, OUTCOME_UI, badge } from './exercise-view.js';
 
 const TOPICS = [
@@ -215,5 +216,6 @@ function route() {
   }
 }
 
+installSignKeys();
 window.addEventListener('hashchange', route);
 Promise.all([loadData(), loadExtras()]).then(route);

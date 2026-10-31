@@ -242,3 +242,8 @@ body.no-tabs { padding-block-end: 0; }
   li, .sum-formulas { break-inside: avoid; }
   .sheet-formula { font-size: 1rem; }
 }
+
+/* plus/minus key next to numeric answer fields */
+.signkey { min-width: 44px; min-height: 44px; padding: 0 10px; font-size: 1.25rem; line-height: 1; flex: none; margin-inline-start: 8px; touch-action: manipulation; }
+.field .row .signkey { margin-inline-start: 0; }
+@media (max-width: 420px) { .signkey { min-width: 44px; padding: 0 6px; } }
