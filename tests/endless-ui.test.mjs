@@ -39,7 +39,7 @@ test('picker renders with empty, corrupted, garbage and populated storage', () =
   for (const stored of [null, '{not json', '{"tpl":5}', '[1]', JSON.stringify({ v: 1, tpl: { 'm3-linear-int': { attempts: 3, alone: 1, hinted: 1 } } })]) {
     fresh(stored);
     E.viewEndless(ctx);
-    assert.match(text(), /תרגול בלי די בריגים/);
+    assert.match(text(), /תרגול ללא הגבלה/);
     assert.ok(btn('3 נעלמים') && btn('4 נעלמים') && btn('תנועה אנכית') && btn('תנועה אופקית') && btn('הכול'));
     assert.ok(btn('התחילו לתרגל'));
   }
@@ -165,7 +165,7 @@ test('store: sanitize drops garbage, recordEndless survives broken storage', () 
 test('router, home tile and precache are wired', () => {
   const app = readFileSync(new URL('../js/app.js', import.meta.url), 'utf8');
   assert.match(app, /parts\[0\] === 'endless'/);
-  assert.match(app, /♾️ תרגול בלי די בריגים/);
+  assert.match(app, /♾️ תרגול ללא הגבלה/);
   const sw = readFileSync(new URL('../sw.js', import.meta.url), 'utf8');
   for (const f of ['js/variants.js', 'js/endless-ui.js', 'js/exercise-view.js']) assert.ok(sw.includes(`'${f}'`), f);
 });
