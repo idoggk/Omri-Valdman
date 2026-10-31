@@ -2,7 +2,7 @@
 // Data text is our own HTML, passed through sanitizeHtml. Results persist via store.recordFindMistake.
 import { h } from './dom.js';
 import { sanitizeHtml } from './sanitize.js';
-import { isolateTitle } from './bidi.js';
+import { isolateTitle, isolateFormulasHtml } from './bidi.js';
 import * as store from './store.js';
 
 const TOPIC_TITLES = [
@@ -39,7 +39,7 @@ export async function loadFindMistakeData(fetchFn = (u, o) => fetch(u, o)) {
 export const resetFindMistakeCache = () => { cache = null; };
 
 const safe = (html) => sanitizeHtml(typeof html === 'string' ? html : '');
-const rich = (tag, html, attrs = {}) => h(tag, { ...attrs, rawhtml: safe(html) });
+const rich = (tag, html, attrs = {}) => h(tag, { ...attrs, rawhtml: isolateFormulasHtml(safe(html)) });
 const crumbs = (href = '#/', label = '→ חזרה לדף הבית') => h('p', { class: 'crumbs' }, h('a', { href }, label));
 const TITLE = '🔎 מצאו את הטעות';
 

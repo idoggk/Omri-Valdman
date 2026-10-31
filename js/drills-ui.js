@@ -2,6 +2,7 @@
 // All text goes through h() (text nodes). Results persist via store.recordDrill.
 import { h, ltr } from './dom.js';
 import * as store from './store.js';
+import { isolateFormulas } from './bidi.js';
 
 export const SESSION_SIZE = 10;
 const MODES = {
@@ -106,14 +107,14 @@ function runQuiz(ctx, data, mode, filter) {
         b.classList.toggle('wrong', bi === k && !ok);
       });
       feedback.replaceChildren(
-        h('div', { class: `feedback ${ok ? 'ok' : 'bad'}`, role: ok ? 'status' : 'alert' }, ok ? 'נכון!' : 'לא מדויק.', ' ', it.explain || ''),
+        h('div', { class: `feedback ${ok ? 'ok' : 'bad'}`, role: ok ? 'status' : 'alert' }, ok ? 'נכון!' : 'לא מדויק.', ' ', isolateFormulas(it.explain || '')),
         h('div', { class: 'btn-row' }, h('button', { class: 'btn primary', type: 'button', onclick: () => step(i + 1) },
           i + 1 < items.length ? 'הבא ←' : 'לסיכום ←')));
     };
-    it.options.forEach((o, k) => buttons.push(h('button', { class: 'btn drill-opt', type: 'button', onclick: () => choose(k) }, String(o))));
+    it.options.forEach((o, k) => buttons.push(h('button', { class: 'btn drill-opt', type: 'button', onclick: () => choose(k) }, isolateFormulas(String(o)))));
     ctx.show(crumbs(), h('h1', {}, mode.title),
       h('p', { class: 'muted', role: 'status' }, `שאלה ${i + 1} מתוך ${items.length}`),
-      h('div', { class: 'panel statement' }, it.question),
+      h('div', { class: 'panel statement' }, isolateFormulas(it.question)),
       h('div', { class: 'drill-options' }, buttons), feedback);
   };
   if (!items.length) return menu(ctx, data, filter);
@@ -132,7 +133,7 @@ function runCards(ctx, data, filter) {
     if (!queue.length) return summary(ctx, data, filter, 'כרטיסיות', score, first.length, missed, again);
     const c = queue.shift();
     let flipped = false;
-    const face = h('button', { class: 'card card-btn flashcard', type: 'button', 'aria-live': 'polite' }, h('strong', {}, c.front));
+    const face = h('button', { class: 'card card-btn flashcard', type: 'button', 'aria-live': 'polite' }, h('strong', {}, isolateFormulas(c.front)));
     const actions = h('div', { class: 'btn-row' });
     const answer = (knew) => {
       if (!seen.has(c.id)) {
@@ -145,7 +146,7 @@ function runCards(ctx, data, filter) {
     };
     face.addEventListener('click', () => {
       flipped = !flipped;
-      face.replaceChildren(h('strong', {}, flipped ? c.back : c.front));
+      face.replaceChildren(h('strong', {}, isolateFormulas(flipped ? c.back : c.front)));
       face.setAttribute('aria-label', flipped ? 'גב הכרטיס' : 'חזית הכרטיס');
       actions.replaceChildren(...(flipped ? [
         h('button', { class: 'btn primary', type: 'button', onclick: () => answer(true) }, 'ידעתי'),

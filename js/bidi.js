@@ -46,3 +46,11 @@ export function isolateFormulas(text) {
 
 /** Same as isolateFormulas, alias used for exercise titles. */
 export const isolateTitle = isolateFormulas;
+
+/**
+ * Like isolateFormulas, for HTML strings: only text between tags is touched, and character entities
+ * (&lt; &nbsp; ...) are left whole so an entity name is never taken for a formula.
+ */
+export function isolateFormulasHtml(html) {
+  return String(html).split(/(<[^>]*>|&#?\w+;)/).map((part) => (part.startsWith('<') || /^&#?\w+;$/.test(part) ? part : isolateFormulas(part))).join('');
+}
