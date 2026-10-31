@@ -40,7 +40,7 @@ test('ladder.json: six Hebrew stages, every ref resolves to a physics exercise, 
   }
   const all = L.allRefs(stages);
   assert.equal(new Set(all).size, all.length, 'an exercise appears in two stages');
-  assert.deepEqual(stages.map((s) => s.items.length), [12, 22, 13, 12, 30, 0]);
+  assert.deepEqual(stages.map((s) => s.items.length), [12, 22, 13, 12, 40, 0]);
 });
 
 test('needed(): ceil of 70%', () => {

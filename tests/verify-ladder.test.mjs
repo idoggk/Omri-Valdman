@@ -13,7 +13,7 @@ const first = () => clone(items[0]);
 
 test('ladder data: at least 12 inline S3 items, all verified by the independent simulator', () => {
   assert.ok(items.length >= 12);
-  assert.ok(inlineItems(data).every((x) => x.stage === 'S3' || x.stage === 'S4'));
+  assert.ok(inlineItems(data).every((x) => ['S3', 'S4', 'S5'].includes(x.stage)));
   assert.deepEqual(checkLadder(data), []);
 });
 
@@ -128,4 +128,59 @@ test('answer checker accepts negative angles with minus variants and the unit la
   assert.ok(isCorrect('-53.1', '-53.13', 0.5));
   assert.ok(!isCorrect('53.13', '-53.13', 0.5), 'the sign matters');
   assert.equal(parse('מעלות'), null);
+});
+
+// ---------------------------------------------------------------- stage S5 (two bodies meeting)
+import { checkItemS5, traceDuo, evalS5, duoMeeting } from '../tools/verify-ladder.mjs';
+const s5 = inlineItems(data).filter((x) => x.stage === 'S5').map((x) => x.it);
+
+test('S5: at least 10 inline items, ids lad-s5-NN after the refs, 4-5 parts, Hebrew, 3 tips, diagram with both bodies', () => {
+  assert.ok(s5.length >= 10);
+  const stage = data.stages.find((s) => s.id === 'S5');
+  const firstInline = stage.items.findIndex((it) => !it.ref);
+  assert.ok(stage.items.slice(0, firstInline).every((it) => it.ref) && stage.items.slice(firstInline).every((it) => !it.ref), 'inline items come after the refs');
+  for (const it of s5) {
+    assert.deepEqual(checkItemS5(it), [], it.id);
+    assert.match(it.id, /^lad-s5-\d{2}$/);
+    assert.ok(it.inputs.length >= 4 && it.inputs.length <= 5 && it.tips.length === 3, it.id);
+    assert.ok(it.diagram.includes('<svg') && layoutIssues(it.diagram).length === 0, it.id);
+  }
+  for (const kind of ['table', 'cars', 'tower3', 'columns', 'intercept']) assert.ok(s5.some((it) => it.scene.kind === kind), kind);
+});
+
+test('S5: exactly the no-meeting items carry the yes/no part, answered 2, with the entry rule in the statement', () => {
+  const yn = s5.filter((it) => it.inputs.some((i) => /נפגשים/.test(i.label)));
+  assert.ok(yn.length >= 1);
+  for (const it of yn) {
+    assert.equal(it.verify.noMeet, true);
+    assert.equal(it.inputs.find((i) => /נפגשים/.test(i.label)).answer, '2');
+    assert.match(it.statement, /1 = כן/);
+    assert.match(it.statement, /2 = לא/);
+  }
+  assert.equal(s5.filter((it) => it.verify.noMeet).length, yn.length);
+});
+
+test('S5 simulator: meeting by bisection on the separation, delayed start, no-meeting detection', () => {
+  const cars = { A: traceDuo({ id: 'A', x0: 0, y0: 0, vx: 0, vy: 0, ax: 2, ay: 0 }), B: traceDuo({ id: 'B', x0: 108, y0: 0, vx: 0, vy: 0, ax: -4, ay: 0 }) };
+  const m = duoMeeting({ a: 'A', b: 'B', axis: 'x' }, cars, false);
+  assert.ok(m.ok && Math.abs(m.t - 6) < 1e-6);
+  const v = { meet: { a: 'A', b: 'B', axis: 'x' } };
+  assert.ok(Math.abs(evalS5({ body: 'B', what: 'speed', at: 'meet' }, cars, v) - 24) < 1e-3);
+  const late = { A: traceDuo({ id: 'A', x0: 0, y0: 0, vx: 0, vy: 0, ax: 3, ay: 0 }), B: traceDuo({ id: 'B', x0: 70, y0: 0, vx: 0, vy: 0, ax: -2, ay: 0, t0: 2 }) };
+  assert.ok(Math.abs(duoMeeting({ a: 'A', b: 'B', axis: 'x' }, late, false).t - 6) < 1e-6);
+  const far = { A: traceDuo({ id: 'A', x0: 0, y0: 1.8, vx: 3, vy: 0 }), B: traceDuo({ id: 'B', x0: 2.4, y0: 4, vx: 0, vy: -2 }) };
+  assert.equal(evalS5({ op: 'meets' }, far, { floor: true, meet: { a: 'A', b: 'B', axis: 'x' } }), 2);
+  assert.throws(() => evalS5({ body: 'Z', what: 'y', at: 'start' }, far, { floor: true }));
+});
+
+test('S5 verifier catches: wrong answer, wrong yes/no, a no-meet item that meets, missing entry rule, stray label number, stale diagram', () => {
+  const mutate = (id, fn) => { const it = clone(s5.find((x) => x.id === id)); fn(it); return checkItemS5(it).join('|'); };
+  assert.match(mutate('lad-s5-03', (it) => { it.inputs[1].answer = '7'; it.inputs[1].tolerance = 0.07; }), /differs from simulated/);
+  assert.match(mutate('lad-s5-02', (it) => { it.inputs[4].answer = '1'; it.inputs[4].tolerance = 0.01; }), /differs from simulated|requires noMeet/);
+  assert.match(mutate('lad-s5-02', (it) => { it.verify.bodies[1].x0 = 1.2; it.verify.bodies[1].vy = -5.5; }), /noMeet: the simulation finds a meeting/);
+  assert.match(mutate('lad-s5-02', (it) => { it.statement = it.statement.replace('1 = כן', 'כן'); }), /yes\/no part must tell how to enter/);
+  assert.match(mutate('lad-s5-01', (it) => { it.scene.labels.H = 'H = 9 מ\''; }), /statement does not give|differs from the generated/);
+  assert.match(mutate('lad-s5-06', (it) => { it.statement = it.statement.replace('כיוון חיובי הוא כלפי מעלה.', ''); }), /signed-velocity/);
+  assert.match(mutate('lad-s5-09', (it) => { it.statement = it.statement.replace('כיוון המהירות = זווית מעל (+) או מתחת (−) לאופק.', ''); }), /sign-convention/);
+  assert.match(mutate('lad-s5-04', (it) => { it.verify.bodies[1].t0 = 0; }), /differs from simulated/);
 });

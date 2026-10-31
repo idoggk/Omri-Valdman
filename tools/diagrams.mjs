@@ -1381,8 +1381,71 @@ export function shot(sc) {
   return svg(sc.title, gy + 44, s);
 }
 
-/** Inline exam-ladder items (data/ladder.json) carry a declarative `graph` (S3) or `scene` (S4) spec instead of a verify.model. */
-export const ladderDiagram = (item) => (item.scene ? shot(item.scene) : graph(item.graph));
+// ------------------------------------------------------------ two-body scenes (exam ladder, stage S5)
+// duo({ title, kind, labels }): the figure is schematic (not to scale); every printed number comes from `labels`.
+//   table      L: h, v1, d, H, u? (second ball thrown down) | free (second ball dropped)
+//   cars       L: a, b (accelerations / speeds), D?, na?, nb? (notes under the cars); same? draws B on a second lane
+//   tower3     L: h, c: [text for the down / up / dropped stone], t: [landing-time label per stone]
+//   columns    L: A, B, H, note?
+//   intercept  L: v0, ang, X, H, hit
+export const DUO_KINDS = ['table', 'cars', 'tower3', 'columns', 'intercept'];
+export function duo(sc) {
+  const L = sc.labels || {};
+  let s = '', h;
+  if (sc.kind === 'table') {
+    const gy = 150, top = 106, bx = 228;
+    h = gy + 44;
+    s += ground(10, 310, gy) + building(100, top, 50, gy);
+    s += dim(30, top, 30, gy, L.h) + line(30, top, 100, top, { dash: true, op: 0.6 });
+    s += ball(150, top - 5, 'a', 5) + arrow(157, top - 5, 197, top - 5, 'a') + txt(177, top - 14, L.v1, 'a');
+    s += line(bx, 48, bx, gy, { dash: true, op: 0.6 }) + ball(bx, 48, 'b') + arrow(bx, 56, bx, 90, 'b') + txt(bx + 8, 78, L.u || 'v₀ = 0', 'b', 'start');
+    s += dim(bx + 40, 48, bx + 40, gy, L.H, { left: true });
+    s += dim(150, gy + 18, bx, gy + 18, L.d, { below: true });
+  } else if (sc.kind === 'cars') {
+    const gy = 100, same = !!sc.same, ya = same ? gy + 40 : gy, xb = same ? 20 : sc.xb || 250;
+    h = ya + (same ? 46 : 52);
+    s += road(gy) + (same ? road(gy + 40) : '');
+    s += car(20, ya, 'a') + car(xb, gy, 'b');
+    const right = sc.dirB === 1;
+    s += arrow(70, ya - 40, 110, ya - 40, 'a') + txt(90, ya - 46, L.a, 'a');
+    s += right ? arrow(xb + 50, gy - 40, xb + 90, gy - 40, 'b') + txt(xb + 70, gy - 46, L.b, 'b') : arrow(xb - 6, gy - 40, xb - 46, gy - 40, 'b') + txt(xb - 26, gy - 46, L.b, 'b');
+    if (L.na) s += txt(42, ya + 26, L.na, 'a');
+    if (L.nb) s += txt(xb + 22, gy + 26, L.nb, 'b');
+    if (L.D) s += dim(42, ya + 26 + (L.na ? 18 : 0), xb + 22, ya + 26 + (L.na ? 18 : 0), L.D, { below: true });
+  } else if (sc.kind === 'tower3') {
+    const gy = 150, top = 70, cx = [170, 230, 290];
+    h = gy + 44;
+    s += ground(10, 310, gy) + building(14, top, 56, gy) + line(70, top, 300, top, { dash: true, op: 0.6 });
+    s += dim(84, top, 84, gy, L.h);
+    cx.forEach((x, i) => {
+      s += line(x, top, x, gy, { dash: true, op: 0.4 }) + ball(x, top, 'a', 5);
+      if (i === 0) s += arrow(x, top + 8, x, top + 40, 'a');
+      if (i === 1) s += arrow(x, top - 8, x, top - 40, 'a');
+      s += txt(x + (i === 2 ? -8 : 8), i === 1 ? top - 24 : top + (i === 0 ? 26 : 22), L.c[i], 'a', i === 2 ? 'end' : 'start');
+      s += txt(x, gy + 22, L.t[i], 'b');
+    });
+  } else if (sc.kind === 'columns') {
+    const gy = 150, ax = 100, bx = 230;
+    h = gy + 30;
+    s += ground(10, 310, gy) + line(ax, 44, ax, gy, { dash: true, op: 0.6 }) + ball(ax, 44, 'a');
+    s += txt(ax + 8, 40, L.A, 'a', 'start') + dim(56, 44, 56, gy, L.H, { left: true });
+    s += ball(bx, gy - 6, 'b') + arrow(bx, gy - 14, bx, gy - 62, 'b') + txt(bx + 8, gy - 34, L.B, 'b', 'start');
+    if (L.note) s += txt(160, 18, L.note, 'k');
+  } else if (sc.kind === 'intercept') {
+    const gy = 150, lx = 36, cxo = 136, oy = 44;
+    h = gy + 44;
+    s += ground(10, 310, gy) + ball(lx, gy - 6, 'a', 5) + arrow(lx + 4, gy - 10, lx + 36, gy - 42, 'a') + txt(lx + 40, gy - 50, L.v0, 'a', 'start');
+    s += line(lx, gy - 6, cxo, oy, { dash: true, op: 0.4 }) + line(lx, gy - 6, lx + 70, gy - 6, { dash: true, op: 0.6 });
+    s += txt(lx + 72, gy - 10, L.ang, 'b', 'start');
+    s += line(cxo, oy, cxo, gy, { dash: true, op: 0.6 }) + ball(cxo, oy, 'b') + arrow(cxo, oy + 8, cxo, oy + 36, 'b') + txt(cxo + 8, oy + 4, L.H, 'b', 'start');
+    s += ball(cxo, sc.hitY, 'c', 4) + dim(cxo + 50, sc.hitY, cxo + 50, gy - 6, L.hit);
+    s += dim(lx, gy + 18, cxo, gy + 18, L.X, { below: true });
+  } else throw new Error(`unknown two-body kind "${sc.kind}"`);
+  return svg(sc.title, h, s);
+}
+
+/** Inline exam-ladder items (data/ladder.json) carry a declarative `graph` (S3), `scene` (S4 shot, S5 two-body duo) spec instead of a verify.model. */
+export const ladderDiagram = (item) => (item.scene ? (DUO_KINDS.includes(item.scene.kind) ? duo(item.scene) : shot(item.scene)) : graph(item.graph));
 export const ladderInline = (data) => ((data && data.stages) || []).flatMap((st) => (st.items || []).filter((it) => it && (it.graph || it.scene)));
 
 export function diagramFor(ex) {

@@ -1,4 +1,4 @@
-// Independent verifier for the INLINE items of data/ladder.json (exam ladder, graph-reading stage S3, angled launch stage S4).
+// Independent verifier for the INLINE items of data/ladder.json (exam ladder, graph-reading stage S3, angled launch stage S4, two-body meetings S5).
 // It never uses an item's closed form. Every body is stepped numerically (dt = 0.001) and every root,
 // maximum and meeting time is found by scanning for a sign change and bisecting. Then it checks:
 //  (a) every stored answer equals the simulated value of its query (verify.queries[i]),
@@ -9,7 +9,7 @@
 import { readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { resolve } from 'node:path';
-import { seriesSamples, polyAt, ladderDiagram, validateSvg, layoutIssues } from './diagrams.mjs';
+import { seriesSamples, polyAt, ladderDiagram, validateSvg, layoutIssues, DUO_KINDS } from './diagrams.mjs';
 
 export const G = 10;
 const DT = 0.001;
@@ -347,6 +347,154 @@ export function checkItemS4(it) {
   return errs;
 }
 
+// ---------------------------------------------------------------- stage S5 (two bodies, meetings)
+// A body is { id, x0, y0, vx, vy, ax = 0, ay = -10, t0 = 0 }: each axis has constant acceleration; a body with t0 > 0 waits at
+// (x0, y0) until t0 and then moves (a car starting later). Both axes are stepped numerically (dt = 0.001).
+// verify.meet = { a, b, axis: 'x'|'y' } defines "the meeting": the first sign change (scan + bisection) of the separation along
+// `axis`, accepted only if the other coordinate agrees there (<= 0.01) and, for thrown bodies (verify.floor), both are still above the ground.
+// Queries: { body, what: t|x|y|vx|vy|speed|ang, at } with at = 'start' | 'meet' | 'peak' | { t } | { land: id } | { equalV: [a, b] },
+//          { op: 'meets' } (1 = yes, 2 = no), { op: 'maxGap', a, b, axis } (largest separation before the meeting).
+export function traceDuo(b) {
+  return { b, t0: b.t0 || 0, X: trace({ id: b.id, p0: b.x0, v0: b.vx, a: b.ax || 0 }), Y: trace({ id: b.id, p0: b.y0, v0: b.vy, a: b.ay ?? -G }) };
+}
+const duoAt = (tb, t) => {
+  const waiting = t < tb.t0, tt = waiting ? 0 : t - tb.t0;
+  const x = stateAt(tb.X, tt), y = stateAt(tb.Y, tt);
+  const vx = waiting ? 0 : x.v, vy = waiting ? 0 : y.v;
+  return { t, x: x.p, y: y.p, vx, vy, speed: Math.hypot(vx, vy), ang: (Math.atan2(vy, vx) * 180) / Math.PI };
+};
+const duoPos = (tb, axis, t) => duoAt(tb, t)[axis];
+/** { t, ok }: first time the separation along m.axis changes sign, and whether the bodies really coincide there. */
+export function duoMeeting(m, tbs, floor) {
+  const A = tbs[m.a], B = tbs[m.b];
+  const other = m.axis === 'x' ? 'y' : 'x';
+  const t = firstCross((s) => duoPos(A, m.axis, s) - duoPos(B, m.axis, s));
+  if (t === null) return { t: null, ok: false };
+  const sa = duoAt(A, t), sb = duoAt(B, t);
+  let ok = Math.abs(sa[other] - sb[other]) <= 0.01;
+  if (floor && (sa.y < -1e-6 || sb.y < -1e-6)) ok = false;
+  return { t, ok };
+}
+export function evalS5(q, tbs, v) {
+  const floor = !!v.floor;
+  const mt = () => duoMeeting(v.meet, tbs, floor);
+  if (q.op === 'meets') return mt().ok ? 1 : 2;
+  if (q.op === 'gapAt') return Math.abs(duoPos(tbs[q.a], q.axis, q.t) - duoPos(tbs[q.b], q.axis, q.t));
+  if (q.op === 'maxGap') {
+    const m = mt();
+    if (!m.ok) return null;
+    let best = 0;
+    for (let i = 0; i * DT <= m.t; i++) best = Math.max(best, Math.abs(duoPos(tbs[q.a], q.axis, i * DT) - duoPos(tbs[q.b], q.axis, i * DT)));
+    return best;
+  }
+  const tb = tbs[q.body];
+  if (!tb) throw new Error(`unknown body "${q.body}"`);
+  let t;
+  if (q.at === 'start') t = 0;
+  else if (q.at === 'meet') { const m = mt(); t = m.ok ? m.t : null; }
+  else if (q.at === 'peak') t = firstCross((s) => duoAt(tb, s).vy);
+  else if (q.at && Number.isFinite(q.at.t)) t = q.at.t;
+  else if (q.at && q.at.land) { const l = tbs[q.at.land]; if (!l) throw new Error(`unknown body "${q.at.land}"`); t = firstCross((s) => duoAt(l, s).y); }
+  else if (q.at && Array.isArray(q.at.equalV)) { const [a, b] = q.at.equalV.map((id) => tbs[id]); t = firstCross((s) => duoAt(a, s).vx - duoAt(b, s).vx); }
+  else throw new Error('bad "at"');
+  if (t === null) return null;
+  const st = duoAt(tb, t);
+  if (!(q.what in st) && q.what !== 'fall') throw new Error(`unknown quantity "${q.what}"`);
+  return q.what === 'fall' ? duoAt(tb, 0).y - st.y : st[q.what];
+}
+
+export function checkItemS5(it) {
+  const errs = [];
+  const where = it && it.id ? it.id : '?';
+  const err = (m) => errs.push(`${where}: ${m}`);
+  if (!it || typeof it !== 'object') return [`${where}: not an object`];
+  if (!/^lad-s5-\d{2}$/.test(it.id || '')) err('bad id (expected lad-s5-NN)');
+  if (!['phys-vertical', 'phys-horizontal'].includes(it.topic)) err('bad topic');
+  if (it.level !== 5) err('level must be 5');
+  if (!heb(it.title)) err('title missing or not Hebrew');
+  if (!heb(it.statement)) err('statement missing or not Hebrew');
+  if (!Array.isArray(it.tips) || it.tips.length !== 3) err('tips must have exactly 3 items');
+  else it.tips.forEach((t, i) => heb(t) || err(`tip ${i + 1} empty or not Hebrew`));
+  if (!Array.isArray(it.solution) || it.solution.length < 4) err('solution needs at least 4 steps');
+  else it.solution.forEach((s, i) => heb(s) || err(`solution step ${i + 1} empty or not Hebrew`));
+  const texts = [['title', it.title], ['statement', it.statement], ...(it.tips || []).map((t, i) => [`tip ${i + 1}`, t]), ...(it.solution || []).map((s, i) => [`solution step ${i + 1}`, s])];
+  for (const [f, t] of texts) {
+    if (typeof t !== 'string') continue;
+    if (LATIN_UNIT.test(stripTags(t))) err(`${f}: Latin unit label, use Hebrew units`);
+    if (COMPLEX.test(stripTags(t))) err(`${f}: complex-number wording`);
+  }
+  const inputs = it.inputs;
+  if (!Array.isArray(inputs) || inputs.length < 4 || inputs.length > 5) { err('4-5 lettered parts (inputs) required'); return errs; }
+  const plainStatement = stripTags(it.statement || '');
+  const marker = (l) => new RegExp(`(?<![א-ת])${l}\\.`);
+  inputs.forEach((inp, i) => { if (!marker(PART_LETTERS[i]).test(plainStatement)) err(`statement lacks part marker "${PART_LETTERS[i]}."`); });
+  if (PART_LETTERS[inputs.length] && marker(PART_LETTERS[inputs.length]).test(plainStatement)) err('statement has more lettered parts than inputs');
+  if (!(it.scene && it.scene.kind === 'cars') && !/g = 10/.test(plainStatement)) err('statement must state g = 10');
+  if (inputs.some((inp) => /כיוון/.test(inp.label || '') && inp.unit === 'מעלות') && !plainStatement.includes(S4_DIRECTION_RULE)) err('a direction part needs the sign-convention line in the statement');
+  if (inputs.some((inp) => /בסימן/.test(inp.label || '')) && !/כיוון חיובי/.test(plainStatement)) err('a signed-velocity part needs "כיוון חיובי ..." in the statement');
+  const yesNo = (inp) => /נפגשים/.test(inp.label || '');
+  if (inputs.some(yesNo) && !(/1 = כן/.test(plainStatement) && /2 = לא/.test(plainStatement))) err('a yes/no part must tell how to enter it ("1 = כן", "2 = לא") in the statement');
+  const v = it.verify;
+  const noPair = it.scene && it.scene.kind === 'tower3'; // three independent stones: no pair to meet
+  if (!v || !Array.isArray(v.bodies) || !Array.isArray(v.queries) || (!v.meet && !noPair)) { err('verify {bodies, queries, meet} missing'); return errs; }
+  if (v.queries.length !== inputs.length) { err('verify.queries must have one entry per input'); return errs; }
+  const tbs = {};
+  for (const b of v.bodies) {
+    if (![b.x0, b.y0, b.vx, b.vy].every(Number.isFinite) || !nonEmpty(b.id)) { err('body needs id, x0, y0, vx, vy'); return errs; }
+    tbs[b.id] = traceDuo(b);
+  }
+  if (!noPair && (!tbs[v.meet.a] || !tbs[v.meet.b] || !['x', 'y'].includes(v.meet.axis))) { err('verify.meet {a, b, axis} must name two bodies and an axis'); return errs; }
+  inputs.forEach((inp, i) => {
+    const angle = inp.unit === 'מעלות';
+    if (!heb(inp.label)) err(`part ${i + 1}: label missing or not Hebrew`);
+    if (!nonEmpty(inp.unit) || !HEBREW.test(inp.unit) || LATIN_UNIT.test(inp.unit)) err(`part ${i + 1}: unit must be a Hebrew unit label`);
+    if (!DECIMAL.test(String(inp.answer))) return err(`part ${i + 1}: answer "${inp.answer}" must be a plain decimal with at most 2 decimals (ASCII minus)`);
+    const a = Number(inp.answer);
+    if (a === 0) err(`part ${i + 1}: answer 0 cannot carry a relative tolerance`);
+    if (typeof inp.tolerance !== 'number' || !(inp.tolerance > 0)) err(`part ${i + 1}: tolerance must be > 0`);
+    else if (angle && inp.tolerance > 0.5) err(`part ${i + 1}: angle tolerance ${inp.tolerance} exceeds 0.5 degrees`);
+    else if (!angle && inp.tolerance > 0.02 * Math.abs(a) + 1e-12) err(`part ${i + 1}: tolerance ${inp.tolerance} exceeds 2% of ${a}`);
+    if (angle && Math.abs(a) > 90) err(`part ${i + 1}: angle ${a} outside -90..90`);
+    if (yesNo(inp) && ![1, 2].includes(a)) err(`part ${i + 1}: a yes/no answer must be 1 or 2`);
+    let sim;
+    try { sim = evalS5(v.queries[i], tbs, v); } catch (e) { return err(`part ${i + 1}: query failed: ${e.message}`); }
+    if (!Number.isFinite(sim)) return err(`part ${i + 1}: simulation found no finite value`);
+    if (!close(sim, a, 0.005) || !close(sim, a, inp.tolerance ?? 0)) err(`part ${i + 1}: stored answer ${a} differs from simulated ${Math.round(sim * 1e4) / 1e4}`);
+    if (angle && Math.sign(sim) !== Math.sign(a)) err(`part ${i + 1}: angle sign differs from the simulation`);
+    if (yesNo(inp) && !v.queries[i].op) err(`part ${i + 1}: the yes/no part must be verified with { op: 'meets' }`);
+    if (it.tips && numbersIn(it.tips.join(' ')).includes(Math.abs(a))) err(`part ${i + 1}: a tip contains the answer ${a}`);
+  });
+  // an item that claims the bodies never meet is checked against the whole flight: closest approach while both are airborne
+  const m = noPair ? { ok: true } : duoMeeting(v.meet, tbs, !!v.floor);
+  if (v.noMeet) {
+    if (m.ok) err(`noMeet: the simulation finds a meeting at t = ${Math.round(m.t * 1e3) / 1e3}`);
+    const end = Math.min(...Object.values(tbs).map((tb) => (v.floor ? firstCross((s) => duoAt(tb, s).y) : null) ?? Infinity));
+    if (!Number.isFinite(end)) err('noMeet: needs thrown bodies with a landing time');
+    else {
+      let min = Infinity;
+      for (let i = 0; i * DT <= end; i++) { const a = duoAt(tbs[v.meet.a], i * DT), b = duoAt(tbs[v.meet.b], i * DT); min = Math.min(min, Math.hypot(a.x - b.x, a.y - b.y)); }
+      if (!(min >= 0.2)) err(`noMeet: the bodies come within ${Math.round(min * 1e3) / 1e3} m of each other`);
+    }
+    if (!inputs.some(yesNo)) err('noMeet: needs a yes/no part');
+  } else if (!m.ok) err('the bodies never meet, but the item is not marked noMeet');
+  if (inputs.some(yesNo) && !v.noMeet && Number(inputs.find(yesNo).answer) === 2) err('yes/no answer 2 requires noMeet');
+  // the drawing
+  const sc = it.scene;
+  if (!sc || !DUO_KINDS.includes(sc.kind) || !sc.labels) err('scene {kind, labels} missing');
+  else {
+    try {
+      const d = ladderDiagram(it);
+      if (d.replace(/\r\n?/g, '\n') !== String(it.diagram || '').replace(/\r\n?/g, '\n')) err('stored diagram differs from the generated one (run node tools/diagrams.mjs --write)');
+      validateSvg(d).forEach((x) => err(`diagram: ${x}`));
+      layoutIssues(d).forEach((x) => err(`diagram layout: ${x}`));
+    } catch (e) { err(`diagram generation failed: ${e.message}`); }
+    const given = new Set(numbersIn(plainStatement));
+    const stray = numbersIn([].concat(...Object.values(sc.labels).map((l) => (Array.isArray(l) ? l : [l]))).join(' ')).filter((n) => n !== 0 && !given.has(n));
+    if (stray.length) err(`scene labels print numbers that the statement does not give: ${stray.join(', ')}`);
+  }
+  return errs;
+}
+
 /** Inline items = stage items without a ref. */
 export const inlineItems = (data) => ((data && data.stages) || []).flatMap((st) => (st.items || []).filter((it) => it && !it.ref).map((it) => ({ stage: st.id, it })));
 
@@ -358,7 +506,8 @@ export function checkLadder(data) {
     seen.add(it.id);
     if (stage === 'S3') errs.push(...checkItem(it));
     else if (stage === 'S4') errs.push(...checkItemS4(it));
-    else errs.push(`${it.id}: inline items are only verified for S3 and S4 (found in ${stage})`);
+    else if (stage === 'S5') errs.push(...checkItemS5(it));
+    else errs.push(`${it.id}: inline items are only verified for S3, S4 and S5 (found in ${stage})`);
   }
   return errs;
 }
