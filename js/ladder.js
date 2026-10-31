@@ -33,6 +33,23 @@ export function setSkip(stageId, on = true) {
   save(d);
 }
 
+/**
+ * Subjects of the ladder. Both share the storage key above: stage ids are unique across subjects (S1-S6, M1-M6), so the "skip"
+ * flags and the inline-item progress of one subject never touch the other one (physics files written before the math ladder
+ * existed keep working unchanged).
+ */
+export const SUBJECTS = [
+  { id: 'physics', label: 'פיזיקה', file: 'data/ladder.json', base: '#/ladder', ctxKey: 'ladder' },
+  { id: 'math', label: 'מתמטיקה', file: 'data/ladder-math.json', base: '#/ladder/math', ctxKey: 'ladderMath' },
+];
+export const subjectOf = (id) => SUBJECTS.find((s) => s.id === id) || SUBJECTS[0];
+/** Route args after "ladder": ['math','M2','3'] and ['S2','3'] -> { subject, stageId, itemNo }. Physics stays the default. */
+export function parseLadderArgs(args = []) {
+  const a = args.filter((x) => x != null && x !== '');
+  const subject = a.length && SUBJECTS.some((s) => s.id === a[0]) ? a.shift() : 'physics';
+  return { subject, stageId: a[0], itemNo: a[1] };
+}
+
 /** Id of a stage item: the ref of a physics exercise, or the id of an inline exercise. */
 export const itemId = (it) => it.ref || it.id;
 export const isInline = (it) => !it.ref;
