@@ -116,3 +116,10 @@ test('checkpoints attempts are part of the backup allowlist and round-trip', () 
   const code = B.buildBackup(fake({ 'omri-study-checkpoints-v1': v }), 1);
   assert.equal(JSON.parse(code).data['omri-study-checkpoints-v1'], v);
 });
+
+test('methods trainer results are part of the backup allowlist and round-trip', () => {
+  assert.ok('omri-study-methods-v1' in B.KNOWN_KEYS);
+  const v = '{"v":1,"items":{"mt-math-01":{"tries":2,"right":1,"last":true,"ts":5}}}';
+  const code = B.buildBackup(fake({ 'omri-study-methods-v1': v }), 1);
+  assert.equal(JSON.parse(code).data['omri-study-methods-v1'], v);
+});
