@@ -5635,5 +5635,1588 @@
         "המרחק המרבי שבו ב' לפני א'": 100
       }
     }
+  },
+  {
+    "id": "phys-vertical-035",
+    "topic": "phys-vertical",
+    "level": 1,
+    "title": "זמן נפילה חופשית מגובה נתון",
+    "statement": "כדור נשמט ממנוחה מגובה <span dir=\"ltr\">45 מ'</span> מעל הקרקע. התעלמו מהתנגדות האוויר. נתון <span dir=\"ltr\">g = 10 מ/ש²</span>.<br>חשבו: כמה זמן יימשך הכדור באוויר עד הפגיעה בקרקע?",
+    "diagram": "<svg viewBox=\"0 0 320 215\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" aria-label=\"כדור נשמט ממנוחה מגובה h\"><title>כדור נשמט ממנוחה מגובה h</title><defs><marker id=\"ph-k\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"currentColor\"/></marker><marker id=\"ph-a\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"var(--dg-a, #1f5fae)\"/></marker><marker id=\"ph-b\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"var(--dg-b, #c2410c)\"/></marker><marker id=\"ph-c\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"var(--dg-c, #1e7a34)\"/></marker></defs><g direction=\"ltr\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-size=\"14\"><rect x=\"24\" y=\"45\" width=\"72\" height=\"160\" stroke=\"currentColor\" fill=\"currentColor\" fill-opacity=\"0.18\"/><line x1=\"10\" y1=\"205\" x2=\"310\" y2=\"205\" stroke=\"currentColor\" stroke-width=\"2\"/><path d=\"M18 205l-6 8M28 205l-6 8M38 205l-6 8M48 205l-6 8M58 205l-6 8M68 205l-6 8M78 205l-6 8M88 205l-6 8M98 205l-6 8M108 205l-6 8M118 205l-6 8M128 205l-6 8M138 205l-6 8M148 205l-6 8M158 205l-6 8M168 205l-6 8M178 205l-6 8M188 205l-6 8M198 205l-6 8M208 205l-6 8M218 205l-6 8M228 205l-6 8M238 205l-6 8M248 205l-6 8M258 205l-6 8M268 205l-6 8M278 205l-6 8M288 205l-6 8M298 205l-6 8M308 205l-6 8\" opacity=\"0.5\"/><line x1=\"96\" y1=\"45\" x2=\"250\" y2=\"45\" stroke=\"currentColor\" stroke-dasharray=\"5 4\" opacity=\"0.6\"/><line x1=\"250\" y1=\"45\" x2=\"250\" y2=\"205\" stroke=\"currentColor\" marker-start=\"url(#ph-k)\" marker-end=\"url(#ph-k)\"/><text x=\"213.1\" y=\"130\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\"><tspan direction=\"ltr\" unicode-bidi=\"isolate\">⁦h = 45 <tspan direction=\"rtl\" unicode-bidi=\"isolate\">⁧מ׳⁩</tspan>⁩</tspan></text><path d=\"M112 45L112 199\" stroke=\"currentColor\" stroke-dasharray=\"5 4\"/><circle cx=\"112\" cy=\"45\" r=\"6\" fill=\"var(--dg-a, #1f5fae)\" stroke=\"none\"/><text x=\"120\" y=\"34\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\">v₀ = 0</text><line x1=\"112\" y1=\"70\" x2=\"112\" y2=\"110\" stroke=\"var(--dg-b, #c2410c)\" stroke-width=\"2\" marker-end=\"url(#ph-b)\"/><text x=\"122\" y=\"99\" text-anchor=\"start\" fill=\"var(--dg-b, #c2410c)\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\">g</text><text x=\"122\" y=\"151\" text-anchor=\"start\" fill=\"var(--dg-c, #1e7a34)\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\">t = ?</text></g></svg>",
+    "inputs": [
+      {
+        "label": "זמן הנפילה",
+        "unit": "ש'",
+        "answer": "3",
+        "tolerance": 0.03
+      }
+    ],
+    "tips": [
+      "הכדור נשמט ממנוחה, לכן מהירותו ההתחלתית אפס, והמרחק שהוא עובר תלוי רק בזמן ובתאוצת הנפילה.",
+      "כתבו את נוסחת המרחק בנפילה חופשית והציבו בה את הגובה.",
+      "בודדו את t² והוציאו שורש ריבועי. הזמן חייב להיות חיובי."
+    ],
+    "solution": [
+      "נתונים: <span dir=\"ltr\">h = 45 מ'</span>, <span dir=\"ltr\">v₀ = 0</span>, <span dir=\"ltr\">g = 10 מ/ש²</span>. כיוון חיובי כלפי מטה.",
+      "נוסחת המרחק בנפילה חופשית: <span dir=\"ltr\">h = ½gt²</span>.",
+      "הצבה: <span dir=\"ltr\">45 = ½ · 10 · t² = 5t²</span>, ולכן <span dir=\"ltr\">t² = 9</span>.",
+      "<span dir=\"ltr\">t = 3 ש'</span> (הפתרון <span dir=\"ltr\">t = −3</span> נפסל כי הזמן אינו שלילי)."
+    ],
+    "guided": [
+      {
+        "q": "איזו נוסחה מקשרת בין הגובה לזמן בנפילה חופשית ממנוחה?",
+        "options": [
+          "<span dir=\"ltr\">h = ½gt²</span>",
+          "<span dir=\"ltr\">h = gt</span>",
+          "<span dir=\"ltr\">h = g/t²</span>"
+        ],
+        "correct": 0,
+        "explain": "הכדור מתחיל ממנוחה, ולכן <span dir=\"ltr\">h = ½gt²</span>."
+      },
+      {
+        "q": "מה מקבלים אחרי ההצבה ובידוד t²?",
+        "options": [
+          "<span dir=\"ltr\">t² = 9</span>",
+          "<span dir=\"ltr\">t² = 4.5</span>",
+          "<span dir=\"ltr\">t² = 90</span>"
+        ],
+        "correct": 0,
+        "explain": "<span dir=\"ltr\">45 = 5t²</span>, ולכן <span dir=\"ltr\">t² = 9</span>."
+      },
+      {
+        "q": "מהו זמן הנפילה?",
+        "options": [
+          "<span dir=\"ltr\">3 ש'</span>",
+          "<span dir=\"ltr\">9 ש'</span>",
+          "<span dir=\"ltr\">4.5 ש'</span>"
+        ],
+        "correct": 0,
+        "explain": "חישוב: <span dir=\"ltr\">t = √9 = 3 ש'</span>."
+      }
+    ],
+    "verify": {
+      "model": "l1_ff_time",
+      "params": {
+        "h": 45
+      },
+      "expect": {
+        "זמן הנפילה": 3
+      }
+    }
+  },
+  {
+    "id": "phys-vertical-036",
+    "topic": "phys-vertical",
+    "level": 1,
+    "title": "מהירות אבן אחרי נפילה של זמן נתון",
+    "statement": "אבן נשמטת ממנוחה מראש גשר ונופלת במשך <span dir=\"ltr\">4 ש'</span> עד שהיא פוגעת במים. התעלמו מהתנגדות האוויר. נתון <span dir=\"ltr\">g = 10 מ/ש²</span>.<br>חשבו: מהי מהירות האבן ברגע הפגיעה?",
+    "diagram": "<svg viewBox=\"0 0 320 215\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" aria-label=\"אבן נופלת במשך t שניות\"><title>אבן נופלת במשך t שניות</title><defs><marker id=\"ph-k\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"currentColor\"/></marker><marker id=\"ph-a\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"var(--dg-a, #1f5fae)\"/></marker><marker id=\"ph-b\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"var(--dg-b, #c2410c)\"/></marker><marker id=\"ph-c\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"var(--dg-c, #1e7a34)\"/></marker></defs><g direction=\"ltr\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-size=\"14\"><line x1=\"10\" y1=\"205\" x2=\"310\" y2=\"205\" stroke=\"currentColor\" stroke-width=\"2\"/><path d=\"M18 205l-6 8M28 205l-6 8M38 205l-6 8M48 205l-6 8M58 205l-6 8M68 205l-6 8M78 205l-6 8M88 205l-6 8M98 205l-6 8M108 205l-6 8M118 205l-6 8M128 205l-6 8M138 205l-6 8M148 205l-6 8M158 205l-6 8M168 205l-6 8M178 205l-6 8M188 205l-6 8M198 205l-6 8M208 205l-6 8M218 205l-6 8M228 205l-6 8M238 205l-6 8M248 205l-6 8M258 205l-6 8M268 205l-6 8M278 205l-6 8M288 205l-6 8M298 205l-6 8M308 205l-6 8\" opacity=\"0.5\"/><line x1=\"100\" y1=\"40\" x2=\"100\" y2=\"205\" stroke=\"currentColor\" stroke-dasharray=\"5 4\" opacity=\"0.6\"/><circle cx=\"100\" cy=\"40\" r=\"6\" fill=\"var(--dg-a, #1f5fae)\" stroke=\"none\"/><text x=\"112\" y=\"45\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\">t = 0, v₀ = 0</text><circle cx=\"100\" cy=\"108\" r=\"6\" fill=\"var(--dg-a, #1f5fae)\" stroke=\"none\"/><text x=\"112\" y=\"113\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\">...</text><circle cx=\"100\" cy=\"199\" r=\"6\" fill=\"var(--dg-a, #1f5fae)\" stroke=\"none\"/><text x=\"139.7\" y=\"192\" text-anchor=\"middle\" fill=\"var(--dg-b, #c2410c)\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\"><tspan direction=\"ltr\" unicode-bidi=\"isolate\">⁦t = 4 <tspan direction=\"rtl\" unicode-bidi=\"isolate\">⁧ש׳⁩</tspan>⁩</tspan></text><text x=\"240\" y=\"121\" text-anchor=\"middle\" fill=\"var(--dg-c, #1e7a34)\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\">v = ?</text><line x1=\"70\" y1=\"70\" x2=\"70\" y2=\"120\" stroke=\"var(--dg-b, #c2410c)\" stroke-width=\"2\" marker-end=\"url(#ph-b)\"/><text x=\"60\" y=\"101\" text-anchor=\"end\" fill=\"var(--dg-b, #c2410c)\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\">g</text></g></svg>",
+    "inputs": [
+      {
+        "label": "מהירות הפגיעה",
+        "unit": "מ/ש",
+        "answer": "40",
+        "tolerance": 0.4
+      }
+    ],
+    "tips": [
+      "בנפילה חופשית המהירות גדלה באופן אחיד: בכל שנייה היא גדלה באותו קצב.",
+      "האבן יוצאת ממנוחה, ולכן אין מהירות התחלתית להוסיף.",
+      "הכפילו את תאוצת הנפילה בזמן שחלף."
+    ],
+    "solution": [
+      "נתונים: <span dir=\"ltr\">v₀ = 0</span>, <span dir=\"ltr\">t = 4 ש'</span>, <span dir=\"ltr\">g = 10 מ/ש²</span>.",
+      "נוסחת המהירות: <span dir=\"ltr\">v = v₀ + gt</span>.",
+      "הצבה: <span dir=\"ltr\">v = 0 + 10 · 4 = 40 מ/ש</span>."
+    ],
+    "verify": {
+      "model": "l1_ff_speed_t",
+      "params": {
+        "t": 4
+      },
+      "expect": {
+        "מהירות הפגיעה": 40
+      }
+    }
+  },
+  {
+    "id": "phys-vertical-037",
+    "topic": "phys-vertical",
+    "level": 1,
+    "title": "גובה הנפילה מתוך זמן הנפילה",
+    "statement": "כדור נשמט ממנוחה ממרפסת גבוהה ונוחת על הקרקע אחרי <span dir=\"ltr\">6 ש'</span>. התעלמו מהתנגדות האוויר. נתון <span dir=\"ltr\">g = 10 מ/ש²</span>.<br>חשבו: מהו גובה המרפסת מעל הקרקע?",
+    "diagram": "<svg viewBox=\"0 0 320 215\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" aria-label=\"אבן נופלת במשך t שניות\"><title>אבן נופלת במשך t שניות</title><defs><marker id=\"ph-k\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"currentColor\"/></marker><marker id=\"ph-a\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"var(--dg-a, #1f5fae)\"/></marker><marker id=\"ph-b\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"var(--dg-b, #c2410c)\"/></marker><marker id=\"ph-c\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"var(--dg-c, #1e7a34)\"/></marker></defs><g direction=\"ltr\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-size=\"14\"><line x1=\"10\" y1=\"205\" x2=\"310\" y2=\"205\" stroke=\"currentColor\" stroke-width=\"2\"/><path d=\"M18 205l-6 8M28 205l-6 8M38 205l-6 8M48 205l-6 8M58 205l-6 8M68 205l-6 8M78 205l-6 8M88 205l-6 8M98 205l-6 8M108 205l-6 8M118 205l-6 8M128 205l-6 8M138 205l-6 8M148 205l-6 8M158 205l-6 8M168 205l-6 8M178 205l-6 8M188 205l-6 8M198 205l-6 8M208 205l-6 8M218 205l-6 8M228 205l-6 8M238 205l-6 8M248 205l-6 8M258 205l-6 8M268 205l-6 8M278 205l-6 8M288 205l-6 8M298 205l-6 8M308 205l-6 8\" opacity=\"0.5\"/><line x1=\"100\" y1=\"40\" x2=\"100\" y2=\"205\" stroke=\"currentColor\" stroke-dasharray=\"5 4\" opacity=\"0.6\"/><circle cx=\"100\" cy=\"40\" r=\"6\" fill=\"var(--dg-a, #1f5fae)\" stroke=\"none\"/><text x=\"112\" y=\"45\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\">t = 0, v₀ = 0</text><circle cx=\"100\" cy=\"108\" r=\"6\" fill=\"var(--dg-a, #1f5fae)\" stroke=\"none\"/><text x=\"112\" y=\"113\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\">...</text><circle cx=\"100\" cy=\"199\" r=\"6\" fill=\"var(--dg-a, #1f5fae)\" stroke=\"none\"/><text x=\"139.7\" y=\"192\" text-anchor=\"middle\" fill=\"var(--dg-b, #c2410c)\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\"><tspan direction=\"ltr\" unicode-bidi=\"isolate\">⁦t = 6 <tspan direction=\"rtl\" unicode-bidi=\"isolate\">⁧ש׳⁩</tspan>⁩</tspan></text><line x1=\"240\" y1=\"40\" x2=\"240\" y2=\"205\" stroke=\"currentColor\" marker-start=\"url(#ph-k)\" marker-end=\"url(#ph-k)\"/><text x=\"246\" y=\"127.5\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\">h = ?</text><line x1=\"70\" y1=\"70\" x2=\"70\" y2=\"120\" stroke=\"var(--dg-b, #c2410c)\" stroke-width=\"2\" marker-end=\"url(#ph-b)\"/><text x=\"60\" y=\"101\" text-anchor=\"end\" fill=\"var(--dg-b, #c2410c)\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\">g</text></g></svg>",
+    "inputs": [
+      {
+        "label": "גובה המרפסת",
+        "unit": "מ'",
+        "answer": "180",
+        "tolerance": 1.8
+      }
+    ],
+    "tips": [
+      "הכדור נשמט ממנוחה, ולכן המרחק שעבר תלוי רק בתאוצת הנפילה ובזמן.",
+      "המרחק בנפילה חופשית ממנוחה עולה עם ריבוע הזמן.",
+      "חשבו קודם את ריבוע הזמן ורק אחר כך הכפילו."
+    ],
+    "solution": [
+      "נתונים: <span dir=\"ltr\">v₀ = 0</span>, <span dir=\"ltr\">t = 6 ש'</span>, <span dir=\"ltr\">g = 10 מ/ש²</span>.",
+      "נוסחת המרחק: <span dir=\"ltr\">h = ½gt²</span>.",
+      "הצבה: <span dir=\"ltr\">h = ½ · 10 · 6² = 5 · 36 = 180 מ'</span>."
+    ],
+    "verify": {
+      "model": "l1_ff_height_t",
+      "params": {
+        "t": 6
+      },
+      "expect": {
+        "גובה המרפסת": 180
+      }
+    }
+  },
+  {
+    "id": "phys-vertical-038",
+    "topic": "phys-vertical",
+    "level": 1,
+    "title": "מהירות פגיעה מגובה נתון",
+    "statement": "כדור נשמט ממנוחה מגובה <span dir=\"ltr\">80 מ'</span> מעל הקרקע. התעלמו מהתנגדות האוויר. נתון <span dir=\"ltr\">g = 10 מ/ש²</span>.<br>חשבו: מהי מהירות הכדור ברגע שהוא פוגע בקרקע?",
+    "diagram": "<svg viewBox=\"0 0 320 215\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" aria-label=\"כדור נשמט ממנוחה מגובה h\"><title>כדור נשמט ממנוחה מגובה h</title><defs><marker id=\"ph-k\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"currentColor\"/></marker><marker id=\"ph-a\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"var(--dg-a, #1f5fae)\"/></marker><marker id=\"ph-b\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"var(--dg-b, #c2410c)\"/></marker><marker id=\"ph-c\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"var(--dg-c, #1e7a34)\"/></marker></defs><g direction=\"ltr\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-size=\"14\"><rect x=\"24\" y=\"45\" width=\"72\" height=\"160\" stroke=\"currentColor\" fill=\"currentColor\" fill-opacity=\"0.18\"/><line x1=\"10\" y1=\"205\" x2=\"310\" y2=\"205\" stroke=\"currentColor\" stroke-width=\"2\"/><path d=\"M18 205l-6 8M28 205l-6 8M38 205l-6 8M48 205l-6 8M58 205l-6 8M68 205l-6 8M78 205l-6 8M88 205l-6 8M98 205l-6 8M108 205l-6 8M118 205l-6 8M128 205l-6 8M138 205l-6 8M148 205l-6 8M158 205l-6 8M168 205l-6 8M178 205l-6 8M188 205l-6 8M198 205l-6 8M208 205l-6 8M218 205l-6 8M228 205l-6 8M238 205l-6 8M248 205l-6 8M258 205l-6 8M268 205l-6 8M278 205l-6 8M288 205l-6 8M298 205l-6 8M308 205l-6 8\" opacity=\"0.5\"/><line x1=\"96\" y1=\"45\" x2=\"250\" y2=\"45\" stroke=\"currentColor\" stroke-dasharray=\"5 4\" opacity=\"0.6\"/><line x1=\"250\" y1=\"45\" x2=\"250\" y2=\"205\" stroke=\"currentColor\" marker-start=\"url(#ph-k)\" marker-end=\"url(#ph-k)\"/><text x=\"213.1\" y=\"130\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\"><tspan direction=\"ltr\" unicode-bidi=\"isolate\">⁦h = 80 <tspan direction=\"rtl\" unicode-bidi=\"isolate\">⁧מ׳⁩</tspan>⁩</tspan></text><path d=\"M112 45L112 199\" stroke=\"currentColor\" stroke-dasharray=\"5 4\"/><circle cx=\"112\" cy=\"45\" r=\"6\" fill=\"var(--dg-a, #1f5fae)\" stroke=\"none\"/><text x=\"120\" y=\"34\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\">v₀ = 0</text><line x1=\"112\" y1=\"70\" x2=\"112\" y2=\"110\" stroke=\"var(--dg-b, #c2410c)\" stroke-width=\"2\" marker-end=\"url(#ph-b)\"/><text x=\"122\" y=\"99\" text-anchor=\"start\" fill=\"var(--dg-b, #c2410c)\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\">g</text><text x=\"122\" y=\"151\" text-anchor=\"start\" fill=\"var(--dg-c, #1e7a34)\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\">v = ?</text></g></svg>",
+    "inputs": [
+      {
+        "label": "מהירות הפגיעה",
+        "unit": "מ/ש",
+        "answer": "40",
+        "tolerance": 0.4
+      }
+    ],
+    "tips": [
+      "הגובה נתון והזמן לא, ולכן כדאי להשתמש בנוסחה שמקשרת מהירות למרחק בלי זמן.",
+      "המהירות בריבוע שווה לפעמיים תאוצת הנפילה כפול הגובה, כשהמהירות ההתחלתית אפס.",
+      "בסוף מוציאים שורש ריבועי של התוצאה."
+    ],
+    "solution": [
+      "נתונים: <span dir=\"ltr\">v₀ = 0</span>, <span dir=\"ltr\">h = 80 מ'</span>, <span dir=\"ltr\">g = 10 מ/ש²</span>.",
+      "נוסחה ללא זמן: <span dir=\"ltr\">v² = v₀² + 2gh</span>.",
+      "הצבה: <span dir=\"ltr\">v² = 0 + 2 · 10 · 80 = 1600</span>.",
+      "חישוב: <span dir=\"ltr\">v = √1600 = 40 מ/ש</span>."
+    ],
+    "guided": [
+      {
+        "q": "איזו נוסחה מקשרת מהירות וגובה בלי הזמן?",
+        "options": [
+          "<span dir=\"ltr\">v² = 2gh</span>",
+          "<span dir=\"ltr\">v = gh</span>",
+          "<span dir=\"ltr\">v = ½gh²</span>"
+        ],
+        "correct": 0,
+        "explain": "ממנוחה: <span dir=\"ltr\">v² = v₀² + 2gh = 2gh</span>."
+      },
+      {
+        "q": "מהו v² אחרי ההצבה?",
+        "options": [
+          "<span dir=\"ltr\">1600</span>",
+          "<span dir=\"ltr\">800</span>",
+          "<span dir=\"ltr\">160</span>"
+        ],
+        "correct": 0,
+        "explain": "חישוב: <span dir=\"ltr\">2 · 10 · 80 = 1600</span>."
+      },
+      {
+        "q": "מהי המהירות?",
+        "options": [
+          "<span dir=\"ltr\">40 מ/ש</span>",
+          "<span dir=\"ltr\">800 מ/ש</span>",
+          "<span dir=\"ltr\">1600 מ/ש</span>"
+        ],
+        "correct": 0,
+        "explain": "חישוב: <span dir=\"ltr\">√1600 = 40</span>."
+      }
+    ],
+    "verify": {
+      "model": "l1_ff_speed_h",
+      "params": {
+        "h": 80
+      },
+      "expect": {
+        "מהירות הפגיעה": 40
+      }
+    }
+  },
+  {
+    "id": "phys-vertical-039",
+    "topic": "phys-vertical",
+    "level": 1,
+    "title": "זמן עלייה עד השיא",
+    "statement": "כדור נזרק אנכית כלפי מעלה מהקרקע במהירות <span dir=\"ltr\">30 מ/ש</span>. התעלמו מהתנגדות האוויר. נתון <span dir=\"ltr\">g = 10 מ/ש²</span>.<br>חשבו: כמה זמן יעבור מרגע הזריקה ועד שהכדור מגיע לנקודה הגבוהה ביותר?",
+    "diagram": "<svg viewBox=\"0 0 320 215\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" aria-label=\"כדור נזרק אנכית כלפי מעלה\"><title>כדור נזרק אנכית כלפי מעלה</title><defs><marker id=\"ph-k\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"currentColor\"/></marker><marker id=\"ph-a\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"var(--dg-a, #1f5fae)\"/></marker><marker id=\"ph-b\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"var(--dg-b, #c2410c)\"/></marker><marker id=\"ph-c\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"var(--dg-c, #1e7a34)\"/></marker></defs><g direction=\"ltr\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-size=\"14\"><line x1=\"10\" y1=\"205\" x2=\"310\" y2=\"205\" stroke=\"currentColor\" stroke-width=\"2\"/><path d=\"M18 205l-6 8M28 205l-6 8M38 205l-6 8M48 205l-6 8M58 205l-6 8M68 205l-6 8M78 205l-6 8M88 205l-6 8M98 205l-6 8M108 205l-6 8M118 205l-6 8M128 205l-6 8M138 205l-6 8M148 205l-6 8M158 205l-6 8M168 205l-6 8M178 205l-6 8M188 205l-6 8M198 205l-6 8M208 205l-6 8M218 205l-6 8M228 205l-6 8M238 205l-6 8M248 205l-6 8M258 205l-6 8M268 205l-6 8M278 205l-6 8M288 205l-6 8M298 205l-6 8M308 205l-6 8\" opacity=\"0.5\"/><path d=\"M100 199L100 40\" stroke=\"currentColor\" stroke-dasharray=\"5 4\"/><circle cx=\"100\" cy=\"199\" r=\"6\" fill=\"var(--dg-a, #1f5fae)\" stroke=\"none\"/><line x1=\"100\" y1=\"191\" x2=\"100\" y2=\"143\" stroke=\"var(--dg-a, #1f5fae)\" stroke-width=\"2\" marker-end=\"url(#ph-a)\"/><text x=\"150.7\" y=\"170\" text-anchor=\"middle\" fill=\"var(--dg-a, #1f5fae)\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\"><tspan direction=\"ltr\" unicode-bidi=\"isolate\">⁦v₀ = 30 <tspan direction=\"rtl\" unicode-bidi=\"isolate\">⁧מ/ש⁩</tspan>⁩</tspan></text><line x1=\"80\" y1=\"40\" x2=\"250\" y2=\"40\" stroke=\"currentColor\" stroke-dasharray=\"5 4\" opacity=\"0.6\"/><circle cx=\"100\" cy=\"40\" r=\"4\" fill=\"var(--dg-b, #c2410c)\" stroke=\"none\"/><text x=\"127.2\" y=\"58\" text-anchor=\"middle\" fill=\"var(--dg-b, #c2410c)\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\"><tspan x=\"127.2\" dy=\"0\"><tspan direction=\"rtl\" unicode-bidi=\"isolate\">⁧שיא⁩</tspan></tspan><tspan x=\"127.2\" dy=\"16\">t = ?</tspan></text></g></svg>",
+    "inputs": [
+      {
+        "label": "זמן העלייה",
+        "unit": "ש'",
+        "answer": "3",
+        "tolerance": 0.03
+      }
+    ],
+    "tips": [
+      "בנקודה הגבוהה ביותר הכדור עוצר לרגע, כלומר מהירותו אפס.",
+      "בעלייה המהירות קטנה באופן אחיד בקצב של תאוצת הנפילה.",
+      "השתמשו בנוסחת המהירות והשוו את המהירות הסופית לאפס."
+    ],
+    "solution": [
+      "נתונים: <span dir=\"ltr\">v₀ = 30 מ/ש</span> כלפי מעלה, <span dir=\"ltr\">g = 10 מ/ש²</span>. בשיא <span dir=\"ltr\">v = 0</span>.",
+      "כיוון חיובי כלפי מעלה: <span dir=\"ltr\">v = v₀ − gt</span>.",
+      "הצבה: <span dir=\"ltr\">0 = 30 − 10t</span>, ולכן <span dir=\"ltr\">t = 3 ש'</span>."
+    ],
+    "verify": {
+      "model": "l1_up_time",
+      "params": {
+        "v0": 30
+      },
+      "expect": {
+        "זמן העלייה": 3
+      }
+    }
+  },
+  {
+    "id": "phys-vertical-040",
+    "topic": "phys-vertical",
+    "level": 1,
+    "title": "הגובה המרבי של כדור שנזרק למעלה",
+    "statement": "כדור נזרק אנכית כלפי מעלה מהקרקע במהירות <span dir=\"ltr\">20 מ/ש</span>. התעלמו מהתנגדות האוויר. נתון <span dir=\"ltr\">g = 10 מ/ש²</span>.<br>חשבו: מהו הגובה המרבי שהכדור מגיע אליו מעל נקודת הזריקה?",
+    "diagram": "<svg viewBox=\"0 0 320 215\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" aria-label=\"כדור נזרק אנכית כלפי מעלה\"><title>כדור נזרק אנכית כלפי מעלה</title><defs><marker id=\"ph-k\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"currentColor\"/></marker><marker id=\"ph-a\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"var(--dg-a, #1f5fae)\"/></marker><marker id=\"ph-b\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"var(--dg-b, #c2410c)\"/></marker><marker id=\"ph-c\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"var(--dg-c, #1e7a34)\"/></marker></defs><g direction=\"ltr\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-size=\"14\"><line x1=\"10\" y1=\"205\" x2=\"310\" y2=\"205\" stroke=\"currentColor\" stroke-width=\"2\"/><path d=\"M18 205l-6 8M28 205l-6 8M38 205l-6 8M48 205l-6 8M58 205l-6 8M68 205l-6 8M78 205l-6 8M88 205l-6 8M98 205l-6 8M108 205l-6 8M118 205l-6 8M128 205l-6 8M138 205l-6 8M148 205l-6 8M158 205l-6 8M168 205l-6 8M178 205l-6 8M188 205l-6 8M198 205l-6 8M208 205l-6 8M218 205l-6 8M228 205l-6 8M238 205l-6 8M248 205l-6 8M258 205l-6 8M268 205l-6 8M278 205l-6 8M288 205l-6 8M298 205l-6 8M308 205l-6 8\" opacity=\"0.5\"/><path d=\"M100 199L100 40\" stroke=\"currentColor\" stroke-dasharray=\"5 4\"/><circle cx=\"100\" cy=\"199\" r=\"6\" fill=\"var(--dg-a, #1f5fae)\" stroke=\"none\"/><line x1=\"100\" y1=\"191\" x2=\"100\" y2=\"143\" stroke=\"var(--dg-a, #1f5fae)\" stroke-width=\"2\" marker-end=\"url(#ph-a)\"/><text x=\"150.7\" y=\"170\" text-anchor=\"middle\" fill=\"var(--dg-a, #1f5fae)\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\"><tspan direction=\"ltr\" unicode-bidi=\"isolate\">⁦v₀ = 20 <tspan direction=\"rtl\" unicode-bidi=\"isolate\">⁧מ/ש⁩</tspan>⁩</tspan></text><line x1=\"80\" y1=\"40\" x2=\"250\" y2=\"40\" stroke=\"currentColor\" stroke-dasharray=\"5 4\" opacity=\"0.6\"/><circle cx=\"100\" cy=\"40\" r=\"4\" fill=\"var(--dg-b, #c2410c)\" stroke=\"none\"/><text x=\"127.2\" y=\"58\" text-anchor=\"middle\" fill=\"var(--dg-b, #c2410c)\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\"><tspan x=\"127.2\" dy=\"0\"><tspan direction=\"rtl\" unicode-bidi=\"isolate\">⁧שיא⁩</tspan></tspan><tspan x=\"127.2\" dy=\"16\">v = 0</tspan></text><line x1=\"250\" y1=\"40\" x2=\"250\" y2=\"205\" stroke=\"currentColor\" marker-start=\"url(#ph-k)\" marker-end=\"url(#ph-k)\"/><text x=\"256\" y=\"127.5\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\">H = ?</text></g></svg>",
+    "inputs": [
+      {
+        "label": "הגובה המרבי",
+        "unit": "מ'",
+        "answer": "20",
+        "tolerance": 0.2
+      }
+    ],
+    "tips": [
+      "בשיא מהירות הכדור אפס, והזמן אינו נתון.",
+      "השתמשו בנוסחה שמקשרת מהירות סופית, מהירות התחלתית ומרחק.",
+      "שימו לב לסימן: התאוצה מפחיתה את המהירות בעלייה."
+    ],
+    "solution": [
+      "נתונים: <span dir=\"ltr\">v₀ = 20 מ/ש</span>, <span dir=\"ltr\">g = 10 מ/ש²</span>, בשיא <span dir=\"ltr\">v = 0</span>.",
+      "נוסחה ללא זמן (כיוון חיובי למעלה): <span dir=\"ltr\">v² = v₀² − 2gH</span>.",
+      "הצבה: <span dir=\"ltr\">0 = 400 − 20H</span>, ולכן <span dir=\"ltr\">H = 20 מ'</span>."
+    ],
+    "guided": [
+      {
+        "q": "איזו נוסחה מתאימה כשהזמן אינו נתון?",
+        "options": [
+          "<span dir=\"ltr\">v² = v₀² − 2gH</span>",
+          "<span dir=\"ltr\">v = v₀ − gt</span>",
+          "<span dir=\"ltr\">H = v₀t</span>"
+        ],
+        "correct": 0,
+        "explain": "נתונים מהירויות ומרחק, ולכן משתמשים בנוסחה ללא זמן."
+      },
+      {
+        "q": "מה הערך של v בשיא?",
+        "options": [
+          "אפס",
+          "<span dir=\"ltr\">20 מ/ש</span>",
+          "<span dir=\"ltr\">10 מ/ש</span>"
+        ],
+        "correct": 0,
+        "explain": "בנקודה הגבוהה ביותר הכדור עוצר לרגע."
+      },
+      {
+        "q": "מהו הגובה המרבי?",
+        "options": [
+          "<span dir=\"ltr\">20 מ'</span>",
+          "<span dir=\"ltr\">40 מ'</span>",
+          "<span dir=\"ltr\">10 מ'</span>"
+        ],
+        "correct": 0,
+        "explain": "חישוב: <span dir=\"ltr\">H = 400 / 20 = 20 מ'</span>."
+      }
+    ],
+    "verify": {
+      "model": "l1_up_height",
+      "params": {
+        "v0": 20
+      },
+      "expect": {
+        "הגובה המרבי": 20
+      }
+    }
+  },
+  {
+    "id": "phys-vertical-041",
+    "topic": "phys-vertical",
+    "level": 2,
+    "title": "כדור שנזרק למעלה: זמן עלייה, גובה וזמן טיסה",
+    "statement": "כדור נזרק אנכית כלפי מעלה מהקרקע במהירות <span dir=\"ltr\">35 מ/ש</span>. התעלמו מהתנגדות האוויר. נתון <span dir=\"ltr\">g = 10 מ/ש²</span>.<br>חשבו: א. זמן העלייה עד השיא. ב. הגובה המרבי. ג. זמן הטיסה הכולל עד החזרה לקרקע.",
+    "diagram": "<svg viewBox=\"0 0 320 215\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" aria-label=\"כדור נזרק אנכית כלפי מעלה\"><title>כדור נזרק אנכית כלפי מעלה</title><defs><marker id=\"ph-k\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"currentColor\"/></marker><marker id=\"ph-a\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"var(--dg-a, #1f5fae)\"/></marker><marker id=\"ph-b\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"var(--dg-b, #c2410c)\"/></marker><marker id=\"ph-c\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"var(--dg-c, #1e7a34)\"/></marker></defs><g direction=\"ltr\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-size=\"14\"><line x1=\"10\" y1=\"205\" x2=\"310\" y2=\"205\" stroke=\"currentColor\" stroke-width=\"2\"/><path d=\"M18 205l-6 8M28 205l-6 8M38 205l-6 8M48 205l-6 8M58 205l-6 8M68 205l-6 8M78 205l-6 8M88 205l-6 8M98 205l-6 8M108 205l-6 8M118 205l-6 8M128 205l-6 8M138 205l-6 8M148 205l-6 8M158 205l-6 8M168 205l-6 8M178 205l-6 8M188 205l-6 8M198 205l-6 8M208 205l-6 8M218 205l-6 8M228 205l-6 8M238 205l-6 8M248 205l-6 8M258 205l-6 8M268 205l-6 8M278 205l-6 8M288 205l-6 8M298 205l-6 8M308 205l-6 8\" opacity=\"0.5\"/><path d=\"M100 199L100 40\" stroke=\"currentColor\" stroke-dasharray=\"5 4\"/><circle cx=\"100\" cy=\"199\" r=\"6\" fill=\"var(--dg-a, #1f5fae)\" stroke=\"none\"/><line x1=\"100\" y1=\"191\" x2=\"100\" y2=\"143\" stroke=\"var(--dg-a, #1f5fae)\" stroke-width=\"2\" marker-end=\"url(#ph-a)\"/><text x=\"150.7\" y=\"170\" text-anchor=\"middle\" fill=\"var(--dg-a, #1f5fae)\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\"><tspan direction=\"ltr\" unicode-bidi=\"isolate\">⁦v₀ = 35 <tspan direction=\"rtl\" unicode-bidi=\"isolate\">⁧מ/ש⁩</tspan>⁩</tspan></text><line x1=\"80\" y1=\"40\" x2=\"250\" y2=\"40\" stroke=\"currentColor\" stroke-dasharray=\"5 4\" opacity=\"0.6\"/><circle cx=\"100\" cy=\"40\" r=\"4\" fill=\"var(--dg-b, #c2410c)\" stroke=\"none\"/><text x=\"127.2\" y=\"58\" text-anchor=\"middle\" fill=\"var(--dg-b, #c2410c)\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\"><tspan x=\"127.2\" dy=\"0\"><tspan direction=\"rtl\" unicode-bidi=\"isolate\">⁧שיא⁩</tspan></tspan><tspan x=\"127.2\" dy=\"16\">v = 0</tspan></text><line x1=\"250\" y1=\"40\" x2=\"250\" y2=\"205\" stroke=\"currentColor\" marker-start=\"url(#ph-k)\" marker-end=\"url(#ph-k)\"/><text x=\"256\" y=\"127.5\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\">H = ?</text></g></svg>",
+    "inputs": [
+      {
+        "label": "זמן העלייה",
+        "unit": "ש'",
+        "answer": "3.5",
+        "tolerance": 0.035
+      },
+      {
+        "label": "הגובה המרבי",
+        "unit": "מ'",
+        "answer": "61.25",
+        "tolerance": 0.6125
+      },
+      {
+        "label": "זמן הטיסה הכולל",
+        "unit": "ש'",
+        "answer": "7",
+        "tolerance": 0.07
+      }
+    ],
+    "tips": [
+      "בשיא המהירות אפס. מכאן אפשר לחשב את זמן העלייה ואת הגובה.",
+      "הגובה המרבי נובע מנוסחת המהירות והמרחק בלי זמן. זמן הטיסה קשור לזמן העלייה בסימטריה.",
+      "בהתעלמות מהתנגדות האוויר, הירידה לוקחת בדיוק כמו העלייה לאותו גובה."
+    ],
+    "solution": [
+      "נתונים: <span dir=\"ltr\">v₀ = 35 מ/ש</span>, <span dir=\"ltr\">g = 10 מ/ש²</span>.",
+      "זמן עלייה: <span dir=\"ltr\">0 = 35 − 10t</span>, ולכן <span dir=\"ltr\">t = 3.5 ש'</span>.",
+      "גובה מרבי: <span dir=\"ltr\">H = v₀² / 2g = 1225 / 20 = 61.25 מ'</span>.",
+      "העלייה והירידה סימטריות, ולכן זמן הטיסה: <span dir=\"ltr\">2 · 3.5 = 7 ש'</span>.",
+      "בדיקה: <span dir=\"ltr\">35 · 7 − 5 · 7² = 245 − 245 = 0</span>, הכדור חזר לקרקע."
+    ],
+    "guided": [
+      {
+        "q": "מה תנאי השיא?",
+        "options": [
+          "מהירות אפס",
+          "תאוצה אפס",
+          "גובה אפס"
+        ],
+        "correct": 0,
+        "explain": "בשיא המהירות מתאפסת לרגע, והתאוצה נשארת g."
+      },
+      {
+        "q": "מהו זמן העלייה?",
+        "options": [
+          "<span dir=\"ltr\">3.5 ש'</span>",
+          "<span dir=\"ltr\">35 ש'</span>",
+          "<span dir=\"ltr\">7 ש'</span>"
+        ],
+        "correct": 0,
+        "explain": "חישוב: <span dir=\"ltr\">t = v₀ / g = 3.5</span>."
+      },
+      {
+        "q": "איך מקבלים את זמן הטיסה הכולל?",
+        "options": [
+          "מכפילים את זמן העלייה ב-2",
+          "מחלקים את זמן העלייה ב-2",
+          "מחשבים את הגובה ומחלקים במהירות"
+        ],
+        "correct": 0,
+        "explain": "הירידה אורכת כמו העלייה, ולכן הזמן הכולל כפול."
+      }
+    ],
+    "verify": {
+      "model": "vertical_throw_up",
+      "params": {
+        "v0": 35
+      },
+      "expect": {
+        "זמן העלייה": 3.5,
+        "הגובה המרבי": 61.25,
+        "זמן הטיסה הכולל": 7
+      }
+    }
+  },
+  {
+    "id": "phys-vertical-042",
+    "topic": "phys-vertical",
+    "level": 2,
+    "title": "נפילה חופשית: זמן ומהירות פגיעה",
+    "statement": "אבן נשמטת ממנוחה מראש צוק בגובה <span dir=\"ltr\">245 מ'</span> מעל הים. התעלמו מהתנגדות האוויר. נתון <span dir=\"ltr\">g = 10 מ/ש²</span>.<br>חשבו: א. זמן הנפילה. ב. מהירות האבן ברגע הפגיעה במים.",
+    "diagram": "<svg viewBox=\"0 0 320 215\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" aria-label=\"כדור נשמט ממנוחה מגובה h\"><title>כדור נשמט ממנוחה מגובה h</title><defs><marker id=\"ph-k\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"currentColor\"/></marker><marker id=\"ph-a\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"var(--dg-a, #1f5fae)\"/></marker><marker id=\"ph-b\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"var(--dg-b, #c2410c)\"/></marker><marker id=\"ph-c\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"var(--dg-c, #1e7a34)\"/></marker></defs><g direction=\"ltr\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-size=\"14\"><rect x=\"24\" y=\"45\" width=\"72\" height=\"160\" stroke=\"currentColor\" fill=\"currentColor\" fill-opacity=\"0.18\"/><line x1=\"10\" y1=\"205\" x2=\"310\" y2=\"205\" stroke=\"currentColor\" stroke-width=\"2\"/><path d=\"M18 205l-6 8M28 205l-6 8M38 205l-6 8M48 205l-6 8M58 205l-6 8M68 205l-6 8M78 205l-6 8M88 205l-6 8M98 205l-6 8M108 205l-6 8M118 205l-6 8M128 205l-6 8M138 205l-6 8M148 205l-6 8M158 205l-6 8M168 205l-6 8M178 205l-6 8M188 205l-6 8M198 205l-6 8M208 205l-6 8M218 205l-6 8M228 205l-6 8M238 205l-6 8M248 205l-6 8M258 205l-6 8M268 205l-6 8M278 205l-6 8M288 205l-6 8M298 205l-6 8M308 205l-6 8\" opacity=\"0.5\"/><line x1=\"96\" y1=\"45\" x2=\"250\" y2=\"45\" stroke=\"currentColor\" stroke-dasharray=\"5 4\" opacity=\"0.6\"/><line x1=\"250\" y1=\"45\" x2=\"250\" y2=\"205\" stroke=\"currentColor\" marker-start=\"url(#ph-k)\" marker-end=\"url(#ph-k)\"/><text x=\"208.4\" y=\"130\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\"><tspan direction=\"ltr\" unicode-bidi=\"isolate\">⁦h = 245 <tspan direction=\"rtl\" unicode-bidi=\"isolate\">⁧מ׳⁩</tspan>⁩</tspan></text><path d=\"M112 45L112 199\" stroke=\"currentColor\" stroke-dasharray=\"5 4\"/><circle cx=\"112\" cy=\"45\" r=\"6\" fill=\"var(--dg-a, #1f5fae)\" stroke=\"none\"/><text x=\"120\" y=\"34\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\">v₀ = 0</text><line x1=\"112\" y1=\"70\" x2=\"112\" y2=\"110\" stroke=\"var(--dg-b, #c2410c)\" stroke-width=\"2\" marker-end=\"url(#ph-b)\"/><text x=\"122\" y=\"99\" text-anchor=\"start\" fill=\"var(--dg-b, #c2410c)\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\">g</text></g></svg>",
+    "inputs": [
+      {
+        "label": "זמן הנפילה",
+        "unit": "ש'",
+        "answer": "7",
+        "tolerance": 0.07
+      },
+      {
+        "label": "מהירות הפגיעה",
+        "unit": "מ/ש",
+        "answer": "70",
+        "tolerance": 0.7
+      }
+    ],
+    "tips": [
+      "חשבו קודם את זמן הנפילה מנוסחת המרחק בנפילה חופשית ממנוחה.",
+      "כשהזמן ידוע, המהירות נובעת מנוסחת המהירות.",
+      "בדקו את המהירות גם בנוסחה שבלי זמן, שתיתן אותה תוצאה."
+    ],
+    "solution": [
+      "נתונים: <span dir=\"ltr\">h = 245 מ'</span>, <span dir=\"ltr\">v₀ = 0</span>, <span dir=\"ltr\">g = 10 מ/ש²</span>.",
+      "<span dir=\"ltr\">245 = 5t²</span>, ולכן <span dir=\"ltr\">t² = 49</span> ו-<span dir=\"ltr\">t = 7 ש'</span>.",
+      "מהירות הפגיעה: <span dir=\"ltr\">v = gt = 10 · 7 = 70 מ/ש</span>.",
+      "בדיקה: <span dir=\"ltr\">v² = 2gh = 2 · 10 · 245 = 4900</span>, ו-<span dir=\"ltr\">√4900 = 70</span>. ✓"
+    ],
+    "guided": [
+      {
+        "q": "איך מוצאים את זמן הנפילה?",
+        "options": [
+          "<span dir=\"ltr\">t = √(2h/g)</span>",
+          "<span dir=\"ltr\">t = 2h/g</span>",
+          "<span dir=\"ltr\">t = h/g</span>"
+        ],
+        "correct": 0,
+        "explain": "מ-<span dir=\"ltr\">h = ½gt²</span>."
+      },
+      {
+        "q": "מהו הזמן?",
+        "options": [
+          "<span dir=\"ltr\">7 ש'</span>",
+          "<span dir=\"ltr\">49 ש'</span>",
+          "<span dir=\"ltr\">24.5 ש'</span>"
+        ],
+        "correct": 0,
+        "explain": "חישוב: <span dir=\"ltr\">t² = 49</span>."
+      },
+      {
+        "q": "איך מחשבים את המהירות?",
+        "options": [
+          "<span dir=\"ltr\">v = gt</span>",
+          "<span dir=\"ltr\">v = t/g</span>",
+          "<span dir=\"ltr\">v = ½gt</span>"
+        ],
+        "correct": 0,
+        "explain": "ממנוחה המהירות שווה לתאוצה כפול הזמן."
+      }
+    ],
+    "verify": {
+      "model": "free_fall_from_height",
+      "params": {
+        "h": 245
+      },
+      "expect": {
+        "זמן הנפילה": 7,
+        "מהירות הפגיעה": 70
+      }
+    }
+  },
+  {
+    "id": "phys-vertical-043",
+    "topic": "phys-vertical",
+    "level": 2,
+    "title": "נפילה של זמן נתון: גובה ומהירות",
+    "statement": "כדור נשמט ממנוחה מגג בניין ונוחת על המדרכה אחרי <span dir=\"ltr\">6 ש'</span>. התעלמו מהתנגדות האוויר. נתון <span dir=\"ltr\">g = 10 מ/ש²</span>.<br>חשבו: א. גובה הגג מעל המדרכה. ב. מהירות הכדור ברגע הנחיתה.",
+    "diagram": "<svg viewBox=\"0 0 320 215\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" aria-label=\"אבן נופלת במשך t שניות\"><title>אבן נופלת במשך t שניות</title><defs><marker id=\"ph-k\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"currentColor\"/></marker><marker id=\"ph-a\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"var(--dg-a, #1f5fae)\"/></marker><marker id=\"ph-b\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"var(--dg-b, #c2410c)\"/></marker><marker id=\"ph-c\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"var(--dg-c, #1e7a34)\"/></marker></defs><g direction=\"ltr\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-size=\"14\"><line x1=\"10\" y1=\"205\" x2=\"310\" y2=\"205\" stroke=\"currentColor\" stroke-width=\"2\"/><path d=\"M18 205l-6 8M28 205l-6 8M38 205l-6 8M48 205l-6 8M58 205l-6 8M68 205l-6 8M78 205l-6 8M88 205l-6 8M98 205l-6 8M108 205l-6 8M118 205l-6 8M128 205l-6 8M138 205l-6 8M148 205l-6 8M158 205l-6 8M168 205l-6 8M178 205l-6 8M188 205l-6 8M198 205l-6 8M208 205l-6 8M218 205l-6 8M228 205l-6 8M238 205l-6 8M248 205l-6 8M258 205l-6 8M268 205l-6 8M278 205l-6 8M288 205l-6 8M298 205l-6 8M308 205l-6 8\" opacity=\"0.5\"/><line x1=\"100\" y1=\"40\" x2=\"100\" y2=\"205\" stroke=\"currentColor\" stroke-dasharray=\"5 4\" opacity=\"0.6\"/><circle cx=\"100\" cy=\"40\" r=\"6\" fill=\"var(--dg-a, #1f5fae)\" stroke=\"none\"/><text x=\"112\" y=\"45\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\">t = 0, v₀ = 0</text><circle cx=\"100\" cy=\"108\" r=\"6\" fill=\"var(--dg-a, #1f5fae)\" stroke=\"none\"/><text x=\"112\" y=\"113\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\">...</text><circle cx=\"100\" cy=\"199\" r=\"6\" fill=\"var(--dg-a, #1f5fae)\" stroke=\"none\"/><text x=\"139.7\" y=\"192\" text-anchor=\"middle\" fill=\"var(--dg-b, #c2410c)\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\"><tspan direction=\"ltr\" unicode-bidi=\"isolate\">⁦t = 6 <tspan direction=\"rtl\" unicode-bidi=\"isolate\">⁧ש׳⁩</tspan>⁩</tspan></text><line x1=\"240\" y1=\"40\" x2=\"240\" y2=\"205\" stroke=\"currentColor\" marker-start=\"url(#ph-k)\" marker-end=\"url(#ph-k)\"/><text x=\"246\" y=\"127.5\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\">h = ?</text><line x1=\"70\" y1=\"70\" x2=\"70\" y2=\"120\" stroke=\"var(--dg-b, #c2410c)\" stroke-width=\"2\" marker-end=\"url(#ph-b)\"/><text x=\"60\" y=\"101\" text-anchor=\"end\" fill=\"var(--dg-b, #c2410c)\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\">g</text></g></svg>",
+    "inputs": [
+      {
+        "label": "גובה הגג",
+        "unit": "מ'",
+        "answer": "180",
+        "tolerance": 1.8
+      },
+      {
+        "label": "מהירות הנחיתה",
+        "unit": "מ/ש",
+        "answer": "60",
+        "tolerance": 0.6
+      }
+    ],
+    "tips": [
+      "הזמן נתון, והכדור יצא ממנוחה. התחילו בנוסחת המרחק.",
+      "את המהירות אפשר לחשב מהזמן בלבד, בלי להשתמש בגובה שמצאתם.",
+      "בדיקה אפשרית: ממוצע המהירות כפול הזמן צריך לתת את הגובה."
+    ],
+    "solution": [
+      "נתונים: <span dir=\"ltr\">t = 6 ש'</span>, <span dir=\"ltr\">v₀ = 0</span>, <span dir=\"ltr\">g = 10 מ/ש²</span>.",
+      "גובה: <span dir=\"ltr\">h = ½gt² = 5 · 36 = 180 מ'</span>.",
+      "מהירות: <span dir=\"ltr\">v = gt = 10 · 6 = 60 מ/ש</span>.",
+      "בדיקה: מהירות ממוצעת <span dir=\"ltr\">(0 + 60) / 2 = 30 מ/ש</span>, וכפול <span dir=\"ltr\">6 ש'</span> נותן <span dir=\"ltr\">180 מ'</span>. ✓"
+    ],
+    "guided": [
+      {
+        "q": "איזו נוסחה נותנת את הגובה כשהזמן נתון?",
+        "options": [
+          "<span dir=\"ltr\">h = ½gt²</span>",
+          "<span dir=\"ltr\">h = gt</span>",
+          "<span dir=\"ltr\">h = ½gt</span>"
+        ],
+        "correct": 0,
+        "explain": "מרחק בנפילה חופשית ממנוחה."
+      },
+      {
+        "q": "מהו הגובה?",
+        "options": [
+          "<span dir=\"ltr\">180 מ'</span>",
+          "<span dir=\"ltr\">60 מ'</span>",
+          "<span dir=\"ltr\">360 מ'</span>"
+        ],
+        "correct": 0,
+        "explain": "חישוב: <span dir=\"ltr\">5 · 36 = 180</span>."
+      },
+      {
+        "q": "מהי מהירות הנחיתה?",
+        "options": [
+          "<span dir=\"ltr\">60 מ/ש</span>",
+          "<span dir=\"ltr\">30 מ/ש</span>",
+          "<span dir=\"ltr\">180 מ/ש</span>"
+        ],
+        "correct": 0,
+        "explain": "חישוב: <span dir=\"ltr\">v = gt = 60</span>."
+      }
+    ],
+    "verify": {
+      "model": "free_fall_for_time",
+      "params": {
+        "t": 6
+      },
+      "expect": {
+        "גובה הגג": 180,
+        "מהירות הנחיתה": 60
+      }
+    }
+  },
+  {
+    "id": "phys-vertical-044",
+    "topic": "phys-vertical",
+    "level": 2,
+    "title": "זריקה כלפי מטה: זמן ומהירות פגיעה",
+    "statement": "ילד זורק כדור אנכית כלפי מטה במהירות <span dir=\"ltr\">10 מ/ש</span> מחלון בגובה <span dir=\"ltr\">75 מ'</span> מעל הקרקע. התעלמו מהתנגדות האוויר. נתון <span dir=\"ltr\">g = 10 מ/ש²</span>.<br>חשבו: א. כמה זמן יימשך הכדור באוויר. ב. מהי מהירות הכדור ברגע הפגיעה.",
+    "diagram": "<svg viewBox=\"0 0 320 215\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" aria-label=\"אבן נזרקת כלפי מטה מגשר\"><title>אבן נזרקת כלפי מטה מגשר</title><defs><marker id=\"ph-k\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"currentColor\"/></marker><marker id=\"ph-a\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"var(--dg-a, #1f5fae)\"/></marker><marker id=\"ph-b\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"var(--dg-b, #c2410c)\"/></marker><marker id=\"ph-c\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"var(--dg-c, #1e7a34)\"/></marker></defs><g direction=\"ltr\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-size=\"14\"><rect x=\"24\" y=\"45\" width=\"72\" height=\"160\" stroke=\"currentColor\" fill=\"currentColor\" fill-opacity=\"0.18\"/><line x1=\"10\" y1=\"205\" x2=\"310\" y2=\"205\" stroke=\"currentColor\" stroke-width=\"2\"/><path d=\"M18 205l-6 8M28 205l-6 8M38 205l-6 8M48 205l-6 8M58 205l-6 8M68 205l-6 8M78 205l-6 8M88 205l-6 8M98 205l-6 8M108 205l-6 8M118 205l-6 8M128 205l-6 8M138 205l-6 8M148 205l-6 8M158 205l-6 8M168 205l-6 8M178 205l-6 8M188 205l-6 8M198 205l-6 8M208 205l-6 8M218 205l-6 8M228 205l-6 8M238 205l-6 8M248 205l-6 8M258 205l-6 8M268 205l-6 8M278 205l-6 8M288 205l-6 8M298 205l-6 8M308 205l-6 8\" opacity=\"0.5\"/><line x1=\"96\" y1=\"45\" x2=\"250\" y2=\"45\" stroke=\"currentColor\" stroke-dasharray=\"5 4\" opacity=\"0.6\"/><line x1=\"250\" y1=\"45\" x2=\"250\" y2=\"205\" stroke=\"currentColor\" marker-start=\"url(#ph-k)\" marker-end=\"url(#ph-k)\"/><text x=\"213.1\" y=\"130\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\"><tspan direction=\"ltr\" unicode-bidi=\"isolate\">⁦h = 75 <tspan direction=\"rtl\" unicode-bidi=\"isolate\">⁧מ׳⁩</tspan>⁩</tspan></text><path d=\"M112 45L112 199\" stroke=\"currentColor\" stroke-dasharray=\"5 4\"/><circle cx=\"112\" cy=\"45\" r=\"6\" fill=\"var(--dg-a, #1f5fae)\" stroke=\"none\"/><line x1=\"112\" y1=\"50\" x2=\"112\" y2=\"100\" stroke=\"var(--dg-a, #1f5fae)\" stroke-width=\"2\" marker-end=\"url(#ph-a)\"/><text x=\"162.7\" y=\"81\" text-anchor=\"middle\" fill=\"var(--dg-a, #1f5fae)\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\"><tspan direction=\"ltr\" unicode-bidi=\"isolate\">⁦v₀ = 10 <tspan direction=\"rtl\" unicode-bidi=\"isolate\">⁧מ/ש⁩</tspan>⁩</tspan></text></g></svg>",
+    "inputs": [
+      {
+        "label": "זמן הטיסה",
+        "unit": "ש'",
+        "answer": "3",
+        "tolerance": 0.03
+      },
+      {
+        "label": "מהירות הפגיעה",
+        "unit": "מ/ש",
+        "answer": "40",
+        "tolerance": 0.4
+      }
+    ],
+    "tips": [
+      "כיוון חיובי כלפי מטה: המהירות ההתחלתית והתאוצה באותו כיוון.",
+      "משוואת המרחק היא משוואה ריבועית בזמן. פתרו אותה ובחרו את השורש החיובי.",
+      "כשהזמן ידוע, המהירות הסופית היא המהירות ההתחלתית ועוד g כפול הזמן."
+    ],
+    "solution": [
+      "נתונים: <span dir=\"ltr\">v₀ = 10 מ/ש</span> כלפי מטה, <span dir=\"ltr\">h = 75 מ'</span>, <span dir=\"ltr\">g = 10 מ/ש²</span>.",
+      "משוואת המרחק: <span dir=\"ltr\">75 = 10t + 5t²</span>, כלומר <span dir=\"ltr\">t² + 2t − 15 = 0</span>.",
+      "פתרון: <span dir=\"ltr\">(t + 5)(t − 3) = 0</span>, ולכן <span dir=\"ltr\">t = 3 ש'</span> (הפתרון <span dir=\"ltr\">t = −5</span> נפסל).",
+      "מהירות הפגיעה: <span dir=\"ltr\">v = v₀ + gt = 10 + 30 = 40 מ/ש</span>.",
+      "בדיקה: <span dir=\"ltr\">v² = v₀² + 2gh = 100 + 1500 = 1600</span>, ו-<span dir=\"ltr\">√1600 = 40</span>. ✓"
+    ],
+    "guided": [
+      {
+        "q": "איזו משוואה מתקבלת לזמן?",
+        "options": [
+          "<span dir=\"ltr\">t² + 2t − 15 = 0</span>",
+          "<span dir=\"ltr\">t² − 2t − 15 = 0</span>",
+          "<span dir=\"ltr\">t² + 2t + 15 = 0</span>"
+        ],
+        "correct": 0,
+        "explain": "<span dir=\"ltr\">75 = 10t + 5t²</span> ומחלקים ב-5."
+      },
+      {
+        "q": "איזה שורש מתאים?",
+        "options": [
+          "<span dir=\"ltr\">t = 3</span>",
+          "<span dir=\"ltr\">t = −5</span>",
+          "<span dir=\"ltr\">t = 15</span>"
+        ],
+        "correct": 0,
+        "explain": "הזמן חיובי בלבד."
+      },
+      {
+        "q": "מהי מהירות הפגיעה?",
+        "options": [
+          "<span dir=\"ltr\">40 מ/ש</span>",
+          "<span dir=\"ltr\">30 מ/ש</span>",
+          "<span dir=\"ltr\">10 מ/ש</span>"
+        ],
+        "correct": 0,
+        "explain": "חישוב: <span dir=\"ltr\">v = 10 + 10 · 3 = 40</span>."
+      }
+    ],
+    "verify": {
+      "model": "vertical_throw_down_from_height",
+      "params": {
+        "h": 75,
+        "v0": 10
+      },
+      "expect": {
+        "זמן הטיסה": 3,
+        "מהירות הפגיעה": 40
+      }
+    }
+  },
+  {
+    "id": "phys-vertical-045",
+    "topic": "phys-vertical",
+    "level": 2,
+    "title": "זריקה כלפי מעלה ממצוק: זמן, מהירות וגובה מרבי",
+    "statement": "אדם עומד על מצוק בגובה <span dir=\"ltr\">60 מ'</span> מעל הים וזורק אבן אנכית כלפי מעלה במהירות <span dir=\"ltr\">20 מ/ש</span>. התעלמו מהתנגדות האוויר. נתון <span dir=\"ltr\">g = 10 מ/ש²</span>.<br>חשבו: א. זמן הטיסה עד הפגיעה בים. ב. מהירות האבן ברגע הפגיעה. ג. הגובה המרבי של האבן מעל פני הים.",
+    "diagram": "<svg viewBox=\"0 0 320 215\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" aria-label=\"כדור נזרק כלפי מעלה מגג בניין\"><title>כדור נזרק כלפי מעלה מגג בניין</title><defs><marker id=\"ph-k\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"currentColor\"/></marker><marker id=\"ph-a\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"var(--dg-a, #1f5fae)\"/></marker><marker id=\"ph-b\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"var(--dg-b, #c2410c)\"/></marker><marker id=\"ph-c\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"var(--dg-c, #1e7a34)\"/></marker></defs><g direction=\"ltr\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-size=\"14\"><rect x=\"24\" y=\"45\" width=\"72\" height=\"160\" stroke=\"currentColor\" fill=\"currentColor\" fill-opacity=\"0.18\"/><line x1=\"10\" y1=\"205\" x2=\"310\" y2=\"205\" stroke=\"currentColor\" stroke-width=\"2\"/><path d=\"M18 205l-6 8M28 205l-6 8M38 205l-6 8M48 205l-6 8M58 205l-6 8M68 205l-6 8M78 205l-6 8M88 205l-6 8M98 205l-6 8M108 205l-6 8M118 205l-6 8M128 205l-6 8M138 205l-6 8M148 205l-6 8M158 205l-6 8M168 205l-6 8M178 205l-6 8M188 205l-6 8M198 205l-6 8M208 205l-6 8M218 205l-6 8M228 205l-6 8M238 205l-6 8M248 205l-6 8M258 205l-6 8M268 205l-6 8M278 205l-6 8M288 205l-6 8M298 205l-6 8M308 205l-6 8\" opacity=\"0.5\"/><line x1=\"96\" y1=\"45\" x2=\"250\" y2=\"45\" stroke=\"currentColor\" stroke-dasharray=\"5 4\" opacity=\"0.6\"/><line x1=\"250\" y1=\"45\" x2=\"250\" y2=\"205\" stroke=\"currentColor\" marker-start=\"url(#ph-k)\" marker-end=\"url(#ph-k)\"/><text x=\"213.1\" y=\"130\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\"><tspan direction=\"ltr\" unicode-bidi=\"isolate\">⁦h = 60 <tspan direction=\"rtl\" unicode-bidi=\"isolate\">⁧מ׳⁩</tspan>⁩</tspan></text><path d=\"M112 45L112 199\" stroke=\"currentColor\" stroke-dasharray=\"5 4\"/><circle cx=\"112\" cy=\"45\" r=\"6\" fill=\"var(--dg-a, #1f5fae)\" stroke=\"none\"/><line x1=\"112\" y1=\"38\" x2=\"112\" y2=\"8\" stroke=\"var(--dg-a, #1f5fae)\" stroke-width=\"2\" marker-end=\"url(#ph-a)\"/><text x=\"162.7\" y=\"22\" text-anchor=\"middle\" fill=\"var(--dg-a, #1f5fae)\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\"><tspan direction=\"ltr\" unicode-bidi=\"isolate\">⁦v₀ = 20 <tspan direction=\"rtl\" unicode-bidi=\"isolate\">⁧מ/ש⁩</tspan>⁩</tspan></text></g></svg>",
+    "inputs": [
+      {
+        "label": "זמן הטיסה",
+        "unit": "ש'",
+        "answer": "6",
+        "tolerance": 0.06
+      },
+      {
+        "label": "מהירות הפגיעה",
+        "unit": "מ/ש",
+        "answer": "40",
+        "tolerance": 0.4
+      },
+      {
+        "label": "הגובה המרבי מעל הים",
+        "unit": "מ'",
+        "answer": "80",
+        "tolerance": 0.8
+      }
+    ],
+    "tips": [
+      "מהירות הפגיעה נמצאת מנוסחת המהירות והמרחק, כאשר ההעתק הכולל הוא הגובה של המצוק כלפי מטה.",
+      "כשיש מהירות הפגיעה, הזמן הכולל הוא הזמן שבו המהירות משתנה מערך חיובי (מעלה) לערך שלילי (מטה).",
+      "הגובה המרבי מעל הים הוא גובה המצוק ועוד העלייה מנקודת הזריקה."
+    ],
+    "solution": [
+      "נתונים: <span dir=\"ltr\">v₀ = 20 מ/ש</span> כלפי מעלה, <span dir=\"ltr\">h = 60 מ'</span>, <span dir=\"ltr\">g = 10 מ/ש²</span>.",
+      "מהירות הפגיעה: <span dir=\"ltr\">v² = v₀² + 2gh = 400 + 1200 = 1600</span>, ולכן <span dir=\"ltr\">v = 40 מ/ש</span> כלפי מטה.",
+      "הזמן הכולל: המהירות עוברת מ-<span dir=\"ltr\">+20</span> ל-<span dir=\"ltr\">−40</span>: <span dir=\"ltr\">t = (20 + 40) / 10 = 6 ש'</span>.",
+      "העלייה מנקודת הזריקה: <span dir=\"ltr\">20² / (2 · 10) = 20 מ'</span>.",
+      "הגובה המרבי מעל הים: <span dir=\"ltr\">60 + 20 = 80 מ'</span>."
+    ],
+    "guided": [
+      {
+        "q": "מהי מהירות הפגיעה?",
+        "options": [
+          "<span dir=\"ltr\">40 מ/ש</span>",
+          "<span dir=\"ltr\">20 מ/ש</span>",
+          "<span dir=\"ltr\">60 מ/ש</span>"
+        ],
+        "correct": 0,
+        "explain": "חישוב: <span dir=\"ltr\">v² = 400 + 1200 = 1600</span>."
+      },
+      {
+        "q": "איך מחשבים את זמן הטיסה?",
+        "options": [
+          "שינוי המהירות חלקי g",
+          "גובה חלקי מהירות",
+          "מהירות חלקי גובה"
+        ],
+        "correct": 0,
+        "explain": "<span dir=\"ltr\">Δv = 20 − (−40) = 60</span>, וחלקי <span dir=\"ltr\">g</span> נותן <span dir=\"ltr\">6 ש'</span>."
+      },
+      {
+        "q": "איך מקבלים את הגובה המרבי מעל הים?",
+        "options": [
+          "גובה המצוק ועוד העלייה",
+          "העלייה בלבד",
+          "גובה המצוק פחות העלייה"
+        ],
+        "correct": 0,
+        "explain": "חישוב: <span dir=\"ltr\">60 + 20 = 80 מ'</span>."
+      }
+    ],
+    "verify": {
+      "model": "vertical_throw_from_height",
+      "params": {
+        "h": 60,
+        "v0": 20
+      },
+      "expect": {
+        "זמן הטיסה": 6,
+        "מהירות הפגיעה": 40,
+        "הגובה המרבי מעל הים": 80
+      }
+    }
+  },
+  {
+    "id": "phys-vertical-046",
+    "topic": "phys-vertical",
+    "level": 2,
+    "title": "מהירות בגובה נתון וגובה מרבי",
+    "statement": "כדור נזרק אנכית כלפי מעלה מהקרקע במהירות <span dir=\"ltr\">50 מ/ש</span>. התעלמו מהתנגדות האוויר. נתון <span dir=\"ltr\">g = 10 מ/ש²</span>.<br>חשבו: א. מהי מהירות הכדור כשהוא נמצא בגובה <span dir=\"ltr\">45 מ'</span> מעל הקרקע. ב. כמה מטרים נוספים יעלה הכדור מגובה זה ועד השיא.",
+    "diagram": "<svg viewBox=\"0 0 320 215\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" aria-label=\"כדור בעלייה עובר בגובה נתון\"><title>כדור בעלייה עובר בגובה נתון</title><defs><marker id=\"ph-k\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"currentColor\"/></marker><marker id=\"ph-a\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"var(--dg-a, #1f5fae)\"/></marker><marker id=\"ph-b\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"var(--dg-b, #c2410c)\"/></marker><marker id=\"ph-c\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"var(--dg-c, #1e7a34)\"/></marker></defs><g direction=\"ltr\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-size=\"14\"><line x1=\"10\" y1=\"205\" x2=\"310\" y2=\"205\" stroke=\"currentColor\" stroke-width=\"2\"/><path d=\"M18 205l-6 8M28 205l-6 8M38 205l-6 8M48 205l-6 8M58 205l-6 8M68 205l-6 8M78 205l-6 8M88 205l-6 8M98 205l-6 8M108 205l-6 8M118 205l-6 8M128 205l-6 8M138 205l-6 8M148 205l-6 8M158 205l-6 8M168 205l-6 8M178 205l-6 8M188 205l-6 8M198 205l-6 8M208 205l-6 8M218 205l-6 8M228 205l-6 8M238 205l-6 8M248 205l-6 8M258 205l-6 8M268 205l-6 8M278 205l-6 8M288 205l-6 8M298 205l-6 8M308 205l-6 8\" opacity=\"0.5\"/><path d=\"M100 199L100 40\" stroke=\"currentColor\" stroke-dasharray=\"5 4\"/><circle cx=\"100\" cy=\"199\" r=\"6\" fill=\"var(--dg-a, #1f5fae)\" stroke=\"none\"/><line x1=\"100\" y1=\"191\" x2=\"100\" y2=\"143\" stroke=\"var(--dg-a, #1f5fae)\" stroke-width=\"2\" marker-end=\"url(#ph-a)\"/><text x=\"150.7\" y=\"170\" text-anchor=\"middle\" fill=\"var(--dg-a, #1f5fae)\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\"><tspan direction=\"ltr\" unicode-bidi=\"isolate\">⁦v₀ = 50 <tspan direction=\"rtl\" unicode-bidi=\"isolate\">⁧מ/ש⁩</tspan>⁩</tspan></text><line x1=\"80\" y1=\"40\" x2=\"250\" y2=\"40\" stroke=\"currentColor\" stroke-dasharray=\"5 4\" opacity=\"0.6\"/><circle cx=\"100\" cy=\"40\" r=\"4\" fill=\"var(--dg-b, #c2410c)\" stroke=\"none\"/><text x=\"122.6\" y=\"22\" text-anchor=\"middle\" fill=\"var(--dg-b, #c2410c)\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\"><tspan direction=\"rtl\" unicode-bidi=\"isolate\">⁧שיא⁩</tspan></text><line x1=\"80\" y1=\"105\" x2=\"250\" y2=\"105\" stroke=\"currentColor\" stroke-dasharray=\"5 4\" opacity=\"0.6\"/><circle cx=\"100\" cy=\"105\" r=\"5\" fill=\"var(--dg-c, #1e7a34)\" stroke=\"none\"/><text x=\"112\" y=\"125\" text-anchor=\"start\" fill=\"var(--dg-c, #1e7a34)\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\">v = ?</text><line x1=\"250\" y1=\"105\" x2=\"250\" y2=\"205\" stroke=\"currentColor\" marker-start=\"url(#ph-k)\" marker-end=\"url(#ph-k)\"/><text x=\"213.1\" y=\"148\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\"><tspan direction=\"ltr\" unicode-bidi=\"isolate\">⁦h = 45 <tspan direction=\"rtl\" unicode-bidi=\"isolate\">⁧מ׳⁩</tspan>⁩</tspan></text></g></svg>",
+    "inputs": [
+      {
+        "label": "המהירות בגובה 45 מ'",
+        "unit": "מ/ש",
+        "answer": "40",
+        "tolerance": 0.4
+      },
+      {
+        "label": "העלייה הנוספת עד השיא",
+        "unit": "מ'",
+        "answer": "80",
+        "tolerance": 0.8
+      }
+    ],
+    "tips": [
+      "הזמן אינו נתון, ולכן השתמשו בנוסחה שמקשרת בין מהירויות למרחק.",
+      "מהירות בריבוע בגובה נתון שווה למהירות ההתחלתית בריבוע פחות פעמיים g כפול הגובה.",
+      "בשאלה השנייה השוו את המהירות הסופית לאפס, כי בשיא הכדור עוצר."
+    ],
+    "solution": [
+      "נתונים: <span dir=\"ltr\">v₀ = 50 מ/ש</span>, <span dir=\"ltr\">g = 10 מ/ש²</span>.",
+      "בגובה <span dir=\"ltr\">45 מ'</span>: <span dir=\"ltr\">v² = 50² − 2 · 10 · 45 = 2500 − 900 = 1600</span>, ולכן <span dir=\"ltr\">v = 40 מ/ש</span>.",
+      "עד השיא (<span dir=\"ltr\">v = 0</span>) מגובה זה: <span dir=\"ltr\">0 = 40² − 2 · 10 · y</span>, ולכן <span dir=\"ltr\">y = 1600 / 20 = 80 מ'</span>.",
+      "בדיקה: הגובה המרבי מעל הקרקע הוא <span dir=\"ltr\">45 + 80 = 125 מ'</span>, ו-<span dir=\"ltr\">50² / 20 = 125</span>. ✓"
+    ],
+    "guided": [
+      {
+        "q": "איזו נוסחה מתאימה?",
+        "options": [
+          "<span dir=\"ltr\">v² = v₀² − 2gh</span>",
+          "<span dir=\"ltr\">v = v₀ − gh</span>",
+          "<span dir=\"ltr\">v² = v₀² + 2gh</span>"
+        ],
+        "correct": 0,
+        "explain": "הכדור עולה, ולכן המהירות קטנה."
+      },
+      {
+        "q": "מהו v² בגובה 45 מ'?",
+        "options": [
+          "<span dir=\"ltr\">1600</span>",
+          "<span dir=\"ltr\">2500</span>",
+          "<span dir=\"ltr\">900</span>"
+        ],
+        "correct": 0,
+        "explain": "חישוב: <span dir=\"ltr\">2500 − 900 = 1600</span>."
+      },
+      {
+        "q": "איך מוצאים את הגובה המרבי?",
+        "options": [
+          "מציבים v = 0",
+          "מציבים h = 0",
+          "מכפילים את 45 ב-2"
+        ],
+        "correct": 0,
+        "explain": "בשיא המהירות אפס."
+      }
+    ],
+    "verify": {
+      "model": "speed_at_height",
+      "params": {
+        "v0": 50,
+        "h": 45
+      },
+      "expect": {
+        "המהירות בגובה 45 מ'": 40,
+        "העלייה הנוספת עד השיא": 80
+      }
+    }
+  },
+  {
+    "id": "phys-horizontal-037",
+    "topic": "phys-horizontal",
+    "level": 1,
+    "title": "זמן תעופה של גוף שנזרק אופקית",
+    "statement": "כדור נזרק אופקית ממדף בגובה <span dir=\"ltr\">20 מ'</span> מעל הקרקע במהירות <span dir=\"ltr\">6 מ/ש</span>. התעלמו מהתנגדות האוויר. נתון <span dir=\"ltr\">g = 10 מ/ש²</span>.<br>חשבו: כמה זמן הכדור נמצא באוויר?",
+    "diagram": "<svg viewBox=\"0 0 320 180\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" aria-label=\"גוף נזרק אופקית משולחן\"><title>גוף נזרק אופקית משולחן</title><defs><marker id=\"ph-k\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"currentColor\"/></marker><marker id=\"ph-a\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"var(--dg-a, #1f5fae)\"/></marker><marker id=\"ph-b\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"var(--dg-b, #c2410c)\"/></marker><marker id=\"ph-c\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"var(--dg-c, #1e7a34)\"/></marker></defs><g direction=\"ltr\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-size=\"14\"><rect x=\"14\" y=\"55\" width=\"90\" height=\"63\" stroke=\"currentColor\" fill=\"currentColor\" fill-opacity=\"0.18\"/><line x1=\"10\" y1=\"118\" x2=\"310\" y2=\"118\" stroke=\"currentColor\" stroke-width=\"2\"/><path d=\"M18 118l-6 8M28 118l-6 8M38 118l-6 8M48 118l-6 8M58 118l-6 8M68 118l-6 8M78 118l-6 8M88 118l-6 8M98 118l-6 8M108 118l-6 8M118 118l-6 8M128 118l-6 8M138 118l-6 8M148 118l-6 8M158 118l-6 8M168 118l-6 8M178 118l-6 8M188 118l-6 8M198 118l-6 8M208 118l-6 8M218 118l-6 8M228 118l-6 8M238 118l-6 8M248 118l-6 8M258 118l-6 8M268 118l-6 8M278 118l-6 8M288 118l-6 8M298 118l-6 8M308 118l-6 8\" opacity=\"0.5\"/><circle cx=\"104\" cy=\"55\" r=\"6\" fill=\"var(--dg-a, #1f5fae)\" stroke=\"none\"/><line x1=\"108\" y1=\"55\" x2=\"150\" y2=\"55\" stroke=\"var(--dg-a, #1f5fae)\" stroke-width=\"2\" marker-end=\"url(#ph-a)\"/><text x=\"174.2\" y=\"50\" text-anchor=\"middle\" fill=\"var(--dg-a, #1f5fae)\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\"><tspan direction=\"ltr\" unicode-bidi=\"isolate\">⁦6 <tspan direction=\"rtl\" unicode-bidi=\"isolate\">⁧מ/ש⁩</tspan>⁩</tspan></text><path d=\"M104 55Q175 55 246 112\" stroke=\"currentColor\" stroke-dasharray=\"5 4\"/><line x1=\"60\" y1=\"55\" x2=\"60\" y2=\"118\" stroke=\"currentColor\" marker-start=\"url(#ph-k)\" marker-end=\"url(#ph-k)\"/><text x=\"140.1\" y=\"91.5\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\"><tspan direction=\"ltr\" unicode-bidi=\"isolate\">⁦h = 20 <tspan direction=\"rtl\" unicode-bidi=\"isolate\">⁧מ׳⁩</tspan>⁩</tspan></text><line x1=\"104\" y1=\"134\" x2=\"246\" y2=\"134\" stroke=\"currentColor\" marker-start=\"url(#ph-k)\" marker-end=\"url(#ph-k)\"/><text x=\"175\" y=\"154\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\">t = ?</text><circle cx=\"246\" cy=\"112\" r=\"4\" fill=\"var(--dg-b, #c2410c)\" stroke=\"none\"/></g></svg>",
+    "inputs": [
+      {
+        "label": "זמן התעופה",
+        "unit": "ש'",
+        "answer": "2",
+        "tolerance": 0.02
+      }
+    ],
+    "tips": [
+      "התנועה האנכית אינה תלויה במהירות האופקית: אנכית הכדור נופל חופשית מנחות.",
+      "המהירות ההתחלתית האנכית אפס, ולכן משתמשים בנוסחת הנפילה החופשית.",
+      "המהירות האופקית אינה נחוצה לשאלה הזו."
+    ],
+    "solution": [
+      "נתונים: <span dir=\"ltr\">h = 20 מ'</span>, <span dir=\"ltr\">g = 10 מ/ש²</span>. אנכית: <span dir=\"ltr\">v₀y = 0</span>.",
+      "נוסחת הנפילה: <span dir=\"ltr\">h = ½gt²</span>.",
+      "הצבה: <span dir=\"ltr\">20 = 5t²</span>, ולכן <span dir=\"ltr\">t² = 4</span> ו-<span dir=\"ltr\">t = 2 ש'</span>."
+    ],
+    "guided": [
+      {
+        "q": "איזו תנועה קובעת את זמן התעופה?",
+        "options": [
+          "התנועה האנכית",
+          "התנועה האופקית",
+          "שתיהן יחד"
+        ],
+        "correct": 0,
+        "explain": "הכדור פוגע בקרקע כשהוא מגיע לגובה אפס."
+      },
+      {
+        "q": "מהו t²?",
+        "options": [
+          "<span dir=\"ltr\">4</span>",
+          "<span dir=\"ltr\">2</span>",
+          "<span dir=\"ltr\">40</span>"
+        ],
+        "correct": 0,
+        "explain": "חישוב: <span dir=\"ltr\">20 = 5t²</span>."
+      },
+      {
+        "q": "מהו זמן התעופה?",
+        "options": [
+          "<span dir=\"ltr\">2 ש'</span>",
+          "<span dir=\"ltr\">4 ש'</span>",
+          "<span dir=\"ltr\">6 ש'</span>"
+        ],
+        "correct": 0,
+        "explain": "חישוב: <span dir=\"ltr\">t = √4</span>."
+      }
+    ],
+    "verify": {
+      "model": "l1_launch_time",
+      "params": {
+        "h": 20,
+        "vx": 6
+      },
+      "expect": {
+        "זמן התעופה": 2
+      }
+    }
+  },
+  {
+    "id": "phys-horizontal-038",
+    "topic": "phys-horizontal",
+    "level": 1,
+    "title": "טווח של זריקה אופקית משולחן",
+    "statement": "גוף נזרק אופקית משולחן בגובה <span dir=\"ltr\">45 מ'</span> במהירות <span dir=\"ltr\">8 מ/ש</span>. התעלמו מהתנגדות האוויר. נתון <span dir=\"ltr\">g = 10 מ/ש²</span>.<br>חשבו: מהו המרחק האופקי מהשולחן עד נקודת הפגיעה בקרקע?",
+    "diagram": "<svg viewBox=\"0 0 320 180\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" aria-label=\"גוף נזרק אופקית משולחן\"><title>גוף נזרק אופקית משולחן</title><defs><marker id=\"ph-k\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"currentColor\"/></marker><marker id=\"ph-a\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"var(--dg-a, #1f5fae)\"/></marker><marker id=\"ph-b\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"var(--dg-b, #c2410c)\"/></marker><marker id=\"ph-c\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"var(--dg-c, #1e7a34)\"/></marker></defs><g direction=\"ltr\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-size=\"14\"><rect x=\"14\" y=\"55\" width=\"90\" height=\"63\" stroke=\"currentColor\" fill=\"currentColor\" fill-opacity=\"0.18\"/><line x1=\"10\" y1=\"118\" x2=\"310\" y2=\"118\" stroke=\"currentColor\" stroke-width=\"2\"/><path d=\"M18 118l-6 8M28 118l-6 8M38 118l-6 8M48 118l-6 8M58 118l-6 8M68 118l-6 8M78 118l-6 8M88 118l-6 8M98 118l-6 8M108 118l-6 8M118 118l-6 8M128 118l-6 8M138 118l-6 8M148 118l-6 8M158 118l-6 8M168 118l-6 8M178 118l-6 8M188 118l-6 8M198 118l-6 8M208 118l-6 8M218 118l-6 8M228 118l-6 8M238 118l-6 8M248 118l-6 8M258 118l-6 8M268 118l-6 8M278 118l-6 8M288 118l-6 8M298 118l-6 8M308 118l-6 8\" opacity=\"0.5\"/><circle cx=\"104\" cy=\"55\" r=\"6\" fill=\"var(--dg-a, #1f5fae)\" stroke=\"none\"/><line x1=\"108\" y1=\"55\" x2=\"150\" y2=\"55\" stroke=\"var(--dg-a, #1f5fae)\" stroke-width=\"2\" marker-end=\"url(#ph-a)\"/><text x=\"174.2\" y=\"50\" text-anchor=\"middle\" fill=\"var(--dg-a, #1f5fae)\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\"><tspan direction=\"ltr\" unicode-bidi=\"isolate\">⁦8 <tspan direction=\"rtl\" unicode-bidi=\"isolate\">⁧מ/ש⁩</tspan>⁩</tspan></text><path d=\"M104 55Q175 55 246 112\" stroke=\"currentColor\" stroke-dasharray=\"5 4\"/><line x1=\"60\" y1=\"55\" x2=\"60\" y2=\"118\" stroke=\"currentColor\" marker-start=\"url(#ph-k)\" marker-end=\"url(#ph-k)\"/><text x=\"140.1\" y=\"91.5\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\"><tspan direction=\"ltr\" unicode-bidi=\"isolate\">⁦h = 45 <tspan direction=\"rtl\" unicode-bidi=\"isolate\">⁧מ׳⁩</tspan>⁩</tspan></text><line x1=\"104\" y1=\"134\" x2=\"246\" y2=\"134\" stroke=\"currentColor\" marker-start=\"url(#ph-k)\" marker-end=\"url(#ph-k)\"/><text x=\"175\" y=\"154\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\">x = ?</text><circle cx=\"246\" cy=\"112\" r=\"4\" fill=\"var(--dg-b, #c2410c)\" stroke=\"none\"/></g></svg>",
+    "inputs": [
+      {
+        "label": "המרחק האופקי",
+        "unit": "מ'",
+        "answer": "24",
+        "tolerance": 0.24
+      }
+    ],
+    "tips": [
+      "מצאו קודם את זמן התעופה מהתנועה האנכית.",
+      "אופקית אין תאוצה, ולכן המהירות קבועה.",
+      "המרחק האופקי הוא המהירות האופקית כפול זמן התעופה."
+    ],
+    "solution": [
+      "נתונים: <span dir=\"ltr\">h = 45 מ'</span>, <span dir=\"ltr\">vₓ = 8 מ/ש</span>, <span dir=\"ltr\">g = 10 מ/ש²</span>.",
+      "זמן תעופה: <span dir=\"ltr\">45 = 5t²</span>, ולכן <span dir=\"ltr\">t = 3 ש'</span>.",
+      "אופקית המהירות קבועה: <span dir=\"ltr\">x = vₓ · t = 8 · 3 = 24 מ'</span>."
+    ],
+    "verify": {
+      "model": "l1_launch_range",
+      "params": {
+        "h": 45,
+        "vx": 8
+      },
+      "expect": {
+        "המרחק האופקי": 24
+      }
+    }
+  },
+  {
+    "id": "phys-horizontal-039",
+    "topic": "phys-horizontal",
+    "level": 1,
+    "title": "מהירות זריקה אופקית מתוך הטווח",
+    "statement": "כדור נזרק אופקית מגג בניין בגובה <span dir=\"ltr\">80 מ'</span> ונוחת במרחק אופקי של <span dir=\"ltr\">48 מ'</span> מהבניין. התעלמו מהתנגדות האוויר. נתון <span dir=\"ltr\">g = 10 מ/ש²</span>.<br>חשבו: מהי המהירות האופקית שבה נזרק הכדור?",
+    "diagram": "<svg viewBox=\"0 0 320 180\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" aria-label=\"כדור נזרק אופקית מגג\"><title>כדור נזרק אופקית מגג</title><defs><marker id=\"ph-k\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"currentColor\"/></marker><marker id=\"ph-a\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"var(--dg-a, #1f5fae)\"/></marker><marker id=\"ph-b\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"var(--dg-b, #c2410c)\"/></marker><marker id=\"ph-c\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"var(--dg-c, #1e7a34)\"/></marker></defs><g direction=\"ltr\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-size=\"14\"><rect x=\"14\" y=\"55\" width=\"90\" height=\"63\" stroke=\"currentColor\" fill=\"currentColor\" fill-opacity=\"0.18\"/><line x1=\"10\" y1=\"118\" x2=\"310\" y2=\"118\" stroke=\"currentColor\" stroke-width=\"2\"/><path d=\"M18 118l-6 8M28 118l-6 8M38 118l-6 8M48 118l-6 8M58 118l-6 8M68 118l-6 8M78 118l-6 8M88 118l-6 8M98 118l-6 8M108 118l-6 8M118 118l-6 8M128 118l-6 8M138 118l-6 8M148 118l-6 8M158 118l-6 8M168 118l-6 8M178 118l-6 8M188 118l-6 8M198 118l-6 8M208 118l-6 8M218 118l-6 8M228 118l-6 8M238 118l-6 8M248 118l-6 8M258 118l-6 8M268 118l-6 8M278 118l-6 8M288 118l-6 8M298 118l-6 8M308 118l-6 8\" opacity=\"0.5\"/><circle cx=\"104\" cy=\"55\" r=\"6\" fill=\"var(--dg-a, #1f5fae)\" stroke=\"none\"/><line x1=\"108\" y1=\"55\" x2=\"150\" y2=\"55\" stroke=\"var(--dg-a, #1f5fae)\" stroke-width=\"2\" marker-end=\"url(#ph-a)\"/><text x=\"155\" y=\"50\" text-anchor=\"start\" fill=\"var(--dg-a, #1f5fae)\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\">vₓ = ?</text><path d=\"M104 55Q175 55 246 112\" stroke=\"currentColor\" stroke-dasharray=\"5 4\"/><line x1=\"60\" y1=\"55\" x2=\"60\" y2=\"118\" stroke=\"currentColor\" marker-start=\"url(#ph-k)\" marker-end=\"url(#ph-k)\"/><text x=\"140.1\" y=\"91.5\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\"><tspan direction=\"ltr\" unicode-bidi=\"isolate\">⁦h = 80 <tspan direction=\"rtl\" unicode-bidi=\"isolate\">⁧מ׳⁩</tspan>⁩</tspan></text><line x1=\"104\" y1=\"134\" x2=\"246\" y2=\"134\" stroke=\"currentColor\" marker-start=\"url(#ph-k)\" marker-end=\"url(#ph-k)\"/><text x=\"175\" y=\"154\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\"><tspan direction=\"ltr\" unicode-bidi=\"isolate\">⁦R = 48 <tspan direction=\"rtl\" unicode-bidi=\"isolate\">⁧מ׳⁩</tspan>⁩</tspan></text><circle cx=\"246\" cy=\"112\" r=\"4\" fill=\"var(--dg-b, #c2410c)\" stroke=\"none\"/></g></svg>",
+    "inputs": [
+      {
+        "label": "המהירות האופקית",
+        "unit": "מ/ש",
+        "answer": "12",
+        "tolerance": 0.12
+      }
+    ],
+    "tips": [
+      "הזמן המשותף לשתי התנועות נקבע מהתנועה האנכית.",
+      "חשבו את זמן הנפילה מגובה הגג.",
+      "המהירות האופקית היא המרחק האופקי חלקי הזמן."
+    ],
+    "solution": [
+      "נתונים: <span dir=\"ltr\">h = 80 מ'</span>, <span dir=\"ltr\">R = 48 מ'</span>, <span dir=\"ltr\">g = 10 מ/ש²</span>.",
+      "זמן נפילה: <span dir=\"ltr\">80 = 5t²</span>, ולכן <span dir=\"ltr\">t² = 16</span> ו-<span dir=\"ltr\">t = 4 ש'</span>.",
+      "חישוב: <span dir=\"ltr\">vₓ = R / t = 48 / 4 = 12 מ/ש</span>."
+    ],
+    "guided": [
+      {
+        "q": "מה קובע את הזמן?",
+        "options": [
+          "הגובה",
+          "הטווח",
+          "המהירות האופקית"
+        ],
+        "correct": 0,
+        "explain": "הזמן נקבע מהנפילה האנכית."
+      },
+      {
+        "q": "מהו הזמן?",
+        "options": [
+          "<span dir=\"ltr\">4 ש'</span>",
+          "<span dir=\"ltr\">16 ש'</span>",
+          "<span dir=\"ltr\">8 ש'</span>"
+        ],
+        "correct": 0,
+        "explain": "חישוב: <span dir=\"ltr\">t² = 16</span>."
+      },
+      {
+        "q": "מהי המהירות האופקית?",
+        "options": [
+          "<span dir=\"ltr\">12 מ/ש</span>",
+          "<span dir=\"ltr\">192 מ/ש</span>",
+          "<span dir=\"ltr\">3 מ/ש</span>"
+        ],
+        "correct": 0,
+        "explain": "חישוב: <span dir=\"ltr\">48 / 4 = 12</span>."
+      }
+    ],
+    "verify": {
+      "model": "l1_launch_vx",
+      "params": {
+        "h": 80,
+        "R": 48
+      },
+      "expect": {
+        "המהירות האופקית": 12
+      }
+    }
+  },
+  {
+    "id": "phys-horizontal-040",
+    "topic": "phys-horizontal",
+    "level": 1,
+    "title": "מהירות מכונית שמאיצה מהמנוחה",
+    "statement": "מכונית יוצאת ממנוחה ומאיצה בתאוצה קבועה של <span dir=\"ltr\">3 מ/ש²</span> במשך <span dir=\"ltr\">8 ש'</span>.<br>חשבו: מהי מהירות המכונית בסוף ההאצה?",
+    "diagram": "<svg viewBox=\"0 0 320 185\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" aria-label=\"מכונית מאיצה מהמנוחה\"><title>מכונית מאיצה מהמנוחה</title><defs><marker id=\"ph-k\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"currentColor\"/></marker><marker id=\"ph-a\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"var(--dg-a, #1f5fae)\"/></marker><marker id=\"ph-b\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"var(--dg-b, #c2410c)\"/></marker><marker id=\"ph-c\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"var(--dg-c, #1e7a34)\"/></marker></defs><g direction=\"ltr\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-size=\"14\"><line x1=\"10\" y1=\"118\" x2=\"310\" y2=\"118\" stroke=\"currentColor\" stroke-width=\"2\"/><path d=\"M18 118l-6 8M28 118l-6 8M38 118l-6 8M48 118l-6 8M58 118l-6 8M68 118l-6 8M78 118l-6 8M88 118l-6 8M98 118l-6 8M108 118l-6 8M118 118l-6 8M128 118l-6 8M138 118l-6 8M148 118l-6 8M158 118l-6 8M168 118l-6 8M178 118l-6 8M188 118l-6 8M198 118l-6 8M208 118l-6 8M218 118l-6 8M228 118l-6 8M238 118l-6 8M248 118l-6 8M258 118l-6 8M268 118l-6 8M278 118l-6 8M288 118l-6 8M298 118l-6 8M308 118l-6 8\" opacity=\"0.5\"/><rect x=\"20\" y=\"96\" width=\"44\" height=\"14\" rx=\"3\" stroke=\"var(--dg-a, #1f5fae)\" fill=\"var(--dg-a, #1f5fae)\" fill-opacity=\"0.18\"/><rect x=\"30\" y=\"87\" width=\"22\" height=\"9\" rx=\"2\" stroke=\"var(--dg-a, #1f5fae)\"/><circle cx=\"31\" cy=\"112\" r=\"5\" fill=\"currentColor\" stroke=\"none\"/><circle cx=\"53\" cy=\"112\" r=\"5\" fill=\"currentColor\" stroke=\"none\"/><text x=\"42\" y=\"79\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\">v₀ = 0</text><line x1=\"30\" y1=\"56\" x2=\"80\" y2=\"56\" stroke=\"var(--dg-b, #c2410c)\" stroke-width=\"2\" marker-end=\"url(#ph-b)\"/><text x=\"55\" y=\"42\" text-anchor=\"middle\" fill=\"var(--dg-b, #c2410c)\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\"><tspan direction=\"ltr\" unicode-bidi=\"isolate\">⁦a = 3 <tspan direction=\"rtl\" unicode-bidi=\"isolate\">⁧מ/ש²⁩</tspan>⁩</tspan></text><g opacity=\"0.55\"><rect x=\"220\" y=\"96\" width=\"44\" height=\"14\" rx=\"3\" stroke=\"var(--dg-a, #1f5fae)\" fill=\"var(--dg-a, #1f5fae)\" fill-opacity=\"0.18\"/><rect x=\"230\" y=\"87\" width=\"22\" height=\"9\" rx=\"2\" stroke=\"var(--dg-a, #1f5fae)\"/><circle cx=\"231\" cy=\"112\" r=\"5\" fill=\"currentColor\" stroke=\"none\"/><circle cx=\"253\" cy=\"112\" r=\"5\" fill=\"currentColor\" stroke=\"none\"/></g><text x=\"242\" y=\"79\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\"><tspan direction=\"ltr\" unicode-bidi=\"isolate\">⁦t = 8 <tspan direction=\"rtl\" unicode-bidi=\"isolate\">⁧ש׳⁩</tspan>⁩</tspan></text><text x=\"242\" y=\"56\" text-anchor=\"middle\" fill=\"var(--dg-c, #1e7a34)\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\">v = ?</text></g></svg>",
+    "inputs": [
+      {
+        "label": "המהירות הסופית",
+        "unit": "מ/ש",
+        "answer": "24",
+        "tolerance": 0.24
+      }
+    ],
+    "tips": [
+      "התאוצה קבועה, ולכן המהירות גדלה באופן אחיד.",
+      "המכונית יוצאת ממנוחה, ולכן המהירות ההתחלתית אפס.",
+      "הכפילו את התאוצה בזמן."
+    ],
+    "solution": [
+      "נתונים: <span dir=\"ltr\">v₀ = 0</span>, <span dir=\"ltr\">a = 3 מ/ש²</span>, <span dir=\"ltr\">t = 8 ש'</span>.",
+      "נוסחת המהירות: <span dir=\"ltr\">v = v₀ + at</span>.",
+      "הצבה: <span dir=\"ltr\">v = 0 + 3 · 8 = 24 מ/ש</span>."
+    ],
+    "verify": {
+      "model": "l1_accel_speed",
+      "params": {
+        "a": 3,
+        "t": 8
+      },
+      "expect": {
+        "המהירות הסופית": 24
+      }
+    }
+  },
+  {
+    "id": "phys-horizontal-041",
+    "topic": "phys-horizontal",
+    "level": 1,
+    "title": "מרחק בלימה",
+    "statement": "מכונית נוסעת במהירות <span dir=\"ltr\">20 מ/ש</span> ובולמת בתאוצה קבועה של <span dir=\"ltr\">5 מ/ש²</span> (האטה) עד לעצירה מלאה.<br>חשבו: איזה מרחק המכונית עוברת מתחילת הבלימה ועד העצירה?",
+    "diagram": "<svg viewBox=\"0 0 320 185\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" aria-label=\"מכונית בולמת עד לעצירה\"><title>מכונית בולמת עד לעצירה</title><defs><marker id=\"ph-k\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"currentColor\"/></marker><marker id=\"ph-a\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"var(--dg-a, #1f5fae)\"/></marker><marker id=\"ph-b\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"var(--dg-b, #c2410c)\"/></marker><marker id=\"ph-c\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"var(--dg-c, #1e7a34)\"/></marker></defs><g direction=\"ltr\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-size=\"14\"><line x1=\"10\" y1=\"118\" x2=\"310\" y2=\"118\" stroke=\"currentColor\" stroke-width=\"2\"/><path d=\"M18 118l-6 8M28 118l-6 8M38 118l-6 8M48 118l-6 8M58 118l-6 8M68 118l-6 8M78 118l-6 8M88 118l-6 8M98 118l-6 8M108 118l-6 8M118 118l-6 8M128 118l-6 8M138 118l-6 8M148 118l-6 8M158 118l-6 8M168 118l-6 8M178 118l-6 8M188 118l-6 8M198 118l-6 8M208 118l-6 8M218 118l-6 8M228 118l-6 8M238 118l-6 8M248 118l-6 8M258 118l-6 8M268 118l-6 8M278 118l-6 8M288 118l-6 8M298 118l-6 8M308 118l-6 8\" opacity=\"0.5\"/><rect x=\"20\" y=\"96\" width=\"44\" height=\"14\" rx=\"3\" stroke=\"var(--dg-a, #1f5fae)\" fill=\"var(--dg-a, #1f5fae)\" fill-opacity=\"0.18\"/><rect x=\"30\" y=\"87\" width=\"22\" height=\"9\" rx=\"2\" stroke=\"var(--dg-a, #1f5fae)\"/><circle cx=\"31\" cy=\"112\" r=\"5\" fill=\"currentColor\" stroke=\"none\"/><circle cx=\"53\" cy=\"112\" r=\"5\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"70\" y1=\"78\" x2=\"110\" y2=\"78\" stroke=\"var(--dg-a, #1f5fae)\" stroke-width=\"2\" marker-end=\"url(#ph-a)\"/><text x=\"111\" y=\"64\" text-anchor=\"middle\" fill=\"var(--dg-a, #1f5fae)\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\"><tspan direction=\"ltr\" unicode-bidi=\"isolate\">⁦v = 20 <tspan direction=\"rtl\" unicode-bidi=\"isolate\">⁧מ/ש⁩</tspan>⁩</tspan></text><line x1=\"70\" y1=\"56\" x2=\"30\" y2=\"56\" stroke=\"var(--dg-b, #c2410c)\" stroke-width=\"2\" marker-end=\"url(#ph-b)\"/><text x=\"50\" y=\"42\" text-anchor=\"middle\" fill=\"var(--dg-b, #c2410c)\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\"><tspan direction=\"ltr\" unicode-bidi=\"isolate\">⁦a = 5 <tspan direction=\"rtl\" unicode-bidi=\"isolate\">⁧מ/ש²⁩</tspan>⁩</tspan></text><line x1=\"262\" y1=\"78\" x2=\"262\" y2=\"118\" stroke=\"var(--dg-c, #1e7a34)\" stroke-width=\"3\"/><text x=\"262\" y=\"51\" text-anchor=\"middle\" fill=\"var(--dg-c, #1e7a34)\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\"><tspan x=\"262\" dy=\"0\"><tspan direction=\"rtl\" unicode-bidi=\"isolate\">⁧עצירה⁩</tspan></tspan><tspan x=\"262\" dy=\"16\">v = 0</tspan></text><line x1=\"42\" y1=\"146\" x2=\"262\" y2=\"146\" stroke=\"currentColor\" marker-start=\"url(#ph-k)\" marker-end=\"url(#ph-k)\"/><text x=\"152\" y=\"166\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\">x = ?</text></g></svg>",
+    "inputs": [
+      {
+        "label": "מרחק הבלימה",
+        "unit": "מ'",
+        "answer": "40",
+        "tolerance": 0.4
+      }
+    ],
+    "tips": [
+      "המהירות הסופית היא אפס, והזמן אינו נתון.",
+      "השתמשו בנוסחה שמקשרת בין מהירויות, תאוצה ומרחק.",
+      "ההאטה פועלת נגד כיוון התנועה, לכן סימנה שלילי."
+    ],
+    "solution": [
+      "נתונים: <span dir=\"ltr\">v₀ = 20 מ/ש</span>, <span dir=\"ltr\">v = 0</span>, <span dir=\"ltr\">a = −5 מ/ש²</span>.",
+      "נוסחה ללא זמן: <span dir=\"ltr\">v² = v₀² + 2ax</span>.",
+      "הצבה: <span dir=\"ltr\">0 = 400 − 10x</span>, ולכן <span dir=\"ltr\">x = 40 מ'</span>."
+    ],
+    "guided": [
+      {
+        "q": "איזו נוסחה מתאימה כשהזמן אינו נתון?",
+        "options": [
+          "<span dir=\"ltr\">v² = v₀² + 2ax</span>",
+          "<span dir=\"ltr\">v = v₀ + at</span>",
+          "<span dir=\"ltr\">x = vt</span>"
+        ],
+        "correct": 0,
+        "explain": "נתונים מהירויות ותאוצה ושואלים על מרחק."
+      },
+      {
+        "q": "מה הסימן של התאוצה?",
+        "options": [
+          "שלילי, כי היא מאטה",
+          "חיובי",
+          "אפס"
+        ],
+        "correct": 0,
+        "explain": "ההאטה מנוגדת לכיוון התנועה."
+      },
+      {
+        "q": "מהו מרחק הבלימה?",
+        "options": [
+          "<span dir=\"ltr\">40 מ'</span>",
+          "<span dir=\"ltr\">80 מ'</span>",
+          "<span dir=\"ltr\">4 מ'</span>"
+        ],
+        "correct": 0,
+        "explain": "חישוב: <span dir=\"ltr\">x = 400 / 10 = 40</span>."
+      }
+    ],
+    "verify": {
+      "model": "l1_brake_dist",
+      "params": {
+        "v": 20,
+        "a": 5
+      },
+      "expect": {
+        "מרחק הבלימה": 40
+      }
+    }
+  },
+  {
+    "id": "phys-horizontal-042",
+    "topic": "phys-horizontal",
+    "level": 1,
+    "title": "זמן עד המפגש של שתי מכוניות",
+    "statement": "שתי מכוניות נמצאות במרחק <span dir=\"ltr\">240 מ'</span> זו מזו ונוסעות זו לקראת זו על כביש ישר, האחת במהירות <span dir=\"ltr\">14 מ/ש</span> והשנייה במהירות <span dir=\"ltr\">10 מ/ש</span> (מהירויות קבועות).<br>חשבו: כעבור כמה זמן הן ייפגשו?",
+    "diagram": "<svg viewBox=\"0 0 320 185\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" aria-label=\"שתי מכוניות נוסעות זו לקראת זו\"><title>שתי מכוניות נוסעות זו לקראת זו</title><defs><marker id=\"ph-k\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"currentColor\"/></marker><marker id=\"ph-a\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"var(--dg-a, #1f5fae)\"/></marker><marker id=\"ph-b\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"var(--dg-b, #c2410c)\"/></marker><marker id=\"ph-c\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"var(--dg-c, #1e7a34)\"/></marker></defs><g direction=\"ltr\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-size=\"14\"><line x1=\"10\" y1=\"118\" x2=\"310\" y2=\"118\" stroke=\"currentColor\" stroke-width=\"2\"/><path d=\"M18 118l-6 8M28 118l-6 8M38 118l-6 8M48 118l-6 8M58 118l-6 8M68 118l-6 8M78 118l-6 8M88 118l-6 8M98 118l-6 8M108 118l-6 8M118 118l-6 8M128 118l-6 8M138 118l-6 8M148 118l-6 8M158 118l-6 8M168 118l-6 8M178 118l-6 8M188 118l-6 8M198 118l-6 8M208 118l-6 8M218 118l-6 8M228 118l-6 8M238 118l-6 8M248 118l-6 8M258 118l-6 8M268 118l-6 8M278 118l-6 8M288 118l-6 8M298 118l-6 8M308 118l-6 8\" opacity=\"0.5\"/><rect x=\"20\" y=\"96\" width=\"44\" height=\"14\" rx=\"3\" stroke=\"var(--dg-a, #1f5fae)\" fill=\"var(--dg-a, #1f5fae)\" fill-opacity=\"0.18\"/><rect x=\"30\" y=\"87\" width=\"22\" height=\"9\" rx=\"2\" stroke=\"var(--dg-a, #1f5fae)\"/><circle cx=\"31\" cy=\"112\" r=\"5\" fill=\"currentColor\" stroke=\"none\"/><circle cx=\"53\" cy=\"112\" r=\"5\" fill=\"currentColor\" stroke=\"none\"/><rect x=\"250\" y=\"96\" width=\"44\" height=\"14\" rx=\"3\" stroke=\"var(--dg-b, #c2410c)\" fill=\"var(--dg-b, #c2410c)\" fill-opacity=\"0.18\"/><rect x=\"260\" y=\"87\" width=\"22\" height=\"9\" rx=\"2\" stroke=\"var(--dg-b, #c2410c)\"/><circle cx=\"261\" cy=\"112\" r=\"5\" fill=\"currentColor\" stroke=\"none\"/><circle cx=\"283\" cy=\"112\" r=\"5\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"68\" y1=\"78\" x2=\"108\" y2=\"78\" stroke=\"var(--dg-a, #1f5fae)\" stroke-width=\"2\" marker-end=\"url(#ph-a)\"/><text x=\"88\" y=\"64\" text-anchor=\"middle\" fill=\"var(--dg-a, #1f5fae)\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\"><tspan direction=\"ltr\" unicode-bidi=\"isolate\">⁦14 <tspan direction=\"rtl\" unicode-bidi=\"isolate\">⁧מ/ש⁩</tspan>⁩</tspan></text><line x1=\"246\" y1=\"78\" x2=\"206\" y2=\"78\" stroke=\"var(--dg-b, #c2410c)\" stroke-width=\"2\" marker-end=\"url(#ph-b)\"/><text x=\"226\" y=\"64\" text-anchor=\"middle\" fill=\"var(--dg-b, #c2410c)\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\"><tspan direction=\"ltr\" unicode-bidi=\"isolate\">⁦10 <tspan direction=\"rtl\" unicode-bidi=\"isolate\">⁧מ/ש⁩</tspan>⁩</tspan></text><line x1=\"42\" y1=\"146\" x2=\"272\" y2=\"146\" stroke=\"currentColor\" marker-start=\"url(#ph-k)\" marker-end=\"url(#ph-k)\"/><text x=\"157\" y=\"166\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\"><tspan direction=\"ltr\" unicode-bidi=\"isolate\">⁦d = 240 <tspan direction=\"rtl\" unicode-bidi=\"isolate\">⁧מ׳⁩</tspan>⁩</tspan></text><line x1=\"42\" y1=\"122\" x2=\"42\" y2=\"152\" stroke=\"currentColor\" stroke-dasharray=\"5 4\" opacity=\"0.5\"/><line x1=\"272\" y1=\"122\" x2=\"272\" y2=\"152\" stroke=\"currentColor\" stroke-dasharray=\"5 4\" opacity=\"0.5\"/></g></svg>",
+    "inputs": [
+      {
+        "label": "זמן המפגש",
+        "unit": "ש'",
+        "answer": "10",
+        "tolerance": 0.1
+      }
+    ],
+    "tips": [
+      "כל מכונית עוברת מרחק משלה, ויחד הן עוברות את המרחק ההתחלתי ביניהן.",
+      "כשהן נעות זו לקראת זו, המרחק ביניהן קטן במהירות שהיא סכום המהירויות.",
+      "חלקו את המרחק ההתחלתי במהירות הסגירה."
+    ],
+    "solution": [
+      "נתונים: <span dir=\"ltr\">d = 240 מ'</span>, <span dir=\"ltr\">v₁ = 14 מ/ש</span>, <span dir=\"ltr\">v₂ = 10 מ/ש</span>.",
+      "מהירות הסגירה: <span dir=\"ltr\">14 + 10 = 24 מ/ש</span>.",
+      "חישוב: <span dir=\"ltr\">t = d / (v₁ + v₂) = 240 / 24 = 10 ש'</span>."
+    ],
+    "verify": {
+      "model": "l1_meet_time",
+      "params": {
+        "d": 240,
+        "v1": 14,
+        "v2": 10
+      },
+      "expect": {
+        "זמן המפגש": 10
+      }
+    }
+  },
+  {
+    "id": "phys-horizontal-043",
+    "topic": "phys-horizontal",
+    "level": 2,
+    "title": "זריקה אופקית: זמן, טווח ומהירות פגיעה",
+    "statement": "כדור נזרק אופקית ממגדל בגובה <span dir=\"ltr\">45 מ'</span> במהירות <span dir=\"ltr\">40 מ/ש</span>. התעלמו מהתנגדות האוויר. נתון <span dir=\"ltr\">g = 10 מ/ש²</span>.<br>חשבו: א. זמן התעופה. ב. המרחק האופקי עד הפגיעה בקרקע. ג. גודל מהירות הכדור ברגע הפגיעה.",
+    "diagram": "<svg viewBox=\"0 0 320 180\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" aria-label=\"גוף נזרק אופקית מגובה\"><title>גוף נזרק אופקית מגובה</title><defs><marker id=\"ph-k\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"currentColor\"/></marker><marker id=\"ph-a\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"var(--dg-a, #1f5fae)\"/></marker><marker id=\"ph-b\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"var(--dg-b, #c2410c)\"/></marker><marker id=\"ph-c\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"var(--dg-c, #1e7a34)\"/></marker></defs><g direction=\"ltr\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-size=\"14\"><rect x=\"14\" y=\"55\" width=\"90\" height=\"63\" stroke=\"currentColor\" fill=\"currentColor\" fill-opacity=\"0.18\"/><line x1=\"10\" y1=\"118\" x2=\"310\" y2=\"118\" stroke=\"currentColor\" stroke-width=\"2\"/><path d=\"M18 118l-6 8M28 118l-6 8M38 118l-6 8M48 118l-6 8M58 118l-6 8M68 118l-6 8M78 118l-6 8M88 118l-6 8M98 118l-6 8M108 118l-6 8M118 118l-6 8M128 118l-6 8M138 118l-6 8M148 118l-6 8M158 118l-6 8M168 118l-6 8M178 118l-6 8M188 118l-6 8M198 118l-6 8M208 118l-6 8M218 118l-6 8M228 118l-6 8M238 118l-6 8M248 118l-6 8M258 118l-6 8M268 118l-6 8M278 118l-6 8M288 118l-6 8M298 118l-6 8M308 118l-6 8\" opacity=\"0.5\"/><circle cx=\"104\" cy=\"55\" r=\"6\" fill=\"var(--dg-a, #1f5fae)\" stroke=\"none\"/><line x1=\"108\" y1=\"55\" x2=\"150\" y2=\"55\" stroke=\"var(--dg-a, #1f5fae)\" stroke-width=\"2\" marker-end=\"url(#ph-a)\"/><text x=\"178.5\" y=\"50\" text-anchor=\"middle\" fill=\"var(--dg-a, #1f5fae)\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\"><tspan direction=\"ltr\" unicode-bidi=\"isolate\">⁦40 <tspan direction=\"rtl\" unicode-bidi=\"isolate\">⁧מ/ש⁩</tspan>⁩</tspan></text><path d=\"M104 55Q175 55 246 112\" stroke=\"currentColor\" stroke-dasharray=\"5 4\"/><line x1=\"60\" y1=\"55\" x2=\"60\" y2=\"118\" stroke=\"currentColor\" marker-start=\"url(#ph-k)\" marker-end=\"url(#ph-k)\"/><text x=\"140.1\" y=\"91.5\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\"><tspan direction=\"ltr\" unicode-bidi=\"isolate\">⁦h = 45 <tspan direction=\"rtl\" unicode-bidi=\"isolate\">⁧מ׳⁩</tspan>⁩</tspan></text><line x1=\"104\" y1=\"134\" x2=\"246\" y2=\"134\" stroke=\"currentColor\" marker-start=\"url(#ph-k)\" marker-end=\"url(#ph-k)\"/><text x=\"175\" y=\"154\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\">x = ?</text><circle cx=\"246\" cy=\"112\" r=\"4\" fill=\"var(--dg-b, #c2410c)\" stroke=\"none\"/></g></svg>",
+    "inputs": [
+      {
+        "label": "זמן התעופה",
+        "unit": "ש'",
+        "answer": "3",
+        "tolerance": 0.03
+      },
+      {
+        "label": "המרחק האופקי",
+        "unit": "מ'",
+        "answer": "120",
+        "tolerance": 1.2
+      },
+      {
+        "label": "מהירות הפגיעה",
+        "unit": "מ/ש",
+        "answer": "50",
+        "tolerance": 0.5
+      }
+    ],
+    "tips": [
+      "הזמן נקבע מהתנועה האנכית בלבד. אחריו אפשר לחשב את המרחק האופקי.",
+      "ברגע הפגיעה יש רכיב אופקי שלא השתנה ורכיב אנכי שהתפתח בנפילה.",
+      "גודל המהירות מתקבל ממשפט פיתגורס על שני הרכיבים."
+    ],
+    "solution": [
+      "נתונים: <span dir=\"ltr\">h = 45 מ'</span>, <span dir=\"ltr\">vₓ = 40 מ/ש</span>, <span dir=\"ltr\">g = 10 מ/ש²</span>.",
+      "זמן תעופה: <span dir=\"ltr\">45 = 5t²</span>, ולכן <span dir=\"ltr\">t = 3 ש'</span>.",
+      "מרחק אופקי: <span dir=\"ltr\">x = vₓt = 40 · 3 = 120 מ'</span>.",
+      "רכיב אנכי בפגיעה: <span dir=\"ltr\">v_y = gt = 30 מ/ש</span>.",
+      "גודל המהירות: <span dir=\"ltr\">v = √(40² + 30²) = √2500 = 50 מ/ש</span>."
+    ],
+    "guided": [
+      {
+        "q": "מה קובע את זמן התעופה?",
+        "options": [
+          "הגובה בלבד",
+          "המהירות האופקית בלבד",
+          "הטווח"
+        ],
+        "correct": 0,
+        "explain": "נפילה חופשית אנכית."
+      },
+      {
+        "q": "מהו הרכיב האנכי בפגיעה?",
+        "options": [
+          "<span dir=\"ltr\">30 מ/ש</span>",
+          "<span dir=\"ltr\">40 מ/ש</span>",
+          "<span dir=\"ltr\">45 מ/ש</span>"
+        ],
+        "correct": 0,
+        "explain": "חישוב: <span dir=\"ltr\">v_y = gt = 10 · 3</span>."
+      },
+      {
+        "q": "איך מחברים את הרכיבים?",
+        "options": [
+          "פיתגורס",
+          "חיבור פשוט",
+          "כפל"
+        ],
+        "correct": 0,
+        "explain": "הרכיבים מאונכים זה לזה."
+      }
+    ],
+    "verify": {
+      "model": "horizontal_launch",
+      "params": {
+        "h": 45,
+        "vx": 40
+      },
+      "expect": {
+        "זמן התעופה": 3,
+        "המרחק האופקי": 120,
+        "מהירות הפגיעה": 50
+      }
+    }
+  },
+  {
+    "id": "phys-horizontal-044",
+    "topic": "phys-horizontal",
+    "level": 2,
+    "title": "זריקה אופקית מהטווח: זמן, מהירות ומהירות פגיעה",
+    "statement": "כדור נזרק אופקית מגג בניין בגובה <span dir=\"ltr\">80 מ'</span> ונוחת במרחק אופקי של <span dir=\"ltr\">120 מ'</span> מהבניין. התעלמו מהתנגדות האוויר. נתון <span dir=\"ltr\">g = 10 מ/ש²</span>.<br>חשבו: א. זמן התעופה. ב. המהירות האופקית של הזריקה. ג. גודל מהירות הכדור ברגע הפגיעה.",
+    "diagram": "<svg viewBox=\"0 0 320 180\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" aria-label=\"כדור נזרק אופקית מגג\"><title>כדור נזרק אופקית מגג</title><defs><marker id=\"ph-k\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"currentColor\"/></marker><marker id=\"ph-a\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"var(--dg-a, #1f5fae)\"/></marker><marker id=\"ph-b\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"var(--dg-b, #c2410c)\"/></marker><marker id=\"ph-c\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"var(--dg-c, #1e7a34)\"/></marker></defs><g direction=\"ltr\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-size=\"14\"><rect x=\"14\" y=\"55\" width=\"90\" height=\"63\" stroke=\"currentColor\" fill=\"currentColor\" fill-opacity=\"0.18\"/><line x1=\"10\" y1=\"118\" x2=\"310\" y2=\"118\" stroke=\"currentColor\" stroke-width=\"2\"/><path d=\"M18 118l-6 8M28 118l-6 8M38 118l-6 8M48 118l-6 8M58 118l-6 8M68 118l-6 8M78 118l-6 8M88 118l-6 8M98 118l-6 8M108 118l-6 8M118 118l-6 8M128 118l-6 8M138 118l-6 8M148 118l-6 8M158 118l-6 8M168 118l-6 8M178 118l-6 8M188 118l-6 8M198 118l-6 8M208 118l-6 8M218 118l-6 8M228 118l-6 8M238 118l-6 8M248 118l-6 8M258 118l-6 8M268 118l-6 8M278 118l-6 8M288 118l-6 8M298 118l-6 8M308 118l-6 8\" opacity=\"0.5\"/><circle cx=\"104\" cy=\"55\" r=\"6\" fill=\"var(--dg-a, #1f5fae)\" stroke=\"none\"/><line x1=\"108\" y1=\"55\" x2=\"150\" y2=\"55\" stroke=\"var(--dg-a, #1f5fae)\" stroke-width=\"2\" marker-end=\"url(#ph-a)\"/><text x=\"155\" y=\"50\" text-anchor=\"start\" fill=\"var(--dg-a, #1f5fae)\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\">vₓ = ?</text><path d=\"M104 55Q175 55 246 112\" stroke=\"currentColor\" stroke-dasharray=\"5 4\"/><line x1=\"60\" y1=\"55\" x2=\"60\" y2=\"118\" stroke=\"currentColor\" marker-start=\"url(#ph-k)\" marker-end=\"url(#ph-k)\"/><text x=\"140.1\" y=\"91.5\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\"><tspan direction=\"ltr\" unicode-bidi=\"isolate\">⁦h = 80 <tspan direction=\"rtl\" unicode-bidi=\"isolate\">⁧מ׳⁩</tspan>⁩</tspan></text><line x1=\"104\" y1=\"134\" x2=\"246\" y2=\"134\" stroke=\"currentColor\" marker-start=\"url(#ph-k)\" marker-end=\"url(#ph-k)\"/><text x=\"175\" y=\"154\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\"><tspan direction=\"ltr\" unicode-bidi=\"isolate\">⁦R = 120 <tspan direction=\"rtl\" unicode-bidi=\"isolate\">⁧מ׳⁩</tspan>⁩</tspan></text><circle cx=\"246\" cy=\"112\" r=\"4\" fill=\"var(--dg-b, #c2410c)\" stroke=\"none\"/></g></svg>",
+    "inputs": [
+      {
+        "label": "זמן התעופה",
+        "unit": "ש'",
+        "answer": "4",
+        "tolerance": 0.04
+      },
+      {
+        "label": "המהירות האופקית",
+        "unit": "מ/ש",
+        "answer": "30",
+        "tolerance": 0.3
+      },
+      {
+        "label": "מהירות הפגיעה",
+        "unit": "מ/ש",
+        "answer": "50",
+        "tolerance": 0.5
+      }
+    ],
+    "tips": [
+      "מצאו את הזמן מהנפילה האנכית מגובה הגג.",
+      "המהירות האופקית קבועה לאורך כל הטיסה: מרחק חלקי זמן.",
+      "את הרכיב האנכי בפגיעה מקבלים מ-g כפול הזמן, ואז חברו בפיתגורס."
+    ],
+    "solution": [
+      "נתונים: <span dir=\"ltr\">h = 80 מ'</span>, <span dir=\"ltr\">R = 120 מ'</span>, <span dir=\"ltr\">g = 10 מ/ש²</span>.",
+      "זמן: <span dir=\"ltr\">80 = 5t²</span>, ולכן <span dir=\"ltr\">t = 4 ש'</span>.",
+      "מהירות אופקית: <span dir=\"ltr\">vₓ = R / t = 120 / 4 = 30 מ/ש</span>.",
+      "רכיב אנכי: <span dir=\"ltr\">v_y = gt = 40 מ/ש</span>.",
+      "חישוב: <span dir=\"ltr\">v = √(30² + 40²) = √2500 = 50 מ/ש</span>."
+    ],
+    "guided": [
+      {
+        "q": "מהו זמן התעופה?",
+        "options": [
+          "<span dir=\"ltr\">4 ש'</span>",
+          "<span dir=\"ltr\">16 ש'</span>",
+          "<span dir=\"ltr\">8 ש'</span>"
+        ],
+        "correct": 0,
+        "explain": "חישוב: <span dir=\"ltr\">t² = 80/5 = 16</span>."
+      },
+      {
+        "q": "מהי המהירות האופקית?",
+        "options": [
+          "<span dir=\"ltr\">30 מ/ש</span>",
+          "<span dir=\"ltr\">480 מ/ש</span>",
+          "<span dir=\"ltr\">40 מ/ש</span>"
+        ],
+        "correct": 0,
+        "explain": "חישוב: <span dir=\"ltr\">120 / 4 = 30</span>."
+      },
+      {
+        "q": "מהו גודל המהירות בפגיעה?",
+        "options": [
+          "<span dir=\"ltr\">50 מ/ש</span>",
+          "<span dir=\"ltr\">70 מ/ש</span>",
+          "<span dir=\"ltr\">40 מ/ש</span>"
+        ],
+        "correct": 0,
+        "explain": "חישוב: <span dir=\"ltr\">√(900 + 1600) = 50</span>."
+      }
+    ],
+    "verify": {
+      "model": "horizontal_launch_from_range",
+      "params": {
+        "h": 80,
+        "R": 120
+      },
+      "expect": {
+        "זמן התעופה": 4,
+        "המהירות האופקית": 30,
+        "מהירות הפגיעה": 50
+      }
+    }
+  },
+  {
+    "id": "phys-horizontal-045",
+    "topic": "phys-horizontal",
+    "level": 2,
+    "title": "זמן תגובה ובלימה של נהג",
+    "statement": "נהג נוסע במהירות <span dir=\"ltr\">30 מ/ש</span> ורואה מכשול. עובר <span dir=\"ltr\">1 ש'</span> עד שהוא לוחץ על הבלם (המכונית ממשיכה במהירות קבועה), ואז המכונית מאטה בתאוצה קבועה של <span dir=\"ltr\">5 מ/ש²</span> עד לעצירה.<br>חשבו: א. המרחק שעוברת המכונית בזמן התגובה. ב. מרחק הבלימה. ג. המרחק הכולל מהרגע שבו הנהג ראה את המכשול ועד העצירה.",
+    "diagram": "<svg viewBox=\"0 0 320 185\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" aria-label=\"זמן תגובה ובלימה עד עצירה\"><title>זמן תגובה ובלימה עד עצירה</title><defs><marker id=\"ph-k\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"currentColor\"/></marker><marker id=\"ph-a\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"var(--dg-a, #1f5fae)\"/></marker><marker id=\"ph-b\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"var(--dg-b, #c2410c)\"/></marker><marker id=\"ph-c\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"var(--dg-c, #1e7a34)\"/></marker></defs><g direction=\"ltr\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-size=\"14\"><line x1=\"10\" y1=\"118\" x2=\"310\" y2=\"118\" stroke=\"currentColor\" stroke-width=\"2\"/><path d=\"M18 118l-6 8M28 118l-6 8M38 118l-6 8M48 118l-6 8M58 118l-6 8M68 118l-6 8M78 118l-6 8M88 118l-6 8M98 118l-6 8M108 118l-6 8M118 118l-6 8M128 118l-6 8M138 118l-6 8M148 118l-6 8M158 118l-6 8M168 118l-6 8M178 118l-6 8M188 118l-6 8M198 118l-6 8M208 118l-6 8M218 118l-6 8M228 118l-6 8M238 118l-6 8M248 118l-6 8M258 118l-6 8M268 118l-6 8M278 118l-6 8M288 118l-6 8M298 118l-6 8M308 118l-6 8\" opacity=\"0.5\"/><rect x=\"10\" y=\"96\" width=\"44\" height=\"14\" rx=\"3\" stroke=\"var(--dg-a, #1f5fae)\" fill=\"var(--dg-a, #1f5fae)\" fill-opacity=\"0.18\"/><rect x=\"20\" y=\"87\" width=\"22\" height=\"9\" rx=\"2\" stroke=\"var(--dg-a, #1f5fae)\"/><circle cx=\"21\" cy=\"112\" r=\"5\" fill=\"currentColor\" stroke=\"none\"/><circle cx=\"43\" cy=\"112\" r=\"5\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"58\" y1=\"78\" x2=\"98\" y2=\"78\" stroke=\"var(--dg-a, #1f5fae)\" stroke-width=\"2\" marker-end=\"url(#ph-a)\"/><text x=\"78\" y=\"64\" text-anchor=\"middle\" fill=\"var(--dg-a, #1f5fae)\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\"><tspan direction=\"ltr\" unicode-bidi=\"isolate\">⁦v = 30 <tspan direction=\"rtl\" unicode-bidi=\"isolate\">⁧מ/ש⁩</tspan>⁩</tspan></text><line x1=\"120\" y1=\"110\" x2=\"120\" y2=\"154\" stroke=\"currentColor\" stroke-dasharray=\"5 4\" opacity=\"0.6\"/><line x1=\"215\" y1=\"110\" x2=\"215\" y2=\"154\" stroke=\"currentColor\" stroke-dasharray=\"5 4\" opacity=\"0.6\"/><line x1=\"300\" y1=\"78\" x2=\"300\" y2=\"118\" stroke=\"var(--dg-c, #1e7a34)\" stroke-width=\"3\"/><line x1=\"32\" y1=\"138\" x2=\"120\" y2=\"138\" stroke=\"currentColor\" marker-start=\"url(#ph-k)\" marker-end=\"url(#ph-k)\"/><text x=\"76\" y=\"158\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\"><tspan direction=\"ltr\" unicode-bidi=\"isolate\">⁦t = 1 <tspan direction=\"rtl\" unicode-bidi=\"isolate\">⁧ש׳⁩</tspan>⁩</tspan></text><text x=\"130\" y=\"174\" text-anchor=\"middle\" fill=\"var(--dg-b, #c2410c)\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\"><tspan direction=\"rtl\" unicode-bidi=\"isolate\">⁧תגובה⁩</tspan></text><line x1=\"120\" y1=\"138\" x2=\"300\" y2=\"138\" stroke=\"currentColor\" marker-start=\"url(#ph-k)\" marker-end=\"url(#ph-k)\"/><text x=\"210\" y=\"173\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\"><tspan direction=\"ltr\" unicode-bidi=\"isolate\">⁦a = 5 <tspan direction=\"rtl\" unicode-bidi=\"isolate\">⁧מ/ש²⁩</tspan>⁩</tspan></text><text x=\"273\" y=\"171\" text-anchor=\"middle\" fill=\"var(--dg-c, #1e7a34)\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\"><tspan direction=\"rtl\" unicode-bidi=\"isolate\">⁧בלימה⁩</tspan></text></g></svg>",
+    "inputs": [
+      {
+        "label": "מרחק בזמן התגובה",
+        "unit": "מ'",
+        "answer": "30",
+        "tolerance": 0.3
+      },
+      {
+        "label": "מרחק הבלימה",
+        "unit": "מ'",
+        "answer": "90",
+        "tolerance": 0.9
+      },
+      {
+        "label": "המרחק הכולל",
+        "unit": "מ'",
+        "answer": "120",
+        "tolerance": 1.2
+      }
+    ],
+    "tips": [
+      "בזמן התגובה המהירות קבועה, ולכן המרחק הוא מהירות כפול זמן.",
+      "בבלימה אין זמן נתון, אז השתמשו בנוסחה שבין מהירות, תאוצה ומרחק עם מהירות סופית אפס.",
+      "המרחק הכולל הוא סכום שני המרחקים."
+    ],
+    "solution": [
+      "נתונים: <span dir=\"ltr\">v = 30 מ/ש</span>, <span dir=\"ltr\">t_r = 1 ש'</span>, <span dir=\"ltr\">a = 5 מ/ש²</span>.",
+      "תגובה: <span dir=\"ltr\">x₁ = v · t_r = 30 · 1 = 30 מ'</span>.",
+      "בלימה: <span dir=\"ltr\">0 = 30² − 2 · 5 · x₂</span>, ולכן <span dir=\"ltr\">x₂ = 900 / 10 = 90 מ'</span>.",
+      "סך הכול: <span dir=\"ltr\">30 + 90 = 120 מ'</span>."
+    ],
+    "guided": [
+      {
+        "q": "איזו תנועה יש בזמן התגובה?",
+        "options": [
+          "מהירות קבועה",
+          "האצה",
+          "האטה"
+        ],
+        "correct": 0,
+        "explain": "הנהג עוד לא בלם."
+      },
+      {
+        "q": "מהו מרחק הבלימה?",
+        "options": [
+          "<span dir=\"ltr\">90 מ'</span>",
+          "<span dir=\"ltr\">180 מ'</span>",
+          "<span dir=\"ltr\">30 מ'</span>"
+        ],
+        "correct": 0,
+        "explain": "חישוב: <span dir=\"ltr\">900 / 10 = 90</span>."
+      },
+      {
+        "q": "מהו המרחק הכולל?",
+        "options": [
+          "סכום שני המרחקים",
+          "ההפרש בין המרחקים",
+          "מרחק הבלימה בלבד"
+        ],
+        "correct": 0,
+        "explain": "המכונית עוברת את שני המקטעים ברצף."
+      }
+    ],
+    "verify": {
+      "model": "braking_with_reaction",
+      "params": {
+        "v": 30,
+        "a": 5,
+        "tr": 1
+      },
+      "expect": {
+        "מרחק בזמן התגובה": 30,
+        "מרחק הבלימה": 90,
+        "המרחק הכולל": 120
+      }
+    }
+  },
+  {
+    "id": "phys-horizontal-046",
+    "topic": "phys-horizontal",
+    "level": 2,
+    "title": "האצה ואחר כך מהירות קבועה",
+    "statement": "אופנוע יוצא ממנוחה ומאיץ בתאוצה קבועה של <span dir=\"ltr\">2 מ/ש²</span> עד שהוא מגיע למהירות <span dir=\"ltr\">20 מ/ש</span>, ואז ממשיך במהירות הזו עד שהוא משלים מסלול של <span dir=\"ltr\">400 מ'</span> בסך הכול.<br>חשבו: א. משך ההאצה. ב. המרחק שעבר בזמן ההאצה. ג. הזמן הכולל לאורך כל המסלול.",
+    "diagram": "<svg viewBox=\"0 0 320 185\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" aria-label=\"מכונית מאיצה ואחר כך נוסעת במהירות קבועה\"><title>מכונית מאיצה ואחר כך נוסעת במהירות קבועה</title><defs><marker id=\"ph-k\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"currentColor\"/></marker><marker id=\"ph-a\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"var(--dg-a, #1f5fae)\"/></marker><marker id=\"ph-b\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"var(--dg-b, #c2410c)\"/></marker><marker id=\"ph-c\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"var(--dg-c, #1e7a34)\"/></marker></defs><g direction=\"ltr\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-size=\"14\"><line x1=\"10\" y1=\"118\" x2=\"310\" y2=\"118\" stroke=\"currentColor\" stroke-width=\"2\"/><path d=\"M18 118l-6 8M28 118l-6 8M38 118l-6 8M48 118l-6 8M58 118l-6 8M68 118l-6 8M78 118l-6 8M88 118l-6 8M98 118l-6 8M108 118l-6 8M118 118l-6 8M128 118l-6 8M138 118l-6 8M148 118l-6 8M158 118l-6 8M168 118l-6 8M178 118l-6 8M188 118l-6 8M198 118l-6 8M208 118l-6 8M218 118l-6 8M228 118l-6 8M238 118l-6 8M248 118l-6 8M258 118l-6 8M268 118l-6 8M278 118l-6 8M288 118l-6 8M298 118l-6 8M308 118l-6 8\" opacity=\"0.5\"/><rect x=\"12\" y=\"96\" width=\"44\" height=\"14\" rx=\"3\" stroke=\"var(--dg-a, #1f5fae)\" fill=\"var(--dg-a, #1f5fae)\" fill-opacity=\"0.18\"/><rect x=\"22\" y=\"87\" width=\"22\" height=\"9\" rx=\"2\" stroke=\"var(--dg-a, #1f5fae)\"/><circle cx=\"23\" cy=\"112\" r=\"5\" fill=\"currentColor\" stroke=\"none\"/><circle cx=\"45\" cy=\"112\" r=\"5\" fill=\"currentColor\" stroke=\"none\"/><text x=\"34\" y=\"79\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\">v₀ = 0</text><line x1=\"120\" y1=\"110\" x2=\"120\" y2=\"148\" stroke=\"currentColor\" stroke-dasharray=\"5 4\" opacity=\"0.6\"/><g opacity=\"0.55\"><rect x=\"120\" y=\"96\" width=\"44\" height=\"14\" rx=\"3\" stroke=\"var(--dg-a, #1f5fae)\" fill=\"var(--dg-a, #1f5fae)\" fill-opacity=\"0.18\"/><rect x=\"130\" y=\"87\" width=\"22\" height=\"9\" rx=\"2\" stroke=\"var(--dg-a, #1f5fae)\"/><circle cx=\"131\" cy=\"112\" r=\"5\" fill=\"currentColor\" stroke=\"none\"/><circle cx=\"153\" cy=\"112\" r=\"5\" fill=\"currentColor\" stroke=\"none\"/></g><line x1=\"120\" y1=\"56\" x2=\"150\" y2=\"56\" stroke=\"var(--dg-a, #1f5fae)\" stroke-width=\"2\" marker-end=\"url(#ph-a)\"/><text x=\"135\" y=\"42\" text-anchor=\"middle\" fill=\"var(--dg-a, #1f5fae)\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\"><tspan direction=\"ltr\" unicode-bidi=\"isolate\">⁦v = 20 <tspan direction=\"rtl\" unicode-bidi=\"isolate\">⁧מ/ש⁩</tspan>⁩</tspan></text><line x1=\"20\" y1=\"56\" x2=\"60\" y2=\"56\" stroke=\"var(--dg-b, #c2410c)\" stroke-width=\"2\" marker-end=\"url(#ph-b)\"/><text x=\"45\" y=\"42\" text-anchor=\"middle\" fill=\"var(--dg-b, #c2410c)\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\"><tspan direction=\"ltr\" unicode-bidi=\"isolate\">⁦a = 2 <tspan direction=\"rtl\" unicode-bidi=\"isolate\">⁧מ/ש²⁩</tspan>⁩</tspan></text><line x1=\"34\" y1=\"142\" x2=\"300\" y2=\"142\" stroke=\"currentColor\" marker-start=\"url(#ph-k)\" marker-end=\"url(#ph-k)\"/><text x=\"167\" y=\"162\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\"><tspan direction=\"ltr\" unicode-bidi=\"isolate\">⁦D = 400 <tspan direction=\"rtl\" unicode-bidi=\"isolate\">⁧מ׳⁩</tspan>⁩</tspan></text><line x1=\"300\" y1=\"110\" x2=\"300\" y2=\"148\" stroke=\"currentColor\" stroke-dasharray=\"5 4\" opacity=\"0.6\"/><text x=\"76\" y=\"171\" text-anchor=\"middle\" fill=\"var(--dg-b, #c2410c)\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\"><tspan direction=\"rtl\" unicode-bidi=\"isolate\">⁧האצה⁩</tspan></text><text x=\"258\" y=\"171\" text-anchor=\"middle\" fill=\"var(--dg-a, #1f5fae)\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\"><tspan direction=\"rtl\" unicode-bidi=\"isolate\">⁧מהירות קבועה⁩</tspan></text></g></svg>",
+    "inputs": [
+      {
+        "label": "משך ההאצה",
+        "unit": "ש'",
+        "answer": "10",
+        "tolerance": 0.1
+      },
+      {
+        "label": "מרחק ההאצה",
+        "unit": "מ'",
+        "answer": "100",
+        "tolerance": 1
+      },
+      {
+        "label": "הזמן הכולל",
+        "unit": "ש'",
+        "answer": "25",
+        "tolerance": 0.25
+      }
+    ],
+    "tips": [
+      "משך ההאצה הוא שינוי המהירות חלקי התאוצה.",
+      "מרחק ההאצה נובע מנוסחה שבין מהירות, תאוצה ומרחק, או ממהירות ממוצעת כפול זמן.",
+      "את שאר המסלול עוברים במהירות קבועה: חלקו את המרחק שנשאר במהירות."
+    ],
+    "solution": [
+      "נתונים: <span dir=\"ltr\">a = 2 מ/ש²</span>, <span dir=\"ltr\">v_max = 20 מ/ש</span>, <span dir=\"ltr\">D = 400 מ'</span>.",
+      "משך ההאצה: <span dir=\"ltr\">t₁ = 20 / 2 = 10 ש'</span>.",
+      "מרחק ההאצה: <span dir=\"ltr\">x₁ = 20² / (2 · 2) = 100 מ'</span>.",
+      "נשאר: <span dir=\"ltr\">400 − 100 = 300 מ'</span> במהירות <span dir=\"ltr\">20 מ/ש</span>: <span dir=\"ltr\">t₂ = 300 / 20 = 15 ש'</span>.",
+      "הזמן הכולל: <span dir=\"ltr\">10 + 15 = 25 ש'</span>."
+    ],
+    "guided": [
+      {
+        "q": "מהו משך ההאצה?",
+        "options": [
+          "<span dir=\"ltr\">10 ש'</span>",
+          "<span dir=\"ltr\">20 ש'</span>",
+          "<span dir=\"ltr\">40 ש'</span>"
+        ],
+        "correct": 0,
+        "explain": "חישוב: <span dir=\"ltr\">t = Δv / a = 20 / 2</span>."
+      },
+      {
+        "q": "כמה מטרים נשארים למהירות הקבועה?",
+        "options": [
+          "<span dir=\"ltr\">300 מ'</span>",
+          "<span dir=\"ltr\">400 מ'</span>",
+          "<span dir=\"ltr\">100 מ'</span>"
+        ],
+        "correct": 0,
+        "explain": "חישוב: <span dir=\"ltr\">400 − 100</span>."
+      },
+      {
+        "q": "מהו הזמן הכולל?",
+        "options": [
+          "<span dir=\"ltr\">25 ש'</span>",
+          "<span dir=\"ltr\">15 ש'</span>",
+          "<span dir=\"ltr\">35 ש'</span>"
+        ],
+        "correct": 0,
+        "explain": "חישוב: <span dir=\"ltr\">10 + 15</span>."
+      }
+    ],
+    "verify": {
+      "model": "accel_then_cruise",
+      "params": {
+        "a": 2,
+        "vmax": 20,
+        "D": 400
+      },
+      "expect": {
+        "משך ההאצה": 10,
+        "מרחק ההאצה": 100,
+        "הזמן הכולל": 25
+      }
+    }
+  },
+  {
+    "id": "phys-horizontal-047",
+    "topic": "phys-horizontal",
+    "level": 2,
+    "title": "אופנוע מאיץ לאורך דרך נתונה",
+    "statement": "אופנוע נוסע במהירות <span dir=\"ltr\">10 מ/ש</span> ומתחיל להאיץ בתאוצה קבועה של <span dir=\"ltr\">2 מ/ש²</span> לאורך <span dir=\"ltr\">96 מ'</span>.<br>חשבו: א. מהי מהירות האופנוע בסוף הקטע. ב. כמה זמן נמשכה ההאצה.",
+    "diagram": "<svg viewBox=\"0 0 320 185\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" aria-label=\"אופנוע מאיץ לאורך דרך נתונה\"><title>אופנוע מאיץ לאורך דרך נתונה</title><defs><marker id=\"ph-k\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"currentColor\"/></marker><marker id=\"ph-a\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"var(--dg-a, #1f5fae)\"/></marker><marker id=\"ph-b\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"var(--dg-b, #c2410c)\"/></marker><marker id=\"ph-c\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"var(--dg-c, #1e7a34)\"/></marker></defs><g direction=\"ltr\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-size=\"14\"><line x1=\"10\" y1=\"118\" x2=\"310\" y2=\"118\" stroke=\"currentColor\" stroke-width=\"2\"/><path d=\"M18 118l-6 8M28 118l-6 8M38 118l-6 8M48 118l-6 8M58 118l-6 8M68 118l-6 8M78 118l-6 8M88 118l-6 8M98 118l-6 8M108 118l-6 8M118 118l-6 8M128 118l-6 8M138 118l-6 8M148 118l-6 8M158 118l-6 8M168 118l-6 8M178 118l-6 8M188 118l-6 8M198 118l-6 8M208 118l-6 8M218 118l-6 8M228 118l-6 8M238 118l-6 8M248 118l-6 8M258 118l-6 8M268 118l-6 8M278 118l-6 8M288 118l-6 8M298 118l-6 8M308 118l-6 8\" opacity=\"0.5\"/><rect x=\"20\" y=\"96\" width=\"44\" height=\"14\" rx=\"3\" stroke=\"var(--dg-a, #1f5fae)\" fill=\"var(--dg-a, #1f5fae)\" fill-opacity=\"0.18\"/><rect x=\"30\" y=\"87\" width=\"22\" height=\"9\" rx=\"2\" stroke=\"var(--dg-a, #1f5fae)\"/><circle cx=\"31\" cy=\"112\" r=\"5\" fill=\"currentColor\" stroke=\"none\"/><circle cx=\"53\" cy=\"112\" r=\"5\" fill=\"currentColor\" stroke=\"none\"/><line x1=\"70\" y1=\"78\" x2=\"110\" y2=\"78\" stroke=\"var(--dg-a, #1f5fae)\" stroke-width=\"2\" marker-end=\"url(#ph-a)\"/><text x=\"126\" y=\"64\" text-anchor=\"middle\" fill=\"var(--dg-a, #1f5fae)\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\"><tspan direction=\"ltr\" unicode-bidi=\"isolate\">⁦v₀ = 10 <tspan direction=\"rtl\" unicode-bidi=\"isolate\">⁧מ/ש⁩</tspan>⁩</tspan></text><line x1=\"30\" y1=\"56\" x2=\"80\" y2=\"56\" stroke=\"var(--dg-b, #c2410c)\" stroke-width=\"2\" marker-end=\"url(#ph-b)\"/><text x=\"55\" y=\"42\" text-anchor=\"middle\" fill=\"var(--dg-b, #c2410c)\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\"><tspan direction=\"ltr\" unicode-bidi=\"isolate\">⁦a = 2 <tspan direction=\"rtl\" unicode-bidi=\"isolate\">⁧מ/ש²⁩</tspan>⁩</tspan></text><g opacity=\"0.55\"><rect x=\"230\" y=\"96\" width=\"44\" height=\"14\" rx=\"3\" stroke=\"var(--dg-a, #1f5fae)\" fill=\"var(--dg-a, #1f5fae)\" fill-opacity=\"0.18\"/><rect x=\"240\" y=\"87\" width=\"22\" height=\"9\" rx=\"2\" stroke=\"var(--dg-a, #1f5fae)\"/><circle cx=\"241\" cy=\"112\" r=\"5\" fill=\"currentColor\" stroke=\"none\"/><circle cx=\"263\" cy=\"112\" r=\"5\" fill=\"currentColor\" stroke=\"none\"/></g><text x=\"252\" y=\"79\" text-anchor=\"middle\" fill=\"var(--dg-c, #1e7a34)\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\">v = ?</text><line x1=\"42\" y1=\"146\" x2=\"252\" y2=\"146\" stroke=\"currentColor\" marker-start=\"url(#ph-k)\" marker-end=\"url(#ph-k)\"/><text x=\"147\" y=\"166\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\"><tspan direction=\"ltr\" unicode-bidi=\"isolate\">⁦x = 96 <tspan direction=\"rtl\" unicode-bidi=\"isolate\">⁧מ׳⁩</tspan>⁩</tspan></text></g></svg>",
+    "inputs": [
+      {
+        "label": "המהירות בסוף הקטע",
+        "unit": "מ/ש",
+        "answer": "22",
+        "tolerance": 0.22
+      },
+      {
+        "label": "משך ההאצה",
+        "unit": "ש'",
+        "answer": "6",
+        "tolerance": 0.06
+      }
+    ],
+    "tips": [
+      "הזמן אינו נתון, אז התחילו בנוסחה שמקשרת בין מהירויות, תאוצה ומרחק.",
+      "שימו לב שהמהירות ההתחלתית אינה אפס.",
+      "כשהמהירות הסופית ידועה, הזמן הוא שינוי המהירות חלקי התאוצה."
+    ],
+    "solution": [
+      "נתונים: <span dir=\"ltr\">v₀ = 10 מ/ש</span>, <span dir=\"ltr\">a = 2 מ/ש²</span>, <span dir=\"ltr\">x = 96 מ'</span>.",
+      "חישוב: <span dir=\"ltr\">v² = v₀² + 2ax = 100 + 2 · 2 · 96 = 484</span>.",
+      "חישוב: <span dir=\"ltr\">v = √484 = 22 מ/ש</span>.",
+      "הזמן: <span dir=\"ltr\">t = (v − v₀) / a = (22 − 10) / 2 = 6 ש'</span>.",
+      "בדיקה: <span dir=\"ltr\">x = ((10 + 22) / 2) · 6 = 16 · 6 = 96 מ'</span>. ✓"
+    ],
+    "guided": [
+      {
+        "q": "איזו נוסחה מתאימה לשאלה הראשונה?",
+        "options": [
+          "<span dir=\"ltr\">v² = v₀² + 2ax</span>",
+          "<span dir=\"ltr\">v = at</span>",
+          "<span dir=\"ltr\">x = vt</span>"
+        ],
+        "correct": 0,
+        "explain": "הזמן אינו נתון."
+      },
+      {
+        "q": "מהו v²?",
+        "options": [
+          "<span dir=\"ltr\">484</span>",
+          "<span dir=\"ltr\">292</span>",
+          "<span dir=\"ltr\">384</span>"
+        ],
+        "correct": 0,
+        "explain": "חישוב: <span dir=\"ltr\">100 + 384 = 484</span>."
+      },
+      {
+        "q": "איך מחשבים את הזמן?",
+        "options": [
+          "<span dir=\"ltr\">(v − v₀) / a</span>",
+          "<span dir=\"ltr\">v / a</span>",
+          "<span dir=\"ltr\">x / a</span>"
+        ],
+        "correct": 0,
+        "explain": "שינוי המהירות חלקי התאוצה."
+      }
+    ],
+    "verify": {
+      "model": "accel_with_initial_speed_dist",
+      "params": {
+        "v0": 10,
+        "a": 2,
+        "x": 96
+      },
+      "expect": {
+        "המהירות בסוף הקטע": 22,
+        "משך ההאצה": 6
+      }
+    }
+  },
+  {
+    "id": "phys-horizontal-048",
+    "topic": "phys-horizontal",
+    "level": 2,
+    "title": "רכבת שמהירותה גדלה: תאוצה ומרחק",
+    "statement": "מהירות רכבת גדלה בקצב אחיד מ-<span dir=\"ltr\">8 מ/ש</span> ל-<span dir=\"ltr\">20 מ/ש</span> במשך <span dir=\"ltr\">6 ש'</span>.<br>חשבו: א. מהי תאוצת הרכבת. ב. איזה מרחק עברה הרכבת בזמן הזה.",
+    "diagram": "<svg viewBox=\"0 0 320 185\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" aria-label=\"רכבת שמהירותה גדלה בהדרגה\"><title>רכבת שמהירותה גדלה בהדרגה</title><defs><marker id=\"ph-k\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"currentColor\"/></marker><marker id=\"ph-a\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"var(--dg-a, #1f5fae)\"/></marker><marker id=\"ph-b\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"var(--dg-b, #c2410c)\"/></marker><marker id=\"ph-c\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"var(--dg-c, #1e7a34)\"/></marker></defs><g direction=\"ltr\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-size=\"14\"><line x1=\"10\" y1=\"118\" x2=\"310\" y2=\"118\" stroke=\"currentColor\" stroke-width=\"2\"/><path d=\"M18 118l-6 8M28 118l-6 8M38 118l-6 8M48 118l-6 8M58 118l-6 8M68 118l-6 8M78 118l-6 8M88 118l-6 8M98 118l-6 8M108 118l-6 8M118 118l-6 8M128 118l-6 8M138 118l-6 8M148 118l-6 8M158 118l-6 8M168 118l-6 8M178 118l-6 8M188 118l-6 8M198 118l-6 8M208 118l-6 8M218 118l-6 8M228 118l-6 8M238 118l-6 8M248 118l-6 8M258 118l-6 8M268 118l-6 8M278 118l-6 8M288 118l-6 8M298 118l-6 8M308 118l-6 8\" opacity=\"0.5\"/><rect x=\"20\" y=\"96\" width=\"44\" height=\"14\" rx=\"3\" stroke=\"var(--dg-a, #1f5fae)\" fill=\"var(--dg-a, #1f5fae)\" fill-opacity=\"0.18\"/><rect x=\"30\" y=\"87\" width=\"22\" height=\"9\" rx=\"2\" stroke=\"var(--dg-a, #1f5fae)\"/><circle cx=\"31\" cy=\"112\" r=\"5\" fill=\"currentColor\" stroke=\"none\"/><circle cx=\"53\" cy=\"112\" r=\"5\" fill=\"currentColor\" stroke=\"none\"/><text x=\"45\" y=\"79\" text-anchor=\"middle\" fill=\"var(--dg-a, #1f5fae)\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\"><tspan direction=\"ltr\" unicode-bidi=\"isolate\">⁦v₀ = 8 <tspan direction=\"rtl\" unicode-bidi=\"isolate\">⁧מ/ש⁩</tspan>⁩</tspan></text><g opacity=\"0.55\"><rect x=\"230\" y=\"96\" width=\"44\" height=\"14\" rx=\"3\" stroke=\"var(--dg-a, #1f5fae)\" fill=\"var(--dg-a, #1f5fae)\" fill-opacity=\"0.18\"/><rect x=\"240\" y=\"87\" width=\"22\" height=\"9\" rx=\"2\" stroke=\"var(--dg-a, #1f5fae)\"/><circle cx=\"241\" cy=\"112\" r=\"5\" fill=\"currentColor\" stroke=\"none\"/><circle cx=\"263\" cy=\"112\" r=\"5\" fill=\"currentColor\" stroke=\"none\"/></g><text x=\"252\" y=\"79\" text-anchor=\"middle\" fill=\"var(--dg-a, #1f5fae)\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\"><tspan direction=\"ltr\" unicode-bidi=\"isolate\">⁦v = 20 <tspan direction=\"rtl\" unicode-bidi=\"isolate\">⁧מ/ש⁩</tspan>⁩</tspan></text><line x1=\"42\" y1=\"146\" x2=\"252\" y2=\"146\" stroke=\"currentColor\" marker-start=\"url(#ph-k)\" marker-end=\"url(#ph-k)\"/><text x=\"147\" y=\"166\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\">x = ?</text><text x=\"147\" y=\"49\" text-anchor=\"middle\" fill=\"var(--dg-b, #c2410c)\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\"><tspan direction=\"ltr\" unicode-bidi=\"isolate\">⁦t = 6 <tspan direction=\"rtl\" unicode-bidi=\"isolate\">⁧ש׳⁩</tspan>⁩</tspan> · <tspan direction=\"ltr\" unicode-bidi=\"isolate\">⁦a = ?⁩</tspan></text></g></svg>",
+    "inputs": [
+      {
+        "label": "התאוצה",
+        "unit": "מ/ש²",
+        "answer": "2",
+        "tolerance": 0.02
+      },
+      {
+        "label": "המרחק שעברה הרכבת",
+        "unit": "מ'",
+        "answer": "84",
+        "tolerance": 0.84
+      }
+    ],
+    "tips": [
+      "תאוצה היא קצב שינוי המהירות: שינוי המהירות חלקי הזמן.",
+      "כשהתאוצה קבועה, המהירות הממוצעת היא ממוצע המהירות ההתחלתית והסופית.",
+      "המרחק הוא המהירות הממוצעת כפול הזמן."
+    ],
+    "solution": [
+      "נתונים: <span dir=\"ltr\">v₀ = 8 מ/ש</span>, <span dir=\"ltr\">v = 20 מ/ש</span>, <span dir=\"ltr\">t = 6 ש'</span>.",
+      "תאוצה: <span dir=\"ltr\">a = (20 − 8) / 6 = 2 מ/ש²</span>.",
+      "מהירות ממוצעת: <span dir=\"ltr\">(8 + 20) / 2 = 14 מ/ש</span>.",
+      "מרחק: <span dir=\"ltr\">x = 14 · 6 = 84 מ'</span>."
+    ],
+    "guided": [
+      {
+        "q": "איך מחשבים תאוצה?",
+        "options": [
+          "שינוי מהירות חלקי זמן",
+          "מהירות כפול זמן",
+          "מרחק חלקי זמן"
+        ],
+        "correct": 0,
+        "explain": "זו ההגדרה של תאוצה."
+      },
+      {
+        "q": "מהי המהירות הממוצעת?",
+        "options": [
+          "<span dir=\"ltr\">14 מ/ש</span>",
+          "<span dir=\"ltr\">12 מ/ש</span>",
+          "<span dir=\"ltr\">28 מ/ש</span>"
+        ],
+        "correct": 0,
+        "explain": "חישוב: <span dir=\"ltr\">(8 + 20) / 2 = 14</span>."
+      },
+      {
+        "q": "מהו המרחק?",
+        "options": [
+          "<span dir=\"ltr\">84 מ'</span>",
+          "<span dir=\"ltr\">120 מ'</span>",
+          "<span dir=\"ltr\">48 מ'</span>"
+        ],
+        "correct": 0,
+        "explain": "חישוב: <span dir=\"ltr\">14 · 6 = 84</span>."
+      }
+    ],
+    "verify": {
+      "model": "accel_from_speeds_time",
+      "params": {
+        "v0": 8,
+        "v": 20,
+        "t": 6
+      },
+      "expect": {
+        "התאוצה": 2,
+        "המרחק שעברה הרכבת": 84
+      }
+    }
   }
 ]

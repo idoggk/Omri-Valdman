@@ -43,13 +43,15 @@ test('horizontal models', () => {
 
 const sample = () => JSON.parse(JSON.stringify(JSON.parse(readFileSync(new URL('../data/physics.json', import.meta.url), 'utf8'))[0]));
 
-test('shipped data is valid: 70 exercises, mostly level 3, 34 vertical + 36 horizontal', () => {
+test('shipped data is valid: 94 exercises (70 level 3 + 12 level 1 + 12 level 2), 46 vertical + 48 horizontal', () => {
   const list = JSON.parse(readFileSync(new URL('../data/physics.json', import.meta.url), 'utf8'));
   assert.deepEqual(checkAll(list), []);
-  assert.equal(list.length, 70);
-  assert.equal(list.filter((e) => e.topic === 'phys-vertical').length, 34);
-  assert.equal(list.filter((e) => e.topic === 'phys-horizontal').length, 36);
+  assert.equal(list.length, 94);
+  assert.equal(list.filter((e) => e.topic === 'phys-vertical').length, 46);
+  assert.equal(list.filter((e) => e.topic === 'phys-horizontal').length, 48);
+  for (const t of ['phys-vertical', 'phys-horizontal']) for (const lvl of [1, 2]) assert.equal(list.filter((e) => e.topic === t && e.level === lvl).length, 6, t + lvl);
   const lv = (n) => list.filter((e) => e.level === n).length;
+  assert.equal(lv(3), 70);
   assert.ok(lv(3) > lv(1) + lv(2), 'level 3 must be the majority');
   for (const e of list) assert.ok(e.diagram.startsWith('<svg'), e.id);
 });
@@ -185,8 +187,9 @@ test('exam-level horizontal models', () => {
   assert.throws(() => models.rear_end({ v: 25, a1: 6, a2: 4, tr: 1, g: 500 }));
 });
 
-test('shipped data: 70 exercises, 20 new exam-level ones with 5+ solution steps and 4 or fewer inputs', () => {
-  const list = JSON.parse(readFileSync(new URL('../data/physics.json', import.meta.url), 'utf8'));
+test('shipped data: 70 exercises, 20 exam-level ones among the level-3 exercises with 5+ solution steps and 4 or fewer inputs', () => {
+  const all = JSON.parse(readFileSync(new URL('../data/physics.json', import.meta.url), 'utf8'));
+  const list = all.filter((e) => e.level === 3);
   assert.equal(list.length, 70);
   const fresh = list.filter((e) => /^phys-vertical-0(2[5-9]|3\d)$|^phys-horizontal-0(2[7-9]|3\d)$/.test(e.id));
   assert.equal(fresh.length, 20);
@@ -198,7 +201,7 @@ test('shipped data: 70 exercises, 20 new exam-level ones with 5+ solution steps 
   const old3 = list.filter((e) => !fresh.includes(e) && e.level === 3 && e.guided);
   assert.ok(old3.length >= 8, 'at least 8 existing level-3 exercises are guided');
   assert.ok(fresh.filter((e) => /סימלי/.test(e.statement)).length >= 8, 'at least 8 ask for a symbolic setup');
-  assert.equal(new Set(list.map((e) => e.id)).size, 70);
+  assert.equal(new Set(all.map((e) => e.id)).size, 94);
 });
 
 const guidedSample = () =>
@@ -263,9 +266,8 @@ test('upgraded horizontal models (hand-checked values)', () => {
   assert.throws(() => models.race_accel_cruise({ a: 2, vmax: 20, D: 600, u: 18 }));
 });
 
-test('difficulty after the upgrade: at most 3 level-1, at least 70% level-3, 5+ steps and 3-4 parts for every upgraded exercise, 20+ guided', () => {
+test('difficulty after the upgrade: at least 70% level-3, 5+ steps and 3-4 parts for every upgraded exercise, 20+ guided', () => {
   const list = JSON.parse(readFileSync(new URL('../data/physics.json', import.meta.url), 'utf8'));
-  assert.ok(list.filter((e) => e.level === 1).length <= 3);
   assert.ok(list.filter((e) => e.level === 3).length >= 0.7 * list.length);
   assert.ok(list.filter((e) => e.guided).length >= 20);
   const upgraded = list.filter((e) => /^phys-vertical-0(0\d|10|12|2[12])$|^phys-horizontal-0(0\d|1[0-2]|14|16|17|19|21)$/.test(e.id));
@@ -276,4 +278,19 @@ test('difficulty after the upgrade: at most 3 level-1, at least 70% level-3, 5+ 
     assert.ok(e.solution.length >= 5, `${e.id} solution steps`);
     assert.ok(e.statement.length > 220, `${e.id} is not a one-liner`);
   }
+});
+
+test('level 1 and 2 exercises: 6 per topic and level, L1 has one unknown, half or more guided, new models are right', () => {
+  const list = JSON.parse(readFileSync(new URL('../data/physics.json', import.meta.url), 'utf8'));
+  for (const e of list.filter((x) => x.level === 1)) assert.equal(e.inputs.length, 1, e.id);
+  for (const e of list.filter((x) => x.level === 2)) assert.ok(e.inputs.length >= 2 && e.inputs.length <= 3, e.id);
+  const easy = list.filter((x) => x.level < 3);
+  assert.equal(easy.length, 24);
+  assert.ok(easy.filter((x) => x.guided).length >= 12);
+  close(models.l1_ff_time({ h: 45 }), [3]);
+  close(models.l1_ff_speed_h({ h: 80 }), [40]);
+  close(models.l1_launch_range({ h: 45, vx: 8 }), [24]);
+  close(models.l1_launch_vx({ h: 80, R: 48 }), [12]);
+  close(models.l1_brake_dist({ v: 20, a: 5 }), [40]);
+  close(models.l1_meet_time({ d: 240, v1: 14, v2: 10 }), [10]);
 });
