@@ -64,7 +64,7 @@ test('titles: Brain Gains, apple title unchanged', () => {
 function runPwa({ controller, reloaded }) {
   const appended = [];
   const listeners = {};
-  const store = { s: reloaded ? { ['omri-sw-reloaded-' + sw.match(/CACHE_VERSION = 'v(\d+)'/)[1]]: '1' } : {} };
+  const store = { s: reloaded ? { ['omri-sw-reloaded-' + read('sw.js').match(/CACHE_VERSION = 'v(\d+)'/)[1]]: '1' } : {} };
   let reloads = 0;
   const el = () => ({ append(...k) { this.kids = k; }, addEventListener() {}, setAttribute() {}, style: {}, hidden: false });
   const document = {
