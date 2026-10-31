@@ -156,6 +156,9 @@ a { color: var(--accent); }
 .sheet-items { list-style: none; padding: 0; display: grid; gap: 8px; }
 .sheet-items li { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 8px 12px; }
 .sheet-formula { font-size: 1.15rem; unicode-bidi: isolate; }
+sup, sub { font-size: .75em; line-height: 0; position: relative; vertical-align: baseline; }
+sup { top: -.45em; }
+sub { top: .25em; }
 .sheet-mistakes, .examples { margin: 10px 0; }
 .sheet-mistakes summary, .examples summary { cursor: pointer; font-weight: 700; min-height: 44px; display: flex; align-items: center; }
 .example-head { width: 100%; text-align: start; margin-top: 8px; }
