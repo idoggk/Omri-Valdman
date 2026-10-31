@@ -10,6 +10,7 @@ import {
 import { pickWorkout } from './workout.js';
 import { trapAccuracySection } from './drills-ui.js';
 import { findMistakeSection } from './findmistake-ui.js';
+import { endlessSection } from './endless-ui.js';
 
 export const WORKOUT_SIZE = 10;
 
@@ -166,6 +167,7 @@ export function viewProgress(ctx) {
       : h('p', { class: 'muted' }, 'עדיין אין סיבה שחוזרת על עצמה.'),
     trapAccuracySection(),
     findMistakeSection(),
+    endlessSection(),
     h('h2', {}, 'היעד הבא'),
     h('div', { class: 'notice' }, target),
     h('div', { class: 'btn-row' }, h('a', { class: 'btn primary', href: '#/workout/start' }, 'התחל אימון')));
