@@ -66,6 +66,8 @@ function attempts() {
   }
   return attemptLog;
 }
+/** Drops the in-memory caches so the next access re-reads storage (tests, storage cleared elsewhere). */
+export function resetCache() { state = null; attemptLog = null; }
 export const getAttempts = () => attempts().all();
 export const recordAttempt = (a) => attempts().add({ ts: Date.now(), ...a });
 export const setAttemptReason = (rec, reason) => attempts().setReason(rec, reason);

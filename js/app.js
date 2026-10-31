@@ -421,9 +421,10 @@ function route() {
     else if (parts.length === 0) viewHome();
     else viewNotFound();
   } catch (err) {
+    console.error('route failed for', location.hash, err && err.stack ? err.stack : err);
     show(h('p', { class: 'error', role: 'alert' }, 'אירעה שגיאה בהצגת העמוד.'),
+      h('p', { class: 'muted', dir: 'ltr' }, `${location.hash} — ${err && err.name ? err.name : 'Error'}: ${err && err.message ? err.message : String(err)}`),
       h('p', {}, h('a', { href: '#/' }, 'חזרה לדף הבית')));
-    console.error(err);
   }
 }
 
