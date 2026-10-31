@@ -38,7 +38,8 @@ test('sw: skipWaiting, clients.claim, old caches deleted, network-first, version
   assert.match(sw, /caches\.delete/);
   assert.doesNotMatch(sw, /cacheFirst/);
   assert.match(sw, /event\.respondWith\(networkFirst\(req\)\)/);
-  assert.ok(Number(sw.match(/CACHE_VERSION = 'v(\d+)'/)[1]) >= 6);
+  assert.ok(Number(sw.match(/CACHE_VERSION = 'v(\d+)'/)[1]) >= 13);
+  assert.ok(files.includes('js/summary.js'));
 });
 
 test('new versioned icons exist, are precached and referenced by html + manifest', () => {
