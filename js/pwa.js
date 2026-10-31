@@ -14,8 +14,15 @@ const isMobile = () => /Android|iPhone|iPad|iPod/i.test(navigator.userAgent) ||
 const isIOS = () => /iPhone|iPad|iPod/i.test(navigator.userAgent) ||
   (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
 
-function store(op, key, val) {
-  try { return op === 'get' ? localStorage.getItem(key) : localStorage.setItem(key, val); } catch { return null; }
+const APP_VERSION = '7'; // keep equal to CACHE_VERSION in sw.js
+const RELOAD_KEY = 'omri-sw-reloaded-' + APP_VERSION;
+let hadControllerAtLoad = false;
+
+function store(op, key, val, area = 'local') {
+  try {
+    const s = area === 'session' ? sessionStorage : localStorage;
+    return op === 'get' ? s.getItem(key) : s.setItem(key, val);
+  } catch { return null; }
 }
 
 function injectStyles() {
@@ -135,12 +142,30 @@ function showUpdateBanner(worker) {
   document.body.append(banner);
 }
 
+function injectVersion() {
+  const el = $('footer', { className: 'app-version', textContent: 'גרסה ' + APP_VERSION });
+  el.style.cssText = 'text-align:center;font-size:.75rem;opacity:.65;padding:12px 0 calc(12px + env(safe-area-inset-bottom,0px))';
+  document.body.append(el);
+}
+
+// When a new worker takes over, reload once so a stale page updates itself.
+function reloadOnTakeover() {
+  navigator.serviceWorker.addEventListener('controllerchange', () => {
+    if (!hadControllerAtLoad) return; // first install: nothing stale to replace
+    if (store('get', RELOAD_KEY, null, 'session')) return;
+    store('set', RELOAD_KEY, '1', 'session');
+    location.reload();
+  });
+}
+
 async function registerSW() {
   if (!('serviceWorker' in navigator)) return;
   const secure = location.protocol === 'https:' || ['localhost', '127.0.0.1'].includes(location.hostname);
   if (!secure) return;
   try {
     const hadController = !!navigator.serviceWorker.controller;
+    hadControllerAtLoad = hadController;
+    reloadOnTakeover();
     const reg = await navigator.serviceWorker.register('sw.js', { scope: './' });
     reg.addEventListener('updatefound', () => {
       const w = reg.installing;
@@ -157,6 +182,7 @@ async function registerSW() {
 function init() {
   injectStyles();
   injectTools();
+  injectVersion();
   window.addEventListener('beforeinstallprompt', (e) => {
     e.preventDefault();
     deferredPrompt = e;

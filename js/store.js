@@ -1,5 +1,6 @@
 // Persists progress state in localStorage; every access is guarded (private mode, disabled storage).
 import * as P from './progress.js';
+import { createLog } from './srs.js';
 
 const KEY = 'omri-study-progress-v2';
 const OLD_KEY = 'omri-study-progress-v1';
@@ -51,4 +52,34 @@ export function saveExam(exam) {
 }
 export function clearExam() {
   try { localStorage.removeItem(EXAM_KEY); } catch (e) { /* ignore */ }
+}
+
+/* attempt log (spaced repetition engine); legacy outcomes are merged in on first use */
+let attemptLog = null;
+function attempts() {
+  if (!attemptLog) {
+    attemptLog = createLog({
+      getItem: (k) => localStorage.getItem(k),
+      setItem: (k, v) => localStorage.setItem(k, v),
+    });
+    try { attemptLog.migrateFrom(load()); } catch (e) { /* ignore */ }
+  }
+  return attemptLog;
+}
+/** Drops the in-memory caches so the next access re-reads storage (tests, storage cleared elsewhere). */
+export function resetCache() { state = null; attemptLog = null; }
+export const getAttempts = () => attempts().all();
+export const recordAttempt = (a) => attempts().add({ ts: Date.now(), ...a });
+export const setAttemptReason = (rec, reason) => attempts().setReason(rec, reason);
+
+/* running workout: { ids, startedAt } */
+const WORKOUT_KEY = 'omri-study-workout-v1';
+export function loadWorkout() {
+  try {
+    const w = JSON.parse(localStorage.getItem(WORKOUT_KEY));
+    return w && Array.isArray(w.ids) && w.ids.every((x) => typeof x === 'string') && Number.isFinite(w.startedAt) ? w : null;
+  } catch (e) { return null; }
+}
+export function saveWorkout(w) {
+  try { localStorage.setItem(WORKOUT_KEY, JSON.stringify(w)); } catch (e) { /* ignore */ }
 }
