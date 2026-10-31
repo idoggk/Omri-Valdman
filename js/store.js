@@ -154,3 +154,30 @@ export function loadWorkout() {
 export function saveWorkout(w) {
   try { localStorage.setItem(WORKOUT_KEY, JSON.stringify(w)); } catch (e) { /* ignore */ }
 }
+
+/* endless practice (generated variants): { v, tpl: {templateId: {attempts, alone, hinted}} }.
+   Own key; never feeds the review queue, the attempt log or the mistakes list. Malformed data reads as empty. */
+const ENDLESS_KEY = 'omri-study-endless-v1';
+export function sanitizeEndless(raw) {
+  const out = { v: 1, tpl: {} };
+  if (!isRec(raw) || !isRec(raw.tpl)) return out;
+  for (const [id, e] of Object.entries(raw.tpl)) {
+    if (isRec(e)) out.tpl[id] = { attempts: cnt(e.attempts), alone: cnt(e.alone), hinted: cnt(e.hinted) };
+  }
+  return out;
+}
+export function loadEndless() {
+  try { return sanitizeEndless(JSON.parse(localStorage.getItem(ENDLESS_KEY))); } catch (e) { return sanitizeEndless(null); }
+}
+/** delta: any of {attempts, alone, hinted} to add (each 0/1). */
+export function recordEndless(templateId, delta) {
+  const d = loadEndless();
+  const it = d.tpl[templateId] || (d.tpl[templateId] = { attempts: 0, alone: 0, hinted: 0 });
+  for (const k of ['attempts', 'alone', 'hinted']) it[k] += cnt(delta[k]);
+  try { localStorage.setItem(ENDLESS_KEY, JSON.stringify(d)); } catch (e) { /* ignore */ }
+}
+export function endlessTotals() {
+  const t = { attempts: 0, alone: 0, hinted: 0 };
+  for (const e of Object.values(loadEndless().tpl)) { t.attempts += e.attempts; t.alone += e.alone; t.hinted += e.hinted; }
+  return t;
+}

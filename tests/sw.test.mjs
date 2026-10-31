@@ -16,9 +16,7 @@ test('every precached file exists', () => {
 });
 
 test('every js module is precached', () => {
-  // variants.js is pure logic not yet imported by the UI; the UI wiring task must add it to PRECACHE and drop this exemption.
-  const NOT_WIRED_YET = ['variants.js'];
-  for (const f of readdirSync(new URL('../js/', import.meta.url)).filter((n) => n.endsWith('.js') && !NOT_WIRED_YET.includes(n))) {
+  for (const f of readdirSync(new URL('../js/', import.meta.url)).filter((n) => n.endsWith('.js'))) {
     assert.ok(files.includes('js/' + f), f);
   }
 });
@@ -38,7 +36,7 @@ test('sw: skipWaiting, clients.claim, old caches deleted, network-first, version
   assert.match(sw, /caches\.delete/);
   assert.doesNotMatch(sw, /cacheFirst/);
   assert.match(sw, /event\.respondWith\(networkFirst\(req\)\)/);
-  assert.ok(Number(sw.match(/CACHE_VERSION = 'v(\d+)'/)[1]) >= 13);
+  assert.ok(Number(sw.match(/CACHE_VERSION = 'v(\d+)'/)[1]) >= 14);
   assert.ok(files.includes('js/summary.js'));
 });
 
