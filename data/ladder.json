@@ -1867,8 +1867,1512 @@
       "id": "S4",
       "title": "זווית וכיוון",
       "intro": "בשלב הזה מפרקים זריקה בזווית לרכיבים, ובסוף מחשבים מהירות וזווית פגיעה. רמת מבחן אומרת לתת גם את הכיוון של המהירות, לא רק את גודלה.",
-      "soon": "התרגילים בשלב הזה יתווספו בקרוב.",
-      "items": []
+      "items": [
+        {
+          "id": "lad-s4-01",
+          "topic": "phys-horizontal",
+          "level": 4,
+          "title": "כדור נזרק אופקית מגג בניין",
+          "statement": "כדור נזרק אופקית מגג של בניין בגובה 45 מ' במהירות 16 מ/ש. הכדור נופל לרחוב ופוגע בקרקע. בחישובים השתמשו ב־g = 10 מ/ש² והתעלמו מהתנגדות האוויר. כיוון המהירות = זווית מעל (+) או מתחת (−) לאופק.<br>א. כמה זמן הכדור נמצא באוויר?<br>ב. באיזה מרחק אופקי מבסיס הבניין הכדור פוגע בקרקע?<br>ג. מהו הרכיב האנכי של המהירות ברגע הפגיעה (שלילי כלפי מטה)?<br>ד. מהו גודל המהירות ברגע הפגיעה?<br>ה. מהו כיוון המהירות ברגע הפגיעה? תנו את הזווית מהאופק עם סימן.",
+          "diagram": "<svg viewBox=\"0 0 320 209\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" aria-label=\"כדור נזרק אופקית מגג בניין\"><title>כדור נזרק אופקית מגג בניין</title><defs><marker id=\"ph-k\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"currentColor\"/></marker><marker id=\"ph-a\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"var(--dg-a, #1f5fae)\"/></marker><marker id=\"ph-b\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"var(--dg-b, #c2410c)\"/></marker><marker id=\"ph-c\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"var(--dg-c, #1e7a34)\"/></marker></defs><g direction=\"ltr\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-size=\"14\"><line x1=\"10\" y1=\"165\" x2=\"310\" y2=\"165\" stroke=\"currentColor\" stroke-width=\"2\"/><path d=\"M18 165l-6 8M28 165l-6 8M38 165l-6 8M48 165l-6 8M58 165l-6 8M68 165l-6 8M78 165l-6 8M88 165l-6 8M98 165l-6 8M108 165l-6 8M118 165l-6 8M128 165l-6 8M138 165l-6 8M148 165l-6 8M158 165l-6 8M168 165l-6 8M178 165l-6 8M188 165l-6 8M198 165l-6 8M208 165l-6 8M218 165l-6 8M228 165l-6 8M238 165l-6 8M248 165l-6 8M258 165l-6 8M268 165l-6 8M278 165l-6 8M288 165l-6 8M298 165l-6 8M308 165l-6 8\" opacity=\"0.5\"/><rect x=\"14\" y=\"60\" width=\"78\" height=\"105\" stroke=\"currentColor\" fill=\"currentColor\" fill-opacity=\"0.18\"/><path d=\"M92 60L95.5 60.1L99 60.4L102.5 60.9L106 61.6L109.5 62.6L113 63.7L116.5 65L120 66.6L123.5 68.3L127 70.3L130.5 72.4L134 74.8L137.5 77.3L141 80.1L144.5 83.1L148 86.3L151.5 89.6L155 93.2L158.5 97L162 101L165.5 105.2L169 109.6L172.5 114.2L176 119.1L179.5 124.1L183 129.3L186.5 134.8L190 140.4L193.5 146.2L197 152.3L200.5 158.5L204 165\" stroke=\"currentColor\" stroke-dasharray=\"5 4\"/><circle cx=\"92\" cy=\"60\" r=\"5\" fill=\"var(--dg-a, #1f5fae)\" stroke=\"none\"/><line x1=\"97\" y1=\"60\" x2=\"132\" y2=\"60\" stroke=\"var(--dg-a, #1f5fae)\" stroke-width=\"2\" marker-end=\"url(#ph-a)\"/><text x=\"178.7\" y=\"59\" text-anchor=\"middle\" fill=\"var(--dg-a, #1f5fae)\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\"><tspan direction=\"ltr\" unicode-bidi=\"isolate\">⁦vₓ = 16 <tspan direction=\"rtl\" unicode-bidi=\"isolate\">⁧מ/ש⁩</tspan>⁩</tspan></text><line x1=\"24\" y1=\"60\" x2=\"24\" y2=\"165\" stroke=\"currentColor\" marker-start=\"url(#ph-k)\" marker-end=\"url(#ph-k)\"/><text x=\"128.1\" y=\"120.5\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\"><tspan direction=\"ltr\" unicode-bidi=\"isolate\">⁦h = 45 <tspan direction=\"rtl\" unicode-bidi=\"isolate\">⁧מ׳⁩</tspan>⁩</tspan></text><circle cx=\"204\" cy=\"161\" r=\"4\" fill=\"var(--dg-c, #1e7a34)\" stroke=\"none\"/><line x1=\"92\" y1=\"183\" x2=\"204\" y2=\"183\" stroke=\"currentColor\" marker-start=\"url(#ph-k)\" marker-end=\"url(#ph-k)\"/><text x=\"148\" y=\"155\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\">R = ?</text><text x=\"250\" y=\"125\" text-anchor=\"end\" fill=\"var(--dg-c, #1e7a34)\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\">v , θ = ?</text></g></svg>",
+          "scene": {
+            "title": "כדור נזרק אופקית מגג בניין",
+            "kind": "cliff",
+            "h0": 45,
+            "vx": 16,
+            "vy": 0,
+            "end": "ground",
+            "labels": {
+              "v0": "vₓ = 16 מ/ש",
+              "h": "h = 45 מ'",
+              "x": "R = ?",
+              "end": "v , θ = ?"
+            }
+          },
+          "inputs": [
+            {
+              "label": "זמן הנפילה",
+              "unit": "ש'",
+              "answer": "3",
+              "tolerance": 0.03
+            },
+            {
+              "label": "הטווח האופקי",
+              "unit": "מ'",
+              "answer": "48",
+              "tolerance": 0.48
+            },
+            {
+              "label": "רכיב המהירות האנכי בפגיעה",
+              "unit": "מ/ש",
+              "answer": "-30",
+              "tolerance": 0.3
+            },
+            {
+              "label": "גודל מהירות הפגיעה",
+              "unit": "מ/ש",
+              "answer": "34",
+              "tolerance": 0.34
+            },
+            {
+              "label": "כיוון המהירות בפגיעה",
+              "unit": "מעלות",
+              "answer": "-61.93",
+              "tolerance": 0.5
+            }
+          ],
+          "tips": [
+            "בציר האנכי הכדור נופל בנפילה חופשית בלי מהירות התחלתית, ולכן זמן הנפילה תלוי רק בגובה הגג.",
+            "בציר האופקי המהירות קבועה, והטווח הוא המהירות האופקית כפול זמן הנפילה.",
+            "את הגודל מקבלים ממשפט פיתגורס על שני הרכיבים, ואת הזווית מהיחס בין הרכיב האנכי לרכיב האופקי. הרכיב האנכי כלפי מטה ולכן הזווית שלילית."
+          ],
+          "solution": [
+            "ציר אנכי: <span dir=\"ltr\">h = ½ · g · t²</span>, לכן <span dir=\"ltr\">45 = 5 · t²</span> ומקבלים <span dir=\"ltr\">t = 3 ש'</span>.",
+            "ציר אופקי: המהירות קבועה, <span dir=\"ltr\">x = vₓ · t = 16 · 3 = 48 מ'</span>.",
+            "הרכיב האנכי בפגיעה: <span dir=\"ltr\">vᵧ = −g · t = −10 · 3 = −30 מ/ש</span> (כלפי מטה).",
+            "הגודל: <span dir=\"ltr\">v = √(16² + 30²) = √1156 = 34 מ/ש</span>.",
+            "הכיוון: <span dir=\"ltr\">tan θ = vᵧ / vₓ = −30 / 16</span>, לכן <span dir=\"ltr\">θ = −61.93°</span>. הסימן השלילי אומר שהמהירות מצביעה מתחת לאופק."
+          ],
+          "verify": {
+            "bodies": [
+              {
+                "id": "A",
+                "x0": 0,
+                "y0": 45,
+                "vx": 16,
+                "vy": 0
+              }
+            ],
+            "queries": [
+              {
+                "body": "A",
+                "what": "t",
+                "at": "land"
+              },
+              {
+                "body": "A",
+                "what": "x",
+                "at": "land"
+              },
+              {
+                "body": "A",
+                "what": "vy",
+                "at": "land"
+              },
+              {
+                "body": "A",
+                "what": "speed",
+                "at": "land"
+              },
+              {
+                "body": "A",
+                "what": "ang",
+                "at": "land"
+              }
+            ],
+            "claims": []
+          }
+        },
+        {
+          "id": "lad-s4-02",
+          "topic": "phys-horizontal",
+          "level": 4,
+          "title": "כדור נזרק אופקית ופוגע בזווית נתונה",
+          "statement": "כדור נזרק אופקית ממצוק בגובה 80 מ'. הכדור פוגע בקרקע בזווית של 53° מתחת לאופק. נתון ש־tan 53° = 4/3. השתמשו ב־sin 37° = 0.6 וב־cos 37° = 0.8 (ולכן sin 53° = 0.8 ו־cos 53° = 0.6). בחישובים השתמשו ב־g = 10 מ/ש² והתעלמו מהתנגדות האוויר.<br>א. כמה זמן הכדור נופל?<br>ב. מהו הרכיב האנכי של המהירות בפגיעה (שלילי כלפי מטה)?<br>ג. מהי מהירות הזריקה האופקית?<br>ד. באיזה מרחק אופקי מהמצוק הכדור פוגע בקרקע?<br>ה. מהו גודל המהירות בפגיעה?",
+          "diagram": "<svg viewBox=\"0 0 320 209\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" aria-label=\"כדור נזרק אופקית ממצוק\"><title>כדור נזרק אופקית ממצוק</title><defs><marker id=\"ph-k\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"currentColor\"/></marker><marker id=\"ph-a\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"var(--dg-a, #1f5fae)\"/></marker><marker id=\"ph-b\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"var(--dg-b, #c2410c)\"/></marker><marker id=\"ph-c\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"var(--dg-c, #1e7a34)\"/></marker></defs><g direction=\"ltr\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-size=\"14\"><line x1=\"10\" y1=\"165\" x2=\"310\" y2=\"165\" stroke=\"currentColor\" stroke-width=\"2\"/><path d=\"M18 165l-6 8M28 165l-6 8M38 165l-6 8M48 165l-6 8M58 165l-6 8M68 165l-6 8M78 165l-6 8M88 165l-6 8M98 165l-6 8M108 165l-6 8M118 165l-6 8M128 165l-6 8M138 165l-6 8M148 165l-6 8M158 165l-6 8M168 165l-6 8M178 165l-6 8M188 165l-6 8M198 165l-6 8M208 165l-6 8M218 165l-6 8M228 165l-6 8M238 165l-6 8M248 165l-6 8M258 165l-6 8M268 165l-6 8M278 165l-6 8M288 165l-6 8M298 165l-6 8M308 165l-6 8\" opacity=\"0.5\"/><rect x=\"14\" y=\"60\" width=\"78\" height=\"105\" stroke=\"currentColor\" fill=\"currentColor\" fill-opacity=\"0.18\"/><path d=\"M92 60L96.9 60.1L101.8 60.4L106.8 60.9L111.7 61.6L116.6 62.6L121.5 63.7L126.5 65L131.4 66.6L136.3 68.3L141.2 70.3L146.1 72.4L151.1 74.8L156 77.3L160.9 80.1L165.8 83.1L170.8 86.3L175.7 89.6L180.6 93.2L185.5 97L190.4 101L195.4 105.2L200.3 109.6L205.2 114.2L210.1 119.1L215 124.1L220 129.3L224.9 134.8L229.8 140.4L234.7 146.2L239.7 152.3L244.6 158.5L249.5 165\" stroke=\"currentColor\" stroke-dasharray=\"5 4\"/><circle cx=\"92\" cy=\"60\" r=\"5\" fill=\"var(--dg-a, #1f5fae)\" stroke=\"none\"/><line x1=\"97\" y1=\"60\" x2=\"132\" y2=\"60\" stroke=\"var(--dg-a, #1f5fae)\" stroke-width=\"2\" marker-end=\"url(#ph-a)\"/><text x=\"138\" y=\"59\" text-anchor=\"start\" fill=\"var(--dg-a, #1f5fae)\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\">vₓ = ?</text><line x1=\"24\" y1=\"60\" x2=\"24\" y2=\"165\" stroke=\"currentColor\" marker-start=\"url(#ph-k)\" marker-end=\"url(#ph-k)\"/><text x=\"128.1\" y=\"117.5\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\"><tspan direction=\"ltr\" unicode-bidi=\"isolate\">⁦h = 80 <tspan direction=\"rtl\" unicode-bidi=\"isolate\">⁧מ׳⁩</tspan>⁩</tspan></text><circle cx=\"249.5\" cy=\"161\" r=\"4\" fill=\"var(--dg-c, #1e7a34)\" stroke=\"none\"/><line x1=\"92\" y1=\"183\" x2=\"249.5\" y2=\"183\" stroke=\"currentColor\" marker-start=\"url(#ph-k)\" marker-end=\"url(#ph-k)\"/><text x=\"170.8\" y=\"155\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\">R = ?</text><text x=\"280.5\" y=\"125\" text-anchor=\"end\" fill=\"var(--dg-c, #1e7a34)\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\">θ = 53°</text></g></svg>",
+          "scene": {
+            "title": "כדור נזרק אופקית ממצוק",
+            "kind": "cliff",
+            "h0": 80,
+            "vx": 30,
+            "vy": 0,
+            "end": "ground",
+            "labels": {
+              "v0": "vₓ = ?",
+              "h": "h = 80 מ'",
+              "x": "R = ?",
+              "end": "θ = 53°"
+            }
+          },
+          "inputs": [
+            {
+              "label": "זמן הנפילה",
+              "unit": "ש'",
+              "answer": "4",
+              "tolerance": 0.04
+            },
+            {
+              "label": "רכיב המהירות האנכי בפגיעה",
+              "unit": "מ/ש",
+              "answer": "-40",
+              "tolerance": 0.4
+            },
+            {
+              "label": "מהירות הזריקה",
+              "unit": "מ/ש",
+              "answer": "30",
+              "tolerance": 0.3
+            },
+            {
+              "label": "הטווח האופקי",
+              "unit": "מ'",
+              "answer": "120",
+              "tolerance": 1.2
+            },
+            {
+              "label": "גודל מהירות הפגיעה",
+              "unit": "מ/ש",
+              "answer": "50",
+              "tolerance": 0.5
+            }
+          ],
+          "tips": [
+            "בציר האנכי יש נפילה חופשית. מהגובה מוצאים את זמן הנפילה ואחר כך את הרכיב האנכי של המהירות.",
+            "הטנגנס של זווית הפגיעה הוא הרכיב האנכי חלקי הרכיב האופקי. את הרכיב האופקי, שהוא מהירות הזריקה, מוצאים מהיחס הזה.",
+            "את הגודל מוצאים משפט פיתגורס על שני הרכיבים, או מחלוקת הרכיב האנכי בסינוס זווית הפגיעה."
+          ],
+          "solution": [
+            "נפילה חופשית: <span dir=\"ltr\">80 = 5 · t²</span>, לכן <span dir=\"ltr\">t = 4 ש'</span>.",
+            "הרכיב האנכי בפגיעה: <span dir=\"ltr\">vᵧ = −10 · 4 = −40 מ/ש</span>.",
+            "<span dir=\"ltr\">tan 53° = |vᵧ| / vₓ</span>, לכן <span dir=\"ltr\">vₓ = 40 / (4/3) = 30 מ/ש</span>. זו מהירות הזריקה, כי הרכיב האופקי קבוע.",
+            "הטווח: <span dir=\"ltr\">x = 30 · 4 = 120 מ'</span>.",
+            "הגודל: <span dir=\"ltr\">v = √(30² + 40²) = 50 מ/ש</span>."
+          ],
+          "verify": {
+            "bodies": [
+              {
+                "id": "A",
+                "x0": 0,
+                "y0": 80,
+                "vx": 30,
+                "vy": 0
+              }
+            ],
+            "queries": [
+              {
+                "body": "A",
+                "what": "t",
+                "at": "land"
+              },
+              {
+                "body": "A",
+                "what": "vy",
+                "at": "land"
+              },
+              {
+                "body": "A",
+                "what": "vx",
+                "at": "start"
+              },
+              {
+                "body": "A",
+                "what": "x",
+                "at": "land"
+              },
+              {
+                "body": "A",
+                "what": "speed",
+                "at": "land"
+              }
+            ],
+            "claims": [
+              {
+                "q": {
+                  "body": "A",
+                  "what": "ang",
+                  "at": "land"
+                },
+                "value": -53,
+                "tol": 0.2
+              }
+            ]
+          }
+        },
+        {
+          "id": "lad-s4-03",
+          "topic": "phys-horizontal",
+          "level": 4,
+          "title": "כדור שנזרק אופקית פוגע בקיר",
+          "statement": "כדור נזרק אופקית מגג בגובה 50 מ'. במרחק אופקי של 30 מ' מהזורק עומד קיר גבוה, והכדור פוגע בו בגובה 30 מ' מעל הקרקע. בחישובים השתמשו ב־g = 10 מ/ש² והתעלמו מהתנגדות האוויר. כיוון המהירות = זווית מעל (+) או מתחת (−) לאופק.<br>א. בכמה מטרים הכדור ירד מרגע הזריקה עד הפגיעה בקיר?<br>ב. כמה זמן עבר מהזריקה עד הפגיעה בקיר?<br>ג. מהי מהירות הזריקה האופקית?<br>ד. מהו גודל המהירות ברגע הפגיעה בקיר?<br>ה. מהו כיוון המהירות ברגע הפגיעה בקיר?",
+          "diagram": "<svg viewBox=\"0 0 320 209\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" aria-label=\"כדור שנזרק אופקית פוגע בקיר\"><title>כדור שנזרק אופקית פוגע בקיר</title><defs><marker id=\"ph-k\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"currentColor\"/></marker><marker id=\"ph-a\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"var(--dg-a, #1f5fae)\"/></marker><marker id=\"ph-b\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"var(--dg-b, #c2410c)\"/></marker><marker id=\"ph-c\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"var(--dg-c, #1e7a34)\"/></marker></defs><g direction=\"ltr\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-size=\"14\"><line x1=\"10\" y1=\"165\" x2=\"310\" y2=\"165\" stroke=\"currentColor\" stroke-width=\"2\"/><path d=\"M18 165l-6 8M28 165l-6 8M38 165l-6 8M48 165l-6 8M58 165l-6 8M68 165l-6 8M78 165l-6 8M88 165l-6 8M98 165l-6 8M108 165l-6 8M118 165l-6 8M128 165l-6 8M138 165l-6 8M148 165l-6 8M158 165l-6 8M168 165l-6 8M178 165l-6 8M188 165l-6 8M198 165l-6 8M208 165l-6 8M218 165l-6 8M228 165l-6 8M238 165l-6 8M248 165l-6 8M258 165l-6 8M268 165l-6 8M278 165l-6 8M288 165l-6 8M298 165l-6 8M308 165l-6 8\" opacity=\"0.5\"/><rect x=\"14\" y=\"60\" width=\"78\" height=\"105\" stroke=\"currentColor\" fill=\"currentColor\" fill-opacity=\"0.18\"/><path d=\"M92 60L94 60L95.9 60.2L97.9 60.4L99.9 60.7L101.8 61L103.8 61.5L105.8 62L107.8 62.6L109.7 63.3L111.7 64.1L113.7 65L115.6 65.9L117.6 66.9L119.6 68L121.5 69.2L123.5 70.5L125.5 71.9L127.4 73.3L129.4 74.8L131.4 76.4L133.3 78.1L135.3 79.9L137.3 81.7L139.3 83.6L141.2 85.6L143.2 87.7L145.2 89.9L147.1 92.2L149.1 94.5L151.1 96.9L153 99.4L155 102\" stroke=\"currentColor\" stroke-dasharray=\"5 4\"/><circle cx=\"92\" cy=\"60\" r=\"5\" fill=\"var(--dg-a, #1f5fae)\" stroke=\"none\"/><line x1=\"97\" y1=\"60\" x2=\"132\" y2=\"60\" stroke=\"var(--dg-a, #1f5fae)\" stroke-width=\"2\" marker-end=\"url(#ph-a)\"/><text x=\"138\" y=\"41\" text-anchor=\"start\" fill=\"var(--dg-a, #1f5fae)\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\">vₓ = ?</text><line x1=\"24\" y1=\"60\" x2=\"24\" y2=\"165\" stroke=\"currentColor\" marker-start=\"url(#ph-k)\" marker-end=\"url(#ph-k)\"/><text x=\"50.1\" y=\"51.5\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\"><tspan direction=\"ltr\" unicode-bidi=\"isolate\">⁦h = 50 <tspan direction=\"rtl\" unicode-bidi=\"isolate\">⁧מ׳⁩</tspan>⁩</tspan></text><rect x=\"155\" y=\"51.6\" width=\"10\" height=\"113.4\" stroke=\"currentColor\" fill=\"currentColor\" fill-opacity=\"0.18\"/><circle cx=\"155\" cy=\"102\" r=\"4\" fill=\"var(--dg-c, #1e7a34)\" stroke=\"none\"/><line x1=\"177\" y1=\"102\" x2=\"177\" y2=\"165\" stroke=\"currentColor\" marker-start=\"url(#ph-k)\" marker-end=\"url(#ph-k)\"/><text x=\"202.2\" y=\"138.5\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\"><tspan direction=\"ltr\" unicode-bidi=\"isolate\">⁦30 <tspan direction=\"rtl\" unicode-bidi=\"isolate\">⁧מ׳⁩</tspan>⁩</tspan></text><line x1=\"92\" y1=\"183\" x2=\"155\" y2=\"183\" stroke=\"currentColor\" marker-start=\"url(#ph-k)\" marker-end=\"url(#ph-k)\"/><text x=\"123.5\" y=\"155\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\"><tspan direction=\"ltr\" unicode-bidi=\"isolate\">⁦30 <tspan direction=\"rtl\" unicode-bidi=\"isolate\">⁧מ׳⁩</tspan>⁩</tspan></text><text x=\"117\" y=\"104\" text-anchor=\"middle\" fill=\"var(--dg-c, #1e7a34)\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\"><tspan direction=\"rtl\" unicode-bidi=\"isolate\">⁧פגיעה⁩</tspan></text></g></svg>",
+          "scene": {
+            "title": "כדור שנזרק אופקית פוגע בקיר",
+            "kind": "cliff",
+            "h0": 50,
+            "vx": 15,
+            "vy": 0,
+            "end": "target",
+            "target": {
+              "x": 30,
+              "y": 30,
+              "kind": "wall"
+            },
+            "labels": {
+              "v0": "vₓ = ?",
+              "h": "h = 50 מ'",
+              "x": "30 מ'",
+              "y": "30 מ'",
+              "end": "פגיעה"
+            }
+          },
+          "inputs": [
+            {
+              "label": "הירידה עד הקיר",
+              "unit": "מ'",
+              "answer": "20",
+              "tolerance": 0.2
+            },
+            {
+              "label": "הזמן עד הקיר",
+              "unit": "ש'",
+              "answer": "2",
+              "tolerance": 0.02
+            },
+            {
+              "label": "מהירות הזריקה",
+              "unit": "מ/ש",
+              "answer": "15",
+              "tolerance": 0.15
+            },
+            {
+              "label": "גודל המהירות בפגיעה בקיר",
+              "unit": "מ/ש",
+              "answer": "25",
+              "tolerance": 0.25
+            },
+            {
+              "label": "כיוון המהירות בפגיעה בקיר",
+              "unit": "מעלות",
+              "answer": "-53.13",
+              "tolerance": 0.5
+            }
+          ],
+          "tips": [
+            "הירידה היא הפרש הגבהים בין נקודת הזריקה לנקודת הפגיעה. משם מוצאים את הזמן בנפילה חופשית.",
+            "המרחק האופקי עד הקיר שווה למהירות האופקית כפול הזמן שמצאתם.",
+            "הרכיב האנכי בקיר הוא תאוצת הכובד כפול הזמן, כלפי מטה. הזווית שלילית כי המהירות מצביעה מתחת לאופק."
+          ],
+          "solution": [
+            "הירידה: <span dir=\"ltr\">50 − 30 = 20 מ'</span>.",
+            "נפילה חופשית: <span dir=\"ltr\">20 = 5 · t²</span>, לכן <span dir=\"ltr\">t = 2 ש'</span>.",
+            "<span dir=\"ltr\">x = vₓ · t</span>, לכן <span dir=\"ltr\">vₓ = 30 / 2 = 15 מ/ש</span>.",
+            "הרכיב האנכי: <span dir=\"ltr\">vᵧ = −10 · 2 = −20 מ/ש</span>, והגודל <span dir=\"ltr\">v = √(15² + 20²) = 25 מ/ש</span>.",
+            "<span dir=\"ltr\">tan θ = −20 / 15</span>, לכן <span dir=\"ltr\">θ = −53.13°</span>: המהירות מצביעה 53.13 מעלות מתחת לאופק."
+          ],
+          "verify": {
+            "bodies": [
+              {
+                "id": "A",
+                "x0": 0,
+                "y0": 50,
+                "vx": 15,
+                "vy": 0
+              }
+            ],
+            "queries": [
+              {
+                "body": "A",
+                "what": "drop",
+                "at": {
+                  "x": 30
+                }
+              },
+              {
+                "body": "A",
+                "what": "t",
+                "at": {
+                  "x": 30
+                }
+              },
+              {
+                "body": "A",
+                "what": "vx",
+                "at": "start"
+              },
+              {
+                "body": "A",
+                "what": "speed",
+                "at": {
+                  "x": 30
+                }
+              },
+              {
+                "body": "A",
+                "what": "ang",
+                "at": {
+                  "x": 30
+                }
+              }
+            ],
+            "claims": [],
+            "target": {
+              "x": 30,
+              "y": 30
+            }
+          }
+        },
+        {
+          "id": "lad-s4-04",
+          "topic": "phys-horizontal",
+          "level": 4,
+          "title": "זריקה לסל: מהירות הזריקה מתנאי הסל",
+          "statement": "שחקן כדורסל זורק כדור מגובה 2 מ' מעל הרצפה בזווית של 37° מעל האופק. הסל נמצא בגובה 3 מ' ובמרחק אופקי של 8 מ' מהשחקן, והכדור נכנס אליו בדרך למטה. השתמשו ב־sin 37° = 0.6 וב־cos 37° = 0.8 (ולכן sin 53° = 0.8 ו־cos 53° = 0.6). בחישובים השתמשו ב־g = 10 מ/ש² והתעלמו מהתנגדות האוויר. כיוון המהירות = זווית מעל (+) או מתחת (−) לאופק.<br>א. מהי מהירות הזריקה? בנו את משוואות התנועה בשני הצירים ופתרו.<br>ב. כמה זמן הכדור עף עד הסל?<br>ג. מהו הרכיב האנכי של המהירות בסל (שלילי כלפי מטה)?<br>ד. מהו גודל המהירות ברגע הכניסה לסל?<br>ה. מהו כיוון המהירות ברגע הכניסה לסל?",
+          "diagram": "<svg viewBox=\"0 0 320 209\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" aria-label=\"זריקה לסל בזווית 37°\"><title>זריקה לסל בזווית 37°</title><defs><marker id=\"ph-k\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"currentColor\"/></marker><marker id=\"ph-a\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"var(--dg-a, #1f5fae)\"/></marker><marker id=\"ph-b\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"var(--dg-b, #c2410c)\"/></marker><marker id=\"ph-c\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"var(--dg-c, #1e7a34)\"/></marker></defs><g direction=\"ltr\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-size=\"14\"><line x1=\"10\" y1=\"165\" x2=\"310\" y2=\"165\" stroke=\"currentColor\" stroke-width=\"2\"/><path d=\"M18 165l-6 8M28 165l-6 8M38 165l-6 8M48 165l-6 8M58 165l-6 8M68 165l-6 8M78 165l-6 8M88 165l-6 8M98 165l-6 8M108 165l-6 8M118 165l-6 8M128 165l-6 8M138 165l-6 8M148 165l-6 8M158 165l-6 8M168 165l-6 8M178 165l-6 8M188 165l-6 8M198 165l-6 8M208 165l-6 8M218 165l-6 8M228 165l-6 8M238 165l-6 8M248 165l-6 8M258 165l-6 8M268 165l-6 8M278 165l-6 8M288 165l-6 8M298 165l-6 8M308 165l-6 8\" opacity=\"0.5\"/><path d=\"M46 117.5L51.9 113.2L57.9 109.1L63.8 105.2L69.8 101.5L75.7 98.1L81.6 95L87.6 92L93.5 89.3L99.4 86.8L105.4 84.6L111.3 82.5L117.3 80.8L123.2 79.2L129.1 77.9L135.1 76.8L141 75.9L146.9 75.3L152.9 74.9L158.8 74.8L164.8 74.8L170.7 75.1L176.6 75.7L182.6 76.4L188.5 77.4L194.4 78.7L200.4 80.1L206.3 81.8L212.3 83.7L218.2 85.9L224.1 88.3L230.1 90.9L236 93.8\" stroke=\"currentColor\" stroke-dasharray=\"5 4\"/><circle cx=\"46\" cy=\"117.5\" r=\"5\" fill=\"var(--dg-a, #1f5fae)\" stroke=\"none\"/><line x1=\"50\" y1=\"114.5\" x2=\"78\" y2=\"93.5\" stroke=\"var(--dg-a, #1f5fae)\" stroke-width=\"2\" marker-end=\"url(#ph-a)\"/><text x=\"71.2\" y=\"72.1\" text-anchor=\"start\" fill=\"var(--dg-a, #1f5fae)\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\">v₀ = ?</text><line x1=\"46\" y1=\"117.5\" x2=\"100\" y2=\"117.5\" stroke=\"currentColor\" stroke-dasharray=\"5 4\" opacity=\"0.6\"/><path d=\"M72 117.5A26 26 0 0 0 66.8 101.9\" stroke=\"var(--dg-b, #c2410c)\"/><text x=\"106\" y=\"116.5\" text-anchor=\"start\" fill=\"var(--dg-b, #c2410c)\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\">37°</text><line x1=\"24\" y1=\"117.5\" x2=\"24\" y2=\"165\" stroke=\"currentColor\" marker-start=\"url(#ph-k)\" marker-end=\"url(#ph-k)\"/><text x=\"44.8\" y=\"146.3\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\"><tspan direction=\"ltr\" unicode-bidi=\"isolate\">⁦2 <tspan direction=\"rtl\" unicode-bidi=\"isolate\">⁧מ׳⁩</tspan>⁩</tspan></text><line x1=\"220\" y1=\"93.8\" x2=\"236\" y2=\"93.8\" stroke=\"var(--dg-c, #1e7a34)\" stroke-width=\"3\"/><line x1=\"236\" y1=\"67.8\" x2=\"236\" y2=\"97.8\" stroke=\"currentColor\" stroke-width=\"3\"/><line x1=\"258\" y1=\"93.8\" x2=\"258\" y2=\"165\" stroke=\"currentColor\" marker-start=\"url(#ph-k)\" marker-end=\"url(#ph-k)\"/><text x=\"278.8\" y=\"134.4\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\"><tspan direction=\"ltr\" unicode-bidi=\"isolate\">⁦3 <tspan direction=\"rtl\" unicode-bidi=\"isolate\">⁧מ׳⁩</tspan>⁩</tspan></text><line x1=\"46\" y1=\"183\" x2=\"236\" y2=\"183\" stroke=\"currentColor\" marker-start=\"url(#ph-k)\" marker-end=\"url(#ph-k)\"/><text x=\"141\" y=\"155\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\"><tspan direction=\"ltr\" unicode-bidi=\"isolate\">⁦8 <tspan direction=\"rtl\" unicode-bidi=\"isolate\">⁧מ׳⁩</tspan>⁩</tspan></text><text x=\"222.6\" y=\"74.8\" text-anchor=\"middle\" fill=\"var(--dg-c, #1e7a34)\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\"><tspan direction=\"rtl\" unicode-bidi=\"isolate\">⁧סל⁩</tspan></text></g></svg>",
+          "scene": {
+            "title": "זריקה לסל בזווית 37°",
+            "kind": "ground",
+            "h0": 2,
+            "vx": 8,
+            "vy": 6,
+            "end": "target",
+            "target": {
+              "x": 8,
+              "y": 3,
+              "kind": "hoop"
+            },
+            "labels": {
+              "v0": "v₀ = ?",
+              "ang": "37°",
+              "h": "2 מ'",
+              "x": "8 מ'",
+              "y": "3 מ'",
+              "end": "סל"
+            }
+          },
+          "inputs": [
+            {
+              "label": "מהירות הזריקה",
+              "unit": "מ/ש",
+              "answer": "10",
+              "tolerance": 0.1
+            },
+            {
+              "label": "הזמן עד הסל",
+              "unit": "ש'",
+              "answer": "1",
+              "tolerance": 0.01
+            },
+            {
+              "label": "הרכיב האנכי של המהירות בסל",
+              "unit": "מ/ש",
+              "answer": "-4",
+              "tolerance": 0.04
+            },
+            {
+              "label": "גודל המהירות בסל",
+              "unit": "מ/ש",
+              "answer": "8.94",
+              "tolerance": 0.089
+            },
+            {
+              "label": "כיוון המהירות בסל",
+              "unit": "מעלות",
+              "answer": "-26.57",
+              "tolerance": 0.5
+            }
+          ],
+          "tips": [
+            "כתבו שתי משוואות: מרחק אופקי ששווה לרכיב האופקי כפול הזמן, וגובה שמחושב מהרכיב האנכי ומהנפילה החופשית.",
+            "שני הרכיבים הם מהירות הזריקה כפול קוסינוס וסינוס. בהצבה מהמשוואה האופקית במשוואת הגובה נעלמת מהירות הזריקה מכל מקום חוץ ממחובר אחד.",
+            "אחרי שמצאתם מהירות וזמן, הרכיב האנכי בסל הוא הרכיב ההתחלתי פחות תאוצת הכובד כפול הזמן."
+          ],
+          "solution": [
+            "רכיבים: <span dir=\"ltr\">vₓ = 0.8 · v₀</span>, <span dir=\"ltr\">vᵧ = 0.6 · v₀</span>. משוואות: <span dir=\"ltr\">8 = 0.8 · v₀ · t</span> ו־<span dir=\"ltr\">3 = 2 + 0.6 · v₀ · t − 5t²</span>.",
+            "מהראשונה <span dir=\"ltr\">v₀ · t = 10</span>. מציבים בשנייה: <span dir=\"ltr\">3 = 2 + 6 − 5t²</span>, לכן <span dir=\"ltr\">t² = 1</span> ו־<span dir=\"ltr\">t = 1 ש'</span>.",
+            "<span dir=\"ltr\">v₀ = 10 / 1 = 10 מ/ש</span>, ורכיבי המהירות ההתחלתיים <span dir=\"ltr\">vₓ = 8</span>, <span dir=\"ltr\">vᵧ = 6</span>.",
+            "בסל: <span dir=\"ltr\">vᵧ = 6 − 10 · 1 = −4 מ/ש</span>. הכדור יורד, כמו שנתון. הגודל: <span dir=\"ltr\">v = √(8² + 4²) ≈ 8.94 מ/ש</span>.",
+            "הכיוון: <span dir=\"ltr\">tan θ = −4 / 8</span>, לכן <span dir=\"ltr\">θ = −26.57°</span>, מתחת לאופק."
+          ],
+          "verify": {
+            "bodies": [
+              {
+                "id": "A",
+                "x0": 0,
+                "y0": 2,
+                "vx": 8,
+                "vy": 6
+              }
+            ],
+            "queries": [
+              {
+                "body": "A",
+                "what": "speed",
+                "at": "start"
+              },
+              {
+                "body": "A",
+                "what": "t",
+                "at": {
+                  "x": 8
+                }
+              },
+              {
+                "body": "A",
+                "what": "vy",
+                "at": {
+                  "x": 8
+                }
+              },
+              {
+                "body": "A",
+                "what": "speed",
+                "at": {
+                  "x": 8
+                }
+              },
+              {
+                "body": "A",
+                "what": "ang",
+                "at": {
+                  "x": 8
+                }
+              }
+            ],
+            "claims": [
+              {
+                "q": {
+                  "body": "A",
+                  "what": "ang",
+                  "at": "start"
+                },
+                "value": 37,
+                "tol": 0.2
+              }
+            ],
+            "target": {
+              "x": 8,
+              "y": 3,
+              "descending": true
+            }
+          }
+        },
+        {
+          "id": "lad-s4-05",
+          "topic": "phys-horizontal",
+          "level": 4,
+          "title": "זריקה מהקרקע: גובה מרבי, זמן טיסה וטווח",
+          "statement": "כדור נבעט מהקרקע במהירות 25 מ/ש בזווית של 53° מעל האופק ונוחת על הקרקע באותו מישור. השתמשו ב־sin 37° = 0.6 וב־cos 37° = 0.8 (ולכן sin 53° = 0.8 ו־cos 53° = 0.6). בחישובים השתמשו ב־g = 10 מ/ש² והתעלמו מהתנגדות האוויר. כיוון המהירות = זווית מעל (+) או מתחת (−) לאופק.<br>א. מהו הרכיב האנכי של מהירות הבעיטה?<br>ב. מהו הגובה המרבי של הכדור מעל הקרקע?<br>ג. כמה זמן הכדור נמצא באוויר?<br>ד. מהו הטווח האופקי של הבעיטה?<br>ה. מהו כיוון המהירות שנייה אחת אחרי הבעיטה?",
+          "diagram": "<svg viewBox=\"0 0 320 209\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" aria-label=\"בעיטה בזווית 53° מהקרקע\"><title>בעיטה בזווית 53° מהקרקע</title><defs><marker id=\"ph-k\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"currentColor\"/></marker><marker id=\"ph-a\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"var(--dg-a, #1f5fae)\"/></marker><marker id=\"ph-b\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"var(--dg-b, #c2410c)\"/></marker><marker id=\"ph-c\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"var(--dg-c, #1e7a34)\"/></marker></defs><g direction=\"ltr\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-size=\"14\"><line x1=\"10\" y1=\"165\" x2=\"310\" y2=\"165\" stroke=\"currentColor\" stroke-width=\"2\"/><path d=\"M18 165l-6 8M28 165l-6 8M38 165l-6 8M48 165l-6 8M58 165l-6 8M68 165l-6 8M78 165l-6 8M88 165l-6 8M98 165l-6 8M108 165l-6 8M118 165l-6 8M128 165l-6 8M138 165l-6 8M148 165l-6 8M158 165l-6 8M168 165l-6 8M178 165l-6 8M188 165l-6 8M198 165l-6 8M208 165l-6 8M218 165l-6 8M228 165l-6 8M238 165l-6 8M248 165l-6 8M258 165l-6 8M268 165l-6 8M278 165l-6 8M288 165l-6 8M298 165l-6 8M308 165l-6 8\" opacity=\"0.5\"/><path d=\"M46 165L51.9 157.3L57.9 150.2L63.8 143.5L69.8 137.3L75.7 131.6L81.6 126.4L87.6 121.7L93.5 117.5L99.4 113.8L105.4 110.6L111.3 107.9L117.3 105.6L123.2 103.9L129.1 102.7L135.1 101.9L141 101.7L146.9 101.9L152.9 102.7L158.8 103.9L164.8 105.6L170.7 107.9L176.6 110.6L182.6 113.8L188.5 117.5L194.4 121.7L200.4 126.4L206.3 131.6L212.3 137.3L218.2 143.5L224.1 150.2L230.1 157.3L236 165\" stroke=\"currentColor\" stroke-dasharray=\"5 4\"/><circle cx=\"46\" cy=\"165\" r=\"5\" fill=\"var(--dg-a, #1f5fae)\" stroke=\"none\"/><line x1=\"49\" y1=\"161\" x2=\"70\" y2=\"133\" stroke=\"var(--dg-a, #1f5fae)\" stroke-width=\"2\" marker-end=\"url(#ph-a)\"/><text x=\"130.1\" y=\"140.8\" text-anchor=\"middle\" fill=\"var(--dg-a, #1f5fae)\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\"><tspan direction=\"ltr\" unicode-bidi=\"isolate\">⁦v₀ = 25 <tspan direction=\"rtl\" unicode-bidi=\"isolate\">⁧מ/ש⁩</tspan>⁩</tspan></text><line x1=\"46\" y1=\"165\" x2=\"100\" y2=\"165\" stroke=\"currentColor\" stroke-dasharray=\"5 4\" opacity=\"0.6\"/><path d=\"M72 165A26 26 0 0 0 61.6 144.2\" stroke=\"var(--dg-b, #c2410c)\"/><text x=\"175\" y=\"155\" text-anchor=\"start\" fill=\"var(--dg-b, #c2410c)\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\">53°</text><circle cx=\"236\" cy=\"161\" r=\"4\" fill=\"var(--dg-c, #1e7a34)\" stroke=\"none\"/><line x1=\"46\" y1=\"183\" x2=\"236\" y2=\"183\" stroke=\"currentColor\" marker-start=\"url(#ph-k)\" marker-end=\"url(#ph-k)\"/><text x=\"24\" y=\"197\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\">R = ?</text><text x=\"240\" y=\"131\" text-anchor=\"middle\" fill=\"var(--dg-c, #1e7a34)\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\"><tspan direction=\"rtl\" unicode-bidi=\"isolate\">⁧נחיתה⁩</tspan></text></g></svg>",
+          "scene": {
+            "title": "בעיטה בזווית 53° מהקרקע",
+            "kind": "ground",
+            "h0": 0,
+            "vx": 15,
+            "vy": 20,
+            "end": "ground",
+            "labels": {
+              "v0": "v₀ = 25 מ/ש",
+              "ang": "53°",
+              "x": "R = ?",
+              "end": "נחיתה"
+            }
+          },
+          "inputs": [
+            {
+              "label": "הרכיב האנכי ההתחלתי",
+              "unit": "מ/ש",
+              "answer": "20",
+              "tolerance": 0.2
+            },
+            {
+              "label": "הגובה המרבי",
+              "unit": "מ'",
+              "answer": "20",
+              "tolerance": 0.2
+            },
+            {
+              "label": "זמן הטיסה הכולל",
+              "unit": "ש'",
+              "answer": "4",
+              "tolerance": 0.04
+            },
+            {
+              "label": "הטווח",
+              "unit": "מ'",
+              "answer": "60",
+              "tolerance": 0.6
+            },
+            {
+              "label": "כיוון המהירות אחרי שנייה",
+              "unit": "מעלות",
+              "answer": "33.69",
+              "tolerance": 0.5
+            }
+          ],
+          "tips": [
+            "הרכיב האנכי ההתחלתי הוא מהירות הבעיטה כפול הסינוס של הזווית, והרכיב האופקי כפול הקוסינוס.",
+            "בשיא הרכיב האנכי מתאפס. מזה מוצאים את זמן העלייה, ואחר כך את הגובה. זמן הטיסה הכולל הוא כפול זמן העלייה כי הנחיתה באותו גובה.",
+            "לכיוון אחרי שנייה: מחשבים את הרכיב האנכי באותו רגע מהמהירות ההתחלתית ומתאוצת הכובד, והרכיב האופקי נשאר קבוע."
+          ],
+          "solution": [
+            "<span dir=\"ltr\">vᵧ₀ = 25 · sin 53° = 25 · 0.8 = 20 מ/ש</span>, <span dir=\"ltr\">vₓ = 25 · 0.6 = 15 מ/ש</span>.",
+            "זמן עלייה: <span dir=\"ltr\">0 = 20 − 10 · t</span>, לכן <span dir=\"ltr\">t = 2 ש'</span>. גובה: <span dir=\"ltr\">H = 20² / (2 · 10) = 20 מ'</span>.",
+            "זמן הטיסה הכולל כפול זמן העלייה: <span dir=\"ltr\">T = 4 ש'</span>.",
+            "הטווח: <span dir=\"ltr\">R = vₓ · T = 15 · 4 = 60 מ'</span>.",
+            "אחרי שנייה: <span dir=\"ltr\">vᵧ = 20 − 10 = 10 מ/ש</span>, <span dir=\"ltr\">vₓ = 15 מ/ש</span>. <span dir=\"ltr\">tan θ = 10 / 15</span>, לכן <span dir=\"ltr\">θ = +33.69°</span>: הכדור עדיין עולה."
+          ],
+          "verify": {
+            "bodies": [
+              {
+                "id": "A",
+                "x0": 0,
+                "y0": 0,
+                "vx": 15,
+                "vy": 20
+              }
+            ],
+            "queries": [
+              {
+                "body": "A",
+                "what": "vy",
+                "at": "start"
+              },
+              {
+                "body": "A",
+                "what": "y",
+                "at": "peak"
+              },
+              {
+                "body": "A",
+                "what": "t",
+                "at": "land"
+              },
+              {
+                "body": "A",
+                "what": "x",
+                "at": "land"
+              },
+              {
+                "body": "A",
+                "what": "ang",
+                "at": {
+                  "t": 1
+                }
+              }
+            ],
+            "claims": [
+              {
+                "q": {
+                  "body": "A",
+                  "what": "ang",
+                  "at": "start"
+                },
+                "value": 53,
+                "tol": 0.2
+              },
+              {
+                "q": {
+                  "body": "A",
+                  "what": "speed",
+                  "at": "start"
+                },
+                "value": 25,
+                "tol": 0.01
+              }
+            ]
+          }
+        },
+        {
+          "id": "lad-s4-06",
+          "topic": "phys-horizontal",
+          "level": 4,
+          "title": "זריקה כלפי מעלה ממצוק",
+          "statement": "אבן נזרקת ממצוק בגובה 25 מ' במהירות 25 מ/ש בזווית של 53° מעל האופק, ונוחתת בתחתית המצוק. השתמשו ב־sin 37° = 0.6 וב־cos 37° = 0.8 (ולכן sin 53° = 0.8 ו־cos 53° = 0.6). בחישובים השתמשו ב־g = 10 מ/ש² והתעלמו מהתנגדות האוויר. כיוון המהירות = זווית מעל (+) או מתחת (−) לאופק.<br>א. מהו הגובה המרבי של האבן מעל הקרקע שבתחתית המצוק?<br>ב. כמה זמן האבן נמצאת באוויר עד הנחיתה?<br>ג. באיזה מרחק אופקי מהמצוק האבן נוחתת?<br>ד. מהו גודל המהירות ברגע הנחיתה?<br>ה. מהו כיוון המהירות ברגע הנחיתה?",
+          "diagram": "<svg viewBox=\"0 0 320 209\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" aria-label=\"זריקה בזווית 53° ממצוק\"><title>זריקה בזווית 53° ממצוק</title><defs><marker id=\"ph-k\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"currentColor\"/></marker><marker id=\"ph-a\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"var(--dg-a, #1f5fae)\"/></marker><marker id=\"ph-b\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"var(--dg-b, #c2410c)\"/></marker><marker id=\"ph-c\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"var(--dg-c, #1e7a34)\"/></marker></defs><g direction=\"ltr\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-size=\"14\"><line x1=\"10\" y1=\"165\" x2=\"310\" y2=\"165\" stroke=\"currentColor\" stroke-width=\"2\"/><path d=\"M18 165l-6 8M28 165l-6 8M38 165l-6 8M48 165l-6 8M58 165l-6 8M68 165l-6 8M78 165l-6 8M88 165l-6 8M98 165l-6 8M108 165l-6 8M118 165l-6 8M128 165l-6 8M138 165l-6 8M148 165l-6 8M158 165l-6 8M168 165l-6 8M178 165l-6 8M188 165l-6 8M198 165l-6 8M208 165l-6 8M218 165l-6 8M228 165l-6 8M238 165l-6 8M248 165l-6 8M258 165l-6 8M268 165l-6 8M278 165l-6 8M288 165l-6 8M298 165l-6 8M308 165l-6 8\" opacity=\"0.5\"/><rect x=\"14\" y=\"106.7\" width=\"78\" height=\"58.3\" stroke=\"currentColor\" fill=\"currentColor\" fill-opacity=\"0.18\"/><path d=\"M92 106.7L97.5 99.7L102.9 93.2L108.4 87.4L113.9 82.1L119.3 77.3L124.8 73.2L130.3 69.6L135.8 66.6L141.2 64.1L146.7 62.2L152.2 60.9L157.6 60.2L163.1 60L168.6 60.4L174 61.4L179.5 62.9L185 65L190.4 67.7L195.9 70.9L201.4 74.8L206.8 79.2L212.3 84.1L217.8 89.6L223.3 95.7L228.7 102.4L234.2 109.6L239.7 117.4L245.1 125.8L250.6 134.8L256.1 144.3L261.5 154.3L267 165\" stroke=\"currentColor\" stroke-dasharray=\"5 4\"/><circle cx=\"92\" cy=\"106.7\" r=\"5\" fill=\"var(--dg-a, #1f5fae)\" stroke=\"none\"/><line x1=\"95\" y1=\"102.7\" x2=\"116\" y2=\"74.7\" stroke=\"var(--dg-a, #1f5fae)\" stroke-width=\"2\" marker-end=\"url(#ph-a)\"/><text x=\"161.1\" y=\"49.5\" text-anchor=\"middle\" fill=\"var(--dg-a, #1f5fae)\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\"><tspan direction=\"ltr\" unicode-bidi=\"isolate\">⁦v₀ = 25 <tspan direction=\"rtl\" unicode-bidi=\"isolate\">⁧מ/ש⁩</tspan>⁩</tspan></text><line x1=\"92\" y1=\"106.7\" x2=\"146\" y2=\"106.7\" stroke=\"currentColor\" stroke-dasharray=\"5 4\" opacity=\"0.6\"/><path d=\"M118 106.7A26 26 0 0 0 107.6 85.9\" stroke=\"var(--dg-b, #c2410c)\"/><text x=\"152\" y=\"105.7\" text-anchor=\"start\" fill=\"var(--dg-b, #c2410c)\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\">53°</text><line x1=\"24\" y1=\"106.7\" x2=\"24\" y2=\"165\" stroke=\"currentColor\" marker-start=\"url(#ph-k)\" marker-end=\"url(#ph-k)\"/><text x=\"53.1\" y=\"95.8\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\"><tspan direction=\"ltr\" unicode-bidi=\"isolate\">⁦h = 25 <tspan direction=\"rtl\" unicode-bidi=\"isolate\">⁧מ׳⁩</tspan>⁩</tspan></text><circle cx=\"267\" cy=\"161\" r=\"4\" fill=\"var(--dg-c, #1e7a34)\" stroke=\"none\"/><line x1=\"92\" y1=\"183\" x2=\"267\" y2=\"183\" stroke=\"currentColor\" marker-start=\"url(#ph-k)\" marker-end=\"url(#ph-k)\"/><text x=\"179.5\" y=\"155\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\">R = ?</text><text x=\"232\" y=\"131\" text-anchor=\"end\" fill=\"var(--dg-c, #1e7a34)\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\">v , θ = ?</text></g></svg>",
+          "scene": {
+            "title": "זריקה בזווית 53° ממצוק",
+            "kind": "cliff",
+            "h0": 25,
+            "vx": 15,
+            "vy": 20,
+            "end": "ground",
+            "labels": {
+              "v0": "v₀ = 25 מ/ש",
+              "ang": "53°",
+              "h": "h = 25 מ'",
+              "x": "R = ?",
+              "end": "v , θ = ?"
+            }
+          },
+          "inputs": [
+            {
+              "label": "הגובה המרבי מעל הקרקע",
+              "unit": "מ'",
+              "answer": "45",
+              "tolerance": 0.45
+            },
+            {
+              "label": "זמן הטיסה",
+              "unit": "ש'",
+              "answer": "5",
+              "tolerance": 0.05
+            },
+            {
+              "label": "הטווח האופקי",
+              "unit": "מ'",
+              "answer": "75",
+              "tolerance": 0.75
+            },
+            {
+              "label": "גודל מהירות הנחיתה",
+              "unit": "מ/ש",
+              "answer": "33.54",
+              "tolerance": 0.335
+            },
+            {
+              "label": "כיוון המהירות בנחיתה",
+              "unit": "מעלות",
+              "answer": "-63.43",
+              "tolerance": 0.5
+            }
+          ],
+          "tips": [
+            "פרקו את מהירות הזריקה לרכיבים. הגובה המרבי הוא גובה המצוק ועוד העלייה, והעלייה מחושבת מהרכיב האנכי בלבד.",
+            "זמן הטיסה מתקבל ממשוואת הגובה כשהגובה הסופי אפס: מקבלים משוואה ריבועית בזמן, ורק הפתרון החיובי מתאים.",
+            "בנחיתה הרכיב האנכי הוא הרכיב ההתחלתי פחות תאוצת הכובד כפול זמן הטיסה. הרכיב האופקי לא השתנה."
+          ],
+          "solution": [
+            "<span dir=\"ltr\">vₓ = 25 · 0.6 = 15 מ/ש</span>, <span dir=\"ltr\">vᵧ₀ = 25 · 0.8 = 20 מ/ש</span>. העלייה מעל המצוק <span dir=\"ltr\">20² / 20 = 20 מ'</span>, ולכן הגובה המרבי <span dir=\"ltr\">25 + 20 = 45 מ'</span>.",
+            "משוואת הגובה: <span dir=\"ltr\">0 = 25 + 20t − 5t²</span>, כלומר <span dir=\"ltr\">t² − 4t − 5 = 0</span>. הפתרון החיובי <span dir=\"ltr\">t = 5 ש'</span>.",
+            "הטווח: <span dir=\"ltr\">x = 15 · 5 = 75 מ'</span>.",
+            "בנחיתה: <span dir=\"ltr\">vᵧ = 20 − 10 · 5 = −30 מ/ש</span>, והגודל <span dir=\"ltr\">v = √(15² + 30²) ≈ 33.54 מ/ש</span>.",
+            "<span dir=\"ltr\">tan θ = −30 / 15 = −2</span>, לכן <span dir=\"ltr\">θ ≈ −63.43°</span>: מתחת לאופק."
+          ],
+          "verify": {
+            "bodies": [
+              {
+                "id": "A",
+                "x0": 0,
+                "y0": 25,
+                "vx": 15,
+                "vy": 20
+              }
+            ],
+            "queries": [
+              {
+                "body": "A",
+                "what": "y",
+                "at": "peak"
+              },
+              {
+                "body": "A",
+                "what": "t",
+                "at": "land"
+              },
+              {
+                "body": "A",
+                "what": "x",
+                "at": "land"
+              },
+              {
+                "body": "A",
+                "what": "speed",
+                "at": "land"
+              },
+              {
+                "body": "A",
+                "what": "ang",
+                "at": "land"
+              }
+            ],
+            "claims": [
+              {
+                "q": {
+                  "body": "A",
+                  "what": "ang",
+                  "at": "start"
+                },
+                "value": 53,
+                "tol": 0.2
+              }
+            ]
+          }
+        },
+        {
+          "id": "lad-s4-07",
+          "topic": "phys-horizontal",
+          "level": 4,
+          "title": "חבילה נשמטת ממטוס שטס אופקית",
+          "statement": "מטוס שטס אופקית בגובה 320 מ' במהירות 60 מ/ש משחרר חבילה. מהירות החבילה ברגע השחרור שווה למהירות המטוס. בחישובים השתמשו ב־g = 10 מ/ש² והתעלמו מהתנגדות האוויר. כיוון המהירות = זווית מעל (+) או מתחת (−) לאופק.<br>א. כמה זמן עובר מהשחרור עד הפגיעה בקרקע?<br>ב. איזה מרחק אופקי החבילה עוברת מרגע השחרור עד הפגיעה?<br>ג. מהו הרכיב האנכי של מהירות החבילה בפגיעה?<br>ד. מהו גודל המהירות בפגיעה?<br>ה. באיזו זווית ביחס לאופק החבילה פוגעת בקרקע?",
+          "diagram": "<svg viewBox=\"0 0 320 209\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" aria-label=\"חבילה נשמטת ממטוס\"><title>חבילה נשמטת ממטוס</title><defs><marker id=\"ph-k\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"currentColor\"/></marker><marker id=\"ph-a\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"var(--dg-a, #1f5fae)\"/></marker><marker id=\"ph-b\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"var(--dg-b, #c2410c)\"/></marker><marker id=\"ph-c\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"var(--dg-c, #1e7a34)\"/></marker></defs><g direction=\"ltr\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-size=\"14\"><line x1=\"10\" y1=\"165\" x2=\"310\" y2=\"165\" stroke=\"currentColor\" stroke-width=\"2\"/><path d=\"M18 165l-6 8M28 165l-6 8M38 165l-6 8M48 165l-6 8M58 165l-6 8M68 165l-6 8M78 165l-6 8M88 165l-6 8M98 165l-6 8M108 165l-6 8M118 165l-6 8M128 165l-6 8M138 165l-6 8M148 165l-6 8M158 165l-6 8M168 165l-6 8M178 165l-6 8M188 165l-6 8M198 165l-6 8M208 165l-6 8M218 165l-6 8M228 165l-6 8M238 165l-6 8M248 165l-6 8M258 165l-6 8M268 165l-6 8M278 165l-6 8M288 165l-6 8M298 165l-6 8M308 165l-6 8\" opacity=\"0.5\"/><path d=\"M52 56h36l-6 -8h-8l-4 8M52 56l-6 -8\" stroke=\"var(--dg-a, #1f5fae)\" fill=\"var(--dg-a, #1f5fae)\" fill-opacity=\"0.18\"/><path d=\"M92 60L96.9 60.1L101.8 60.4L106.8 60.9L111.7 61.6L116.6 62.6L121.5 63.7L126.5 65L131.4 66.6L136.3 68.3L141.2 70.3L146.1 72.4L151.1 74.8L156 77.3L160.9 80.1L165.8 83.1L170.8 86.3L175.7 89.6L180.6 93.2L185.5 97L190.4 101L195.4 105.2L200.3 109.6L205.2 114.2L210.1 119.1L215 124.1L220 129.3L224.9 134.8L229.8 140.4L234.7 146.2L239.7 152.3L244.6 158.5L249.5 165\" stroke=\"currentColor\" stroke-dasharray=\"5 4\"/><circle cx=\"92\" cy=\"60\" r=\"5\" fill=\"var(--dg-a, #1f5fae)\" stroke=\"none\"/><line x1=\"97\" y1=\"60\" x2=\"132\" y2=\"60\" stroke=\"var(--dg-a, #1f5fae)\" stroke-width=\"2\" marker-end=\"url(#ph-a)\"/><text x=\"161.5\" y=\"59\" text-anchor=\"middle\" fill=\"var(--dg-a, #1f5fae)\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\"><tspan direction=\"ltr\" unicode-bidi=\"isolate\">⁦60 <tspan direction=\"rtl\" unicode-bidi=\"isolate\">⁧מ/ש⁩</tspan>⁩</tspan></text><line x1=\"24\" y1=\"60\" x2=\"24\" y2=\"165\" stroke=\"currentColor\" marker-start=\"url(#ph-k)\" marker-end=\"url(#ph-k)\"/><text x=\"66.4\" y=\"117.5\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\"><tspan direction=\"ltr\" unicode-bidi=\"isolate\">⁦h = 320 <tspan direction=\"rtl\" unicode-bidi=\"isolate\">⁧מ׳⁩</tspan>⁩</tspan></text><line x1=\"24\" y1=\"60\" x2=\"48\" y2=\"60\" stroke=\"currentColor\" stroke-dasharray=\"5 4\" opacity=\"0.6\"/><circle cx=\"249.5\" cy=\"161\" r=\"4\" fill=\"var(--dg-c, #1e7a34)\" stroke=\"none\"/><line x1=\"92\" y1=\"183\" x2=\"249.5\" y2=\"183\" stroke=\"currentColor\" marker-start=\"url(#ph-k)\" marker-end=\"url(#ph-k)\"/><text x=\"170.8\" y=\"155\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\">x = ?</text><text x=\"199.5\" y=\"131\" text-anchor=\"end\" fill=\"var(--dg-c, #1e7a34)\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\">v , θ = ?</text></g></svg>",
+          "scene": {
+            "title": "חבילה נשמטת ממטוס",
+            "kind": "plane",
+            "h0": 320,
+            "vx": 60,
+            "vy": 0,
+            "end": "ground",
+            "labels": {
+              "v0": "60 מ/ש",
+              "h": "h = 320 מ'",
+              "x": "x = ?",
+              "end": "v , θ = ?"
+            }
+          },
+          "inputs": [
+            {
+              "label": "זמן הנפילה",
+              "unit": "ש'",
+              "answer": "8",
+              "tolerance": 0.08
+            },
+            {
+              "label": "המרחק האופקי",
+              "unit": "מ'",
+              "answer": "480",
+              "tolerance": 4.8
+            },
+            {
+              "label": "הרכיב האנכי בפגיעה",
+              "unit": "מ/ש",
+              "answer": "-80",
+              "tolerance": 0.8
+            },
+            {
+              "label": "גודל מהירות הפגיעה",
+              "unit": "מ/ש",
+              "answer": "100",
+              "tolerance": 1
+            },
+            {
+              "label": "כיוון המהירות בפגיעה",
+              "unit": "מעלות",
+              "answer": "-53.13",
+              "tolerance": 0.5
+            }
+          ],
+          "tips": [
+            "בציר האנכי החבילה מתחילה בלי מהירות אנכית, ולכן זמן הנפילה תלוי רק בגובה השחרור.",
+            "בציר האופקי החבילה ממשיכה במהירות המטוס כל הזמן, כך שהיא נשארת מתחת למטוס עד הפגיעה.",
+            "הרכיב האנכי כלפי מטה ולכן הזווית שלילית. הזווית מחושבת מהיחס בין הרכיב האנכי לאופקי."
+          ],
+          "solution": [
+            "<span dir=\"ltr\">320 = 5 · t²</span>, לכן <span dir=\"ltr\">t² = 64</span> ו־<span dir=\"ltr\">t = 8 ש'</span>.",
+            "<span dir=\"ltr\">x = 60 · 8 = 480 מ'</span>.",
+            "<span dir=\"ltr\">vᵧ = −10 · 8 = −80 מ/ש</span>.",
+            "<span dir=\"ltr\">v = √(60² + 80²) = 100 מ/ש</span>.",
+            "<span dir=\"ltr\">tan θ = −80 / 60</span>, לכן <span dir=\"ltr\">θ ≈ −53.13°</span>."
+          ],
+          "verify": {
+            "bodies": [
+              {
+                "id": "A",
+                "x0": 0,
+                "y0": 320,
+                "vx": 60,
+                "vy": 0
+              }
+            ],
+            "queries": [
+              {
+                "body": "A",
+                "what": "t",
+                "at": "land"
+              },
+              {
+                "body": "A",
+                "what": "x",
+                "at": "land"
+              },
+              {
+                "body": "A",
+                "what": "vy",
+                "at": "land"
+              },
+              {
+                "body": "A",
+                "what": "speed",
+                "at": "land"
+              },
+              {
+                "body": "A",
+                "what": "ang",
+                "at": "land"
+              }
+            ],
+            "claims": []
+          }
+        },
+        {
+          "id": "lad-s4-08",
+          "topic": "phys-horizontal",
+          "level": 4,
+          "title": "פצצה נשמטת ממטוס צולל",
+          "statement": "מטוס צולל בזווית של 37° מתחת לאופק במהירות 100 מ/ש. בגובה 320 מ' מעל הקרקע הוא משחרר חבילה. מהירות החבילה ברגע השחרור שווה למהירות המטוס. השתמשו ב־sin 37° = 0.6 וב־cos 37° = 0.8 (ולכן sin 53° = 0.8 ו־cos 53° = 0.6). בחישובים השתמשו ב־g = 10 מ/ש² והתעלמו מהתנגדות האוויר. כיוון המהירות = זווית מעל (+) או מתחת (−) לאופק.<br>א. כמה זמן עובר מהשחרור עד הפגיעה בקרקע?<br>ב. איזה מרחק אופקי החבילה עוברת עד הפגיעה?<br>ג. מהו הרכיב האנכי של המהירות בפגיעה?<br>ד. מהו גודל המהירות בפגיעה?<br>ה. באיזו זווית ביחס לאופק החבילה פוגעת בקרקע?",
+          "diagram": "<svg viewBox=\"0 0 320 209\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" aria-label=\"חבילה נשמטת ממטוס צולל\"><title>חבילה נשמטת ממטוס צולל</title><defs><marker id=\"ph-k\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"currentColor\"/></marker><marker id=\"ph-a\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"var(--dg-a, #1f5fae)\"/></marker><marker id=\"ph-b\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"var(--dg-b, #c2410c)\"/></marker><marker id=\"ph-c\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"var(--dg-c, #1e7a34)\"/></marker></defs><g direction=\"ltr\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-size=\"14\"><line x1=\"10\" y1=\"165\" x2=\"310\" y2=\"165\" stroke=\"currentColor\" stroke-width=\"2\"/><path d=\"M18 165l-6 8M28 165l-6 8M38 165l-6 8M48 165l-6 8M58 165l-6 8M68 165l-6 8M78 165l-6 8M88 165l-6 8M98 165l-6 8M108 165l-6 8M118 165l-6 8M128 165l-6 8M138 165l-6 8M148 165l-6 8M158 165l-6 8M168 165l-6 8M178 165l-6 8M188 165l-6 8M198 165l-6 8M208 165l-6 8M218 165l-6 8M228 165l-6 8M238 165l-6 8M248 165l-6 8M258 165l-6 8M268 165l-6 8M278 165l-6 8M288 165l-6 8M298 165l-6 8M308 165l-6 8\" opacity=\"0.5\"/><path d=\"M92 60L95.3 62.5L98.6 65L101.8 67.6L105.1 70.3L108.4 72.9L111.7 75.7L115 78.5L118.3 81.3L121.5 84.2L124.8 87.2L128.1 90.2L131.4 93.2L134.7 96.3L137.9 99.5L141.2 102.7L144.5 105.9L147.8 109.2L151.1 112.6L154.3 116L157.6 119.5L160.9 123L164.2 126.5L167.5 130.2L170.8 133.8L174 137.5L177.3 141.3L180.6 145.1L183.9 149L187.2 152.9L190.4 156.9L193.7 160.9L197 165\" stroke=\"currentColor\" stroke-dasharray=\"5 4\"/><circle cx=\"92\" cy=\"60\" r=\"5\" fill=\"var(--dg-a, #1f5fae)\" stroke=\"none\"/><line x1=\"96\" y1=\"63\" x2=\"124\" y2=\"84\" stroke=\"var(--dg-a, #1f5fae)\" stroke-width=\"2\" marker-end=\"url(#ph-a)\"/><text x=\"161.1\" y=\"83.4\" text-anchor=\"middle\" fill=\"var(--dg-a, #1f5fae)\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\"><tspan direction=\"ltr\" unicode-bidi=\"isolate\">⁦100 <tspan direction=\"rtl\" unicode-bidi=\"isolate\">⁧מ/ש⁩</tspan>⁩</tspan></text><line x1=\"92\" y1=\"60\" x2=\"146\" y2=\"60\" stroke=\"currentColor\" stroke-dasharray=\"5 4\" opacity=\"0.6\"/><path d=\"M118 60A26 26 0 0 1 112.8 75.6\" stroke=\"var(--dg-b, #c2410c)\"/><text x=\"152\" y=\"60\" text-anchor=\"start\" fill=\"var(--dg-b, #c2410c)\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\">37°</text><line x1=\"24\" y1=\"60\" x2=\"24\" y2=\"165\" stroke=\"currentColor\" marker-start=\"url(#ph-k)\" marker-end=\"url(#ph-k)\"/><text x=\"66.4\" y=\"117.5\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\"><tspan direction=\"ltr\" unicode-bidi=\"isolate\">⁦h = 320 <tspan direction=\"rtl\" unicode-bidi=\"isolate\">⁧מ׳⁩</tspan>⁩</tspan></text><line x1=\"24\" y1=\"60\" x2=\"48\" y2=\"60\" stroke=\"currentColor\" stroke-dasharray=\"5 4\" opacity=\"0.6\"/><circle cx=\"197\" cy=\"161\" r=\"4\" fill=\"var(--dg-c, #1e7a34)\" stroke=\"none\"/><line x1=\"92\" y1=\"183\" x2=\"197\" y2=\"183\" stroke=\"currentColor\" marker-start=\"url(#ph-k)\" marker-end=\"url(#ph-k)\"/><text x=\"144.5\" y=\"155\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\">x = ?</text><text x=\"234\" y=\"125\" text-anchor=\"end\" fill=\"var(--dg-c, #1e7a34)\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\">v , θ = ?</text></g></svg>",
+          "scene": {
+            "title": "חבילה נשמטת ממטוס צולל",
+            "kind": "plane",
+            "h0": 320,
+            "vx": 80,
+            "vy": -60,
+            "end": "ground",
+            "labels": {
+              "v0": "100 מ/ש",
+              "ang": "37°",
+              "h": "h = 320 מ'",
+              "x": "x = ?",
+              "end": "v , θ = ?"
+            }
+          },
+          "inputs": [
+            {
+              "label": "זמן הנפילה",
+              "unit": "ש'",
+              "answer": "4",
+              "tolerance": 0.04
+            },
+            {
+              "label": "המרחק האופקי",
+              "unit": "מ'",
+              "answer": "320",
+              "tolerance": 3.2
+            },
+            {
+              "label": "הרכיב האנכי בפגיעה",
+              "unit": "מ/ש",
+              "answer": "-100",
+              "tolerance": 1
+            },
+            {
+              "label": "גודל מהירות הפגיעה",
+              "unit": "מ/ש",
+              "answer": "128.06",
+              "tolerance": 1.281
+            },
+            {
+              "label": "כיוון המהירות בפגיעה",
+              "unit": "מעלות",
+              "answer": "-51.34",
+              "tolerance": 0.5
+            }
+          ],
+          "tips": [
+            "פרקו את מהירות השחרור לרכיבים. הרכיב האנכי מתחיל כלפי מטה, ולכן הוא שלילי בשיטת הסימנים של העלייה כחיובית.",
+            "משוואת הגובה נותנת משוואה ריבועית בזמן. כשמציבים גובה סופי אפס, רק הפתרון החיובי מתאים.",
+            "הרכיב האופקי נשאר קבוע לכל אורך הנפילה. את הרכיב האנכי בפגיעה מחשבים מהרכיב ההתחלתי ומתאוצת הכובד."
+          ],
+          "solution": [
+            "<span dir=\"ltr\">vₓ = 100 · cos 37° = 80 מ/ש</span>, <span dir=\"ltr\">vᵧ₀ = −100 · sin 37° = −60 מ/ש</span>.",
+            "<span dir=\"ltr\">0 = 320 − 60t − 5t²</span>, כלומר <span dir=\"ltr\">t² + 12t − 64 = 0</span>, ולכן <span dir=\"ltr\">t = 4 ש'</span> (הפתרון החיובי).",
+            "<span dir=\"ltr\">x = 80 · 4 = 320 מ'</span>.",
+            "<span dir=\"ltr\">vᵧ = −60 − 10 · 4 = −100 מ/ש</span>, והגודל <span dir=\"ltr\">v = √(80² + 100²) ≈ 128.06 מ/ש</span>.",
+            "<span dir=\"ltr\">tan θ = −100 / 80</span>, לכן <span dir=\"ltr\">θ ≈ −51.34°</span>: תלולה יותר מזווית הצלילה של המטוס."
+          ],
+          "verify": {
+            "bodies": [
+              {
+                "id": "A",
+                "x0": 0,
+                "y0": 320,
+                "vx": 80,
+                "vy": -60
+              }
+            ],
+            "queries": [
+              {
+                "body": "A",
+                "what": "t",
+                "at": "land"
+              },
+              {
+                "body": "A",
+                "what": "x",
+                "at": "land"
+              },
+              {
+                "body": "A",
+                "what": "vy",
+                "at": "land"
+              },
+              {
+                "body": "A",
+                "what": "speed",
+                "at": "land"
+              },
+              {
+                "body": "A",
+                "what": "ang",
+                "at": "land"
+              }
+            ],
+            "claims": [
+              {
+                "q": {
+                  "body": "A",
+                  "what": "ang",
+                  "at": "start"
+                },
+                "value": -37,
+                "tol": 0.2
+              },
+              {
+                "q": {
+                  "body": "A",
+                  "what": "speed",
+                  "at": "start"
+                },
+                "value": 100,
+                "tol": 0.01
+              }
+            ]
+          }
+        },
+        {
+          "id": "lad-s4-09",
+          "topic": "phys-horizontal",
+          "level": 4,
+          "title": "שתי זוויות לאותה מטרה באותה מהירות",
+          "statement": "תותח יורה פגז מהקרקע במהירות 25 מ/ש בזווית של 53° מעל האופק לעבר מטרה על הקרקע. אפשר לפגוע באותה מטרה גם בזווית אחרת, באותה מהירות. השתמשו ב־sin 37° = 0.6 וב־cos 37° = 0.8 (ולכן sin 53° = 0.8 ו־cos 53° = 0.6). בחישובים השתמשו ב־g = 10 מ/ש² והתעלמו מהתנגדות האוויר.<br>א. מהו זמן הטיסה של הפגז בירייה בזווית 53°?<br>ב. באיזה מרחק אופקי נמצאת המטרה?<br>ג. מהי הזווית השנייה מעל האופק שבה פוגעים באותה מטרה באותה מהירות?<br>ד. מהו זמן הטיסה בזווית השנייה?<br>ה. בכמה מטרים הגובה המרבי בירייה בזווית 53° גבוה מהגובה המרבי בירייה בזווית השנייה?",
+          "diagram": "<svg viewBox=\"0 0 320 209\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" aria-label=\"ירייה בזווית 53° לעבר מטרה\"><title>ירייה בזווית 53° לעבר מטרה</title><defs><marker id=\"ph-k\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"currentColor\"/></marker><marker id=\"ph-a\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"var(--dg-a, #1f5fae)\"/></marker><marker id=\"ph-b\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"var(--dg-b, #c2410c)\"/></marker><marker id=\"ph-c\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"var(--dg-c, #1e7a34)\"/></marker></defs><g direction=\"ltr\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-size=\"14\"><line x1=\"10\" y1=\"165\" x2=\"310\" y2=\"165\" stroke=\"currentColor\" stroke-width=\"2\"/><path d=\"M18 165l-6 8M28 165l-6 8M38 165l-6 8M48 165l-6 8M58 165l-6 8M68 165l-6 8M78 165l-6 8M88 165l-6 8M98 165l-6 8M108 165l-6 8M118 165l-6 8M128 165l-6 8M138 165l-6 8M148 165l-6 8M158 165l-6 8M168 165l-6 8M178 165l-6 8M188 165l-6 8M198 165l-6 8M208 165l-6 8M218 165l-6 8M228 165l-6 8M238 165l-6 8M248 165l-6 8M258 165l-6 8M268 165l-6 8M278 165l-6 8M288 165l-6 8M298 165l-6 8M308 165l-6 8\" opacity=\"0.5\"/><path d=\"M46 165L51.9 157.3L57.9 150.2L63.8 143.5L69.8 137.3L75.7 131.6L81.6 126.4L87.6 121.7L93.5 117.5L99.4 113.8L105.4 110.6L111.3 107.9L117.3 105.6L123.2 103.9L129.1 102.7L135.1 101.9L141 101.7L146.9 101.9L152.9 102.7L158.8 103.9L164.8 105.6L170.7 107.9L176.6 110.6L182.6 113.8L188.5 117.5L194.4 121.7L200.4 126.4L206.3 131.6L212.3 137.3L218.2 143.5L224.1 150.2L230.1 157.3L236 165\" stroke=\"currentColor\" stroke-dasharray=\"5 4\"/><circle cx=\"46\" cy=\"165\" r=\"5\" fill=\"var(--dg-a, #1f5fae)\" stroke=\"none\"/><line x1=\"49\" y1=\"161\" x2=\"70\" y2=\"133\" stroke=\"var(--dg-a, #1f5fae)\" stroke-width=\"2\" marker-end=\"url(#ph-a)\"/><text x=\"130.1\" y=\"140.8\" text-anchor=\"middle\" fill=\"var(--dg-a, #1f5fae)\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\"><tspan direction=\"ltr\" unicode-bidi=\"isolate\">⁦v₀ = 25 <tspan direction=\"rtl\" unicode-bidi=\"isolate\">⁧מ/ש⁩</tspan>⁩</tspan></text><line x1=\"46\" y1=\"165\" x2=\"100\" y2=\"165\" stroke=\"currentColor\" stroke-dasharray=\"5 4\" opacity=\"0.6\"/><path d=\"M72 165A26 26 0 0 0 61.6 144.2\" stroke=\"var(--dg-b, #c2410c)\"/><text x=\"175\" y=\"155\" text-anchor=\"start\" fill=\"var(--dg-b, #c2410c)\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\">53°</text><circle cx=\"236\" cy=\"161\" r=\"4\" fill=\"var(--dg-c, #1e7a34)\" stroke=\"none\"/><line x1=\"46\" y1=\"183\" x2=\"236\" y2=\"183\" stroke=\"currentColor\" marker-start=\"url(#ph-k)\" marker-end=\"url(#ph-k)\"/><text x=\"24\" y=\"197\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\">R = ?</text><text x=\"238.2\" y=\"134\" text-anchor=\"middle\" fill=\"var(--dg-c, #1e7a34)\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\"><tspan direction=\"rtl\" unicode-bidi=\"isolate\">⁧מטרה⁩</tspan></text></g></svg>",
+          "scene": {
+            "title": "ירייה בזווית 53° לעבר מטרה",
+            "kind": "ground",
+            "h0": 0,
+            "vx": 15,
+            "vy": 20,
+            "end": "ground",
+            "labels": {
+              "v0": "v₀ = 25 מ/ש",
+              "ang": "53°",
+              "x": "R = ?",
+              "end": "מטרה"
+            }
+          },
+          "inputs": [
+            {
+              "label": "זמן הטיסה בזווית 53°",
+              "unit": "ש'",
+              "answer": "4",
+              "tolerance": 0.04
+            },
+            {
+              "label": "המרחק למטרה",
+              "unit": "מ'",
+              "answer": "60",
+              "tolerance": 0.6
+            },
+            {
+              "label": "הזווית השנייה",
+              "unit": "מעלות",
+              "answer": "36.87",
+              "tolerance": 0.5
+            },
+            {
+              "label": "זמן הטיסה בזווית השנייה",
+              "unit": "ש'",
+              "answer": "3",
+              "tolerance": 0.03
+            },
+            {
+              "label": "הפרש הגבהים המרביים",
+              "unit": "מ'",
+              "answer": "8.75",
+              "tolerance": 0.088
+            }
+          ],
+          "tips": [
+            "זמן הטיסה מגיעים אליו מהרכיב האנכי, והטווח הוא הרכיב האופקי כפול זמן הטיסה.",
+            "באותה מהירות ירי, שתי זוויות שמשלימות זו את זו ל־90° נותנות אותו טווח. כך אפשר למצוא את הזווית השנייה וגם לבדוק אותה בחישוב הטווח.",
+            "לכל זווית מחשבים בנפרד את הרכיב האנכי, את גובה השיא ואת זמן הטיסה."
+          ],
+          "solution": [
+            "זווית 53°: <span dir=\"ltr\">vₓ = 15 מ/ש</span>, <span dir=\"ltr\">vᵧ = 20 מ/ש</span>, לכן <span dir=\"ltr\">T = 2 · 20 / 10 = 4 ש'</span>.",
+            "הטווח: <span dir=\"ltr\">R = 15 · 4 = 60 מ'</span>.",
+            "הזווית השנייה משלימה ל־90°: <span dir=\"ltr\">90° − 53.13° = 36.87°</span>. בדיקה: <span dir=\"ltr\">vₓ = 20</span>, <span dir=\"ltr\">vᵧ = 15</span>, <span dir=\"ltr\">T = 3</span>, <span dir=\"ltr\">R = 20 · 3 = 60 מ'</span> כמו קודם.",
+            "זמן הטיסה בזווית השנייה: <span dir=\"ltr\">T = 2 · 15 / 10 = 3 ש'</span>.",
+            "גבהי השיא: <span dir=\"ltr\">20² / 20 = 20 מ'</span> ו־<span dir=\"ltr\">15² / 20 = 11.25 מ'</span>. ההפרש <span dir=\"ltr\">8.75 מ'</span>."
+          ],
+          "verify": {
+            "bodies": [
+              {
+                "id": "A",
+                "x0": 0,
+                "y0": 0,
+                "vx": 15,
+                "vy": 20
+              },
+              {
+                "id": "B",
+                "x0": 0,
+                "y0": 0,
+                "vx": 20,
+                "vy": 15
+              }
+            ],
+            "queries": [
+              {
+                "body": "A",
+                "what": "t",
+                "at": "land"
+              },
+              {
+                "body": "A",
+                "what": "x",
+                "at": "land"
+              },
+              {
+                "body": "B",
+                "what": "ang",
+                "at": "start"
+              },
+              {
+                "body": "B",
+                "what": "t",
+                "at": "land"
+              },
+              {
+                "op": "diff",
+                "a": {
+                  "body": "A",
+                  "what": "y",
+                  "at": "peak"
+                },
+                "b": {
+                  "body": "B",
+                  "what": "y",
+                  "at": "peak"
+                }
+              }
+            ],
+            "claims": [
+              {
+                "q": {
+                  "body": "A",
+                  "what": "ang",
+                  "at": "start"
+                },
+                "value": 53,
+                "tol": 0.2
+              },
+              {
+                "q": {
+                  "body": "A",
+                  "what": "speed",
+                  "at": "start"
+                },
+                "value": 25,
+                "tol": 0.01
+              },
+              {
+                "q": {
+                  "body": "B",
+                  "what": "speed",
+                  "at": "start"
+                },
+                "value": 25,
+                "tol": 0.01
+              }
+            ],
+            "sameLand": [
+              "A",
+              "B"
+            ]
+          }
+        },
+        {
+          "id": "lad-s4-10",
+          "topic": "phys-horizontal",
+          "level": 4,
+          "title": "בעיטה לעבר גדר",
+          "statement": "כדור נבעט מהקרקע במהירות 20 מ/ש בזווית של 37° מעל האופק לעבר גדר שנמצאת במרחק אופקי של 24 מ' מנקודת הבעיטה. הכדור פוגע בגדר. השתמשו ב־sin 37° = 0.6 וב־cos 37° = 0.8 (ולכן sin 53° = 0.8 ו־cos 53° = 0.6). בחישובים השתמשו ב־g = 10 מ/ש² והתעלמו מהתנגדות האוויר. כיוון המהירות = זווית מעל (+) או מתחת (−) לאופק.<br>א. כמה זמן הכדור עף עד הגדר?<br>ב. באיזה גובה מעל הקרקע הכדור פוגע בגדר?<br>ג. מהו הרכיב האנכי של המהירות ברגע הפגיעה בגדר (שלילי כלפי מטה)?<br>ד. מהו גודל המהירות ברגע הפגיעה בגדר?<br>ה. מהו כיוון המהירות ברגע הפגיעה בגדר?",
+          "diagram": "<svg viewBox=\"0 0 320 209\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" aria-label=\"בעיטה בזווית 37° לעבר גדר\"><title>בעיטה בזווית 37° לעבר גדר</title><defs><marker id=\"ph-k\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"currentColor\"/></marker><marker id=\"ph-a\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"var(--dg-a, #1f5fae)\"/></marker><marker id=\"ph-b\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"var(--dg-b, #c2410c)\"/></marker><marker id=\"ph-c\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"var(--dg-c, #1e7a34)\"/></marker></defs><g direction=\"ltr\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-size=\"14\"><line x1=\"10\" y1=\"165\" x2=\"310\" y2=\"165\" stroke=\"currentColor\" stroke-width=\"2\"/><path d=\"M18 165l-6 8M28 165l-6 8M38 165l-6 8M48 165l-6 8M58 165l-6 8M68 165l-6 8M78 165l-6 8M88 165l-6 8M98 165l-6 8M108 165l-6 8M118 165l-6 8M128 165l-6 8M138 165l-6 8M148 165l-6 8M158 165l-6 8M168 165l-6 8M178 165l-6 8M188 165l-6 8M198 165l-6 8M208 165l-6 8M218 165l-6 8M228 165l-6 8M238 165l-6 8M248 165l-6 8M258 165l-6 8M268 165l-6 8M278 165l-6 8M288 165l-6 8M298 165l-6 8M308 165l-6 8\" opacity=\"0.5\"/><path d=\"M46 165L51.9 160.6L57.9 156.4L63.8 152.4L69.8 148.6L75.7 144.9L81.6 141.4L87.6 138.1L93.5 134.9L99.4 132L105.4 129.2L111.3 126.5L117.3 124.1L123.2 121.8L129.1 119.7L135.1 117.8L141 116L146.9 114.4L152.9 113L158.8 111.8L164.8 110.7L170.7 109.8L176.6 109.1L182.6 108.6L188.5 108.2L194.4 108L200.4 108L206.3 108.2L212.3 108.5L218.2 109L224.1 109.7L230.1 110.5L236 111.6\" stroke=\"currentColor\" stroke-dasharray=\"5 4\"/><circle cx=\"46\" cy=\"165\" r=\"5\" fill=\"var(--dg-a, #1f5fae)\" stroke=\"none\"/><line x1=\"50\" y1=\"162\" x2=\"78\" y2=\"141\" stroke=\"var(--dg-a, #1f5fae)\" stroke-width=\"2\" marker-end=\"url(#ph-a)\"/><text x=\"138.9\" y=\"152.6\" text-anchor=\"middle\" fill=\"var(--dg-a, #1f5fae)\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\"><tspan direction=\"ltr\" unicode-bidi=\"isolate\">⁦v₀ = 20 <tspan direction=\"rtl\" unicode-bidi=\"isolate\">⁧מ/ש⁩</tspan>⁩</tspan></text><line x1=\"46\" y1=\"165\" x2=\"100\" y2=\"165\" stroke=\"currentColor\" stroke-dasharray=\"5 4\" opacity=\"0.6\"/><path d=\"M72 165A26 26 0 0 0 66.8 149.4\" stroke=\"var(--dg-b, #c2410c)\"/><text x=\"73\" y=\"122\" text-anchor=\"start\" fill=\"var(--dg-b, #c2410c)\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\">37°</text><rect x=\"236\" y=\"76.3\" width=\"10\" height=\"88.7\" stroke=\"currentColor\" fill=\"currentColor\" fill-opacity=\"0.18\"/><circle cx=\"236\" cy=\"111.6\" r=\"4\" fill=\"var(--dg-c, #1e7a34)\" stroke=\"none\"/><line x1=\"258\" y1=\"111.6\" x2=\"258\" y2=\"165\" stroke=\"currentColor\" marker-start=\"url(#ph-k)\" marker-end=\"url(#ph-k)\"/><text x=\"264\" y=\"143.3\" text-anchor=\"start\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\">y = ?</text><line x1=\"46\" y1=\"183\" x2=\"236\" y2=\"183\" stroke=\"currentColor\" marker-start=\"url(#ph-k)\" marker-end=\"url(#ph-k)\"/><text x=\"204\" y=\"155\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\"><tspan direction=\"ltr\" unicode-bidi=\"isolate\">⁦24 <tspan direction=\"rtl\" unicode-bidi=\"isolate\">⁧מ׳⁩</tspan>⁩</tspan></text><text x=\"207\" y=\"98.6\" text-anchor=\"middle\" fill=\"var(--dg-c, #1e7a34)\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\"><tspan direction=\"rtl\" unicode-bidi=\"isolate\">⁧פגיעה⁩</tspan></text></g></svg>",
+          "scene": {
+            "title": "בעיטה בזווית 37° לעבר גדר",
+            "kind": "ground",
+            "h0": 0,
+            "vx": 16,
+            "vy": 12,
+            "end": "target",
+            "target": {
+              "x": 24,
+              "y": 6.75,
+              "kind": "wall"
+            },
+            "labels": {
+              "v0": "v₀ = 20 מ/ש",
+              "ang": "37°",
+              "x": "24 מ'",
+              "y": "y = ?",
+              "end": "פגיעה"
+            }
+          },
+          "inputs": [
+            {
+              "label": "הזמן עד הגדר",
+              "unit": "ש'",
+              "answer": "1.5",
+              "tolerance": 0.015
+            },
+            {
+              "label": "הגובה בפגיעה בגדר",
+              "unit": "מ'",
+              "answer": "6.75",
+              "tolerance": 0.068
+            },
+            {
+              "label": "הרכיב האנכי בפגיעה",
+              "unit": "מ/ש",
+              "answer": "-3",
+              "tolerance": 0.03
+            },
+            {
+              "label": "גודל המהירות בפגיעה",
+              "unit": "מ/ש",
+              "answer": "16.28",
+              "tolerance": 0.163
+            },
+            {
+              "label": "כיוון המהירות בפגיעה",
+              "unit": "מעלות",
+              "answer": "-10.62",
+              "tolerance": 0.5
+            }
+          ],
+          "tips": [
+            "המרחק האופקי לגדר חלקי הרכיב האופקי נותן את הזמן, כי הרכיב האופקי קבוע.",
+            "את הגובה בזמן הזה מחשבים מהרכיב האנכי ההתחלתי ומהנפילה החופשית.",
+            "כאן הרכיב האנכי כבר שלילי, כלומר הכדור יורד כשהוא פוגע בגדר. הזווית שלילית וקטנה כי הכדור קרוב לשיאו."
+          ],
+          "solution": [
+            "<span dir=\"ltr\">vₓ = 20 · 0.8 = 16 מ/ש</span>, <span dir=\"ltr\">vᵧ₀ = 20 · 0.6 = 12 מ/ש</span>.",
+            "<span dir=\"ltr\">t = 24 / 16 = 1.5 ש'</span>.",
+            "גובה: <span dir=\"ltr\">y = 12 · 1.5 − 5 · 1.5² = 18 − 11.25 = 6.75 מ'</span>.",
+            "<span dir=\"ltr\">vᵧ = 12 − 10 · 1.5 = −3 מ/ש</span>, והגודל <span dir=\"ltr\">v = √(16² + 3²) ≈ 16.28 מ/ש</span>.",
+            "<span dir=\"ltr\">tan θ = −3 / 16</span>, לכן <span dir=\"ltr\">θ ≈ −10.62°</span>: הכדור כבר עבר את השיא."
+          ],
+          "verify": {
+            "bodies": [
+              {
+                "id": "A",
+                "x0": 0,
+                "y0": 0,
+                "vx": 16,
+                "vy": 12
+              }
+            ],
+            "queries": [
+              {
+                "body": "A",
+                "what": "t",
+                "at": {
+                  "x": 24
+                }
+              },
+              {
+                "body": "A",
+                "what": "y",
+                "at": {
+                  "x": 24
+                }
+              },
+              {
+                "body": "A",
+                "what": "vy",
+                "at": {
+                  "x": 24
+                }
+              },
+              {
+                "body": "A",
+                "what": "speed",
+                "at": {
+                  "x": 24
+                }
+              },
+              {
+                "body": "A",
+                "what": "ang",
+                "at": {
+                  "x": 24
+                }
+              }
+            ],
+            "claims": [
+              {
+                "q": {
+                  "body": "A",
+                  "what": "ang",
+                  "at": "start"
+                },
+                "value": 37,
+                "tol": 0.2
+              },
+              {
+                "q": {
+                  "body": "A",
+                  "what": "speed",
+                  "at": "start"
+                },
+                "value": 20,
+                "tol": 0.01
+              }
+            ],
+            "target": {
+              "x": 24,
+              "y": 6.75
+            }
+          }
+        },
+        {
+          "id": "lad-s4-11",
+          "topic": "phys-horizontal",
+          "level": 4,
+          "title": "זריקה כלפי מטה מגג מגדל",
+          "statement": "כדור נזרק מגג מגדל בגובה 80 מ' במהירות 50 מ/ש בזווית של 37° מתחת לאופק, ופוגע בקרקע. השתמשו ב־sin 37° = 0.6 וב־cos 37° = 0.8 (ולכן sin 53° = 0.8 ו־cos 53° = 0.6). בחישובים השתמשו ב־g = 10 מ/ש² והתעלמו מהתנגדות האוויר. כיוון המהירות = זווית מעל (+) או מתחת (−) לאופק.<br>א. כמה זמן הכדור נמצא באוויר?<br>ב. באיזה מרחק אופקי מהמגדל הכדור פוגע בקרקע?<br>ג. מהו הרכיב האנכי של המהירות בפגיעה?<br>ד. מהו גודל המהירות בפגיעה?<br>ה. באיזה כיוון הכדור פוגע בקרקע?",
+          "diagram": "<svg viewBox=\"0 0 320 209\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" aria-label=\"זריקה בזווית 37° מתחת לאופק ממגדל\"><title>זריקה בזווית 37° מתחת לאופק ממגדל</title><defs><marker id=\"ph-k\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"currentColor\"/></marker><marker id=\"ph-a\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"var(--dg-a, #1f5fae)\"/></marker><marker id=\"ph-b\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"var(--dg-b, #c2410c)\"/></marker><marker id=\"ph-c\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"var(--dg-c, #1e7a34)\"/></marker></defs><g direction=\"ltr\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-size=\"14\"><line x1=\"10\" y1=\"165\" x2=\"310\" y2=\"165\" stroke=\"currentColor\" stroke-width=\"2\"/><path d=\"M18 165l-6 8M28 165l-6 8M38 165l-6 8M48 165l-6 8M58 165l-6 8M68 165l-6 8M78 165l-6 8M88 165l-6 8M98 165l-6 8M108 165l-6 8M118 165l-6 8M128 165l-6 8M138 165l-6 8M148 165l-6 8M158 165l-6 8M168 165l-6 8M178 165l-6 8M188 165l-6 8M198 165l-6 8M208 165l-6 8M218 165l-6 8M228 165l-6 8M238 165l-6 8M248 165l-6 8M258 165l-6 8M268 165l-6 8M278 165l-6 8M288 165l-6 8M298 165l-6 8M308 165l-6 8\" opacity=\"0.5\"/><rect x=\"14\" y=\"60\" width=\"78\" height=\"105\" stroke=\"currentColor\" fill=\"currentColor\" fill-opacity=\"0.18\"/><path d=\"M92 60L95.3 62.5L98.6 65L101.8 67.6L105.1 70.3L108.4 72.9L111.7 75.7L115 78.5L118.3 81.3L121.5 84.2L124.8 87.2L128.1 90.2L131.4 93.2L134.7 96.3L137.9 99.5L141.2 102.7L144.5 105.9L147.8 109.2L151.1 112.6L154.3 116L157.6 119.5L160.9 123L164.2 126.5L167.5 130.2L170.8 133.8L174 137.5L177.3 141.3L180.6 145.1L183.9 149L187.2 152.9L190.4 156.9L193.7 160.9L197 165\" stroke=\"currentColor\" stroke-dasharray=\"5 4\"/><circle cx=\"92\" cy=\"60\" r=\"5\" fill=\"var(--dg-a, #1f5fae)\" stroke=\"none\"/><line x1=\"96\" y1=\"63\" x2=\"124\" y2=\"84\" stroke=\"var(--dg-a, #1f5fae)\" stroke-width=\"2\" marker-end=\"url(#ph-a)\"/><text x=\"156.7\" y=\"83.4\" text-anchor=\"middle\" fill=\"var(--dg-a, #1f5fae)\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\"><tspan direction=\"ltr\" unicode-bidi=\"isolate\">⁦50 <tspan direction=\"rtl\" unicode-bidi=\"isolate\">⁧מ/ש⁩</tspan>⁩</tspan></text><line x1=\"92\" y1=\"60\" x2=\"146\" y2=\"60\" stroke=\"currentColor\" stroke-dasharray=\"5 4\" opacity=\"0.6\"/><path d=\"M118 60A26 26 0 0 1 112.8 75.6\" stroke=\"var(--dg-b, #c2410c)\"/><text x=\"152\" y=\"60\" text-anchor=\"start\" fill=\"var(--dg-b, #c2410c)\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\">37°</text><line x1=\"24\" y1=\"60\" x2=\"24\" y2=\"165\" stroke=\"currentColor\" marker-start=\"url(#ph-k)\" marker-end=\"url(#ph-k)\"/><text x=\"128.1\" y=\"144.5\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\"><tspan direction=\"ltr\" unicode-bidi=\"isolate\">⁦h = 80 <tspan direction=\"rtl\" unicode-bidi=\"isolate\">⁧מ׳⁩</tspan>⁩</tspan></text><circle cx=\"197\" cy=\"161\" r=\"4\" fill=\"var(--dg-c, #1e7a34)\" stroke=\"none\"/><line x1=\"92\" y1=\"183\" x2=\"197\" y2=\"183\" stroke=\"currentColor\" marker-start=\"url(#ph-k)\" marker-end=\"url(#ph-k)\"/><text x=\"69.5\" y=\"197\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\">R = ?</text><text x=\"234\" y=\"125\" text-anchor=\"end\" fill=\"var(--dg-c, #1e7a34)\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\">v , θ = ?</text></g></svg>",
+          "scene": {
+            "title": "זריקה בזווית 37° מתחת לאופק ממגדל",
+            "kind": "cliff",
+            "h0": 80,
+            "vx": 40,
+            "vy": -30,
+            "end": "ground",
+            "labels": {
+              "v0": "50 מ/ש",
+              "ang": "37°",
+              "h": "h = 80 מ'",
+              "x": "R = ?",
+              "end": "v , θ = ?"
+            }
+          },
+          "inputs": [
+            {
+              "label": "זמן הנפילה",
+              "unit": "ש'",
+              "answer": "2",
+              "tolerance": 0.02
+            },
+            {
+              "label": "הטווח האופקי",
+              "unit": "מ'",
+              "answer": "80",
+              "tolerance": 0.8
+            },
+            {
+              "label": "הרכיב האנכי בפגיעה",
+              "unit": "מ/ש",
+              "answer": "-50",
+              "tolerance": 0.5
+            },
+            {
+              "label": "גודל מהירות הפגיעה",
+              "unit": "מ/ש",
+              "answer": "64.03",
+              "tolerance": 0.64
+            },
+            {
+              "label": "כיוון המהירות בפגיעה",
+              "unit": "מעלות",
+              "answer": "-51.34",
+              "tolerance": 0.5
+            }
+          ],
+          "tips": [
+            "מהירות הזריקה כלפי מטה, ולכן הרכיב האנכי שלה שלילי. הרכיב האופקי חיובי וקבוע.",
+            "משוואת הגובה עם גובה סופי אפס היא משוואה ריבועית. בוחרים את הפתרון החיובי.",
+            "בפגיעה מחברים לרכיב האנכי ההתחלתי את השינוי שנגרם מתאוצת הכובד. הכיוון שלילי ותלול יותר מכיוון הזריקה."
+          ],
+          "solution": [
+            "<span dir=\"ltr\">vₓ = 50 · 0.8 = 40 מ/ש</span>, <span dir=\"ltr\">vᵧ₀ = −50 · 0.6 = −30 מ/ש</span>.",
+            "<span dir=\"ltr\">0 = 80 − 30t − 5t²</span>, כלומר <span dir=\"ltr\">t² + 6t − 16 = 0</span>, לכן <span dir=\"ltr\">t = 2 ש'</span>.",
+            "<span dir=\"ltr\">x = 40 · 2 = 80 מ'</span>.",
+            "<span dir=\"ltr\">vᵧ = −30 − 10 · 2 = −50 מ/ש</span>, והגודל <span dir=\"ltr\">v = √(40² + 50²) ≈ 64.03 מ/ש</span>.",
+            "<span dir=\"ltr\">tan θ = −50 / 40</span>, לכן <span dir=\"ltr\">θ ≈ −51.34°</span>."
+          ],
+          "verify": {
+            "bodies": [
+              {
+                "id": "A",
+                "x0": 0,
+                "y0": 80,
+                "vx": 40,
+                "vy": -30
+              }
+            ],
+            "queries": [
+              {
+                "body": "A",
+                "what": "t",
+                "at": "land"
+              },
+              {
+                "body": "A",
+                "what": "x",
+                "at": "land"
+              },
+              {
+                "body": "A",
+                "what": "vy",
+                "at": "land"
+              },
+              {
+                "body": "A",
+                "what": "speed",
+                "at": "land"
+              },
+              {
+                "body": "A",
+                "what": "ang",
+                "at": "land"
+              }
+            ],
+            "claims": [
+              {
+                "q": {
+                  "body": "A",
+                  "what": "ang",
+                  "at": "start"
+                },
+                "value": -37,
+                "tol": 0.2
+              },
+              {
+                "q": {
+                  "body": "A",
+                  "what": "speed",
+                  "at": "start"
+                },
+                "value": 50,
+                "tol": 0.01
+              }
+            ]
+          }
+        },
+        {
+          "id": "lad-s4-12",
+          "topic": "phys-horizontal",
+          "level": 4,
+          "title": "זריקה בזווית 45° לסל: מהירות מתנאי הסל",
+          "statement": "שחקנית זורקת כדור מגובה 2 מ' בזווית של 45° מעל האופק לעבר סל בגובה 3 מ' ובמרחק אופקי של 6 מ'. הכדור נכנס לסל בדרך למטה. בחישובים השתמשו ב־g = 10 מ/ש² והתעלמו מהתנגדות האוויר. כיוון המהירות = זווית מעל (+) או מתחת (−) לאופק.<br>א. כמה זמן הכדור עף עד הסל? הציבו את המרחק האופקי במשוואת הגובה.<br>ב. מהו הרכיב האופקי של מהירות הזריקה?<br>ג. מהי מהירות הזריקה?<br>ד. מהו הרכיב האנכי של המהירות בסל (שלילי כלפי מטה)?<br>ה. מהו כיוון המהירות ברגע הכניסה לסל?",
+          "diagram": "<svg viewBox=\"0 0 320 209\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" aria-label=\"זריקה לסל בזווית 45°\"><title>זריקה לסל בזווית 45°</title><defs><marker id=\"ph-k\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"currentColor\"/></marker><marker id=\"ph-a\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"var(--dg-a, #1f5fae)\"/></marker><marker id=\"ph-b\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"var(--dg-b, #c2410c)\"/></marker><marker id=\"ph-c\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"var(--dg-c, #1e7a34)\"/></marker></defs><g direction=\"ltr\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-size=\"14\"><line x1=\"10\" y1=\"165\" x2=\"310\" y2=\"165\" stroke=\"currentColor\" stroke-width=\"2\"/><path d=\"M18 165l-6 8M28 165l-6 8M38 165l-6 8M48 165l-6 8M58 165l-6 8M68 165l-6 8M78 165l-6 8M88 165l-6 8M98 165l-6 8M108 165l-6 8M118 165l-6 8M128 165l-6 8M138 165l-6 8M148 165l-6 8M158 165l-6 8M168 165l-6 8M178 165l-6 8M188 165l-6 8M198 165l-6 8M208 165l-6 8M218 165l-6 8M228 165l-6 8M238 165l-6 8M248 165l-6 8M258 165l-6 8M268 165l-6 8M278 165l-6 8M288 165l-6 8M298 165l-6 8M308 165l-6 8\" opacity=\"0.5\"/><path d=\"M46 109.7L51.2 104.7L56.4 99.9L61.5 95.4L66.7 91.2L71.9 87.2L77.1 83.5L82.3 80.1L87.4 76.9L92.6 74L97.8 71.4L103 69.1L108.2 67L113.4 65.2L118.5 63.6L123.7 62.4L128.9 61.4L134.1 60.7L139.3 60.2L144.4 60L149.6 60.1L154.8 60.4L160 61.1L165.2 61.9L170.3 63.1L175.5 64.5L180.7 66.2L185.9 68.2L191.1 70.4L196.2 73L201.4 75.7L206.6 78.8L211.8 82.1\" stroke=\"currentColor\" stroke-dasharray=\"5 4\"/><circle cx=\"46\" cy=\"109.7\" r=\"5\" fill=\"var(--dg-a, #1f5fae)\" stroke=\"none\"/><line x1=\"49.5\" y1=\"106.2\" x2=\"74.3\" y2=\"81.5\" stroke=\"var(--dg-a, #1f5fae)\" stroke-width=\"2\" marker-end=\"url(#ph-a)\"/><text x=\"94.1\" y=\"92.6\" text-anchor=\"start\" fill=\"var(--dg-a, #1f5fae)\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\">v₀ = ?</text><line x1=\"46\" y1=\"109.7\" x2=\"100\" y2=\"109.7\" stroke=\"currentColor\" stroke-dasharray=\"5 4\" opacity=\"0.6\"/><path d=\"M72 109.7A26 26 0 0 0 64.4 91.4\" stroke=\"var(--dg-b, #c2410c)\"/><text x=\"106\" y=\"114.7\" text-anchor=\"start\" fill=\"var(--dg-b, #c2410c)\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\">45°</text><line x1=\"24\" y1=\"109.7\" x2=\"24\" y2=\"165\" stroke=\"currentColor\" marker-start=\"url(#ph-k)\" marker-end=\"url(#ph-k)\"/><text x=\"44.8\" y=\"142.4\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\"><tspan direction=\"ltr\" unicode-bidi=\"isolate\">⁦2 <tspan direction=\"rtl\" unicode-bidi=\"isolate\">⁧מ׳⁩</tspan>⁩</tspan></text><line x1=\"195.8\" y1=\"82.1\" x2=\"211.8\" y2=\"82.1\" stroke=\"var(--dg-c, #1e7a34)\" stroke-width=\"3\"/><line x1=\"211.8\" y1=\"56.1\" x2=\"211.8\" y2=\"86.1\" stroke=\"currentColor\" stroke-width=\"3\"/><line x1=\"233.8\" y1=\"82.1\" x2=\"233.8\" y2=\"165\" stroke=\"currentColor\" marker-start=\"url(#ph-k)\" marker-end=\"url(#ph-k)\"/><text x=\"254.6\" y=\"128.6\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\"><tspan direction=\"ltr\" unicode-bidi=\"isolate\">⁦3 <tspan direction=\"rtl\" unicode-bidi=\"isolate\">⁧מ׳⁩</tspan>⁩</tspan></text><line x1=\"46\" y1=\"183\" x2=\"211.8\" y2=\"183\" stroke=\"currentColor\" marker-start=\"url(#ph-k)\" marker-end=\"url(#ph-k)\"/><text x=\"128.9\" y=\"155\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\"><tspan direction=\"ltr\" unicode-bidi=\"isolate\">⁦6 <tspan direction=\"rtl\" unicode-bidi=\"isolate\">⁧מ׳⁩</tspan>⁩</tspan></text><text x=\"198.4\" y=\"60.1\" text-anchor=\"middle\" fill=\"var(--dg-c, #1e7a34)\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\"><tspan direction=\"rtl\" unicode-bidi=\"isolate\">⁧סל⁩</tspan></text></g></svg>",
+          "scene": {
+            "title": "זריקה לסל בזווית 45°",
+            "kind": "ground",
+            "h0": 2,
+            "vx": 6,
+            "vy": 6,
+            "end": "target",
+            "target": {
+              "x": 6,
+              "y": 3,
+              "kind": "hoop"
+            },
+            "labels": {
+              "v0": "v₀ = ?",
+              "ang": "45°",
+              "h": "2 מ'",
+              "x": "6 מ'",
+              "y": "3 מ'",
+              "end": "סל"
+            }
+          },
+          "inputs": [
+            {
+              "label": "הזמן עד הסל",
+              "unit": "ש'",
+              "answer": "1",
+              "tolerance": 0.01
+            },
+            {
+              "label": "הרכיב האופקי של המהירות",
+              "unit": "מ/ש",
+              "answer": "6",
+              "tolerance": 0.06
+            },
+            {
+              "label": "מהירות הזריקה",
+              "unit": "מ/ש",
+              "answer": "8.49",
+              "tolerance": 0.085
+            },
+            {
+              "label": "הרכיב האנכי בסל",
+              "unit": "מ/ש",
+              "answer": "-4",
+              "tolerance": 0.04
+            },
+            {
+              "label": "כיוון המהירות בסל",
+              "unit": "מעלות",
+              "answer": "-33.69",
+              "tolerance": 0.5
+            }
+          ],
+          "tips": [
+            "בזווית 45° שני הרכיבים של מהירות הזריקה שווים. סמנו אותם באות אחת והציבו את הזמן מהמשוואה האופקית במשוואת הגובה.",
+            "כשמציבים, המחובר של הרכיב האנכי כפול הזמן שווה למרחק האופקי, ונשארת משוואה פשוטה בזמן בלבד.",
+            "מהירות הזריקה היא השורש של סכום ריבועי הרכיבים. בסל הרכיב האנכי הוא הרכיב ההתחלתי פחות תאוצת הכובד כפול הזמן."
+          ],
+          "solution": [
+            "נסמן <span dir=\"ltr\">vₓ = vᵧ₀ = u</span>. אופקי: <span dir=\"ltr\">6 = u · t</span>. אנכי: <span dir=\"ltr\">3 = 2 + u · t − 5t²</span>.",
+            "מציבים <span dir=\"ltr\">u · t = 6</span>: <span dir=\"ltr\">3 = 2 + 6 − 5t²</span>, לכן <span dir=\"ltr\">t² = 1</span> ו־<span dir=\"ltr\">t = 1 ש'</span>.",
+            "<span dir=\"ltr\">u = 6 / 1 = 6 מ/ש</span>, ומהירות הזריקה <span dir=\"ltr\">v₀ = 6√2 ≈ 8.49 מ/ש</span>.",
+            "בסל: <span dir=\"ltr\">vᵧ = 6 − 10 · 1 = −4 מ/ש</span>. הכדור יורד, כנדרש.",
+            "<span dir=\"ltr\">tan θ = −4 / 6</span>, לכן <span dir=\"ltr\">θ ≈ −33.69°</span>."
+          ],
+          "verify": {
+            "bodies": [
+              {
+                "id": "A",
+                "x0": 0,
+                "y0": 2,
+                "vx": 6,
+                "vy": 6
+              }
+            ],
+            "queries": [
+              {
+                "body": "A",
+                "what": "t",
+                "at": {
+                  "x": 6
+                }
+              },
+              {
+                "body": "A",
+                "what": "vx",
+                "at": "start"
+              },
+              {
+                "body": "A",
+                "what": "speed",
+                "at": "start"
+              },
+              {
+                "body": "A",
+                "what": "vy",
+                "at": {
+                  "x": 6
+                }
+              },
+              {
+                "body": "A",
+                "what": "ang",
+                "at": {
+                  "x": 6
+                }
+              }
+            ],
+            "claims": [
+              {
+                "q": {
+                  "body": "A",
+                  "what": "ang",
+                  "at": "start"
+                },
+                "value": 45,
+                "tol": 0.01
+              }
+            ],
+            "target": {
+              "x": 6,
+              "y": 3,
+              "descending": true
+            }
+          }
+        }
+      ]
     },
     {
       "id": "S5",

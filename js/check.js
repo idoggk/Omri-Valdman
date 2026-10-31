@@ -23,7 +23,7 @@ function parsePlain(s) {
 
 /** parse("3/2") -> 1.5 ; returns null for anything that is not a number. */
 export function parse(str) {
-  const s = normalize(str);
+  const s = normalize(str).replace(/(°|מעלות|מעלה)$/, ''); // a trailing angle unit is allowed: "-53.13 מעלות"
   if (s === '') return null;
   const slash = s.indexOf('/');
   if (slash === -1) return parsePlain(s);

@@ -1337,9 +1337,53 @@ export function validateSvg(s) {
   return errs;
 }
 
-/** Inline exam-ladder items (data/ladder.json) carry a declarative `graph` spec instead of a verify.model. */
-export const ladderDiagram = (item) => graph(item.graph);
-export const ladderInline = (data) => ((data && data.stages) || []).flatMap((st) => (st.items || []).filter((it) => it && it.graph));
+// ------------------------------------------------------------ projectile scene (exam ladder, stage S4)
+// shot({ title, kind: 'ground'|'cliff'|'plane', h0, vx, vy, end: 'ground'|'target', target: { x, y, kind: 'hoop'|'wall' },
+//        labels: { v0, ang, h, x, y, end, note }, impact? })
+// Physical values (metres, m/s, g = 10) fix the SHAPE of the path only; every printed number comes from `labels`.
+// The angle arc and the velocity arrow are drawn at the true launch angle atan2(vy, vx) (below the horizontal when vy < 0).
+export function shot(sc) {
+  const { h0 = 0, vx, vy, labels: L = {} } = sc;
+  const g = 10, W = 190, H = 105, ox = sc.kind === 'ground' ? 46 : 92, top = 52;
+  const yAt = (x) => h0 + (vy / vx) * x - (g * x * x) / (2 * vx * vx);
+  const tEnd = (vy + Math.sqrt(vy * vy + 2 * g * h0)) / g;
+  const xEnd = sc.end === 'target' ? sc.target.x : vx * tEnd;
+  let ymax = h0;
+  for (let i = 0; i <= 40; i++) ymax = Math.max(ymax, yAt((xEnd * i) / 40));
+  const k = Math.min(W / xEnd, H / Math.max(ymax, 1));
+  const gy = top + H + 8, X = (x) => ox + x * k, Y = (y) => gy - y * k;
+  const sy = Y(h0), ex = X(xEnd), ey = Y(sc.end === 'target' ? sc.target.y : 0);
+  let s = ground(10, 310, gy);
+  if (sc.kind === 'cliff') s += building(14, sy, ox - 14, gy);
+  if (sc.kind === 'plane' && vy === 0) s += `<path d="M${r1(ox - 40)} ${r1(sy - 4)}h36l-6 -8h-8l-4 8M${r1(ox - 40)} ${r1(sy - 4)}l-6 -8" stroke="${COL.a}" fill="${COL.a}" fill-opacity="0.18"/>`;
+  let d = '';
+  for (let i = 0; i <= 32; i++) { const x = (xEnd * i) / 32; d += `${i ? 'L' : 'M'}${r1(X(x))} ${r1(Y(yAt(x)))}`; }
+  s += path(d, 'k');
+  // launch: velocity arrow, horizontal reference and angle arc
+  const ph = Math.atan2(vy, vx), ux = Math.cos(ph), uy = -Math.sin(ph);
+  s += ball(ox, sy, 'a', 5) + arrow(ox + 5 * ux, sy + 5 * uy, ox + 40 * ux, sy + 40 * uy, 'a');
+  if (L.v0) s += txt(ox + 44 * ux + (vy < 0 ? 0 : 2), sy + 44 * uy + (vy < 0 ? 8 : -2), L.v0, 'a', 'start');
+  if (vy !== 0 && L.ang) {
+    const a = Math.abs(ph), r = 26;
+    s += line(ox, sy, ox + 54, sy, { dash: true, op: 0.6 });
+    s += `<path d="M${r1(ox + r)} ${r1(sy)}A${r} ${r} 0 0 ${vy > 0 ? 0 : 1} ${r1(ox + r * Math.cos(a))} ${r1(sy + (vy > 0 ? -1 : 1) * r * Math.sin(a))}" stroke="${COL.b}"/>`;
+    s += txt(ox + 60, sy + (vy > 0 ? -2 : 14), L.ang, 'b', 'start');
+  }
+  if (L.h && h0 > 0) s += dim(24, sy, 24, gy, L.h, sc.kind === 'plane' ? {} : { c: 'k' }) + (sc.kind === 'plane' ? line(24, sy, ox - 44, sy, { dash: true, op: 0.6 }) : '');
+  if (L.note) s += txt(ox, sy - 22, L.note, 'k');
+  // target or landing point
+  if (sc.end === 'target' && sc.target.kind === 'wall') s += rect(ex, Y(ymax + 4), 10, gy - Y(ymax + 4), { fill: 'k' }) + ball(ex, ey, 'c', 4);
+  else if (sc.end === 'target') s += line(ex - 16, ey, ex, ey, { w: 3, c: 'c' }) + line(ex, ey - 26, ex, ey + 4, { w: 3 });
+  else s += ball(ex, ey - 4, 'c', 4);
+  if (L.y && sc.end === 'target') s += dim(Math.min(ex + 22, 300), ey, Math.min(ex + 22, 300), gy, L.y, { left: false });
+  if (L.x) s += dim(ox, gy + 18, ex, gy + 18, L.x, { below: true });
+  if (L.end) s += txt(ex - 8, ey - 14, L.end, 'c', 'end');
+  return svg(sc.title, gy + 44, s);
+}
+
+/** Inline exam-ladder items (data/ladder.json) carry a declarative `graph` (S3) or `scene` (S4) spec instead of a verify.model. */
+export const ladderDiagram = (item) => (item.scene ? shot(item.scene) : graph(item.graph));
+export const ladderInline = (data) => ((data && data.stages) || []).flatMap((st) => (st.items || []).filter((it) => it && (it.graph || it.scene)));
 
 export function diagramFor(ex) {
   const fn = diagrams[ex.verify && ex.verify.model];

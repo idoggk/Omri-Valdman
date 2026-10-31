@@ -1,4 +1,4 @@
-// Independent verifier for the INLINE items of data/ladder.json (exam ladder, graph-reading stage S3).
+// Independent verifier for the INLINE items of data/ladder.json (exam ladder, graph-reading stage S3, angled launch stage S4).
 // It never uses an item's closed form. Every body is stepped numerically (dt = 0.001) and every root,
 // maximum and meeting time is found by scanning for a sign change and bisecting. Then it checks:
 //  (a) every stored answer equals the simulated value of its query (verify.queries[i]),
@@ -219,6 +219,134 @@ export function checkItem(it) {
   return errs;
 }
 
+// ---------------------------------------------------------------- stage S4 (angled launch, speed and direction)
+// A body is { id, x0, y0, vx, vy } (components at t = 0; g = 10 downward). Both axes are stepped numerically with trace().
+// A query is { body, what, at } with what in t|x|y|vx|vy|speed|ang and at in 'start'|'land'|'peak'|{ t }|{ x },
+// or { op: 'diff', a, b } (|a - b|). ang = atan2(vy, vx) in degrees: positive above the horizontal, negative below.
+const S4_DIRECTION_RULE = 'כיוון המהירות = זווית מעל (+) או מתחת (−) לאופק';
+export function traceBody(b) {
+  return { b, X: trace({ id: b.id, p0: b.x0, v0: b.vx, a: 0 }), Y: trace({ id: b.id, p0: b.y0, v0: b.vy, a: -G }) };
+}
+const s4At = (tb, t) => {
+  const x = stateAt(tb.X, t), y = stateAt(tb.Y, t);
+  return { t, x: x.p, y: y.p, vx: x.v, vy: y.v, speed: Math.hypot(x.v, y.v), ang: (Math.atan2(y.v, x.v) * 180) / Math.PI };
+};
+export function evalS4(q, tbs) {
+  if (q.op === 'diff') return Math.abs(evalS4(q.a, tbs) - evalS4(q.b, tbs));
+  const tb = tbs[q.body];
+  if (!tb) throw new Error(`unknown body "${q.body}"`);
+  let t;
+  if (q.at === 'start') t = 0;
+  else if (q.at === 'land') t = firstCross((s) => stateAt(tb.Y, s).p);
+  else if (q.at === 'peak') t = firstCross((s) => stateAt(tb.Y, s).v);
+  else if (q.at && Number.isFinite(q.at.t)) t = q.at.t;
+  else if (q.at && Number.isFinite(q.at.x)) t = firstCross((s) => stateAt(tb.X, s).p - q.at.x);
+  else throw new Error('bad "at"');
+  if (t === null) return null;
+  if (q.what === 'drop') return tb.b.y0 - s4At(tb, t).y;
+  const st = s4At(tb, t);
+  if (!(q.what in st)) throw new Error(`unknown quantity "${q.what}"`);
+  return st[q.what];
+}
+
+export function checkItemS4(it) {
+  const errs = [];
+  const where = it && it.id ? it.id : '?';
+  const err = (m) => errs.push(`${where}: ${m}`);
+  if (!it || typeof it !== 'object') return [`${where}: not an object`];
+  if (!/^lad-s4-\d{2}$/.test(it.id || '')) err('bad id (expected lad-s4-NN)');
+  if (it.topic !== 'phys-horizontal') err('bad topic');
+  if (it.level !== 4) err('level must be 4');
+  if (!heb(it.title)) err('title missing or not Hebrew');
+  if (!heb(it.statement)) err('statement missing or not Hebrew');
+  if (!Array.isArray(it.tips) || it.tips.length !== 3) err('tips must have exactly 3 items');
+  else it.tips.forEach((t, i) => heb(t) || err(`tip ${i + 1} empty or not Hebrew`));
+  if (!Array.isArray(it.solution) || it.solution.length < 4) err('solution needs at least 4 steps');
+  else it.solution.forEach((s, i) => heb(s) || err(`solution step ${i + 1} empty or not Hebrew`));
+  const texts = [['title', it.title], ['statement', it.statement], ...(it.tips || []).map((t, i) => [`tip ${i + 1}`, t]), ...(it.solution || []).map((s, i) => [`solution step ${i + 1}`, s])];
+  for (const [f, t] of texts) {
+    if (typeof t !== 'string') continue;
+    if (LATIN_UNIT.test(stripTags(t))) err(`${f}: Latin unit label, use Hebrew units`);
+    if (COMPLEX.test(stripTags(t))) err(`${f}: complex-number wording`);
+  }
+  const inputs = it.inputs;
+  if (!Array.isArray(inputs) || inputs.length < 4 || inputs.length > 5) { err('4-5 lettered parts (inputs) required'); return errs; }
+  const plainStatement = stripTags(it.statement || '');
+  const marker = (l) => new RegExp(`(?<![א-ת])${l}\\.`);
+  inputs.forEach((inp, i) => { if (!marker(PART_LETTERS[i]).test(plainStatement)) err(`statement lacks part marker "${PART_LETTERS[i]}."`); });
+  if (PART_LETTERS[inputs.length] && marker(PART_LETTERS[inputs.length]).test(plainStatement)) err('statement has more lettered parts than inputs');
+  if (!/g = 10/.test(plainStatement)) err('statement must state g = 10');
+  const asksDirection = inputs.some((inp) => /כיוון/.test(inp.label || ''));
+  if (asksDirection && !plainStatement.includes(S4_DIRECTION_RULE)) err('a direction part needs the sign-convention line in the statement');
+  if (typeof it.diagram !== 'string' || !it.diagram) err('diagram missing');
+  else validateSvg(it.diagram).forEach((m) => err(`diagram: ${m}`));
+  const v = it.verify;
+  if (!v || !Array.isArray(v.bodies) || !Array.isArray(v.queries)) { err('verify {bodies, queries} missing'); return errs; }
+  if (v.queries.length !== inputs.length) { err('verify.queries must have one entry per input'); return errs; }
+
+  const tbs = {};
+  for (const b of v.bodies) {
+    if (![b.x0, b.y0, b.vx, b.vy].every(Number.isFinite) || !nonEmpty(b.id)) { err('body needs id, x0, y0, vx, vy'); return errs; }
+    if (!(b.vx > 0)) err(`body ${b.id}: vx must be > 0`);
+    tbs[b.id] = traceBody(b);
+  }
+  inputs.forEach((inp, i) => {
+    const angle = inp.unit === 'מעלות';
+    if (!heb(inp.label)) err(`part ${i + 1}: label missing or not Hebrew`);
+    if (!nonEmpty(inp.unit) || !HEBREW.test(inp.unit) || LATIN_UNIT.test(inp.unit)) err(`part ${i + 1}: unit must be a Hebrew unit label`);
+    if (!DECIMAL.test(String(inp.answer))) return err(`part ${i + 1}: answer "${inp.answer}" must be a plain decimal with at most 2 decimals (ASCII minus)`);
+    const a = Number(inp.answer);
+    if (a === 0) err(`part ${i + 1}: answer 0 cannot carry a relative tolerance`);
+    if (typeof inp.tolerance !== 'number' || !(inp.tolerance > 0)) err(`part ${i + 1}: tolerance must be > 0`);
+    else if (angle && inp.tolerance > 0.5) err(`part ${i + 1}: angle tolerance ${inp.tolerance} exceeds 0.5 degrees`);
+    else if (!angle && inp.tolerance > 0.02 * Math.abs(a) + 1e-12) err(`part ${i + 1}: tolerance ${inp.tolerance} exceeds 2% of ${a}`);
+    if (angle && Math.abs(a) > 90) err(`part ${i + 1}: angle ${a} outside -90..90`);
+    if (!angle && /^(כיוון|הזווית|זווית)/.test(inp.label || '')) err(`part ${i + 1}: an angle part must use the unit מעלות`);
+    let sim;
+    try { sim = evalS4(v.queries[i], tbs); } catch (e) { return err(`part ${i + 1}: query failed: ${e.message}`); }
+    if (!Number.isFinite(sim)) return err(`part ${i + 1}: simulation found no finite value`);
+    if (!close(sim, a, 0.005) || !close(sim, a, inp.tolerance ?? 0)) err(`part ${i + 1}: stored answer ${a} differs from simulated ${Math.round(sim * 1e4) / 1e4}`);
+    if (angle && (Math.sign(sim) !== Math.sign(a))) err(`part ${i + 1}: angle sign differs from the simulation`);
+    if (it.tips && numbersIn(it.tips.join(' ')).includes(Math.abs(a))) err(`part ${i + 1}: a tip contains the answer ${a}`);
+  });
+  // every stated angle / speed must match the body that is simulated
+  for (const [ci, c] of (v.claims || []).entries()) {
+    let sim;
+    try { sim = evalS4(c.q, tbs); } catch (e) { err(`claim ${ci + 1}: ${e.message}`); continue; }
+    if (!Number.isFinite(sim) || !close(sim, c.value, c.tol)) err(`claim ${ci + 1}: statement value ${c.value} but the simulation gives ${Math.round(sim * 1e4) / 1e4}`);
+  }
+  if (v.target) {
+    const A = tbs.A;
+    const t = A && firstCross((s) => stateAt(A.X, s).p - v.target.x);
+    if (t === null || !A) err('target: the body never reaches the target distance');
+    else {
+      const st = s4At(A, t);
+      if (!close(st.y, v.target.y, 0.01)) err(`target: at x = ${v.target.x} the body is at height ${Math.round(st.y * 1e3) / 1e3}, not ${v.target.y}`);
+      if (v.target.descending && !(st.vy < 0)) err('target: the body must be descending at the target');
+      if (!it.scene || !it.scene.target || it.scene.target.x !== v.target.x || it.scene.target.y !== v.target.y) err('target: the scene must draw the same target');
+    }
+  }
+  if (v.sameLand) {
+    const [a, b] = v.sameLand.map((id) => tbs[id]);
+    const xa = a && evalS4({ body: v.sameLand[0], what: 'x', at: 'land' }, tbs), xb = b && evalS4({ body: v.sameLand[1], what: 'x', at: 'land' }, tbs);
+    if (!close(xa, xb, 0.01)) err(`sameLand: ranges differ (${xa} vs ${xb})`);
+  }
+  // the drawing follows the simulated body
+  const sc = it.scene, A = v.bodies[0];
+  if (!sc || sc.vx !== A.vx || sc.vy !== A.vy || (sc.h0 || 0) !== A.y0) err('scene shape must equal the first simulated body (h0, vx, vy)');
+  else {
+    try {
+      const d = ladderDiagram(it);
+      if (d.replace(/\r\n?/g, '\n') !== String(it.diagram).replace(/\r\n?/g, '\n')) err('stored diagram differs from the generated one (run node tools/diagrams.mjs --write)');
+      layoutIssues(d).forEach((m) => err(`diagram layout: ${m}`));
+    } catch (e) { err(`diagram generation failed: ${e.message}`); }
+    const label = Object.values(sc.labels || {}).join(' ');
+    if (sc.labels && sc.labels.ang && Math.abs(A.vy) > 0 && !sc.labels.ang.includes(String(Math.round(Math.abs(Math.atan2(A.vy, A.vx) * 180 / Math.PI))))) err('scene angle label does not match the launch angle');
+    if (!label) err('scene has no labels');
+  }
+  return errs;
+}
+
 /** Inline items = stage items without a ref. */
 export const inlineItems = (data) => ((data && data.stages) || []).flatMap((st) => (st.items || []).filter((it) => it && !it.ref).map((it) => ({ stage: st.id, it })));
 
@@ -228,8 +356,9 @@ export function checkLadder(data) {
   for (const { stage, it } of inlineItems(data)) {
     if (seen.has(it.id)) errs.push(`${it.id}: duplicate id`);
     seen.add(it.id);
-    if (stage !== 'S3') errs.push(`${it.id}: inline items are only verified for S3 (found in ${stage})`);
-    errs.push(...checkItem(it));
+    if (stage === 'S3') errs.push(...checkItem(it));
+    else if (stage === 'S4') errs.push(...checkItemS4(it));
+    else errs.push(`${it.id}: inline items are only verified for S3 and S4 (found in ${stage})`);
   }
   return errs;
 }

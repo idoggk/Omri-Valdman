@@ -6,13 +6,14 @@ import { ladderDiagram, graph, seriesSamples, layoutIssues, validateSvg, diagram
 import { models } from '../tools/verify-physics.mjs';
 
 const data = JSON.parse(readFileSync(new URL('../data/ladder.json', import.meta.url), 'utf8'));
-const items = inlineItems(data).map((x) => x.it);
+const items = inlineItems(data).filter((x) => x.stage === 'S3').map((x) => x.it);
+const s4 = inlineItems(data).filter((x) => x.stage === 'S4').map((x) => x.it);
 const clone = (x) => JSON.parse(JSON.stringify(x));
 const first = () => clone(items[0]);
 
 test('ladder data: at least 12 inline S3 items, all verified by the independent simulator', () => {
   assert.ok(items.length >= 12);
-  assert.ok(inlineItems(data).every((x) => x.stage === 'S3'));
+  assert.ok(inlineItems(data).every((x) => x.stage === 'S3' || x.stage === 'S4'));
   assert.deepEqual(checkLadder(data), []);
 });
 
@@ -80,4 +81,51 @@ test('graph(): parabola sampling, ticks hold the marked values, labels do not ov
 
 test('the graph generator does not touch the physics registry (model-key equality stays green)', () => {
   assert.deepEqual(Object.keys(diagrams).sort(), Object.keys(models).sort());
+});
+
+// ---------------------------------------------------------------- stage S4 (angled launch)
+import { checkItemS4, traceBody, evalS4 } from '../tools/verify-ladder.mjs';
+import { parse, isCorrect } from '../js/check.js';
+
+test('S4: at least 12 items, ids lad-s4-NN, 4-5 parts, signed angle answers in degrees', () => {
+  assert.ok(s4.length >= 12);
+  for (const it of s4) {
+    assert.deepEqual(checkItemS4(it), [], it.id);
+    assert.match(it.id, /^lad-s4-\d{2}$/);
+    assert.ok(it.inputs.length >= 4 && it.inputs.length <= 5, it.id);
+    for (const inp of it.inputs.filter((i) => i.unit === 'מעלות')) assert.ok(inp.tolerance <= 0.5, it.id);
+  }
+  assert.ok(s4.some((it) => it.inputs.some((i) => i.unit === 'מעלות' && Number(i.answer) < 0)), 'a negative (below the horizontal) direction exists');
+  assert.ok(s4.some((it) => it.inputs.some((i) => i.unit === 'מעלות' && Number(i.answer) > 0)), 'a positive direction exists');
+});
+
+test('S4 simulator: dt stepping + bisection give landing time, speed and signed direction', () => {
+  const tbs = { A: traceBody({ id: 'A', x0: 0, y0: 45, vx: 16, vy: 0 }) };
+  assert.ok(Math.abs(evalS4({ body: 'A', what: 't', at: 'land' }, tbs) - 3) < 1e-6);
+  assert.ok(Math.abs(evalS4({ body: 'A', what: 'speed', at: 'land' }, tbs) - 34) < 1e-3);
+  assert.ok(Math.abs(evalS4({ body: 'A', what: 'ang', at: 'land' }, tbs) + 61.9275) < 1e-3);
+  assert.ok(Math.abs(evalS4({ body: 'A', what: 'y', at: { x: 32 } }, tbs) - 25) < 1e-3);
+});
+
+test('S4 verifier catches: wrong answer, lost sign, bad angle tolerance, missing sign line, wrong hoop, wrong stated angle', () => {
+  const mutate = (idx, fn) => { const it = clone(s4[idx]); fn(it); return checkItemS4(it).join('|'); };
+  const angIdx = (it) => it.inputs.findIndex((i) => i.unit === 'מעלות');
+  assert.match(mutate(0, (it) => { it.inputs[1].answer = '50'; it.inputs[1].tolerance = 0.5; }), /differs from simulated/);
+  assert.match(mutate(0, (it) => { const i = angIdx(it); it.inputs[i].answer = it.inputs[i].answer.replace('-', ''); }), /differs from simulated|angle sign/);
+  assert.match(mutate(0, (it) => { it.inputs[angIdx(it)].tolerance = 1; }), /exceeds 0.5 degrees/);
+  assert.match(mutate(0, (it) => { it.statement = it.statement.replace('זווית מעל (+) או מתחת (−) לאופק', ''); }), /sign-convention/);
+  assert.match(mutate(3, (it) => { it.verify.target.y = 3.4; it.scene.target.y = 3.4; }), /target: at x = 8/);
+  assert.match(mutate(4, (it) => { it.verify.claims[0].value = 60; }), /statement value 60/);
+  assert.match(mutate(0, (it) => { it.inputs[0].answer = '3.125'; }), /at most 2 decimals/);
+});
+
+test('answer checker accepts negative angles with minus variants and the unit label מעלות', () => {
+  assert.equal(parse('-53.13'), -53.13);
+  assert.equal(parse('−53.13'), -53.13);
+  assert.equal(parse('-53.13 מעלות'), -53.13);
+  assert.equal(parse('-53.13°'), -53.13);
+  assert.equal(parse('33.69 מעלות'), 33.69);
+  assert.ok(isCorrect('-53.1', '-53.13', 0.5));
+  assert.ok(!isCorrect('53.13', '-53.13', 0.5), 'the sign matters');
+  assert.equal(parse('מעלות'), null);
 });

@@ -40,7 +40,7 @@ test('ladder.json: six Hebrew stages, every ref resolves to a physics exercise, 
   }
   const all = L.allRefs(stages);
   assert.equal(new Set(all).size, all.length, 'an exercise appears in two stages');
-  assert.deepEqual(stages.map((s) => s.items.length), [12, 22, 13, 0, 30, 0]);
+  assert.deepEqual(stages.map((s) => s.items.length), [12, 22, 13, 12, 30, 0]);
 });
 
 test('needed(): ceil of 70%', () => {
@@ -126,8 +126,8 @@ test('UI: overview shows six cards with status, progress and soon note; locked s
   assert.match(text, /🔓 פתוח/);
   assert.match(text, /🔒 נעול/);
   assert.match(text, /0\/13 לבד/);
-  assert.equal((text.match(/⏳ בקרוב/g) || []).length, 2);
-  assert.deepEqual(hrefs().filter((h) => h.startsWith('#/ladder/')), ['#/ladder/S1', '#/ladder/S2', '#/ladder/S3', '#/ladder/S5']);
+  assert.equal((text.match(/⏳ בקרוב/g) || []).length, 1);
+  assert.deepEqual(hrefs().filter((h) => h.startsWith('#/ladder/')), ['#/ladder/S1', '#/ladder/S2', '#/ladder/S3', '#/ladder/S4', '#/ladder/S5']);
 
   await U.viewLadderRoute(ctx, 'S2'); // locked: no item list, skip button
   assert.match(dom.root.textContent, /השלב נעול/);
@@ -136,7 +136,7 @@ test('UI: overview shows six cards with status, progress and soon note; locked s
   assert.equal(hrefs().filter((h) => /^#\/ladder\/S2\/\d+$/.test(h)).length, 22);
   assert.deepEqual(L.loadLadder().skip, { S2: true });
 
-  await U.viewLadderRoute(ctx, 'S4');
+  await U.viewLadderRoute(ctx, 'S6');
   assert.match(dom.root.textContent, /יתווספו בקרוב/);
   await U.viewLadderRoute(ctx, 'nope');
   assert.match(dom.root.textContent, /הסלם לרמת מבחן/);
