@@ -105,3 +105,9 @@ test('pwa: reloads once when a new worker takes control of a stale page', async 
   first.listeners.controllerchange();
   assert.equal(first.reloads(), 0);
 });
+
+test('sw.js CACHE_VERSION equals pwa.js APP_VERSION', () => {
+  const swV = /CACHE_VERSION = 'v(\d+)'/.exec(read('sw.js'))[1];
+  const pwaV = /APP_VERSION = '(\d+)'/.exec(read('js/pwa.js'))[1];
+  assert.equal(pwaV, swV);
+});
