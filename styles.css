@@ -153,6 +153,8 @@ a { color: var(--accent); }
 .overlay { position: fixed; inset: 0; background: rgba(0,0,0,.55); z-index: 50; display: flex; align-items: flex-end; justify-content: center; }
 .overlay-panel { background: var(--bg); color: var(--text); width: 100%; max-width: 760px; max-height: 90vh; overflow-y: auto; border-radius: 18px 18px 0 0; padding: 14px 16px 28px; }
 .overlay-head { display: flex; justify-content: space-between; align-items: center; gap: 10px; position: sticky; top: 0; background: var(--bg); padding-bottom: 6px; }
+/* sticky stage/tab rows must stay below the iOS status bar in standalone mode */
+[role="tablist"] { position: sticky; top: env(safe-area-inset-top, 0px); padding-top: env(safe-area-inset-top, 0px); z-index: 15; background: var(--bg); }
 .sheet-items { list-style: none; padding: 0; display: grid; gap: 8px; }
 .sheet-items li { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 8px 12px; }
 .sheet-formula { font-size: 1.15rem; unicode-bidi: isolate; }

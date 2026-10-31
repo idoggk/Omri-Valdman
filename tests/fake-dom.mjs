@@ -49,7 +49,7 @@ export class FakeElement extends FakeNode {
   walk(fn) { fn(this); this.children.forEach((c) => c.walk && c.walk(fn)); }
   all(pred) { const out = []; this.walk((n) => { if (pred(n)) out.push(n); }); return out; }
   querySelector(sel) { return this.all((n) => n.tagName === sel.toUpperCase())[0] || null; }
-  byText(tag, text) { return this.all((n) => n.tagName === tag.toUpperCase() && n.textContent.includes(text))[0] || null; }
+  byText(tag, text) { const plain = (s) => s.replace(/[⁦⁩]/g, ''); return this.all((n) => n.tagName === tag.toUpperCase() && plain(n.textContent).includes(plain(text)))[0] || null; }
 }
 
 /** Installs document/location/localStorage/Date.now/timers stubs on globalThis. Returns a control object. */
