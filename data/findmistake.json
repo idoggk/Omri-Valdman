@@ -1,0 +1,2936 @@
+[
+  {
+    "id": "fm-m-001",
+    "topic": "math-3",
+    "level": 2,
+    "title": "חיבור משוואות ושגיאת חישוב באגפים",
+    "statement": "פתרו את מערכת המשוואות:<br><span dir=\"ltr\">x + y + z = 6</span><br><span dir=\"ltr\">2x − y + z = 3</span><br><span dir=\"ltr\">x + 2y − z = 2</span>",
+    "steps": [
+      {
+        "text": "נחבר את משוואה 1 למשוואה 3 כדי לחסל את z: <span dir=\"ltr\">2x + 3y = 8</span>.",
+        "check": {
+          "type": "holds",
+          "eqs": [
+            "2*x+3*y=8"
+          ]
+        }
+      },
+      {
+        "text": "נחבר את משוואה 2 למשוואה 3: <span dir=\"ltr\">3x + y = 5</span>.",
+        "check": {
+          "type": "holds",
+          "eqs": [
+            "3*x+y=5"
+          ]
+        }
+      },
+      {
+        "text": "ממשוואה זו <span dir=\"ltr\">y = 5 − 3x</span>. נציב ב־<span dir=\"ltr\">2x + 3y = 8</span>: <span dir=\"ltr\">2x + 15 − 9x = 8</span>, כלומר <span dir=\"ltr\">−7x + 15 = 8</span>.",
+        "check": {
+          "type": "holds",
+          "eqs": [
+            "-7*x+15=8"
+          ]
+        }
+      },
+      {
+        "text": "נעביר אגפים: <span dir=\"ltr\">−7x = 8 − 15 = 7</span>, ולכן <span dir=\"ltr\">x = −1</span>.",
+        "check": {
+          "type": "holds",
+          "eqs": [
+            "-7*x=7"
+          ]
+        }
+      },
+      {
+        "text": "נציב: <span dir=\"ltr\">y = 5 − 3·(−1) = 8</span> ו־<span dir=\"ltr\">z = 6 − x − y = −1</span>. הפתרון: <span dir=\"ltr\">(−1, 8, −1)</span>.",
+        "check": {
+          "type": "sols",
+          "sols": [
+            [
+              -1,
+              8,
+              -1
+            ]
+          ]
+        }
+      }
+    ],
+    "firstWrong": 3,
+    "errorType": "arithmetic",
+    "whyWrong": "8 − 15 שווה −7 ולא 7. זו טעות חישוב בהעברת האגפים, ומכאן כל המשך הפתרון שגוי.",
+    "correctedStep": "<span dir=\"ltr\">−7x = 8 − 15 = −7</span>, ולכן <span dir=\"ltr\">x = 1</span>.",
+    "correctFinal": [
+      {
+        "label": "x",
+        "unit": "",
+        "answer": "1"
+      },
+      {
+        "label": "y",
+        "unit": "",
+        "answer": "2"
+      },
+      {
+        "label": "z",
+        "unit": "",
+        "answer": "3"
+      }
+    ],
+    "verify": {
+      "vars": [
+        "x",
+        "y",
+        "z"
+      ],
+      "equations": [
+        "x+y+z=6",
+        "2*x-y+z=3",
+        "x+2*y-z=2"
+      ],
+      "corrected": {
+        "type": "holds",
+        "eqs": [
+          "-7*x=-7"
+        ]
+      }
+    }
+  },
+  {
+    "id": "fm-m-002",
+    "topic": "math-3",
+    "level": 2,
+    "title": "בידוד משתנה והעברת אגף",
+    "statement": "פתרו את מערכת המשוואות:<br><span dir=\"ltr\">x + 2y + z = 3</span><br><span dir=\"ltr\">2x − y − z = 2</span><br><span dir=\"ltr\">3x + y − 2z = −1</span>",
+    "steps": [
+      {
+        "text": "נחבר את משוואה 1 ו־2 כדי לחסל את z: <span dir=\"ltr\">3x + y = 5</span>.",
+        "check": {
+          "type": "holds",
+          "eqs": [
+            "3*x+y=5"
+          ]
+        }
+      },
+      {
+        "text": "נכפול את משוואה 1 ב־2 ונחבר למשוואה 3 (z מתחסל שוב): <span dir=\"ltr\">2x + 4y + 2z = 6</span> ולכן <span dir=\"ltr\">5x + 5y = 5</span>, כלומר <span dir=\"ltr\">x + y = 1</span>.",
+        "check": {
+          "type": "holds",
+          "eqs": [
+            "x+y=1"
+          ]
+        }
+      },
+      {
+        "text": "נחסר: <span dir=\"ltr\">(3x + y) − (x + y) = 5 − 1</span>, כלומר <span dir=\"ltr\">2x = 4</span> ולכן <span dir=\"ltr\">x = 2</span>.",
+        "check": {
+          "type": "holds",
+          "eqs": [
+            "x=2"
+          ]
+        }
+      },
+      {
+        "text": "מ־<span dir=\"ltr\">x + y = 1</span> נקבל <span dir=\"ltr\">y = 1 + x = 3</span>.",
+        "check": {
+          "type": "holds",
+          "eqs": [
+            "y=3"
+          ]
+        }
+      },
+      {
+        "text": "ממשוואה 1: <span dir=\"ltr\">z = 3 − x − 2y = 3 − 2 − 6 = −5</span>. הפתרון: <span dir=\"ltr\">(2, 3, −5)</span>.",
+        "check": {
+          "type": "sols",
+          "sols": [
+            [
+              2,
+              3,
+              -5
+            ]
+          ]
+        }
+      }
+    ],
+    "firstWrong": 3,
+    "errorType": "sign",
+    "whyWrong": "כשמבודדים y מהמשוואה x + y = 1 מעבירים את x לאגף השני ומחליפים סימן: y = 1 − x ולא 1 + x. עם x = 2 מקבלים y = −1.",
+    "correctedStep": "נקבל <span dir=\"ltr\">y = 1 − x = 1 − 2 = −1</span>.",
+    "correctFinal": [
+      {
+        "label": "x",
+        "unit": "",
+        "answer": "2"
+      },
+      {
+        "label": "y",
+        "unit": "",
+        "answer": "-1"
+      },
+      {
+        "label": "z",
+        "unit": "",
+        "answer": "3"
+      }
+    ],
+    "verify": {
+      "vars": [
+        "x",
+        "y",
+        "z"
+      ],
+      "equations": [
+        "x+2*y+z=3",
+        "2*x-y-z=2",
+        "3*x+y-2*z=-1"
+      ],
+      "corrected": {
+        "type": "holds",
+        "eqs": [
+          "y=-1"
+        ]
+      }
+    }
+  },
+  {
+    "id": "fm-m-003",
+    "topic": "math-3",
+    "level": 3,
+    "title": "חילוק בגורם שיכול להיות אפס",
+    "statement": "פתרו את מערכת המשוואות:<br><span dir=\"ltr\">x·(y − 3) = 0</span><br><span dir=\"ltr\">x + y + z = 6</span><br><span dir=\"ltr\">y − z = 2</span>",
+    "steps": [
+      {
+        "text": "נחסר את משוואה 3 ממשוואה 2: <span dir=\"ltr\">x + 2z = 4</span>.",
+        "check": {
+          "type": "holds",
+          "eqs": [
+            "x+2*z=4"
+          ]
+        }
+      },
+      {
+        "text": "משוואה 1 היא מכפלה: <span dir=\"ltr\">x·(y − 3) = 0</span>.",
+        "check": {
+          "type": "holds",
+          "eqs": [
+            "x*(y-3)=0"
+          ]
+        }
+      },
+      {
+        "text": "נחלק את שני האגפים ב־x: <span dir=\"ltr\">y − 3 = 0</span>, כלומר <span dir=\"ltr\">y = 3</span>.",
+        "check": {
+          "type": "holds",
+          "eqs": [
+            "y=3"
+          ]
+        }
+      },
+      {
+        "text": "ממשוואה 3: <span dir=\"ltr\">z = y − 2 = 1</span>, וממשוואה 2: <span dir=\"ltr\">x = 6 − 3 − 1 = 2</span>.",
+        "check": {
+          "type": "text"
+        }
+      },
+      {
+        "text": "בדיקה: <span dir=\"ltr\">2 + 3 + 1 = 6</span>. הפתרון: <span dir=\"ltr\">(2, 3, 1)</span>.",
+        "check": {
+          "type": "sols",
+          "sols": [
+            [
+              2,
+              3,
+              1
+            ]
+          ]
+        }
+      }
+    ],
+    "firstWrong": 2,
+    "errorType": "division-by-zero",
+    "whyWrong": "x עשוי להיות 0, ואסור לחלק באפס. החילוק ב־x מאבד את המקרה x = 0. נכון לקבל מהמכפלה: x = 0 או y = 3, ולפתור כל מקרה בנפרד.",
+    "correctedStep": "<span dir=\"ltr\">x·(y − 3) = 0</span> ולכן <span dir=\"ltr\">x = 0</span> או <span dir=\"ltr\">y = 3</span>. עבור <span dir=\"ltr\">x = 0</span>: <span dir=\"ltr\">y = 4, z = 2</span>. עבור <span dir=\"ltr\">y = 3</span>: <span dir=\"ltr\">x = 2, z = 1</span>.",
+    "correctFinal": [
+      {
+        "label": "x (פתרון 1)",
+        "unit": "",
+        "answer": "0"
+      },
+      {
+        "label": "y (פתרון 1)",
+        "unit": "",
+        "answer": "4"
+      },
+      {
+        "label": "z (פתרון 1)",
+        "unit": "",
+        "answer": "2"
+      },
+      {
+        "label": "x (פתרון 2)",
+        "unit": "",
+        "answer": "2"
+      },
+      {
+        "label": "y (פתרון 2)",
+        "unit": "",
+        "answer": "3"
+      },
+      {
+        "label": "z (פתרון 2)",
+        "unit": "",
+        "answer": "1"
+      }
+    ],
+    "verify": {
+      "vars": [
+        "x",
+        "y",
+        "z"
+      ],
+      "equations": [
+        "x*(y-3)=0",
+        "x+y+z=6",
+        "y-z=2"
+      ],
+      "corrected": {
+        "type": "sols",
+        "sols": [
+          [
+            0,
+            4,
+            2
+          ],
+          [
+            2,
+            3,
+            1
+          ]
+        ]
+      }
+    }
+  },
+  {
+    "id": "fm-m-004",
+    "topic": "math-3",
+    "level": 3,
+    "title": "שורש ריבועי ושני סימנים",
+    "statement": "פתרו את מערכת המשוואות:<br><span dir=\"ltr\">x² + y = 11</span><br><span dir=\"ltr\">x + y − z = 4</span><br><span dir=\"ltr\">2y + x² = 13</span>",
+    "steps": [
+      {
+        "text": "נחסר את משוואה 1 ממשוואה 3: <span dir=\"ltr\">y = 2</span>.",
+        "check": {
+          "type": "holds",
+          "eqs": [
+            "y=2"
+          ]
+        }
+      },
+      {
+        "text": "נציב במשוואה 1: <span dir=\"ltr\">x² + 2 = 11</span>, ולכן <span dir=\"ltr\">x² = 9</span>.",
+        "check": {
+          "type": "holds",
+          "eqs": [
+            "x^2=9"
+          ]
+        }
+      },
+      {
+        "text": "נוציא שורש: <span dir=\"ltr\">x = 3</span>.",
+        "check": {
+          "type": "holds",
+          "eqs": [
+            "x=3"
+          ]
+        }
+      },
+      {
+        "text": "ממשוואה 2: <span dir=\"ltr\">z = x + y − 4 = 3 + 2 − 4 = 1</span>.",
+        "check": {
+          "type": "text"
+        }
+      },
+      {
+        "text": "הפתרון: <span dir=\"ltr\">(3, 2, 1)</span>.",
+        "check": {
+          "type": "sols",
+          "sols": [
+            [
+              3,
+              2,
+              1
+            ]
+          ]
+        }
+      }
+    ],
+    "firstWrong": 2,
+    "errorType": "lost-root",
+    "whyWrong": "למשוואה x² = 9 יש שני פתרונות, x = 3 וגם x = −3. הוצאת שורש מחייבת לכתוב ±, ואחרת מאבדים את השורש השלילי.",
+    "correctedStep": "<span dir=\"ltr\">x = 3</span> או <span dir=\"ltr\">x = −3</span>. עבור <span dir=\"ltr\">x = −3</span>: <span dir=\"ltr\">z = −3 + 2 − 4 = −5</span>. שני הפתרונות: <span dir=\"ltr\">(3, 2, 1)</span> ו־<span dir=\"ltr\">(−3, 2, −5)</span>.",
+    "correctFinal": [
+      {
+        "label": "x (פתרון 1)",
+        "unit": "",
+        "answer": "-3"
+      },
+      {
+        "label": "y (פתרון 1)",
+        "unit": "",
+        "answer": "2"
+      },
+      {
+        "label": "z (פתרון 1)",
+        "unit": "",
+        "answer": "-5"
+      },
+      {
+        "label": "x (פתרון 2)",
+        "unit": "",
+        "answer": "3"
+      },
+      {
+        "label": "y (פתרון 2)",
+        "unit": "",
+        "answer": "2"
+      },
+      {
+        "label": "z (פתרון 2)",
+        "unit": "",
+        "answer": "1"
+      }
+    ],
+    "verify": {
+      "vars": [
+        "x",
+        "y",
+        "z"
+      ],
+      "equations": [
+        "x^2+y=11",
+        "x+y-z=4",
+        "2*y+x^2=13"
+      ],
+      "implied": [
+        "y=2"
+      ],
+      "corrected": {
+        "type": "sols",
+        "sols": [
+          [
+            3,
+            2,
+            1
+          ],
+          [
+            -3,
+            2,
+            -5
+          ]
+        ]
+      }
+    }
+  },
+  {
+    "id": "fm-m-005",
+    "topic": "math-3",
+    "level": 3,
+    "title": "נוסחת השורשים עם מכנה שגוי",
+    "statement": "פתרו את מערכת המשוואות:<br><span dir=\"ltr\">2x² − 7x + 3 = 0</span><br><span dir=\"ltr\">y − 2x = 1</span><br><span dir=\"ltr\">z − x − y = 0</span>",
+    "steps": [
+      {
+        "text": "משוואה 1 ריבועית ב־x בלבד: <span dir=\"ltr\">2x² − 7x + 3 = 0</span>, עם <span dir=\"ltr\">a = 2, b = −7, c = 3</span>.",
+        "check": {
+          "type": "holds",
+          "eqs": [
+            "2*x^2-7*x+3=0"
+          ]
+        }
+      },
+      {
+        "text": "דיסקרימיננטה: <span dir=\"ltr\">Δ = b² − 4ac = 49 − 24 = 25</span>, ולכן <span dir=\"ltr\">√Δ = 5</span>.",
+        "check": {
+          "type": "text"
+        }
+      },
+      {
+        "text": "נציב בנוסחה: <span dir=\"ltr\">x = (7 ± 5) / 2</span>, כלומר <span dir=\"ltr\">x = 6</span> או <span dir=\"ltr\">x = 1</span>.",
+        "check": {
+          "type": "holds",
+          "eqs": [
+            "(x-6)*(x-1)=0"
+          ]
+        }
+      },
+      {
+        "text": "ממשוואה 2: <span dir=\"ltr\">y = 2x + 1</span>. עבור x = 6 נקבל <span dir=\"ltr\">y = 13</span>, ועבור x = 1 נקבל <span dir=\"ltr\">y = 3</span>.",
+        "check": {
+          "type": "text"
+        }
+      },
+      {
+        "text": "ממשוואה 3: <span dir=\"ltr\">z = x + y</span>. הפתרונות: <span dir=\"ltr\">(6, 13, 19)</span> ו־<span dir=\"ltr\">(1, 3, 4)</span>.",
+        "check": {
+          "type": "sols",
+          "sols": [
+            [
+              6,
+              13,
+              19
+            ],
+            [
+              1,
+              3,
+              4
+            ]
+          ]
+        }
+      }
+    ],
+    "firstWrong": 2,
+    "errorType": "wrong-formula",
+    "whyWrong": "במכנה של נוסחת השורשים צריך להיות 2a = 4 ולא 2. לכן x = (7 ± 5) / 4, ולא (7 ± 5) / 2.",
+    "correctedStep": "<span dir=\"ltr\">x = (7 ± 5) / 4</span>, כלומר <span dir=\"ltr\">x = 3</span> או <span dir=\"ltr\">x = 0.5</span>.",
+    "correctFinal": [
+      {
+        "label": "x (פתרון 1)",
+        "unit": "",
+        "answer": "0.5"
+      },
+      {
+        "label": "y (פתרון 1)",
+        "unit": "",
+        "answer": "2"
+      },
+      {
+        "label": "z (פתרון 1)",
+        "unit": "",
+        "answer": "2.5"
+      },
+      {
+        "label": "x (פתרון 2)",
+        "unit": "",
+        "answer": "3"
+      },
+      {
+        "label": "y (פתרון 2)",
+        "unit": "",
+        "answer": "7"
+      },
+      {
+        "label": "z (פתרון 2)",
+        "unit": "",
+        "answer": "10"
+      }
+    ],
+    "verify": {
+      "vars": [
+        "x",
+        "y",
+        "z"
+      ],
+      "equations": [
+        "2*x^2-7*x+3=0",
+        "y-2*x=1",
+        "z-x-y=0"
+      ],
+      "corrected": {
+        "type": "holds",
+        "eqs": [
+          "(x-3)*(2*x-1)=0"
+        ]
+      }
+    }
+  },
+  {
+    "id": "fm-m-006",
+    "topic": "math-3",
+    "level": 3,
+    "title": "מועמד שלא נבדק בכל המשוואות",
+    "statement": "פתרו את מערכת המשוואות:<br><span dir=\"ltr\">x + y = 5</span><br><span dir=\"ltr\">x·y = 6</span><br><span dir=\"ltr\">z·(x − 2) = 3</span>",
+    "steps": [
+      {
+        "text": "ממשוואה 1: <span dir=\"ltr\">y = 5 − x</span>. נציב במשוואה 2: <span dir=\"ltr\">x(5 − x) = 6</span>, כלומר <span dir=\"ltr\">x² − 5x + 6 = 0</span>.",
+        "check": {
+          "type": "holds",
+          "eqs": [
+            "x^2-5*x+6=0"
+          ]
+        }
+      },
+      {
+        "text": "פירוק: <span dir=\"ltr\">(x − 2)(x − 3) = 0</span>, ולכן <span dir=\"ltr\">x = 2</span> או <span dir=\"ltr\">x = 3</span>, ובהתאם <span dir=\"ltr\">y = 3</span> או <span dir=\"ltr\">y = 2</span>.",
+        "check": {
+          "type": "holds",
+          "eqs": [
+            "(x-2)*(x-3)=0"
+          ]
+        }
+      },
+      {
+        "text": "שני הזוגות מקיימים את שתי המשוואות הראשונות, ולכן שניהם פתרונות: <span dir=\"ltr\">(x, y) = (2, 3)</span> וגם <span dir=\"ltr\">(x, y) = (3, 2)</span>.",
+        "check": {
+          "type": "cands",
+          "vars": [
+            "x",
+            "y"
+          ],
+          "sets": [
+            [
+              2,
+              3
+            ],
+            [
+              3,
+              2
+            ]
+          ]
+        }
+      },
+      {
+        "text": "עבור x = 3: <span dir=\"ltr\">z·(3 − 2) = 3</span>, ולכן <span dir=\"ltr\">z = 3</span>.",
+        "check": {
+          "type": "text"
+        }
+      },
+      {
+        "text": "עבור x = 2: <span dir=\"ltr\">z·0 = 3</span>, ונרשום z = 3 גם כאן. הפתרונות: <span dir=\"ltr\">(3, 2, 3)</span> ו־<span dir=\"ltr\">(2, 3, 3)</span>.",
+        "check": {
+          "type": "sols",
+          "sols": [
+            [
+              3,
+              2,
+              3
+            ],
+            [
+              2,
+              3,
+              3
+            ]
+          ]
+        }
+      }
+    ],
+    "firstWrong": 2,
+    "errorType": "extraneous",
+    "whyWrong": "לא בדקנו את משוואה 3. עבור x = 2 מתקבל z·0 = 3, וזה לא מתקיים לאף z, ולכן (2, 3) אינו פתרון של המערכת. כל מועמד חייב לעבור בדיקה בכל המשוואות.",
+    "correctedStep": "נבדוק כל זוג במשוואה 3. עבור x = 2: <span dir=\"ltr\">z·0 = 3</span>, וזה בלתי אפשרי, ולכן הזוג נפסל. נשאר <span dir=\"ltr\">(x, y) = (3, 2)</span>.",
+    "correctFinal": [
+      {
+        "label": "x",
+        "unit": "",
+        "answer": "3"
+      },
+      {
+        "label": "y",
+        "unit": "",
+        "answer": "2"
+      },
+      {
+        "label": "z",
+        "unit": "",
+        "answer": "3"
+      }
+    ],
+    "verify": {
+      "vars": [
+        "x",
+        "y",
+        "z"
+      ],
+      "equations": [
+        "x+y=5",
+        "x*y=6",
+        "z*(x-2)=3"
+      ],
+      "corrected": {
+        "type": "cands",
+        "vars": [
+          "x",
+          "y"
+        ],
+        "sets": [
+          [
+            3,
+            2
+          ]
+        ]
+      }
+    }
+  },
+  {
+    "id": "fm-m-007",
+    "topic": "math-3",
+    "level": 2,
+    "title": "חילוק במספר שלילי",
+    "statement": "פתרו את מערכת המשוואות:<br><span dir=\"ltr\">x/2 + y = 0</span><br><span dir=\"ltr\">x + 2y + 3z = 3</span><br><span dir=\"ltr\">3x − y − 2z = 12</span>",
+    "steps": [
+      {
+        "text": "נכפול את משוואה 1 ב־2: <span dir=\"ltr\">x + 2y = 0</span>, ולכן <span dir=\"ltr\">x = −2y</span>.",
+        "check": {
+          "type": "holds",
+          "eqs": [
+            "x+2*y=0"
+          ]
+        }
+      },
+      {
+        "text": "נציב במשוואה 2: <span dir=\"ltr\">−2y + 2y + 3z = 3</span>, ולכן <span dir=\"ltr\">z = 1</span>.",
+        "check": {
+          "type": "holds",
+          "eqs": [
+            "z=1"
+          ]
+        }
+      },
+      {
+        "text": "נציב <span dir=\"ltr\">x = −2y</span> ו־<span dir=\"ltr\">z = 1</span> במשוואה 3: <span dir=\"ltr\">−6y − y − 2 = 12</span>, כלומר <span dir=\"ltr\">−7y = 14</span>.",
+        "check": {
+          "type": "holds",
+          "eqs": [
+            "-7*y=14"
+          ]
+        }
+      },
+      {
+        "text": "נחלק ב־<span dir=\"ltr\">−7</span>: <span dir=\"ltr\">y = 14 / 7 = 2</span>.",
+        "check": {
+          "type": "holds",
+          "eqs": [
+            "y=2"
+          ]
+        }
+      },
+      {
+        "text": "<span dir=\"ltr\">x = −2y = −4</span>. הפתרון: <span dir=\"ltr\">(−4, 2, 1)</span>.",
+        "check": {
+          "type": "sols",
+          "sols": [
+            [
+              -4,
+              2,
+              1
+            ]
+          ]
+        }
+      }
+    ],
+    "firstWrong": 3,
+    "errorType": "sign",
+    "whyWrong": "מחלקים מספר חיובי (14) במספר שלילי (−7), ולכן התוצאה שלילית: y = −2. שכחנו את הסימן של המחלק.",
+    "correctedStep": "<span dir=\"ltr\">y = 14 / (−7) = −2</span>, ולכן <span dir=\"ltr\">x = −2y = 4</span>.",
+    "correctFinal": [
+      {
+        "label": "x",
+        "unit": "",
+        "answer": "4"
+      },
+      {
+        "label": "y",
+        "unit": "",
+        "answer": "-2"
+      },
+      {
+        "label": "z",
+        "unit": "",
+        "answer": "1"
+      }
+    ],
+    "verify": {
+      "vars": [
+        "x",
+        "y",
+        "z"
+      ],
+      "equations": [
+        "x/2+y=0",
+        "x+2*y+3*z=3",
+        "3*x-y-2*z=12"
+      ],
+      "corrected": {
+        "type": "holds",
+        "eqs": [
+          "y=-2"
+        ]
+      }
+    }
+  },
+  {
+    "id": "fm-m-008",
+    "topic": "math-4",
+    "level": 2,
+    "title": "חיבור וחיסור משוואות בארבעה נעלמים",
+    "statement": "פתרו את מערכת המשוואות:<br><span dir=\"ltr\">x + y + z + w = 10</span><br><span dir=\"ltr\">x − y + z − w = −2</span><br><span dir=\"ltr\">x + y − z − w = −4</span><br><span dir=\"ltr\">x − y − z + w = 0</span>",
+    "steps": [
+      {
+        "text": "נחבר את משוואה 1 ו־2: <span dir=\"ltr\">2x + 2z = 8</span>, כלומר <span dir=\"ltr\">x + z = 4</span>.",
+        "check": {
+          "type": "holds",
+          "eqs": [
+            "x+z=4"
+          ]
+        }
+      },
+      {
+        "text": "נחסר את משוואה 2 ממשוואה 1: <span dir=\"ltr\">2y + 2w = 12</span>, כלומר <span dir=\"ltr\">y + w = 6</span>.",
+        "check": {
+          "type": "holds",
+          "eqs": [
+            "y+w=6"
+          ]
+        }
+      },
+      {
+        "text": "נחבר את משוואה 3 ו־4: <span dir=\"ltr\">2x − 2z = −4</span>, כלומר <span dir=\"ltr\">x − z = −2</span>.",
+        "check": {
+          "type": "holds",
+          "eqs": [
+            "x-z=-2"
+          ]
+        }
+      },
+      {
+        "text": "נחבר את <span dir=\"ltr\">x + z = 4</span> עם <span dir=\"ltr\">x − z = −2</span>: <span dir=\"ltr\">2x = 4 + (−2) = 6</span>, ולכן <span dir=\"ltr\">x = 3</span>.",
+        "check": {
+          "type": "holds",
+          "eqs": [
+            "2*x=6"
+          ]
+        }
+      },
+      {
+        "text": "<span dir=\"ltr\">z = 4 − 3 = 1</span>. ממשוואה 3 פחות 4: <span dir=\"ltr\">y − z = −2</span>, ולכן <span dir=\"ltr\">y = −1</span> ו־<span dir=\"ltr\">w = 6 − y = 7</span>. הפתרון: <span dir=\"ltr\">(3, −1, 1, 7)</span>.",
+        "check": {
+          "type": "sols",
+          "sols": [
+            [
+              3,
+              -1,
+              1,
+              7
+            ]
+          ]
+        }
+      }
+    ],
+    "firstWrong": 3,
+    "errorType": "arithmetic",
+    "whyWrong": "4 + (−2) שווה 2 ולא 6. זו טעות חישוב בחיבור, ולכן 2x = 2 ו־x = 1.",
+    "correctedStep": "<span dir=\"ltr\">2x = 4 + (−2) = 2</span>, ולכן <span dir=\"ltr\">x = 1</span>, <span dir=\"ltr\">z = 3</span>, <span dir=\"ltr\">y = 2</span>, <span dir=\"ltr\">w = 4</span>.",
+    "correctFinal": [
+      {
+        "label": "x",
+        "unit": "",
+        "answer": "1"
+      },
+      {
+        "label": "y",
+        "unit": "",
+        "answer": "2"
+      },
+      {
+        "label": "z",
+        "unit": "",
+        "answer": "3"
+      },
+      {
+        "label": "w",
+        "unit": "",
+        "answer": "4"
+      }
+    ],
+    "verify": {
+      "vars": [
+        "x",
+        "y",
+        "z",
+        "w"
+      ],
+      "equations": [
+        "x+y+z+w=10",
+        "x-y+z-w=-2",
+        "x+y-z-w=-4",
+        "x-y-z+w=0"
+      ],
+      "corrected": {
+        "type": "sols",
+        "sols": [
+          [
+            1,
+            2,
+            3,
+            4
+          ]
+        ]
+      }
+    }
+  },
+  {
+    "id": "fm-m-009",
+    "topic": "math-4",
+    "level": 3,
+    "title": "מכפלה שווה אפס וחילוק ב־x",
+    "statement": "פתרו את מערכת המשוואות:<br><span dir=\"ltr\">x·(y − 2) = 0</span><br><span dir=\"ltr\">x + y + z + w = 10</span><br><span dir=\"ltr\">y − z = 1</span><br><span dir=\"ltr\">z + w = 5</span>",
+    "steps": [
+      {
+        "text": "ממשוואות 3 ו־4: <span dir=\"ltr\">y = z + 1</span> ו־<span dir=\"ltr\">w = 5 − z</span>.",
+        "check": {
+          "type": "holds",
+          "eqs": [
+            "y=z+1",
+            "w=5-z"
+          ]
+        }
+      },
+      {
+        "text": "נציב במשוואה 2: <span dir=\"ltr\">x + (z + 1) + z + (5 − z) = 10</span>, כלומר <span dir=\"ltr\">x = 4 − z</span>.",
+        "check": {
+          "type": "holds",
+          "eqs": [
+            "x=4-z"
+          ]
+        }
+      },
+      {
+        "text": "משוואה 1 היא מכפלה: <span dir=\"ltr\">x·(y − 2) = 0</span>.",
+        "check": {
+          "type": "holds",
+          "eqs": [
+            "x*(y-2)=0"
+          ]
+        }
+      },
+      {
+        "text": "נחלק ב־x: <span dir=\"ltr\">y − 2 = 0</span>, ולכן <span dir=\"ltr\">y = 2</span>.",
+        "check": {
+          "type": "holds",
+          "eqs": [
+            "y=2"
+          ]
+        }
+      },
+      {
+        "text": "<span dir=\"ltr\">z = y − 1 = 1</span>, <span dir=\"ltr\">w = 4</span>, <span dir=\"ltr\">x = 4 − z = 3</span>. הפתרון: <span dir=\"ltr\">(3, 2, 1, 4)</span>.",
+        "check": {
+          "type": "sols",
+          "sols": [
+            [
+              3,
+              2,
+              1,
+              4
+            ]
+          ]
+        }
+      }
+    ],
+    "firstWrong": 3,
+    "errorType": "division-by-zero",
+    "whyWrong": "x יכול להיות 0, ואסור לחלק באפס. החילוק ב־x מאבד את המקרה x = 0. מהמכפלה מקבלים x = 0 או y = 2, ופותרים כל מקרה.",
+    "correctedStep": "<span dir=\"ltr\">x = 0</span> או <span dir=\"ltr\">y = 2</span>. אם <span dir=\"ltr\">x = 0</span>: <span dir=\"ltr\">z = 4, y = 5, w = 1</span>. אם <span dir=\"ltr\">y = 2</span>: <span dir=\"ltr\">z = 1, w = 4, x = 3</span>.",
+    "correctFinal": [
+      {
+        "label": "x (פתרון 1)",
+        "unit": "",
+        "answer": "0"
+      },
+      {
+        "label": "y (פתרון 1)",
+        "unit": "",
+        "answer": "5"
+      },
+      {
+        "label": "z (פתרון 1)",
+        "unit": "",
+        "answer": "4"
+      },
+      {
+        "label": "w (פתרון 1)",
+        "unit": "",
+        "answer": "1"
+      },
+      {
+        "label": "x (פתרון 2)",
+        "unit": "",
+        "answer": "3"
+      },
+      {
+        "label": "y (פתרון 2)",
+        "unit": "",
+        "answer": "2"
+      },
+      {
+        "label": "z (פתרון 2)",
+        "unit": "",
+        "answer": "1"
+      },
+      {
+        "label": "w (פתרון 2)",
+        "unit": "",
+        "answer": "4"
+      }
+    ],
+    "verify": {
+      "vars": [
+        "x",
+        "y",
+        "z",
+        "w"
+      ],
+      "equations": [
+        "x*(y-2)=0",
+        "x+y+z+w=10",
+        "y-z=1",
+        "z+w=5"
+      ],
+      "corrected": {
+        "type": "sols",
+        "sols": [
+          [
+            0,
+            5,
+            4,
+            1
+          ],
+          [
+            3,
+            2,
+            1,
+            4
+          ]
+        ]
+      }
+    }
+  },
+  {
+    "id": "fm-m-010",
+    "topic": "math-4",
+    "level": 3,
+    "title": "שורש ריבועי בלי ±",
+    "statement": "פתרו את מערכת המשוואות:<br><span dir=\"ltr\">(x − 2)² = 1</span><br><span dir=\"ltr\">y = 2x − 1</span><br><span dir=\"ltr\">z = y + x</span><br><span dir=\"ltr\">w = z − 2y</span>",
+    "steps": [
+      {
+        "text": "ממשוואות 2 ו־3: <span dir=\"ltr\">z = y + x = 3x − 1</span>.",
+        "check": {
+          "type": "holds",
+          "eqs": [
+            "z=3*x-1"
+          ]
+        }
+      },
+      {
+        "text": "ממשוואה 4: <span dir=\"ltr\">w = z − 2y = (3x − 1) − (4x − 2) = 1 − x</span>.",
+        "check": {
+          "type": "holds",
+          "eqs": [
+            "w=1-x"
+          ]
+        }
+      },
+      {
+        "text": "ממשוואה 1 נוציא שורש משני האגפים: <span dir=\"ltr\">x − 2 = 1</span>, ולכן <span dir=\"ltr\">x = 3</span>.",
+        "check": {
+          "type": "holds",
+          "eqs": [
+            "x-2=1"
+          ]
+        }
+      },
+      {
+        "text": "<span dir=\"ltr\">y = 5, z = 8, w = −2</span>. הפתרון: <span dir=\"ltr\">(3, 5, 8, −2)</span>.",
+        "check": {
+          "type": "sols",
+          "sols": [
+            [
+              3,
+              5,
+              8,
+              -2
+            ]
+          ]
+        }
+      }
+    ],
+    "firstWrong": 2,
+    "errorType": "lost-root",
+    "whyWrong": "אחרי הוצאת שורש יש שתי אפשרויות: x − 2 = 1 או x − 2 = −1. איבדנו את הפתרון x = 1.",
+    "correctedStep": "<span dir=\"ltr\">x − 2 = 1</span> או <span dir=\"ltr\">x − 2 = −1</span>, כלומר <span dir=\"ltr\">x = 3</span> או <span dir=\"ltr\">x = 1</span>. הפתרונות: <span dir=\"ltr\">(3, 5, 8, −2)</span> ו־<span dir=\"ltr\">(1, 1, 2, 0)</span>.",
+    "correctFinal": [
+      {
+        "label": "x (פתרון 1)",
+        "unit": "",
+        "answer": "1"
+      },
+      {
+        "label": "y (פתרון 1)",
+        "unit": "",
+        "answer": "1"
+      },
+      {
+        "label": "z (פתרון 1)",
+        "unit": "",
+        "answer": "2"
+      },
+      {
+        "label": "w (פתרון 1)",
+        "unit": "",
+        "answer": "0"
+      },
+      {
+        "label": "x (פתרון 2)",
+        "unit": "",
+        "answer": "3"
+      },
+      {
+        "label": "y (פתרון 2)",
+        "unit": "",
+        "answer": "5"
+      },
+      {
+        "label": "z (פתרון 2)",
+        "unit": "",
+        "answer": "8"
+      },
+      {
+        "label": "w (פתרון 2)",
+        "unit": "",
+        "answer": "-2"
+      }
+    ],
+    "verify": {
+      "vars": [
+        "x",
+        "y",
+        "z",
+        "w"
+      ],
+      "equations": [
+        "(x-2)^2=1",
+        "y=2*x-1",
+        "z=y+x",
+        "w=z-2*y"
+      ],
+      "corrected": {
+        "type": "sols",
+        "sols": [
+          [
+            3,
+            5,
+            8,
+            -2
+          ],
+          [
+            1,
+            1,
+            2,
+            0
+          ]
+        ]
+      }
+    }
+  },
+  {
+    "id": "fm-m-011",
+    "topic": "math-4",
+    "level": 2,
+    "title": "סוגריים עם מינוס מקדימה",
+    "statement": "פתרו את מערכת המשוואות:<br><span dir=\"ltr\">x + y + z + w = 5</span><br><span dir=\"ltr\">x − y + 2z = 9</span><br><span dir=\"ltr\">y + 2z − w = 4</span><br><span dir=\"ltr\">x + w = 3</span>",
+    "steps": [
+      {
+        "text": "ממשוואה 4: <span dir=\"ltr\">w = 3 − x</span>.",
+        "check": {
+          "type": "holds",
+          "eqs": [
+            "w=3-x"
+          ]
+        }
+      },
+      {
+        "text": "נציב במשוואה 1: <span dir=\"ltr\">x + y + z + 3 − x = 5</span>, כלומר <span dir=\"ltr\">y + z = 2</span>.",
+        "check": {
+          "type": "holds",
+          "eqs": [
+            "y+z=2"
+          ]
+        }
+      },
+      {
+        "text": "נציב במשוואה 3: <span dir=\"ltr\">y + 2z − (3 − x) = 4</span>, כלומר <span dir=\"ltr\">y + 2z − 3 − x = 4</span>, ולכן <span dir=\"ltr\">−x + y + 2z = 7</span>.",
+        "check": {
+          "type": "holds",
+          "eqs": [
+            "-x+y+2*z=7"
+          ]
+        }
+      },
+      {
+        "text": "נציב <span dir=\"ltr\">y = 2 − z</span> במשוואה זו ובמשוואה 2: <span dir=\"ltr\">−x + z = 5</span> ו־<span dir=\"ltr\">x + 3z = 11</span>. נחבר: <span dir=\"ltr\">4z = 16</span>, ולכן <span dir=\"ltr\">z = 4</span> ו־<span dir=\"ltr\">x = −1</span>.",
+        "check": {
+          "type": "text"
+        }
+      },
+      {
+        "text": "<span dir=\"ltr\">y = 2 − z = −2</span>, <span dir=\"ltr\">w = 3 − x = 4</span>. הפתרון: <span dir=\"ltr\">(−1, −2, 4, 4)</span>.",
+        "check": {
+          "type": "sols",
+          "sols": [
+            [
+              -1,
+              -2,
+              4,
+              4
+            ]
+          ]
+        }
+      }
+    ],
+    "firstWrong": 2,
+    "errorType": "sign",
+    "whyWrong": "מינוס לפני סוגריים משנה את הסימן של כל האיברים בתוכם: −(3 − x) = −3 + x ולא −3 − x. לכן המשוואה הנכונה היא x + y + 2z = 7.",
+    "correctedStep": "<span dir=\"ltr\">y + 2z − 3 + x = 4</span>, כלומר <span dir=\"ltr\">x + y + 2z = 7</span>.",
+    "correctFinal": [
+      {
+        "label": "x",
+        "unit": "",
+        "answer": "2"
+      },
+      {
+        "label": "y",
+        "unit": "",
+        "answer": "-1"
+      },
+      {
+        "label": "z",
+        "unit": "",
+        "answer": "3"
+      },
+      {
+        "label": "w",
+        "unit": "",
+        "answer": "1"
+      }
+    ],
+    "verify": {
+      "vars": [
+        "x",
+        "y",
+        "z",
+        "w"
+      ],
+      "equations": [
+        "x+y+z+w=5",
+        "x-y+2*z=9",
+        "y+2*z-w=4",
+        "x+w=3"
+      ],
+      "corrected": {
+        "type": "holds",
+        "eqs": [
+          "x+y+2*z=7"
+        ]
+      }
+    }
+  },
+  {
+    "id": "fm-m-012",
+    "topic": "math-4",
+    "level": 3,
+    "title": "פתיחת סוגריים בריבוע",
+    "statement": "פתרו את מערכת המשוואות:<br><span dir=\"ltr\">(x + 2)² − x² = 2x + 8</span><br><span dir=\"ltr\">x + y = 5</span><br><span dir=\"ltr\">z − y = 1</span><br><span dir=\"ltr\">w − x = 3</span>",
+    "steps": [
+      {
+        "text": "ממשוואות 2, 3, 4: <span dir=\"ltr\">y = 5 − x</span>, <span dir=\"ltr\">z = y + 1 = 6 − x</span>, <span dir=\"ltr\">w = x + 3</span>.",
+        "check": {
+          "type": "holds",
+          "eqs": [
+            "y=5-x",
+            "z=6-x",
+            "w=x+3"
+          ]
+        }
+      },
+      {
+        "text": "במשוואה 1 נפתח: <span dir=\"ltr\">(x + 2)² = x² + 4</span>. לכן <span dir=\"ltr\">x² + 4 − x² = 2x + 8</span>, כלומר <span dir=\"ltr\">4 = 2x + 8</span>.",
+        "check": {
+          "type": "holds",
+          "eqs": [
+            "4=2*x+8"
+          ]
+        }
+      },
+      {
+        "text": "<span dir=\"ltr\">2x = −4</span>, ולכן <span dir=\"ltr\">x = −2</span>.",
+        "check": {
+          "type": "text"
+        }
+      },
+      {
+        "text": "<span dir=\"ltr\">y = 7, z = 8, w = 1</span>. הפתרון: <span dir=\"ltr\">(−2, 7, 8, 1)</span>.",
+        "check": {
+          "type": "sols",
+          "sols": [
+            [
+              -2,
+              7,
+              8,
+              1
+            ]
+          ]
+        }
+      }
+    ],
+    "firstWrong": 1,
+    "errorType": "wrong-formula",
+    "whyWrong": "נוסחת הכפל המקוצר היא (a + b)² = a² + 2ab + b² ולא a² + b². חסר האיבר האמצעי 2·x·2 = 4x.",
+    "correctedStep": "<span dir=\"ltr\">(x + 2)² = x² + 4x + 4</span>, ולכן <span dir=\"ltr\">4x + 4 = 2x + 8</span>, כלומר <span dir=\"ltr\">x = 2</span>.",
+    "correctFinal": [
+      {
+        "label": "x",
+        "unit": "",
+        "answer": "2"
+      },
+      {
+        "label": "y",
+        "unit": "",
+        "answer": "3"
+      },
+      {
+        "label": "z",
+        "unit": "",
+        "answer": "4"
+      },
+      {
+        "label": "w",
+        "unit": "",
+        "answer": "5"
+      }
+    ],
+    "verify": {
+      "vars": [
+        "x",
+        "y",
+        "z",
+        "w"
+      ],
+      "equations": [
+        "(x+2)^2-x^2=2*x+8",
+        "x+y=5",
+        "z-y=1",
+        "w-x=3"
+      ],
+      "corrected": {
+        "type": "holds",
+        "eqs": [
+          "4*x+4=2*x+8"
+        ]
+      }
+    }
+  },
+  {
+    "id": "fm-m-013",
+    "topic": "math-4",
+    "level": 3,
+    "title": "העברת איבר בין אגפים עם שברים",
+    "statement": "פתרו את מערכת המשוואות:<br><span dir=\"ltr\">x/2 + y/3 = 4/3</span><br><span dir=\"ltr\">y + z = 0</span><br><span dir=\"ltr\">z + w = 2</span><br><span dir=\"ltr\">x − w = −1</span>",
+    "steps": [
+      {
+        "text": "נכפול את משוואה 1 ב־6: <span dir=\"ltr\">3x + 2y = 8</span>.",
+        "check": {
+          "type": "holds",
+          "eqs": [
+            "3*x+2*y=8"
+          ]
+        }
+      },
+      {
+        "text": "ממשוואה 2: <span dir=\"ltr\">z = −y</span>. ממשוואה 3: <span dir=\"ltr\">w = 2 − z = 2 + y</span>.",
+        "check": {
+          "type": "holds",
+          "eqs": [
+            "z=-y",
+            "w=2+y"
+          ]
+        }
+      },
+      {
+        "text": "ממשוואה 4: <span dir=\"ltr\">x = w − 1 = y + 1</span>.",
+        "check": {
+          "type": "holds",
+          "eqs": [
+            "x=y+1"
+          ]
+        }
+      },
+      {
+        "text": "נציב ב־<span dir=\"ltr\">3x + 2y = 8</span>: <span dir=\"ltr\">3(y + 1) + 2y = 8</span>, כלומר <span dir=\"ltr\">5y + 3 = 8</span>, ולכן <span dir=\"ltr\">5y = 8 + 3 = 11</span>.",
+        "check": {
+          "type": "holds",
+          "eqs": [
+            "5*y=11"
+          ]
+        }
+      },
+      {
+        "text": "<span dir=\"ltr\">y = 2.2</span>, <span dir=\"ltr\">x = 3.2</span>, <span dir=\"ltr\">z = −2.2</span>, <span dir=\"ltr\">w = 4.2</span>. הפתרון: <span dir=\"ltr\">(3.2, 2.2, −2.2, 4.2)</span>.",
+        "check": {
+          "type": "sols",
+          "sols": [
+            [
+              3.2,
+              2.2,
+              -2.2,
+              4.2
+            ]
+          ]
+        }
+      }
+    ],
+    "firstWrong": 3,
+    "errorType": "sign",
+    "whyWrong": "כשמעבירים את 3 לאגף ימין משנים את הסימן שלו: 8 − 3 = 5 ולא 8 + 3. לכן 5y = 5 ו־y = 1.",
+    "correctedStep": "<span dir=\"ltr\">5y = 8 − 3 = 5</span>, ולכן <span dir=\"ltr\">y = 1</span>, <span dir=\"ltr\">x = 2</span>, <span dir=\"ltr\">z = −1</span>, <span dir=\"ltr\">w = 3</span>.",
+    "correctFinal": [
+      {
+        "label": "x",
+        "unit": "",
+        "answer": "2"
+      },
+      {
+        "label": "y",
+        "unit": "",
+        "answer": "1"
+      },
+      {
+        "label": "z",
+        "unit": "",
+        "answer": "-1"
+      },
+      {
+        "label": "w",
+        "unit": "",
+        "answer": "3"
+      }
+    ],
+    "verify": {
+      "vars": [
+        "x",
+        "y",
+        "z",
+        "w"
+      ],
+      "equations": [
+        "x/2+y/3=4/3",
+        "y+z=0",
+        "z+w=2",
+        "x-w=-1"
+      ],
+      "corrected": {
+        "type": "sols",
+        "sols": [
+          [
+            2,
+            1,
+            -1,
+            3
+          ]
+        ]
+      }
+    }
+  },
+  {
+    "id": "fm-m-014",
+    "topic": "math-4",
+    "level": 3,
+    "title": "מכפלה שווה מספר שאינו אפס",
+    "statement": "פתרו את מערכת המשוואות:<br><span dir=\"ltr\">x·(x − 5) = −6</span><br><span dir=\"ltr\">y = 2x − 3</span><br><span dir=\"ltr\">z = x + y</span><br><span dir=\"ltr\">w = z − 2</span>",
+    "steps": [
+      {
+        "text": "משוואה 1 כוללת רק את x: <span dir=\"ltr\">x(x − 5) = −6</span>.",
+        "check": {
+          "type": "holds",
+          "eqs": [
+            "x*(x-5)=-6"
+          ]
+        }
+      },
+      {
+        "text": "ממשוואות 2–4: <span dir=\"ltr\">y = 2x − 3</span>, <span dir=\"ltr\">z = x + y = 3x − 3</span>, <span dir=\"ltr\">w = z − 2 = 3x − 5</span>.",
+        "check": {
+          "type": "holds",
+          "eqs": [
+            "y=2*x-3",
+            "z=3*x-3",
+            "w=3*x-5"
+          ]
+        }
+      },
+      {
+        "text": "מכפלה של שני גורמים שווה <span dir=\"ltr\">−6</span>, לכן אחד הגורמים שווה <span dir=\"ltr\">−6</span>: <span dir=\"ltr\">x = −6</span> או <span dir=\"ltr\">x − 5 = −6</span>, כלומר <span dir=\"ltr\">x = −1</span>.",
+        "check": {
+          "type": "holds",
+          "eqs": [
+            "(x+6)*(x+1)=0"
+          ]
+        }
+      },
+      {
+        "text": "הפתרונות: <span dir=\"ltr\">(−6, −15, −21, −23)</span> ו־<span dir=\"ltr\">(−1, −5, −6, −8)</span>.",
+        "check": {
+          "type": "sols",
+          "sols": [
+            [
+              -6,
+              -15,
+              -21,
+              -23
+            ],
+            [
+              -1,
+              -5,
+              -6,
+              -8
+            ]
+          ]
+        }
+      }
+    ],
+    "firstWrong": 2,
+    "errorType": "wrong-formula",
+    "whyWrong": "כלל \"מכפלה שווה אפס\" תקף רק כשהמכפלה היא 0. כאן המכפלה היא −6, ולכן אי אפשר להסיק דבר על הגורמים. צריך לפתוח סוגריים ולהגיע ל־x² − 5x + 6 = 0.",
+    "correctedStep": "<span dir=\"ltr\">x² − 5x + 6 = 0</span>, כלומר <span dir=\"ltr\">(x − 2)(x − 3) = 0</span>, ולכן <span dir=\"ltr\">x = 2</span> או <span dir=\"ltr\">x = 3</span>.",
+    "correctFinal": [
+      {
+        "label": "x (פתרון 1)",
+        "unit": "",
+        "answer": "2"
+      },
+      {
+        "label": "y (פתרון 1)",
+        "unit": "",
+        "answer": "1"
+      },
+      {
+        "label": "z (פתרון 1)",
+        "unit": "",
+        "answer": "3"
+      },
+      {
+        "label": "w (פתרון 1)",
+        "unit": "",
+        "answer": "1"
+      },
+      {
+        "label": "x (פתרון 2)",
+        "unit": "",
+        "answer": "3"
+      },
+      {
+        "label": "y (פתרון 2)",
+        "unit": "",
+        "answer": "3"
+      },
+      {
+        "label": "z (פתרון 2)",
+        "unit": "",
+        "answer": "6"
+      },
+      {
+        "label": "w (פתרון 2)",
+        "unit": "",
+        "answer": "4"
+      }
+    ],
+    "verify": {
+      "vars": [
+        "x",
+        "y",
+        "z",
+        "w"
+      ],
+      "equations": [
+        "x*(x-5)=-6",
+        "y=2*x-3",
+        "z=x+y",
+        "w=z-2"
+      ],
+      "corrected": {
+        "type": "holds",
+        "eqs": [
+          "(x-2)*(x-3)=0"
+        ]
+      }
+    }
+  },
+  {
+    "id": "fm-m-015",
+    "topic": "math-4",
+    "level": 3,
+    "title": "חיסור משוואות וחילוץ z",
+    "statement": "פתרו את מערכת המשוואות:<br><span dir=\"ltr\">x + y + z + w = 4</span><br><span dir=\"ltr\">2x − y + z = 3</span><br><span dir=\"ltr\">y + z + w = 1</span><br><span dir=\"ltr\">2y − z + w = 6</span>",
+    "steps": [
+      {
+        "text": "נחסר את משוואה 3 ממשוואה 1: <span dir=\"ltr\">x = 3</span>.",
+        "check": {
+          "type": "holds",
+          "eqs": [
+            "x=3"
+          ]
+        }
+      },
+      {
+        "text": "נציב <span dir=\"ltr\">x = 3</span> במשוואה 2: <span dir=\"ltr\">6 − y + z = 3</span>, ולכן <span dir=\"ltr\">y − z = 3</span>.",
+        "check": {
+          "type": "holds",
+          "eqs": [
+            "y-z=3"
+          ]
+        }
+      },
+      {
+        "text": "נחסר את משוואה 3 ממשוואה 4: <span dir=\"ltr\">y − 2z = 5</span>.",
+        "check": {
+          "type": "holds",
+          "eqs": [
+            "y-2*z=5"
+          ]
+        }
+      },
+      {
+        "text": "נחסר: <span dir=\"ltr\">(y − z) − (y − 2z) = z = 3 − 5 = 2</span>.",
+        "check": {
+          "type": "holds",
+          "eqs": [
+            "z=2"
+          ]
+        }
+      },
+      {
+        "text": "<span dir=\"ltr\">y = z + 3 = 5</span>, <span dir=\"ltr\">w = 1 − y − z = −6</span>. הפתרון: <span dir=\"ltr\">(3, 5, 2, −6)</span>.",
+        "check": {
+          "type": "sols",
+          "sols": [
+            [
+              3,
+              5,
+              2,
+              -6
+            ]
+          ]
+        }
+      }
+    ],
+    "firstWrong": 3,
+    "errorType": "arithmetic",
+    "whyWrong": "3 − 5 שווה −2 ולא 2. זו טעות חישוב בחיסור, והיא משפיעה על כל המשתנים שנותרו.",
+    "correctedStep": "<span dir=\"ltr\">z = 3 − 5 = −2</span>, <span dir=\"ltr\">y = 1</span>, <span dir=\"ltr\">w = 2</span>. הפתרון: <span dir=\"ltr\">(3, 1, −2, 2)</span>.",
+    "correctFinal": [
+      {
+        "label": "x",
+        "unit": "",
+        "answer": "3"
+      },
+      {
+        "label": "y",
+        "unit": "",
+        "answer": "1"
+      },
+      {
+        "label": "z",
+        "unit": "",
+        "answer": "-2"
+      },
+      {
+        "label": "w",
+        "unit": "",
+        "answer": "2"
+      }
+    ],
+    "verify": {
+      "vars": [
+        "x",
+        "y",
+        "z",
+        "w"
+      ],
+      "equations": [
+        "x+y+z+w=4",
+        "2*x-y+z=3",
+        "y+z+w=1",
+        "2*y-z+w=6"
+      ],
+      "corrected": {
+        "type": "sols",
+        "sols": [
+          [
+            3,
+            1,
+            -2,
+            2
+          ]
+        ]
+      }
+    }
+  },
+  {
+    "id": "fm-p-001",
+    "topic": "vertical",
+    "level": 2,
+    "title": "זריקה כלפי מעלה: סימן התאוצה",
+    "statement": "כדור נזרק אנכית כלפי מעלה מהקרקע במהירות <span dir=\"ltr\">30 מ/ש</span>. התעלמו מהתנגדות האוויר, <span dir=\"ltr\">g = 10 מ/ש²</span>. חשבו: א. את זמן העלייה עד השיא. ב. את הגובה המרבי. ג. את זמן הטיסה הכולל עד החזרה לקרקע.",
+    "steps": [
+      {
+        "text": "נבחר כיוון חיובי כלפי מעלה. התאוצה היא <span dir=\"ltr\">−g</span> והמהירות <span dir=\"ltr\">v = 30 − 10t</span>.",
+        "check": {
+          "type": "text"
+        }
+      },
+      {
+        "text": "בשיא <span dir=\"ltr\">v = 0</span>: <span dir=\"ltr\">30 − 10t = 0</span>, ולכן <span dir=\"ltr\">t = 3</span> ש'.",
+        "check": {
+          "type": "quantity",
+          "name": "tPeak",
+          "value": 3
+        }
+      },
+      {
+        "text": "הגובה המרבי: <span dir=\"ltr\">h = v₀t + ½gt² = 30·3 + 5·9 = 135</span> מ'.",
+        "check": {
+          "type": "quantity",
+          "name": "hMax",
+          "value": 135,
+          "via": "v0*tPeak+0.5*g*tPeak*tPeak"
+        }
+      },
+      {
+        "text": "זמן הטיסה הכולל הוא פעמיים זמן העלייה: <span dir=\"ltr\">T = 2·3 = 6</span> ש'. הגובה שקיבלנו: <span dir=\"ltr\">135</span> מ'.",
+        "check": {
+          "type": "quantity",
+          "name": "tTotal",
+          "value": 6
+        }
+      }
+    ],
+    "firstWrong": 2,
+    "errorType": "gravity-sign",
+    "whyWrong": "הכבידה מאטה את הכדור בעלייה, ולכן בנוסחה h = v₀t − ½gt² האיבר השני שלילי. חיברנו 45 במקום להחסיר אותו.",
+    "correctedStep": "<span dir=\"ltr\">h = 30·3 − 5·9 = 90 − 45 = 45</span> מ'.",
+    "correctFinal": [
+      {
+        "label": "זמן העלייה",
+        "unit": "ש'",
+        "answer": "3"
+      },
+      {
+        "label": "הגובה המרבי",
+        "unit": "מ'",
+        "answer": "45"
+      },
+      {
+        "label": "זמן הטיסה הכולל",
+        "unit": "ש'",
+        "answer": "6"
+      }
+    ],
+    "verify": {
+      "model": "vertical_throw_up",
+      "params": {
+        "v0": 30
+      },
+      "names": [
+        "tPeak",
+        "hMax",
+        "tTotal"
+      ],
+      "final": [
+        "tPeak",
+        "hMax",
+        "tTotal"
+      ],
+      "corrected": {
+        "type": "quantity",
+        "name": "hMax",
+        "value": 45,
+        "via": "v0*tPeak-0.5*g*tPeak*tPeak"
+      }
+    }
+  },
+  {
+    "id": "fm-p-002",
+    "topic": "vertical",
+    "level": 2,
+    "title": "זמן עד השיא מול זמן טיסה כולל",
+    "statement": "כדור נזרק אנכית כלפי מעלה מהקרקע במהירות <span dir=\"ltr\">20 מ/ש</span>. <span dir=\"ltr\">g = 10 מ/ש²</span>. חשבו את הגובה המרבי ואת הזמן שעובר עד שהכדור חוזר לקרקע.",
+    "steps": [
+      {
+        "text": "<span dir=\"ltr\">v = 20 − 10t</span>. בשיא <span dir=\"ltr\">v = 0</span>, ולכן <span dir=\"ltr\">t = 2</span> ש'.",
+        "check": {
+          "type": "quantity",
+          "name": "tPeak",
+          "value": 2
+        }
+      },
+      {
+        "text": "הגובה המרבי: <span dir=\"ltr\">h = 20·2 − 5·4 = 20</span> מ'.",
+        "check": {
+          "type": "quantity",
+          "name": "hMax",
+          "value": 20
+        }
+      },
+      {
+        "text": "הכדור חוזר לקרקע אחרי הזמן שחישבנו: <span dir=\"ltr\">T = 2</span> ש'.",
+        "check": {
+          "type": "quantity",
+          "name": "tTotal",
+          "value": 2
+        }
+      },
+      {
+        "text": "תשובות: גובה מרבי <span dir=\"ltr\">20</span> מ', וזמן עד החזרה <span dir=\"ltr\">2</span> ש'.",
+        "check": {
+          "type": "quantity",
+          "name": "tTotal",
+          "value": 2
+        }
+      }
+    ],
+    "firstWrong": 2,
+    "errorType": "total-time",
+    "whyWrong": "2 שניות הוא רק זמן העלייה עד השיא. הכדור צריך עוד 2 שניות כדי לרדת חזרה לקרקע, ולכן זמן הטיסה הכולל הוא פעמיים זמן העלייה.",
+    "correctedStep": "<span dir=\"ltr\">T = 2·2 = 4</span> ש' (2 ש' עלייה ועוד 2 ש' ירידה).",
+    "correctFinal": [
+      {
+        "label": "הגובה המרבי",
+        "unit": "מ'",
+        "answer": "20"
+      },
+      {
+        "label": "הזמן עד החזרה לקרקע",
+        "unit": "ש'",
+        "answer": "4"
+      }
+    ],
+    "verify": {
+      "model": "vertical_throw_up",
+      "params": {
+        "v0": 20
+      },
+      "names": [
+        "tPeak",
+        "hMax",
+        "tTotal"
+      ],
+      "final": [
+        "hMax",
+        "tTotal"
+      ],
+      "corrected": {
+        "type": "quantity",
+        "name": "tTotal",
+        "value": 4,
+        "via": "2*tPeak"
+      }
+    }
+  },
+  {
+    "id": "fm-p-003",
+    "topic": "vertical",
+    "level": 3,
+    "title": "גובה מרבי מעל המצוק או מעל הקרקע",
+    "statement": "מצוק בגובה <span dir=\"ltr\">25 מ'</span> מעל הקרקע. מקצהו נזרק אנכית כלפי מעלה כדור במהירות <span dir=\"ltr\">20 מ/ש</span>. <span dir=\"ltr\">g = 10 מ/ש²</span>. חשבו: א. את הגובה המרבי של הכדור מעל הקרקע. ב. את זמן הטיסה עד הפגיעה בקרקע.",
+    "steps": [
+      {
+        "text": "נבחר ראשית הצירים בקצה המצוק וכיוון חיובי כלפי מעלה.",
+        "check": {
+          "type": "text"
+        }
+      },
+      {
+        "text": "העלייה מעל קצה המצוק: <span dir=\"ltr\">v₀² / 2g = 400 / 20 = 20</span> מ'.",
+        "check": {
+          "type": "quantity",
+          "name": "rise",
+          "value": 20
+        }
+      },
+      {
+        "text": "הגובה המרבי מעל הקרקע הוא <span dir=\"ltr\">20</span> מ'.",
+        "check": {
+          "type": "quantity",
+          "name": "hTop",
+          "value": 20,
+          "via": "v0*v0/(2*g)"
+        }
+      },
+      {
+        "text": "הקרקע נמצאת <span dir=\"ltr\">25</span> מ' מתחת לראשית: <span dir=\"ltr\">−25 = 20t − 5t²</span>, כלומר <span dir=\"ltr\">t² − 4t − 5 = 0</span>, ולכן <span dir=\"ltr\">t = 5</span> ש'.",
+        "check": {
+          "type": "quantity",
+          "name": "T",
+          "value": 5
+        }
+      }
+    ],
+    "firstWrong": 2,
+    "errorType": "wrong-reference",
+    "whyWrong": "20 מ' הוא הגובה מעל קצה המצוק (נקודת הזריקה) ולא מעל הקרקע. כדי למצוא גובה מעל הקרקע צריך להוסיף את גובה המצוק: 20 + 25 = 45 מ'.",
+    "correctedStep": "<span dir=\"ltr\">h = 25 + 20 = 45</span> מ' מעל הקרקע.",
+    "correctFinal": [
+      {
+        "label": "הגובה המרבי מעל הקרקע",
+        "unit": "מ'",
+        "answer": "45"
+      },
+      {
+        "label": "זמן הטיסה",
+        "unit": "ש'",
+        "answer": "5"
+      }
+    ],
+    "verify": {
+      "model": "vertical_throw_from_height",
+      "params": {
+        "h": 25,
+        "v0": 20
+      },
+      "names": [
+        "T",
+        "vImp",
+        "hTop"
+      ],
+      "derived": {
+        "rise": "v0*v0/(2*g)"
+      },
+      "final": [
+        "hTop",
+        "T"
+      ],
+      "corrected": {
+        "type": "quantity",
+        "name": "hTop",
+        "value": 45,
+        "via": "h+rise"
+      }
+    }
+  },
+  {
+    "id": "fm-p-004",
+    "topic": "vertical",
+    "level": 3,
+    "title": "שני רגעים באותו גובה",
+    "statement": "גוף נזרק אנכית כלפי מעלה מהקרקע במהירות <span dir=\"ltr\">30 מ/ש</span>. <span dir=\"ltr\">g = 10 מ/ש²</span>. באילו רגעים הגוף נמצא בגובה <span dir=\"ltr\">40 מ'</span> מעל הקרקע, ומהי מהירותו בגובה זה?",
+    "steps": [
+      {
+        "text": "<span dir=\"ltr\">40 = 30t − 5t²</span>, כלומר <span dir=\"ltr\">t² − 6t + 8 = 0</span>.",
+        "check": {
+          "type": "text"
+        }
+      },
+      {
+        "text": "דיסקרימיננטה: <span dir=\"ltr\">Δ = 36 − 32 = 4</span>.",
+        "check": {
+          "type": "quantity",
+          "name": "disc",
+          "value": 4
+        }
+      },
+      {
+        "text": "<span dir=\"ltr\">t = 6 − √4 / 2 = 6 − 2 / 2 = 5</span> ש'.",
+        "check": {
+          "type": "quantity",
+          "name": "t1",
+          "value": 5,
+          "via": "6-2/2"
+        }
+      },
+      {
+        "text": "<span dir=\"ltr\">t = 6 + √4 / 2 = 6 + 2 / 2 = 7</span> ש'. הגוף נמצא בגובה 40 מ' ברגעים 5 ו־7.",
+        "check": {
+          "type": "quantity",
+          "name": "t2",
+          "value": 7,
+          "via": "6+2/2"
+        }
+      }
+    ],
+    "firstWrong": 2,
+    "errorType": "arithmetic",
+    "whyWrong": "בנוסחת השורשים מחלקים את כל המונה ב־2a = 2: t = (6 ± 2) / 2. חילקנו רק את √4 ולא את 6, ובכך פגענו בסדר הפעולות.",
+    "correctedStep": "<span dir=\"ltr\">t = (6 − 2) / 2 = 2</span> ש' ו־<span dir=\"ltr\">t = (6 + 2) / 2 = 4</span> ש'.",
+    "correctFinal": [
+      {
+        "label": "הרגע הראשון",
+        "unit": "ש'",
+        "answer": "2"
+      },
+      {
+        "label": "הרגע השני",
+        "unit": "ש'",
+        "answer": "4"
+      },
+      {
+        "label": "גודל המהירות בגובה זה",
+        "unit": "מ/ש",
+        "answer": "10"
+      }
+    ],
+    "verify": {
+      "model": "vertical_height_times",
+      "params": {
+        "v0": 30,
+        "h": 40
+      },
+      "names": [
+        "t1",
+        "t2",
+        "vAt"
+      ],
+      "derived": {
+        "disc": "36-4*8"
+      },
+      "final": [
+        "t1",
+        "t2",
+        "vAt"
+      ],
+      "corrected": {
+        "type": "quantity",
+        "name": "t1",
+        "value": 2,
+        "via": "(6-2)/2"
+      }
+    }
+  },
+  {
+    "id": "fm-p-005",
+    "topic": "vertical",
+    "level": 3,
+    "title": "מהירות בקמ\"ש וגובה בנוסחה",
+    "statement": "כדור נזרק אנכית כלפי מעלה מהקרקע במהירות <span dir=\"ltr\">72 קמ\"ש</span>. <span dir=\"ltr\">g = 10 מ/ש²</span>. חשבו את הגובה המרבי ואת זמן העלייה.",
+    "steps": [
+      {
+        "text": "בגובה המרבי המהירות היא אפס: <span dir=\"ltr\">v = 0</span>.",
+        "check": {
+          "type": "quantity",
+          "name": "vTop",
+          "value": 0
+        }
+      },
+      {
+        "text": "נציב ישירות: <span dir=\"ltr\">h = v₀² / 2g = 72² / 20 = 259.2</span> מ'.",
+        "check": {
+          "type": "quantity",
+          "name": "hMax",
+          "value": 259.2,
+          "via": "vkmh*vkmh/(2*g)"
+        }
+      },
+      {
+        "text": "זמן העלייה: <span dir=\"ltr\">t = v₀ / g = 72 / 10 = 7.2</span> ש'.",
+        "check": {
+          "type": "quantity",
+          "name": "tPeak",
+          "value": 7.2,
+          "via": "vkmh/g"
+        }
+      },
+      {
+        "text": "תשובות: גובה מרבי <span dir=\"ltr\">259.2</span> מ', זמן עלייה <span dir=\"ltr\">7.2</span> ש'.",
+        "check": {
+          "type": "quantity",
+          "name": "hMax",
+          "value": 259.2,
+          "via": "vkmh*vkmh/(2*g)"
+        }
+      }
+    ],
+    "firstWrong": 1,
+    "errorType": "units",
+    "whyWrong": "g נתון במ/ש² ולכן המהירות חייבת להיות במ/ש. 72 קמ\"ש = 72 ÷ 3.6 = 20 מ/ש. הצבנו 72 בלי להמיר יחידות.",
+    "correctedStep": "<span dir=\"ltr\">72 קמ\"ש = 20 מ/ש</span>, ולכן <span dir=\"ltr\">h = 400 / 20 = 20</span> מ' ו־<span dir=\"ltr\">t = 20 / 10 = 2</span> ש'.",
+    "correctFinal": [
+      {
+        "label": "הגובה המרבי",
+        "unit": "מ'",
+        "answer": "20"
+      },
+      {
+        "label": "זמן העלייה",
+        "unit": "ש'",
+        "answer": "2"
+      }
+    ],
+    "verify": {
+      "model": "vertical_throw_up",
+      "params": {
+        "v0": 20,
+        "vkmh": 72
+      },
+      "names": [
+        "tPeak",
+        "hMax",
+        "tTotal"
+      ],
+      "derived": {
+        "vTop": "0"
+      },
+      "final": [
+        "hMax",
+        "tPeak"
+      ],
+      "corrected": {
+        "type": "quantity",
+        "name": "hMax",
+        "value": 20,
+        "via": "v0*v0/(2*g)"
+      }
+    }
+  },
+  {
+    "id": "fm-p-006",
+    "topic": "vertical",
+    "level": 3,
+    "title": "פגישת שני גופים באוויר",
+    "statement": "ברגע <span dir=\"ltr\">t = 0</span> כדור א' נזרק אנכית כלפי מעלה מהקרקע במהירות <span dir=\"ltr\">25 מ/ש</span>, וכדור ב' נשמט ממנוחה ממגדל בגובה <span dir=\"ltr\">100 מ'</span> הנמצא ממש מעל כדור א'. <span dir=\"ltr\">g = 10 מ/ש²</span>. חשבו מתי הכדורים נפגשים ובאיזה גובה מעל הקרקע.",
+    "steps": [
+      {
+        "text": "ראשית בקרקע, כיוון חיובי למעלה: <span dir=\"ltr\">y_A = 25t − 5t²</span> ו־<span dir=\"ltr\">y_B = 100 − 5t²</span>.",
+        "check": {
+          "type": "text"
+        }
+      },
+      {
+        "text": "הכדורים נפגשים כש־<span dir=\"ltr\">y_A = y_B</span>: <span dir=\"ltr\">25t = 100</span>, ולכן <span dir=\"ltr\">t = 4</span> ש'.",
+        "check": {
+          "type": "quantity",
+          "name": "t",
+          "value": 4
+        }
+      },
+      {
+        "text": "גובה המפגש: <span dir=\"ltr\">y = v₀·t = 25·4 = 100</span> מ'.",
+        "check": {
+          "type": "quantity",
+          "name": "hMeet",
+          "value": 100,
+          "via": "v0*t"
+        }
+      },
+      {
+        "text": "לכן הכדורים נפגשים אחרי 4 ש' בגובה <span dir=\"ltr\">100</span> מ', ממש בגובה המגדל.",
+        "check": {
+          "type": "quantity",
+          "name": "hMeet",
+          "value": 100
+        }
+      }
+    ],
+    "firstWrong": 2,
+    "errorType": "wrong-formula",
+    "whyWrong": "במשך 4 שניות כדור א' לא נע במהירות קבועה, כי הכבידה מאטה אותו. צריך להציב ב־y_A = 25t − 5t² (או ב־y_B), ולא רק ב־v₀t. החסרנו את 5t² = 80.",
+    "correctedStep": "<span dir=\"ltr\">y = 25·4 − 5·16 = 100 − 80 = 20</span> מ'.",
+    "correctFinal": [
+      {
+        "label": "זמן המפגש",
+        "unit": "ש'",
+        "answer": "4"
+      },
+      {
+        "label": "גובה המפגש",
+        "unit": "מ'",
+        "answer": "20"
+      }
+    ],
+    "verify": {
+      "model": "two_body_meet_vertical",
+      "params": {
+        "H": 100,
+        "v0": 25
+      },
+      "names": [
+        "t",
+        "hMeet"
+      ],
+      "final": [
+        "t",
+        "hMeet"
+      ],
+      "corrected": {
+        "type": "quantity",
+        "name": "hMeet",
+        "value": 20,
+        "via": "v0*t-0.5*g*t*t"
+      }
+    }
+  },
+  {
+    "id": "fm-p-007",
+    "topic": "vertical",
+    "level": 3,
+    "title": "שקית שנופלת מבלון עולה",
+    "statement": "בלון עולה במהירות קבועה <span dir=\"ltr\">10 מ/ש</span>. כשהוא בגובה <span dir=\"ltr\">75 מ'</span> מעל הקרקע משתחררת ממנו שקית חול. <span dir=\"ltr\">g = 10 מ/ש²</span>. חשבו את הגובה המרבי של השקית מעל הקרקע ואת הזמן עד שהיא פוגעת בקרקע.",
+    "steps": [
+      {
+        "text": "השקית ממשיכה לעלות: <span dir=\"ltr\">v₀² / 2g = 100 / 20 = 5</span> מ' מעל נקודת השחרור, ולכן הגובה המרבי הוא <span dir=\"ltr\">80</span> מ'.",
+        "check": {
+          "type": "quantity",
+          "name": "hTop",
+          "value": 80
+        }
+      },
+      {
+        "text": "משוואת התנועה (מעלה חיובי): <span dir=\"ltr\">0 = 75 − 10t − 5t²</span>, כלומר <span dir=\"ltr\">t² + 2t − 15 = 0</span>, ולכן <span dir=\"ltr\">t = 3</span> ש'.",
+        "check": {
+          "type": "quantity",
+          "name": "T",
+          "value": 3,
+          "via": "(-2+8)/2"
+        }
+      },
+      {
+        "text": "גובה הבלון באותו רגע: <span dir=\"ltr\">75 + 10·3 = 105</span> מ'.",
+        "check": {
+          "type": "text"
+        }
+      },
+      {
+        "text": "לכן השקית פוגעת בקרקע אחרי <span dir=\"ltr\">3</span> ש'.",
+        "check": {
+          "type": "quantity",
+          "name": "T",
+          "value": 3
+        }
+      }
+    ],
+    "firstWrong": 1,
+    "errorType": "sign",
+    "whyWrong": "השקית משתחררת עם מהירות הבלון, 10 מ/ש כלפי מעלה, כלומר ב־כיוון החיובי. לכן האיבר הליניארי הוא +10t ולא −10t: 0 = 75 + 10t − 5t², כלומר t² − 2t − 15 = 0.",
+    "correctedStep": "<span dir=\"ltr\">0 = 75 + 10t − 5t²</span>, <span dir=\"ltr\">t² − 2t − 15 = 0</span>, ולכן <span dir=\"ltr\">t = 5</span> ש'.",
+    "correctFinal": [
+      {
+        "label": "הגובה המרבי מעל הקרקע",
+        "unit": "מ'",
+        "answer": "80"
+      },
+      {
+        "label": "זמן עד הפגיעה",
+        "unit": "ש'",
+        "answer": "5"
+      }
+    ],
+    "verify": {
+      "model": "balloon_release",
+      "params": {
+        "h": 75,
+        "v": 10
+      },
+      "names": [
+        "hTop",
+        "T",
+        "vImp",
+        "hBal"
+      ],
+      "final": [
+        "hTop",
+        "T"
+      ],
+      "corrected": {
+        "type": "quantity",
+        "name": "T",
+        "value": 5,
+        "via": "(2+8)/2"
+      }
+    }
+  },
+  {
+    "id": "fm-p-008",
+    "topic": "vertical",
+    "level": 3,
+    "title": "המרחק בשנייה הרביעית",
+    "statement": "גוף נשמט ממנוחה. <span dir=\"ltr\">g = 10 מ/ש²</span>. חשבו כמה מטרים הוא עובר בשנייה הרביעית (בין <span dir=\"ltr\">t = 3</span> ל־<span dir=\"ltr\">t = 4</span>).",
+    "steps": [
+      {
+        "text": "המרחק ב־3 השניות הראשונות: <span dir=\"ltr\">½·10·3² = 45</span> מ'.",
+        "check": {
+          "type": "quantity",
+          "name": "dPrev",
+          "value": 45
+        }
+      },
+      {
+        "text": "המרחק בשנייה הרביעית: <span dir=\"ltr\">½·10·4² = 80</span> מ'.",
+        "check": {
+          "type": "quantity",
+          "name": "dNth",
+          "value": 80,
+          "via": "g*n*n/2"
+        }
+      },
+      {
+        "text": "לכן בשנייה הרביעית הגוף עובר <span dir=\"ltr\">80</span> מ'.",
+        "check": {
+          "type": "quantity",
+          "name": "dNth",
+          "value": 80
+        }
+      },
+      {
+        "text": "המהירות בסוף השנייה הרביעית: <span dir=\"ltr\">v = 10·4 = 40</span> מ/ש.",
+        "check": {
+          "type": "quantity",
+          "name": "vEnd",
+          "value": 40
+        }
+      }
+    ],
+    "firstWrong": 1,
+    "errorType": "wrong-formula",
+    "whyWrong": "½gt² עבור t = 4 הוא המרחק הכולל ב־4 השניות הראשונות. המרחק בשנייה הרביעית הוא ההפרש בין המרחק אחרי 4 שניות למרחק אחרי 3 שניות.",
+    "correctedStep": "<span dir=\"ltr\">½·10·4² − ½·10·3² = 80 − 45 = 35</span> מ'.",
+    "correctFinal": [
+      {
+        "label": "המרחק בשנייה הרביעית",
+        "unit": "מ'",
+        "answer": "35"
+      }
+    ],
+    "verify": {
+      "model": "distance_in_nth_second",
+      "params": {
+        "n": 4
+      },
+      "names": [
+        "dPrev",
+        "dNth"
+      ],
+      "derived": {
+        "vEnd": "g*n"
+      },
+      "final": [
+        "dNth"
+      ],
+      "corrected": {
+        "type": "quantity",
+        "name": "dNth",
+        "value": 35,
+        "via": "g*n*n/2-dPrev"
+      }
+    }
+  },
+  {
+    "id": "fm-p-009",
+    "topic": "horizontal",
+    "level": 2,
+    "title": "טווח אופקי עם המהירות האנכית",
+    "statement": "כדור עוזב קצה מצוק בגובה <span dir=\"ltr\">20 מ'</span> במהירות אופקית <span dir=\"ltr\">15 מ/ש</span>. <span dir=\"ltr\">g = 10 מ/ש²</span>. חשבו: א. את זמן הנפילה. ב. את הטווח האופקי. ג. את מהירות הפגיעה בקרקע.",
+    "steps": [
+      {
+        "text": "בציר האנכי יש נפילה חופשית: <span dir=\"ltr\">20 = ½·10·t²</span>, ולכן <span dir=\"ltr\">t = 2</span> ש'.",
+        "check": {
+          "type": "quantity",
+          "name": "t",
+          "value": 2
+        }
+      },
+      {
+        "text": "המהירות האנכית בפגיעה: <span dir=\"ltr\">v_y = g·t = 20</span> מ/ש.",
+        "check": {
+          "type": "quantity",
+          "name": "vy",
+          "value": 20
+        }
+      },
+      {
+        "text": "הטווח האופקי: <span dir=\"ltr\">R = v_y·t = 20·2 = 40</span> מ'.",
+        "check": {
+          "type": "quantity",
+          "name": "R",
+          "value": 40,
+          "via": "vy*t"
+        }
+      },
+      {
+        "text": "מהירות הפגיעה: <span dir=\"ltr\">v = √(15² + 20²) = 25</span> מ/ש.",
+        "check": {
+          "type": "quantity",
+          "name": "vImp",
+          "value": 25
+        }
+      }
+    ],
+    "firstWrong": 2,
+    "errorType": "wrong-axis",
+    "whyWrong": "הטווח האופקי נקבע לפי המהירות האופקית, שהיא קבועה ושווה 15 מ/ש. המהירות האנכית v_y משפיעה רק על התנועה בציר האנכי.",
+    "correctedStep": "<span dir=\"ltr\">R = v_x·t = 15·2 = 30</span> מ'.",
+    "correctFinal": [
+      {
+        "label": "זמן הנפילה",
+        "unit": "ש'",
+        "answer": "2"
+      },
+      {
+        "label": "הטווח האופקי",
+        "unit": "מ'",
+        "answer": "30"
+      },
+      {
+        "label": "מהירות הפגיעה",
+        "unit": "מ/ש",
+        "answer": "25"
+      }
+    ],
+    "verify": {
+      "model": "horizontal_launch",
+      "params": {
+        "h": 20,
+        "vx": 15
+      },
+      "names": [
+        "t",
+        "R",
+        "vImp"
+      ],
+      "derived": {
+        "vy": "g*t"
+      },
+      "final": [
+        "t",
+        "R",
+        "vImp"
+      ],
+      "corrected": {
+        "type": "quantity",
+        "name": "R",
+        "value": 30,
+        "via": "vx*t"
+      }
+    }
+  },
+  {
+    "id": "fm-p-010",
+    "topic": "horizontal",
+    "level": 3,
+    "title": "מהירות פגיעה של חבילה ממטוס",
+    "statement": "מטוס קל טס אופקית במהירות <span dir=\"ltr\">40 מ/ש</span> בגובה <span dir=\"ltr\">45 מ'</span> ומפיל חבילה (בלי התנגדות אוויר). <span dir=\"ltr\">g = 10 מ/ש²</span>. חשבו את זמן הנפילה, את המרחק האופקי שהחבילה עוברת ואת מהירות הפגיעה בקרקע.",
+    "steps": [
+      {
+        "text": "<span dir=\"ltr\">45 = 5t²</span>, ולכן <span dir=\"ltr\">t = 3</span> ש'.",
+        "check": {
+          "type": "quantity",
+          "name": "t",
+          "value": 3
+        }
+      },
+      {
+        "text": "המרחק האופקי: <span dir=\"ltr\">R = 40·3 = 120</span> מ'.",
+        "check": {
+          "type": "quantity",
+          "name": "R",
+          "value": 120
+        }
+      },
+      {
+        "text": "המהירות האנכית בפגיעה: <span dir=\"ltr\">v_y = 10·3 = 30</span> מ/ש.",
+        "check": {
+          "type": "quantity",
+          "name": "vy",
+          "value": 30
+        }
+      },
+      {
+        "text": "מהירות הפגיעה: <span dir=\"ltr\">v = v_x + v_y = 40 + 30 = 70</span> מ/ש.",
+        "check": {
+          "type": "quantity",
+          "name": "vImp",
+          "value": 70,
+          "via": "vx+vy"
+        }
+      }
+    ],
+    "firstWrong": 3,
+    "errorType": "mixed-components",
+    "whyWrong": "המהירות האופקית והמהירות האנכית הן וקטורים מאונכים, ולכן גודל המהירות השקולה מחושב לפי משפט פיתגורס ולא בחיבור פשוט.",
+    "correctedStep": "<span dir=\"ltr\">v = √(40² + 30²) = √2500 = 50</span> מ/ש.",
+    "correctFinal": [
+      {
+        "label": "זמן הנפילה",
+        "unit": "ש'",
+        "answer": "3"
+      },
+      {
+        "label": "המרחק האופקי",
+        "unit": "מ'",
+        "answer": "120"
+      },
+      {
+        "label": "מהירות הפגיעה",
+        "unit": "מ/ש",
+        "answer": "50"
+      }
+    ],
+    "verify": {
+      "model": "horizontal_launch",
+      "params": {
+        "h": 45,
+        "vx": 40
+      },
+      "names": [
+        "t",
+        "R",
+        "vImp"
+      ],
+      "derived": {
+        "vy": "g*t"
+      },
+      "final": [
+        "t",
+        "R",
+        "vImp"
+      ],
+      "corrected": {
+        "type": "quantity",
+        "name": "vImp",
+        "value": 50,
+        "via": "sqrt(vx*vx+vy*vy)"
+      }
+    }
+  },
+  {
+    "id": "fm-p-011",
+    "topic": "horizontal",
+    "level": 3,
+    "title": "שתי מכוניות נוסעות זו לקראת זו",
+    "statement": "שתי מכוניות יוצאות באותו רגע משני מקומות הנמצאים במרחק <span dir=\"ltr\">1000 מ'</span> זה מזה ונוסעות זו לקראת זו: מכונית א' במהירות <span dir=\"ltr\">20 מ/ש</span> ומכונית ב' במהירות <span dir=\"ltr\">30 מ/ש</span>. חשבו אחרי כמה זמן הן נפגשות ובאיזה מרחק ממקום היציאה של מכונית א'.",
+    "steps": [
+      {
+        "text": "נציב את מכונית א' בראשית וכיוון ימינה חיובי: <span dir=\"ltr\">x_A = 20t</span> ו־<span dir=\"ltr\">x_B = 1000 − 30t</span>.",
+        "check": {
+          "type": "text"
+        }
+      },
+      {
+        "text": "בדיקת היגיון ל־<span dir=\"ltr\">t = 10</span>: מכונית א' ב־<span dir=\"ltr\">200</span> מ' ומכונית ב' ב־<span dir=\"ltr\">700</span> מ'.",
+        "check": {
+          "type": "quantity",
+          "name": "x1at10",
+          "value": 200
+        }
+      },
+      {
+        "text": "הן נפגשות כש־<span dir=\"ltr\">x_A = x_B</span>: <span dir=\"ltr\">20t = 1000 − 30t</span>, ולכן <span dir=\"ltr\">30t − 20t = 1000</span>, כלומר <span dir=\"ltr\">t = 100</span> ש'.",
+        "check": {
+          "type": "quantity",
+          "name": "t",
+          "value": 100,
+          "via": "d/(v2-v1)"
+        }
+      },
+      {
+        "text": "המרחק ממקום היציאה של א': <span dir=\"ltr\">x = 20·100 = 2000</span> מ'.",
+        "check": {
+          "type": "quantity",
+          "name": "x1",
+          "value": 2000,
+          "via": "v1*d/(v2-v1)"
+        }
+      }
+    ],
+    "firstWrong": 2,
+    "errorType": "sign",
+    "whyWrong": "כשמעבירים את 30t לאגף שמאל מוסיפים אותו: 20t + 30t = 1000, כלומר 50t = 1000. החסרנו במקום להוסיף. הסימן שהתשובה שגויה: 2000 מ' גדול מהמרחק ההתחלתי בין המכוניות.",
+    "correctedStep": "<span dir=\"ltr\">20t + 30t = 1000</span>, ולכן <span dir=\"ltr\">t = 20</span> ש'.",
+    "correctFinal": [
+      {
+        "label": "זמן המפגש",
+        "unit": "ש'",
+        "answer": "20"
+      },
+      {
+        "label": "המרחק ממקום היציאה של מכונית א׳",
+        "unit": "מ'",
+        "answer": "400"
+      }
+    ],
+    "verify": {
+      "model": "const_velocity_meet",
+      "params": {
+        "d": 1000,
+        "v1": 20,
+        "v2": 30
+      },
+      "names": [
+        "t",
+        "x1"
+      ],
+      "derived": {
+        "x1at10": "v1*10"
+      },
+      "final": [
+        "t",
+        "x1"
+      ],
+      "corrected": {
+        "type": "quantity",
+        "name": "t",
+        "value": 20,
+        "via": "d/(v1+v2)"
+      }
+    }
+  },
+  {
+    "id": "fm-p-012",
+    "topic": "horizontal",
+    "level": 3,
+    "title": "רץ מהיר משיג רץ איטי",
+    "statement": "רץ איטי יוצא במהירות <span dir=\"ltr\">4 מ/ש</span>. <span dir=\"ltr\">30</span> שניות אחריו יוצא רץ מהיר באותו כיוון במהירות <span dir=\"ltr\">10 מ/ש</span>. חשבו כמה זמן אחרי יציאת הרץ המהיר הוא משיג את האיטי, ובאיזה מרחק מנקודת היציאה.",
+    "steps": [
+      {
+        "text": "המהירות היחסית: <span dir=\"ltr\">10 − 4 = 6</span> מ/ש.",
+        "check": {
+          "type": "quantity",
+          "name": "rel",
+          "value": 6
+        }
+      },
+      {
+        "text": "הפער בין הרצים ברגע שהמהיר יוצא: <span dir=\"ltr\">10·30 = 300</span> מ'.",
+        "check": {
+          "type": "quantity",
+          "name": "gap",
+          "value": 300,
+          "via": "v_fast*t0"
+        }
+      },
+      {
+        "text": "זמן ההשגה: <span dir=\"ltr\">t = 300 / 6 = 50</span> ש'.",
+        "check": {
+          "type": "quantity",
+          "name": "t",
+          "value": 50,
+          "via": "v_fast*t0/rel"
+        }
+      },
+      {
+        "text": "המרחק: <span dir=\"ltr\">x = 10·50 = 500</span> מ'.",
+        "check": {
+          "type": "quantity",
+          "name": "x",
+          "value": 500,
+          "via": "v_fast*50"
+        }
+      }
+    ],
+    "firstWrong": 1,
+    "errorType": "wrong-formula",
+    "whyWrong": "הפער נוצר בזמן שהרץ האיטי רץ לבד, ולכן הוא מחושב לפי המהירות של האיטי: 4·30 = 120 מ' ולא לפי המהירות של המהיר.",
+    "correctedStep": "הפער הוא <span dir=\"ltr\">4·30 = 120</span> מ', <span dir=\"ltr\">t = 120 / 6 = 20</span> ש', <span dir=\"ltr\">x = 10·20 = 200</span> מ'.",
+    "correctFinal": [
+      {
+        "label": "זמן ההשגה",
+        "unit": "ש'",
+        "answer": "20"
+      },
+      {
+        "label": "המרחק מנקודת היציאה",
+        "unit": "מ'",
+        "answer": "200"
+      }
+    ],
+    "verify": {
+      "model": "head_start_catch",
+      "params": {
+        "v_slow": 4,
+        "v_fast": 10,
+        "t0": 30
+      },
+      "names": [
+        "t",
+        "x"
+      ],
+      "derived": {
+        "rel": "v_fast-v_slow",
+        "gap": "v_slow*t0"
+      },
+      "final": [
+        "t",
+        "x"
+      ],
+      "corrected": {
+        "type": "quantity",
+        "name": "gap",
+        "value": 120,
+        "via": "v_slow*t0"
+      }
+    }
+  },
+  {
+    "id": "fm-p-013",
+    "topic": "horizontal",
+    "level": 3,
+    "title": "מרחק עצירה עם קמ\"ש",
+    "statement": "נהג נוסע במהירות <span dir=\"ltr\">72 קמ\"ש</span> ורואה מכשול. זמן התגובה שלו <span dir=\"ltr\">1.5 ש'</span>, ולאחר מכן הוא בולם בהאטה קבועה של <span dir=\"ltr\">5 מ/ש²</span>. חשבו: א. את מרחק התגובה. ב. את מרחק הבלימה. ג. את מרחק העצירה הכולל.",
+    "steps": [
+      {
+        "text": "המרת יחידות: <span dir=\"ltr\">72 קמ\"ש = 20 מ/ש</span>.",
+        "check": {
+          "type": "quantity",
+          "name": "v",
+          "value": 20
+        }
+      },
+      {
+        "text": "מרחק התגובה: <span dir=\"ltr\">20·1.5 = 30</span> מ'.",
+        "check": {
+          "type": "quantity",
+          "name": "react",
+          "value": 30
+        }
+      },
+      {
+        "text": "מרחק הבלימה: <span dir=\"ltr\">v² / 2a = 72² / 10 = 518.4</span> מ'.",
+        "check": {
+          "type": "quantity",
+          "name": "brake",
+          "value": 518.4,
+          "via": "vkmh*vkmh/(2*a)"
+        }
+      },
+      {
+        "text": "מרחק העצירה: <span dir=\"ltr\">30 + 518.4 = 548.4</span> מ'.",
+        "check": {
+          "type": "quantity",
+          "name": "total",
+          "value": 548.4,
+          "via": "react+vkmh*vkmh/(2*a)"
+        }
+      }
+    ],
+    "firstWrong": 2,
+    "errorType": "units",
+    "whyWrong": "בנוסחת הבלימה צריך להציב את המהירות במ/ש (20), כמו בשאר החישובים. הצבנו 72 קמ\"ש ישירות, והתוצאה גדולה פי 12.96 מדי.",
+    "correctedStep": "<span dir=\"ltr\">v² / 2a = 400 / 10 = 40</span> מ'.",
+    "correctFinal": [
+      {
+        "label": "מרחק התגובה",
+        "unit": "מ'",
+        "answer": "30"
+      },
+      {
+        "label": "מרחק הבלימה",
+        "unit": "מ'",
+        "answer": "40"
+      },
+      {
+        "label": "מרחק העצירה הכולל",
+        "unit": "מ'",
+        "answer": "70"
+      }
+    ],
+    "verify": {
+      "model": "braking_with_reaction",
+      "params": {
+        "v": 20,
+        "a": 5,
+        "tr": 1.5,
+        "vkmh": 72
+      },
+      "names": [
+        "react",
+        "brake",
+        "total"
+      ],
+      "final": [
+        "react",
+        "brake",
+        "total"
+      ],
+      "corrected": {
+        "type": "quantity",
+        "name": "brake",
+        "value": 40,
+        "via": "v*v/(2*a)"
+      }
+    }
+  },
+  {
+    "id": "fm-p-014",
+    "topic": "horizontal",
+    "level": 3,
+    "title": "האצה ואחריה נסיעה במהירות קבועה",
+    "statement": "רכבת יוצאת ממנוחה בתאוצה <span dir=\"ltr\">2 מ/ש²</span> עד שהיא מגיעה למהירות <span dir=\"ltr\">20 מ/ש</span>, ואז נוסעת במהירות קבועה. תחנה נמצאת במרחק <span dir=\"ltr\">600 מ'</span> מנקודת היציאה. חשבו: א. את משך התאוצה. ב. את המרחק שעברה בזמן התאוצה. ג. את הזמן הכולל עד התחנה.",
+    "steps": [
+      {
+        "text": "<span dir=\"ltr\">t₁ = v / a = 20 / 2 = 10</span> ש'.",
+        "check": {
+          "type": "quantity",
+          "name": "t1",
+          "value": 10
+        }
+      },
+      {
+        "text": "<span dir=\"ltr\">x₁ = ½·2·10² = 100</span> מ'.",
+        "check": {
+          "type": "quantity",
+          "name": "x1",
+          "value": 100
+        }
+      },
+      {
+        "text": "ביתר הדרך הרכבת נוסעת במהירות קבועה: <span dir=\"ltr\">600 / 20 = 30</span> ש'.",
+        "check": {
+          "type": "quantity",
+          "name": "tCruise",
+          "value": 30,
+          "via": "D/vmax"
+        }
+      },
+      {
+        "text": "הזמן הכולל: <span dir=\"ltr\">10 + 30 = 40</span> ש'.",
+        "check": {
+          "type": "quantity",
+          "name": "T",
+          "value": 40,
+          "via": "t1+D/vmax"
+        }
+      }
+    ],
+    "firstWrong": 2,
+    "errorType": "wrong-formula",
+    "whyWrong": "בזמן התאוצה הרכבת כבר עברה 100 מ', ולכן במהירות הקבועה נותרו רק 600 − 100 = 500 מ': 500 / 20 = 25 ש'.",
+    "correctedStep": "<span dir=\"ltr\">(600 − 100) / 20 = 25</span> ש', והזמן הכולל <span dir=\"ltr\">10 + 25 = 35</span> ש'.",
+    "correctFinal": [
+      {
+        "label": "משך התאוצה",
+        "unit": "ש'",
+        "answer": "10"
+      },
+      {
+        "label": "המרחק בזמן התאוצה",
+        "unit": "מ'",
+        "answer": "100"
+      },
+      {
+        "label": "הזמן הכולל",
+        "unit": "ש'",
+        "answer": "35"
+      }
+    ],
+    "verify": {
+      "model": "accel_then_cruise",
+      "params": {
+        "a": 2,
+        "vmax": 20,
+        "D": 600
+      },
+      "names": [
+        "t1",
+        "x1",
+        "T"
+      ],
+      "derived": {
+        "tCruise": "(D-x1)/vmax"
+      },
+      "final": [
+        "t1",
+        "x1",
+        "T"
+      ],
+      "corrected": {
+        "type": "quantity",
+        "name": "T",
+        "value": 35,
+        "via": "t1+(D-x1)/vmax"
+      }
+    }
+  },
+  {
+    "id": "fm-p-015",
+    "topic": "horizontal",
+    "level": 3,
+    "title": "שורש ריבועי של זמן הנפילה",
+    "statement": "כדור נזרק אופקית מגובה <span dir=\"ltr\">20 מ'</span> ונוחת במרחק אופקי <span dir=\"ltr\">30 מ'</span> מנקודת הזריקה. <span dir=\"ltr\">g = 10 מ/ש²</span>. חשבו את זמן הנפילה, את מהירות הזריקה ואת מהירות הפגיעה בקרקע.",
+    "steps": [
+      {
+        "text": "בציר האנכי: <span dir=\"ltr\">20 = 5t²</span>, ולכן <span dir=\"ltr\">t² = 20 / 5 = 4</span>.",
+        "check": {
+          "type": "quantity",
+          "name": "tsq",
+          "value": 4
+        }
+      },
+      {
+        "text": "לכן <span dir=\"ltr\">t = 4</span> ש'.",
+        "check": {
+          "type": "quantity",
+          "name": "t",
+          "value": 4,
+          "via": "2*h/g"
+        }
+      },
+      {
+        "text": "מהירות הזריקה: <span dir=\"ltr\">v_x = R / t = 30 / 4 = 7.5</span> מ/ש.",
+        "check": {
+          "type": "quantity",
+          "name": "vx",
+          "value": 7.5,
+          "via": "R/4"
+        }
+      },
+      {
+        "text": "המהירות האנכית בפגיעה: <span dir=\"ltr\">v_y = g·t = 40</span> מ/ש, ולכן המהירות הכוללת גדולה בהרבה ממהירות הזריקה.",
+        "check": {
+          "type": "text"
+        }
+      }
+    ],
+    "firstWrong": 1,
+    "errorType": "arithmetic",
+    "whyWrong": "מ־t² = 4 צריך להוציא שורש: t = 2. כתבנו t = t² בטעות, וכל המשך החישוב שגוי.",
+    "correctedStep": "<span dir=\"ltr\">t = √4 = 2</span> ש', ולכן <span dir=\"ltr\">v_x = 30 / 2 = 15</span> מ/ש.",
+    "correctFinal": [
+      {
+        "label": "זמן הנפילה",
+        "unit": "ש'",
+        "answer": "2"
+      },
+      {
+        "label": "מהירות הזריקה",
+        "unit": "מ/ש",
+        "answer": "15"
+      },
+      {
+        "label": "מהירות הפגיעה",
+        "unit": "מ/ש",
+        "answer": "25"
+      }
+    ],
+    "verify": {
+      "model": "horizontal_launch_from_range",
+      "params": {
+        "h": 20,
+        "R": 30
+      },
+      "names": [
+        "t",
+        "vx",
+        "vImp"
+      ],
+      "derived": {
+        "tsq": "2*h/g"
+      },
+      "final": [
+        "t",
+        "vx",
+        "vImp"
+      ],
+      "corrected": {
+        "type": "quantity",
+        "name": "t",
+        "value": 2,
+        "via": "sqrt(tsq)"
+      }
+    }
+  }
+]
