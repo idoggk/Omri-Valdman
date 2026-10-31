@@ -1,0 +1,101 @@
+{
+  "v": 1,
+  "examples": {
+    "ex-math-3-elim": [
+      { "step": 1, "asks": [{ "label": "מקדם x במשוואה (4)", "value": 5, "expr": "2*sys[0][0]+sys[1][0]" }] },
+      { "step": 2, "asks": [{ "label": "מקדם z במשוואה (5)", "value": 3, "expr": "sys[2][2]-sys[0][2]" }] },
+      { "step": 3, "asks": [{ "label": "אגף ימין אחרי הצבה: −14x =", "value": -28, "expr": "-14*x" }] },
+      { "step": 4, "final": true, "asks": [
+        { "label": "x", "value": 2, "expr": "x" }, { "label": "y", "value": -1, "expr": "y" }, { "label": "z", "value": 3, "expr": "z" }] }
+    ],
+    "ex-math-3-quad": [
+      { "step": 0, "asks": [{ "label": "z = ? − x, הערך החופשי", "value": 4, "expr": "S[0].x+S[0].z" }] },
+      { "step": 1, "asks": [{ "label": "האיבר החופשי ב־x² − 4x + ? = 0", "value": 3, "expr": "S[0].x*S[0].z" }] },
+      { "step": 2, "asks": [{ "label": "Δ", "value": 4, "expr": "(S[0].x-S[1].x)**2" }] },
+      { "step": 3, "final": true, "asks": [
+        { "label": "x (פתרון ראשון)", "value": 3, "expr": "x", "sol": 0 }, { "label": "y (פתרון ראשון)", "value": 2, "expr": "y", "sol": 0 }, { "label": "z (פתרון ראשון)", "value": 1, "expr": "z", "sol": 0 },
+        { "label": "x (פתרון שני)", "value": 1, "expr": "x", "sol": 1 }, { "label": "y (פתרון שני)", "value": 4, "expr": "y", "sol": 1 }, { "label": "z (פתרון שני)", "value": 3, "expr": "z", "sol": 1 }] }
+    ],
+    "ex-math-3-param": [
+      { "step": 0, "asks": [{ "label": "אגף ימין של (4): 3x + 2z =", "value": 9, "expr": "sys[0][3]+sys[1][3]" }] },
+      { "step": 1, "asks": [{ "label": "אגף ימין של (5): ky =", "value": 1, "expr": "sys[2][3]-(sys[0][3]+sys[1][3])" }] },
+      { "step": 3, "asks": [{ "label": "z עבור k = 1", "value": 6, "expr": "z" }] },
+      { "step": 4, "final": true, "asks": [{ "label": "הערך של k שבו אין פתרון", "value": 0, "expr": "sys[2][1]" }] }
+    ],
+    "ex-math-4-elim": [
+      { "step": 0, "asks": [{ "label": "אגף ימין של (5): 3x + 2z =", "value": 1, "expr": "sys[0][4]+sys[1][4]" }] },
+      { "step": 1, "asks": [{ "label": "אגף ימין של (6): −x − 3z =", "value": 2, "expr": "sys[2][4]-2*sys[0][4]" }] },
+      { "step": 2, "asks": [{ "label": "אגף ימין של (7): x + 2y + z =", "value": 4, "expr": "sys[3][4]-sys[1][4]" }] },
+      { "step": 4, "final": true, "asks": [
+        { "label": "x", "value": 1, "expr": "x" }, { "label": "y", "value": 2, "expr": "y" }, { "label": "z", "value": -1, "expr": "z" }, { "label": "w", "value": 3, "expr": "w" }] }
+    ],
+    "ex-math-4-split": [
+      { "step": 0, "asks": [{ "label": "x + y =", "value": 6, "expr": "(sys[0][4]+sys[1][4])/2" }] },
+      { "step": 1, "asks": [{ "label": "z + w =", "value": 4, "expr": "(sys[0][4]-sys[1][4])/2" }] },
+      { "step": 2, "asks": [{ "label": "x − y =", "value": 2, "expr": "(sys[2][4]+sys[3][4])/2" }, { "label": "z − w =", "value": 2, "expr": "(sys[2][4]-sys[3][4])/2" }] },
+      { "step": 3, "asks": [{ "label": "2x =", "value": 8, "expr": "2*x" }] },
+      { "step": 4, "final": true, "asks": [
+        { "label": "x", "value": 4, "expr": "x" }, { "label": "y", "value": 2, "expr": "y" }, { "label": "z", "value": 3, "expr": "z" }, { "label": "w", "value": 1, "expr": "w" }] }
+    ],
+    "ex-math-4-quad": [
+      { "step": 0, "asks": [{ "label": "y + z =", "value": 6, "expr": "y+z" }] },
+      { "step": 2, "asks": [{ "label": "האיבר החופשי אחרי סיכום (לפני העברת האגף)", "value": 62, "expr": "(S[0].x+S[0].y)**2+(S[0].z-S[0].x)**2+(S[0].x+S[0].w)**2" }] },
+      { "step": 3, "asks": [{ "label": "הפתרון הקטן של x", "value": 2, "expr": "S[0].x" }, { "label": "הפתרון הגדול של x", "value": 3, "expr": "S[1].x" }] },
+      { "step": 4, "final": true, "asks": [
+        { "label": "y (עבור x = 2)", "value": 3, "expr": "y", "sol": 0 }, { "label": "z (עבור x = 2)", "value": 3, "expr": "z", "sol": 0 }, { "label": "w (עבור x = 2)", "value": 4, "expr": "w", "sol": 0 },
+        { "label": "y (עבור x = 3)", "value": 2, "expr": "y", "sol": 1 }, { "label": "z (עבור x = 3)", "value": 4, "expr": "z", "sol": 1 }, { "label": "w (עבור x = 3)", "value": 3, "expr": "w", "sol": 1 }] }
+    ],
+    "ex-phys-vertical-roof": [
+      { "step": 1, "asks": [{ "label": "זמן העלייה לשיא (ש')", "value": 2, "expr": "p.v0/10" }, { "label": "גובה העלייה מעל הגג (מ')", "value": 20, "expr": "p.v0*p.v0/20" }] },
+      { "step": 2, "asks": [{ "label": "הדיסקרימיננטה של t² − 4t − 5 = 0", "value": 36, "expr": "(2*p.v0/10)**2+4*(2*p.h/10)" }] },
+      { "step": 3, "final": true, "asks": [
+        { "label": "הגובה המקסימלי מעל הקרקע (מ')", "value": 45, "expr": "e.hmax" }, { "label": "זמן הטיסה (ש')", "value": 5, "expr": "e.t" }, { "label": "מהירות הפגיעה (מ/ש, עם סימן)", "value": -30, "expr": "e.vfinal" }] }
+    ],
+    "ex-phys-vertical-meet": [
+      { "step": 1, "asks": [{ "label": "המקדם של t אחרי הצמצום (מ/ש)", "value": 30, "expr": "p.vA+p.vB" }] },
+      { "step": 2, "asks": [{ "label": "5t² ברגע הפגישה (מ')", "value": 45, "expr": "5*e.t**2" }] },
+      { "step": 3, "final": true, "asks": [
+        { "label": "זמן הפגישה (ש')", "value": 3, "expr": "e.t" }, { "label": "גובה הפגישה (מ')", "value": 15, "expr": "e.y" },
+        { "label": "מהירות A (מ/ש)", "value": -10, "expr": "e.vA" }, { "label": "מהירות B (מ/ש)", "value": -40, "expr": "e.vB" }] }
+    ],
+    "ex-phys-vertical-lastsec": [
+      { "step": 1, "asks": [{ "label": "האיבר החופשי בביטוי 10t + ?", "value": 5, "expr": "p.d-10*e.t" }] },
+      { "step": 2, "asks": [{ "label": "10t (מ')", "value": 50, "expr": "10*e.t" }] },
+      { "step": 3, "final": true, "asks": [{ "label": "זמן הנפילה (ש')", "value": 5, "expr": "e.t" }, { "label": "גובה המגדל (מ')", "value": 175, "expr": "e.h" }] }
+    ],
+    "ex-phys-horizontal-brake": [
+      { "step": 1, "asks": [{ "label": "המכנה ב־d₂ = v²/?", "value": 10, "expr": "2*p.a" }] },
+      { "step": 2, "asks": [{ "label": "האיבר החופשי ב־v² + 10v − ? = 0", "value": 600, "expr": "10*p.d" }] },
+      { "step": 3, "asks": [{ "label": "הדיסקרימיננטה", "value": 2500, "expr": "(2*p.a*p.tr)**2+4*2*p.a*p.d" }] },
+      { "step": 5, "final": true, "asks": [
+        { "label": "המהירות המקסימלית (מ/ש)", "value": 20, "expr": "e.v" }, { "label": "המהירות המקסימלית (קמ״ש)", "value": 72, "expr": "e.kmh" }, { "label": "זמן עצירה כולל (ש')", "value": 5, "expr": "e.T" }] }
+    ],
+    "ex-phys-horizontal-chase": [
+      { "step": 1, "asks": [{ "label": "המקדם של t אחרי החילוק ב־1.25", "value": 16, "expr": "p.v/(p.a/2)" }, { "label": "האיבר החופשי אחרי החילוק ב־1.25", "value": 80, "expr": "p.d0/(p.a/2)" }] },
+      { "step": 2, "asks": [{ "label": "הדיסקרימיננטה", "value": 576, "expr": "(p.v/(p.a/2))**2+4*(p.d0/(p.a/2))" }] },
+      { "step": 3, "asks": [{ "label": "מהירות הניידת בהשגה (מ/ש)", "value": 50, "expr": "e.vp" }] },
+      { "step": 5, "final": true, "asks": [
+        { "label": "זמן ההשגה (ש')", "value": 20, "expr": "e.t" }, { "label": "מקום ההשגה (מ')", "value": 500, "expr": "e.x" },
+        { "label": "הזמן שבו המרחק מקסימלי (ש')", "value": 8, "expr": "e.tgap" }, { "label": "המרחק המקסימלי (מ')", "value": 180, "expr": "e.gap" }] }
+    ],
+    "ex-phys-horizontal-launch": [
+      { "step": 0, "asks": [{ "label": "t² (ש²)", "value": 16, "expr": "2*p.h/10" }] },
+      { "step": 2, "asks": [{ "label": "המהירות האנכית בפגיעה (מ/ש)", "value": 40, "expr": "10*e.t" }] },
+      { "step": 3, "final": true, "asks": [
+        { "label": "זמן הנפילה (ש')", "value": 4, "expr": "e.t" }, { "label": "המרחק האופקי (מ')", "value": 120, "expr": "e.x" }, { "label": "גודל מהירות הפגיעה (מ/ש)", "value": 50, "expr": "e.v" }] }
+    ],
+    "ex-phys-horizontal-angle": [
+      { "step": 0, "asks": [{ "label": "המהירות האופקית (מ/ש)", "value": 40, "expr": "p.v0*p.cos" }, { "label": "המהירות האנכית ההתחלתית (מ/ש)", "value": 30, "expr": "p.v0*p.sin" }] },
+      { "step": 1, "asks": [{ "label": "העלייה מעל הגג (מ')", "value": 45, "expr": "e.Hmax-p.h" }] },
+      { "step": 2, "asks": [{ "label": "הדיסקרימיננטה של t² − 6t − 7 = 0", "value": 64, "expr": "(2*p.v0*p.sin/10)**2+4*2*p.h/10" }] },
+      { "step": 3, "final": true, "asks": [
+        { "label": "זמן העלייה (ש')", "value": 3, "expr": "e.tUp" }, { "label": "הגובה המקסימלי (מ')", "value": 80, "expr": "e.Hmax" },
+        { "label": "זמן הטיסה (ש')", "value": 7, "expr": "e.T" }, { "label": "הטווח האופקי (מ')", "value": 280, "expr": "e.R" }] }
+    ],
+    "ex-phys-horizontal-vt": [
+      { "step": 0, "asks": [{ "label": "התאוצה בקטע הראשון (מ/ש²)", "value": 4, "expr": "e.a1" }, { "label": "התאוצה בקטע השלישי (מ/ש²)", "value": -4, "expr": "e.a3" }] },
+      { "step": 1, "asks": [{ "label": "שטח המשולש הראשון (מ')", "value": 50, "expr": "p.t1*p.v/2" }, { "label": "שטח המלבן (מ')", "value": 200, "expr": "p.t2*p.v" }] },
+      { "step": 4, "final": true, "asks": [{ "label": "הדרך הכוללת (מ')", "value": 300, "expr": "e.dist" }, { "label": "המהירות הממוצעת (מ/ש)", "value": 15, "expr": "e.avg" }] }
+    ]
+  }
+}

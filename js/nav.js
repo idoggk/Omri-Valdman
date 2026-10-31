@@ -15,7 +15,7 @@ export const TABS = [
 ];
 
 /** Routes whose first segment alone is enough to resolve (the rest are optional arguments). */
-const SIMPLE = ['progress', 'practice-hub', 'backup', 'summary', 'drills', 'endless', 'order', 'methods', 'edge', 'reverse', 'solve',
+const SIMPLE = ['progress', 'practice-hub', 'backup', 'summary', 'drills', 'endless', 'order', 'methods', 'edge', 'reverse', 'fading', 'solve',
   'repair', 'checkpoints', 'hunt', 'workout', 'exam'];
 
 /** hash -> { name, args } or { name: 'notfound' }. One parser shared by app.js and the tests. */
@@ -130,6 +130,7 @@ export function viewHub(ctx) {
       h('button', { class: 'card card-btn', type: 'button', onclick: (ev) => openFormulaSheet(null, ev.currentTarget) },
         h('strong', {}, '📐 דף נוסחאות'), h('span', { class: 'muted' }, 'כל הנוסחאות וטעויות נפוצות במקום אחד')),
       tile(`#/topic/${firstTopic}`, '📖 דוגמאות פתורות', 'בראש עמוד כל נושא: דוגמה פתורה צעד אחר צעד'),
+      tile('#/fading', '🌓 דוגמאות מתפוגגות', 'אותה דוגמה בארבעה שלבים: מפתרון מלא ועד פתרון עצמאי, עם הסתרה הדרגתית'),
     ],
     repair: [tile('#/repair', '🩹 חיזוק יסודות', 'מיני־שיעור ו־3 שאלות על מיומנות בסיס שבה יש טעויות חוזרות')],
     guided: [
