@@ -14,6 +14,7 @@ import * as order from './order-ui.js';
 import * as checkpoints from './checkpoints-ui.js';
 import * as methods from './methods-ui.js';
 import * as repair from './skills-ui.js';
+import * as nav from './nav.js';
 import { renderExercise, diagramFigure, OUTCOME_UI, badge } from './exercise-view.js';
 
 const TOPICS = [
@@ -68,52 +69,6 @@ async function loadData() {
 
 /* ---------- views ---------- */
 const openSheet = openFormulaSheet;
-
-function viewHome() {
-  document.title = 'Brain Gains – תרגול למבחן';
-  const cards = TOPICS.map((t) => {
-    const list = inTopic(t.id);
-    const done = store.countDone(list.map((e) => e.id));
-    const pct = list.length ? Math.round((done / list.length) * 100) : 0;
-    return h('a', { class: 'card', href: `#/topic/${t.id}` },
-      h('strong', {}, t.title),
-      h('span', { class: 'muted' }, `${list.length} תרגילים · הושלמו ${done}`),
-      h('div', { class: 'progress-bar', 'aria-hidden': 'true' }, h('span', { style: `width:${pct}%` })));
-  });
-  const queue = store.reviewQueue(exercises.map((e) => e.id));
-  const reviewCard = h('section', { class: 'card review-card', 'aria-labelledby': 'review-h' },
-    h('strong', { id: 'review-h' }, 'חזרה על טעויות'),
-    queue.length
-      ? [h('span', { class: 'muted' }, `${queue.length} תרגילים לחזרה (נפתרו עם רמזים או עם הצגת פתרון)`),
-        h('ul', { class: 'review-list' }, queue.slice(0, 5).map((id) => {
-          const ex = byId(id);
-          return h('li', {}, h('span', { 'aria-hidden': 'true' }, OUTCOME_UI[store.outcomeOf(id)].icon), ' ', isolateTitle(ex.title || ex.id));
-        })),
-        queue.length > 5 ? h('span', { class: 'muted' }, `ועוד ${queue.length - 5}…`) : null,
-        h('div', { class: 'btn-row' }, h('a', { class: 'btn primary', href: '#/review/start' }, 'התחל חזרה'))]
-      : h('span', { class: 'muted' }, 'אין תרגילים לחזרה כרגע. תרגילים שנפתרו עם רמזים או עם פתרון יופיעו כאן.'));
-  show(
-    h('h1', {}, 'במה נתרגל היום?'),
-    h('p', { class: 'muted' }, 'בחרו נושא, פתרו תרגילים ובדקו את עצמכם. רמזים ופתרון מלא זמינים בכל תרגיל.'),
-    loadErrors.length ? h('p', { class: 'error', role: 'alert' }, 'לא ניתן לטעון חלק מקבצי התרגילים. נסו לרענן את הדף.') : null,
-    exercises.length ? practice.homeCard(examCtx) : null,
-    exercises.length ? reviewCard : null,
-    exercises.length ? repair.homeCard(examCtx) : null,
-    h('div', { class: 'cards' }, cards),
-    h('h2', {}, 'כלים'),
-    h('div', { class: 'cards' },
-      h('a', { class: 'card', href: '#/drills' }, h('strong', {}, '⚡ תרגולים מהירים'), h('span', { class: 'muted' }, 'מלכודות, בדיקות שפיות וכרטיסיות בסשן של 10 פריטים')),
-      h('a', { class: 'card', href: '#/hunt' }, h('strong', {}, '🔎 מצאו את הטעות'), h('span', { class: 'muted' }, 'פתרון מלא עם טעות אחת: מצאו את השלב הראשון השגוי')),
-      h('a', { class: 'card', href: '#/order' }, h('strong', {}, '🧩 סדרו את שלבי הפתרון'), h('span', { class: 'muted' }, 'שלבי פתרון מעורבבים: סדרו אותם נכון וקבלו ציון')),
-      h('a', { class: 'card', href: '#/checkpoints' }, h('strong', {}, '🎯 נקודות ביניים'), h('span', { class: 'muted' }, 'פתרון צעד אחר צעד: מזינים כל תוצאת ביניים ומקבלים משוב מיד')),
-      h('a', { class: 'card', href: '#/methods' }, h('strong', {}, '🧭 איך מתחילים?'), h('span', { class: 'muted' }, 'בוחרים שיטה או צעד הבא נכון, ומקבלים הסבר לכל תשובה')),
-      h('a', { class: 'card', href: '#/repair' }, h('strong', {}, '🩹 חיזוק יסודות'), h('span', { class: 'muted' }, 'מיני־שיעור ו־3 שאלות על מיומנות בסיס שבה יש טעויות חוזרות')),
-      h('a', { class: 'card', href: '#/endless' }, h('strong', {}, '♾️ תרגול ללא הגבלה'), h('span', { class: 'muted' }, 'תרגילים חדשים בכל פעם, באותה רמה ועם רמזים ופתרון מלא')),
-      h('a', { class: 'card', href: '#/summary' }, h('strong', {}, '🖨️ סיכום להדפסה'), h('span', { class: 'muted' }, 'דף אחד מהנתונים שלכם: חולשות, נוסחאות ורשימת בדיקה לפני המבחן')),
-      h('a', { class: 'card', href: '#/backup' }, h('strong', {}, '💾 גיבוי והעברה'), h('span', { class: 'muted' }, 'שמרו את ההתקדמות או העבירו אותה למכשיר אחר')),
-      h('a', { class: 'card', href: '#/exam' }, h('strong', {}, '📝 מצב מבחן'), h('span', { class: 'muted' }, 'שאלות מעורבות, שעון, בלי רמזים ועם דוח בסוף')),
-      h('button', { class: 'card card-btn', type: 'button', onclick: (ev) => openSheet(null, ev.currentTarget) }, h('strong', {}, '📐 דף נוסחאות'), h('span', { class: 'muted' }, 'כל הנוסחאות וטעויות נפוצות במקום אחד'))));
-}
 
 function viewTopic(topicId, levelFilter = 0) {
   const topic = topicOf(topicId);
@@ -205,30 +160,38 @@ function viewWorkoutRoute(arg) {
   viewExercise(ids[n - 1], false, { n, total: ids.length });
 }
 
+function progressLinks() {
+  return h('div', { class: 'btn-row' },
+    h('a', { class: 'btn', href: '#/summary' }, '🖨️ סיכום להדפסה'),
+    h('a', { class: 'btn', href: '#/backup' }, '💾 גיבוי והעברה'));
+}
+
 function route() {
-  const parts = decodeURIComponent(location.hash.replace(/^#\/?/, '')).split('/').filter(Boolean);
+  const { name, args } = nav.resolveRoute(location.hash);
+  nav.renderTabBar(document.getElementById('tabbar'), location.hash);
   try {
-    if (parts[0] === 'topic' && parts[1]) viewTopic(parts[1]);
-    else if (parts[0] === 'ex' && parts[1]) viewExercise(parts[1]);
-    else if (parts[0] === 'progress') { practice.viewProgress(examCtx); const r = backup.reminderLine(); if (r) app.append(r); }
-    else if (parts[0] === 'backup') backup.viewBackup(examCtx);
-    else if (parts[0] === 'summary') summary.viewSummary(examCtx);
-    else if (parts[0] === 'drills') drills.viewDrills(examCtx);
-    else if (parts[0] === 'endless') endless.viewEndless(examCtx, parts[1], parts[2]);
-    else if (parts[0] === 'order') order.viewOrderRoute(examCtx, parts[1]);
-    else if (parts[0] === 'methods') methods.viewMethodsRoute(examCtx, parts[1]);
-    else if (parts[0] === 'repair') repair.viewRepairRoute(examCtx, parts[1]);
-    else if (parts[0] === 'checkpoints') checkpoints.viewCheckpointsRoute(examCtx, parts[1]);
-    else if (parts[0] === 'hunt') hunt.viewHunt(examCtx, parts[1]);
-    else if (parts[0] === 'workout') viewWorkoutRoute(parts[1]);
-    else if (parts[0] === 'exam') viewExam(examCtx, parts[1]);
-    else if (parts[0] === 'review' && parts[1] === 'start') {
+    if (name === 'topic') viewTopic(args[0]);
+    else if (name === 'ex') viewExercise(args[0]);
+    else if (name === 'progress') { practice.viewProgress(examCtx); app.append(progressLinks()); const r = backup.reminderLine(); if (r) app.append(r); }
+    else if (name === 'practice-hub') nav.viewHub(examCtx);
+    else if (name === 'backup') backup.viewBackup(examCtx);
+    else if (name === 'summary') summary.viewSummary(examCtx);
+    else if (name === 'drills') drills.viewDrills(examCtx);
+    else if (name === 'endless') endless.viewEndless(examCtx, args[0], args[1]);
+    else if (name === 'order') order.viewOrderRoute(examCtx, args[0]);
+    else if (name === 'methods') methods.viewMethodsRoute(examCtx, args[0]);
+    else if (name === 'repair') repair.viewRepairRoute(examCtx, args[0]);
+    else if (name === 'checkpoints') checkpoints.viewCheckpointsRoute(examCtx, args[0]);
+    else if (name === 'hunt') hunt.viewHunt(examCtx, args[0]);
+    else if (name === 'workout') viewWorkoutRoute(args[0]);
+    else if (name === 'exam') viewExam(examCtx, args[0]);
+    else if (name === 'review-start') {
       reviewSeen = new Set();
       const first = store.reviewQueue(exercises.map((e) => e.id))[0];
       location.replace(first ? `#/review/${first}` : '#/review/done');
-    } else if (parts[0] === 'review' && parts[1] === 'done') viewReviewDone();
-    else if (parts[0] === 'review' && parts[1]) viewExercise(parts[1], true);
-    else if (parts.length === 0) viewHome();
+    } else if (name === 'review-done') viewReviewDone();
+    else if (name === 'review') viewExercise(args[0], true);
+    else if (name === 'home') nav.viewHome(examCtx, loadErrors);
     else viewNotFound();
   } catch (err) {
     console.error('route failed for', location.hash, err && err.stack ? err.stack : err);

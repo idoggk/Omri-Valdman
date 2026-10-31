@@ -208,11 +208,30 @@ sub { top: .25em; }
 .order-pick:focus-visible, .order-move .btn:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
 @media (min-width: 560px) { .order-move { flex-direction: row; align-items: center; } }
 
+/* bottom tab bar, today card, practice hub */
+body { padding-block-end: calc(68px + env(safe-area-inset-bottom)); }
+body.no-tabs { padding-block-end: 0; }
+.tabbar {
+  position: fixed; inset-inline: 0; bottom: 0; z-index: 20; display: flex;
+  background: var(--card); border-top: 1px solid var(--border);
+  padding-bottom: env(safe-area-inset-bottom);
+}
+.tabbar[hidden] { display: none; }
+.tab {
+  flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px;
+  min-height: 56px; padding: 6px 4px; color: var(--muted); text-decoration: none; font-size: .9rem;
+}
+.tab-icon { font-size: 1.3rem; line-height: 1; }
+.tab.active { color: var(--accent); font-weight: 700; box-shadow: inset 0 3px 0 var(--accent); }
+.today-card { margin-bottom: 12px; }
+.cta { display: block; text-align: center; font-size: 1.3rem; padding: 16px; margin: 12px 0 8px; text-decoration: none; }
+.hub-group { margin-bottom: 8px; }
+
 /* print / save as PDF: white, no chrome, A4, RTL */
 @media print {
   @page { size: A4; margin: 14mm; }
   html, body { background: #fff !important; color: #000 !important; direction: rtl; }
-  .site-header, .skip, .no-print, .crumbs, .btn, button, .app-version, .overlay, noscript { display: none !important; }
+  .site-header, .tabbar, .skip, .no-print, .crumbs, .btn, button, .app-version, .overlay, noscript { display: none !important; }
   #app { max-width: none; padding: 0; }
   h1, h2, h3 { color: #000; break-after: avoid; }
   a { color: #000; text-decoration: none; }

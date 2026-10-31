@@ -164,8 +164,8 @@ test('store: sanitize drops garbage, recordEndless survives broken storage', () 
 
 test('router, home tile and precache are wired', () => {
   const app = readFileSync(new URL('../js/app.js', import.meta.url), 'utf8');
-  assert.match(app, /parts\[0\] === 'endless'/);
-  assert.match(app, /♾️ תרגול ללא הגבלה/);
+  assert.match(app, /name === 'endless'/);
+  assert.match(readFileSync(new URL('../js/nav.js', import.meta.url), 'utf8'), /♾️ תרגול ללא הגבלה/);
   const sw = readFileSync(new URL('../sw.js', import.meta.url), 'utf8');
   for (const f of ['js/variants.js', 'js/endless-ui.js', 'js/exercise-view.js']) assert.ok(sw.includes(`'${f}'`), f);
 });
