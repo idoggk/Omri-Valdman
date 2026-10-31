@@ -6,6 +6,7 @@ import { isolateTitle } from './bidi.js';
 import { h, ltr } from './dom.js';
 import { loadExtras, openFormulaSheet, formulaButton, examplesSection, guidedStepper } from './sheet.js';
 import { viewExam } from './exam-ui.js';
+import * as practice from './practice-ui.js';
 
 const TOPICS = [
   { id: 'math-3', title: 'מערכת משוואות עם 3 נעלמים', file: 'math' },
@@ -97,6 +98,7 @@ function viewHome() {
     h('h1', {}, 'במה נתרגל היום?'),
     h('p', { class: 'muted' }, 'בחרו נושא, פתרו תרגילים ובדקו את עצמכם. רמזים ופתרון מלא זמינים בכל תרגיל.'),
     loadErrors.length ? h('p', { class: 'error', role: 'alert' }, 'לא ניתן לטעון חלק מקבצי התרגילים. נסו לרענן את הדף.') : null,
+    exercises.length ? practice.homeCard(examCtx) : null,
     exercises.length ? reviewCard : null,
     h('div', { class: 'cards' }, cards),
     h('h2', {}, 'כלים'),
@@ -112,12 +114,13 @@ function viewTopic(topicId, levelFilter = 0) {
   const list = inTopic(topicId);
   const shown = levelFilter ? list.filter((e) => e.level === levelFilter) : list;
 
+  const suggested = practice.suggestedLevel(list); // a hint only: every level stays open
   const filters = h('div', { class: 'filters', role: 'group', 'aria-label': 'סינון לפי רמה' },
     [[0, 'הכול'], [1, 'רמה 1'], [2, 'רמה 2'], [3, 'רמה 3']].map(([lv, label]) =>
       h('button', {
         class: 'chip', type: 'button', 'aria-pressed': String(lv === levelFilter),
         onclick: () => viewTopic(topicId, lv),
-      }, label)));
+      }, lv && lv === suggested ? `${label} · מומלץ` : label)));
 
   const items = shown.map((e) =>
     h('li', {}, h('a', { class: 'ex-item', href: `#/ex/${e.id}` },
@@ -141,7 +144,7 @@ function viewTopic(topicId, levelFilter = 0) {
       : h('p', { class: 'muted' }, list.length ? 'אין תרגילים ברמה הזו.' : 'עדיין אין תרגילים בנושא הזה.'));
 }
 
-function viewExercise(id, reviewMode = false) {
+function viewExercise(id, reviewMode = false, wk = null) {
   const ex = byId(id);
   if (!ex) return viewNotFound();
   if (reviewMode) reviewSeen.add(id);
@@ -213,12 +216,27 @@ function viewExercise(id, reviewMode = false) {
     feedback.replaceChildren(h('div', { class: `feedback ${kind}`, role: kind === 'bad' ? 'alert' : 'status' }, text));
   };
 
+  const reasonBox = h('div', { 'aria-live': 'polite' });
+  const t0 = Date.now();
+  let wrongNoted = false, solutionNoted = false;
+  const note = (outcome) => store.recordAttempt({
+    exerciseId: ex.id, outcome, hintsUsed: shownTips, seconds: Math.round((Date.now() - t0) / 1000),
+  });
+  const askReason = (rec) => {
+    if (rec) reasonBox.replaceChildren(practice.reasonChips((r) => store.setAttemptReason(rec, r)));
+  };
+  function noteWrong() {
+    if (closed || wrongNoted || solutionNoted) return;
+    wrongNoted = true;
+    askReason(note('wrong'));
+  }
   const outcomeLine = h('p', { class: 'muted', 'aria-live': 'polite' });
   let closed = false; // attempt already recorded as correct in this visit
   let shownTips = Math.min(store.getTipsUsed(ex.id), tips.length);
   function solved() {
     if (closed) return;
     closed = true;
+    if (!solutionNoted) note(shownTips > 0 ? 'hinted' : 'alone');
     store.markCorrect(ex.id);
     const ui = OUTCOME_UI[store.outcomeOf(ex.id)];
     outcomeLine.replaceChildren(`${ui.icon} ${ui.label}`);
@@ -237,12 +255,14 @@ function viewExercise(id, reviewMode = false) {
       const parts = [`${res.right.length} פתרונות נכונים מתוך ${res.expected}.`];
       if (res.wrong.length) parts.push(`${res.wrong.length > 1 ? 'שורות' : 'שורה'} שנראות שגויות: ${res.wrong.map((i) => i + 1).join(', ')}.`);
       else parts.push('עוד יש פתרונות לחפש.');
+      noteWrong();
       return setFeedback('bad', parts.join(' '));
     }
     if (isChoice) {
       const v = readValues();
       if (v < 0) return setFeedback('bad', 'בחרו תשובה לפני הבדיקה.');
       if (v === ex.choice.correct) { solved(); return setFeedback('ok', 'נכון! כל הכבוד 🎉'); }
+      noteWrong();
       return setFeedback('bad', 'לא מדויק. נסו שוב, אפשר להיעזר ברמז.');
     }
     const values = readValues();
@@ -250,6 +270,7 @@ function viewExercise(id, reviewMode = false) {
     const res = checkAll(values, ex.inputs);
     res.forEach((ok, i) => fieldEls[i].wrap.classList.add(ok ? 'right' : 'wrong'));
     if (res.every(Boolean)) { solved(); return setFeedback('ok', 'נכון! כל הכבוד 🎉'); }
+    noteWrong();
     const wrongNames = ex.inputs.map((s, i) => (res[i] ? null : (s.label || `תשובה ${i + 1}`))).filter(Boolean);
     feedback.replaceChildren(h('div', { class: 'feedback bad', role: 'alert' },
       'יש טעות ב: ', wrongNames.map((n, i) => [i ? ', ' : '', ltr(n)]), '. בדקו ונסו שוב.'));
@@ -288,7 +309,10 @@ function viewExercise(id, reviewMode = false) {
   }
   function showSolution() {
     shownTips = tips.length;
-    if (!closed) { store.setTipsUsed(ex.id, tips.length); store.revealSolution(ex.id); }
+    if (!closed) {
+      store.setTipsUsed(ex.id, tips.length); store.revealSolution(ex.id);
+      if (!solutionNoted) { solutionNoted = true; askReason(note('solution')); }
+    }
     renderTips();
     solutionBox.replaceChildren(h('div', { class: 'panel' },
       h('h2', {}, 'פתרון מלא'),
@@ -300,13 +324,15 @@ function viewExercise(id, reviewMode = false) {
     answerArea,
     h('div', { class: 'btn-row' },
       h('button', { class: 'btn primary', type: 'submit' }, 'בדוק')),
-    feedback);
+    feedback,
+    reasonBox);
 
   renderTips();
   show(
     h('p', { class: 'crumbs' }, h('a', { href: `#/topic/${ex.topic}` }, `→ ${topic ? topic.title : 'חזרה'}`)),
     h('h1', {}, isolateTitle(ex.title || ex.id), ' ', badge(ex.level)),
     ex.topic.startsWith('phys-') ? h('p', { class: 'muted' }, 'נקח ', ltr('g = 10 m/s²'), '.') : null,
+    wk ? practice.workoutBar(wk.n, wk.total) : null,
     reviewMode ? h('p', { class: 'notice' }, 'מצב חזרה על טעויות. פתרו לבד, בלי רמזים, כדי להוריד את התרגיל מהרשימה.') : null,
     h('div', { class: 'panel statement', html: ex.statement || '' }),
     diagramFigure(ex),
@@ -322,6 +348,9 @@ function viewExercise(id, reviewMode = false) {
     reviewMode ? h('nav', { class: 'nav', 'aria-label': 'ניווט בחזרה' },
       h('a', { class: 'btn', href: '#/' }, 'סיום החזרה'),
       h('a', { class: 'btn primary', href: reviewNextHref(id) }, 'התרגיל הבא לחזרה ←'))
+    : wk ? h('nav', { class: 'nav', 'aria-label': 'ניווט באימון' },
+      wk.n > 1 ? h('a', { class: 'btn', href: `#/workout/${wk.n - 1}` }, '→ השאלה הקודמת') : h('a', { class: 'btn', href: '#/' }, 'יציאה'),
+      h('a', { class: 'btn primary', href: wk.n < wk.total ? `#/workout/${wk.n + 1}` : '#/workout/summary' }, wk.n < wk.total ? 'השאלה הבאה ←' : 'סיום וסיכום ←'))
     : h('nav', { class: 'nav', 'aria-label': 'ניווט בין תרגילים' },
       prev ? h('a', { class: 'btn', href: `#/ex/${prev.id}` }, '→ התרגיל הקודם') : h('span'),
       next ? h('a', { class: 'btn primary', href: `#/ex/${next.id}` }, 'התרגיל הבא ←') : h('span')));
@@ -362,11 +391,26 @@ const examCtx = {
   diagramFigure: (ex) => diagramFigure(ex),
 };
 
+function viewWorkoutRoute(arg) {
+  if (arg === 'start') {
+    location.replace(practice.startWorkout(exercises) ? '#/workout/1' : '#/');
+    return;
+  }
+  if (arg === 'summary') return practice.viewWorkoutSummary(examCtx);
+  const w = store.loadWorkout();
+  const ids = w ? w.ids.filter((x) => byId(x)) : [];
+  const n = Number(arg);
+  if (!ids.length || !Number.isInteger(n) || n < 1 || n > ids.length) return location.replace('#/');
+  viewExercise(ids[n - 1], false, { n, total: ids.length });
+}
+
 function route() {
   const parts = decodeURIComponent(location.hash.replace(/^#\/?/, '')).split('/').filter(Boolean);
   try {
     if (parts[0] === 'topic' && parts[1]) viewTopic(parts[1]);
     else if (parts[0] === 'ex' && parts[1]) viewExercise(parts[1]);
+    else if (parts[0] === 'progress') practice.viewProgress(examCtx);
+    else if (parts[0] === 'workout') viewWorkoutRoute(parts[1]);
     else if (parts[0] === 'exam') viewExam(examCtx, parts[1]);
     else if (parts[0] === 'review' && parts[1] === 'start') {
       reviewSeen = new Set();

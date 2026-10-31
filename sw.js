@@ -1,6 +1,6 @@
 // Service worker. Bump CACHE_VERSION when the shell list changes.
 // All URLs are relative to the SW scope, so it works under /Omri-Valdman/.
-const CACHE_VERSION = 'v4';
+const CACHE_VERSION = 'v6';
 const CACHE_NAME = 'omri-study-' + CACHE_VERSION;
 
 const PRECACHE = [
@@ -22,6 +22,9 @@ const PRECACHE = [
   'js/guided.js',
   'js/examples.js',
   'js/sheet.js',
+  'js/srs.js',
+  'js/workout.js',
+  'js/practice-ui.js',
   'data/math.json',
   'data/physics.json',
   'data/formulas.json',
