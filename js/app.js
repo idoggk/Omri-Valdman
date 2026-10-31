@@ -143,7 +143,7 @@ function viewTopic(topicId, levelFilter = 0) {
     h('p', { class: 'crumbs' }, h('a', { href: '#/' }, '→ חזרה לנושאים')),
     h('h1', {}, topic.title),
     topicId.startsWith('phys-')
-      ? h('p', { class: 'notice' }, 'בתרגילי הפיזיקה נקח ', ltr('g = 10 m/s²'), '.') : null,
+      ? h('p', { class: 'notice' }, 'בתרגילי הפיזיקה נקח ', ltr('g = 10 מ/ש²'), '.') : null,
     h('div', { class: 'btn-row' }, formulaButton(topicId)),
     examplesSection(topicId),
     filters,
@@ -281,7 +281,7 @@ function viewExercise(id, reviewMode = false, wk = null) {
     noteWrong();
     const wrongNames = ex.inputs.map((s, i) => (res[i] ? null : (s.label || `תשובה ${i + 1}`))).filter(Boolean);
     feedback.replaceChildren(h('div', { class: 'feedback bad', role: 'alert' },
-      'יש טעות ב: ', wrongNames.map((n, i) => [i ? ', ' : '', ltr(n)]), '. בדקו ונסו שוב.'));
+      'יש טעות בתשובה עבור: ', wrongNames.map((n, i) => [i ? ', ' : '', ltr(n)]), '. בדקו ונסו שוב.'));
   }
 
   /* tips: must open in order */
@@ -311,7 +311,7 @@ function viewExercise(id, reviewMode = false, wk = null) {
     solutionBox.replaceChildren(h('div', { class: 'panel confirm', role: 'alertdialog', 'aria-label': 'אישור הצגת פתרון' },
       h('p', {}, 'בטוחים שרוצים לראות את הפתרון המלא? כדאי קודם לנסות עם הרמזים.'),
       h('div', { class: 'btn-row' },
-        h('button', { class: 'btn primary', type: 'button', onclick: showSolution }, 'כן, הצג פתרון'),
+        h('button', { class: 'btn primary', type: 'button', onclick: showSolution }, 'כן, הציגו פתרון'),
         h('button', { class: 'btn', type: 'button', onclick: () => { solutionBox.replaceChildren(); solutionBtn.focus(); } }, 'ביטול'))));
     solutionBox.querySelector('button').focus();
   }
@@ -326,12 +326,12 @@ function viewExercise(id, reviewMode = false, wk = null) {
       h('h2', {}, 'פתרון מלא'),
       h('ol', { class: 'steps' }, solution.map((s) => h('li', { html: s })))));
   }
-  const solutionBtn = h('button', { class: 'btn', type: 'button', onclick: showConfirm }, 'הצג פתרון מלא');
+  const solutionBtn = h('button', { class: 'btn', type: 'button', onclick: showConfirm }, 'הציגו פתרון מלא');
 
   const form = h('form', { onsubmit: (ev) => { ev.preventDefault(); check(); } },
     answerArea,
     h('div', { class: 'btn-row' },
-      h('button', { class: 'btn primary', type: 'submit' }, 'בדוק')),
+      h('button', { class: 'btn primary', type: 'submit' }, 'בדקו')),
     feedback,
     reasonBox);
 
@@ -339,7 +339,7 @@ function viewExercise(id, reviewMode = false, wk = null) {
   show(
     h('p', { class: 'crumbs' }, h('a', { href: `#/topic/${ex.topic}` }, `→ ${topic ? topic.title : 'חזרה'}`)),
     h('h1', {}, isolateTitle(ex.title || ex.id), ' ', badge(ex.level)),
-    ex.topic.startsWith('phys-') ? h('p', { class: 'muted' }, 'נקח ', ltr('g = 10 m/s²'), '.') : null,
+    ex.topic.startsWith('phys-') ? h('p', { class: 'muted' }, 'נקח ', ltr('g = 10 מ/ש²'), '.') : null,
     wk ? practice.workoutBar(wk.n, wk.total) : null,
     reviewMode ? h('p', { class: 'notice' }, 'מצב חזרה על טעויות. פתרו לבד, בלי רמזים, כדי להוריד את התרגיל מהרשימה.') : null,
     h('div', { class: 'panel statement', html: ex.statement || '' }),

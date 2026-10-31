@@ -110,14 +110,14 @@ function openHelp() {
 
 function injectTools() {
   const header = document.querySelector('.site-header') || document.body;
-  const shareBtn = $('button', { className: 'pwa-btn', type: 'button', textContent: 'שתף' });
-  shareBtn.setAttribute('aria-label', 'שתף את האתר');
+  const shareBtn = $('button', { className: 'pwa-btn', type: 'button', textContent: 'שתפו' });
+  shareBtn.setAttribute('aria-label', 'שתפו את האתר');
   shareBtn.addEventListener('click', share);
   const helpLink = $('button', { className: 'pwa-link', type: 'button', textContent: 'איך מוסיפים למסך הבית' });
   helpLink.addEventListener('click', openHelp);
-  installBtn = $('button', { className: 'pwa-btn primary', type: 'button', textContent: 'התקן' });
+  installBtn = $('button', { className: 'pwa-btn primary', type: 'button', textContent: 'התקינו' });
   installBtn.hidden = true;
-  installBtn.setAttribute('aria-label', 'התקן את האפליקציה');
+  installBtn.setAttribute('aria-label', 'התקינו את האפליקציה');
   installBtn.addEventListener('click', async () => {
     if (!deferredPrompt) return;
     deferredPrompt.prompt();
@@ -132,8 +132,8 @@ function injectTools() {
 
 function showUpdateBanner(worker) {
   if (document.querySelector('.pwa-banner')) return;
-  const btn = $('button', { className: 'pwa-btn primary', type: 'button', textContent: 'רענן' });
-  const banner = $('div', { className: 'pwa-banner' }, $('span', { textContent: 'יש גרסה חדשה – רענן' }), btn);
+  const btn = $('button', { className: 'pwa-btn primary', type: 'button', textContent: 'רעננו' });
+  const banner = $('div', { className: 'pwa-banner' }, $('span', { textContent: 'יש גרסה חדשה – רעננו' }), btn);
   banner.setAttribute('role', 'status');
   btn.addEventListener('click', () => {
     if (worker) { try { worker.postMessage('skip-waiting'); } catch { /* ignore */ } }
