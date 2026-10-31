@@ -250,6 +250,11 @@ export function createLog(storage, key = LOG_KEY) {
   return {
     all: () => load().slice(),
     add(a) { const r = makeAttempt(a); if (r) { load().push(r); save(); } return r; },
+    /** Sets the error reason on a record previously returned by add(). */
+    setReason(rec, reason) {
+      if (!REASON_IDS.includes(reason) || !load().includes(rec)) return false;
+      rec.errorReason = reason; save(); return true;
+    },
     /** Idempotent: merges legacy progress outcomes, never touching exercises that already have records. */
     migrateFrom(progressState) {
       const recs = recordsFromProgress(progressState, load());

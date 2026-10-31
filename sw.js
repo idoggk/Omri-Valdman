@@ -1,6 +1,6 @@
 // Service worker. Bump CACHE_VERSION when the shell list changes.
 // All URLs are relative to the SW scope, so it works under /Omri-Valdman/.
-const CACHE_VERSION = 'v5';
+const CACHE_VERSION = 'v6';
 const CACHE_NAME = 'omri-study-' + CACHE_VERSION;
 
 const PRECACHE = [
@@ -24,15 +24,15 @@ const PRECACHE = [
   'js/sheet.js',
   'js/srs.js',
   'js/workout.js',
+  'js/practice-ui.js',
   'data/math.json',
   'data/physics.json',
   'data/formulas.json',
   'data/examples.json',
-  'icons/icon-192.png',
-  'icons/icon-512.png',
-  'icons/icon-maskable-512.png',
-  'icons/apple-touch-icon.png',
-  'icons/favicon-32.png',
+  'icons/icon-v3-180.png',
+  'icons/icon-v3-192.png',
+  'icons/icon-v3-512.png',
+  'icons/icon-v3-maskable-512.png',
 ];
 
 self.addEventListener('install', (event) => {
@@ -55,7 +55,7 @@ self.addEventListener('activate', (event) => {
 async function networkFirst(request) {
   const cache = await caches.open(CACHE_NAME);
   try {
-    const res = await fetch(request);
+    const res = await fetch(request, { cache: 'no-cache' });
     if (res && res.ok) cache.put(request, res.clone());
     return res;
   } catch (err) {
@@ -69,24 +69,11 @@ async function networkFirst(request) {
   }
 }
 
-async function cacheFirst(request) {
-  const cache = await caches.open(CACHE_NAME);
-  const hit = await cache.match(request);
-  if (hit) return hit;
-  const res = await fetch(request);
-  if (res && res.ok) cache.put(request, res.clone());
-  return res;
-}
-
 self.addEventListener('fetch', (event) => {
   const req = event.request;
   if (req.method !== 'GET') return;
   const url = new URL(req.url);
   if (url.origin !== self.location.origin) return;
-  if (/\/icons\//.test(url.pathname)) {
-    event.respondWith(cacheFirst(req));
-  } else {
-    // html, css, js, json, manifest: fresh when online, cached when offline
-    event.respondWith(networkFirst(req));
-  }
+  // html, css, js, json, manifest, icons: fresh when online, cached only when offline
+  event.respondWith(networkFirst(req));
 });

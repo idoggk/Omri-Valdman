@@ -213,3 +213,13 @@ test('createLog.migrateFrom is idempotent and keeps newer real records', () => {
   assert.equal(again.length, 2);
   assert.equal(again.find((r) => r.exerciseId === 'b').outcome, 'solution');
 });
+
+test('createLog.setReason attaches a valid reason to a stored record and persists it', () => {
+  const st = fakeStorage();
+  const log = S.createLog(st);
+  const rec = log.add({ exerciseId: 'a', outcome: 'wrong', ts: 5 });
+  assert.equal(log.setReason(rec, 'sign'), true);
+  assert.equal(log.setReason(rec, 'bogus'), false);
+  assert.equal(S.createLog(st).all()[0].errorReason, 'sign');
+  assert.equal(log.setReason({ exerciseId: 'zzz' }, 'sign'), false);
+});
