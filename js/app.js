@@ -7,6 +7,7 @@ import { h, ltr } from './dom.js';
 import { loadExtras, openFormulaSheet, formulaButton, examplesSection, guidedStepper } from './sheet.js';
 import { viewExam } from './exam-ui.js';
 import * as practice from './practice-ui.js';
+import * as drills from './drills-ui.js';
 
 const TOPICS = [
   { id: 'math-3', title: 'מערכת משוואות עם 3 נעלמים', file: 'math' },
@@ -103,6 +104,7 @@ function viewHome() {
     h('div', { class: 'cards' }, cards),
     h('h2', {}, 'כלים'),
     h('div', { class: 'cards' },
+      h('a', { class: 'card', href: '#/drills' }, h('strong', {}, '⚡ תרגולים מהירים'), h('span', { class: 'muted' }, 'מלכודות, בדיקות שפיות וכרטיסיות בסשן של 10 פריטים')),
       h('a', { class: 'card', href: '#/exam' }, h('strong', {}, '📝 מצב מבחן'), h('span', { class: 'muted' }, 'שאלות מעורבות, שעון, בלי רמזים ועם דוח בסוף')),
       h('button', { class: 'card card-btn', type: 'button', onclick: (ev) => openSheet(null, ev.currentTarget) }, h('strong', {}, '📐 דף נוסחאות'), h('span', { class: 'muted' }, 'כל הנוסחאות וטעויות נפוצות במקום אחד'))));
 }
@@ -410,6 +412,7 @@ function route() {
     if (parts[0] === 'topic' && parts[1]) viewTopic(parts[1]);
     else if (parts[0] === 'ex' && parts[1]) viewExercise(parts[1]);
     else if (parts[0] === 'progress') practice.viewProgress(examCtx);
+    else if (parts[0] === 'drills') drills.viewDrills(examCtx);
     else if (parts[0] === 'workout') viewWorkoutRoute(parts[1]);
     else if (parts[0] === 'exam') viewExam(examCtx, parts[1]);
     else if (parts[0] === 'review' && parts[1] === 'start') {
