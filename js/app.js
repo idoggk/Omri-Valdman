@@ -19,6 +19,7 @@ import * as fading from './fading-ui.js';
 import * as solve from './fullsolve-ui.js';
 import * as repair from './skills-ui.js';
 import * as nav from './nav.js';
+import * as feedbackUi from './feedback-ui.js';
 import { renderExercise, diagramFigure, OUTCOME_UI, badge } from './exercise-view.js';
 
 const TOPICS = [
@@ -167,7 +168,8 @@ function viewWorkoutRoute(arg) {
 function progressLinks() {
   return h('div', { class: 'btn-row' },
     h('a', { class: 'btn', href: '#/summary' }, '🖨️ סיכום להדפסה'),
-    h('a', { class: 'btn', href: '#/backup' }, '💾 גיבוי והעברה'));
+    h('a', { class: 'btn', href: '#/backup' }, '💾 גיבוי והעברה'),
+    h('a', { class: 'btn', href: '#/feedback' }, '📊 משוב על קושי'));
 }
 
 function route() {
@@ -179,6 +181,7 @@ function route() {
     else if (name === 'progress') { practice.viewProgress(examCtx); app.append(progressLinks()); const cal = solve.calibrationLine(); if (cal) app.append(cal); const r = backup.reminderLine(); if (r) app.append(r); }
     else if (name === 'practice-hub') nav.viewHub(examCtx);
     else if (name === 'backup') backup.viewBackup(examCtx);
+    else if (name === 'feedback') feedbackUi.viewFeedback(examCtx);
     else if (name === 'summary') summary.viewSummary(examCtx);
     else if (name === 'drills') drills.viewDrills(examCtx);
     else if (name === 'endless') endless.viewEndless(examCtx, args[0], args[1]);

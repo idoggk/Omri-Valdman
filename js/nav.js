@@ -16,7 +16,7 @@ export const TABS = [
 
 /** Routes whose first segment alone is enough to resolve (the rest are optional arguments). */
 const SIMPLE = ['progress', 'practice-hub', 'backup', 'summary', 'drills', 'endless', 'order', 'methods', 'edge', 'reverse', 'fading', 'solve',
-  'repair', 'checkpoints', 'hunt', 'workout', 'exam'];
+  'repair', 'checkpoints', 'hunt', 'workout', 'exam', 'feedback'];
 
 /** hash -> { name, args } or { name: 'notfound' }. One parser shared by app.js and the tests. */
 export function resolveRoute(hash) {
@@ -153,7 +153,10 @@ export function viewHub(ctx) {
       tile('#/exam', '🎯 מבחן חכם', 'מבחן שנבנה לפי החולשות שלכם (מסמנים במסך ההגדרות)'),
       tile('#/summary', '🖨️ סיכום להדפסה', 'דף אחד מהנתונים שלכם: חולשות, נוסחאות ורשימת בדיקה לפני המבחן'),
     ],
-    backup: [tile('#/backup', '💾 גיבוי והעברה', 'שמרו את ההתקדמות או העבירו אותה למכשיר אחר')],
+    backup: [
+      tile('#/backup', '💾 גיבוי והעברה', 'שמרו את ההתקדמות או העבירו אותה למכשיר אחר'),
+      tile('#/feedback', '📊 משוב על קושי', 'דירוגי קושי, מה היה קשה, וייצוא קובץ לשליחה בוואטסאפ'),
+    ],
   };
   ctx.show(
     h('h1', {}, 'תרגול'),

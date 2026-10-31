@@ -6,6 +6,7 @@ import { isolateTitle } from './bidi.js';
 import { h, ltr } from './dom.js';
 import { formulaButton, guidedStepper } from './sheet.js';
 import * as practice from './practice-ui.js';
+import { feedbackCard } from './feedback-ui.js';
 
 export const OUTCOME_UI = {
   alone: { icon: '✓', label: 'נפתר לבד' },
@@ -124,9 +125,23 @@ export function renderExercise(ex, o) {
   const outcomeLine = h('p', { class: 'muted', 'aria-live': 'polite' });
   let closed = false; // attempt already recorded as correct in this visit
   let shownTips = Math.min(sink.tips(), tips.length);
+  let solutionViewed = false;
+  const feedbackBox = h('div'); // difficulty card, offered once after the answer is checked or the solution is viewed
+  const offerFeedback = () => {
+    if (feedbackBox.children.length) return;
+    feedbackBox.append(feedbackCard({
+      exerciseId: ex.id, topic: ex.topic, level: ex.level, attemptId: t0,
+      mode: o.mode || (String(ex.id).startsWith('var-') ? 'endless' : wk ? 'workout' : 'exercise'),
+      context: () => ({
+        correct: closed ? true : solutionViewed ? false : null, hintsUsed: shownTips, solutionViewed,
+        secondsSpent: Math.round((Date.now() - t0) / 1000),
+      }),
+    }));
+  };
   function solved() {
     if (closed) return;
     closed = true;
+    offerFeedback();
     if (!solutionNoted) note(shownTips > 0 ? 'hinted' : 'alone');
     sink.correct();
     const ui = OUTCOME_UI[sink.outcome()];
@@ -200,6 +215,8 @@ export function renderExercise(ex, o) {
   }
   function showSolution() {
     shownTips = tips.length;
+    solutionViewed = true;
+    offerFeedback();
     if (!closed) {
       sink.setTips(tips.length); sink.reveal();
       if (!solutionNoted) { solutionNoted = true; askReason(note('solution')); }
@@ -229,6 +246,7 @@ export function renderExercise(ex, o) {
     diagramFigure(ex),
     form,
     outcomeLine,
+    feedbackBox,
     h('h2', {}, 'עזרה'),
     h('div', { class: 'btn-row' }, formulaButton(ex.topic)),
     guidedStepper(ex.guided, () => sink.guided()),

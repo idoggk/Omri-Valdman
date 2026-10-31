@@ -8,6 +8,7 @@ import { validAnswerSets } from './answersets.js';
 import { diagramFigure, badge } from './exercise-view.js';
 import { gradeQuestion, isBlank, formatClock, createTicker } from './exam.js';
 import * as store from './store.js';
+import { feedbackCard } from './feedback-ui.js';
 
 export const CONF_KEY = 'omri-study-confidence-v1';
 const MAX_RECS = 500;
@@ -240,6 +241,10 @@ function viewSolve(ctx, ex) {
           h('li', {}, `ביטחון: ${confident ? 'בטוח' : 'לא בטוח'}. ${CLASS_TEXT[cls]}`),
           h('li', {}, 'ציון רשימת הבדיקה: ', rubricLine),
           h('li', {}, `זמן: ${formatClock(ms)}`))),
+      feedbackCard({
+        exerciseId: ex.id, mode: 'solve', topic: ex.topic, level: ex.level, attemptId: ts,
+        context: () => ({ correct, hintsUsed: 0, solutionViewed: false, secondsSpent: seconds }),
+      }),
       h('div', { class: 'btn-row' },
         h('a', { class: 'btn primary', href: next ? `#/solve/${next.id}` : '#/solve' }, 'תרגיל הבא ←'),
         h('a', { class: 'btn', href: '#/solve' }, 'לבחירת תרגיל')));
