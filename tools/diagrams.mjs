@@ -483,6 +483,98 @@ export function vtGraph({ pts, pts2, labelled2 = [], notes = [], xmax, vmin, vma
   return svg(title, 234, g);
 }
 
+// ------------------------------------------------------------ generic graph (exam ladder, stage S3)
+// graph({ kind: 'yt'|'vt'|'xt', series: [{ fn:[c0,c1,c2] | pts:[[t,v]], t0?, t1, color, label }],
+//         marks: [{ t, y, label? }], area?: { series, t0, t1 }, title })
+// fn is the polynomial c0 + c1 t + c2 t^2, drawn as one exact quadratic Bezier. Every mark gets dashed
+// guide lines to both axes and the tick step is chosen so that all marks sit on labelled grid lines,
+// so a value can be read off the graph without being printed next to it.
+const AXIS_TITLES = { yt: ["y (מ')", "t (ש')"], vt: ['v (מ/ש)', "t (ש')"], xt: ["x (מ')", "t (ש')"] };
+const NICE = [];
+for (let e = -2; e <= 3; e++) for (const m of [1, 2, 2.5, 4, 5, 8]) NICE.push(m * 10 ** e);
+const divides = (step, vals) => vals.every((v) => Math.abs(v / step - Math.round(v / step)) < 1e-9);
+const niceStep = (range, vals, maxTicks) => {
+  const ok = NICE.filter((s) => s >= 0.5 && range / s <= maxTicks && divides(s, vals));
+  if (ok.length) return ok[0];
+  return NICE.filter((s) => s >= 0.5 && divides(s, vals))[0] || 1;
+};
+const GRAPH_H = 220; // plot height in px (top 40)
+
+export const polyAt = (fn, t) => fn.reduce((acc, c, i) => acc + c * t ** i, 0);
+export const polyD = (fn, t) => fn.reduce((acc, c, i) => (i ? acc + i * c * t ** (i - 1) : acc), 0);
+/** The samples a series draws (also used by tools/verify-ladder.mjs to compare with its own simulation). */
+export function seriesSamples(s, step = 0.25) {
+  const t0 = s.t0 || 0;
+  if (s.pts) return s.pts.map(([t, v]) => [t, v]);
+  const out = [];
+  for (let i = 0; t0 + i * step < s.t1 - 1e-9; i++) out.push([t0 + i * step, polyAt(s.fn, t0 + i * step)]);
+  out.push([s.t1, polyAt(s.fn, s.t1)]);
+  return out;
+}
+
+export function graph({ kind, series, marks = [], area, title }) {
+  const ox = 52, oxEnd = 292, top = 40, bot = 40 + GRAPH_H;
+  const all = series.flatMap((s) => (s.pts ? s.pts : seriesSamples(s, 0.1)));
+  const ts = all.map((p) => p[0]), ys = all.map((p) => p[1]);
+  marks.forEach((m) => { ts.push(m.t); ys.push(m.y); });
+  const markT = marks.map((m) => m.t), markY = marks.map((m) => m.y);
+  const tMax = Math.max(...ts);
+  const tStep = niceStep(tMax, markT, 8);
+  const xmax = Math.ceil(tMax / tStep - 1e-9) * tStep;
+  const lo = Math.min(0, ...ys), hi = Math.max(0, ...ys);
+  const yStep = niceStep(hi - lo, markY, 9);
+  const vmin = Math.floor(lo / yStep + 1e-9) * yStep, vmax = Math.ceil(hi / yStep - 1e-9) * yStep;
+  const sx = (oxEnd - ox) / xmax, sy = (bot - top) / (vmax - vmin);
+  const X = (t) => ox + t * sx;
+  const Y = (v) => bot - (v - vmin) * sy;
+  let g = '';
+  const every = Math.max(1, Math.ceil(30 / (tStep * sx)));
+  const yEvery = Math.max(1, Math.ceil(24 / (yStep * sy)));
+  for (const m of marks) {
+    if ((m.t / tStep) % every > 1e-9 && (m.t / tStep) % every < every - 1e-9) throw new Error(`mark t=${m.t} is not on a labelled tick`);
+    if ((Math.round((m.y - vmin) / yStep)) % yEvery !== 0) throw new Error(`mark y=${m.y} is not on a labelled tick`);
+  }
+  for (let i = 0, t = 0; t <= xmax + 1e-9; i++, t = i * tStep) {
+    g += line(X(t), top, X(t), bot, { op: 0.18 });
+    if (i % every === 0) g += txt(X(t), bot + 24, num(t), 'k', 'middle', true);
+  }
+  for (let i = 0, v = vmin; v <= vmax + 1e-9; i++, v = vmin + i * yStep) {
+    g += line(ox, Y(v), oxEnd, Y(v), { op: 0.18 });
+    if (i % yEvery === 0) g += txt(ox - 10, Y(v) + 5, num(v), 'k', 'end', true);
+  }
+  g += arrow(ox, Y(0), oxEnd + 8, Y(0)) + arrow(ox, bot, ox, top - 10);
+  const [yTitle, xTitle] = AXIS_TITLES[kind];
+  g += txt(oxEnd + 10, Y(0) - 8, xTitle, 'k', 'end') + txt(ox + 8, 16, yTitle, 'k', 'start');
+  if (area) {
+    const s = series[area.series];
+    const pts = seriesSamples({ ...s, t0: area.t0, t1: area.t1 }, 0.1);
+    g += `<polygon points="${[[area.t0, 0], ...pts, [area.t1, 0]].map(([t, v]) => `${r1(X(t))},${r1(Y(v))}`).join(' ')}" fill="${COL[s.color || 'a']}" fill-opacity="0.14" stroke="none"/>`;
+  }
+  const cols = ['a', 'c', 'b'];
+  series.forEach((s, i) => {
+    const col = s.color || cols[i % 3];
+    const t0 = s.t0 || 0;
+    const stroke = `stroke="${COL[col]}" stroke-width="2.5"`;
+    if (s.pts) g += `<polyline points="${s.pts.map(([t, v]) => `${r1(X(t))},${r1(Y(v))}`).join(' ')}" ${stroke}/>`;
+    else if (!s.fn[2]) g += `<polyline points="${r1(X(t0))},${r1(Y(polyAt(s.fn, t0)))} ${r1(X(s.t1))},${r1(Y(polyAt(s.fn, s.t1)))}" ${stroke}/>`;
+    else {
+      const f0 = polyAt(s.fn, t0), f1 = polyAt(s.fn, s.t1), fc = f0 + (polyD(s.fn, t0) * (s.t1 - t0)) / 2;
+      g += `<path d="M${r1(X(t0))} ${r1(Y(f0))}Q${r1(X((t0 + s.t1) / 2))} ${r1(Y(fc))} ${r1(X(s.t1))} ${r1(Y(f1))}" ${stroke}/>`;
+    }
+  });
+  for (const m of marks) {
+    g += line(X(m.t), Y(m.y), X(m.t), bot, { dash: true, op: 0.5 }) + line(ox, Y(m.y), X(m.t), Y(m.y), { dash: true, op: 0.5 });
+  }
+  for (const m of marks) g += ball(X(m.t), Y(m.y), 'b', 3.5) + (m.label ? txt(X(m.t) + 8, Y(m.y) - 8, m.label, 'k', 'start') : '');
+  series.forEach((s, i) => {
+    if (!s.label) return;
+    const tm = (s.t0 || 0) + (s.t1 - (s.t0 || 0)) * 0.72;
+    const v = s.pts ? s.pts[Math.min(s.pts.length - 1, Math.round(s.pts.length * 0.72))][1] : polyAt(s.fn, tm);
+    g += txt(X(tm) + 10, Y(v) - 6, s.label, s.color || cols[i % 3], 'start');
+  });
+  return svg(title, bot + 44, g);
+}
+
 // ------------------------------------------------------------ shared scenes
 const G10 = 10;
 const GY = 205; // ground level of vertical scenes
@@ -1245,6 +1337,10 @@ export function validateSvg(s) {
   return errs;
 }
 
+/** Inline exam-ladder items (data/ladder.json) carry a declarative `graph` spec instead of a verify.model. */
+export const ladderDiagram = (item) => graph(item.graph);
+export const ladderInline = (data) => ((data && data.stages) || []).flatMap((st) => (st.items || []).filter((it) => it && it.graph));
+
 export function diagramFor(ex) {
   const fn = diagrams[ex.verify && ex.verify.model];
   if (!fn) throw new Error(`no diagram builder for model "${ex.verify && ex.verify.model}"`);
@@ -1325,6 +1421,22 @@ if (isMain) {
     try { cur = readFileSync(previewFile, 'utf8'); } catch { /* missing */ }
     if (cur === null || !sameText(cur, previewHtml(list.map((ex) => ({ ...ex, diagram: diagramFor(ex) }))))) problems.push('preview/diagrams.html is missing or stale (run --preview)');
   }
+  // exam ladder: inline items with a graph spec get their diagram generated here as well
+  const ladderFile = custom ? null : join(here, '..', 'data', 'ladder.json');
+  let ladderData = null, ladderRaw = '';
+  if (ladderFile) { try { ladderRaw = readFileSync(ladderFile, 'utf8'); ladderData = JSON.parse(ladderRaw); } catch { ladderData = null; } }
+  const inline = ladderInline(ladderData);
+  let ladderChanged = false;
+  for (const it of inline) {
+    let d;
+    try { d = ladderDiagram(it); } catch (e) { problems.push(`${it.id}: ${e.message}`); continue; }
+    validateSvg(d).forEach((m) => problems.push(`${it.id}: generated diagram invalid: ${m}`));
+    layoutIssues(d).forEach((m) => problems.push(`${it.id}: layout: ${m}`));
+    if (mode === '--check') {
+      if (typeof it.diagram !== 'string' || !it.diagram) problems.push(`${it.id}: diagram missing`);
+      else if (!sameText(it.diagram, d)) problems.push(`${it.id}: stored diagram differs from generated (run --write)`);
+    } else if (mode === '--write' && it.diagram !== d) { it.diagram = d; ladderChanged = true; }
+  }
   if (problems.length) {
     console.error(`FAILED: ${problems.length} problem(s)`);
     problems.forEach((m) => console.error(' - ' + m));
@@ -1333,10 +1445,11 @@ if (isMain) {
   if (mode === '--write') {
     const text = JSON.stringify(out, null, 2).replace(/\n/g, eol) + eol;
     if (text !== raw) writeFileSync(file, text);
-    console.log(`wrote diagrams for ${out.length} exercises`);
+    if (ladderChanged) writeFileSync(ladderFile, JSON.stringify(ladderData, null, 2) + eol);
+    console.log(`wrote diagrams for ${out.length} exercises and ${inline.length} ladder items`);
   } else if (mode === '--preview') {
     mkdirSync(dirname(previewFile), { recursive: true });
     writeFileSync(previewFile, lf(previewHtml(gen)));
     console.log(`wrote ${previewFile} (${gen.length} diagrams)`);
-  } else console.log(`OK: ${list.length} diagrams present, valid, overlap-free, up to date; preview current`);
+  } else console.log(`OK: ${list.length} diagrams present, valid, overlap-free, up to date; preview current (+ ${inline.length} ladder graphs)`);
 }

@@ -32,14 +32,15 @@ test('ladder.json: six Hebrew stages, every ref resolves to a physics exercise, 
   for (const s of stages) {
     assert.match(s.title, /[א-ת]/);
     assert.match(s.intro, /[א-ת]/);
-    const refs = s.items.map((it) => it.ref);
+    const refs = s.items.map(L.itemId);
     assert.equal(new Set(refs).size, refs.length, `duplicate in ${s.id}`);
-    for (const r of refs) assert.ok(ids.has(r), `${s.id}: unknown ref ${r}`);
+    for (const it of s.items) if (!L.isInline(it)) assert.ok(ids.has(it.ref), `${s.id}: unknown ref ${it.ref}`);
+    for (const it of s.items) if (L.isInline(it)) assert.ok(!ids.has(it.id), `${s.id}: inline id ${it.id} collides with physics.json`);
     if (!refs.length) assert.match(s.soon, /בקרוב/);
   }
   const all = L.allRefs(stages);
   assert.equal(new Set(all).size, all.length, 'an exercise appears in two stages');
-  assert.deepEqual(stages.map((s) => s.items.length), [12, 22, 0, 0, 30, 0]);
+  assert.deepEqual(stages.map((s) => s.items.length), [12, 22, 13, 0, 30, 0]);
 });
 
 test('needed(): ceil of 70%', () => {
@@ -124,8 +125,9 @@ test('UI: overview shows six cards with status, progress and soon note; locked s
   assert.match(text, /0\/22 לבד/);
   assert.match(text, /🔓 פתוח/);
   assert.match(text, /🔒 נעול/);
-  assert.equal((text.match(/⏳ בקרוב/g) || []).length, 3);
-  assert.deepEqual(hrefs().filter((h) => h.startsWith('#/ladder/')), ['#/ladder/S1', '#/ladder/S2', '#/ladder/S5']);
+  assert.match(text, /0\/13 לבד/);
+  assert.equal((text.match(/⏳ בקרוב/g) || []).length, 2);
+  assert.deepEqual(hrefs().filter((h) => h.startsWith('#/ladder/')), ['#/ladder/S1', '#/ladder/S2', '#/ladder/S3', '#/ladder/S5']);
 
   await U.viewLadderRoute(ctx, 'S2'); // locked: no item list, skip button
   assert.match(dom.root.textContent, /השלב נעול/);
@@ -134,7 +136,7 @@ test('UI: overview shows six cards with status, progress and soon note; locked s
   assert.equal(hrefs().filter((h) => /^#\/ladder\/S2\/\d+$/.test(h)).length, 22);
   assert.deepEqual(L.loadLadder().skip, { S2: true });
 
-  await U.viewLadderRoute(ctx, 'S3');
+  await U.viewLadderRoute(ctx, 'S4');
   assert.match(dom.root.textContent, /יתווספו בקרוב/);
   await U.viewLadderRoute(ctx, 'nope');
   assert.match(dom.root.textContent, /הסלם לרמת מבחן/);
@@ -175,4 +177,90 @@ test('UI: load failure shows an error', async () => {
   await U.viewLadderRoute({ show: dom.show });
   assert.match(dom.root.textContent, /לא ניתן לטעון/);
   globalThis.fetch = realFetch;
+});
+
+/* ---- inline items (stage S3): their own outcome tracking in the ladder key ---- */
+const s3 = stages.find((x) => x.id === 'S3');
+const press = () => dom.root.all((n) => n.classList).forEach((n) => { n.classList.add = (c) => n.classList.toggle(c, true); n.classList.remove = (c) => n.classList.toggle(c, false); });
+
+test('inline items: S3 holds 13 inline exercises with ids lad-s3-NN, no ref, same fields the renderer needs', () => {
+  assert.equal(s3.items.length, 13);
+  s3.items.forEach((it, i) => {
+    assert.ok(L.isInline(it));
+    assert.equal(it.id, `lad-s3-${String(i + 1).padStart(2, '0')}`);
+    assert.equal(L.itemId(it), it.id);
+    for (const k of ['topic', 'title', 'statement', 'diagram', 'inputs', 'tips', 'solution']) assert.ok(it[k], `${it.id}.${k}`);
+    assert.ok(it.inputs.length >= 3 && it.inputs.length <= 5);
+  });
+});
+
+test('inline state: shape is backward compatible and survives garbage', () => {
+  localStorage.removeItem(L.LADDER_KEY);
+  assert.deepEqual(L.sanitizeLadder({ v: 1, skip: { S2: true } }), { v: 1, skip: { S2: true } }); // old file: no items key
+  assert.deepEqual(L.sanitizeLadder({ v: 1, skip: {}, items: 'junk' }), { v: 1, skip: {} });
+  assert.deepEqual(L.sanitizeLadder({ v: 1, skip: {}, items: { ex: { x: { outcome: 'bogus' } } } }), { v: 1, skip: {} });
+  const ok = L.sanitizeLadder({ v: 1, skip: {}, items: { ex: { 'lad-s3-01': { outcome: 'alone', attempts: 2, ts: 5 } }, att: {} } });
+  assert.equal(ok.items.ex['lad-s3-01'].outcome, 'alone');
+  assert.equal(L.inlineOutcome('lad-s3-01'), null);
+  const sink = L.inlineSink('lad-s3-01');
+  sink.setTips('lad-s3-01' && 2);
+  assert.equal(sink.tips(), 2);
+  sink.correct();
+  assert.equal(sink.outcome(), 'hinted');
+  assert.equal(L.inlineOutcome('lad-s3-01'), 'hinted');
+  L.setSkip('S4'); // skip flags and items live side by side
+  assert.deepEqual(L.loadLadder().skip, { S4: true });
+  assert.equal(L.loadLadder().items.ex['lad-s3-01'].outcome, 'hinted');
+  const s2 = L.inlineSink('lad-s3-02');
+  s2.reveal();
+  assert.equal(s2.outcome(), 'review');
+  const lookup = L.outcomeLookup(stages, (id) => (id === 'phys-vertical-035' ? 'alone' : null));
+  assert.equal(lookup('phys-vertical-035'), 'alone');
+  assert.equal(lookup('lad-s3-01'), 'hinted');
+  assert.equal(lookup('lad-s3-03'), null);
+  localStorage.removeItem(L.LADDER_KEY);
+});
+
+test('inline state: "alone" counts toward the unlock rule, hinted does not', () => {
+  localStorage.removeItem(L.LADDER_KEY);
+  const st = [stages[1], s3, mk('next', 3)];
+  const refAlone = (id) => (id.startsWith('phys-') ? 'alone' : null);
+  const lookup = () => L.outcomeLookup(st, refAlone);
+  assert.equal(L.ladderStatus(st, lookup(), {})[1].status, 'unlocked'); // S2 done via refs
+  assert.equal(L.ladderStatus(st, lookup(), {})[2].status, 'locked');
+  for (let i = 1; i <= 8; i++) L.inlineSink(`lad-s3-0${i}`).correct(); // 8 of 13 alone: below ceil(9.1)=10
+  assert.equal(L.ladderStatus(st, lookup(), {})[1].alone, 8);
+  assert.equal(L.ladderStatus(st, lookup(), {})[2].status, 'locked');
+  for (const id of ['lad-s3-09', 'lad-s3-10']) L.inlineSink(id).correct();
+  assert.equal(L.ladderStatus(st, lookup(), {})[1].status, 'done');
+  assert.equal(L.ladderStatus(st, lookup(), {})[2].status, 'unlocked');
+  L.inlineSink('lad-s3-10').setTips(1);
+  assert.equal(L.ladderStatus(st, lookup(), {})[1].alone, 10, 'a tip opened after solving does not demote an existing outcome');
+  localStorage.removeItem(L.LADDER_KEY);
+});
+
+test('UI: an inline S3 item renders with its graph, and a correct answer is recorded in the ladder key (not the main store)', async () => {
+  store.resetCache();
+  localStorage.removeItem(L.LADDER_KEY);
+  L.setSkip('S3');
+  await U.viewLadderRoute(ctx, 'S3');
+  assert.match(dom.root.textContent, /0\/13 לבד/);
+  assert.equal(hrefs().filter((h) => /^#\/ladder\/S3\/\d+$/.test(h)).length, 13);
+  await U.viewLadderRoute(ctx, 'S3', '2');
+  const it = s3.items[1];
+  assert.match(dom.root.textContent, new RegExp(it.title.slice(0, 8)));
+  const inputs = dom.root.all((n) => n.tagName === 'INPUT');
+  assert.equal(inputs.length, it.inputs.length);
+  inputs.forEach((inp, i) => { inp.value = it.inputs[i].answer; });
+  press();
+  dom.root.querySelector('form').dispatch('submit');
+  assert.match(dom.root.textContent, /נכון/);
+  assert.equal(L.inlineOutcome(it.id), 'alone');
+  assert.equal(store.outcomeOf(it.id), null);
+  assert.deepEqual(Object.keys(L.loadLadder().items.ex), [it.id]);
+  await U.viewLadderRoute(ctx);
+  assert.match(dom.root.textContent, /1\/13 לבד/);
+  await U.viewLadderRoute(ctx, 'S3', '99');
+  assert.match(dom.root.textContent, /1\/13 לבד/);
+  localStorage.removeItem(L.LADDER_KEY);
 });

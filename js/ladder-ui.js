@@ -1,11 +1,11 @@
 // Exam ladder screens: #/ladder (six stage cards), #/ladder/<stageId> (item list), #/ladder/<stageId>/<n> (one exercise).
-// Exercises come from data/physics.json by id (ctx.byId) and are drawn by the shared exercise renderer, so hints,
-// solution, answer check and the difficulty card all work. Progress is the normal outcome store; only the
-// "skip anyway" flags live in the ladder's own key (see ladder.js).
+// Items are either { ref } (an exercise of data/physics.json by id, ctx.byId) or inline exercise objects; both are
+// drawn by the shared exercise renderer, so hints, solution, answer check and the difficulty card all work.
+// Refs use the normal outcome store. Inline items and the "skip anyway" flags live in the ladder's own key.
 import { h } from './dom.js';
 import { isolateTitle } from './bidi.js';
 import * as store from './store.js';
-import { ladderStatus, loadLadder, setSkip, needed } from './ladder.js';
+import { ladderStatus, loadLadder, setSkip, needed, outcomeLookup, inlineSink, isInline, itemId } from './ladder.js';
 import { OUTCOME_UI, badge } from './exercise-view.js';
 
 let loaded = null;
@@ -27,7 +27,8 @@ const title = (t) => { document.title = `${t} – Brain Gains`; };
 const STATUS_LABEL = { locked: '🔒 נעול', unlocked: '🔓 פתוח', done: '✅ הושלם', soon: '⏳ בקרוב' };
 export const progressText = (e) => `${e.alone}/${e.total} לבד`;
 
-const statuses = (stages) => ladderStatus(stages, (id) => store.outcomeOf(id), loadLadder().skip);
+const statuses = (stages) => ladderStatus(stages, outcomeLookup(stages, (id) => store.outcomeOf(id)), loadLadder().skip);
+const exerciseOf = (ctx, it) => (isInline(it) ? it : ctx.byId(it.ref));
 
 function viewOverview(ctx, stages) {
   title('הסלם לרמת מבחן');
@@ -65,12 +66,12 @@ function viewStage(ctx, stages, stage) {
       h('div', { class: 'progress-bar', role: 'img', 'aria-label': progressText(e) }, h('span', { style: `width:${Math.round((100 * e.alone) / e.total)}%` }))),
     lock,
     e.status === 'locked' ? null : h('ul', { class: 'ex-list' }, stage.items.map((it, n) => {
-      const ex = ctx.byId(it.ref);
-      const o = store.outcomeOf(it.ref);
+      const ex = exerciseOf(ctx, it);
+      const o = outcomeLookup(stages, (id) => store.outcomeOf(id))(itemId(it));
       const ui = OUTCOME_UI[o || 'none'];
       return h('li', {}, h('a', { class: 'ex-item', href: `#/ladder/${stage.id}/${n + 1}` },
         ex ? badge(ex.level) : null,
-        h('span', { class: 't' }, isolateTitle(ex ? (ex.title || ex.id) : it.ref)),
+        h('span', { class: 't' }, isolateTitle(ex ? (ex.title || ex.id) : itemId(it))),
         h('span', { class: `tick o-${o || 'none'}`, role: 'img', 'aria-label': ui.label }, ui.icon)));
     })));
 }
@@ -78,13 +79,15 @@ function viewStage(ctx, stages, stage) {
 function viewItem(ctx, stages, stage, n) {
   const e = statuses(stages)[stages.indexOf(stage)];
   const total = stage.items.length;
-  const ex = Number.isInteger(n) && n >= 1 && n <= total ? ctx.byId(stage.items[n - 1].ref) : null;
+  const item = Number.isInteger(n) && n >= 1 && n <= total ? stage.items[n - 1] : null;
+  const ex = item ? exerciseOf(ctx, item) : null;
   if (!ex || e.status === 'locked' || e.status === 'soon') return viewStage(ctx, stages, stage);
   const nav = h('nav', { class: 'nav', 'aria-label': 'ניווט בשלב' },
     n > 1 ? h('a', { class: 'btn', href: `#/ladder/${stage.id}/${n - 1}` }, '→ התרגיל הקודם') : h('a', { class: 'btn', href: `#/ladder/${stage.id}` }, 'לרשימת השלב'),
     n < total ? h('a', { class: 'btn primary', href: `#/ladder/${stage.id}/${n + 1}` }, 'התרגיל הבא ←') : h('a', { class: 'btn primary', href: '#/ladder' }, 'סיום השלב ←'));
   ctx.renderExercise(ex, {
     ctx, nav,
+    sink: isInline(item) ? inlineSink(item.id) : undefined,
     crumbs: h('p', { class: 'crumbs' }, h('a', { href: `#/ladder/${stage.id}` }, `→ ${stage.title} (${n}/${total})`)),
   });
 }

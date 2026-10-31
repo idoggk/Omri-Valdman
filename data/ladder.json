@@ -7,10 +7,42 @@
       "title": "נוסחה אחת",
       "intro": "בשלב הזה מתרגלים שליפה של נוסחה אחת והצבה נכונה, ותשובה אחת. רמת מבחן אומרת לדעת לבחור את הנוסחה בלי רמז.",
       "items": [
-        { "ref": "phys-vertical-035" }, { "ref": "phys-vertical-036" }, { "ref": "phys-vertical-037" },
-        { "ref": "phys-vertical-038" }, { "ref": "phys-vertical-039" }, { "ref": "phys-vertical-040" },
-        { "ref": "phys-horizontal-037" }, { "ref": "phys-horizontal-038" }, { "ref": "phys-horizontal-039" },
-        { "ref": "phys-horizontal-040" }, { "ref": "phys-horizontal-041" }, { "ref": "phys-horizontal-042" }
+        {
+          "ref": "phys-vertical-035"
+        },
+        {
+          "ref": "phys-vertical-036"
+        },
+        {
+          "ref": "phys-vertical-037"
+        },
+        {
+          "ref": "phys-vertical-038"
+        },
+        {
+          "ref": "phys-vertical-039"
+        },
+        {
+          "ref": "phys-vertical-040"
+        },
+        {
+          "ref": "phys-horizontal-037"
+        },
+        {
+          "ref": "phys-horizontal-038"
+        },
+        {
+          "ref": "phys-horizontal-039"
+        },
+        {
+          "ref": "phys-horizontal-040"
+        },
+        {
+          "ref": "phys-horizontal-041"
+        },
+        {
+          "ref": "phys-horizontal-042"
+        }
       ]
     },
     {
@@ -18,22 +50,1818 @@
       "title": "שני צעדים",
       "intro": "בשלב הזה מחברים שני צעדים של גוף אחד: קודם מוצאים גודל ביניים ואז משתמשים בו. רמת מבחן אומרת תרגיל עם כמה סעיפים שנשענים זה על זה.",
       "items": [
-        { "ref": "phys-vertical-041" }, { "ref": "phys-vertical-042" }, { "ref": "phys-vertical-043" },
-        { "ref": "phys-vertical-044" }, { "ref": "phys-vertical-045" }, { "ref": "phys-vertical-046" },
-        { "ref": "phys-horizontal-043" }, { "ref": "phys-horizontal-044" }, { "ref": "phys-horizontal-045" },
-        { "ref": "phys-horizontal-046" }, { "ref": "phys-horizontal-047" }, { "ref": "phys-horizontal-048" },
-        { "ref": "phys-vertical-002" }, { "ref": "phys-vertical-003" }, { "ref": "phys-vertical-018" },
-        { "ref": "phys-vertical-020" }, { "ref": "phys-vertical-034" }, { "ref": "phys-horizontal-002" },
-        { "ref": "phys-horizontal-003" }, { "ref": "phys-horizontal-025" }, { "ref": "phys-horizontal-008" },
-        { "ref": "phys-horizontal-026" }
+        {
+          "ref": "phys-vertical-041"
+        },
+        {
+          "ref": "phys-vertical-042"
+        },
+        {
+          "ref": "phys-vertical-043"
+        },
+        {
+          "ref": "phys-vertical-044"
+        },
+        {
+          "ref": "phys-vertical-045"
+        },
+        {
+          "ref": "phys-vertical-046"
+        },
+        {
+          "ref": "phys-horizontal-043"
+        },
+        {
+          "ref": "phys-horizontal-044"
+        },
+        {
+          "ref": "phys-horizontal-045"
+        },
+        {
+          "ref": "phys-horizontal-046"
+        },
+        {
+          "ref": "phys-horizontal-047"
+        },
+        {
+          "ref": "phys-horizontal-048"
+        },
+        {
+          "ref": "phys-vertical-002"
+        },
+        {
+          "ref": "phys-vertical-003"
+        },
+        {
+          "ref": "phys-vertical-018"
+        },
+        {
+          "ref": "phys-vertical-020"
+        },
+        {
+          "ref": "phys-vertical-034"
+        },
+        {
+          "ref": "phys-horizontal-002"
+        },
+        {
+          "ref": "phys-horizontal-003"
+        },
+        {
+          "ref": "phys-horizontal-025"
+        },
+        {
+          "ref": "phys-horizontal-008"
+        },
+        {
+          "ref": "phys-horizontal-026"
+        }
       ]
     },
     {
       "id": "S3",
       "title": "קריאת גרף",
       "intro": "בשלב הזה קוראים גרף של מקום או מהירות כנגד הזמן ומפיקים ממנו נתונים: גובה התחלתי, מהירות, גובה מרבי וזמן נחיתה. רמת מבחן אומרת גם לבחור את הגרף המתאים.",
-      "soon": "התרגילים בשלב הזה יתווספו בקרוב.",
-      "items": []
+      "items": [
+        {
+          "id": "lad-s3-01",
+          "topic": "phys-vertical",
+          "level": 3,
+          "title": "גרף גובה־זמן של כדור שנזרק כלפי מעלה מגג",
+          "statement": "כדור נזרק אנכית כלפי מעלה מגג בניין. הגרף מתאר את גובה הכדור מעל הקרקע כפונקציה של הזמן; הנקודות המסומנות בו הן רגע הזריקה, שיא הגובה ורגע הפגיעה בקרקע. את כל הנתונים קוראים מהגרף. בחישובים השתמשו ב־g = 10 מ/ש² והתעלמו מהתנגדות האוויר.<br>א. מה גובה הגג מעל הקרקע?<br>ב. מה הגובה המרבי של הכדור מעל הקרקע?<br>ג. באיזה רגע הכדור מגיע לשיא?<br>ד. מהי מהירות הזריקה? חשבו אותה מזמן השיא.<br>ה. מהי מהירות הכדור ברגע הפגיעה בקרקע (חיובי כלפי מעלה)?",
+          "diagram": "<svg viewBox=\"0 0 320 304\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" aria-label=\"גרף גובה־זמן של כדור שנזרק מגג\"><title>גרף גובה־זמן של כדור שנזרק מגג</title><defs><marker id=\"ph-k\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"currentColor\"/></marker><marker id=\"ph-a\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"var(--dg-a, #1f5fae)\"/></marker><marker id=\"ph-b\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"var(--dg-b, #c2410c)\"/></marker><marker id=\"ph-c\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"var(--dg-c, #1e7a34)\"/></marker></defs><g direction=\"ltr\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-size=\"14\"><line x1=\"52\" y1=\"40\" x2=\"52\" y2=\"260\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"52\" y=\"284\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">0</text><line x1=\"100\" y1=\"40\" x2=\"100\" y2=\"260\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"100\" y=\"284\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">1</text><line x1=\"148\" y1=\"40\" x2=\"148\" y2=\"260\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"148\" y=\"284\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">2</text><line x1=\"196\" y1=\"40\" x2=\"196\" y2=\"260\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"196\" y=\"284\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">3</text><line x1=\"244\" y1=\"40\" x2=\"244\" y2=\"260\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"244\" y=\"284\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">4</text><line x1=\"292\" y1=\"40\" x2=\"292\" y2=\"260\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"292\" y=\"284\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">5</text><line x1=\"52\" y1=\"260\" x2=\"292\" y2=\"260\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"42\" y=\"265\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">0</text><line x1=\"52\" y1=\"235.6\" x2=\"292\" y2=\"235.6\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"42\" y=\"240.6\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">5</text><line x1=\"52\" y1=\"211.1\" x2=\"292\" y2=\"211.1\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"42\" y=\"216.1\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">10</text><line x1=\"52\" y1=\"186.7\" x2=\"292\" y2=\"186.7\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"42\" y=\"191.7\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">15</text><line x1=\"52\" y1=\"162.2\" x2=\"292\" y2=\"162.2\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"42\" y=\"167.2\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">20</text><line x1=\"52\" y1=\"137.8\" x2=\"292\" y2=\"137.8\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"42\" y=\"142.8\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">25</text><line x1=\"52\" y1=\"113.3\" x2=\"292\" y2=\"113.3\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"42\" y=\"118.3\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">30</text><line x1=\"52\" y1=\"88.9\" x2=\"292\" y2=\"88.9\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"42\" y=\"93.9\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">35</text><line x1=\"52\" y1=\"64.4\" x2=\"292\" y2=\"64.4\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"42\" y=\"69.4\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">40</text><line x1=\"52\" y1=\"40\" x2=\"292\" y2=\"40\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"42\" y=\"45\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">45</text><line x1=\"52\" y1=\"260\" x2=\"300\" y2=\"260\" stroke=\"currentColor\" stroke-width=\"2\" marker-end=\"url(#ph-k)\"/><line x1=\"52\" y1=\"260\" x2=\"52\" y2=\"30\" stroke=\"currentColor\" stroke-width=\"2\" marker-end=\"url(#ph-k)\"/><text x=\"254.5\" y=\"250\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\"><tspan direction=\"ltr\" unicode-bidi=\"isolate\">⁦t (<tspan direction=\"rtl\" unicode-bidi=\"isolate\">⁧ש׳⁩</tspan>)⁩</tspan></text><text x=\"83.5\" y=\"20\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\"><tspan direction=\"ltr\" unicode-bidi=\"isolate\">⁦y (<tspan direction=\"rtl\" unicode-bidi=\"isolate\">⁧מ׳⁩</tspan>)⁩</tspan></text><path d=\"M52 137.8Q172 -106.7 292 260\" stroke=\"var(--dg-a, #1f5fae)\" stroke-width=\"2.5\"/><line x1=\"52\" y1=\"137.8\" x2=\"52\" y2=\"260\" stroke=\"currentColor\" stroke-dasharray=\"5 4\" opacity=\"0.5\"/><line x1=\"52\" y1=\"137.8\" x2=\"52\" y2=\"137.8\" stroke=\"currentColor\" stroke-dasharray=\"5 4\" opacity=\"0.5\"/><line x1=\"148\" y1=\"40\" x2=\"148\" y2=\"260\" stroke=\"currentColor\" stroke-dasharray=\"5 4\" opacity=\"0.5\"/><line x1=\"52\" y1=\"40\" x2=\"148\" y2=\"40\" stroke=\"currentColor\" stroke-dasharray=\"5 4\" opacity=\"0.5\"/><line x1=\"292\" y1=\"260\" x2=\"292\" y2=\"260\" stroke=\"currentColor\" stroke-dasharray=\"5 4\" opacity=\"0.5\"/><line x1=\"52\" y1=\"260\" x2=\"292\" y2=\"260\" stroke=\"currentColor\" stroke-dasharray=\"5 4\" opacity=\"0.5\"/><circle cx=\"52\" cy=\"137.8\" r=\"3.5\" fill=\"var(--dg-b, #c2410c)\" stroke=\"none\"/><text x=\"90\" y=\"133.8\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\"><tspan direction=\"rtl\" unicode-bidi=\"isolate\">⁧זריקה⁩</tspan></text><circle cx=\"148\" cy=\"40\" r=\"3.5\" fill=\"var(--dg-b, #c2410c)\" stroke=\"none\"/><text x=\"168.6\" y=\"30\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\"><tspan direction=\"rtl\" unicode-bidi=\"isolate\">⁧שיא⁩</tspan></text><circle cx=\"292\" cy=\"260\" r=\"3.5\" fill=\"var(--dg-b, #c2410c)\" stroke=\"none\"/><text x=\"246\" y=\"226\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\"><tspan direction=\"rtl\" unicode-bidi=\"isolate\">⁧נחיתה⁩</tspan></text></g></svg>",
+          "graph": {
+            "kind": "yt",
+            "title": "גרף גובה־זמן של כדור שנזרק מגג",
+            "series": [
+              {
+                "body": "A",
+                "fn": [
+                  25,
+                  20,
+                  -5
+                ],
+                "t1": 5,
+                "endsAtFloor": true
+              }
+            ],
+            "marks": [
+              {
+                "t": 0,
+                "y": 25,
+                "label": "זריקה"
+              },
+              {
+                "t": 2,
+                "y": 45,
+                "label": "שיא"
+              },
+              {
+                "t": 5,
+                "y": 0,
+                "label": "נחיתה"
+              }
+            ]
+          },
+          "inputs": [
+            {
+              "label": "גובה הגג",
+              "unit": "מ'",
+              "answer": "25",
+              "tolerance": 0.25
+            },
+            {
+              "label": "הגובה המרבי",
+              "unit": "מ'",
+              "answer": "45",
+              "tolerance": 0.45
+            },
+            {
+              "label": "זמן השיא",
+              "unit": "ש'",
+              "answer": "2",
+              "tolerance": 0.02
+            },
+            {
+              "label": "מהירות הזריקה",
+              "unit": "מ/ש",
+              "answer": "20",
+              "tolerance": 0.2
+            },
+            {
+              "label": "המהירות בפגיעה",
+              "unit": "מ/ש",
+              "answer": "-30",
+              "tolerance": 0.3
+            }
+          ],
+          "tips": [
+            "גובה הנקודה בתחילת הגרף הוא גובה נקודת הזריקה. קראו אותו מציר הגובה בעזרת הקו המקווקו.",
+            "בשיא המהירות היא אפס, ולכן מהירות הזריקה שווה לתאוצת הכובד כפול זמן העלייה.",
+            "מהירות הפגיעה היא מהירות הזריקה פחות תאוצת הכובד כפול זמן הנחיתה. התוצאה שלילית כי הכדור יורד."
+          ],
+          "solution": [
+            "קוראים מהגרף: הנקודה הראשונה היא <span dir=\"ltr\">(0, 25)</span>, ולכן הגג בגובה <span dir=\"ltr\">25 מ'</span>.",
+            "השיא הוא הנקודה <span dir=\"ltr\">(2, 45)</span>: הגובה המרבי <span dir=\"ltr\">45 מ'</span> מתקבל בזמן <span dir=\"ltr\">t = 2 ש'</span>.",
+            "בשיא <span dir=\"ltr\">v = 0</span>, לכן <span dir=\"ltr\">v₀ = g · t = 10 · 2 = 20 מ/ש</span>.",
+            "בדיקת עקביות: העלייה מעל הגג לפי הנוסחה היא <span dir=\"ltr\">v₀² / (2g) = 400 / 20 = 20 מ'</span>, והגרף נותן <span dir=\"ltr\">45 − 25 = 20 מ'</span>. הנתונים מתאימים.",
+            "הנקודה האחרונה <span dir=\"ltr\">(5, 0)</span> היא הנחיתה. המהירות בפגיעה: <span dir=\"ltr\">v = 20 − 10 · 5 = −30 מ/ש</span>, כלומר <span dir=\"ltr\">30 מ/ש</span> כלפי מטה."
+          ],
+          "verify": {
+            "bodies": [
+              {
+                "id": "A",
+                "p0": 25,
+                "v0": 20,
+                "a": -10
+              }
+            ],
+            "queries": [
+              {
+                "q": "p0",
+                "body": "A"
+              },
+              {
+                "q": "peakP",
+                "body": "A"
+              },
+              {
+                "q": "peakT",
+                "body": "A"
+              },
+              {
+                "q": "v0",
+                "body": "A"
+              },
+              {
+                "q": "landV",
+                "body": "A"
+              }
+            ],
+            "graphOnly": [
+              25,
+              45,
+              2,
+              5
+            ]
+          }
+        },
+        {
+          "id": "lad-s3-02",
+          "topic": "phys-vertical",
+          "level": 3,
+          "title": "גרף גובה־זמן: חזרה לגובה המרפסת",
+          "statement": "כדור נזרק אנכית כלפי מעלה ממרפסת. הגרף מתאר את גובה הכדור מעל הרחוב כפונקציה של הזמן. בחישובים השתמשו ב־g = 10 מ/ש² והתעלמו מהתנגדות האוויר.<br>א. באיזה גובה מעל הרחוב נמצאת המרפסת?<br>ב. מהו הגובה המרבי של הכדור מעל הרחוב?<br>ג. מתי הכדור פוגע ברחוב?<br>ד. כעבור כמה זמן מהזריקה הכדור חוזר לגובה המרפסת?<br>ה. מהי מהירות הזריקה?",
+          "diagram": "<svg viewBox=\"0 0 320 304\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" aria-label=\"גרף גובה־זמן של כדור שנזרק ממרפסת\"><title>גרף גובה־זמן של כדור שנזרק ממרפסת</title><defs><marker id=\"ph-k\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"currentColor\"/></marker><marker id=\"ph-a\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"var(--dg-a, #1f5fae)\"/></marker><marker id=\"ph-b\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"var(--dg-b, #c2410c)\"/></marker><marker id=\"ph-c\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"var(--dg-c, #1e7a34)\"/></marker></defs><g direction=\"ltr\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-size=\"14\"><line x1=\"52\" y1=\"40\" x2=\"52\" y2=\"260\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"52\" y=\"284\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">0</text><line x1=\"92\" y1=\"40\" x2=\"92\" y2=\"260\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"92\" y=\"284\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">0.5</text><line x1=\"132\" y1=\"40\" x2=\"132\" y2=\"260\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"132\" y=\"284\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">1</text><line x1=\"172\" y1=\"40\" x2=\"172\" y2=\"260\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"172\" y=\"284\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">1.5</text><line x1=\"212\" y1=\"40\" x2=\"212\" y2=\"260\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"212\" y=\"284\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">2</text><line x1=\"252\" y1=\"40\" x2=\"252\" y2=\"260\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"252\" y=\"284\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">2.5</text><line x1=\"292\" y1=\"40\" x2=\"292\" y2=\"260\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"292\" y=\"284\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">3</text><line x1=\"52\" y1=\"260\" x2=\"292\" y2=\"260\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"42\" y=\"265\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">0</text><line x1=\"52\" y1=\"232.5\" x2=\"292\" y2=\"232.5\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"42\" y=\"237.5\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">2.5</text><line x1=\"52\" y1=\"205\" x2=\"292\" y2=\"205\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"42\" y=\"210\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">5</text><line x1=\"52\" y1=\"177.5\" x2=\"292\" y2=\"177.5\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"42\" y=\"182.5\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">7.5</text><line x1=\"52\" y1=\"150\" x2=\"292\" y2=\"150\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"42\" y=\"155\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">10</text><line x1=\"52\" y1=\"122.5\" x2=\"292\" y2=\"122.5\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"42\" y=\"127.5\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">12.5</text><line x1=\"52\" y1=\"95\" x2=\"292\" y2=\"95\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"42\" y=\"100\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">15</text><line x1=\"52\" y1=\"67.5\" x2=\"292\" y2=\"67.5\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"42\" y=\"72.5\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">17.5</text><line x1=\"52\" y1=\"40\" x2=\"292\" y2=\"40\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"42\" y=\"45\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">20</text><line x1=\"52\" y1=\"260\" x2=\"300\" y2=\"260\" stroke=\"currentColor\" stroke-width=\"2\" marker-end=\"url(#ph-k)\"/><line x1=\"52\" y1=\"260\" x2=\"52\" y2=\"30\" stroke=\"currentColor\" stroke-width=\"2\" marker-end=\"url(#ph-k)\"/><text x=\"251.5\" y=\"250\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\"><tspan direction=\"ltr\" unicode-bidi=\"isolate\">⁦t (<tspan direction=\"rtl\" unicode-bidi=\"isolate\">⁧ש׳⁩</tspan>)⁩</tspan></text><text x=\"83.5\" y=\"20\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\"><tspan direction=\"ltr\" unicode-bidi=\"isolate\">⁦y (<tspan direction=\"rtl\" unicode-bidi=\"isolate\">⁧מ׳⁩</tspan>)⁩</tspan></text><path d=\"M52 95Q172 -70 292 260\" stroke=\"var(--dg-a, #1f5fae)\" stroke-width=\"2.5\"/><line x1=\"52\" y1=\"95\" x2=\"52\" y2=\"260\" stroke=\"currentColor\" stroke-dasharray=\"5 4\" opacity=\"0.5\"/><line x1=\"52\" y1=\"95\" x2=\"52\" y2=\"95\" stroke=\"currentColor\" stroke-dasharray=\"5 4\" opacity=\"0.5\"/><line x1=\"132\" y1=\"40\" x2=\"132\" y2=\"260\" stroke=\"currentColor\" stroke-dasharray=\"5 4\" opacity=\"0.5\"/><line x1=\"52\" y1=\"40\" x2=\"132\" y2=\"40\" stroke=\"currentColor\" stroke-dasharray=\"5 4\" opacity=\"0.5\"/><line x1=\"292\" y1=\"260\" x2=\"292\" y2=\"260\" stroke=\"currentColor\" stroke-dasharray=\"5 4\" opacity=\"0.5\"/><line x1=\"52\" y1=\"260\" x2=\"292\" y2=\"260\" stroke=\"currentColor\" stroke-dasharray=\"5 4\" opacity=\"0.5\"/><circle cx=\"52\" cy=\"95\" r=\"3.5\" fill=\"var(--dg-b, #c2410c)\" stroke=\"none\"/><text x=\"93\" y=\"94\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\"><tspan direction=\"rtl\" unicode-bidi=\"isolate\">⁧זריקה⁩</tspan></text><circle cx=\"132\" cy=\"40\" r=\"3.5\" fill=\"var(--dg-b, #c2410c)\" stroke=\"none\"/><text x=\"152.6\" y=\"30\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\"><tspan direction=\"rtl\" unicode-bidi=\"isolate\">⁧שיא⁩</tspan></text><circle cx=\"292\" cy=\"260\" r=\"3.5\" fill=\"var(--dg-b, #c2410c)\" stroke=\"none\"/><text x=\"246\" y=\"226\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\"><tspan direction=\"rtl\" unicode-bidi=\"isolate\">⁧נחיתה⁩</tspan></text></g></svg>",
+          "graph": {
+            "kind": "yt",
+            "title": "גרף גובה־זמן של כדור שנזרק ממרפסת",
+            "series": [
+              {
+                "body": "A",
+                "fn": [
+                  15,
+                  10,
+                  -5
+                ],
+                "t1": 3,
+                "endsAtFloor": true
+              }
+            ],
+            "marks": [
+              {
+                "t": 0,
+                "y": 15,
+                "label": "זריקה"
+              },
+              {
+                "t": 1,
+                "y": 20,
+                "label": "שיא"
+              },
+              {
+                "t": 3,
+                "y": 0,
+                "label": "נחיתה"
+              }
+            ]
+          },
+          "inputs": [
+            {
+              "label": "גובה המרפסת",
+              "unit": "מ'",
+              "answer": "15",
+              "tolerance": 0.15
+            },
+            {
+              "label": "הגובה המרבי",
+              "unit": "מ'",
+              "answer": "20",
+              "tolerance": 0.2
+            },
+            {
+              "label": "זמן הנחיתה",
+              "unit": "ש'",
+              "answer": "3",
+              "tolerance": 0.03
+            },
+            {
+              "label": "זמן החזרה לגובה המרפסת",
+              "unit": "ש'",
+              "answer": "2",
+              "tolerance": 0.02
+            },
+            {
+              "label": "מהירות הזריקה",
+              "unit": "מ/ש",
+              "answer": "10",
+              "tolerance": 0.1
+            }
+          ],
+          "tips": [
+            "קראו כל ערך מציר הגובה או מציר הזמן בעזרת הקווים המקווקווים שיוצאים מהנקודות המסומנות.",
+            "התנועה בעלייה ובירידה סימטרית: הזמן מהזריקה עד השיא שווה לזמן מהשיא עד החזרה לגובה הזריקה.",
+            "מהירות הזריקה שווה לתאוצת הכובד כפול הזמן שעבר עד השיא."
+          ],
+          "solution": [
+            "הנקודה הראשונה <span dir=\"ltr\">(0, 15)</span>: המרפסת בגובה <span dir=\"ltr\">15 מ'</span>.",
+            "השיא <span dir=\"ltr\">(1, 20)</span>: הגובה המרבי <span dir=\"ltr\">20 מ'</span> בזמן <span dir=\"ltr\">1 ש'</span>.",
+            "הנקודה האחרונה <span dir=\"ltr\">(3, 0)</span>: הכדור פוגע ברחוב אחרי <span dir=\"ltr\">3 ש'</span>.",
+            "סימטריה: העלייה לשיא נמשכת <span dir=\"ltr\">1 ש'</span>, וגם הירידה חזרה לגובה המרפסת, ולכן הכדור חוזר אליו אחרי <span dir=\"ltr\">2 ש'</span>.",
+            "בשיא <span dir=\"ltr\">v = 0</span>: <span dir=\"ltr\">v₀ = g · t = 10 · 1 = 10 מ/ש</span>. בדיקה: <span dir=\"ltr\">15 + 10 · 3 − 5 · 9 = 0</span> ✓."
+          ],
+          "verify": {
+            "bodies": [
+              {
+                "id": "A",
+                "p0": 15,
+                "v0": 10,
+                "a": -10
+              }
+            ],
+            "queries": [
+              {
+                "q": "p0",
+                "body": "A"
+              },
+              {
+                "q": "peakP",
+                "body": "A"
+              },
+              {
+                "q": "landT",
+                "body": "A"
+              },
+              {
+                "q": "backT",
+                "body": "A"
+              },
+              {
+                "q": "v0",
+                "body": "A"
+              }
+            ],
+            "graphOnly": [
+              15,
+              20,
+              3
+            ]
+          }
+        },
+        {
+          "id": "lad-s3-03",
+          "topic": "phys-vertical",
+          "level": 3,
+          "title": "גרף גובה־זמן של כדור שנזרק כלפי מטה",
+          "statement": "כדור נזרק אנכית כלפי מטה מראש מגדל. הגרף מתאר את גובה הכדור מעל הקרקע כפונקציה של הזמן, וסימנו בו את רגע הזריקה, נקודה באמצע הדרך ורגע הפגיעה. בחישובים השתמשו ב־g = 10 מ/ש² והתעלמו מהתנגדות האוויר.<br>א. מהו גובה המגדל?<br>ב. מהי מהירות הזריקה (חיובי כלפי מעלה)? השתמשו בנקודה שבאמצע הדרך.<br>ג. מתי הכדור פוגע בקרקע?<br>ד. מהי מהירות הכדור (גודל בלבד) ברגע הפגיעה?<br>ה. מהי המהירות הממוצעת של הכדור לאורך כל הנפילה (בסימן)?",
+          "diagram": "<svg viewBox=\"0 0 320 304\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" aria-label=\"גרף גובה־זמן של כדור שנזרק כלפי מטה\"><title>גרף גובה־זמן של כדור שנזרק כלפי מטה</title><defs><marker id=\"ph-k\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"currentColor\"/></marker><marker id=\"ph-a\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"var(--dg-a, #1f5fae)\"/></marker><marker id=\"ph-b\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"var(--dg-b, #c2410c)\"/></marker><marker id=\"ph-c\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"var(--dg-c, #1e7a34)\"/></marker></defs><g direction=\"ltr\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-size=\"14\"><line x1=\"52\" y1=\"40\" x2=\"52\" y2=\"260\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"52\" y=\"284\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">0</text><line x1=\"112\" y1=\"40\" x2=\"112\" y2=\"260\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"112\" y=\"284\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">0.5</text><line x1=\"172\" y1=\"40\" x2=\"172\" y2=\"260\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"172\" y=\"284\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">1</text><line x1=\"232\" y1=\"40\" x2=\"232\" y2=\"260\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"232\" y=\"284\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">1.5</text><line x1=\"292\" y1=\"40\" x2=\"292\" y2=\"260\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"292\" y=\"284\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">2</text><line x1=\"52\" y1=\"260\" x2=\"292\" y2=\"260\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"42\" y=\"265\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">0</text><line x1=\"52\" y1=\"232.5\" x2=\"292\" y2=\"232.5\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"42\" y=\"237.5\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">5</text><line x1=\"52\" y1=\"205\" x2=\"292\" y2=\"205\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"42\" y=\"210\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">10</text><line x1=\"52\" y1=\"177.5\" x2=\"292\" y2=\"177.5\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"42\" y=\"182.5\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">15</text><line x1=\"52\" y1=\"150\" x2=\"292\" y2=\"150\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"42\" y=\"155\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">20</text><line x1=\"52\" y1=\"122.5\" x2=\"292\" y2=\"122.5\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"42\" y=\"127.5\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">25</text><line x1=\"52\" y1=\"95\" x2=\"292\" y2=\"95\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"42\" y=\"100\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">30</text><line x1=\"52\" y1=\"67.5\" x2=\"292\" y2=\"67.5\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"42\" y=\"72.5\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">35</text><line x1=\"52\" y1=\"40\" x2=\"292\" y2=\"40\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"42\" y=\"45\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">40</text><line x1=\"52\" y1=\"260\" x2=\"300\" y2=\"260\" stroke=\"currentColor\" stroke-width=\"2\" marker-end=\"url(#ph-k)\"/><line x1=\"52\" y1=\"260\" x2=\"52\" y2=\"30\" stroke=\"currentColor\" stroke-width=\"2\" marker-end=\"url(#ph-k)\"/><text x=\"242.5\" y=\"250\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\"><tspan direction=\"ltr\" unicode-bidi=\"isolate\">⁦t (<tspan direction=\"rtl\" unicode-bidi=\"isolate\">⁧ש׳⁩</tspan>)⁩</tspan></text><text x=\"83.5\" y=\"20\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\"><tspan direction=\"ltr\" unicode-bidi=\"isolate\">⁦y (<tspan direction=\"rtl\" unicode-bidi=\"isolate\">⁧מ׳⁩</tspan>)⁩</tspan></text><path d=\"M52 40Q172 95 292 260\" stroke=\"var(--dg-a, #1f5fae)\" stroke-width=\"2.5\"/><line x1=\"52\" y1=\"40\" x2=\"52\" y2=\"260\" stroke=\"currentColor\" stroke-dasharray=\"5 4\" opacity=\"0.5\"/><line x1=\"52\" y1=\"40\" x2=\"52\" y2=\"40\" stroke=\"currentColor\" stroke-dasharray=\"5 4\" opacity=\"0.5\"/><line x1=\"172\" y1=\"122.5\" x2=\"172\" y2=\"260\" stroke=\"currentColor\" stroke-dasharray=\"5 4\" opacity=\"0.5\"/><line x1=\"52\" y1=\"122.5\" x2=\"172\" y2=\"122.5\" stroke=\"currentColor\" stroke-dasharray=\"5 4\" opacity=\"0.5\"/><line x1=\"292\" y1=\"260\" x2=\"292\" y2=\"260\" stroke=\"currentColor\" stroke-dasharray=\"5 4\" opacity=\"0.5\"/><line x1=\"52\" y1=\"260\" x2=\"292\" y2=\"260\" stroke=\"currentColor\" stroke-dasharray=\"5 4\" opacity=\"0.5\"/><circle cx=\"52\" cy=\"40\" r=\"3.5\" fill=\"var(--dg-b, #c2410c)\" stroke=\"none\"/><text x=\"99\" y=\"42\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\"><tspan direction=\"rtl\" unicode-bidi=\"isolate\">⁧זריקה⁩</tspan></text><circle cx=\"172\" cy=\"122.5\" r=\"3.5\" fill=\"var(--dg-b, #c2410c)\" stroke=\"none\"/><circle cx=\"292\" cy=\"260\" r=\"3.5\" fill=\"var(--dg-b, #c2410c)\" stroke=\"none\"/><text x=\"291\" y=\"214\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\"><tspan direction=\"rtl\" unicode-bidi=\"isolate\">⁧נחיתה⁩</tspan></text></g></svg>",
+          "graph": {
+            "kind": "yt",
+            "title": "גרף גובה־זמן של כדור שנזרק כלפי מטה",
+            "series": [
+              {
+                "body": "A",
+                "fn": [
+                  40,
+                  -10,
+                  -5
+                ],
+                "t1": 2,
+                "endsAtFloor": true
+              }
+            ],
+            "marks": [
+              {
+                "t": 0,
+                "y": 40,
+                "label": "זריקה"
+              },
+              {
+                "t": 1,
+                "y": 25
+              },
+              {
+                "t": 2,
+                "y": 0,
+                "label": "נחיתה"
+              }
+            ]
+          },
+          "inputs": [
+            {
+              "label": "גובה המגדל",
+              "unit": "מ'",
+              "answer": "40",
+              "tolerance": 0.4
+            },
+            {
+              "label": "מהירות הזריקה",
+              "unit": "מ/ש",
+              "answer": "-10",
+              "tolerance": 0.1
+            },
+            {
+              "label": "זמן הנחיתה",
+              "unit": "ש'",
+              "answer": "2",
+              "tolerance": 0.02
+            },
+            {
+              "label": "מהירות הפגיעה",
+              "unit": "מ/ש",
+              "answer": "30",
+              "tolerance": 0.3
+            },
+            {
+              "label": "המהירות הממוצעת",
+              "unit": "מ/ש",
+              "answer": "-20",
+              "tolerance": 0.2
+            }
+          ],
+          "tips": [
+            "הציבו בנוסחת המקום את הזמן ואת הגובה של הנקודה שבאמצע הדרך, ופתרו משוואה לנעלם אחד: מהירות הזריקה.",
+            "מהירות הפגיעה היא מהירות הזריקה פחות תאוצת הכובד כפול זמן הנחיתה, והגודל הוא הערך המוחלט שלה.",
+            "מהירות ממוצעת היא ההעתק הכולל חלקי משך הזמן. ההעתק שלילי כי הכדור יורד."
+          ],
+          "solution": [
+            "קוראים מהגרף: <span dir=\"ltr\">(0, 40)</span> הוא רגע הזריקה, לכן המגדל בגובה <span dir=\"ltr\">40 מ'</span>; <span dir=\"ltr\">(1, 25)</span> היא הנקודה שבאמצע הדרך; <span dir=\"ltr\">(2, 0)</span> היא הפגיעה.",
+            "מנוסחת המקום <span dir=\"ltr\">y = y₀ + v₀t − 5t²</span> בזמן <span dir=\"ltr\">t = 1</span>: <span dir=\"ltr\">25 = 40 + v₀ − 5</span> ⟵ <span dir=\"ltr\">v₀ = −10 מ/ש</span>, כלומר <span dir=\"ltr\">10 מ/ש</span> כלפי מטה.",
+            "הפגיעה בזמן <span dir=\"ltr\">2 ש'</span>. בדיקה: <span dir=\"ltr\">40 − 10 · 2 − 5 · 4 = 0</span> ✓.",
+            "מהירות הפגיעה: <span dir=\"ltr\">v = −10 − 10 · 2 = −30 מ/ש</span>, והגודל <span dir=\"ltr\">30 מ/ש</span>.",
+            "המהירות הממוצעת: <span dir=\"ltr\">(0 − 40) / 2 = −20 מ/ש</span>. זה גם הממוצע של <span dir=\"ltr\">−10</span> ו־<span dir=\"ltr\">−30</span>, כי התאוצה קבועה."
+          ],
+          "verify": {
+            "bodies": [
+              {
+                "id": "A",
+                "p0": 40,
+                "v0": -10,
+                "a": -10
+              }
+            ],
+            "queries": [
+              {
+                "q": "p0",
+                "body": "A"
+              },
+              {
+                "q": "v0",
+                "body": "A"
+              },
+              {
+                "q": "landT",
+                "body": "A"
+              },
+              {
+                "q": "landSpeed",
+                "body": "A"
+              },
+              {
+                "q": "avgV",
+                "body": "A",
+                "t0": 0,
+                "t1": 2
+              }
+            ],
+            "graphOnly": [
+              40,
+              25,
+              2
+            ]
+          }
+        },
+        {
+          "id": "lad-s3-04",
+          "topic": "phys-vertical",
+          "level": 3,
+          "title": "גרף גובה־זמן של כדור שנופל ממגדל",
+          "statement": "כדור הוזז מהמנוחה בראש מגדל ונפל חופשית. הגרף מתאר את גובה הכדור מעל הקרקע כפונקציה של הזמן. בחישובים השתמשו ב־g = 10 מ/ש² והתעלמו מהתנגדות האוויר.<br>א. מהו גובה המגדל?<br>ב. כעבור כמה זמן הכדור פוגע בקרקע?<br>ג. מהי מהירות הכדור ברגע הפגיעה (חיובי כלפי מעלה)?<br>ד. מהי המהירות הממוצעת של הכדור בשתי השניות הראשונות (בסימן)?<br>ה. באיזה גובה נמצא הכדור כעבור 3 שניות?",
+          "diagram": "<svg viewBox=\"0 0 320 304\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" aria-label=\"גרף גובה־זמן של כדור שנופל חופשית\"><title>גרף גובה־זמן של כדור שנופל חופשית</title><defs><marker id=\"ph-k\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"currentColor\"/></marker><marker id=\"ph-a\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"var(--dg-a, #1f5fae)\"/></marker><marker id=\"ph-b\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"var(--dg-b, #c2410c)\"/></marker><marker id=\"ph-c\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"var(--dg-c, #1e7a34)\"/></marker></defs><g direction=\"ltr\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-size=\"14\"><line x1=\"52\" y1=\"40\" x2=\"52\" y2=\"260\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"52\" y=\"284\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">0</text><line x1=\"82\" y1=\"40\" x2=\"82\" y2=\"260\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"82\" y=\"284\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">0.5</text><line x1=\"112\" y1=\"40\" x2=\"112\" y2=\"260\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"112\" y=\"284\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">1</text><line x1=\"142\" y1=\"40\" x2=\"142\" y2=\"260\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"142\" y=\"284\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">1.5</text><line x1=\"172\" y1=\"40\" x2=\"172\" y2=\"260\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"172\" y=\"284\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">2</text><line x1=\"202\" y1=\"40\" x2=\"202\" y2=\"260\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"202\" y=\"284\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">2.5</text><line x1=\"232\" y1=\"40\" x2=\"232\" y2=\"260\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"232\" y=\"284\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">3</text><line x1=\"262\" y1=\"40\" x2=\"262\" y2=\"260\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"262\" y=\"284\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">3.5</text><line x1=\"292\" y1=\"40\" x2=\"292\" y2=\"260\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"292\" y=\"284\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">4</text><line x1=\"52\" y1=\"260\" x2=\"292\" y2=\"260\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"42\" y=\"265\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">0</text><line x1=\"52\" y1=\"232.5\" x2=\"292\" y2=\"232.5\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"42\" y=\"237.5\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">10</text><line x1=\"52\" y1=\"205\" x2=\"292\" y2=\"205\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"42\" y=\"210\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">20</text><line x1=\"52\" y1=\"177.5\" x2=\"292\" y2=\"177.5\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"42\" y=\"182.5\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">30</text><line x1=\"52\" y1=\"150\" x2=\"292\" y2=\"150\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"42\" y=\"155\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">40</text><line x1=\"52\" y1=\"122.5\" x2=\"292\" y2=\"122.5\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"42\" y=\"127.5\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">50</text><line x1=\"52\" y1=\"95\" x2=\"292\" y2=\"95\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"42\" y=\"100\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">60</text><line x1=\"52\" y1=\"67.5\" x2=\"292\" y2=\"67.5\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"42\" y=\"72.5\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">70</text><line x1=\"52\" y1=\"40\" x2=\"292\" y2=\"40\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"42\" y=\"45\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">80</text><line x1=\"52\" y1=\"260\" x2=\"300\" y2=\"260\" stroke=\"currentColor\" stroke-width=\"2\" marker-end=\"url(#ph-k)\"/><line x1=\"52\" y1=\"260\" x2=\"52\" y2=\"30\" stroke=\"currentColor\" stroke-width=\"2\" marker-end=\"url(#ph-k)\"/><text x=\"248.5\" y=\"250\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\"><tspan direction=\"ltr\" unicode-bidi=\"isolate\">⁦t (<tspan direction=\"rtl\" unicode-bidi=\"isolate\">⁧ש׳⁩</tspan>)⁩</tspan></text><text x=\"83.5\" y=\"20\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\"><tspan direction=\"ltr\" unicode-bidi=\"isolate\">⁦y (<tspan direction=\"rtl\" unicode-bidi=\"isolate\">⁧מ׳⁩</tspan>)⁩</tspan></text><path d=\"M52 40Q172 40 292 260\" stroke=\"var(--dg-a, #1f5fae)\" stroke-width=\"2.5\"/><line x1=\"52\" y1=\"40\" x2=\"52\" y2=\"260\" stroke=\"currentColor\" stroke-dasharray=\"5 4\" opacity=\"0.5\"/><line x1=\"52\" y1=\"40\" x2=\"52\" y2=\"40\" stroke=\"currentColor\" stroke-dasharray=\"5 4\" opacity=\"0.5\"/><line x1=\"172\" y1=\"95\" x2=\"172\" y2=\"260\" stroke=\"currentColor\" stroke-dasharray=\"5 4\" opacity=\"0.5\"/><line x1=\"52\" y1=\"95\" x2=\"172\" y2=\"95\" stroke=\"currentColor\" stroke-dasharray=\"5 4\" opacity=\"0.5\"/><line x1=\"292\" y1=\"260\" x2=\"292\" y2=\"260\" stroke=\"currentColor\" stroke-dasharray=\"5 4\" opacity=\"0.5\"/><line x1=\"52\" y1=\"260\" x2=\"292\" y2=\"260\" stroke=\"currentColor\" stroke-dasharray=\"5 4\" opacity=\"0.5\"/><circle cx=\"52\" cy=\"40\" r=\"3.5\" fill=\"var(--dg-b, #c2410c)\" stroke=\"none\"/><text x=\"81\" y=\"69\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\"><tspan direction=\"rtl\" unicode-bidi=\"isolate\">⁧שחרור⁩</tspan></text><circle cx=\"172\" cy=\"95\" r=\"3.5\" fill=\"var(--dg-b, #c2410c)\" stroke=\"none\"/><circle cx=\"292\" cy=\"260\" r=\"3.5\" fill=\"var(--dg-b, #c2410c)\" stroke=\"none\"/><text x=\"291\" y=\"205\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\"><tspan direction=\"rtl\" unicode-bidi=\"isolate\">⁧נחיתה⁩</tspan></text></g></svg>",
+          "graph": {
+            "kind": "yt",
+            "title": "גרף גובה־זמן של כדור שנופל חופשית",
+            "series": [
+              {
+                "body": "A",
+                "fn": [
+                  80,
+                  0,
+                  -5
+                ],
+                "t1": 4,
+                "endsAtFloor": true
+              }
+            ],
+            "marks": [
+              {
+                "t": 0,
+                "y": 80,
+                "label": "שחרור"
+              },
+              {
+                "t": 2,
+                "y": 60
+              },
+              {
+                "t": 4,
+                "y": 0,
+                "label": "נחיתה"
+              }
+            ]
+          },
+          "inputs": [
+            {
+              "label": "גובה המגדל",
+              "unit": "מ'",
+              "answer": "80",
+              "tolerance": 0.8
+            },
+            {
+              "label": "זמן הנפילה",
+              "unit": "ש'",
+              "answer": "4",
+              "tolerance": 0.04
+            },
+            {
+              "label": "המהירות בפגיעה",
+              "unit": "מ/ש",
+              "answer": "-40",
+              "tolerance": 0.4
+            },
+            {
+              "label": "מהירות ממוצעת בשתי השניות הראשונות",
+              "unit": "מ/ש",
+              "answer": "-10",
+              "tolerance": 0.1
+            },
+            {
+              "label": "הגובה אחרי 3 שניות",
+              "unit": "מ'",
+              "answer": "35",
+              "tolerance": 0.35
+            }
+          ],
+          "tips": [
+            "בגרף של נפילה חופשית הגובה בתחילת הגרף הוא גובה המגדל, וזמן הפגיעה הוא הנקודה שבה הגרף נוגע בציר הזמן.",
+            "המהירות בפגיעה היא תאוצת הכובד כפול זמן הנפילה, בסימן שלילי כי כיוון חיובי הוא כלפי מעלה.",
+            "לגובה בזמן מסוים הציבו בנוסחה: גובה התחלתי פחות חמש כפול ריבוע הזמן."
+          ],
+          "solution": [
+            "קוראים: <span dir=\"ltr\">(0, 80)</span> – גובה המגדל <span dir=\"ltr\">80 מ'</span>; <span dir=\"ltr\">(4, 0)</span> – הכדור פוגע אחרי <span dir=\"ltr\">4 ש'</span>.",
+            "הכדור נופל מהמנוחה, לכן <span dir=\"ltr\">v = −g · t = −10 · 4 = −40 מ/ש</span>. בדיקה: <span dir=\"ltr\">80 − 5 · 16 = 0</span> ✓.",
+            "הנקודה <span dir=\"ltr\">(2, 60)</span>: הכדור ירד <span dir=\"ltr\">20 מ'</span> בשתי השניות, לכן המהירות הממוצעת <span dir=\"ltr\">−20 / 2 = −10 מ/ש</span>.",
+            "בזמן <span dir=\"ltr\">t = 3</span>: <span dir=\"ltr\">y = 80 − 5 · 9 = 35 מ'</span>.",
+            "הערה: המהירות הממוצעת ב־<span dir=\"ltr\">2 ש'</span> הראשונות קטנה מחצי מהמהירות בפגיעה, כי הכדור מאיץ."
+          ],
+          "verify": {
+            "bodies": [
+              {
+                "id": "A",
+                "p0": 80,
+                "v0": 0,
+                "a": -10
+              }
+            ],
+            "queries": [
+              {
+                "q": "p0",
+                "body": "A"
+              },
+              {
+                "q": "landT",
+                "body": "A"
+              },
+              {
+                "q": "landV",
+                "body": "A"
+              },
+              {
+                "q": "avgV",
+                "body": "A",
+                "t0": 0,
+                "t1": 2
+              },
+              {
+                "q": "at",
+                "body": "A",
+                "t": 3,
+                "what": "p"
+              }
+            ],
+            "graphOnly": [
+              80,
+              60,
+              4
+            ]
+          }
+        },
+        {
+          "id": "lad-s3-05",
+          "topic": "phys-vertical",
+          "level": 3,
+          "title": "גרף גובה־זמן של כדור שנזרק מהקרקע",
+          "statement": "כדור נזרק אנכית כלפי מעלה מהקרקע. הגרף מתאר את גובה הכדור מעל הקרקע כפונקציה של הזמן, והנקודות המסומנות הן השיא, נקודה בעלייה ונקודה בירידה באותו גובה, ורגע הנחיתה. בחישובים השתמשו ב־g = 10 מ/ש² והתעלמו מהתנגדות האוויר.<br>א. באיזה רגע הכדור מגיע לשיא?<br>ב. מהו הגובה המרבי?<br>ג. מהי מהירות הזריקה?<br>ד. מהי מהירות הכדור (חיובית כלפי מעלה) בזמן t = 2 ש'?<br>ה. מהי מהירות הכדור (חיובית כלפי מעלה) בזמן t = 6 ש'?",
+          "diagram": "<svg viewBox=\"0 0 320 304\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" aria-label=\"גרף גובה־זמן של כדור שנזרק מהקרקע\"><title>גרף גובה־זמן של כדור שנזרק מהקרקע</title><defs><marker id=\"ph-k\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"currentColor\"/></marker><marker id=\"ph-a\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"var(--dg-a, #1f5fae)\"/></marker><marker id=\"ph-b\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"var(--dg-b, #c2410c)\"/></marker><marker id=\"ph-c\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"var(--dg-c, #1e7a34)\"/></marker></defs><g direction=\"ltr\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-size=\"14\"><line x1=\"52\" y1=\"40\" x2=\"52\" y2=\"260\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"52\" y=\"284\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">0</text><line x1=\"82\" y1=\"40\" x2=\"82\" y2=\"260\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"82\" y=\"284\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">1</text><line x1=\"112\" y1=\"40\" x2=\"112\" y2=\"260\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"112\" y=\"284\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">2</text><line x1=\"142\" y1=\"40\" x2=\"142\" y2=\"260\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"142\" y=\"284\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">3</text><line x1=\"172\" y1=\"40\" x2=\"172\" y2=\"260\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"172\" y=\"284\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">4</text><line x1=\"202\" y1=\"40\" x2=\"202\" y2=\"260\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"202\" y=\"284\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">5</text><line x1=\"232\" y1=\"40\" x2=\"232\" y2=\"260\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"232\" y=\"284\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">6</text><line x1=\"262\" y1=\"40\" x2=\"262\" y2=\"260\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"262\" y=\"284\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">7</text><line x1=\"292\" y1=\"40\" x2=\"292\" y2=\"260\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"292\" y=\"284\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">8</text><line x1=\"52\" y1=\"260\" x2=\"292\" y2=\"260\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"42\" y=\"265\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">0</text><line x1=\"52\" y1=\"232.5\" x2=\"292\" y2=\"232.5\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"42\" y=\"237.5\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">10</text><line x1=\"52\" y1=\"205\" x2=\"292\" y2=\"205\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"42\" y=\"210\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">20</text><line x1=\"52\" y1=\"177.5\" x2=\"292\" y2=\"177.5\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"42\" y=\"182.5\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">30</text><line x1=\"52\" y1=\"150\" x2=\"292\" y2=\"150\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"42\" y=\"155\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">40</text><line x1=\"52\" y1=\"122.5\" x2=\"292\" y2=\"122.5\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"42\" y=\"127.5\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">50</text><line x1=\"52\" y1=\"95\" x2=\"292\" y2=\"95\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"42\" y=\"100\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">60</text><line x1=\"52\" y1=\"67.5\" x2=\"292\" y2=\"67.5\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"42\" y=\"72.5\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">70</text><line x1=\"52\" y1=\"40\" x2=\"292\" y2=\"40\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"42\" y=\"45\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">80</text><line x1=\"52\" y1=\"260\" x2=\"300\" y2=\"260\" stroke=\"currentColor\" stroke-width=\"2\" marker-end=\"url(#ph-k)\"/><line x1=\"52\" y1=\"260\" x2=\"52\" y2=\"30\" stroke=\"currentColor\" stroke-width=\"2\" marker-end=\"url(#ph-k)\"/><text x=\"203.5\" y=\"250\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\"><tspan direction=\"ltr\" unicode-bidi=\"isolate\">⁦t (<tspan direction=\"rtl\" unicode-bidi=\"isolate\">⁧ש׳⁩</tspan>)⁩</tspan></text><text x=\"83.5\" y=\"20\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\"><tspan direction=\"ltr\" unicode-bidi=\"isolate\">⁦y (<tspan direction=\"rtl\" unicode-bidi=\"isolate\">⁧מ׳⁩</tspan>)⁩</tspan></text><path d=\"M52 260Q172 -180 292 260\" stroke=\"var(--dg-a, #1f5fae)\" stroke-width=\"2.5\"/><line x1=\"112\" y1=\"95\" x2=\"112\" y2=\"260\" stroke=\"currentColor\" stroke-dasharray=\"5 4\" opacity=\"0.5\"/><line x1=\"52\" y1=\"95\" x2=\"112\" y2=\"95\" stroke=\"currentColor\" stroke-dasharray=\"5 4\" opacity=\"0.5\"/><line x1=\"172\" y1=\"40\" x2=\"172\" y2=\"260\" stroke=\"currentColor\" stroke-dasharray=\"5 4\" opacity=\"0.5\"/><line x1=\"52\" y1=\"40\" x2=\"172\" y2=\"40\" stroke=\"currentColor\" stroke-dasharray=\"5 4\" opacity=\"0.5\"/><line x1=\"232\" y1=\"95\" x2=\"232\" y2=\"260\" stroke=\"currentColor\" stroke-dasharray=\"5 4\" opacity=\"0.5\"/><line x1=\"52\" y1=\"95\" x2=\"232\" y2=\"95\" stroke=\"currentColor\" stroke-dasharray=\"5 4\" opacity=\"0.5\"/><line x1=\"292\" y1=\"260\" x2=\"292\" y2=\"260\" stroke=\"currentColor\" stroke-dasharray=\"5 4\" opacity=\"0.5\"/><line x1=\"52\" y1=\"260\" x2=\"292\" y2=\"260\" stroke=\"currentColor\" stroke-dasharray=\"5 4\" opacity=\"0.5\"/><circle cx=\"112\" cy=\"95\" r=\"3.5\" fill=\"var(--dg-b, #c2410c)\" stroke=\"none\"/><circle cx=\"172\" cy=\"40\" r=\"3.5\" fill=\"var(--dg-b, #c2410c)\" stroke=\"none\"/><text x=\"192.6\" y=\"30\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\"><tspan direction=\"rtl\" unicode-bidi=\"isolate\">⁧שיא⁩</tspan></text><circle cx=\"232\" cy=\"95\" r=\"3.5\" fill=\"var(--dg-b, #c2410c)\" stroke=\"none\"/><circle cx=\"292\" cy=\"260\" r=\"3.5\" fill=\"var(--dg-b, #c2410c)\" stroke=\"none\"/><text x=\"258\" y=\"250\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\"><tspan direction=\"rtl\" unicode-bidi=\"isolate\">⁧נחיתה⁩</tspan></text></g></svg>",
+          "graph": {
+            "kind": "yt",
+            "title": "גרף גובה־זמן של כדור שנזרק מהקרקע",
+            "series": [
+              {
+                "body": "A",
+                "fn": [
+                  0,
+                  40,
+                  -5
+                ],
+                "t1": 8,
+                "endsAtFloor": true
+              }
+            ],
+            "marks": [
+              {
+                "t": 2,
+                "y": 60
+              },
+              {
+                "t": 4,
+                "y": 80,
+                "label": "שיא"
+              },
+              {
+                "t": 6,
+                "y": 60
+              },
+              {
+                "t": 8,
+                "y": 0,
+                "label": "נחיתה"
+              }
+            ]
+          },
+          "inputs": [
+            {
+              "label": "זמן השיא",
+              "unit": "ש'",
+              "answer": "4",
+              "tolerance": 0.04
+            },
+            {
+              "label": "הגובה המרבי",
+              "unit": "מ'",
+              "answer": "80",
+              "tolerance": 0.8
+            },
+            {
+              "label": "מהירות הזריקה",
+              "unit": "מ/ש",
+              "answer": "40",
+              "tolerance": 0.4
+            },
+            {
+              "label": "המהירות בזמן 2 שניות",
+              "unit": "מ/ש",
+              "answer": "20",
+              "tolerance": 0.2
+            },
+            {
+              "label": "המהירות בזמן 6 שניות",
+              "unit": "מ/ש",
+              "answer": "-20",
+              "tolerance": 0.2
+            }
+          ],
+          "tips": [
+            "השיא הוא הנקודה הגבוהה ביותר בגרף. קראו ממנה את הזמן ואת הגובה.",
+            "מהירות הזריקה שווה לתאוצת הכובד כפול זמן העלייה, כי בשיא המהירות אפס.",
+            "מהירות בזמן מסוים: מהירות הזריקה פחות תאוצת הכובד כפול הזמן. שימו לב לסימן: בירידה המהירות שלילית."
+          ],
+          "solution": [
+            "השיא <span dir=\"ltr\">(4, 80)</span>: זמן השיא <span dir=\"ltr\">4 ש'</span>, גובה מרבי <span dir=\"ltr\">80 מ'</span>. הנחיתה ב־<span dir=\"ltr\">t = 8</span>, כפול זמן השיא כצפוי.",
+            "בשיא <span dir=\"ltr\">v = 0</span>: <span dir=\"ltr\">v₀ = g · t = 10 · 4 = 40 מ/ש</span>. בדיקה: <span dir=\"ltr\">v₀² / (2g) = 1600 / 20 = 80 מ'</span> ✓.",
+            "<span dir=\"ltr\">t = 2</span>: <span dir=\"ltr\">v = 40 − 10 · 2 = 20 מ/ש</span> (כלפי מעלה).",
+            "<span dir=\"ltr\">t = 6</span>: <span dir=\"ltr\">v = 40 − 10 · 6 = −20 מ/ש</span> (כלפי מטה).",
+            "שתי הנקודות <span dir=\"ltr\">(2, 60)</span> ו־<span dir=\"ltr\">(6, 60)</span> באותו גובה, והמהירויות בהן שוות בגודל ומנוגדות בכיוון."
+          ],
+          "verify": {
+            "bodies": [
+              {
+                "id": "A",
+                "p0": 0,
+                "v0": 40,
+                "a": -10
+              }
+            ],
+            "queries": [
+              {
+                "q": "peakT",
+                "body": "A"
+              },
+              {
+                "q": "peakP",
+                "body": "A"
+              },
+              {
+                "q": "v0",
+                "body": "A"
+              },
+              {
+                "q": "at",
+                "body": "A",
+                "t": 2,
+                "what": "v"
+              },
+              {
+                "q": "at",
+                "body": "A",
+                "t": 6,
+                "what": "v"
+              }
+            ],
+            "graphOnly": [
+              60,
+              80,
+              4,
+              8
+            ]
+          }
+        },
+        {
+          "id": "lad-s3-06",
+          "topic": "phys-vertical",
+          "level": 3,
+          "title": "גרף גובה־זמן: זמן שהייה מעל הגג",
+          "statement": "אבן נזרקה אנכית כלפי מעלה מגג של בניין. הגרף מתאר את גובה האבן מעל הקרקע כפונקציה של הזמן. בחישובים השתמשו ב־g = 10 מ/ש² והתעלמו מהתנגדות האוויר.<br>א. באיזה רגע האבן מגיעה לשיא?<br>ב. כעבור כמה זמן האבן חולפת שוב על פני הגג, בדרך למטה?<br>ג. מתי האבן פוגעת בקרקע?<br>ד. מהי מהירות הזריקה?<br>ה. מהי מהירות האבן (גודל בלבד) ברגע הפגיעה בקרקע?",
+          "diagram": "<svg viewBox=\"0 0 320 304\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" aria-label=\"גרף גובה־זמן של אבן שנזרקה מגג\"><title>גרף גובה־זמן של אבן שנזרקה מגג</title><defs><marker id=\"ph-k\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"currentColor\"/></marker><marker id=\"ph-a\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"var(--dg-a, #1f5fae)\"/></marker><marker id=\"ph-b\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"var(--dg-b, #c2410c)\"/></marker><marker id=\"ph-c\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"var(--dg-c, #1e7a34)\"/></marker></defs><g direction=\"ltr\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-size=\"14\"><line x1=\"52\" y1=\"40\" x2=\"52\" y2=\"260\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"52\" y=\"284\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">0</text><line x1=\"92\" y1=\"40\" x2=\"92\" y2=\"260\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"92\" y=\"284\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">1</text><line x1=\"132\" y1=\"40\" x2=\"132\" y2=\"260\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"132\" y=\"284\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">2</text><line x1=\"172\" y1=\"40\" x2=\"172\" y2=\"260\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"172\" y=\"284\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">3</text><line x1=\"212\" y1=\"40\" x2=\"212\" y2=\"260\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"212\" y=\"284\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">4</text><line x1=\"252\" y1=\"40\" x2=\"252\" y2=\"260\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"252\" y=\"284\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">5</text><line x1=\"292\" y1=\"40\" x2=\"292\" y2=\"260\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"292\" y=\"284\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">6</text><line x1=\"52\" y1=\"260\" x2=\"292\" y2=\"260\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"42\" y=\"265\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">0</text><line x1=\"52\" y1=\"232.5\" x2=\"292\" y2=\"232.5\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"42\" y=\"237.5\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">10</text><line x1=\"52\" y1=\"205\" x2=\"292\" y2=\"205\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"42\" y=\"210\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">20</text><line x1=\"52\" y1=\"177.5\" x2=\"292\" y2=\"177.5\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"42\" y=\"182.5\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">30</text><line x1=\"52\" y1=\"150\" x2=\"292\" y2=\"150\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"42\" y=\"155\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">40</text><line x1=\"52\" y1=\"122.5\" x2=\"292\" y2=\"122.5\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"42\" y=\"127.5\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">50</text><line x1=\"52\" y1=\"95\" x2=\"292\" y2=\"95\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"42\" y=\"100\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">60</text><line x1=\"52\" y1=\"67.5\" x2=\"292\" y2=\"67.5\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"42\" y=\"72.5\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">70</text><line x1=\"52\" y1=\"40\" x2=\"292\" y2=\"40\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"42\" y=\"45\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">80</text><line x1=\"52\" y1=\"260\" x2=\"300\" y2=\"260\" stroke=\"currentColor\" stroke-width=\"2\" marker-end=\"url(#ph-k)\"/><line x1=\"52\" y1=\"260\" x2=\"52\" y2=\"30\" stroke=\"currentColor\" stroke-width=\"2\" marker-end=\"url(#ph-k)\"/><text x=\"251.5\" y=\"250\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\"><tspan direction=\"ltr\" unicode-bidi=\"isolate\">⁦t (<tspan direction=\"rtl\" unicode-bidi=\"isolate\">⁧ש׳⁩</tspan>)⁩</tspan></text><text x=\"83.5\" y=\"20\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\"><tspan direction=\"ltr\" unicode-bidi=\"isolate\">⁦y (<tspan direction=\"rtl\" unicode-bidi=\"isolate\">⁧מ׳⁩</tspan>)⁩</tspan></text><path d=\"M52 95Q172 -70 292 260\" stroke=\"var(--dg-a, #1f5fae)\" stroke-width=\"2.5\"/><line x1=\"52\" y1=\"95\" x2=\"52\" y2=\"260\" stroke=\"currentColor\" stroke-dasharray=\"5 4\" opacity=\"0.5\"/><line x1=\"52\" y1=\"95\" x2=\"52\" y2=\"95\" stroke=\"currentColor\" stroke-dasharray=\"5 4\" opacity=\"0.5\"/><line x1=\"132\" y1=\"40\" x2=\"132\" y2=\"260\" stroke=\"currentColor\" stroke-dasharray=\"5 4\" opacity=\"0.5\"/><line x1=\"52\" y1=\"40\" x2=\"132\" y2=\"40\" stroke=\"currentColor\" stroke-dasharray=\"5 4\" opacity=\"0.5\"/><line x1=\"212\" y1=\"95\" x2=\"212\" y2=\"260\" stroke=\"currentColor\" stroke-dasharray=\"5 4\" opacity=\"0.5\"/><line x1=\"52\" y1=\"95\" x2=\"212\" y2=\"95\" stroke=\"currentColor\" stroke-dasharray=\"5 4\" opacity=\"0.5\"/><line x1=\"292\" y1=\"260\" x2=\"292\" y2=\"260\" stroke=\"currentColor\" stroke-dasharray=\"5 4\" opacity=\"0.5\"/><line x1=\"52\" y1=\"260\" x2=\"292\" y2=\"260\" stroke=\"currentColor\" stroke-dasharray=\"5 4\" opacity=\"0.5\"/><circle cx=\"52\" cy=\"95\" r=\"3.5\" fill=\"var(--dg-b, #c2410c)\" stroke=\"none\"/><text x=\"102\" y=\"85\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\"><tspan direction=\"rtl\" unicode-bidi=\"isolate\">⁧זריקה⁩</tspan></text><circle cx=\"132\" cy=\"40\" r=\"3.5\" fill=\"var(--dg-b, #c2410c)\" stroke=\"none\"/><text x=\"152.6\" y=\"30\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\"><tspan direction=\"rtl\" unicode-bidi=\"isolate\">⁧שיא⁩</tspan></text><circle cx=\"212\" cy=\"95\" r=\"3.5\" fill=\"var(--dg-b, #c2410c)\" stroke=\"none\"/><circle cx=\"292\" cy=\"260\" r=\"3.5\" fill=\"var(--dg-b, #c2410c)\" stroke=\"none\"/><text x=\"246\" y=\"226\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\"><tspan direction=\"rtl\" unicode-bidi=\"isolate\">⁧נחיתה⁩</tspan></text></g></svg>",
+          "graph": {
+            "kind": "yt",
+            "title": "גרף גובה־זמן של אבן שנזרקה מגג",
+            "series": [
+              {
+                "body": "A",
+                "fn": [
+                  60,
+                  20,
+                  -5
+                ],
+                "t1": 6,
+                "endsAtFloor": true
+              }
+            ],
+            "marks": [
+              {
+                "t": 0,
+                "y": 60,
+                "label": "זריקה"
+              },
+              {
+                "t": 2,
+                "y": 80,
+                "label": "שיא"
+              },
+              {
+                "t": 4,
+                "y": 60
+              },
+              {
+                "t": 6,
+                "y": 0,
+                "label": "נחיתה"
+              }
+            ]
+          },
+          "inputs": [
+            {
+              "label": "זמן השיא",
+              "unit": "ש'",
+              "answer": "2",
+              "tolerance": 0.02
+            },
+            {
+              "label": "זמן החזרה לגובה הגג",
+              "unit": "ש'",
+              "answer": "4",
+              "tolerance": 0.04
+            },
+            {
+              "label": "זמן הנחיתה",
+              "unit": "ש'",
+              "answer": "6",
+              "tolerance": 0.06
+            },
+            {
+              "label": "מהירות הזריקה",
+              "unit": "מ/ש",
+              "answer": "20",
+              "tolerance": 0.2
+            },
+            {
+              "label": "מהירות הפגיעה",
+              "unit": "מ/ש",
+              "answer": "40",
+              "tolerance": 0.4
+            }
+          ],
+          "tips": [
+            "חפשו בגרף שתי נקודות באותו גובה של הגג: אחת בהתחלה ואחת בירידה. זמן החזרה הוא הזמן של השנייה.",
+            "מהירות הזריקה נובעת מזמן השיא כי בשיא המהירות אפס.",
+            "מהירות הפגיעה היא מהירות הזריקה פחות תאוצת הכובד כפול זמן הנחיתה. הגודל הוא הערך המוחלט."
+          ],
+          "solution": [
+            "השיא <span dir=\"ltr\">(2, 80)</span>: זמן השיא <span dir=\"ltr\">2 ש'</span>.",
+            "האבן חוזרת לגובה הגג <span dir=\"ltr\">60 מ'</span> בנקודה <span dir=\"ltr\">(4, 60)</span>, כלומר אחרי <span dir=\"ltr\">4 ש'</span> – פי שניים מזמן השיא.",
+            "הנחיתה בנקודה <span dir=\"ltr\">(6, 0)</span>: <span dir=\"ltr\">6 ש'</span> אחרי הזריקה.",
+            "<span dir=\"ltr\">v₀ = g · t_שיא = 10 · 2 = 20 מ/ש</span>.",
+            "<span dir=\"ltr\">v = 20 − 10 · 6 = −40 מ/ש</span>, ולכן המהירות בפגיעה <span dir=\"ltr\">40 מ/ש</span>. בדיקה: <span dir=\"ltr\">60 + 20 · 6 − 5 · 36 = 0</span> ✓."
+          ],
+          "verify": {
+            "bodies": [
+              {
+                "id": "A",
+                "p0": 60,
+                "v0": 20,
+                "a": -10
+              }
+            ],
+            "queries": [
+              {
+                "q": "peakT",
+                "body": "A"
+              },
+              {
+                "q": "backT",
+                "body": "A"
+              },
+              {
+                "q": "landT",
+                "body": "A"
+              },
+              {
+                "q": "v0",
+                "body": "A"
+              },
+              {
+                "q": "landSpeed",
+                "body": "A"
+              }
+            ],
+            "graphOnly": [
+              60,
+              80,
+              2,
+              4,
+              6
+            ]
+          }
+        },
+        {
+          "id": "lad-s3-07",
+          "topic": "phys-vertical",
+          "level": 3,
+          "title": "גרף מהירות־זמן: גובה הגג מהשטח",
+          "statement": "כדור נזרק אנכית כלפי מעלה מגג בניין ונחת על הקרקע שמתחת. הגרף מתאר את מהירות הכדור כפונקציה של הזמן (חיובי כלפי מעלה); האזור המוצלל הוא השטח בין הגרף לציר הזמן בעלייה. כל הנתונים נקראים מהגרף.<br>א. מהי מהירות הזריקה?<br>ב. באיזה רגע הכדור מגיע לשיא?<br>ג. כמה גבוה הכדור עולה מעל נקודת הזריקה? (השטח המוצלל)<br>ד. מהו גובה הגג מעל הקרקע?<br>ה. מהי הדרך הכוללת שעבר הכדור מהזריקה עד הנחיתה?",
+          "diagram": "<svg viewBox=\"0 0 320 304\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" aria-label=\"גרף מהירות־זמן של כדור שנזרק מגג\"><title>גרף מהירות־זמן של כדור שנזרק מגג</title><defs><marker id=\"ph-k\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"currentColor\"/></marker><marker id=\"ph-a\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"var(--dg-a, #1f5fae)\"/></marker><marker id=\"ph-b\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"var(--dg-b, #c2410c)\"/></marker><marker id=\"ph-c\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"var(--dg-c, #1e7a34)\"/></marker></defs><g direction=\"ltr\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-size=\"14\"><line x1=\"52\" y1=\"40\" x2=\"52\" y2=\"260\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"52\" y=\"284\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">0</text><line x1=\"100\" y1=\"40\" x2=\"100\" y2=\"260\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"100\" y=\"284\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">1</text><line x1=\"148\" y1=\"40\" x2=\"148\" y2=\"260\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"148\" y=\"284\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">2</text><line x1=\"196\" y1=\"40\" x2=\"196\" y2=\"260\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"196\" y=\"284\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">3</text><line x1=\"244\" y1=\"40\" x2=\"244\" y2=\"260\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"244\" y=\"284\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">4</text><line x1=\"292\" y1=\"40\" x2=\"292\" y2=\"260\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"292\" y=\"284\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">5</text><line x1=\"52\" y1=\"260\" x2=\"292\" y2=\"260\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"42\" y=\"265\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">-30</text><line x1=\"52\" y1=\"216\" x2=\"292\" y2=\"216\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"42\" y=\"221\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">-20</text><line x1=\"52\" y1=\"172\" x2=\"292\" y2=\"172\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"42\" y=\"177\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">-10</text><line x1=\"52\" y1=\"128\" x2=\"292\" y2=\"128\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"42\" y=\"133\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">0</text><line x1=\"52\" y1=\"84\" x2=\"292\" y2=\"84\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"42\" y=\"89\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">10</text><line x1=\"52\" y1=\"40\" x2=\"292\" y2=\"40\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"42\" y=\"45\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">20</text><line x1=\"52\" y1=\"128\" x2=\"300\" y2=\"128\" stroke=\"currentColor\" stroke-width=\"2\" marker-end=\"url(#ph-k)\"/><line x1=\"52\" y1=\"260\" x2=\"52\" y2=\"30\" stroke=\"currentColor\" stroke-width=\"2\" marker-end=\"url(#ph-k)\"/><text x=\"278.5\" y=\"112\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\"><tspan direction=\"ltr\" unicode-bidi=\"isolate\">⁦t (<tspan direction=\"rtl\" unicode-bidi=\"isolate\">⁧ש׳⁩</tspan>)⁩</tspan></text><text x=\"87.9\" y=\"20\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\"><tspan direction=\"ltr\" unicode-bidi=\"isolate\">⁦v (<tspan direction=\"rtl\" unicode-bidi=\"isolate\">⁧מ/ש⁩</tspan>)⁩</tspan></text><polygon points=\"52,128 52,40 56.8,44.4 61.6,48.8 66.4,53.2 71.2,57.6 76,62 80.8,66.4 85.6,70.8 90.4,75.2 95.2,79.6 100,84 104.8,88.4 109.6,92.8 114.4,97.2 119.2,101.6 124,106 128.8,110.4 133.6,114.8 138.4,119.2 143.2,123.6 148,128 148,128\" fill=\"var(--dg-a, #1f5fae)\" fill-opacity=\"0.14\" stroke=\"none\"/><polyline points=\"52,40 292,260\" stroke=\"var(--dg-a, #1f5fae)\" stroke-width=\"2.5\"/><line x1=\"52\" y1=\"40\" x2=\"52\" y2=\"260\" stroke=\"currentColor\" stroke-dasharray=\"5 4\" opacity=\"0.5\"/><line x1=\"52\" y1=\"40\" x2=\"52\" y2=\"40\" stroke=\"currentColor\" stroke-dasharray=\"5 4\" opacity=\"0.5\"/><line x1=\"148\" y1=\"128\" x2=\"148\" y2=\"260\" stroke=\"currentColor\" stroke-dasharray=\"5 4\" opacity=\"0.5\"/><line x1=\"52\" y1=\"128\" x2=\"148\" y2=\"128\" stroke=\"currentColor\" stroke-dasharray=\"5 4\" opacity=\"0.5\"/><line x1=\"292\" y1=\"260\" x2=\"292\" y2=\"260\" stroke=\"currentColor\" stroke-dasharray=\"5 4\" opacity=\"0.5\"/><line x1=\"52\" y1=\"260\" x2=\"292\" y2=\"260\" stroke=\"currentColor\" stroke-dasharray=\"5 4\" opacity=\"0.5\"/><circle cx=\"52\" cy=\"40\" r=\"3.5\" fill=\"var(--dg-b, #c2410c)\" stroke=\"none\"/><text x=\"90\" y=\"42\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\"><tspan direction=\"rtl\" unicode-bidi=\"isolate\">⁧זריקה⁩</tspan></text><circle cx=\"148\" cy=\"128\" r=\"3.5\" fill=\"var(--dg-b, #c2410c)\" stroke=\"none\"/><text x=\"168.6\" y=\"118\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\"><tspan direction=\"rtl\" unicode-bidi=\"isolate\">⁧שיא⁩</tspan></text><circle cx=\"292\" cy=\"260\" r=\"3.5\" fill=\"var(--dg-b, #c2410c)\" stroke=\"none\"/><text x=\"291\" y=\"226\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\"><tspan direction=\"rtl\" unicode-bidi=\"isolate\">⁧נחיתה⁩</tspan></text></g></svg>",
+          "graph": {
+            "kind": "vt",
+            "title": "גרף מהירות־זמן של כדור שנזרק מגג",
+            "series": [
+              {
+                "body": "A",
+                "fn": [
+                  20,
+                  -10
+                ],
+                "t1": 5,
+                "endsAtFloor": true
+              }
+            ],
+            "marks": [
+              {
+                "t": 0,
+                "y": 20,
+                "label": "זריקה"
+              },
+              {
+                "t": 2,
+                "y": 0,
+                "label": "שיא"
+              },
+              {
+                "t": 5,
+                "y": -30,
+                "label": "נחיתה"
+              }
+            ],
+            "area": {
+              "series": 0,
+              "t0": 0,
+              "t1": 2
+            }
+          },
+          "inputs": [
+            {
+              "label": "מהירות הזריקה",
+              "unit": "מ/ש",
+              "answer": "20",
+              "tolerance": 0.2
+            },
+            {
+              "label": "זמן השיא",
+              "unit": "ש'",
+              "answer": "2",
+              "tolerance": 0.02
+            },
+            {
+              "label": "העלייה מעל הגג",
+              "unit": "מ'",
+              "answer": "20",
+              "tolerance": 0.2
+            },
+            {
+              "label": "גובה הגג",
+              "unit": "מ'",
+              "answer": "25",
+              "tolerance": 0.25
+            },
+            {
+              "label": "הדרך הכוללת",
+              "unit": "מ'",
+              "answer": "65",
+              "tolerance": 0.65
+            }
+          ],
+          "tips": [
+            "מהירות הזריקה היא ערך הגרף ברגע אפס, וזמן השיא הוא הרגע שבו הגרף חותך את ציר הזמן.",
+            "השטח בין הגרף לציר הזמן הוא ההעתק. מעל הציר ההעתק כלפי מעלה, ומתחת לציר כלפי מטה.",
+            "ההעתק הכולל שלילי כי הכדור מסיים מתחת לנקודת הזריקה. גובה הגג הוא ערכו המוחלט. הדרך היא סכום שני השטחים בערכם המוחלט."
+          ],
+          "solution": [
+            "קוראים: <span dir=\"ltr\">(0, 20)</span> – מהירות הזריקה <span dir=\"ltr\">20 מ/ש</span>; הגרף חותך את ציר הזמן ב־<span dir=\"ltr\">t = 2 ש'</span>.",
+            "שטח המשולש העליון: <span dir=\"ltr\">½ · 2 · 20 = 20 מ'</span> – העלייה מעל הגג.",
+            "המהירות בסוף היא <span dir=\"ltr\">−30 מ/ש</span> בזמן <span dir=\"ltr\">5 ש'</span>. שטח המשולש התחתון: <span dir=\"ltr\">½ · 3 · 30 = 45 מ'</span> כלפי מטה.",
+            "ההעתק הכולל: <span dir=\"ltr\">20 − 45 = −25 מ'</span>, ולכן הגג בגובה <span dir=\"ltr\">25 מ'</span> מעל הקרקע.",
+            "הדרך הכוללת: <span dir=\"ltr\">20 + 45 = 65 מ'</span>. בדיקה: השיפוע <span dir=\"ltr\">(−30 − 20) / 5 = −10 מ/ש²</span> = ‎−g ✓."
+          ],
+          "verify": {
+            "bodies": [
+              {
+                "id": "A",
+                "p0": 25,
+                "v0": 20,
+                "a": -10
+              }
+            ],
+            "queries": [
+              {
+                "q": "v0",
+                "body": "A"
+              },
+              {
+                "q": "peakT",
+                "body": "A"
+              },
+              {
+                "q": "area",
+                "body": "A",
+                "t0": 0,
+                "t1": 2
+              },
+              {
+                "q": "area",
+                "body": "A",
+                "t0": 0,
+                "t1": 5,
+                "neg": true
+              },
+              {
+                "q": "path",
+                "body": "A",
+                "t0": 0,
+                "t1": 5
+              }
+            ],
+            "graphOnly": [
+              20,
+              2,
+              30,
+              5
+            ]
+          }
+        },
+        {
+          "id": "lad-s3-08",
+          "topic": "phys-vertical",
+          "level": 3,
+          "title": "גרף מהירות־זמן של כדור שנזרק כלפי מטה",
+          "statement": "כדור נזרק אנכית כלפי מטה מראש מגדל. הגרף מתאר את מהירות הכדור כפונקציה של הזמן (חיובי כלפי מעלה) מרגע הזריקה ועד הפגיעה בקרקע; השטח המוצלל הוא השטח בין הגרף לציר הזמן.<br>א. מהי מהירות הזריקה (בסימן)?<br>ב. מהי תאוצת הכדור (שיפוע הגרף, בסימן)?<br>ג. מתי הכדור פוגע בקרקע?<br>ד. מהו גובה המגדל? (השטח המוצלל)<br>ה. מהי המהירות הממוצעת של הכדור בנפילה (בסימן)?",
+          "diagram": "<svg viewBox=\"0 0 320 304\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" aria-label=\"גרף מהירות־זמן של כדור שנזרק כלפי מטה\"><title>גרף מהירות־זמן של כדור שנזרק כלפי מטה</title><defs><marker id=\"ph-k\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"currentColor\"/></marker><marker id=\"ph-a\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"var(--dg-a, #1f5fae)\"/></marker><marker id=\"ph-b\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"var(--dg-b, #c2410c)\"/></marker><marker id=\"ph-c\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"var(--dg-c, #1e7a34)\"/></marker></defs><g direction=\"ltr\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-size=\"14\"><line x1=\"52\" y1=\"40\" x2=\"52\" y2=\"260\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"52\" y=\"284\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">0</text><line x1=\"112\" y1=\"40\" x2=\"112\" y2=\"260\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"112\" y=\"284\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">0.5</text><line x1=\"172\" y1=\"40\" x2=\"172\" y2=\"260\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"172\" y=\"284\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">1</text><line x1=\"232\" y1=\"40\" x2=\"232\" y2=\"260\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"232\" y=\"284\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">1.5</text><line x1=\"292\" y1=\"40\" x2=\"292\" y2=\"260\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"292\" y=\"284\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">2</text><line x1=\"52\" y1=\"260\" x2=\"292\" y2=\"260\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"42\" y=\"265\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">-30</text><line x1=\"52\" y1=\"223.3\" x2=\"292\" y2=\"223.3\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"42\" y=\"228.3\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">-25</text><line x1=\"52\" y1=\"186.7\" x2=\"292\" y2=\"186.7\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"42\" y=\"191.7\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">-20</text><line x1=\"52\" y1=\"150\" x2=\"292\" y2=\"150\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"42\" y=\"155\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">-15</text><line x1=\"52\" y1=\"113.3\" x2=\"292\" y2=\"113.3\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"42\" y=\"118.3\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">-10</text><line x1=\"52\" y1=\"76.7\" x2=\"292\" y2=\"76.7\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"42\" y=\"81.7\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">-5</text><line x1=\"52\" y1=\"40\" x2=\"292\" y2=\"40\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"42\" y=\"45\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">0</text><line x1=\"52\" y1=\"40\" x2=\"300\" y2=\"40\" stroke=\"currentColor\" stroke-width=\"2\" marker-end=\"url(#ph-k)\"/><line x1=\"52\" y1=\"260\" x2=\"52\" y2=\"30\" stroke=\"currentColor\" stroke-width=\"2\" marker-end=\"url(#ph-k)\"/><text x=\"278.5\" y=\"24\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\"><tspan direction=\"ltr\" unicode-bidi=\"isolate\">⁦t (<tspan direction=\"rtl\" unicode-bidi=\"isolate\">⁧ש׳⁩</tspan>)⁩</tspan></text><text x=\"87.9\" y=\"20\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\"><tspan direction=\"ltr\" unicode-bidi=\"isolate\">⁦v (<tspan direction=\"rtl\" unicode-bidi=\"isolate\">⁧מ/ש⁩</tspan>)⁩</tspan></text><polygon points=\"52,40 52,113.3 64,120.7 76,128 88,135.3 100,142.7 112,150 124,157.3 136,164.7 148,172 160,179.3 172,186.7 184,194 196,201.3 208,208.7 220,216 232,223.3 244,230.7 256,238 268,245.3 280,252.7 292,260 292,40\" fill=\"var(--dg-a, #1f5fae)\" fill-opacity=\"0.14\" stroke=\"none\"/><polyline points=\"52,113.3 292,260\" stroke=\"var(--dg-a, #1f5fae)\" stroke-width=\"2.5\"/><line x1=\"52\" y1=\"113.3\" x2=\"52\" y2=\"260\" stroke=\"currentColor\" stroke-dasharray=\"5 4\" opacity=\"0.5\"/><line x1=\"52\" y1=\"113.3\" x2=\"52\" y2=\"113.3\" stroke=\"currentColor\" stroke-dasharray=\"5 4\" opacity=\"0.5\"/><line x1=\"292\" y1=\"260\" x2=\"292\" y2=\"260\" stroke=\"currentColor\" stroke-dasharray=\"5 4\" opacity=\"0.5\"/><line x1=\"52\" y1=\"260\" x2=\"292\" y2=\"260\" stroke=\"currentColor\" stroke-dasharray=\"5 4\" opacity=\"0.5\"/><circle cx=\"52\" cy=\"113.3\" r=\"3.5\" fill=\"var(--dg-b, #c2410c)\" stroke=\"none\"/><text x=\"81\" y=\"106.3\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\"><tspan direction=\"rtl\" unicode-bidi=\"isolate\">⁧זריקה⁩</tspan></text><circle cx=\"292\" cy=\"260\" r=\"3.5\" fill=\"var(--dg-b, #c2410c)\" stroke=\"none\"/><text x=\"291\" y=\"235\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\"><tspan direction=\"rtl\" unicode-bidi=\"isolate\">⁧נחיתה⁩</tspan></text></g></svg>",
+          "graph": {
+            "kind": "vt",
+            "title": "גרף מהירות־זמן של כדור שנזרק כלפי מטה",
+            "series": [
+              {
+                "body": "A",
+                "fn": [
+                  -10,
+                  -10
+                ],
+                "t1": 2,
+                "endsAtFloor": true
+              }
+            ],
+            "marks": [
+              {
+                "t": 0,
+                "y": -10,
+                "label": "זריקה"
+              },
+              {
+                "t": 2,
+                "y": -30,
+                "label": "נחיתה"
+              }
+            ],
+            "area": {
+              "series": 0,
+              "t0": 0,
+              "t1": 2
+            }
+          },
+          "inputs": [
+            {
+              "label": "מהירות הזריקה",
+              "unit": "מ/ש",
+              "answer": "-10",
+              "tolerance": 0.1
+            },
+            {
+              "label": "התאוצה",
+              "unit": "מ/ש²",
+              "answer": "-10",
+              "tolerance": 0.1
+            },
+            {
+              "label": "זמן הנחיתה",
+              "unit": "ש'",
+              "answer": "2",
+              "tolerance": 0.02
+            },
+            {
+              "label": "גובה המגדל",
+              "unit": "מ'",
+              "answer": "40",
+              "tolerance": 0.4
+            },
+            {
+              "label": "המהירות הממוצעת",
+              "unit": "מ/ש",
+              "answer": "-20",
+              "tolerance": 0.2
+            }
+          ],
+          "tips": [
+            "מהירות הזריקה היא ערך הגרף ברגע אפס. הכדור נזרק כלפי מטה, ולכן הערך שלילי.",
+            "שיפוע הגרף הוא התאוצה: שינוי המהירות חלקי משך הזמן. אפשר להשתמש בשתי הנקודות המסומנות.",
+            "השטח המוצלל הוא טרפז, והוא שווה לגובה שהכדור עבר. המהירות הממוצעת היא ההעתק חלקי הזמן."
+          ],
+          "solution": [
+            "קוראים: <span dir=\"ltr\">(0, −10)</span> – מהירות הזריקה <span dir=\"ltr\">−10 מ/ש</span>; <span dir=\"ltr\">(2, −30)</span> – מהירות הפגיעה, בזמן <span dir=\"ltr\">2 ש'</span>.",
+            "השיפוע: <span dir=\"ltr\">a = (−30 − (−10)) / 2 = −10 מ/ש²</span>.",
+            "השטח המוצלל טרפז: <span dir=\"ltr\">½ · (10 + 30) · 2 = 40 מ'</span>. זה ההעתק כלפי מטה, ולכן המגדל בגובה <span dir=\"ltr\">40 מ'</span>.",
+            "המהירות הממוצעת: <span dir=\"ltr\">−40 / 2 = −20 מ/ש</span>, והיא גם ממוצע המהירויות ההתחלתית והסופית <span dir=\"ltr\">(−10 − 30) / 2</span>.",
+            "בדיקה במשוואה: <span dir=\"ltr\">40 − 10 · 2 − 5 · 4 = 0</span> ✓."
+          ],
+          "verify": {
+            "bodies": [
+              {
+                "id": "A",
+                "p0": 40,
+                "v0": -10,
+                "a": -10
+              }
+            ],
+            "queries": [
+              {
+                "q": "v0",
+                "body": "A"
+              },
+              {
+                "q": "accel",
+                "body": "A"
+              },
+              {
+                "q": "landT",
+                "body": "A"
+              },
+              {
+                "q": "area",
+                "body": "A",
+                "t0": 0,
+                "t1": 2,
+                "neg": true
+              },
+              {
+                "q": "avgV",
+                "body": "A",
+                "t0": 0,
+                "t1": 2
+              }
+            ],
+            "graphOnly": [
+              10,
+              30,
+              2
+            ]
+          }
+        },
+        {
+          "id": "lad-s3-09",
+          "topic": "phys-vertical",
+          "level": 3,
+          "title": "שני כדורים בגרף מהירות־זמן: האם הם נפגשים?",
+          "statement": "בו־זמנית נזרק כדור א אנכית כלפי מעלה מהקרקע, וכדור ב אנכית כלפי מעלה מגג של בניין סמוך. הגרף מתאר את מהירות שני הכדורים כפונקציה של הזמן (חיובי כלפי מעלה) עד הפגיעה בקרקע. הכדורים נפגשים באוויר, לפני שאחד מהם נוחת. בחישובים השתמשו ב־g = 10 מ/ש² והתעלמו מהתנגדות האוויר.<br>א. מהי מהירות הזריקה של כדור א?<br>ב. מהי מהירות הזריקה של כדור ב?<br>ג. מהו גובה הגג שממנו נזרק כדור ב? (השטח בין הגרף של כדור ב לציר הזמן)<br>ד. כעבור כמה זמן מהזריקה הכדורים נפגשים?<br>ה. באיזה גובה מעל הקרקע הם נפגשים?",
+          "diagram": "<svg viewBox=\"0 0 320 304\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" aria-label=\"גרף מהירות־זמן של שני כדורים\"><title>גרף מהירות־זמן של שני כדורים</title><defs><marker id=\"ph-k\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"currentColor\"/></marker><marker id=\"ph-a\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"var(--dg-a, #1f5fae)\"/></marker><marker id=\"ph-b\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"var(--dg-b, #c2410c)\"/></marker><marker id=\"ph-c\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"var(--dg-c, #1e7a34)\"/></marker></defs><g direction=\"ltr\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-size=\"14\"><line x1=\"52\" y1=\"40\" x2=\"52\" y2=\"260\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"52\" y=\"284\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">0</text><line x1=\"92\" y1=\"40\" x2=\"92\" y2=\"260\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"92\" y=\"284\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">1</text><line x1=\"132\" y1=\"40\" x2=\"132\" y2=\"260\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"132\" y=\"284\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">2</text><line x1=\"172\" y1=\"40\" x2=\"172\" y2=\"260\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"172\" y=\"284\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">3</text><line x1=\"212\" y1=\"40\" x2=\"212\" y2=\"260\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"212\" y=\"284\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">4</text><line x1=\"252\" y1=\"40\" x2=\"252\" y2=\"260\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"252\" y=\"284\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">5</text><line x1=\"292\" y1=\"40\" x2=\"292\" y2=\"260\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"292\" y=\"284\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">6</text><line x1=\"52\" y1=\"260\" x2=\"292\" y2=\"260\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"42\" y=\"265\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">-30</text><line x1=\"52\" y1=\"223.3\" x2=\"292\" y2=\"223.3\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"42\" y=\"228.3\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">-20</text><line x1=\"52\" y1=\"186.7\" x2=\"292\" y2=\"186.7\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"42\" y=\"191.7\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">-10</text><line x1=\"52\" y1=\"150\" x2=\"292\" y2=\"150\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"42\" y=\"155\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">0</text><line x1=\"52\" y1=\"113.3\" x2=\"292\" y2=\"113.3\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"42\" y=\"118.3\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">10</text><line x1=\"52\" y1=\"76.7\" x2=\"292\" y2=\"76.7\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"42\" y=\"81.7\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">20</text><line x1=\"52\" y1=\"40\" x2=\"292\" y2=\"40\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"42\" y=\"45\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">30</text><line x1=\"52\" y1=\"150\" x2=\"300\" y2=\"150\" stroke=\"currentColor\" stroke-width=\"2\" marker-end=\"url(#ph-k)\"/><line x1=\"52\" y1=\"260\" x2=\"52\" y2=\"30\" stroke=\"currentColor\" stroke-width=\"2\" marker-end=\"url(#ph-k)\"/><text x=\"278.5\" y=\"134\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\"><tspan direction=\"ltr\" unicode-bidi=\"isolate\">⁦t (<tspan direction=\"rtl\" unicode-bidi=\"isolate\">⁧ש׳⁩</tspan>)⁩</tspan></text><text x=\"87.9\" y=\"20\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\"><tspan direction=\"ltr\" unicode-bidi=\"isolate\">⁦v (<tspan direction=\"rtl\" unicode-bidi=\"isolate\">⁧מ/ש⁩</tspan>)⁩</tspan></text><polyline points=\"52,40 292,260\" stroke=\"var(--dg-a, #1f5fae)\" stroke-width=\"2.5\"/><polyline points=\"52,76.7 252,260\" stroke=\"var(--dg-c, #1e7a34)\" stroke-width=\"2.5\"/><line x1=\"52\" y1=\"40\" x2=\"52\" y2=\"260\" stroke=\"currentColor\" stroke-dasharray=\"5 4\" opacity=\"0.5\"/><line x1=\"52\" y1=\"40\" x2=\"52\" y2=\"40\" stroke=\"currentColor\" stroke-dasharray=\"5 4\" opacity=\"0.5\"/><line x1=\"172\" y1=\"150\" x2=\"172\" y2=\"260\" stroke=\"currentColor\" stroke-dasharray=\"5 4\" opacity=\"0.5\"/><line x1=\"52\" y1=\"150\" x2=\"172\" y2=\"150\" stroke=\"currentColor\" stroke-dasharray=\"5 4\" opacity=\"0.5\"/><line x1=\"292\" y1=\"260\" x2=\"292\" y2=\"260\" stroke=\"currentColor\" stroke-dasharray=\"5 4\" opacity=\"0.5\"/><line x1=\"52\" y1=\"260\" x2=\"292\" y2=\"260\" stroke=\"currentColor\" stroke-dasharray=\"5 4\" opacity=\"0.5\"/><line x1=\"52\" y1=\"76.7\" x2=\"52\" y2=\"260\" stroke=\"currentColor\" stroke-dasharray=\"5 4\" opacity=\"0.5\"/><line x1=\"52\" y1=\"76.7\" x2=\"52\" y2=\"76.7\" stroke=\"currentColor\" stroke-dasharray=\"5 4\" opacity=\"0.5\"/><line x1=\"132\" y1=\"150\" x2=\"132\" y2=\"260\" stroke=\"currentColor\" stroke-dasharray=\"5 4\" opacity=\"0.5\"/><line x1=\"52\" y1=\"150\" x2=\"132\" y2=\"150\" stroke=\"currentColor\" stroke-dasharray=\"5 4\" opacity=\"0.5\"/><line x1=\"252\" y1=\"260\" x2=\"252\" y2=\"260\" stroke=\"currentColor\" stroke-dasharray=\"5 4\" opacity=\"0.5\"/><line x1=\"52\" y1=\"260\" x2=\"252\" y2=\"260\" stroke=\"currentColor\" stroke-dasharray=\"5 4\" opacity=\"0.5\"/><circle cx=\"52\" cy=\"40\" r=\"3.5\" fill=\"var(--dg-b, #c2410c)\" stroke=\"none\"/><circle cx=\"172\" cy=\"150\" r=\"3.5\" fill=\"var(--dg-b, #c2410c)\" stroke=\"none\"/><circle cx=\"292\" cy=\"260\" r=\"3.5\" fill=\"var(--dg-b, #c2410c)\" stroke=\"none\"/><circle cx=\"52\" cy=\"76.7\" r=\"3.5\" fill=\"var(--dg-b, #c2410c)\" stroke=\"none\"/><circle cx=\"132\" cy=\"150\" r=\"3.5\" fill=\"var(--dg-b, #c2410c)\" stroke=\"none\"/><circle cx=\"252\" cy=\"260\" r=\"3.5\" fill=\"var(--dg-b, #c2410c)\" stroke=\"none\"/><text x=\"257.9\" y=\"193.4\" text-anchor=\"middle\" fill=\"var(--dg-a, #1f5fae)\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\"><tspan direction=\"rtl\" unicode-bidi=\"isolate\">⁧כדור א⁩</tspan></text><text x=\"232.1\" y=\"170.7\" text-anchor=\"middle\" fill=\"var(--dg-c, #1e7a34)\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\"><tspan direction=\"rtl\" unicode-bidi=\"isolate\">⁧כדור ב⁩</tspan></text></g></svg>",
+          "graph": {
+            "kind": "vt",
+            "title": "גרף מהירות־זמן של שני כדורים",
+            "series": [
+              {
+                "body": "A",
+                "fn": [
+                  30,
+                  -10
+                ],
+                "t1": 6,
+                "endsAtFloor": true,
+                "label": "כדור א"
+              },
+              {
+                "body": "B",
+                "fn": [
+                  20,
+                  -10
+                ],
+                "t1": 5,
+                "endsAtFloor": true,
+                "label": "כדור ב"
+              }
+            ],
+            "marks": [
+              {
+                "t": 0,
+                "y": 30
+              },
+              {
+                "t": 3,
+                "y": 0
+              },
+              {
+                "t": 6,
+                "y": -30
+              },
+              {
+                "t": 0,
+                "y": 20,
+                "s": 1
+              },
+              {
+                "t": 2,
+                "y": 0,
+                "s": 1
+              },
+              {
+                "t": 5,
+                "y": -30,
+                "s": 1
+              }
+            ]
+          },
+          "inputs": [
+            {
+              "label": "מהירות כדור א",
+              "unit": "מ/ש",
+              "answer": "30",
+              "tolerance": 0.3
+            },
+            {
+              "label": "מהירות כדור ב",
+              "unit": "מ/ש",
+              "answer": "20",
+              "tolerance": 0.2
+            },
+            {
+              "label": "גובה הגג",
+              "unit": "מ'",
+              "answer": "25",
+              "tolerance": 0.25
+            },
+            {
+              "label": "זמן הפגישה",
+              "unit": "ש'",
+              "answer": "2.5",
+              "tolerance": 0.025
+            },
+            {
+              "label": "גובה הפגישה",
+              "unit": "מ'",
+              "answer": "43.75",
+              "tolerance": 0.4375
+            }
+          ],
+          "tips": [
+            "מהירות הזריקה היא ערך כל גרף ברגע אפס. כדור ב מגיע לקרקע אחרי כדור א או לפניו? קראו את הנקודות האחרונות.",
+            "השטח בין גרף של כדור לציר הזמן הוא ההעתק שלו. כדור ב מסיים מתחת לנקודת הזריקה, והעתקו הכולל הוא מינוס גובה הגג.",
+            "כתבו משוואת גובה לכל כדור, השוו אותן ופתרו את הזמן. אחר כך הציבו בכדור א כדי למצוא את הגובה."
+          ],
+          "solution": [
+            "ברגע אפס: כדור א <span dir=\"ltr\">(0, 30)</span> – <span dir=\"ltr\">30 מ/ש</span>; כדור ב <span dir=\"ltr\">(0, 20)</span> – <span dir=\"ltr\">20 מ/ש</span>.",
+            "הגרף של כדור ב מסתיים ב־<span dir=\"ltr\">(5, −30)</span>. שטח משולש עליון <span dir=\"ltr\">½ · 2 · 20 = 20 מ'</span>, שטח משולש תחתון <span dir=\"ltr\">½ · 3 · 30 = 45 מ'</span>. ההעתק <span dir=\"ltr\">20 − 45 = −25 מ'</span>, ולכן הגג בגובה <span dir=\"ltr\">25 מ'</span>.",
+            "משוואות הגובה: <span dir=\"ltr\">y_א = 30t − 5t²</span>, <span dir=\"ltr\">y_ב = 25 + 20t − 5t²</span>.",
+            "השוואה: <span dir=\"ltr\">30t = 25 + 20t</span> ⟵ <span dir=\"ltr\">t = 2.5 ש'</span>. זה לפני ש־<span dir=\"ltr\">5 ש'</span> (נחיתת כדור ב) וש־<span dir=\"ltr\">6 ש'</span> (נחיתת כדור א).",
+            "הגובה: <span dir=\"ltr\">y = 30 · 2.5 − 5 · 6.25 = 75 − 31.25 = 43.75 מ'</span>. בדיקה בכדור ב: <span dir=\"ltr\">25 + 50 − 31.25 = 43.75</span> ✓."
+          ],
+          "verify": {
+            "bodies": [
+              {
+                "id": "A",
+                "p0": 0,
+                "v0": 30,
+                "a": -10
+              },
+              {
+                "id": "B",
+                "p0": 25,
+                "v0": 20,
+                "a": -10
+              }
+            ],
+            "queries": [
+              {
+                "q": "v0",
+                "body": "A"
+              },
+              {
+                "q": "v0",
+                "body": "B"
+              },
+              {
+                "q": "area",
+                "body": "B",
+                "t0": 0,
+                "t1": 5,
+                "neg": true
+              },
+              {
+                "q": "meetT",
+                "a": "A",
+                "b": "B"
+              },
+              {
+                "q": "meetP",
+                "a": "A",
+                "b": "B"
+              }
+            ],
+            "graphOnly": [
+              30,
+              20,
+              6,
+              5
+            ]
+          }
+        },
+        {
+          "id": "lad-s3-10",
+          "topic": "phys-vertical",
+          "level": 3,
+          "title": "שני כדורים מאותו גג: למעלה ולמטה",
+          "statement": "בו־זמנית נזרקו משני כדורים מאותו גג של בניין: כדור א כלפי מעלה וכדור ב כלפי מטה, שניהם במהירות זהה. הגרף מתאר את מהירות הכדורים כפונקציה של הזמן (חיובי כלפי מעלה) עד הפגיעה בקרקע.<br>א. מהו גובה הגג? (השטח בין הגרף של כדור ב לציר הזמן)<br>ב. באיזה רגע כדור א מגיע לשיא?<br>ג. מי נוחת ראשון, ובכמה זמן הוא מקדים את השני? (הפרש זמני הנחיתה)<br>ד. מהו הגובה המרבי של כדור א מעל הקרקע?<br>ה. מהי הדרך הכוללת שעבר כדור א מהזריקה עד הנחיתה?",
+          "diagram": "<svg viewBox=\"0 0 320 304\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" aria-label=\"גרף מהירות־זמן של שני כדורים מאותו גג\"><title>גרף מהירות־זמן של שני כדורים מאותו גג</title><defs><marker id=\"ph-k\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"currentColor\"/></marker><marker id=\"ph-a\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"var(--dg-a, #1f5fae)\"/></marker><marker id=\"ph-b\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"var(--dg-b, #c2410c)\"/></marker><marker id=\"ph-c\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"var(--dg-c, #1e7a34)\"/></marker></defs><g direction=\"ltr\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-size=\"14\"><line x1=\"52\" y1=\"40\" x2=\"52\" y2=\"260\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"52\" y=\"284\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">0</text><line x1=\"82\" y1=\"40\" x2=\"82\" y2=\"260\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"82\" y=\"284\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">0.5</text><line x1=\"112\" y1=\"40\" x2=\"112\" y2=\"260\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"112\" y=\"284\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">1</text><line x1=\"142\" y1=\"40\" x2=\"142\" y2=\"260\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"142\" y=\"284\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">1.5</text><line x1=\"172\" y1=\"40\" x2=\"172\" y2=\"260\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"172\" y=\"284\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">2</text><line x1=\"202\" y1=\"40\" x2=\"202\" y2=\"260\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"202\" y=\"284\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">2.5</text><line x1=\"232\" y1=\"40\" x2=\"232\" y2=\"260\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"232\" y=\"284\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">3</text><line x1=\"262\" y1=\"40\" x2=\"262\" y2=\"260\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"262\" y=\"284\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">3.5</text><line x1=\"292\" y1=\"40\" x2=\"292\" y2=\"260\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"292\" y=\"284\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">4</text><line x1=\"52\" y1=\"260\" x2=\"292\" y2=\"260\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"42\" y=\"265\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">-30</text><line x1=\"52\" y1=\"232.5\" x2=\"292\" y2=\"232.5\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"42\" y=\"237.5\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">-25</text><line x1=\"52\" y1=\"205\" x2=\"292\" y2=\"205\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"42\" y=\"210\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">-20</text><line x1=\"52\" y1=\"177.5\" x2=\"292\" y2=\"177.5\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"42\" y=\"182.5\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">-15</text><line x1=\"52\" y1=\"150\" x2=\"292\" y2=\"150\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"42\" y=\"155\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">-10</text><line x1=\"52\" y1=\"122.5\" x2=\"292\" y2=\"122.5\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"42\" y=\"127.5\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">-5</text><line x1=\"52\" y1=\"95\" x2=\"292\" y2=\"95\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"42\" y=\"100\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">0</text><line x1=\"52\" y1=\"67.5\" x2=\"292\" y2=\"67.5\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"42\" y=\"72.5\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">5</text><line x1=\"52\" y1=\"40\" x2=\"292\" y2=\"40\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"42\" y=\"45\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">10</text><line x1=\"52\" y1=\"95\" x2=\"300\" y2=\"95\" stroke=\"currentColor\" stroke-width=\"2\" marker-end=\"url(#ph-k)\"/><line x1=\"52\" y1=\"260\" x2=\"52\" y2=\"30\" stroke=\"currentColor\" stroke-width=\"2\" marker-end=\"url(#ph-k)\"/><text x=\"278.5\" y=\"79\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\"><tspan direction=\"ltr\" unicode-bidi=\"isolate\">⁦t (<tspan direction=\"rtl\" unicode-bidi=\"isolate\">⁧ש׳⁩</tspan>)⁩</tspan></text><text x=\"87.9\" y=\"20\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\"><tspan direction=\"ltr\" unicode-bidi=\"isolate\">⁦v (<tspan direction=\"rtl\" unicode-bidi=\"isolate\">⁧מ/ש⁩</tspan>)⁩</tspan></text><polyline points=\"52,40 292,260\" stroke=\"var(--dg-a, #1f5fae)\" stroke-width=\"2.5\"/><polyline points=\"52,150 172,260\" stroke=\"var(--dg-c, #1e7a34)\" stroke-width=\"2.5\"/><line x1=\"52\" y1=\"40\" x2=\"52\" y2=\"260\" stroke=\"currentColor\" stroke-dasharray=\"5 4\" opacity=\"0.5\"/><line x1=\"52\" y1=\"40\" x2=\"52\" y2=\"40\" stroke=\"currentColor\" stroke-dasharray=\"5 4\" opacity=\"0.5\"/><line x1=\"112\" y1=\"95\" x2=\"112\" y2=\"260\" stroke=\"currentColor\" stroke-dasharray=\"5 4\" opacity=\"0.5\"/><line x1=\"52\" y1=\"95\" x2=\"112\" y2=\"95\" stroke=\"currentColor\" stroke-dasharray=\"5 4\" opacity=\"0.5\"/><line x1=\"292\" y1=\"260\" x2=\"292\" y2=\"260\" stroke=\"currentColor\" stroke-dasharray=\"5 4\" opacity=\"0.5\"/><line x1=\"52\" y1=\"260\" x2=\"292\" y2=\"260\" stroke=\"currentColor\" stroke-dasharray=\"5 4\" opacity=\"0.5\"/><line x1=\"52\" y1=\"150\" x2=\"52\" y2=\"260\" stroke=\"currentColor\" stroke-dasharray=\"5 4\" opacity=\"0.5\"/><line x1=\"52\" y1=\"150\" x2=\"52\" y2=\"150\" stroke=\"currentColor\" stroke-dasharray=\"5 4\" opacity=\"0.5\"/><line x1=\"172\" y1=\"260\" x2=\"172\" y2=\"260\" stroke=\"currentColor\" stroke-dasharray=\"5 4\" opacity=\"0.5\"/><line x1=\"52\" y1=\"260\" x2=\"172\" y2=\"260\" stroke=\"currentColor\" stroke-dasharray=\"5 4\" opacity=\"0.5\"/><circle cx=\"52\" cy=\"40\" r=\"3.5\" fill=\"var(--dg-b, #c2410c)\" stroke=\"none\"/><circle cx=\"112\" cy=\"95\" r=\"3.5\" fill=\"var(--dg-b, #c2410c)\" stroke=\"none\"/><circle cx=\"292\" cy=\"260\" r=\"3.5\" fill=\"var(--dg-b, #c2410c)\" stroke=\"none\"/><circle cx=\"52\" cy=\"150\" r=\"3.5\" fill=\"var(--dg-b, #c2410c)\" stroke=\"none\"/><circle cx=\"172\" cy=\"260\" r=\"3.5\" fill=\"var(--dg-b, #c2410c)\" stroke=\"none\"/><text x=\"257.9\" y=\"193.4\" text-anchor=\"middle\" fill=\"var(--dg-a, #1f5fae)\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\"><tspan direction=\"rtl\" unicode-bidi=\"isolate\">⁧כדור א⁩</tspan></text><text x=\"171.5\" y=\"224.2\" text-anchor=\"middle\" fill=\"var(--dg-c, #1e7a34)\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\"><tspan direction=\"rtl\" unicode-bidi=\"isolate\">⁧כדור ב⁩</tspan></text></g></svg>",
+          "graph": {
+            "kind": "vt",
+            "title": "גרף מהירות־זמן של שני כדורים מאותו גג",
+            "series": [
+              {
+                "body": "A",
+                "fn": [
+                  10,
+                  -10
+                ],
+                "t1": 4,
+                "endsAtFloor": true,
+                "label": "כדור א"
+              },
+              {
+                "body": "B",
+                "fn": [
+                  -10,
+                  -10
+                ],
+                "t1": 2,
+                "endsAtFloor": true,
+                "label": "כדור ב"
+              }
+            ],
+            "marks": [
+              {
+                "t": 0,
+                "y": 10
+              },
+              {
+                "t": 1,
+                "y": 0
+              },
+              {
+                "t": 4,
+                "y": -30
+              },
+              {
+                "t": 0,
+                "y": -10,
+                "s": 1
+              },
+              {
+                "t": 2,
+                "y": -30,
+                "s": 1
+              }
+            ]
+          },
+          "inputs": [
+            {
+              "label": "גובה הגג",
+              "unit": "מ'",
+              "answer": "40",
+              "tolerance": 0.4
+            },
+            {
+              "label": "זמן השיא של כדור א",
+              "unit": "ש'",
+              "answer": "1",
+              "tolerance": 0.01
+            },
+            {
+              "label": "הפרש זמני הנחיתה",
+              "unit": "ש'",
+              "answer": "2",
+              "tolerance": 0.02
+            },
+            {
+              "label": "הגובה המרבי של כדור א",
+              "unit": "מ'",
+              "answer": "45",
+              "tolerance": 0.45
+            },
+            {
+              "label": "הדרך של כדור א",
+              "unit": "מ'",
+              "answer": "50",
+              "tolerance": 0.5
+            }
+          ],
+          "tips": [
+            "כדור ב נזרק כלפי מטה, ולכן ההעתק שלו שלילי; גובה הגג הוא הערך המוחלט של ההעתק עד הנחיתה.",
+            "זמן הנחיתה של כל כדור הוא הנקודה האחרונה בגרף שלו. מי שהגרף שלו מסתיים קודם נוחת ראשון.",
+            "הגובה המרבי הוא גובה הגג ועוד העלייה (שטח המשולש העליון). הדרך היא העלייה ועוד הירידה, שני שטחים בערך מוחלט."
+          ],
+          "solution": [
+            "כדור ב מסתיים ב־<span dir=\"ltr\">(2, −30)</span>: שטח הטרפז <span dir=\"ltr\">½ · (10 + 30) · 2 = 40 מ'</span>, לכן הגג בגובה <span dir=\"ltr\">40 מ'</span>.",
+            "כדור א חוצה את ציר הזמן ב־<span dir=\"ltr\">t = 1 ש'</span> – זה השיא.",
+            "כדור א נוחת ב־<span dir=\"ltr\">t = 4 ש'</span> וכדור ב ב־<span dir=\"ltr\">t = 2 ש'</span>: כדור ב נוחת ראשון ומקדים ב־<span dir=\"ltr\">2 ש'</span>.",
+            "העלייה של כדור א: <span dir=\"ltr\">½ · 1 · 10 = 5 מ'</span>, והגובה המרבי <span dir=\"ltr\">40 + 5 = 45 מ'</span>.",
+            "הירידה של כדור א: <span dir=\"ltr\">½ · 3 · 30 = 45 מ'</span>. הדרך הכוללת: <span dir=\"ltr\">5 + 45 = 50 מ'</span>. שני הכדורים פוגעים באותה מהירות <span dir=\"ltr\">30 מ/ש</span>."
+          ],
+          "verify": {
+            "bodies": [
+              {
+                "id": "A",
+                "p0": 40,
+                "v0": 10,
+                "a": -10
+              },
+              {
+                "id": "B",
+                "p0": 40,
+                "v0": -10,
+                "a": -10
+              }
+            ],
+            "queries": [
+              {
+                "q": "area",
+                "body": "B",
+                "t0": 0,
+                "t1": 2,
+                "neg": true
+              },
+              {
+                "q": "peakT",
+                "body": "A"
+              },
+              {
+                "q": "landDiff",
+                "a": "A",
+                "b": "B"
+              },
+              {
+                "q": "peakP",
+                "body": "A"
+              },
+              {
+                "q": "path",
+                "body": "A",
+                "t0": 0,
+                "t1": 4
+              }
+            ],
+            "graphOnly": [
+              10,
+              30,
+              4,
+              2
+            ]
+          }
+        },
+        {
+          "id": "lad-s3-11",
+          "topic": "phys-horizontal",
+          "level": 3,
+          "title": "גרף מהירות־זמן: משאית ומכונית שמאיצה",
+          "statement": "משאית נוסעת בכביש ישר במהירות קבועה. ברגע t = 0 מכונית יוצאת מהמנוחה מנקודה שנמצאת 100 מ' מאחורי המשאית, ונוסעת באותו כיוון בתאוצה קבועה. הגרף מתאר את מהירות שני כלי הרכב כפונקציה של הזמן.<br>א. מהי מהירות המשאית?<br>ב. מהי תאוצת המכונית?<br>ג. מהי מהירות המכונית ב־t = 10 ש'?<br>ד. באיזה רגע המכונית משיגה את המשאית?<br>ה. איזה מרחק עברה המכונית עד ההשגה?",
+          "diagram": "<svg viewBox=\"0 0 320 304\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" aria-label=\"גרף מהירות־זמן של משאית ומכונית\"><title>גרף מהירות־זמן של משאית ומכונית</title><defs><marker id=\"ph-k\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"currentColor\"/></marker><marker id=\"ph-a\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"var(--dg-a, #1f5fae)\"/></marker><marker id=\"ph-b\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"var(--dg-b, #c2410c)\"/></marker><marker id=\"ph-c\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"var(--dg-c, #1e7a34)\"/></marker></defs><g direction=\"ltr\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-size=\"14\"><line x1=\"52\" y1=\"40\" x2=\"52\" y2=\"260\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"52\" y=\"284\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">0</text><line x1=\"100\" y1=\"40\" x2=\"100\" y2=\"260\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"100\" y=\"284\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">2.5</text><line x1=\"148\" y1=\"40\" x2=\"148\" y2=\"260\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"148\" y=\"284\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">5</text><line x1=\"196\" y1=\"40\" x2=\"196\" y2=\"260\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"196\" y=\"284\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">7.5</text><line x1=\"244\" y1=\"40\" x2=\"244\" y2=\"260\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"244\" y=\"284\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">10</text><line x1=\"292\" y1=\"40\" x2=\"292\" y2=\"260\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"292\" y=\"284\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">12.5</text><line x1=\"52\" y1=\"260\" x2=\"292\" y2=\"260\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"42\" y=\"265\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">0</text><line x1=\"52\" y1=\"216\" x2=\"292\" y2=\"216\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"42\" y=\"221\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">10</text><line x1=\"52\" y1=\"172\" x2=\"292\" y2=\"172\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"42\" y=\"177\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">20</text><line x1=\"52\" y1=\"128\" x2=\"292\" y2=\"128\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"42\" y=\"133\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">30</text><line x1=\"52\" y1=\"84\" x2=\"292\" y2=\"84\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"42\" y=\"89\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">40</text><line x1=\"52\" y1=\"40\" x2=\"292\" y2=\"40\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"42\" y=\"45\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">50</text><line x1=\"52\" y1=\"260\" x2=\"300\" y2=\"260\" stroke=\"currentColor\" stroke-width=\"2\" marker-end=\"url(#ph-k)\"/><line x1=\"52\" y1=\"260\" x2=\"52\" y2=\"30\" stroke=\"currentColor\" stroke-width=\"2\" marker-end=\"url(#ph-k)\"/><text x=\"278.5\" y=\"244\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\"><tspan direction=\"ltr\" unicode-bidi=\"isolate\">⁦t (<tspan direction=\"rtl\" unicode-bidi=\"isolate\">⁧ש׳⁩</tspan>)⁩</tspan></text><text x=\"87.9\" y=\"20\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\"><tspan direction=\"ltr\" unicode-bidi=\"isolate\">⁦v (<tspan direction=\"rtl\" unicode-bidi=\"isolate\">⁧מ/ש⁩</tspan>)⁩</tspan></text><polyline points=\"52,216 282.4,216\" stroke=\"var(--dg-a, #1f5fae)\" stroke-width=\"2.5\"/><polyline points=\"52,260 282.4,48.8\" stroke=\"var(--dg-c, #1e7a34)\" stroke-width=\"2.5\"/><line x1=\"52\" y1=\"216\" x2=\"52\" y2=\"260\" stroke=\"currentColor\" stroke-dasharray=\"5 4\" opacity=\"0.5\"/><line x1=\"52\" y1=\"216\" x2=\"52\" y2=\"216\" stroke=\"currentColor\" stroke-dasharray=\"5 4\" opacity=\"0.5\"/><line x1=\"148\" y1=\"172\" x2=\"148\" y2=\"260\" stroke=\"currentColor\" stroke-dasharray=\"5 4\" opacity=\"0.5\"/><line x1=\"52\" y1=\"172\" x2=\"148\" y2=\"172\" stroke=\"currentColor\" stroke-dasharray=\"5 4\" opacity=\"0.5\"/><line x1=\"244\" y1=\"84\" x2=\"244\" y2=\"260\" stroke=\"currentColor\" stroke-dasharray=\"5 4\" opacity=\"0.5\"/><line x1=\"52\" y1=\"84\" x2=\"244\" y2=\"84\" stroke=\"currentColor\" stroke-dasharray=\"5 4\" opacity=\"0.5\"/><circle cx=\"52\" cy=\"216\" r=\"3.5\" fill=\"var(--dg-b, #c2410c)\" stroke=\"none\"/><circle cx=\"148\" cy=\"172\" r=\"3.5\" fill=\"var(--dg-b, #c2410c)\" stroke=\"none\"/><circle cx=\"244\" cy=\"84\" r=\"3.5\" fill=\"var(--dg-b, #c2410c)\" stroke=\"none\"/><text x=\"269.9\" y=\"205\" text-anchor=\"middle\" fill=\"var(--dg-a, #1f5fae)\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\"><tspan direction=\"rtl\" unicode-bidi=\"isolate\">⁧משאית⁩</tspan></text><text x=\"274.1\" y=\"105.9\" text-anchor=\"middle\" fill=\"var(--dg-c, #1e7a34)\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\"><tspan direction=\"rtl\" unicode-bidi=\"isolate\">⁧מכונית⁩</tspan></text></g></svg>",
+          "graph": {
+            "kind": "vt",
+            "title": "גרף מהירות־זמן של משאית ומכונית",
+            "series": [
+              {
+                "body": "A",
+                "fn": [
+                  10
+                ],
+                "t1": 12,
+                "label": "משאית"
+              },
+              {
+                "body": "B",
+                "fn": [
+                  0,
+                  4
+                ],
+                "t1": 12,
+                "label": "מכונית"
+              }
+            ],
+            "marks": [
+              {
+                "t": 0,
+                "y": 10
+              },
+              {
+                "t": 5,
+                "y": 20,
+                "s": 1
+              },
+              {
+                "t": 10,
+                "y": 40,
+                "s": 1
+              }
+            ]
+          },
+          "inputs": [
+            {
+              "label": "מהירות המשאית",
+              "unit": "מ/ש",
+              "answer": "10",
+              "tolerance": 0.1
+            },
+            {
+              "label": "תאוצת המכונית",
+              "unit": "מ/ש²",
+              "answer": "4",
+              "tolerance": 0.04
+            },
+            {
+              "label": "מהירות המכונית אחרי 10 שניות",
+              "unit": "מ/ש",
+              "answer": "40",
+              "tolerance": 0.4
+            },
+            {
+              "label": "זמן ההשגה",
+              "unit": "ש'",
+              "answer": "10",
+              "tolerance": 0.1
+            },
+            {
+              "label": "המרחק שעברה המכונית",
+              "unit": "מ'",
+              "answer": "200",
+              "tolerance": 2
+            }
+          ],
+          "tips": [
+            "מהירות קבועה היא קו אופקי בגרף; תאוצה היא שיפוע הקו המשופע. השתמשו בשתי נקודות מסומנות על הקו של המכונית.",
+            "בזמן ההשגה שני כלי הרכב באותו מקום: המכונית עברה את המרחק ההתחלתי ביניהם ועוד את מה שעברה המשאית.",
+            "כתבו מקום לכל כלי רכב כפונקציה של הזמן, השוו ופתרו משוואה ריבועית. המרחק של המכונית הוא ההעתק שלה."
+          ],
+          "solution": [
+            "קוראים: הקו האופקי <span dir=\"ltr\">v = 10 מ/ש</span> הוא המשאית. הקו של המכונית עובר דרך <span dir=\"ltr\">(5, 20)</span> ו־<span dir=\"ltr\">(10, 40)</span>.",
+            "התאוצה: <span dir=\"ltr\">a = (40 − 20) / (10 − 5) = 4 מ/ש²</span>, והמהירות בזמן <span dir=\"ltr\">10 ש'</span> היא <span dir=\"ltr\">40 מ/ש</span>.",
+            "מקום המשאית, כשהראשית היא נקודת הזינוק של המכונית: <span dir=\"ltr\">x_משאית = 100 + 10t</span>; מקום המכונית: <span dir=\"ltr\">x_מכונית = ½ · 4 · t² = 2t²</span>.",
+            "השוואה: <span dir=\"ltr\">2t² = 100 + 10t</span> ⟵ <span dir=\"ltr\">t² − 5t − 50 = 0</span> ⟵ <span dir=\"ltr\">t = 10 ש'</span> (הפתרון השני שלילי).",
+            "המרחק של המכונית: <span dir=\"ltr\">2 · 100 = 200 מ'</span>. בדיקה: המשאית <span dir=\"ltr\">100 + 10 · 10 = 200 מ'</span> ✓."
+          ],
+          "verify": {
+            "bodies": [
+              {
+                "id": "A",
+                "p0": 100,
+                "v0": 10,
+                "a": 0
+              },
+              {
+                "id": "B",
+                "p0": 0,
+                "v0": 0,
+                "a": 4
+              }
+            ],
+            "queries": [
+              {
+                "q": "v0",
+                "body": "A"
+              },
+              {
+                "q": "accel",
+                "body": "B"
+              },
+              {
+                "q": "at",
+                "body": "B",
+                "t": 10,
+                "what": "v"
+              },
+              {
+                "q": "meetT",
+                "a": "A",
+                "b": "B"
+              },
+              {
+                "q": "pAtMeet",
+                "a": "A",
+                "b": "B",
+                "body": "B"
+              }
+            ],
+            "graphOnly": [
+              20,
+              40,
+              5
+            ]
+          }
+        },
+        {
+          "id": "lad-s3-12",
+          "topic": "phys-horizontal",
+          "level": 3,
+          "title": "גרף מקום־זמן של שתי מכוניות שנפגשות",
+          "statement": "שתי מכוניות נוסעות זו לקראת זו בכביש ישר. הגרף מתאר את מקום כל אחת מהן כפונקציה של הזמן, ביחס לראשית על הכביש (חיובי ימינה). הפגישה מסומנת בגרף.<br>א. מהי מהירות מכונית א (בסימן)?<br>ב. מהי מהירות מכונית ב (בסימן)?<br>ג. באיזה רגע המכוניות נפגשות?<br>ד. באיזה מקום הן נפגשות?<br>ה. מהו המרחק בין המכוניות ברגע t = 2 ש'?",
+          "diagram": "<svg viewBox=\"0 0 320 304\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" aria-label=\"גרף מקום־זמן של שתי מכוניות\"><title>גרף מקום־זמן של שתי מכוניות</title><defs><marker id=\"ph-k\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"currentColor\"/></marker><marker id=\"ph-a\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"var(--dg-a, #1f5fae)\"/></marker><marker id=\"ph-b\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"var(--dg-b, #c2410c)\"/></marker><marker id=\"ph-c\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"var(--dg-c, #1e7a34)\"/></marker></defs><g direction=\"ltr\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-size=\"14\"><line x1=\"52\" y1=\"40\" x2=\"52\" y2=\"260\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"52\" y=\"284\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">0</text><line x1=\"82\" y1=\"40\" x2=\"82\" y2=\"260\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"82\" y=\"284\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">1</text><line x1=\"112\" y1=\"40\" x2=\"112\" y2=\"260\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"112\" y=\"284\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">2</text><line x1=\"142\" y1=\"40\" x2=\"142\" y2=\"260\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"142\" y=\"284\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">3</text><line x1=\"172\" y1=\"40\" x2=\"172\" y2=\"260\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"172\" y=\"284\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">4</text><line x1=\"202\" y1=\"40\" x2=\"202\" y2=\"260\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"202\" y=\"284\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">5</text><line x1=\"232\" y1=\"40\" x2=\"232\" y2=\"260\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"232\" y=\"284\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">6</text><line x1=\"262\" y1=\"40\" x2=\"262\" y2=\"260\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"262\" y=\"284\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">7</text><line x1=\"292\" y1=\"40\" x2=\"292\" y2=\"260\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"292\" y=\"284\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">8</text><line x1=\"52\" y1=\"260\" x2=\"292\" y2=\"260\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"42\" y=\"265\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">0</text><line x1=\"52\" y1=\"232.5\" x2=\"292\" y2=\"232.5\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"42\" y=\"237.5\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">20</text><line x1=\"52\" y1=\"205\" x2=\"292\" y2=\"205\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"42\" y=\"210\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">40</text><line x1=\"52\" y1=\"177.5\" x2=\"292\" y2=\"177.5\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"42\" y=\"182.5\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">60</text><line x1=\"52\" y1=\"150\" x2=\"292\" y2=\"150\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"42\" y=\"155\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">80</text><line x1=\"52\" y1=\"122.5\" x2=\"292\" y2=\"122.5\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"42\" y=\"127.5\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">100</text><line x1=\"52\" y1=\"95\" x2=\"292\" y2=\"95\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"42\" y=\"100\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">120</text><line x1=\"52\" y1=\"67.5\" x2=\"292\" y2=\"67.5\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"42\" y=\"72.5\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">140</text><line x1=\"52\" y1=\"40\" x2=\"292\" y2=\"40\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"42\" y=\"45\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">160</text><line x1=\"52\" y1=\"260\" x2=\"300\" y2=\"260\" stroke=\"currentColor\" stroke-width=\"2\" marker-end=\"url(#ph-k)\"/><line x1=\"52\" y1=\"260\" x2=\"52\" y2=\"30\" stroke=\"currentColor\" stroke-width=\"2\" marker-end=\"url(#ph-k)\"/><text x=\"263.5\" y=\"244\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\"><tspan direction=\"ltr\" unicode-bidi=\"isolate\">⁦t (<tspan direction=\"rtl\" unicode-bidi=\"isolate\">⁧ש׳⁩</tspan>)⁩</tspan></text><text x=\"83.5\" y=\"20\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\"><tspan direction=\"ltr\" unicode-bidi=\"isolate\">⁦x (<tspan direction=\"rtl\" unicode-bidi=\"isolate\">⁧מ׳⁩</tspan>)⁩</tspan></text><polyline points=\"52,260 292,40\" stroke=\"var(--dg-a, #1f5fae)\" stroke-width=\"2.5\"/><polyline points=\"52,95 292,205\" stroke=\"var(--dg-c, #1e7a34)\" stroke-width=\"2.5\"/><line x1=\"292\" y1=\"40\" x2=\"292\" y2=\"260\" stroke=\"currentColor\" stroke-dasharray=\"5 4\" opacity=\"0.5\"/><line x1=\"52\" y1=\"40\" x2=\"292\" y2=\"40\" stroke=\"currentColor\" stroke-dasharray=\"5 4\" opacity=\"0.5\"/><line x1=\"52\" y1=\"95\" x2=\"52\" y2=\"260\" stroke=\"currentColor\" stroke-dasharray=\"5 4\" opacity=\"0.5\"/><line x1=\"52\" y1=\"95\" x2=\"52\" y2=\"95\" stroke=\"currentColor\" stroke-dasharray=\"5 4\" opacity=\"0.5\"/><line x1=\"172\" y1=\"150\" x2=\"172\" y2=\"260\" stroke=\"currentColor\" stroke-dasharray=\"5 4\" opacity=\"0.5\"/><line x1=\"52\" y1=\"150\" x2=\"172\" y2=\"150\" stroke=\"currentColor\" stroke-dasharray=\"5 4\" opacity=\"0.5\"/><circle cx=\"292\" cy=\"40\" r=\"3.5\" fill=\"var(--dg-b, #c2410c)\" stroke=\"none\"/><circle cx=\"52\" cy=\"95\" r=\"3.5\" fill=\"var(--dg-b, #c2410c)\" stroke=\"none\"/><circle cx=\"172\" cy=\"150\" r=\"3.5\" fill=\"var(--dg-b, #c2410c)\" stroke=\"none\"/><text x=\"219\" y=\"149\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\"><tspan direction=\"rtl\" unicode-bidi=\"isolate\">⁧פגישה⁩</tspan></text><text x=\"254.3\" y=\"126.6\" text-anchor=\"middle\" fill=\"var(--dg-a, #1f5fae)\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\"><tspan direction=\"rtl\" unicode-bidi=\"isolate\">⁧מכונית א⁩</tspan></text><text x=\"230.3\" y=\"211.2\" text-anchor=\"middle\" fill=\"var(--dg-c, #1e7a34)\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\"><tspan direction=\"rtl\" unicode-bidi=\"isolate\">⁧מכונית ב⁩</tspan></text></g></svg>",
+          "graph": {
+            "kind": "xt",
+            "title": "גרף מקום־זמן של שתי מכוניות",
+            "series": [
+              {
+                "body": "A",
+                "fn": [
+                  0,
+                  20
+                ],
+                "t1": 8,
+                "label": "מכונית א"
+              },
+              {
+                "body": "B",
+                "fn": [
+                  120,
+                  -10
+                ],
+                "t1": 8,
+                "label": "מכונית ב"
+              }
+            ],
+            "marks": [
+              {
+                "t": 8,
+                "y": 160
+              },
+              {
+                "t": 0,
+                "y": 120,
+                "s": 1
+              },
+              {
+                "t": 4,
+                "y": 80,
+                "label": "פגישה"
+              }
+            ]
+          },
+          "inputs": [
+            {
+              "label": "מהירות מכונית א",
+              "unit": "מ/ש",
+              "answer": "20",
+              "tolerance": 0.2
+            },
+            {
+              "label": "מהירות מכונית ב",
+              "unit": "מ/ש",
+              "answer": "-10",
+              "tolerance": 0.1
+            },
+            {
+              "label": "זמן הפגישה",
+              "unit": "ש'",
+              "answer": "4",
+              "tolerance": 0.04
+            },
+            {
+              "label": "מקום הפגישה",
+              "unit": "מ'",
+              "answer": "80",
+              "tolerance": 0.8
+            },
+            {
+              "label": "המרחק בין המכוניות אחרי 2 שניות",
+              "unit": "מ'",
+              "answer": "60",
+              "tolerance": 0.6
+            }
+          ],
+          "tips": [
+            "מהירות היא שיפוע הקו בגרף מקום־זמן: שינוי המקום חלקי שינוי הזמן. קו יורד פירושו מהירות שלילית.",
+            "נקודת החיתוך של שני הקווים היא הפגישה: שניהם באותו מקום באותו רגע. קראו ממנה את הזמן והמקום.",
+            "לשני רגעים נתונים חשבו את מקום כל מכונית לפי המשוואה שלה, וחסרו."
+          ],
+          "solution": [
+            "מכונית א יוצאת מהראשית ומגיעה ל־<span dir=\"ltr\">160 מ'</span> אחרי <span dir=\"ltr\">8 ש'</span>: <span dir=\"ltr\">v = 160 / 8 = 20 מ/ש</span>.",
+            "מכונית ב מתחילה ב־<span dir=\"ltr\">120 מ'</span> ופוגשת את מכונית א ב־<span dir=\"ltr\">(4, 80)</span>: <span dir=\"ltr\">v = (80 − 120) / 4 = −10 מ/ש</span>.",
+            "נקודת החיתוך <span dir=\"ltr\">(4, 80)</span>: הפגישה בזמן <span dir=\"ltr\">4 ש'</span> ובמקום <span dir=\"ltr\">80 מ'</span>.",
+            "בדיקה במשוואות: <span dir=\"ltr\">20t = 120 − 10t</span> ⟵ <span dir=\"ltr\">t = 4</span>, <span dir=\"ltr\">x = 80</span> ✓.",
+            "ב־<span dir=\"ltr\">t = 2</span>: <span dir=\"ltr\">x_א = 40</span>, <span dir=\"ltr\">x_ב = 100</span>, והמרחק <span dir=\"ltr\">100 − 40 = 60 מ'</span>."
+          ],
+          "verify": {
+            "bodies": [
+              {
+                "id": "A",
+                "p0": 0,
+                "v0": 20,
+                "a": 0
+              },
+              {
+                "id": "B",
+                "p0": 120,
+                "v0": -10,
+                "a": 0
+              }
+            ],
+            "queries": [
+              {
+                "q": "v0",
+                "body": "A"
+              },
+              {
+                "q": "v0",
+                "body": "B"
+              },
+              {
+                "q": "meetT",
+                "a": "A",
+                "b": "B"
+              },
+              {
+                "q": "meetP",
+                "a": "A",
+                "b": "B"
+              },
+              {
+                "q": "gap",
+                "a": "A",
+                "b": "B",
+                "t": 2
+              }
+            ],
+            "graphOnly": [
+              160,
+              120,
+              80,
+              4
+            ]
+          }
+        },
+        {
+          "id": "lad-s3-13",
+          "topic": "phys-horizontal",
+          "level": 3,
+          "title": "גרף מקום־זמן: מכונית במהירות קבועה ומכונית מאיצה",
+          "statement": "שתי מכוניות נוסעות באותו כיוון בכביש ישר. אחת נוסעת במהירות קבועה, והשנייה יוצאת מהמנוחה מראשית הצירים ומאיצה בתאוצה קבועה. הגרף מתאר את מקום כל אחת מהן כפונקציה של הזמן; הפגישה מסומנת בגרף.<br>א. באיזה מקום נמצאת מכונית א ברגע t = 0?<br>ב. מהי מהירות מכונית א? (שיפוע הקו בין שתי נקודות)<br>ג. מהי תאוצת מכונית ב? השתמשו בנקודה שעל העקומה, מעבר לראשית.<br>ד. באיזה רגע המכוניות נפגשות?<br>ה. מהי מהירות מכונית ב ברגע הפגישה?",
+          "diagram": "<svg viewBox=\"0 0 320 304\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" aria-label=\"גרף מקום־זמן של מכונית במהירות קבועה ומכונית מאיצה\"><title>גרף מקום־זמן של מכונית במהירות קבועה ומכונית מאיצה</title><defs><marker id=\"ph-k\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"currentColor\"/></marker><marker id=\"ph-a\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"var(--dg-a, #1f5fae)\"/></marker><marker id=\"ph-b\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"var(--dg-b, #c2410c)\"/></marker><marker id=\"ph-c\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0L10 5L0 10z\" fill=\"var(--dg-c, #1e7a34)\"/></marker></defs><g direction=\"ltr\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" font-size=\"14\"><line x1=\"52\" y1=\"40\" x2=\"52\" y2=\"260\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"52\" y=\"284\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">0</text><line x1=\"100\" y1=\"40\" x2=\"100\" y2=\"260\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"100\" y=\"284\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">2</text><line x1=\"148\" y1=\"40\" x2=\"148\" y2=\"260\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"148\" y=\"284\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">4</text><line x1=\"196\" y1=\"40\" x2=\"196\" y2=\"260\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"196\" y=\"284\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">6</text><line x1=\"244\" y1=\"40\" x2=\"244\" y2=\"260\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"244\" y=\"284\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">8</text><line x1=\"292\" y1=\"40\" x2=\"292\" y2=\"260\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"292\" y=\"284\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">10</text><line x1=\"52\" y1=\"260\" x2=\"292\" y2=\"260\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"42\" y=\"265\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">0</text><line x1=\"52\" y1=\"228.6\" x2=\"292\" y2=\"228.6\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"42\" y=\"233.6\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">40</text><line x1=\"52\" y1=\"197.1\" x2=\"292\" y2=\"197.1\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"42\" y=\"202.1\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">80</text><line x1=\"52\" y1=\"165.7\" x2=\"292\" y2=\"165.7\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"42\" y=\"170.7\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">120</text><line x1=\"52\" y1=\"134.3\" x2=\"292\" y2=\"134.3\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"42\" y=\"139.3\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">160</text><line x1=\"52\" y1=\"102.9\" x2=\"292\" y2=\"102.9\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"42\" y=\"107.9\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">200</text><line x1=\"52\" y1=\"71.4\" x2=\"292\" y2=\"71.4\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"42\" y=\"76.4\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">240</text><line x1=\"52\" y1=\"40\" x2=\"292\" y2=\"40\" stroke=\"currentColor\" opacity=\"0.18\"/><text x=\"42\" y=\"45\" text-anchor=\"end\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\" data-f=\"1\">280</text><line x1=\"52\" y1=\"260\" x2=\"300\" y2=\"260\" stroke=\"currentColor\" stroke-width=\"2\" marker-end=\"url(#ph-k)\"/><line x1=\"52\" y1=\"260\" x2=\"52\" y2=\"30\" stroke=\"currentColor\" stroke-width=\"2\" marker-end=\"url(#ph-k)\"/><text x=\"278.5\" y=\"244\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\"><tspan direction=\"ltr\" unicode-bidi=\"isolate\">⁦t (<tspan direction=\"rtl\" unicode-bidi=\"isolate\">⁧ש׳⁩</tspan>)⁩</tspan></text><text x=\"83.5\" y=\"20\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\"><tspan direction=\"ltr\" unicode-bidi=\"isolate\">⁦x (<tspan direction=\"rtl\" unicode-bidi=\"isolate\">⁧מ׳⁩</tspan>)⁩</tspan></text><polyline points=\"52,197.1 292,118.6\" stroke=\"var(--dg-a, #1f5fae)\" stroke-width=\"2.5\"/><path d=\"M52 260Q172 260 292 63.6\" stroke=\"var(--dg-c, #1e7a34)\" stroke-width=\"2.5\"/><line x1=\"52\" y1=\"197.1\" x2=\"52\" y2=\"260\" stroke=\"currentColor\" stroke-dasharray=\"5 4\" opacity=\"0.5\"/><line x1=\"52\" y1=\"197.1\" x2=\"52\" y2=\"197.1\" stroke=\"currentColor\" stroke-dasharray=\"5 4\" opacity=\"0.5\"/><line x1=\"148\" y1=\"228.6\" x2=\"148\" y2=\"260\" stroke=\"currentColor\" stroke-dasharray=\"5 4\" opacity=\"0.5\"/><line x1=\"52\" y1=\"228.6\" x2=\"148\" y2=\"228.6\" stroke=\"currentColor\" stroke-dasharray=\"5 4\" opacity=\"0.5\"/><line x1=\"244\" y1=\"134.3\" x2=\"244\" y2=\"260\" stroke=\"currentColor\" stroke-dasharray=\"5 4\" opacity=\"0.5\"/><line x1=\"52\" y1=\"134.3\" x2=\"244\" y2=\"134.3\" stroke=\"currentColor\" stroke-dasharray=\"5 4\" opacity=\"0.5\"/><circle cx=\"52\" cy=\"197.1\" r=\"3.5\" fill=\"var(--dg-b, #c2410c)\" stroke=\"none\"/><circle cx=\"148\" cy=\"228.6\" r=\"3.5\" fill=\"var(--dg-b, #c2410c)\" stroke=\"none\"/><circle cx=\"244\" cy=\"134.3\" r=\"3.5\" fill=\"var(--dg-b, #c2410c)\" stroke=\"none\"/><text x=\"282\" y=\"148.3\" text-anchor=\"middle\" fill=\"currentColor\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\"><tspan direction=\"rtl\" unicode-bidi=\"isolate\">⁧פגישה⁩</tspan></text><text x=\"281.3\" y=\"171.6\" text-anchor=\"middle\" fill=\"var(--dg-a, #1f5fae)\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\"><tspan direction=\"rtl\" unicode-bidi=\"isolate\">⁧מכונית א⁩</tspan></text><text x=\"281.3\" y=\"195.2\" text-anchor=\"middle\" fill=\"var(--dg-c, #1e7a34)\" stroke=\"#fff\" stroke-width=\"3\" paint-order=\"stroke\" stroke-linejoin=\"round\" stroke-linecap=\"round\" font-weight=\"400\"><tspan direction=\"rtl\" unicode-bidi=\"isolate\">⁧מכונית ב⁩</tspan></text></g></svg>",
+          "graph": {
+            "kind": "xt",
+            "title": "גרף מקום־זמן של מכונית במהירות קבועה ומכונית מאיצה",
+            "series": [
+              {
+                "body": "A",
+                "fn": [
+                  80,
+                  10
+                ],
+                "t1": 10,
+                "label": "מכונית א"
+              },
+              {
+                "body": "B",
+                "fn": [
+                  0,
+                  0,
+                  2.5
+                ],
+                "t1": 10,
+                "label": "מכונית ב"
+              }
+            ],
+            "marks": [
+              {
+                "t": 0,
+                "y": 80
+              },
+              {
+                "t": 4,
+                "y": 40,
+                "s": 1
+              },
+              {
+                "t": 8,
+                "y": 160,
+                "label": "פגישה"
+              }
+            ]
+          },
+          "inputs": [
+            {
+              "label": "המקום ההתחלתי של מכונית א",
+              "unit": "מ'",
+              "answer": "80",
+              "tolerance": 0.8
+            },
+            {
+              "label": "מהירות מכונית א",
+              "unit": "מ/ש",
+              "answer": "10",
+              "tolerance": 0.1
+            },
+            {
+              "label": "תאוצת מכונית ב",
+              "unit": "מ/ש²",
+              "answer": "5",
+              "tolerance": 0.05
+            },
+            {
+              "label": "זמן הפגישה",
+              "unit": "ש'",
+              "answer": "8",
+              "tolerance": 0.08
+            },
+            {
+              "label": "מהירות מכונית ב בפגישה",
+              "unit": "מ/ש",
+              "answer": "40",
+              "tolerance": 0.4
+            }
+          ],
+          "tips": [
+            "הערך של הקו ברגע אפס הוא המקום ההתחלתי. מהירות קבועה היא שיפוע קו ישר: חלקו את הפרש המקומות בין שתי נקודות בהפרש הזמנים.",
+            "מכונית שיוצאת מהמנוחה מקיימת x = ½ · a · t². הציבו נקודה אחת מהעקומה ופתרו לתאוצה.",
+            "בפגישה המקומות שווים. המהירות של מכונית מאיצה באותו רגע היא התאוצה כפול הזמן."
+          ],
+          "solution": [
+            "הקו הישר מתחיל ב־<span dir=\"ltr\">(0, 80)</span>: מכונית א ב־<span dir=\"ltr\">80 מ'</span>. הוא עובר גם ב־<span dir=\"ltr\">(8, 160)</span>: <span dir=\"ltr\">v = (160 − 80) / 8 = 10 מ/ש</span>.",
+            "העקומה של מכונית ב עוברת ב־<span dir=\"ltr\">(4, 40)</span> ומתחילה במנוחה מהראשית: <span dir=\"ltr\">40 = ½ · a · 16</span> ⟵ <span dir=\"ltr\">a = 5 מ/ש²</span>.",
+            "נקודת החיתוך <span dir=\"ltr\">(8, 160)</span>: הפגישה אחרי <span dir=\"ltr\">8 ש'</span>.",
+            "בדיקה במשוואות: <span dir=\"ltr\">80 + 10t = 2.5t²</span> ⟵ <span dir=\"ltr\">t² − 4t − 32 = 0</span> ⟵ <span dir=\"ltr\">t = 8</span> ✓.",
+            "מהירות מכונית ב בפגישה: <span dir=\"ltr\">v = 5 · 8 = 40 מ/ש</span>."
+          ],
+          "verify": {
+            "bodies": [
+              {
+                "id": "A",
+                "p0": 80,
+                "v0": 10,
+                "a": 0
+              },
+              {
+                "id": "B",
+                "p0": 0,
+                "v0": 0,
+                "a": 5
+              }
+            ],
+            "queries": [
+              {
+                "q": "p0",
+                "body": "A"
+              },
+              {
+                "q": "v0",
+                "body": "A"
+              },
+              {
+                "q": "accel",
+                "body": "B"
+              },
+              {
+                "q": "meetT",
+                "a": "A",
+                "b": "B"
+              },
+              {
+                "q": "vAtMeet",
+                "a": "A",
+                "b": "B",
+                "body": "B"
+              }
+            ],
+            "graphOnly": [
+              80,
+              40,
+              160,
+              8
+            ]
+          }
+        }
+      ]
     },
     {
       "id": "S4",
@@ -47,17 +1875,96 @@
       "title": "שני גופים נפגשים",
       "intro": "בשלב הזה מתארים שני גופים באותה מערכת זמן: מתי הם נוחתים יחד, ומתי ואיפה הם נפגשים. רמת מבחן אומרת לכתוב משוואה לכל גוף ולהשוות אותן. התרגילים האחרונים הם מפגשים ומרדפים.",
       "items": [
-        { "ref": "phys-vertical-001" }, { "ref": "phys-vertical-014" }, { "ref": "phys-vertical-012" },
-        { "ref": "phys-vertical-007" }, { "ref": "phys-vertical-019" }, { "ref": "phys-vertical-016" },
-        { "ref": "phys-vertical-017" }, { "ref": "phys-vertical-028" }, { "ref": "phys-vertical-025" },
-        { "ref": "phys-horizontal-009" }, { "ref": "phys-horizontal-023" }, { "ref": "phys-horizontal-022" },
-        { "ref": "phys-horizontal-035" }, { "ref": "phys-horizontal-033" }, { "ref": "phys-horizontal-005" },
-        { "ref": "phys-horizontal-032" }, { "ref": "phys-horizontal-004" },
-        { "ref": "phys-vertical-008" }, { "ref": "phys-vertical-026" }, { "ref": "phys-vertical-009" },
-        { "ref": "phys-vertical-015" }, { "ref": "phys-vertical-029" }, { "ref": "phys-vertical-033" },
-        { "ref": "phys-horizontal-031" }, { "ref": "phys-horizontal-011" }, { "ref": "phys-horizontal-006" },
-        { "ref": "phys-horizontal-015" }, { "ref": "phys-horizontal-024" }, { "ref": "phys-horizontal-001" },
-        { "ref": "phys-horizontal-036" }
+        {
+          "ref": "phys-vertical-001"
+        },
+        {
+          "ref": "phys-vertical-014"
+        },
+        {
+          "ref": "phys-vertical-012"
+        },
+        {
+          "ref": "phys-vertical-007"
+        },
+        {
+          "ref": "phys-vertical-019"
+        },
+        {
+          "ref": "phys-vertical-016"
+        },
+        {
+          "ref": "phys-vertical-017"
+        },
+        {
+          "ref": "phys-vertical-028"
+        },
+        {
+          "ref": "phys-vertical-025"
+        },
+        {
+          "ref": "phys-horizontal-009"
+        },
+        {
+          "ref": "phys-horizontal-023"
+        },
+        {
+          "ref": "phys-horizontal-022"
+        },
+        {
+          "ref": "phys-horizontal-035"
+        },
+        {
+          "ref": "phys-horizontal-033"
+        },
+        {
+          "ref": "phys-horizontal-005"
+        },
+        {
+          "ref": "phys-horizontal-032"
+        },
+        {
+          "ref": "phys-horizontal-004"
+        },
+        {
+          "ref": "phys-vertical-008"
+        },
+        {
+          "ref": "phys-vertical-026"
+        },
+        {
+          "ref": "phys-vertical-009"
+        },
+        {
+          "ref": "phys-vertical-015"
+        },
+        {
+          "ref": "phys-vertical-029"
+        },
+        {
+          "ref": "phys-vertical-033"
+        },
+        {
+          "ref": "phys-horizontal-031"
+        },
+        {
+          "ref": "phys-horizontal-011"
+        },
+        {
+          "ref": "phys-horizontal-006"
+        },
+        {
+          "ref": "phys-horizontal-015"
+        },
+        {
+          "ref": "phys-horizontal-024"
+        },
+        {
+          "ref": "phys-horizontal-001"
+        },
+        {
+          "ref": "phys-horizontal-036"
+        }
       ]
     },
     {
