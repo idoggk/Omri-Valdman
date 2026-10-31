@@ -23,6 +23,7 @@ export const KNOWN_KEYS = {
   'omri-study-edgecases-v1': 'מקרי קצה',
   'omri-study-confidence-v1': 'ביטחון בפתרון מלא',
   'omri-study-reverse-v1': 'בעיות הפוכות',
+  'omri-study-ladder-v1': 'הסלם לרמת מבחן',
   'omri-study-fading-v1': 'דוגמאות מתפוגגות',
   'omri-study-feedback-v1': 'משוב על קושי',
 };

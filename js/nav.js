@@ -16,7 +16,7 @@ export const TABS = [
 
 /** Routes whose first segment alone is enough to resolve (the rest are optional arguments). */
 const SIMPLE = ['progress', 'practice-hub', 'backup', 'summary', 'drills', 'endless', 'order', 'methods', 'edge', 'reverse', 'fading', 'solve',
-  'repair', 'checkpoints', 'hunt', 'workout', 'exam', 'feedback'];
+  'repair', 'checkpoints', 'hunt', 'workout', 'exam', 'feedback', 'ladder'];
 
 /** hash -> { name, args } or { name: 'notfound' }. One parser shared by app.js and the tests. */
 export function resolveRoute(hash) {
@@ -161,6 +161,7 @@ export function viewHub(ctx) {
   ctx.show(
     h('h1', {}, 'תרגול'),
     h('p', { class: 'muted' }, 'כל מצבי התרגול, לפי סדר למידה מומלץ.'),
+    h('div', { class: 'cards hub-ladder' }, tile('#/ladder', '🪜 הסלם לרמת מבחן', 'שישה שלבים בפיזיקה: מנוסחה אחת ועד תרגיל מלא בסגנון מבחן, כל שלב נפתח אחרי שפותרים לבד 70% מהקודם')),
     HUB_GROUPS.map((g) => h('section', { class: 'hub-group', 'aria-labelledby': `hub-${g.id}` },
       h('h2', { id: `hub-${g.id}` }, g.title),
       h('div', { class: 'cards' }, content[g.id]))));

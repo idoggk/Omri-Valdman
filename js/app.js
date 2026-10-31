@@ -16,6 +16,7 @@ import * as methods from './methods-ui.js';
 import * as edge from './edgecases-ui.js';
 import * as reverse from './reverse-ui.js';
 import * as fading from './fading-ui.js';
+import * as ladder from './ladder-ui.js';
 import * as solve from './fullsolve-ui.js';
 import * as repair from './skills-ui.js';
 import * as nav from './nav.js';
@@ -190,6 +191,7 @@ function route() {
     else if (name === 'solve') solve.viewSolveRoute(examCtx, args[0]);
     else if (name === 'edge') edge.viewEdgeRoute(examCtx, args[0]);
     else if (name === 'fading') fading.viewFadingRoute(examCtx, args[0]);
+    else if (name === 'ladder') ladder.viewLadderRoute(examCtx, args[0], args[1]);
     else if (name === 'reverse') reverse.viewReverseRoute(examCtx, args[0]);
     else if (name === 'repair') repair.viewRepairRoute(examCtx, args[0]);
     else if (name === 'checkpoints') checkpoints.viewCheckpointsRoute(examCtx, args[0]);

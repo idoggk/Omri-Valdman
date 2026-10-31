@@ -1,0 +1,71 @@
+{
+  "v": 1,
+  "g": 10,
+  "stages": [
+    {
+      "id": "S1",
+      "title": "נוסחה אחת",
+      "intro": "בשלב הזה מתרגלים שליפה של נוסחה אחת והצבה נכונה, ותשובה אחת. רמת מבחן אומרת לדעת לבחור את הנוסחה בלי רמז.",
+      "items": [
+        { "ref": "phys-vertical-035" }, { "ref": "phys-vertical-036" }, { "ref": "phys-vertical-037" },
+        { "ref": "phys-vertical-038" }, { "ref": "phys-vertical-039" }, { "ref": "phys-vertical-040" },
+        { "ref": "phys-horizontal-037" }, { "ref": "phys-horizontal-038" }, { "ref": "phys-horizontal-039" },
+        { "ref": "phys-horizontal-040" }, { "ref": "phys-horizontal-041" }, { "ref": "phys-horizontal-042" }
+      ]
+    },
+    {
+      "id": "S2",
+      "title": "שני צעדים",
+      "intro": "בשלב הזה מחברים שני צעדים של גוף אחד: קודם מוצאים גודל ביניים ואז משתמשים בו. רמת מבחן אומרת תרגיל עם כמה סעיפים שנשענים זה על זה.",
+      "items": [
+        { "ref": "phys-vertical-041" }, { "ref": "phys-vertical-042" }, { "ref": "phys-vertical-043" },
+        { "ref": "phys-vertical-044" }, { "ref": "phys-vertical-045" }, { "ref": "phys-vertical-046" },
+        { "ref": "phys-horizontal-043" }, { "ref": "phys-horizontal-044" }, { "ref": "phys-horizontal-045" },
+        { "ref": "phys-horizontal-046" }, { "ref": "phys-horizontal-047" }, { "ref": "phys-horizontal-048" },
+        { "ref": "phys-vertical-002" }, { "ref": "phys-vertical-003" }, { "ref": "phys-vertical-018" },
+        { "ref": "phys-vertical-020" }, { "ref": "phys-vertical-034" }, { "ref": "phys-horizontal-002" },
+        { "ref": "phys-horizontal-003" }, { "ref": "phys-horizontal-025" }, { "ref": "phys-horizontal-008" },
+        { "ref": "phys-horizontal-026" }
+      ]
+    },
+    {
+      "id": "S3",
+      "title": "קריאת גרף",
+      "intro": "בשלב הזה קוראים גרף של מקום או מהירות כנגד הזמן ומפיקים ממנו נתונים: גובה התחלתי, מהירות, גובה מרבי וזמן נחיתה. רמת מבחן אומרת גם לבחור את הגרף המתאים.",
+      "soon": "התרגילים בשלב הזה יתווספו בקרוב.",
+      "items": []
+    },
+    {
+      "id": "S4",
+      "title": "זווית וכיוון",
+      "intro": "בשלב הזה מפרקים זריקה בזווית לרכיבים, ובסוף מחשבים מהירות וזווית פגיעה. רמת מבחן אומרת לתת גם את הכיוון של המהירות, לא רק את גודלה.",
+      "soon": "התרגילים בשלב הזה יתווספו בקרוב.",
+      "items": []
+    },
+    {
+      "id": "S5",
+      "title": "שני גופים נפגשים",
+      "intro": "בשלב הזה מתארים שני גופים באותה מערכת זמן: מתי הם נוחתים יחד, ומתי ואיפה הם נפגשים. רמת מבחן אומרת לכתוב משוואה לכל גוף ולהשוות אותן. התרגילים האחרונים הם מפגשים ומרדפים.",
+      "items": [
+        { "ref": "phys-vertical-001" }, { "ref": "phys-vertical-014" }, { "ref": "phys-vertical-012" },
+        { "ref": "phys-vertical-007" }, { "ref": "phys-vertical-019" }, { "ref": "phys-vertical-016" },
+        { "ref": "phys-vertical-017" }, { "ref": "phys-vertical-028" }, { "ref": "phys-vertical-025" },
+        { "ref": "phys-horizontal-009" }, { "ref": "phys-horizontal-023" }, { "ref": "phys-horizontal-022" },
+        { "ref": "phys-horizontal-035" }, { "ref": "phys-horizontal-033" }, { "ref": "phys-horizontal-005" },
+        { "ref": "phys-horizontal-032" }, { "ref": "phys-horizontal-004" },
+        { "ref": "phys-vertical-008" }, { "ref": "phys-vertical-026" }, { "ref": "phys-vertical-009" },
+        { "ref": "phys-vertical-015" }, { "ref": "phys-vertical-029" }, { "ref": "phys-vertical-033" },
+        { "ref": "phys-horizontal-031" }, { "ref": "phys-horizontal-011" }, { "ref": "phys-horizontal-006" },
+        { "ref": "phys-horizontal-015" }, { "ref": "phys-horizontal-024" }, { "ref": "phys-horizontal-001" },
+        { "ref": "phys-horizontal-036" }
+      ]
+    },
+    {
+      "id": "S6",
+      "title": "רמת מבחן",
+      "intro": "בשלב הזה פותרים תרגיל מלא בסגנון מבחן: חמישה או שישה סעיפים, שרטוט, תנאי מפגש או פגיעה, ומהירות וכיוון בסוף. רמת מבחן אומרת לפתור הכול לבד, בלי רמזים.",
+      "soon": "התרגילים בשלב הזה יתווספו בקרוב.",
+      "items": []
+    }
+  ]
+}
