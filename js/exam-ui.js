@@ -50,18 +50,32 @@ function viewSetup(ctx, running) {
   const limitBox = h('input', { type: 'checkbox', id: 'exam-nolimit' });
   limitBox.addEventListener('change', () => { noLimit = limitBox.checked; minutes.disabled = noLimit; });
 
-  function start() {
-    const topics = checks.filter((c) => c.input.checked).map((c) => c.t.id);
+  let history = [];
+  try { history = store.getAttempts(); } catch (e) { /* no history */ }
+  const smartBox = h('input', { type: 'checkbox', id: 'exam-smart', checked: history.length > 0 });
+  const smartOn = () => smartBox.checked;
+
+  function start(pack) {
+    const topics = pack ? topicsWithContent.map((t) => t.id) : checks.filter((c) => c.input.checked).map((c) => c.t.id);
     if (!topics.length) { err.textContent = 'בחרו לפחות נושא אחד.'; err.hidden = false; return; }
     const seed = (Date.now() ^ Math.floor(Math.random() * 0x7fffffff)) >>> 0;
-    const ids = X.buildExamSet({
-      exercises: ctx.exercises, topics, count, mix, seed,
-      isAlone: (id) => store.outcomeOf(id) === 'alone',
-    });
+    const n = pack ? X.PACK_45.math + X.PACK_45.phys : count;
+    const ids = pack || smartOn()
+      ? X.buildSmartExamSet({
+        exercises: ctx.exercises, topics, count: n, attempts: history, now: Date.now(), seed,
+        quotas: pack ? { math: X.PACK_45.math, phys: X.PACK_45.phys } : null,
+      })
+      : X.buildExamSet({
+        exercises: ctx.exercises, topics, count: n, mix, seed,
+        isAlone: (id) => store.outcomeOf(id) === 'alone',
+      });
     if (!ids.length) { err.textContent = 'אין מספיק תרגילים בנושאים שנבחרו.'; err.hidden = false; return; }
     const m = Number(minutes.value);
-    const limitMs = noLimit ? null : (Number.isFinite(m) && m > 0 ? Math.round(m * 60000) : X.defaultTimeLimitMs(ids.length));
-    store.saveExam(X.createExam({ ids, seed, limitMs, now: Date.now() }));
+    let limitMs = noLimit ? null : (Number.isFinite(m) && m > 0 ? Math.round(m * 60000) : X.defaultTimeLimitMs(ids.length));
+    if (pack) limitMs = X.PACK_45.minutes * 60000;
+    store.saveExam(X.createExam({
+      ids, seed, limitMs, now: Date.now(), paceMs: pack ? Math.round(limitMs / ids.length) : undefined,
+    }));
     location.hash = '#/exam/run';
   }
 
@@ -78,6 +92,14 @@ function viewSetup(ctx, running) {
       h('div', { class: 'btn-row' },
         h('a', { class: 'btn primary', href: '#/exam/run' }, 'המשך מבחן'),
         h('button', { class: 'btn', type: 'button', onclick: () => { store.clearExam(); viewExam(ctx, 'new'); } }, 'זרוק והתחל חדש'))) : null,
+    h('h2', {}, 'חבילה מוכנה'),
+    h('div', { class: 'btn-row' },
+      h('button', { class: 'btn primary', id: 'exam-pack', type: 'button', onclick: () => start(true) },
+        `חבילת ${X.PACK_45.minutes} דקות מעורבת (${X.PACK_45.math} מתמטיקה + ${X.PACK_45.phys} פיזיקה)`)),
+    h('p', { class: 'muted' }, 'שעון אחד לכל המבחן, עם קצב מומלץ לכל שאלה. השאלות נבחרות חכם לפי החולשות שלכם.'),
+    h('h2', {}, 'או מבחן מותאם'),
+    h('label', { class: 'check', for: 'exam-smart' }, smartBox,
+      h('span', {}, 'מבחן חכם: דגש על נושאים חלשים ותרגילים שנכשלו לאחרונה, בעיקר רמה 3 ומעט רמה 2')),
     h('h2', {}, 'נושאים'),
     h('div', { class: 'checks' }, checks.map((c) => c.label)),
     h('h2', {}, 'מספר שאלות'), countGroup,
@@ -89,7 +111,7 @@ function viewSetup(ctx, running) {
       h('label', { class: 'check', for: 'exam-nolimit' }, limitBox, h('span', {}, 'ללא הגבלת זמן'))),
     h('p', { class: 'muted' }, `ברירת המחדל: ${X.MINUTES_PER_QUESTION} דקות לשאלה.`),
     err,
-    h('div', { class: 'btn-row' }, h('button', { class: 'btn primary', type: 'button', onclick: start }, 'התחל מבחן')));
+    h('div', { class: 'btn-row' }, h('button', { class: 'btn primary', id: 'exam-start', type: 'button', onclick: () => start(false) }, 'התחל מבחן')));
 }
 
 /* ---------- running ---------- */
@@ -139,7 +161,7 @@ function viewRun(ctx, exam) {
   if (X.isExpired(exam, Date.now())) return endExam(ctx, exam);
   const idx = Math.min(exam.idx, questions.length - 1);
   const ex = questions[idx];
-  const goto = (i) => { X.goTo(exam, i); store.saveExam(exam); viewRun(ctx, exam); };
+  const goto = (i) => { X.goTo(exam, i, Date.now()); store.saveExam(exam); viewRun(ctx, exam); };
 
   const clock = h('span', { class: 'clock', role: 'timer' });
   const tick = () => {
@@ -175,6 +197,7 @@ function viewRun(ctx, exam) {
   ctx.show(
     h('div', { class: 'exam-bar' },
       h('span', {}, `שאלה ${idx + 1} מתוך ${questions.length}`), clock),
+    exam.limitMs != null ? h('p', { class: 'muted pace' }, `קצב מומלץ: ${X.formatClock(X.targetMs(exam))} דקות לשאלה`) : null,
     dots,
     h('h1', {}, h('span', {}, isolateTitle(ex.title || ex.id))),
     h('div', { class: 'panel statement', html: ex.statement || '' }),
@@ -244,6 +267,18 @@ function viewReport(ctx, exam) {
   const topicRows = Object.entries(r.perTopic).map(([id, t]) =>
     h('li', {}, `${topicTitle(id)}: ${t.right} מתוך ${t.total}`));
   const weakest = r.weakest;
+  let history = [];
+  try { history = store.getAttempts(); } catch (e) { /* no history */ }
+  const ins = X.examInsights(r, exam, history);
+  const timeRows = ins.questions.map((q, n) => {
+    const ex = ctx.byId(q.id);
+    return h('li', { class: q.over ? 'over' : '' },
+      `${n + 1}. `, isolateTitle(ex.title || ex.id), ': ',
+      q.ms == null ? 'לא נמדד' : `${X.formatClock(q.ms)} מתוך יעד ${X.formatClock(q.targetMs)}${q.over ? ' (חריגה)' : ''}`,
+      q.status === 'right' ? (q.assisted ? ' · נכון, אך בעבר נדרשה עזרה' : ' · נכון, בלי רמזים') : null);
+  });
+  const reviewRows = ins.review.map((t) => h('li', {}, h('strong', {}, topicTitle(t.topic)), ': ',
+    t.ids.flatMap((id, i) => [i ? ', ' : '', h('a', { href: `#/ex/${id}` }, isolateTitle((ctx.byId(id) || { title: id }).title || id))])));
   ctx.show(
     h('h1', {}, 'תוצאות המבחן'),
     h('div', { class: 'panel score' },
@@ -255,8 +290,21 @@ function viewReport(ctx, exam) {
     h('h2', {}, 'לפי נושא'), h('ul', {}, topicRows),
     weakest ? h('div', { class: 'notice' }, 'מה לתרגל עכשיו: ', h('strong', {}, topicTitle(weakest)), ' ',
       h('a', { href: `#/topic/${weakest}` }, 'לתרגול הנושא ←')) : null,
+    h('h2', {}, 'זמן לכל שאלה'),
+    h('p', { class: 'muted' }, `יעד לשאלה: ${X.formatClock(ins.targetMs)}`,
+      ins.avgMs != null ? ` · ממוצע בפועל: ${X.formatClock(ins.avgMs)} · חריגות: ${ins.overCount}` : ''),
+    h('ul', { class: 'time-list' }, timeRows),
+    h('h2', {}, 'עם עזרה או בלי'),
+    h('p', {}, `נכון ובלי עזרה בעבר: ${ins.rightFree} · נכון אך בעבר נדרשו רמזים או פתרון: ${ins.rightAssisted}`),
+    h('p', { class: 'muted' }, 'במבחן עצמו אין רמזים, כך שכל תשובה כאן ניתנה בלי עזרה.'),
+    h('h2', {}, 'נושאים לחזרה'),
+    reviewRows.length ? h('ul', { class: 'review-topics' }, reviewRows) : h('p', { class: 'muted' }, 'אין נושאים לחזרה. כל התשובות נכונות!'),
+    h('h2', {}, 'סיבות הטעויות השכיחות'),
+    ins.reasons.length ? h('ul', { class: 'reasons-list' }, ins.reasons.map((x) => h('li', {}, `${x.label}: ${x.count}`)))
+      : h('p', { class: 'muted' }, 'עדיין אין סיבות טעות מתועדות. אחרי טעות בתרגול אפשר לסמן את הסיבה.'),
     h('h2', {}, 'השאלות'), h('ol', { class: 'report-list' }, rows),
     h('div', { class: 'btn-row' },
+      h('a', { class: 'btn', href: '#/summary' }, 'סיכום להדפסה'),
       h('button', { class: 'btn primary', type: 'button', onclick: () => { store.clearExam(); location.hash = '#/exam/new'; } }, 'מבחן חדש'),
       h('a', { class: 'btn', href: '#/' }, 'לדף הבית')));
 }

@@ -184,3 +184,22 @@ a { color: var(--accent); }
 .drill-opt.wrong { border-color: var(--bad); background: var(--bad-bg); }
 .flashcard { min-height: 160px; display: flex; align-items: center; justify-content: center; text-align: center; margin: 12px 0; }
 .flashcard strong { font-size: 1.15rem; line-height: 1.6; }
+
+/* exam report + summary */
+.time-list, .review-topics, .reasons-list, .sum-weak, .sum-reasons, .sum-traps { padding-inline-start: 22px; }
+.time-list li.over { color: var(--bad); }
+.sum-checklist { list-style: none; padding: 0; display: grid; gap: 6px; }
+
+/* print / save as PDF: white, no chrome, A4, RTL */
+@media print {
+  @page { size: A4; margin: 14mm; }
+  html, body { background: #fff !important; color: #000 !important; direction: rtl; }
+  .site-header, .skip, .no-print, .crumbs, .btn, button, .app-version, .overlay, noscript { display: none !important; }
+  #app { max-width: none; padding: 0; }
+  h1, h2, h3 { color: #000; break-after: avoid; }
+  a { color: #000; text-decoration: none; }
+  .muted { color: #333; }
+  .sheet-items li, .panel, .card { background: #fff; border: 1px solid #999; box-shadow: none; }
+  li, .sum-formulas { break-inside: avoid; }
+  .sheet-formula { font-size: 1rem; }
+}
