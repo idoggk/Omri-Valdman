@@ -1,0 +1,1387 @@
+{
+ "v": 1,
+ "skills": [
+  {
+   "id": "math-lin",
+   "topic": "math",
+   "name": "פתרון משוואה לינארית",
+   "prereqs": [],
+   "lesson": [
+    "משוואה לינארית: מרכזים את כל האיברים עם x בצד אחד ואת המספרים בצד השני.",
+    "מה שמעבירים אגף מחליף סימן: x + 5 = 9 נותן x = 9 - 5.",
+    "כשיש x בשני האגפים: מחסירים את הקטן מבין המקדמים משני האגפים.",
+    "בסוף מחלקים במקדם של x: 3x = 12 נותן x = 4.",
+    "בדיקה: מציבים את התוצאה במשוואה המקורית ומוודאים ששני האגפים שווים."
+   ],
+   "questions": [
+    {
+     "id": "math-lin-1",
+     "kind": "lin",
+     "params": {
+      "a": 3,
+      "b": 5,
+      "c": 1,
+      "d": 13
+     },
+     "prompt": "פתרו את המשוואה ומצאו את x:",
+     "eqs": [
+      "3x + 5 = x + 13"
+     ],
+     "answer": 4
+    },
+    {
+     "id": "math-lin-2",
+     "kind": "lin",
+     "params": {
+      "a": 5,
+      "b": -7,
+      "c": 2,
+      "d": 11
+     },
+     "prompt": "פתרו את המשוואה ומצאו את x:",
+     "eqs": [
+      "5x - 7 = 2x + 11"
+     ],
+     "answer": 6
+    },
+    {
+     "id": "math-lin-3",
+     "kind": "lin",
+     "params": {
+      "a": 6,
+      "b": 9,
+      "c": 2,
+      "d": -3
+     },
+     "prompt": "פתרו את המשוואה ומצאו את x:",
+     "eqs": [
+      "6x + 9 = 2x - 3"
+     ],
+     "answer": -3
+    }
+   ]
+  },
+  {
+   "id": "math-elim",
+   "topic": "math",
+   "name": "חיסול נעלם אחד",
+   "prereqs": [
+    "math-lin"
+   ],
+   "lesson": [
+    "חיסול: מחברים או מחסירים שתי משוואות כך שאחד הנעלמים נעלם.",
+    "אם המקדמים של y הפוכים (3y ו-(-3y)) מחברים; אם הם שווים מחסירים.",
+    "אם אין מקדם שווה, כופלים משוואה שלמה במספר כדי ליצור מקדם שווה.",
+    "מקבלים משוואה בנעלם אחד, פותרים אותה, ואז מציבים כדי למצוא את הנעלם השני.",
+    "בדיקה: מציבים את שני הנעלמים בשתי המשוואות."
+   ],
+   "questions": [
+    {
+     "id": "math-elim-1",
+     "kind": "elim",
+     "params": {
+      "a1": 2,
+      "b1": 3,
+      "c1": 12,
+      "a2": 2,
+      "b2": -1,
+      "c2": 4,
+      "ask": "x"
+     },
+     "prompt": "פתרו את מערכת המשוואות ומצאו את x:",
+     "eqs": [
+      "2x + 3y = 12",
+      "2x - y = 4"
+     ],
+     "answer": 3
+    },
+    {
+     "id": "math-elim-2",
+     "kind": "elim",
+     "params": {
+      "a1": 3,
+      "b1": 2,
+      "c1": 16,
+      "a2": 5,
+      "b2": -2,
+      "c2": 8,
+      "ask": "y"
+     },
+     "prompt": "פתרו את מערכת המשוואות ומצאו את y:",
+     "eqs": [
+      "3x + 2y = 16",
+      "5x - 2y = 8"
+     ],
+     "answer": 3.5
+    },
+    {
+     "id": "math-elim-3",
+     "kind": "elim",
+     "params": {
+      "a1": 4,
+      "b1": 3,
+      "c1": 5,
+      "a2": 2,
+      "b2": 5,
+      "c2": -1,
+      "ask": "y"
+     },
+     "prompt": "פתרו את מערכת המשוואות ומצאו את y:",
+     "eqs": [
+      "4x + 3y = 5",
+      "2x + 5y = -1"
+     ],
+     "answer": -1
+    }
+   ]
+  },
+  {
+   "id": "math-subst",
+   "topic": "math",
+   "name": "הצבה",
+   "prereqs": [
+    "math-lin"
+   ],
+   "lesson": [
+    "הצבה: כשנעלם אחד כבר מבודד (y = 2x + 1), מציבים אותו במשוואה השנייה.",
+    "מחליפים כל y בביטוי כולו, בסוגריים: 3x + (2x + 1) = 11.",
+    "מקבלים משוואה בנעלם אחד: 5x + 1 = 11, ופותרים אותה.",
+    "את הנעלם השני מוצאים בהצבה חזרה במשוואה המבודדת.",
+    "שימו לב לסימן מינוס לפני סוגריים: הוא הופך את כל הסימנים שבתוכם."
+   ],
+   "questions": [
+    {
+     "id": "math-subst-1",
+     "kind": "subst",
+     "params": {
+      "m": 2,
+      "k": 1,
+      "p": 3,
+      "q": 1,
+      "r": 11,
+      "ask": "x"
+     },
+     "prompt": "פתרו את המערכת ומצאו את x:",
+     "eqs": [
+      "y = 2x + 1",
+      "3x + y = 11"
+     ],
+     "answer": 2
+    },
+    {
+     "id": "math-subst-2",
+     "kind": "subst",
+     "params": {
+      "m": 1,
+      "k": -4,
+      "p": 2,
+      "q": 3,
+      "r": 3,
+      "ask": "y"
+     },
+     "prompt": "פתרו את המערכת ומצאו את y:",
+     "eqs": [
+      "y = x - 4",
+      "2x + 3y = 3"
+     ],
+     "answer": -1
+    },
+    {
+     "id": "math-subst-3",
+     "kind": "subst",
+     "params": {
+      "m": -1,
+      "k": 6,
+      "p": 4,
+      "q": 2,
+      "r": 16,
+      "ask": "y"
+     },
+     "prompt": "פתרו את המערכת ומצאו את y:",
+     "eqs": [
+      "y = -x + 6",
+      "4x + 2y = 16"
+     ],
+     "answer": 4
+    }
+   ]
+  },
+  {
+   "id": "math-factor",
+   "topic": "math",
+   "name": "פירוק משוואה ריבועית לגורמים",
+   "prereqs": [
+    "math-lin"
+   ],
+   "lesson": [
+    "משוואה x² + bx + c = 0: מחפשים שני מספרים שמכפלתם c וסכומם b.",
+    "אם המספרים הם m ו-n, אז (x + m)(x + n) = 0.",
+    "מכפלה שווה אפס רק אם אחד הגורמים אפס, ולכן x = -m או x = -n.",
+    "דוגמה: x² + 5x + 6 = 0 נותן (x + 2)(x + 3) = 0, ולכן x = -2 או x = -3.",
+    "תמיד מקבלים שני פתרונות (או אחד כפול): קראו מה השאלה מבקשת, הגדול או הקטן."
+   ],
+   "questions": [
+    {
+     "id": "math-factor-1",
+     "kind": "factor",
+     "params": {
+      "b": -5,
+      "c": 6,
+      "ask": "max"
+     },
+     "prompt": "מהו הפתרון הגדול של המשוואה?",
+     "eqs": [
+      "x² - 5x + 6 = 0"
+     ],
+     "answer": 3
+    },
+    {
+     "id": "math-factor-2",
+     "kind": "factor",
+     "params": {
+      "b": 2,
+      "c": -15,
+      "ask": "min"
+     },
+     "prompt": "מהו הפתרון הקטן של המשוואה?",
+     "eqs": [
+      "x² + 2x - 15 = 0"
+     ],
+     "answer": -5
+    },
+    {
+     "id": "math-factor-3",
+     "kind": "factor",
+     "params": {
+      "b": -1,
+      "c": -12,
+      "ask": "max"
+     },
+     "prompt": "מהו הפתרון הגדול של המשוואה?",
+     "eqs": [
+      "x² - x - 12 = 0"
+     ],
+     "answer": 4
+    }
+   ]
+  },
+  {
+   "id": "math-disc",
+   "topic": "math",
+   "name": "דיסקרימיננטה ונוסחת השורשים",
+   "prereqs": [
+    "math-factor"
+   ],
+   "lesson": [
+    "למשוואה ax² + bx + c = 0 מחשבים דיסקרימיננטה: D = b² - 4ac.",
+    "אם D > 0 יש שני פתרונות, אם D = 0 פתרון אחד, ואם D < 0 אין פתרון ממשי.",
+    "הנוסחה: x = (-b ± √D) / (2a).",
+    "שימו לב: -b הוא ההפך של b, ו-4ac יכול להיות שלילי כשc שלילי.",
+    "דוגמה: x² - 2x - 3 = 0 נותן D = 4 + 12 = 16, ולכן x = (2 ± 4) / 2, כלומר 3 או -1."
+   ],
+   "questions": [
+    {
+     "id": "math-disc-1",
+     "kind": "disc",
+     "params": {
+      "a": 3,
+      "b": -2,
+      "c": -1,
+      "ask": "disc"
+     },
+     "prompt": "מהי הדיסקרימיננטה של המשוואה?",
+     "eqs": [
+      "3x² - 2x - 1 = 0"
+     ],
+     "answer": 16
+    },
+    {
+     "id": "math-disc-2",
+     "kind": "disc",
+     "params": {
+      "a": 2,
+      "b": 5,
+      "c": -3,
+      "ask": "max"
+     },
+     "prompt": "מהו הפתרון הגדול של המשוואה?",
+     "eqs": [
+      "2x² + 5x - 3 = 0"
+     ],
+     "answer": 0.5
+    },
+    {
+     "id": "math-disc-3",
+     "kind": "disc",
+     "params": {
+      "a": 4,
+      "b": -12,
+      "c": 5,
+      "ask": "max"
+     },
+     "prompt": "מהו הפתרון הגדול של המשוואה?",
+     "eqs": [
+      "4x² - 12x + 5 = 0"
+     ],
+     "answer": 2.5
+    }
+   ]
+  },
+  {
+   "id": "math-check",
+   "topic": "math",
+   "name": "בדיקת פתרונות במשוואה המקורית",
+   "prereqs": [
+    "math-disc"
+   ],
+   "lesson": [
+    "כשמעלים בריבוע משני האגפים עלולים להיווצר פתרונות זרים שלא מקיימים את המשוואה המקורית.",
+    "במשוואה √(px + q) = x - s הצד הימני חייב להיות אי־שלילי, כי שורש לא נותן ערך שלילי.",
+    "מעלים בריבוע, פותרים את המשוואה הריבועית ומקבלים שני מועמדים.",
+    "מציבים כל מועמד במשוואה המקורית, לא במשוואה אחרי הריבוע.",
+    "שומרים רק את מי שמקיים אותה. מועמד שנותן x - s שלילי נפסל."
+   ],
+   "questions": [
+    {
+     "id": "math-check-1",
+     "kind": "sqrtcheck",
+     "params": {
+      "p": 2,
+      "q": 4,
+      "s": 2
+     },
+     "prompt": "מהו הפתרון היחיד של המשוואה? (אחד מהמועמדים אחרי הריבוע נפסל)",
+     "eqs": [
+      "√(2x + 4) = x - 2"
+     ],
+     "answer": 6
+    },
+    {
+     "id": "math-check-2",
+     "kind": "sqrtcheck",
+     "params": {
+      "p": 3,
+      "q": 1,
+      "s": 1
+     },
+     "prompt": "מהו הפתרון היחיד של המשוואה? (אחד מהמועמדים אחרי הריבוע נפסל)",
+     "eqs": [
+      "√(3x + 1) = x - 1"
+     ],
+     "answer": 5
+    },
+    {
+     "id": "math-check-3",
+     "kind": "sqrtcheck",
+     "params": {
+      "p": 3,
+      "q": 1,
+      "s": 3
+     },
+     "prompt": "מהו הפתרון היחיד של המשוואה? (אחד מהמועמדים אחרי הריבוע נפסל)",
+     "eqs": [
+      "√(3x + 1) = x - 3"
+     ],
+     "answer": 8
+    }
+   ]
+  },
+  {
+   "id": "phys-sign",
+   "topic": "phys",
+   "name": "כיוון חיובי ו-g = 10",
+   "prereqs": [],
+   "lesson": [
+    "לפני שמתחילים בוחרים ציר וכיוון חיובי, ומציינים אותו בשרטוט.",
+    "תאוצת הגרביטציה היא g = 10 מ'/ש'² ופועלת כלפי מטה, בכל שלב של התנועה.",
+    "אם כלפי מעלה חיובי: a = -10. אם כלפי מטה חיובי: a = +10.",
+    "מהירות וגם העתק מקבלים סימן לפי הכיוון: גוף שיורד כשכלפי מעלה חיובי הוא בעל מהירות שלילית.",
+    "בעלייה מהירות חיובית קטנה ב-10 בכל שנייה, בשיא היא אפס, ואחר כך נעשית שלילית."
+   ],
+   "questions": [
+    {
+     "id": "phys-sign-1",
+     "kind": "sign",
+     "params": {
+      "dir": "up",
+      "quantity": "accel",
+      "mag": 0
+     },
+     "prompt": "כיוון חיובי כלפי מעלה. מהי התאוצה של גוף בנפילה חופשית (במ'/ש'²)?",
+     "answer": -10
+    },
+    {
+     "id": "phys-sign-2",
+     "kind": "sign",
+     "params": {
+      "dir": "down",
+      "quantity": "accel",
+      "mag": 0
+     },
+     "prompt": "כיוון חיובי כלפי מטה. מהי התאוצה של גוף שנזרק כלפי מעלה, בזמן העלייה (במ'/ש'²)?",
+     "answer": 10
+    },
+    {
+     "id": "phys-sign-3",
+     "kind": "sign",
+     "params": {
+      "dir": "up",
+      "quantity": "velFall",
+      "mag": 20
+     },
+     "prompt": "כיוון חיובי כלפי מעלה. גוף נופל במהירות 20 מ'/ש'. מהי מהירותו, עם סימן (במ'/ש')?",
+     "answer": -20
+    }
+   ]
+  },
+  {
+   "id": "phys-vert",
+   "topic": "phys",
+   "name": "נוסחאות תנועה אנכית",
+   "prereqs": [
+    "phys-sign",
+    "math-lin"
+   ],
+   "lesson": [
+    "בתנועה אנכית התאוצה קבועה: a = -10 כשכלפי מעלה חיובי.",
+    "מהירות: v = v₀ - 10t.",
+    "מקום (גובה): y = y₀ + v₀t - 5t².",
+    "מציבים את v₀ עם סימן: כלפי מעלה חיובי, כלפי מטה שלילי.",
+    "מהירות שלילית בתוצאה פירושה שהגוף כבר בירידה."
+   ],
+   "questions": [
+    {
+     "id": "phys-vert-1",
+     "kind": "vert",
+     "params": {
+      "v0": 30,
+      "t": 2,
+      "ask": "v"
+     },
+     "prompt": "כדור נזרק אנכית כלפי מעלה במהירות 30 מ'/ש'. מהי מהירותו אחרי 2 שניות, בכיוון חיובי כלפי מעלה (במ'/ש')? (g = 10 מ'/ש'², כיוון חיובי כלפי מעלה)",
+     "answer": 10
+    },
+    {
+     "id": "phys-vert-2",
+     "kind": "vert",
+     "params": {
+      "v0": 20,
+      "t": 3,
+      "ask": "v"
+     },
+     "prompt": "כדור נזרק אנכית כלפי מעלה במהירות 20 מ'/ש'. מהי מהירותו אחרי 3 שניות, בכיוון חיובי כלפי מעלה (במ'/ש')? (g = 10 מ'/ש'², כיוון חיובי כלפי מעלה)",
+     "answer": -10
+    },
+    {
+     "id": "phys-vert-3",
+     "kind": "vert",
+     "params": {
+      "v0": 20,
+      "t": 3,
+      "ask": "y"
+     },
+     "prompt": "כדור נזרק מהקרקע אנכית כלפי מעלה במהירות 20 מ'/ש'. באיזה גובה הוא נמצא אחרי 3 שניות (במטרים)? (g = 10 מ'/ש'², כיוון חיובי כלפי מעלה)",
+     "answer": 15
+    }
+   ]
+  },
+  {
+   "id": "phys-comp",
+   "topic": "phys",
+   "name": "פירוק מהירות לרכיבים",
+   "prereqs": [
+    "phys-sign"
+   ],
+   "lesson": [
+    "מהירות v₀ בזווית θ מעל האופק מתפרקת לשני רכיבים בלתי תלויים.",
+    "הרכיב האופקי: vₓ = v₀cosθ, והוא קבוע לאורך כל התנועה.",
+    "הרכיב האנכי: vᵧ = v₀sinθ, והוא משתנה לפי vᵧ = v₀sinθ - 10t.",
+    "ערכים לשימוש: sin37° = 0.6, cos37° = 0.8, sin53° = 0.8, cos53° = 0.6, sin30° = 0.5.",
+    "אם מתבלבלים: הרכיב שנמצא ליד הזווית הוא cos, והרכיב שמול הזווית הוא sin."
+   ],
+   "questions": [
+    {
+     "id": "phys-comp-1",
+     "kind": "comp",
+     "params": {
+      "v0": 50,
+      "angle": 37,
+      "ask": "vx"
+     },
+     "prompt": "כדור נזרק במהירות 50 מ'/ש' בזווית 37° מעל האופק (sin37° = 0.6, cos37° = 0.8). מהו הרכיב האופקי של המהירות (במ'/ש')?",
+     "answer": 40
+    },
+    {
+     "id": "phys-comp-2",
+     "kind": "comp",
+     "params": {
+      "v0": 50,
+      "angle": 53,
+      "ask": "vy"
+     },
+     "prompt": "כדור נזרק במהירות 50 מ'/ש' בזווית 53° מעל האופק (sin53° = 0.8, cos53° = 0.6). מהו הרכיב האנכי ההתחלתי של המהירות (במ'/ש')?",
+     "answer": 40
+    },
+    {
+     "id": "phys-comp-3",
+     "kind": "comp",
+     "params": {
+      "v0": 20,
+      "angle": 30,
+      "ask": "vy"
+     },
+     "prompt": "כדור נזרק במהירות 20 מ'/ש' בזווית 30° מעל האופק (sin30° = 0.5). מהו הרכיב האנכי ההתחלתי של המהירות (במ'/ש')?",
+     "answer": 10
+    }
+   ]
+  },
+  {
+   "id": "phys-tof",
+   "topic": "phys",
+   "name": "זמן תעופה",
+   "prereqs": [
+    "phys-vert",
+    "math-disc"
+   ],
+   "lesson": [
+    "זמן תעופה הוא הזמן עד שהגוף מגיע לגובה הסיום.",
+    "נפילה חופשית מגובה h: h = 5t², ולכן t = √(h/5).",
+    "זריקה כלפי מעלה מהקרקע וחזרה אליה: y = 0, ולכן t = 2v₀/10.",
+    "זריקה מגובה h כלפי מעלה: פותרים 0 = h + v₀t - 5t² בעזרת נוסחת השורשים.",
+    "מהשורשים בוחרים את החיובי בלבד, כי זמן שלילי הוא לפני הזריקה."
+   ],
+   "questions": [
+    {
+     "id": "phys-tof-1",
+     "kind": "tof",
+     "params": {
+      "mode": "up",
+      "v0": 25
+     },
+     "prompt": "כדור נזרק מהקרקע אנכית כלפי מעלה במהירות 25 מ'/ש'. כמה זמן עד שהוא חוזר לקרקע (בשניות)? (g = 10 מ'/ש'², כיוון חיובי כלפי מעלה)",
+     "answer": 5
+    },
+    {
+     "id": "phys-tof-2",
+     "kind": "tof",
+     "params": {
+      "mode": "drop",
+      "h": 80
+     },
+     "prompt": "אבן נשמטת ממנוחה מגובה 80 מטר. כמה זמן עד שהיא פוגעת בקרקע (בשניות)? (g = 10 מ'/ש'², כיוון חיובי כלפי מעלה)",
+     "answer": 4
+    },
+    {
+     "id": "phys-tof-3",
+     "kind": "tof",
+     "params": {
+      "mode": "cliff",
+      "v0": 10,
+      "h": 15
+     },
+     "prompt": "אבן נזרקת אנכית כלפי מעלה במהירות 10 מ'/ש' מצוק בגובה 15 מטר. כמה זמן עד שהיא פוגעת בקרקע שמתחת למצוק (בשניות)? (g = 10 מ'/ש'², כיוון חיובי כלפי מעלה)",
+     "answer": 3
+    }
+   ]
+  },
+  {
+   "id": "phys-range",
+   "topic": "phys",
+   "name": "טווח אופקי",
+   "prereqs": [
+    "phys-tof",
+    "phys-comp"
+   ],
+   "lesson": [
+    "בכיוון האופקי אין תאוצה: x = vₓ · t, והמהירות האופקית קבועה.",
+    "הטווח הוא vₓ כפול זמן התעופה.",
+    "זריקה אופקית מגובה h: קודם מחשבים את זמן הנפילה t = √(h/5), ואז R = vₓ · t.",
+    "זריקה בזווית מהקרקע: vₓ = v₀cosθ ו-T = 2v₀sinθ/10, ולכן R = vₓ · T.",
+    "הזמן הוא המשותף לשני הצירים, ולכן תמיד מחשבים אותו מהציר האנכי."
+   ],
+   "questions": [
+    {
+     "id": "phys-range-1",
+     "kind": "range",
+     "params": {
+      "mode": "h",
+      "vx": 12,
+      "h": 45
+     },
+     "prompt": "כדור נזרק אופקית במהירות 12 מ'/ש' מגובה 45 מטר. מה הטווח האופקי עד הנחיתה (במטרים)? (g = 10 מ'/ש'², כיוון חיובי כלפי מעלה)",
+     "answer": 36
+    },
+    {
+     "id": "phys-range-2",
+     "kind": "range",
+     "params": {
+      "mode": "h",
+      "vx": 5,
+      "h": 20
+     },
+     "prompt": "כדור נזרק אופקית במהירות 5 מ'/ש' מגובה 20 מטר. מה הטווח האופקי עד הנחיתה (במטרים)? (g = 10 מ'/ש'², כיוון חיובי כלפי מעלה)",
+     "answer": 10
+    },
+    {
+     "id": "phys-range-3",
+     "kind": "range",
+     "params": {
+      "mode": "angle",
+      "v0": 10,
+      "angle": 37
+     },
+     "prompt": "כדור נבעט מהקרקע במהירות 10 מ'/ש' בזווית 37° מעל האופק (sin37° = 0.6, cos37° = 0.8). מה הטווח האופקי עד שהוא חוזר לקרקע (במטרים)? (g = 10 מ'/ש'², כיוון חיובי כלפי מעלה)",
+     "answer": 9.6
+    }
+   ]
+  },
+  {
+   "id": "phys-maxh",
+   "topic": "phys",
+   "name": "גובה מרבי",
+   "prereqs": [
+    "phys-vert",
+    "phys-comp"
+   ],
+   "lesson": [
+    "בשיא התנועה המהירות האנכית היא אפס: vᵧ = 0.",
+    "זמן עלייה לשיא: t = vᵧ/10.",
+    "מהנוסחה v² = v₀² - 20Δy מקבלים Δy = vᵧ²/20.",
+    "הגובה המרבי מעל הקרקע הוא גובה השיגור ועוד Δy.",
+    "בזריקה בזווית משתמשים רק ברכיב האנכי vᵧ = v₀sinθ, לא במהירות כולה."
+   ],
+   "questions": [
+    {
+     "id": "phys-maxh-1",
+     "kind": "maxh",
+     "params": {
+      "v0": 20,
+      "h0": 0
+     },
+     "prompt": "כדור נזרק מהקרקע אנכית כלפי מעלה במהירות 20 מ'/ש'. מהו הגובה המרבי שהוא מגיע אליו (במטרים)? (g = 10 מ'/ש'², כיוון חיובי כלפי מעלה)",
+     "answer": 20
+    },
+    {
+     "id": "phys-maxh-2",
+     "kind": "maxh",
+     "params": {
+      "v0": 10,
+      "h0": 15
+     },
+     "prompt": "אבן נזרקת אנכית כלפי מעלה במהירות 10 מ'/ש' מגובה 15 מטר מעל הקרקע. מהו הגובה המרבי מעל הקרקע (במטרים)? (g = 10 מ'/ש'², כיוון חיובי כלפי מעלה)",
+     "answer": 20
+    },
+    {
+     "id": "phys-maxh-3",
+     "kind": "maxh",
+     "params": {
+      "v0": 50,
+      "h0": 0,
+      "angle": 37
+     },
+     "prompt": "כדור נבעט מהקרקע במהירות 50 מ'/ש' בזווית 37° מעל האופק (sin37° = 0.6, cos37° = 0.8). מהו הגובה המרבי מעל הקרקע (במטרים)? (g = 10 מ'/ש'², כיוון חיובי כלפי מעלה)",
+     "answer": 45
+    }
+   ]
+  }
+ ],
+ "skillTags": {
+  "math-3-001": [
+   "math-elim",
+   "math-lin"
+  ],
+  "math-3-002": [
+   "math-elim",
+   "math-lin"
+  ],
+  "math-3-004": [
+   "math-elim",
+   "math-lin"
+  ],
+  "math-3-009": [
+   "math-elim"
+  ],
+  "math-3-010": [
+   "math-elim"
+  ],
+  "math-3-011": [
+   "math-elim",
+   "math-lin"
+  ],
+  "math-3-012": [
+   "math-elim",
+   "math-lin"
+  ],
+  "math-3-013": [
+   "math-elim",
+   "math-lin"
+  ],
+  "math-3-014": [
+   "math-elim",
+   "math-lin"
+  ],
+  "math-3-015": [
+   "math-elim",
+   "math-lin"
+  ],
+  "math-3-016": [
+   "math-elim",
+   "math-lin"
+  ],
+  "math-3-017": [
+   "math-elim",
+   "math-lin"
+  ],
+  "math-3-018": [
+   "math-elim",
+   "math-lin"
+  ],
+  "math-3-019": [
+   "math-elim",
+   "math-factor",
+   "math-disc",
+   "math-check"
+  ],
+  "math-3-020": [
+   "math-elim",
+   "math-factor",
+   "math-disc",
+   "math-check"
+  ],
+  "math-3-021": [
+   "math-elim",
+   "math-subst",
+   "math-factor",
+   "math-disc",
+   "math-check"
+  ],
+  "math-3-022": [
+   "math-elim",
+   "math-subst",
+   "math-factor",
+   "math-disc",
+   "math-check"
+  ],
+  "math-3-023": [
+   "math-elim",
+   "math-lin",
+   "math-factor",
+   "math-disc",
+   "math-check"
+  ],
+  "math-3-024": [
+   "math-elim",
+   "math-subst",
+   "math-factor",
+   "math-disc",
+   "math-check"
+  ],
+  "math-3-025": [
+   "math-elim",
+   "math-factor",
+   "math-disc",
+   "math-check"
+  ],
+  "math-4-001": [
+   "math-elim",
+   "math-lin"
+  ],
+  "math-4-004": [
+   "math-elim",
+   "math-lin"
+  ],
+  "math-4-010": [
+   "math-elim"
+  ],
+  "math-4-011": [
+   "math-elim"
+  ],
+  "math-4-012": [
+   "math-elim",
+   "math-lin"
+  ],
+  "math-4-013": [
+   "math-elim",
+   "math-lin"
+  ],
+  "math-4-014": [
+   "math-elim",
+   "math-lin"
+  ],
+  "math-4-015": [
+   "math-elim",
+   "math-lin"
+  ],
+  "math-4-016": [
+   "math-elim",
+   "math-lin",
+   "math-subst"
+  ],
+  "math-4-017": [
+   "math-elim"
+  ],
+  "math-4-018": [
+   "math-elim",
+   "math-subst",
+   "math-factor",
+   "math-disc",
+   "math-check"
+  ],
+  "math-4-019": [
+   "math-elim",
+   "math-lin",
+   "math-subst",
+   "math-factor",
+   "math-disc",
+   "math-check"
+  ],
+  "math-4-020": [
+   "math-elim",
+   "math-subst",
+   "math-factor",
+   "math-disc",
+   "math-check"
+  ],
+  "math-4-021": [
+   "math-elim",
+   "math-subst",
+   "math-factor",
+   "math-disc",
+   "math-check"
+  ],
+  "math-4-022": [
+   "math-elim",
+   "math-factor",
+   "math-disc",
+   "math-check"
+  ],
+  "math-4-023": [
+   "math-elim",
+   "math-lin",
+   "math-factor",
+   "math-disc",
+   "math-check"
+  ],
+  "math-4-024": [
+   "math-elim",
+   "math-lin"
+  ],
+  "math-4-025": [
+   "math-elim",
+   "math-subst",
+   "math-factor",
+   "math-disc",
+   "math-check"
+  ],
+  "math-4-026": [
+   "math-elim",
+   "math-lin"
+  ],
+  "math-4-027": [
+   "math-elim",
+   "math-factor",
+   "math-disc",
+   "math-check"
+  ],
+  "math-3-026": [
+   "math-elim",
+   "math-lin"
+  ],
+  "math-3-027": [
+   "math-elim"
+  ],
+  "math-3-028": [
+   "math-elim",
+   "math-factor",
+   "math-disc",
+   "math-check"
+  ],
+  "math-3-029": [
+   "math-elim",
+   "math-factor",
+   "math-disc",
+   "math-check"
+  ],
+  "math-3-030": [
+   "math-elim",
+   "math-lin"
+  ],
+  "math-3-031": [
+   "math-elim",
+   "math-lin",
+   "math-factor",
+   "math-disc",
+   "math-check"
+  ],
+  "math-3-032": [
+   "math-elim",
+   "math-factor",
+   "math-disc",
+   "math-check"
+  ],
+  "math-3-033": [
+   "math-elim",
+   "math-factor",
+   "math-disc",
+   "math-check"
+  ],
+  "math-3-034": [
+   "math-elim",
+   "math-factor",
+   "math-disc",
+   "math-check"
+  ],
+  "math-3-035": [
+   "math-elim",
+   "math-factor",
+   "math-disc",
+   "math-check"
+  ],
+  "math-4-028": [
+   "math-elim",
+   "math-lin"
+  ],
+  "math-4-029": [
+   "math-elim",
+   "math-lin"
+  ],
+  "math-4-030": [
+   "math-elim",
+   "math-subst",
+   "math-factor",
+   "math-disc",
+   "math-check"
+  ],
+  "math-4-031": [
+   "math-elim",
+   "math-subst",
+   "math-factor",
+   "math-disc",
+   "math-check"
+  ],
+  "math-4-032": [
+   "math-elim",
+   "math-lin",
+   "math-subst"
+  ],
+  "math-4-033": [
+   "math-elim",
+   "math-subst",
+   "math-factor",
+   "math-disc",
+   "math-check"
+  ],
+  "math-4-034": [
+   "math-elim",
+   "math-factor",
+   "math-disc",
+   "math-check"
+  ],
+  "math-4-035": [
+   "math-elim",
+   "math-subst",
+   "math-factor",
+   "math-disc",
+   "math-check"
+  ],
+  "math-4-036": [
+   "math-elim",
+   "math-factor",
+   "math-disc",
+   "math-check"
+  ],
+  "math-4-037": [
+   "math-elim",
+   "math-lin"
+  ],
+  "math-3-036": [
+   "math-elim"
+  ],
+  "math-3-037": [
+   "math-elim",
+   "math-lin"
+  ],
+  "math-3-038": [
+   "math-elim"
+  ],
+  "math-3-039": [
+   "math-elim"
+  ],
+  "math-3-040": [
+   "math-elim",
+   "math-lin"
+  ],
+  "math-3-041": [
+   "math-elim"
+  ],
+  "math-3-042": [
+   "math-elim",
+   "math-lin"
+  ],
+  "math-3-043": [
+   "math-elim"
+  ],
+  "math-3-044": [
+   "math-elim",
+   "math-lin"
+  ],
+  "math-3-045": [
+   "math-elim",
+   "math-lin"
+  ],
+  "math-3-046": [
+   "math-elim",
+   "math-factor",
+   "math-disc",
+   "math-check"
+  ],
+  "math-3-047": [
+   "math-elim",
+   "math-factor",
+   "math-disc",
+   "math-check"
+  ],
+  "math-4-038": [
+   "math-elim",
+   "math-lin"
+  ],
+  "math-4-039": [
+   "math-elim"
+  ],
+  "math-4-040": [
+   "math-elim"
+  ],
+  "math-4-041": [
+   "math-elim"
+  ],
+  "math-4-042": [
+   "math-elim",
+   "math-lin"
+  ],
+  "math-4-043": [
+   "math-elim"
+  ],
+  "math-4-044": [
+   "math-elim",
+   "math-lin"
+  ],
+  "math-4-045": [
+   "math-elim"
+  ],
+  "math-4-046": [
+   "math-elim",
+   "math-lin"
+  ],
+  "math-4-047": [
+   "math-elim",
+   "math-lin"
+  ],
+  "math-4-048": [
+   "math-elim",
+   "math-factor",
+   "math-disc",
+   "math-check"
+  ],
+  "math-4-049": [
+   "math-elim",
+   "math-factor",
+   "math-disc",
+   "math-check"
+  ],
+  "phys-vertical-001": [
+   "phys-sign",
+   "phys-vert",
+   "phys-tof"
+  ],
+  "phys-vertical-002": [
+   "phys-sign",
+   "phys-vert",
+   "phys-tof"
+  ],
+  "phys-vertical-003": [
+   "phys-sign",
+   "phys-vert",
+   "phys-tof"
+  ],
+  "phys-vertical-004": [
+   "phys-sign",
+   "phys-vert"
+  ],
+  "phys-vertical-005": [
+   "phys-sign",
+   "phys-vert"
+  ],
+  "phys-vertical-006": [
+   "phys-sign",
+   "phys-vert"
+  ],
+  "phys-vertical-007": [
+   "phys-sign",
+   "phys-vert",
+   "phys-tof"
+  ],
+  "phys-vertical-008": [
+   "phys-sign",
+   "phys-vert",
+   "phys-tof"
+  ],
+  "phys-vertical-009": [
+   "phys-sign",
+   "phys-vert"
+  ],
+  "phys-vertical-010": [
+   "phys-sign",
+   "phys-vert"
+  ],
+  "phys-vertical-011": [
+   "phys-sign",
+   "phys-vert"
+  ],
+  "phys-vertical-012": [
+   "phys-sign",
+   "phys-vert"
+  ],
+  "phys-vertical-013": [
+   "phys-sign",
+   "phys-vert"
+  ],
+  "phys-vertical-014": [
+   "phys-sign",
+   "phys-vert",
+   "phys-tof"
+  ],
+  "phys-vertical-015": [
+   "phys-sign",
+   "phys-vert"
+  ],
+  "phys-vertical-016": [
+   "phys-sign",
+   "phys-vert"
+  ],
+  "phys-vertical-017": [
+   "phys-sign",
+   "phys-vert"
+  ],
+  "phys-vertical-018": [
+   "phys-sign",
+   "phys-vert",
+   "phys-tof"
+  ],
+  "phys-vertical-019": [
+   "phys-sign",
+   "phys-vert"
+  ],
+  "phys-vertical-020": [
+   "phys-sign",
+   "phys-vert"
+  ],
+  "phys-vertical-021": [
+   "phys-sign",
+   "phys-vert",
+   "phys-tof"
+  ],
+  "phys-vertical-022": [
+   "phys-sign",
+   "phys-vert",
+   "phys-tof"
+  ],
+  "phys-vertical-023": [
+   "phys-sign",
+   "phys-vert"
+  ],
+  "phys-vertical-024": [
+   "phys-sign",
+   "phys-vert"
+  ],
+  "phys-vertical-025": [
+   "phys-sign",
+   "phys-vert"
+  ],
+  "phys-vertical-026": [
+   "phys-sign",
+   "phys-vert",
+   "phys-tof"
+  ],
+  "phys-vertical-027": [
+   "phys-sign",
+   "phys-vert",
+   "phys-tof"
+  ],
+  "phys-vertical-028": [
+   "phys-sign",
+   "phys-vert"
+  ],
+  "phys-vertical-029": [
+   "phys-sign",
+   "phys-vert"
+  ],
+  "phys-vertical-030": [
+   "phys-sign",
+   "phys-vert",
+   "phys-tof"
+  ],
+  "phys-vertical-031": [
+   "phys-sign",
+   "phys-vert"
+  ],
+  "phys-vertical-032": [
+   "phys-sign",
+   "phys-vert"
+  ],
+  "phys-vertical-033": [
+   "phys-sign",
+   "phys-vert",
+   "phys-maxh"
+  ],
+  "phys-vertical-034": [
+   "phys-sign",
+   "phys-vert",
+   "phys-maxh"
+  ],
+  "phys-horizontal-008": [
+   "phys-tof",
+   "phys-range"
+  ],
+  "phys-horizontal-009": [
+   "phys-tof",
+   "phys-range"
+  ],
+  "phys-horizontal-012": [
+   "phys-tof",
+   "phys-range"
+  ],
+  "phys-horizontal-017": [
+   "phys-comp",
+   "phys-tof",
+   "phys-range",
+   "phys-maxh"
+  ],
+  "phys-horizontal-018": [
+   "phys-comp",
+   "phys-tof",
+   "phys-range",
+   "phys-maxh"
+  ],
+  "phys-horizontal-019": [
+   "phys-comp",
+   "phys-tof",
+   "phys-range",
+   "phys-maxh"
+  ],
+  "phys-horizontal-020": [
+   "phys-comp",
+   "phys-tof",
+   "phys-range",
+   "phys-maxh"
+  ],
+  "phys-horizontal-021": [
+   "phys-comp",
+   "phys-tof",
+   "phys-range",
+   "phys-maxh"
+  ],
+  "phys-horizontal-023": [
+   "phys-tof",
+   "phys-range"
+  ],
+  "phys-horizontal-026": [
+   "phys-tof",
+   "phys-range"
+  ],
+  "phys-horizontal-027": [
+   "phys-tof",
+   "phys-range"
+  ],
+  "phys-horizontal-028": [
+   "phys-tof",
+   "phys-range"
+  ],
+  "phys-horizontal-035": [
+   "phys-comp",
+   "phys-tof",
+   "phys-range",
+   "phys-maxh"
+  ],
+  "phys-vertical-035": [
+   "phys-sign",
+   "phys-vert",
+   "phys-tof"
+  ],
+  "phys-vertical-036": [
+   "phys-sign",
+   "phys-vert",
+   "phys-tof"
+  ],
+  "phys-vertical-037": [
+   "phys-sign",
+   "phys-vert",
+   "phys-tof"
+  ],
+  "phys-vertical-038": [
+   "phys-sign",
+   "phys-vert"
+  ],
+  "phys-vertical-039": [
+   "phys-sign",
+   "phys-vert",
+   "phys-tof",
+   "phys-maxh"
+  ],
+  "phys-vertical-040": [
+   "phys-sign",
+   "phys-vert",
+   "phys-maxh"
+  ],
+  "phys-vertical-041": [
+   "phys-sign",
+   "phys-vert",
+   "phys-tof"
+  ],
+  "phys-vertical-042": [
+   "phys-sign",
+   "phys-vert",
+   "phys-tof"
+  ],
+  "phys-vertical-043": [
+   "phys-sign",
+   "phys-vert",
+   "phys-tof"
+  ],
+  "phys-vertical-044": [
+   "phys-sign",
+   "phys-vert",
+   "phys-tof"
+  ],
+  "phys-vertical-045": [
+   "phys-sign",
+   "phys-vert",
+   "phys-tof",
+   "phys-maxh"
+  ],
+  "phys-vertical-046": [
+   "phys-sign",
+   "phys-vert",
+   "phys-maxh"
+  ],
+  "phys-horizontal-037": [
+   "phys-tof",
+   "phys-range"
+  ],
+  "phys-horizontal-038": [
+   "phys-tof",
+   "phys-range"
+  ],
+  "phys-horizontal-039": [
+   "phys-tof",
+   "phys-range"
+  ],
+  "phys-horizontal-043": [
+   "phys-tof",
+   "phys-range"
+  ],
+  "phys-horizontal-044": [
+   "phys-tof",
+   "phys-range"
+  ]
+ }
+}

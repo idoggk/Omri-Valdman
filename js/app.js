@@ -13,6 +13,7 @@ import * as endless from './endless-ui.js';
 import * as order from './order-ui.js';
 import * as checkpoints from './checkpoints-ui.js';
 import * as methods from './methods-ui.js';
+import * as repair from './skills-ui.js';
 import { renderExercise, diagramFigure, OUTCOME_UI, badge } from './exercise-view.js';
 
 const TOPICS = [
@@ -97,6 +98,7 @@ function viewHome() {
     loadErrors.length ? h('p', { class: 'error', role: 'alert' }, 'לא ניתן לטעון חלק מקבצי התרגילים. נסו לרענן את הדף.') : null,
     exercises.length ? practice.homeCard(examCtx) : null,
     exercises.length ? reviewCard : null,
+    exercises.length ? repair.homeCard(examCtx) : null,
     h('div', { class: 'cards' }, cards),
     h('h2', {}, 'כלים'),
     h('div', { class: 'cards' },
@@ -105,6 +107,7 @@ function viewHome() {
       h('a', { class: 'card', href: '#/order' }, h('strong', {}, '🧩 סדרו את שלבי הפתרון'), h('span', { class: 'muted' }, 'שלבי פתרון מעורבבים: סדרו אותם נכון וקבלו ציון')),
       h('a', { class: 'card', href: '#/checkpoints' }, h('strong', {}, '🎯 נקודות ביניים'), h('span', { class: 'muted' }, 'פתרון צעד אחר צעד: מזינים כל תוצאת ביניים ומקבלים משוב מיד')),
       h('a', { class: 'card', href: '#/methods' }, h('strong', {}, '🧭 איך מתחילים?'), h('span', { class: 'muted' }, 'בוחרים שיטה או צעד הבא נכון, ומקבלים הסבר לכל תשובה')),
+      h('a', { class: 'card', href: '#/repair' }, h('strong', {}, '🩹 חיזוק יסודות'), h('span', { class: 'muted' }, 'מיני־שיעור ו־3 שאלות על מיומנות בסיס שבה יש טעויות חוזרות')),
       h('a', { class: 'card', href: '#/endless' }, h('strong', {}, '♾️ תרגול ללא הגבלה'), h('span', { class: 'muted' }, 'תרגילים חדשים בכל פעם, באותה רמה ועם רמזים ופתרון מלא')),
       h('a', { class: 'card', href: '#/summary' }, h('strong', {}, '🖨️ סיכום להדפסה'), h('span', { class: 'muted' }, 'דף אחד מהנתונים שלכם: חולשות, נוסחאות ורשימת בדיקה לפני המבחן')),
       h('a', { class: 'card', href: '#/backup' }, h('strong', {}, '💾 גיבוי והעברה'), h('span', { class: 'muted' }, 'שמרו את ההתקדמות או העבירו אותה למכשיר אחר')),
@@ -214,6 +217,7 @@ function route() {
     else if (parts[0] === 'endless') endless.viewEndless(examCtx, parts[1], parts[2]);
     else if (parts[0] === 'order') order.viewOrderRoute(examCtx, parts[1]);
     else if (parts[0] === 'methods') methods.viewMethodsRoute(examCtx, parts[1]);
+    else if (parts[0] === 'repair') repair.viewRepairRoute(examCtx, parts[1]);
     else if (parts[0] === 'checkpoints') checkpoints.viewCheckpointsRoute(examCtx, parts[1]);
     else if (parts[0] === 'hunt') hunt.viewHunt(examCtx, parts[1]);
     else if (parts[0] === 'workout') viewWorkoutRoute(parts[1]);

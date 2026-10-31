@@ -19,6 +19,7 @@ export const KNOWN_KEYS = {
   'omri-study-order-v1': 'שיאים בסידור שלבים',
   'omri-study-checkpoints-v1': 'נקודות ביניים',
   'omri-study-methods-v1': 'בחירת שיטה',
+  'omri-study-repair-v1': 'חיזוק יסודות',
 };
 
 const isRec = (x) => x && typeof x === 'object' && !Array.isArray(x);
