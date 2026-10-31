@@ -16,6 +16,7 @@ export const KNOWN_KEYS = {
   'omri-study-findmistake-v1': 'מצאו את הטעות',
   'omri-study-workout-v1': 'אימון פעיל',
   'omri-study-exam-v1': 'מבחן פעיל',
+  'omri-study-order-v1': 'שיאים בסידור שלבים',
 };
 
 const isRec = (x) => x && typeof x === 'object' && !Array.isArray(x);

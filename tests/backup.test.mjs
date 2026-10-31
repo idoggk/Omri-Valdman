@@ -102,3 +102,10 @@ test('backup screen renders; clipboard failure shows the fallback textarea; rest
   assert.equal(dom.store.has('omri-study-drills-v1'), true);
   assert.match(dom.root.textContent, /הגיבוי שוחזר/);
 });
+
+test('order trainer best scores are part of the backup allowlist and round-trip', () => {
+  assert.ok('omri-study-order-v1' in B.KNOWN_KEYS);
+  const st = fake({ 'omri-study-order-v1': '{"best":{"a":100}}' });
+  const code = B.buildBackup(st, 1);
+  assert.equal(JSON.parse(code).data['omri-study-order-v1'], '{"best":{"a":100}}');
+});
