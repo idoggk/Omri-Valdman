@@ -72,6 +72,45 @@ export const getAttempts = () => attempts().all();
 export const recordAttempt = (a) => attempts().add({ ts: Date.now(), ...a });
 export const setAttemptReason = (rec, reason) => attempts().setReason(rec, reason);
 
+/* quick drills: { v, items: {id: {right, wrong, ts}}, traps: {trapId: {right, wrong}} }.
+   Own key, so existing progress is never touched; anything malformed reads as empty. */
+const DRILLS_KEY = 'omri-study-drills-v1';
+const cnt = (n) => (Number.isFinite(n) && n > 0 ? Math.floor(n) : 0);
+const isRec = (x) => x && typeof x === 'object' && !Array.isArray(x);
+export function sanitizeDrills(raw) {
+  const out = { v: 1, items: {}, traps: {} };
+  if (!isRec(raw)) return out;
+  for (const [k, src, dst] of [['items', raw.items, out.items], ['traps', raw.traps, out.traps]]) {
+    if (!isRec(src)) continue;
+    for (const [id, e] of Object.entries(src)) {
+      if (!isRec(e)) continue;
+      dst[id] = { right: cnt(e.right), wrong: cnt(e.wrong) };
+      if (k === 'items') dst[id].ts = Number.isFinite(e.ts) ? e.ts : 0;
+    }
+  }
+  return out;
+}
+export function loadDrills() {
+  try { return sanitizeDrills(JSON.parse(localStorage.getItem(DRILLS_KEY))); } catch (e) { return sanitizeDrills(null); }
+}
+/** Records one answer. trapId is only passed for trap/sanity items (cards do not count as trap accuracy). */
+export function recordDrill(id, trapId, correct) {
+  const d = loadDrills();
+  const f = correct ? 'right' : 'wrong';
+  const it = d.items[id] || (d.items[id] = { right: 0, wrong: 0, ts: 0 });
+  it[f]++; it.ts = Date.now();
+  if (trapId) { const t = d.traps[trapId] || (d.traps[trapId] = { right: 0, wrong: 0 }); t[f]++; }
+  try { localStorage.setItem(DRILLS_KEY, JSON.stringify(d)); } catch (e) { /* ignore */ }
+}
+/** Trap ids with at least one miss, lowest accuracy first. */
+export function weakTraps(limit = 5) {
+  return Object.entries(loadDrills().traps)
+    .filter(([, t]) => t.wrong > 0)
+    .map(([trapId, t]) => ({ trapId, ...t, acc: t.right / (t.right + t.wrong) }))
+    .sort((a, b) => a.acc - b.acc || b.wrong - a.wrong || (a.trapId < b.trapId ? -1 : 1))
+    .slice(0, limit);
+}
+
 /* running workout: { ids, startedAt } */
 const WORKOUT_KEY = 'omri-study-workout-v1';
 export function loadWorkout() {

@@ -25,6 +25,8 @@ const PRECACHE = [
   'js/srs.js',
   'js/workout.js',
   'js/practice-ui.js',
+  'js/drills-ui.js',
+  'data/drills.json',
   'data/math.json',
   'data/physics.json',
   'data/formulas.json',
