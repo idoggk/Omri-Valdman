@@ -53,6 +53,7 @@ const PRECACHE = [
   'data/edgecases.json',
   'data/reverse.json',
   'data/ladder.json',
+  'data/ladder-math.json',
   'data/fading.json',
   'data/skills.json',
   'data/findmistake.json',

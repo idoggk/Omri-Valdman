@@ -128,7 +128,8 @@ test('UI: overview shows six cards with status, progress and soon note; locked s
   assert.match(text, /0\/13 לבד/);
   assert.match(text, /0\/8 לבד/);
   assert.equal((text.match(/⏳ בקרוב/g) || []).length, 0);
-  assert.deepEqual(hrefs().filter((h) => h.startsWith('#/ladder/')), ['#/ladder/S1', '#/ladder/S2', '#/ladder/S3', '#/ladder/S4', '#/ladder/S5', '#/ladder/S6']);
+  assert.deepEqual(hrefs().filter((h) => /^#\/ladder\/S\d$/.test(h)), ['#/ladder/S1', '#/ladder/S2', '#/ladder/S3', '#/ladder/S4', '#/ladder/S5', '#/ladder/S6']);
+  assert.deepEqual(hrefs().filter((h) => /^#\/ladder(\/math)?$/.test(h)), ['#/ladder', '#/ladder/math'], 'subject tabs: physics first (current), math second');
 
   await U.viewLadderRoute(ctx, 'S2'); // locked: no item list, skip button
   assert.match(dom.root.textContent, /השלב נעול/);
