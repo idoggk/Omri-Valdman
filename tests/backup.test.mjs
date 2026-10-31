@@ -123,3 +123,60 @@ test('methods trainer results are part of the backup allowlist and round-trip', 
   const code = B.buildBackup(fake({ 'omri-study-methods-v1': v }), 1);
   assert.equal(JSON.parse(code).data['omri-study-methods-v1'], v);
 });
+
+test('edge-case lab results are part of the backup allowlist and round-trip', () => {
+  assert.ok('omri-study-edgecases-v1' in B.KNOWN_KEYS);
+  const v = '{"v":1,"items":{"ec-m-01":{"tries":2,"right":1,"last":true,"ts":5}}}';
+  const code = B.buildBackup(fake({ 'omri-study-edgecases-v1': v }), 1);
+  assert.equal(JSON.parse(code).data['omri-study-edgecases-v1'], v);
+});
+
+test('edge-case lab: data passes the verifier, injected errors are caught, UI grades and records', async () => {
+  const { readFileSync } = await import('node:fs');
+  const { validateEdgecases } = await import('../tools/verify-edgecases.mjs');
+  const E = await import('../js/edgecases-ui.js');
+  const load = () => JSON.parse(readFileSync(new URL('../data/edgecases.json', import.meta.url), 'utf8'));
+  assert.deepEqual(validateEdgecases(load()), []);
+  const bad = (mut) => { const d = load(); mut(d); return validateEdgecases(d).join('\n'); };
+  assert.match(bad((d) => { d.items[0].candidates[0].ok = false; }), /marked false but substituting/);
+  assert.match(bad((d) => { d.items[0].answers.pop(); }), /differ from the independently solved set/);
+  assert.match(bad((d) => { d.items[5].answers = [[3, 3, 9]]; }), /differ/);
+  assert.match(bad((d) => { d.items[10].answers = [[2]]; }), /differ|quadratic/);
+  assert.match(bad((d) => { d.items[1].explanation = 'short'; }), /explanation/);
+
+  const items = load().items;
+  const ctx = { show: dom.show, edgecases: items, rnd: () => 0.5 };
+  dom.root.replaceChildren();
+  await E.viewEdgeRoute(ctx);
+  assert.match(dom.root.textContent, /מתוך 20 נענו/);
+  assert.equal(dom.root.all((n) => n.tagName === 'A' && /^#\/edge\/ec-/.test(n.getAttribute('href') || '')).length, items.length);
+
+  const run = async (id, tick) => {
+    globalThis.localStorage.removeItem(E.EDGE_KEY);
+    await E.viewEdgeRoute(ctx, id);
+    const it = items.find((x) => x.id === id);
+    const boxes = dom.root.all((n) => n.tagName === 'INPUT');
+    assert.equal(boxes.length, it.candidates.length);
+    // rows are shuffled: match a box to its candidate through the label text
+    boxes.forEach((b) => { b.checked = false; });
+    for (const b of boxes) {
+      const text = b.parent.textContent;
+      const c = it.candidates.find((q) => text.includes(E.labelOf(it, q).replace(/\s/g, ' ')) && !it.candidates.some((o) => o !== q && E.labelOf(it, o).length > E.labelOf(it, q).length && text.includes(E.labelOf(it, o))));
+      b.checked = tick(c);
+    }
+    dom.root.byText('button', 'בדיקה').click();
+  };
+  await run('ec-m-05', (c) => c.ok);
+  assert.match(dom.root.textContent, /נכון! זיהיתם/);
+  assert.equal(JSON.parse(localStorage.getItem(E.EDGE_KEY)).items['ec-m-05'].last, true);
+  await run('ec-m-05', (c) => c.v[0] === 3 || c.ok);
+  assert.match(dom.root.textContent, /לא מדויק/);
+  assert.match(dom.root.textContent, /פתרון זר/);
+  assert.equal(JSON.parse(localStorage.getItem(E.EDGE_KEY)).items['ec-m-05'].last, false);
+  await run('ec-p-04', () => false); // no solution: ticking nothing is right
+  assert.match(dom.root.textContent, /אין פתרון/);
+  assert.match(dom.root.textContent, /נכון!/);
+  await E.viewEdgeRoute(ctx, 'summary');
+  assert.match(dom.root.textContent, /סיכום תוצאות/);
+  assert.deepEqual(E.sanitizeEdge({ items: { a: { tries: -3, right: 9, last: 'x' }, b: 5 } }), { v: 1, items: { a: { tries: 1, right: 1, last: false, ts: 0 } } });
+});

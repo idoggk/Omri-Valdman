@@ -15,7 +15,7 @@ export const TABS = [
 ];
 
 /** Routes whose first segment alone is enough to resolve (the rest are optional arguments). */
-const SIMPLE = ['progress', 'practice-hub', 'backup', 'summary', 'drills', 'endless', 'order', 'methods',
+const SIMPLE = ['progress', 'practice-hub', 'backup', 'summary', 'drills', 'endless', 'order', 'methods', 'edge',
   'repair', 'checkpoints', 'hunt', 'workout', 'exam'];
 
 /** hash -> { name, args } or { name: 'notfound' }. One parser shared by app.js and the tests. */
@@ -137,6 +137,7 @@ export function viewHub(ctx) {
       tile('#/checkpoints', '🎯 נקודות ביניים', 'פתרון צעד אחר צעד: מזינים כל תוצאת ביניים ומקבלים משוב מיד'),
       tile('#/methods', '🧭 איך מתחילים?', 'בוחרים שיטה או צעד הבא נכון, ומקבלים הסבר לכל תשובה'),
       tile('#/order', '🧩 סדרו את שלבי הפתרון', 'שלבי פתרון מעורבבים: סדרו אותם נכון וקבלו ציון'),
+      tile('#/edge', '🧪 מקרי קצה ופתרונות מרובים', 'מסמנים אילו פתרונות תקפים ואילו נפסלים: שורש זר, חילוק באפס, זמן שלילי או אין פתרון'),
     ],
     traps: [
       tile('#/drills', '⚡ תרגולים מהירים', 'מלכודות, בדיקות שפיות וכרטיסיות בסשן של 10 פריטים'),

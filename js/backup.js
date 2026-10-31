@@ -20,6 +20,7 @@ export const KNOWN_KEYS = {
   'omri-study-checkpoints-v1': 'נקודות ביניים',
   'omri-study-methods-v1': 'בחירת שיטה',
   'omri-study-repair-v1': 'חיזוק יסודות',
+  'omri-study-edgecases-v1': 'מקרי קצה',
 };
 
 const isRec = (x) => x && typeof x === 'object' && !Array.isArray(x);

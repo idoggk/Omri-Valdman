@@ -13,6 +13,7 @@ import * as endless from './endless-ui.js';
 import * as order from './order-ui.js';
 import * as checkpoints from './checkpoints-ui.js';
 import * as methods from './methods-ui.js';
+import * as edge from './edgecases-ui.js';
 import * as repair from './skills-ui.js';
 import * as nav from './nav.js';
 import { renderExercise, diagramFigure, OUTCOME_UI, badge } from './exercise-view.js';
@@ -180,6 +181,7 @@ function route() {
     else if (name === 'endless') endless.viewEndless(examCtx, args[0], args[1]);
     else if (name === 'order') order.viewOrderRoute(examCtx, args[0]);
     else if (name === 'methods') methods.viewMethodsRoute(examCtx, args[0]);
+    else if (name === 'edge') edge.viewEdgeRoute(examCtx, args[0]);
     else if (name === 'repair') repair.viewRepairRoute(examCtx, args[0]);
     else if (name === 'checkpoints') checkpoints.viewCheckpointsRoute(examCtx, args[0]);
     else if (name === 'hunt') hunt.viewHunt(examCtx, args[0]);
