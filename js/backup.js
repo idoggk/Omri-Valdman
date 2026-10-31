@@ -17,6 +17,7 @@ export const KNOWN_KEYS = {
   'omri-study-workout-v1': 'אימון פעיל',
   'omri-study-exam-v1': 'מבחן פעיל',
   'omri-study-order-v1': 'שיאים בסידור שלבים',
+  'omri-study-checkpoints-v1': 'נקודות ביניים',
 };
 
 const isRec = (x) => x && typeof x === 'object' && !Array.isArray(x);
