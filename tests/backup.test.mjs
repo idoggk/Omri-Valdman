@@ -180,3 +180,53 @@ test('edge-case lab: data passes the verifier, injected errors are caught, UI gr
   assert.match(dom.root.textContent, /סיכום תוצאות/);
   assert.deepEqual(E.sanitizeEdge({ items: { a: { tries: -3, right: 9, last: 'x' }, b: 5 } }), { v: 1, items: { a: { tries: 1, right: 1, last: false, ts: 0 } } });
 });
+
+test('reverse problems: key in backup allowlist, verifier catches errors, UI checks and records', async () => {
+  const { readFileSync } = await import('node:fs');
+  const { validateReverse } = await import('../tools/verify-reverse.mjs');
+  const R = await import('../js/reverse-ui.js');
+  assert.equal(R.REVERSE_KEY, 'omri-study-reverse-v1');
+  assert.ok(R.REVERSE_KEY in B.KNOWN_KEYS);
+  const v = JSON.stringify({ v: 1, items: { 'rv-m-01': { done: true, tries: 1, hints: 0, solution: false, ts: 1 } } });
+  assert.equal(JSON.parse(B.buildBackup(fake({ [R.REVERSE_KEY]: v }), 1)).data[R.REVERSE_KEY], v);
+
+  const load = () => JSON.parse(readFileSync(new URL('../data/reverse.json', import.meta.url), 'utf8'));
+  assert.deepEqual(validateReverse(load()), []);
+  const bad = (mut) => { const d = load(); mut(d); return validateReverse(d).join('\n'); };
+  assert.match(bad((d) => { d.items[0].answers[0].value = 3; }), /rv-m-01: answer k = 3/);
+  assert.match(bad((d) => { d.items[0].equations[1] = 'k·x − y + 2z = 12'; }), /answer/);
+  assert.match(bad((d) => { d.items[12].answers[0].value = 16; }), /rv-p-01: answer v0 = 16/);
+  assert.match(bad((d) => { d.items[0].hints.pop(); }), /2 Hebrew hints/);
+  assert.match(bad((d) => { d.items[2].answers[0].value = 0.123; }), /decimals/);
+  assert.match(bad((d) => { d.items = d.items.slice(0, 20); }), /at least 12/);
+
+  const items = load().items;
+  const ctx = { show: dom.show, reverse: items };
+  dom.root.replaceChildren();
+  await R.viewReverseRoute(ctx);
+  assert.match(dom.root.textContent, /0 מתוך 24 הושלמו/);
+  assert.equal(dom.root.all((n) => n.tagName === 'A' && /^#\/reverse\/rv-/.test(n.getAttribute('href') || '')).length, 24);
+
+  globalThis.localStorage.removeItem(R.REVERSE_KEY);
+  await R.viewReverseRoute(ctx, 'rv-m-01');
+  const inputs = dom.root.all((n) => n.tagName === 'INPUT');
+  assert.equal(inputs.length, 2);
+  inputs[0].value = '2'; inputs[1].value = '5';
+  dom.root.byText('button', 'בדיקה').click();
+  assert.match(dom.root.textContent, /לא מדויק: 1 מתוך 2/);
+  assert.equal(JSON.parse(localStorage.getItem(R.REVERSE_KEY)).items['rv-m-01'].done, false);
+  inputs[1].value = '−6';
+  dom.root.byText('button', 'בדיקה').click();
+  assert.match(dom.root.textContent, /נכון! פתרתם לבד/);
+  assert.equal(JSON.parse(localStorage.getItem(R.REVERSE_KEY)).items['rv-m-01'].done, true);
+  dom.root.byText('button', 'רמז').click();
+  assert.match(dom.root.textContent, /רמז 1/);
+  dom.root.byText('button', 'הצגת פתרון').click();
+  assert.match(dom.root.textContent, /פתרון מלא/);
+  assert.equal(JSON.parse(localStorage.getItem(R.REVERSE_KEY)).items['rv-m-01'].solution, true);
+
+  await R.viewReverseRoute(ctx, 'rv-p-02'); // decimals / manual mark
+  dom.root.byText('button', 'סמנו כהושלם').click();
+  assert.equal(JSON.parse(localStorage.getItem(R.REVERSE_KEY)).items['rv-p-02'].done, true);
+  assert.deepEqual(R.sanitizeReverse({ items: { a: { tries: -3, hints: 9, done: 'x' }, b: 5 } }), { v: 1, items: { a: { done: false, tries: 0, hints: 2, solution: false, ts: 0 } } });
+});
