@@ -10,6 +10,7 @@ import * as hunt from './findmistake-ui.js';
 import * as backup from './backup.js';
 import * as summary from './summary.js';
 import * as endless from './endless-ui.js';
+import * as order from './order-ui.js';
 import { renderExercise, diagramFigure, OUTCOME_UI, badge } from './exercise-view.js';
 
 const TOPICS = [
@@ -99,6 +100,7 @@ function viewHome() {
     h('div', { class: 'cards' },
       h('a', { class: 'card', href: '#/drills' }, h('strong', {}, '⚡ תרגולים מהירים'), h('span', { class: 'muted' }, 'מלכודות, בדיקות שפיות וכרטיסיות בסשן של 10 פריטים')),
       h('a', { class: 'card', href: '#/hunt' }, h('strong', {}, '🔎 מצאו את הטעות'), h('span', { class: 'muted' }, 'פתרון מלא עם טעות אחת: מצאו את השלב הראשון השגוי')),
+      h('a', { class: 'card', href: '#/order' }, h('strong', {}, '🧩 סדרו את שלבי הפתרון'), h('span', { class: 'muted' }, 'שלבי פתרון מעורבבים: סדרו אותם נכון וקבלו ציון')),
       h('a', { class: 'card', href: '#/endless' }, h('strong', {}, '♾️ תרגול ללא הגבלה'), h('span', { class: 'muted' }, 'תרגילים חדשים בכל פעם, באותה רמה ועם רמזים ופתרון מלא')),
       h('a', { class: 'card', href: '#/summary' }, h('strong', {}, '🖨️ סיכום להדפסה'), h('span', { class: 'muted' }, 'דף אחד מהנתונים שלכם: חולשות, נוסחאות ורשימת בדיקה לפני המבחן')),
       h('a', { class: 'card', href: '#/backup' }, h('strong', {}, '💾 גיבוי והעברה'), h('span', { class: 'muted' }, 'שמרו את ההתקדמות או העבירו אותה למכשיר אחר')),
@@ -206,6 +208,7 @@ function route() {
     else if (parts[0] === 'summary') summary.viewSummary(examCtx);
     else if (parts[0] === 'drills') drills.viewDrills(examCtx);
     else if (parts[0] === 'endless') endless.viewEndless(examCtx, parts[1], parts[2]);
+    else if (parts[0] === 'order') order.viewOrderRoute(examCtx, parts[1]);
     else if (parts[0] === 'hunt') hunt.viewHunt(examCtx, parts[1]);
     else if (parts[0] === 'workout') viewWorkoutRoute(parts[1]);
     else if (parts[0] === 'exam') viewExam(examCtx, parts[1]);

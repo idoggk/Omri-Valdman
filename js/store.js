@@ -143,6 +143,30 @@ export function recordFindMistake(id, errorType, correct) {
 }
 export const countFindMistakeSolved = () => Object.values(loadFindMistake().items).filter((x) => x.solved).length;
 
+/* solution-order trainer: { v, items: {exerciseId: {best, ts}} } with best = percent 0..100.
+   Own key; anything malformed reads as empty. */
+const ORDER_KEY = 'omri-study-order-v1';
+export function sanitizeOrder(raw) {
+  const out = { v: 1, items: {} };
+  if (!isRec(raw) || !isRec(raw.items)) return out;
+  for (const [id, e] of Object.entries(raw.items)) {
+    if (isRec(e) && Number.isFinite(e.best)) out.items[id] = { best: Math.min(100, Math.max(0, Math.round(e.best))), ts: Number.isFinite(e.ts) ? e.ts : 0 };
+  }
+  return out;
+}
+export function loadOrder() {
+  try { return sanitizeOrder(JSON.parse(localStorage.getItem(ORDER_KEY))); } catch (e) { return sanitizeOrder(null); }
+}
+/** Keeps the best percent per exercise. */
+export function recordOrder(id, percent) {
+  const d = loadOrder();
+  const p = Math.min(100, Math.max(0, Math.round(Number(percent) || 0)));
+  const prev = d.items[id];
+  if (!prev || p > prev.best) d.items[id] = { best: p, ts: Date.now() };
+  try { localStorage.setItem(ORDER_KEY, JSON.stringify(d)); } catch (e) { /* ignore */ }
+}
+export const countOrderPerfect = () => Object.values(loadOrder().items).filter((x) => x.best === 100).length;
+
 /* running workout: { ids, startedAt } */
 const WORKOUT_KEY = 'omri-study-workout-v1';
 export function loadWorkout() {
