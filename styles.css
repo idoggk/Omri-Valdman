@@ -243,6 +243,11 @@ body.no-tabs { padding-block-end: 0; }
   .sheet-formula { font-size: 1rem; }
 }
 
+/* plus/minus key next to numeric answer fields */
+.signkey { min-width: 44px; min-height: 44px; padding: 0 10px; font-size: 1.25rem; line-height: 1; flex: none; margin-inline-start: 8px; touch-action: manipulation; }
+.field .row .signkey { margin-inline-start: 0; }
+@media (max-width: 420px) { .signkey { min-width: 44px; padding: 0 6px; } }
+
 /* solution steps: Hebrew sentence line + each equation chain as its own ltr display block */
 .step-text { margin: .1em 0; }
 .eq-block { direction: ltr; text-align: left; unicode-bidi: isolate; font-size: 1.15em; line-height: 1.7; margin: .2em 0; padding: .1em 0; overflow-x: auto; max-width: 100%; white-space: nowrap; }
