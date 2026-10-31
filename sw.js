@@ -27,6 +27,7 @@ const PRECACHE = [
   'js/practice-ui.js',
   'js/drills-ui.js',
   'js/findmistake-ui.js',
+  'js/summary.js',
   'js/backup.js',
   'data/drills.json',
   'data/findmistake.json',

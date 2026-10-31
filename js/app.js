@@ -10,6 +10,7 @@ import * as practice from './practice-ui.js';
 import * as drills from './drills-ui.js';
 import * as hunt from './findmistake-ui.js';
 import * as backup from './backup.js';
+import * as summary from './summary.js';
 
 const TOPICS = [
   { id: 'math-3', title: 'מערכת משוואות עם 3 נעלמים', file: 'math' },
@@ -108,6 +109,7 @@ function viewHome() {
     h('div', { class: 'cards' },
       h('a', { class: 'card', href: '#/drills' }, h('strong', {}, '⚡ תרגולים מהירים'), h('span', { class: 'muted' }, 'מלכודות, בדיקות שפיות וכרטיסיות בסשן של 10 פריטים')),
       h('a', { class: 'card', href: '#/hunt' }, h('strong', {}, '🔎 מצאו את הטעות'), h('span', { class: 'muted' }, 'פתרון מלא עם טעות אחת: מצאו את השלב הראשון השגוי')),
+      h('a', { class: 'card', href: '#/summary' }, h('strong', {}, '🖨️ סיכום להדפסה'), h('span', { class: 'muted' }, 'דף אחד מהנתונים שלכם: חולשות, נוסחאות ורשימת בדיקה לפני המבחן')),
       h('a', { class: 'card', href: '#/backup' }, h('strong', {}, '💾 גיבוי והעברה'), h('span', { class: 'muted' }, 'שמרו את ההתקדמות או העבירו אותה למכשיר אחר')),
       h('a', { class: 'card', href: '#/exam' }, h('strong', {}, '📝 מצב מבחן'), h('span', { class: 'muted' }, 'שאלות מעורבות, שעון, בלי רמזים ועם דוח בסוף')),
       h('button', { class: 'card card-btn', type: 'button', onclick: (ev) => openSheet(null, ev.currentTarget) }, h('strong', {}, '📐 דף נוסחאות'), h('span', { class: 'muted' }, 'כל הנוסחאות וטעויות נפוצות במקום אחד'))));
@@ -418,6 +420,7 @@ function route() {
     else if (parts[0] === 'ex' && parts[1]) viewExercise(parts[1]);
     else if (parts[0] === 'progress') { practice.viewProgress(examCtx); const r = backup.reminderLine(); if (r) app.append(r); }
     else if (parts[0] === 'backup') backup.viewBackup(examCtx);
+    else if (parts[0] === 'summary') summary.viewSummary(examCtx);
     else if (parts[0] === 'drills') drills.viewDrills(examCtx);
     else if (parts[0] === 'hunt') hunt.viewHunt(examCtx, parts[1]);
     else if (parts[0] === 'workout') viewWorkoutRoute(parts[1]);

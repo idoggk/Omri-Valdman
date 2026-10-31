@@ -1,6 +1,7 @@
 // Pure exam logic: building a seeded set, scoring, timer math. No DOM, no storage.
 import { checkAll } from './check.js';
 import { matchSets, validAnswerSets } from './answersets.js';
+import { cleanLog, schedules, weakTopics, countReasons } from './srs.js';
 
 export const COUNTS = [5, 8, 12];
 export const MINUTES_PER_QUESTION = 6;
@@ -53,11 +54,102 @@ export function buildExamSet({ exercises, topics, count, mix = 'mixed', seed = 1
   return shuffle(picked, rand).map((e) => e.id);
 }
 
-/* ---------- exam state ---------- */
-// { v:1, seed, ids:[], answers:{id: value}, skipped:{id:true}, idx, startedAt, limitMs|null, endedAt|null, recorded:boolean }
+/* ---------- smart picker + presets ---------- */
 
-export function createExam({ ids, seed, limitMs, now }) {
-  return { v: 1, seed, ids: ids.slice(), answers: {}, skipped: {}, idx: 0, startedAt: now, limitMs: limitMs ?? null, endedAt: null, recorded: false };
+/** '45 minutes mixed pack': 6 math + 6 physics, one shared timer, pace = limit / questions. */
+export const PACK_45 = { math: 6, phys: 6, minutes: 45 };
+export const domainOf = (topic) => String(topic).split('-')[0];
+const LEVEL_SHARE_3 = 0.7; // realistic mix: mostly level 3, the rest level 2
+const REPEAT_TOPIC = 0.7;  // damping per exercise already picked from the same topic
+const RECENT_MS = 14 * 86400000;
+
+/** Pick weight of each exercise: weak topic, recently failed, due, new => heavier; mastered => lighter. */
+export function smartWeights(exercises, attempts, now) {
+  const log = cleanLog(attempts);
+  const sch = schedules(log);
+  const weak = new Map(weakTopics(log, exercises).map((t) => [t.topic, t.score]));
+  const w = new Map();
+  for (const e of exercises) {
+    let x = weak.has(e.topic) ? 1 + 2 * (1 - weak.get(e.topic)) : 1.5;
+    const s = sch.get(e.id);
+    if (!s) x *= 1.2;
+    else {
+      if (s.lastOutcome !== 'alone') x *= now - s.lastTs <= RECENT_MS ? 3 : 2;
+      if (s.due <= now) x *= 1.5;
+      if (s.mastered) x *= 0.3;
+    }
+    w.set(e.id, x);
+  }
+  return w;
+}
+
+/**
+ * Smart exam: `count` distinct ids, deterministic for (inputs, seed), fine with an empty history.
+ * quotas {math: 6, phys: 6} fixes the count per domain (topic id prefix); shortfalls are refilled from the rest.
+ */
+export function buildSmartExamSet({ exercises, topics, count, attempts = [], now = 0, seed = 1, quotas = null }) {
+  const rand = rng(seed);
+  const chosen = new Set(topics);
+  const pool = exercises.filter((e) => chosen.has(e.topic));
+  const weights = smartWeights(pool, attempts, now);
+  const picks = {};
+  const picked = [];
+  const draw = (cands) => {
+    const ws = cands.map((e) => weights.get(e.id) * Math.pow(REPEAT_TOPIC, picks[e.topic] || 0));
+    let r = rand() * ws.reduce((a, b) => a + b, 0);
+    for (let i = 0; i < cands.length; i++) { r -= ws[i]; if (r < 0) return cands[i]; }
+    return cands[cands.length - 1];
+  };
+  const take = (e) => { picked.push(e); picks[e.topic] = (picks[e.topic] || 0) + 1; };
+  const group = (cands, n) => {
+    const left = cands.filter((e) => !picked.includes(e));
+    const n3 = Math.round(n * LEVEL_SHARE_3);
+    const start = picked.length;
+    for (const [lvl, k] of [[3, n3], [2, n - n3]]) {
+      for (let i = 0; i < k; i++) {
+        const c = left.filter((e) => e.level === lvl && !picked.includes(e));
+        if (c.length) take(draw(c));
+      }
+    }
+    // shortfall: highest levels first (3, 2, then the rest)
+    while (picked.length - start < n) {
+      const c = left.filter((e) => !picked.includes(e));
+      if (!c.length) break;
+      const top = [3, 2].find((l) => c.some((e) => e.level === l));
+      take(draw(top ? c.filter((e) => e.level === top) : c));
+    }
+  };
+  if (quotas) {
+    for (const [dom, n] of Object.entries(quotas)) group(pool.filter((e) => domainOf(e.topic) === dom), n);
+    if (picked.length < count) group(pool, count - picked.length);
+  } else group(pool, count);
+  return shuffle(picked.slice(0, count), rand).map((e) => e.id);
+}
+
+/* ---------- exam state ---------- */
+// { v:1, seed, ids:[], answers:{id: value}, skipped:{id:true}, idx, startedAt, limitMs|null, endedAt|null, recorded:boolean,
+//   paceMs?, times?:{id: ms}, curAt?: ms when the current question was opened }
+
+export function createExam({ ids, seed, limitMs, now, paceMs }) {
+  const e = { v: 1, seed, ids: ids.slice(), answers: {}, skipped: {}, idx: 0, startedAt: now, limitMs: limitMs ?? null, endedAt: null, recorded: false, times: {}, curAt: now };
+  if (Number.isFinite(paceMs) && paceMs > 0) e.paceMs = paceMs;
+  return e;
+}
+
+/** Target time per question: explicit pace, else limit / questions, else the default. */
+export function targetMs(exam) {
+  if (Number.isFinite(exam.paceMs) && exam.paceMs > 0) return exam.paceMs;
+  if (Number.isFinite(exam.limitMs) && exam.limitMs > 0 && exam.ids.length) return Math.round(exam.limitMs / exam.ids.length);
+  return MINUTES_PER_QUESTION * 60000;
+}
+
+/** Adds the time spent on the current question to its total and restarts the question clock. */
+function bank(exam, now) {
+  if (!Number.isFinite(exam.curAt) || !Number.isFinite(now)) return;
+  const id = exam.ids[exam.idx];
+  if (!exam.times || typeof exam.times !== 'object') exam.times = {};
+  exam.times[id] = (Number.isFinite(exam.times[id]) ? exam.times[id] : 0) + Math.max(0, now - exam.curAt);
+  exam.curAt = now;
 }
 
 export function validExamState(x) {
@@ -77,12 +169,13 @@ export function skip(exam, id) {
   exam.skipped[id] = true;
   return exam;
 }
-export function goTo(exam, idx) {
+export function goTo(exam, idx, now) {
+  bank(exam, now);
   exam.idx = Math.max(0, Math.min(exam.ids.length - 1, idx));
   return exam;
 }
 export function finish(exam, now) {
-  if (exam.endedAt == null) exam.endedAt = now;
+  if (exam.endedAt == null) { bank(exam, now); exam.endedAt = now; }
   return exam;
 }
 
@@ -127,7 +220,8 @@ export function gradeExam(exam, byId, now) {
     const ex = byId(id);
     if (!ex) continue;
     const status = gradeQuestion(ex, exam.answers[id]);
-    items.push({ id, topic: ex.topic, status });
+    const ms = exam.times && Number.isFinite(exam.times[id]) ? exam.times[id] : null;
+    items.push({ id, topic: ex.topic, status, ms });
     const t = (perTopic[ex.topic] ||= { right: 0, total: 0 });
     t.total++;
     if (status === 'right') t.right++;
@@ -141,6 +235,36 @@ export function gradeExam(exam, byId, now) {
   return {
     right, total: items.length, percent: items.length ? Math.round((right / items.length) * 100) : 0,
     usedMs: elapsedMs(exam, now), perTopic, items, weakest: weakest ? weakest.topic : null,
+  };
+}
+
+/**
+ * Extra report data from the learner's own history (attempts = raw attempt log, may be empty/corrupt).
+ * Exam answers are always hint-free; `assisted` marks questions that needed hints or the solution in earlier practice.
+ */
+export function examInsights(report, exam, attempts = []) {
+  const log = cleanLog(attempts);
+  const target = targetMs(exam);
+  const helped = new Set(log.filter((a) => a.hintsUsed > 0 || a.outcome === 'hinted' || a.outcome === 'solution').map((a) => a.exerciseId));
+  const questions = report.items.map((it) => ({
+    id: it.id, status: it.status, ms: it.ms, targetMs: target,
+    over: it.ms != null && it.ms > target, assisted: helped.has(it.id),
+  }));
+  const timed = questions.filter((q) => q.ms != null);
+  const byTopic = {};
+  for (const it of report.items) if (it.status !== 'right') (byTopic[it.topic] ||= []).push(it.id);
+  const review = Object.entries(byTopic)
+    .map(([topic, ids]) => ({ topic, ids, ratio: report.perTopic[topic].right / report.perTopic[topic].total }))
+    .sort((a, b) => a.ratio - b.ratio || (a.topic < b.topic ? -1 : 1));
+  const ids = new Set(report.items.map((i) => i.id));
+  const mine = log.filter((a) => ids.has(a.exerciseId));
+  const reasons = countReasons(mine.some((a) => a.errorReason) ? mine : log).slice(0, 3);
+  return {
+    targetMs: target, questions, review, reasons,
+    avgMs: timed.length ? Math.round(timed.reduce((s, q) => s + q.ms, 0) / timed.length) : null,
+    overCount: questions.filter((q) => q.over).length,
+    rightFree: questions.filter((q) => q.status === 'right' && !q.assisted).length,
+    rightAssisted: questions.filter((q) => q.status === 'right' && q.assisted).length,
   };
 }
 
