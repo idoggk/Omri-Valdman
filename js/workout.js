@@ -1,6 +1,6 @@
 // Deterministic workout picker: mixes due reviews, weak-topic practice and new exercises.
 import { schedules, weakTopics, levelInfo } from './srs.js';
-import { ladderStatus } from './ladder.js';
+import { ladderStatus, outcomeLookup } from './ladder.js';
 
 const cmp = (a, b) => (a < b ? -1 : a > b ? 1 : 0);
 
@@ -119,9 +119,10 @@ export function pickWorkout(attempts, exercises, now, size = 10, opts = {}) {
   take(due, Math.ceil(n * 0.4));
 
   // 1b. exam-style items from the ladder stage the learner is on (a third of the workout)
-  const stage = currentStage(opts.ladder, logOutcome(log), opts.skip || {});
+  // inline ladder items (no ref) keep their progress in the ladder key, so they must count for the unlock status
+  const outcome = Array.isArray(opts.ladder) ? outcomeLookup(opts.ladder, logOutcome(log)) : logOutcome(log);
+  const stage = currentStage(opts.ladder, outcome, opts.skip || {});
   if (stage) {
-    const outcome = logOutcome(log);
     const refs = stage.items.filter((it) => it && it.ref && byId.has(it.ref) && outcome(it.ref) !== 'alone').map((it) => it.ref);
     take(refs, Math.floor(n * LADDER_SHARE + 1e-9));
   }

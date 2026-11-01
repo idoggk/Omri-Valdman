@@ -64,6 +64,23 @@ test('ladder share: about a third of the workout comes from the highest unlocked
   assert.deepEqual(w, pickWorkout(base, EXS, NOW, 9, { ladder: stages }));
 });
 
+test('ladder share counts inline items: inline-only S3 done, share comes from S4 refs', async () => {
+  const P = await import('../js/progress.js');
+  const items = P.emptyState();
+  P.completeCorrect(items, 'inl-1'); P.completeCorrect(items, 'inl-2');
+  const store = { 'omri-study-ladder-v1': JSON.stringify({ v: 1, skip: {}, items }) };
+  globalThis.localStorage = { getItem: (k) => store[k] ?? null, setItem: (k, v) => { store[k] = v; } };
+  try {
+    const stages = [
+      { id: 'S1', items: [{ ref: 'p-1-1' }, { ref: 'p-1-2' }, { ref: 'p-1-3' }] },
+      { id: 'S3', items: [{ id: 'inl-1' }, { id: 'inl-2' }] },
+      { id: 'S4', items: [{ ref: 'p-3-1' }, { ref: 'p-3-2' }, { ref: 'p-3-3' }, { ref: 'p-3-4' }] },
+    ];
+    const w = pickWorkout(base, EXS, NOW, 9, { ladder: stages });
+    assert.ok(w.filter((id) => stages[2].items.some((it) => it.ref === id)).length >= 3, w.join());
+  } finally { delete globalThis.localStorage; }
+});
+
 test('old state still loads: no opts, garbage feedback, attempts without extras', () => {
   assert.equal(pickWorkout([], EXS, NOW, 5).length, 5);
   assert.equal(pickWorkout(null, EXS, NOW, 5, { feedback: 'junk', ladder: 'x' }).length, 5);
