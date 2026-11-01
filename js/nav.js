@@ -17,7 +17,7 @@ export const TABS = [
 
 /** Routes whose first segment alone is enough to resolve (the rest are optional arguments). */
 const SIMPLE = ['progress', 'practice-hub', 'backup', 'summary', 'drills', 'endless', 'order', 'methods', 'edge', 'reverse', 'fading', 'solve',
-  'repair', 'checkpoints', 'hunt', 'workout', 'exam', 'feedback', 'ladder', 'multipart'];
+  'repair', 'checkpoints', 'hunt', 'workout', 'exam', 'feedback', 'ladder', 'multipart', 'trig'];
 
 /** hash -> { name, args } or { name: 'notfound' }. One parser shared by app.js and the tests. */
 export function resolveRoute(hash) {
@@ -101,7 +101,8 @@ export function viewHome(ctx, loadErrors = []) {
           h('a', { class: 'btn primary cta', href: '#/workout/start' }, 'מתחילים אימון'),
           cont ? h('p', {}, h('a', { href: cont }, 'להמשיך מאיפה שעצרתם')) : null]
         : h('span', { class: 'muted' }, 'אין תרגילים זמינים לאימון.')),
-    ctx.exercises.length ? repair.homeCard(ctx) : null);
+    ctx.exercises.length ? repair.homeCard(ctx) : null,
+    h('div', { class: 'cards' }, tile('#/trig', '📐 זהויות טריגונומטריות', 'שלושה עוגנים וכל השאר נגזר: שיעורים, כרטיסיות זכירה, תרגול ומאמן הוכחות')));
 }
 
 /* ---------- practice hub (תרגול) ---------- */
@@ -135,6 +136,7 @@ export function viewHub(ctx) {
       h('button', { class: 'card card-btn', type: 'button', onclick: (ev) => openFormulaSheet(null, ev.currentTarget) },
         h('strong', {}, '📐 דף נוסחאות'), h('span', { class: 'muted' }, 'כל הנוסחאות וטעויות נפוצות במקום אחד')),
       tile(`#/topic/${firstTopic}`, '📖 דוגמאות פתורות', 'בראש עמוד כל נושא: דוגמה פתורה צעד אחר צעד'),
+      tile('#/trig', '📐 זהויות טריגונומטריות', 'שלושה עוגנים, גזירה צעד אחר צעד, כרטיסיות זכירה, תרגול ומאמן הוכחות'),
       tile('#/fading', '🌓 דוגמאות מתפוגגות', 'אותה דוגמה בארבעה שלבים: מפתרון מלא ועד פתרון עצמאי, עם הסתרה הדרגתית'),
     ],
     repair: [tile('#/repair', '🩹 חיזוק יסודות', 'מיני־שיעור ו־3 שאלות על מיומנות בסיס שבה יש טעויות חוזרות')],

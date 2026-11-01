@@ -258,3 +258,10 @@ body.no-tabs { padding-block-end: 0; }
 .tips .tip-body { margin-top: .1em; }
 /* iOS standalone (black-translucent status bar): content must not show through the clock area */
 body::before { content: ''; position: fixed; top: 0; left: 0; right: 0; height: env(safe-area-inset-top, 0px); background: var(--bg); z-index: 40; pointer-events: none; }
+
+/* trig teacher (#/trig) */
+.chain { padding-inline-start: 1.4em; }
+.chain li { margin: .25em 0; }
+.pattern { width: 100%; border-collapse: collapse; margin-top: .6em; }
+.pattern td { border: 1px solid var(--border); padding: 6px 8px; }
+.pattern td:nth-child(1), .pattern td:nth-child(2) { direction: ltr; text-align: left; }

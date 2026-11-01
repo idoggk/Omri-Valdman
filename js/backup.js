@@ -26,6 +26,7 @@ export const KNOWN_KEYS = {
   'omri-study-ladder-v1': 'הסלם לרמת מבחן',
   'omri-study-fading-v1': 'דוגמאות מתפוגגות',
   'omri-study-feedback-v1': 'משוב על קושי',
+  'omri-study-trig-v1': 'זהויות טריגונומטריות',
 };
 
 const isRec = (x) => x && typeof x === 'object' && !Array.isArray(x);
