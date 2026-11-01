@@ -5,21 +5,41 @@
 import { h } from './dom.js';
 import { isolateTitle } from './bidi.js';
 import * as store from './store.js';
-import { ladderStatus, loadLadder, setSkip, needed, outcomeLookup, inlineSink, isInline, itemId } from './ladder.js';
+import { ladderStatus, loadLadder, setSkip, needed, outcomeLookup, inlineSink, isInline, itemId, SUBJECTS, subjectOf, parseLadderArgs } from './ladder.js';
 import { OUTCOME_UI, badge, diagramFigure } from './exercise-view.js';
 
-let loaded = null;
-async function loadStages(ctx) {
-  if (Array.isArray(ctx.ladder)) return ctx.ladder;
-  if (!loaded) {
+// Per subject: page title, heading and the overview blurb. Physics wording is unchanged.
+const COPY = {
+  physics: {
+    title: 'הסלם לרמת מבחן',
+    heading: '🪜 הסלם לרמת מבחן',
+    intro: 'שישה שלבים, מתרגיל של נוסחה אחת ועד תרגיל מלא בסגנון מבחן. שלב נפתח אחרי ש־70% מהתרגילים בשלב הקודם נפתרו לבד: בלי רמזים, בלי צעדים מודרכים ובלי הצגת פתרון.',
+  },
+  math: {
+    title: 'הסלם במתמטיקה',
+    heading: '🪜 הסלם במתמטיקה',
+    intro: 'שישה שלבים, ממשוואה אחת ועד מערכות עם שלושה וארבעה נעלמים וחזקות. שלב נפתח אחרי ש־70% מהתרגילים בשלב הקודם נפתרו לבד: בלי רמזים, בלי צעדים מודרכים ובלי הצגת פתרון.',
+  },
+};
+
+const loaded = {};
+async function loadStages(ctx, sub) {
+  if (Array.isArray(ctx[sub.ctxKey])) return ctx[sub.ctxKey];
+  if (!loaded[sub.id]) {
     try {
-      const res = await fetch('data/ladder.json', { cache: 'no-cache' });
+      const res = await fetch(sub.file, { cache: 'no-cache' });
       if (!res.ok) throw new Error(String(res.status));
       const data = await res.json();
-      loaded = Array.isArray(data.stages) ? data.stages : [];
+      loaded[sub.id] = Array.isArray(data.stages) ? data.stages : [];
     } catch (e) { return null; }
   }
-  return loaded;
+  return loaded[sub.id];
+}
+
+/** Subject selector shown on the overview: physics / math, the current one marked. */
+function subjectTabs(sub) {
+  return h('nav', { class: 'btn-row', 'aria-label': 'בחירת מקצוע' }, SUBJECTS.map((s) =>
+    h('a', { class: s.id === sub.id ? 'btn primary' : 'btn', href: s.base, 'aria-current': s.id === sub.id ? 'page' : null }, s.label)));
 }
 
 const crumbs = (href, text) => h('p', { class: 'crumbs' }, h('a', { href }, text));
@@ -30,13 +50,15 @@ export const progressText = (e) => `${e.alone}/${e.total} לבד`;
 const statuses = (stages) => ladderStatus(stages, outcomeLookup(stages, (id) => store.outcomeOf(id)), loadLadder().skip);
 const exerciseOf = (ctx, it) => (isInline(it) ? it : ctx.byId(it.ref));
 
-function viewOverview(ctx, stages) {
-  title('הסלם לרמת מבחן');
+function viewOverview(ctx, sub, stages) {
+  const copy = COPY[sub.id];
+  title(copy.title);
   const st = statuses(stages);
   ctx.show(
     crumbs('#/practice-hub', '→ חזרה לתרגול'),
-    h('h1', {}, '🪜 הסלם לרמת מבחן'),
-    h('p', { class: 'muted' }, 'שישה שלבים, מתרגיל של נוסחה אחת ועד תרגיל מלא בסגנון מבחן. שלב נפתח אחרי ש־70% מהתרגילים בשלב הקודם נפתרו לבד: בלי רמזים, בלי צעדים מודרכים ובלי הצגת פתרון.'),
+    h('h1', {}, copy.heading),
+    subjectTabs(sub),
+    h('p', { class: 'muted' }, copy.intro),
     h('div', { class: 'cards' }, stages.map((s, i) => {
       const e = st[i];
       const body = [
@@ -47,19 +69,19 @@ function viewOverview(ctx, stages) {
       ];
       return e.status === 'soon'
         ? h('div', { class: 'card', 'aria-disabled': 'true' }, body)
-        : h('a', { class: 'card', href: `#/ladder/${s.id}` }, body);
+        : h('a', { class: 'card', href: `${sub.base}/${s.id}` }, body);
     })));
 }
 
-function viewStage(ctx, stages, stage) {
+function viewStage(ctx, sub, stages, stage) {
   const i = stages.indexOf(stage);
   const e = statuses(stages)[i];
   title(stage.title);
-  const head = [crumbs('#/ladder', '→ הסלם לרמת מבחן'), h('h1', {}, isolateTitle(`${i + 1}. ${stage.title}`)), h('p', {}, stage.intro)];
+  const head = [crumbs(sub.base, `→ ${COPY[sub.id].title}`), h('h1', {}, isolateTitle(`${i + 1}. ${stage.title}`)), h('p', {}, stage.intro)];
   if (e.status === 'soon') return ctx.show(...head, h('p', { class: 'notice' }, stage.soon || 'התרגילים בשלב הזה יתווספו בקרוב.'));
   const lock = e.status === 'locked'
     ? [h('p', { class: 'notice' }, 'השלב נעול. כדי לפתוח אותו פתרו לבד לפחות 70% מהתרגילים בשלב הקודם.'),
-      h('div', { class: 'btn-row' }, h('button', { class: 'btn', type: 'button', onclick: () => { setSkip(stage.id); viewStage(ctx, stages, stage); } }, 'לדלג בכל זאת'))]
+      h('div', { class: 'btn-row' }, h('button', { class: 'btn', type: 'button', onclick: () => { setSkip(stage.id); viewStage(ctx, sub, stages, stage); } }, 'לדלג בכל זאת'))]
     : null;
   ctx.show(...head,
     h('div', { class: 'panel' }, h('strong', {}, `${progressText(e)} (נדרשים ${needed(e.total)} לפתיחת השלב הבא)`),
@@ -69,7 +91,7 @@ function viewStage(ctx, stages, stage) {
       const ex = exerciseOf(ctx, it);
       const o = outcomeLookup(stages, (id) => store.outcomeOf(id))(itemId(it));
       const ui = OUTCOME_UI[o || 'none'];
-      return h('li', {}, h('a', { class: 'ex-item', href: `#/ladder/${stage.id}/${n + 1}` },
+      return h('li', {}, h('a', { class: 'ex-item', href: `${sub.base}/${stage.id}/${n + 1}` },
         ex ? badge(ex.level) : null,
         h('span', { class: 't' }, isolateTitle(ex ? (ex.title || ex.id) : itemId(it))),
         h('span', { class: `tick o-${o || 'none'}`, role: 'img', 'aria-label': ui.label }, ui.icon)));
@@ -123,15 +145,15 @@ export function gatedSink(base, gate) {
   return { ...base, correct: () => { numeric = true; finish(); } };
 }
 
-function viewItem(ctx, stages, stage, n) {
+function viewItem(ctx, sub, stages, stage, n) {
   const e = statuses(stages)[stages.indexOf(stage)];
   const total = stage.items.length;
   const item = Number.isInteger(n) && n >= 1 && n <= total ? stage.items[n - 1] : null;
   const ex = item ? exerciseOf(ctx, item) : null;
-  if (!ex || e.status === 'locked' || e.status === 'soon') return viewStage(ctx, stages, stage);
+  if (!ex || e.status === 'locked' || e.status === 'soon') return viewStage(ctx, sub, stages, stage);
   const nav = h('nav', { class: 'nav', 'aria-label': 'ניווט בשלב' },
-    n > 1 ? h('a', { class: 'btn', href: `#/ladder/${stage.id}/${n - 1}` }, '→ התרגיל הקודם') : h('a', { class: 'btn', href: `#/ladder/${stage.id}` }, 'לרשימת השלב'),
-    n < total ? h('a', { class: 'btn primary', href: `#/ladder/${stage.id}/${n + 1}` }, 'התרגיל הבא ←') : h('a', { class: 'btn primary', href: '#/ladder' }, 'סיום השלב ←'));
+    n > 1 ? h('a', { class: 'btn', href: `${sub.base}/${stage.id}/${n - 1}` }, '→ התרגיל הקודם') : h('a', { class: 'btn', href: `${sub.base}/${stage.id}` }, 'לרשימת השלב'),
+    n < total ? h('a', { class: 'btn primary', href: `${sub.base}/${stage.id}/${n + 1}` }, 'התרגיל הבא ←') : h('a', { class: 'btn primary', href: sub.base }, 'סיום השלב ←'));
   const sketches = isInline(item) && Array.isArray(ex.sketches) ? ex.sketches : [];
   const gate = sketches.length ? sketchGate(sketches) : null;
   const sink = isInline(item) ? inlineSink(item.id) : undefined;
@@ -143,20 +165,23 @@ function viewItem(ctx, stages, stage, n) {
   ctx.renderExercise(ex, {
     ctx: gate ? { ...ctx, show } : ctx, nav,
     sink: gate ? gatedSink(sink, gate) : sink,
-    crumbs: h('p', { class: 'crumbs' }, h('a', { href: `#/ladder/${stage.id}` }, `→ ${stage.title} (${n}/${total})`)),
+    crumbs: h('p', { class: 'crumbs' }, h('a', { href: `${sub.base}/${stage.id}` }, `→ ${stage.title} (${n}/${total})`)),
   });
 }
 
-export async function viewLadderRoute(ctx, stageId, itemNo) {
-  const stages = await loadStages(ctx);
+/** Route: viewLadderRoute(ctx, ...args) with the args after "ladder": [], ['S2','3'], ['math'], ['math','M2','3']. */
+export async function viewLadderRoute(ctx, ...args) {
+  const { subject, stageId, itemNo } = parseLadderArgs(args);
+  const sub = subjectOf(subject);
+  const stages = await loadStages(ctx, sub);
   if (!stages) {
-    title('הסלם לרמת מבחן');
-    return ctx.show(h('h1', {}, 'הסלם לרמת מבחן'),
+    title(COPY[sub.id].title);
+    return ctx.show(h('h1', {}, COPY[sub.id].title),
       h('p', { class: 'error', role: 'alert' }, 'לא ניתן לטעון את התרגילים. נסו לרענן את הדף.'),
       h('p', {}, h('a', { class: 'btn', href: '#/' }, 'חזרה לדף הבית')));
   }
-  if (!stageId) return viewOverview(ctx, stages);
+  if (!stageId) return viewOverview(ctx, sub, stages);
   const stage = stages.find((s) => s.id === stageId);
-  if (!stage) return viewOverview(ctx, stages);
-  return itemNo ? viewItem(ctx, stages, stage, Number(itemNo)) : viewStage(ctx, stages, stage);
+  if (!stage) return viewOverview(ctx, sub, stages);
+  return itemNo ? viewItem(ctx, sub, stages, stage, Number(itemNo)) : viewStage(ctx, sub, stages, stage);
 }

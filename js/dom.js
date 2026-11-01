@@ -2,6 +2,7 @@
 import { isolateFormulas, isolateFormulasHtml } from './bidi.js';
 import { splitStep, eqHtml } from './eqblocks.js';
 import { sanitizeHtml } from './sanitize.js';
+import { enhanceEq } from './math.js';
 
 /** Fills `el` with a solution step: Hebrew sentence lines, and every equation chain as its own ltr display block. */
 export function fillStep(el, step) {
@@ -9,7 +10,7 @@ export function fillStep(el, step) {
   if (blocks.length === 1 && blocks[0].kind === 'text') { el.innerHTML = isolateFormulasHtml(blocks[0].value); return; }
   for (const b of blocks) {
     const d = document.createElement('div');
-    if (b.kind === 'eq') { d.className = 'eq-block'; d.setAttribute('dir', 'ltr'); d.innerHTML = eqHtml(b.value); }
+    if (b.kind === 'eq') { d.className = 'eq-block'; d.setAttribute('dir', 'ltr'); d.innerHTML = eqHtml(b.value); enhanceEq(d, b.value); }
     else { d.className = 'step-text'; d.innerHTML = isolateFormulasHtml(b.value); }
     el.append(d);
   }
