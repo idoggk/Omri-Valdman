@@ -7,6 +7,7 @@ import { viewExam } from './exam-ui.js';
 import * as practice from './practice-ui.js';
 import * as drills from './drills-ui.js';
 import * as hunt from './findmistake-ui.js';
+import * as multipart from './multipart.js';
 import * as backup from './backup.js';
 import * as summary from './summary.js';
 import * as endless from './endless-ui.js';
@@ -197,6 +198,7 @@ function route() {
     else if (name === 'repair') repair.viewRepairRoute(examCtx, args[0]);
     else if (name === 'checkpoints') checkpoints.viewCheckpointsRoute(examCtx, args[0]);
     else if (name === 'hunt') hunt.viewHunt(examCtx, args[0]);
+    else if (name === 'multipart') multipart.viewMultipart(examCtx, args[0]);
     else if (name === 'workout') viewWorkoutRoute(args[0]);
     else if (name === 'exam') viewExam(examCtx, args[0]);
     else if (name === 'review-start') {
