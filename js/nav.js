@@ -102,7 +102,7 @@ export function viewHome(ctx, loadErrors = []) {
           cont ? h('p', {}, h('a', { href: cont }, 'להמשיך מאיפה שעצרתם')) : null]
         : h('span', { class: 'muted' }, 'אין תרגילים זמינים לאימון.')),
     ctx.exercises.length ? repair.homeCard(ctx) : null,
-    h('div', { class: 'cards' }, tile('#/trig', '📐 זהויות טריגונומטריות', 'שלושה עוגנים וכל השאר נגזר: שיעורים, כרטיסיות זכירה, תרגול ומאמן הוכחות')));
+    h('p', {}, h('a', { href: '#/trig' }, '📐 זהויות טריגונומטריות: שלושה עוגנים וכל השאר נגזר')));
 }
 
 /* ---------- practice hub (תרגול) ---------- */
