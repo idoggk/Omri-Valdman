@@ -8,6 +8,8 @@ import {
   recurringReasons, currentStreak, last7Days, reasonLabel,
 } from './srs.js';
 import { pickWorkout } from './workout.js';
+import { loadFeedback } from './feedback.js';
+import { loadLadder } from './ladder.js';
 import { trapAccuracySection } from './drills-ui.js';
 import { findMistakeSection } from './findmistake-ui.js';
 import { endlessSection } from './endless-ui.js';
@@ -28,8 +30,13 @@ export function workoutMix(log, exercises, now, ids) {
   return mix;
 }
 
-export function startWorkout(exercises, now = Date.now()) {
-  const ids = pickWorkout(store.getAttempts(), exercises, now, WORKOUT_SIZE);
+/** Inputs of the workout picker that live outside the attempt log: difficulty feedback and the ladder stages. */
+export function workoutOpts(ladder) {
+  return { feedback: loadFeedback(), ladder: Array.isArray(ladder) ? ladder : null, skip: loadLadder().skip };
+}
+
+export function startWorkout(exercises, now = Date.now(), ladder = null) {
+  const ids = pickWorkout(store.getAttempts(), exercises, now, WORKOUT_SIZE, workoutOpts(ladder));
   if (!ids.length) return false;
   store.saveWorkout({ ids, startedAt: now });
   return true;
@@ -46,7 +53,7 @@ export function workoutResults(workout, log) {
 export function homeCard(ctx) {
   const exercises = ctx.exercises;
   const now = Date.now();
-  const ids = pickWorkout(store.getAttempts(), exercises, now, WORKOUT_SIZE);
+  const ids = pickWorkout(store.getAttempts(), exercises, now, WORKOUT_SIZE, workoutOpts(ctx.ladder));
   const mix = workoutMix(store.getAttempts(), exercises, now, ids);
   const stat = (n, label) => h('li', {}, h('strong', {}, String(n)), ' ', label);
   return h('section', { class: 'card workout-card', 'aria-labelledby': 'workout-h' },

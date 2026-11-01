@@ -72,6 +72,11 @@ async function loadData() {
     }
   }));
   exercises = results.flat();
+  try { // ladder stages feed a share of the daily workout; the app works without them
+    const res = await fetch('data/ladder.json', { cache: 'no-cache' });
+    const data = res.ok ? await res.json() : null;
+    if (data && Array.isArray(data.stages)) examCtx.ladder = data.stages;
+  } catch (err) { /* offline without the file: workout simply skips the ladder share */ }
 }
 
 /* ---------- views ---------- */
@@ -152,11 +157,12 @@ const examCtx = {
   diagramFigure: (ex) => diagramFigure(ex),
   topicOf: (id) => topicOf(id),
   renderExercise: (ex, o) => renderExercise(ex, o),
+  ladder: null,
 };
 
 function viewWorkoutRoute(arg) {
   if (arg === 'start') {
-    location.replace(practice.startWorkout(exercises) ? '#/workout/1' : '#/');
+    location.replace(practice.startWorkout(exercises, Date.now(), examCtx.ladder) ? '#/workout/1' : '#/');
     return;
   }
   if (arg === 'summary') return practice.viewWorkoutSummary(examCtx);

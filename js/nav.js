@@ -3,8 +3,9 @@
 import { h } from './dom.js';
 import * as store from './store.js';
 import { weakTopics } from './srs.js';
-import { workoutMix, workoutResults, WORKOUT_SIZE } from './practice-ui.js';
-import { pickWorkout } from './workout.js';
+import { workoutMix, workoutResults, workoutOpts, WORKOUT_SIZE } from './practice-ui.js';
+import { pickWorkout, levelLine } from './workout.js';
+import { loadFeedback } from './feedback.js';
 import { openFormulaSheet } from './sheet.js';
 import * as repair from './skills-ui.js';
 
@@ -82,7 +83,10 @@ export function viewHome(ctx, loadErrors = []) {
   document.title = 'Brain Gains – היום';
   const log = store.getAttempts();
   const now = Date.now();
-  const ids = ctx.exercises.length ? pickWorkout(log, ctx.exercises, now, WORKOUT_SIZE) : [];
+  const fb = loadFeedback();
+  const ids = ctx.exercises.length ? pickWorkout(log, ctx.exercises, now, WORKOUT_SIZE, workoutOpts(ctx.ladder)) : [];
+  const title = (t) => (ctx.topics.find((x) => x.id === t) || { title: t }).title;
+  const lvlLine = ctx.exercises.length ? levelLine(log, ctx.exercises, fb, title) : '';
   const mix = workoutMix(log, ctx.exercises, now, ids);
   const weak = ctx.exercises.length ? weakTopics(log, ctx.exercises).filter((t) => t.score < 0.8).length : 0;
   const cont = ids.length ? continueHref(store.loadWorkout(), log, (id) => ctx.byId(id)) : null;
@@ -93,6 +97,7 @@ export function viewHome(ctx, loadErrors = []) {
       h('strong', { id: 'today-h' }, 'האימון של היום'),
       ids.length
         ? [h('p', { class: 'muted' }, planLine(mix, weak)),
+          lvlLine ? h('p', { class: 'muted workout-level' }, lvlLine) : null,
           h('a', { class: 'btn primary cta', href: '#/workout/start' }, 'מתחילים אימון'),
           cont ? h('p', {}, h('a', { href: cont }, 'להמשיך מאיפה שעצרתם')) : null]
         : h('span', { class: 'muted' }, 'אין תרגילים זמינים לאימון.')),
