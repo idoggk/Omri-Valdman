@@ -3,7 +3,7 @@
 // A wrong part whose value equals the part's formula applied to the student's OWN earlier answers is
 // "carried forward": the method was right, only an earlier result was off.
 import { h } from './dom.js';
-import { sanitizeHtml } from './sanitize.js';
+import { sanitizeHtml, sanitizeSvg } from './sanitize.js';
 import { isolateTitle, isolateFormulasHtml } from './bidi.js';
 import { feedbackCard } from './feedback-ui.js';
 
@@ -14,7 +14,7 @@ export const LETTERS = { a: 'א', b: 'ב', c: 'ג', d: 'ד', e: 'ה', f: 'ו' };
 export const CHECKLIST = ['נתונים: כתבתי את כל הנתונים והנעלמים עם יחידות', 'צירים וסימנים: קבעתי כיוון חיובי (y למעלה) ושמתי סימן לכל רכיב',
   'משוואה: כתבתי את הנוסחה לפני שהצבתי מספרים', 'הצבה: הצבתי את הערכים (גם מסעיף קודם) וחישבתי', 'יחידות: ווידאתי שיחידות התשובה נכונות ושהיא הגיונית'];
 
-/* ---------- formula evaluation (no eval): numbers, names, + - * / ^, unary -, sqrt(), abs(), parentheses ---------- */
+/* ---------- formula evaluation (no eval): numbers, names, + - * / ^, unary -, sqrt(), abs(), atand() (degrees), parentheses ---------- */
 export function evalFormula(src, vars) {
   const toks = String(src).match(/\d+\.?\d*|[A-Za-z_]\w*|[-+*/^(),]|\S/g) || [];
   let i = 0;
@@ -32,6 +32,7 @@ export function evalFormula(src, vars) {
         take(')');
         if (t === 'sqrt') return Math.sqrt(v);
         if (t === 'abs') return Math.abs(v);
+        if (t === 'atand') return (Math.atan(v) * 180) / Math.PI; // angle in degrees
         throw new Error(`unknown function ${t}`);
       }
       if (!Object.prototype.hasOwnProperty.call(vars, t) || !Number.isFinite(vars[t])) throw new Error(`unknown variable ${t}`);
@@ -96,7 +97,7 @@ export function validQuestion(q) {
   return q && typeof q.id === 'string' && typeof q.stem === 'string' && q.given && typeof q.given === 'object'
     && Array.isArray(q.parts) && q.parts.length >= 2
     && q.parts.every((p) => p && typeof p.id === 'string' && typeof p.ask === 'string' && Number.isFinite(p.answer)
-      && Array.isArray(p.uses) && typeof p.formula === 'string' && typeof p.solution === 'string');
+      && Array.isArray(p.uses) && typeof p.formula === 'string' && (typeof p.solution === 'string' || (Array.isArray(p.solution) && p.solution.length > 0 && p.solution.every((x) => typeof x === 'string'))));
 }
 
 /* ---------- saved attempts: { v:1, items: { id: { attempts, best, last: {partId: status}, ts } } } ---------- */
@@ -148,7 +149,19 @@ export async function loadMultipartData(fetchFn = (u, o) => fetch(u, o)) {
 const TITLE = '🧮 שאלה בכמה סעיפים';
 const rich = (tag, html, attrs = {}) => h(tag, { ...attrs, rawhtml: isolateFormulasHtml(sanitizeHtml(String(html ?? ''))) });
 const crumbs = (href = '#/practice-hub', label = '→ חזרה לתרגול') => h('p', { class: 'crumbs' }, h('a', { href }, label));
+const stepsOf = (s) => (Array.isArray(s) ? s : [s]);
+/** Optional pre-generated SVG (tools/diagrams.mjs) as a sanitized figure, or null. */
+function figureEl(svg, label) {
+  const clean = typeof svg === 'string' ? sanitizeSvg(svg) : '';
+  return clean ? h('figure', { class: 'diagram', role: 'img', 'aria-label': label, html: clean }) : null;
+}
 const fmt = (n) => String(Math.round(n * 100) / 100);
+export const TIERS = [
+  { id: 'warmup', label: 'חימום', badge: 'חימום', note: 'שאלות קצרות להתחלה: גוף אחד, 4-5 סעיפים.' },
+  { id: 'exam', label: 'רמת מבחן', badge: 'רמת מבחן', note: 'שאלות כמו במבחן המכינה: 5-6 סעיפים שנשענים זה על זה, שני גופים, גרפים וזוויות. מסודרות מהקל אל הקשה: השאלה האחרונה היא הקשה ביותר.' },
+];
+/** Questions without a tier field are warm-up. */
+export const tierOf = (q) => (q && q.tier === 'exam' ? 'exam' : 'warmup');
 const GIVEN_LABELS = { v0: ['v₀', "מ'/ש"], h0: ['h₀', "מ'"], H: ['H', "מ'"], t1: ['t', "ש'"], g: ['g', "מ'/ש²"] };
 
 export async function viewMultipart(ctx, id) {
@@ -168,21 +181,28 @@ function list(ctx, data) {
   const saved = loadSaved().items;
   ctx.show(crumbs(), h('h1', {}, TITLE),
     h('p', { class: 'muted' }, 'שאלות מבחן ארוכות: כל סעיף נשען על תוצאות של סעיפים קודמים. טעות שעוברת הלאה מקבלת קרדיט על השיטה.'),
-    h('ul', { class: 'ex-list' }, data.map((x) => {
-      const s = saved[x.id];
-      const full = s && s.best >= x.parts.length;
-      return h('li', {}, h('a', { class: 'ex-item', href: `#/multipart/${x.id}` },
-        h('span', { class: 't' }, isolateTitle(x.title || x.id)),
-        h('span', { class: `tick o-${full ? 'alone' : 'none'}`, role: 'img', 'aria-label': s ? `שיא ${fmt(s.best)} מתוך ${x.parts.length}` : 'טרם נפתר' },
-          s ? `${fmt(s.best)}/${x.parts.length}` : '○')));
-    })));
+    ...TIERS.map((tier) => {
+      const items = data.filter((x) => tierOf(x) === tier.id);
+      if (!items.length) return null;
+      return h('section', { 'aria-label': tier.label },
+        h('h2', {}, tier.label), h('p', { class: 'muted' }, tier.note),
+        h('ul', { class: 'ex-list' }, items.map((x) => {
+          const s = saved[x.id];
+          const full = s && s.best >= x.parts.length;
+          return h('li', {}, h('a', { class: 'ex-item', href: `#/multipart/${x.id}` },
+            h('span', { class: 't' }, isolateTitle(x.title || x.id)),
+            h('span', { class: 'muted' }, `${tier.badge} · ${x.parts.length} סעיפים`),
+            h('span', { class: `tick o-${full ? 'alone' : 'none'}`, role: 'img', 'aria-label': s ? `שיא ${fmt(s.best)} מתוך ${x.parts.length}` : 'טרם נפתר' },
+              s ? `${fmt(s.best)}/${x.parts.length}` : '○')));
+        })));
+    }));
 }
 
 function givensLine(q) {
   const items = [];
   for (const [k, v] of Object.entries(q.given)) {
     if (k === 'sin' || k === 'cos') continue;
-    const [sym, unit] = GIVEN_LABELS[k] || [k, ''];
+    const [sym, unit] = (q.givenLabels && q.givenLabels[k]) || GIVEN_LABELS[k] || [k, ''];
     items.push(h('span', { dir: 'ltr', class: 'chip' }, `${sym} = ${v}${unit ? ' ' + unit : ''}`));
   }
   return h('p', {}, h('strong', {}, 'נתונים: '), items.flatMap((x, i) => (i ? [' ', x] : [x])));
@@ -230,7 +250,7 @@ function runQuestion(ctx, data, q) {
         wrong: ['bad', value == null ? 'הנה הפתרון.' : 'לא מדויק. ראו את הפתרון.'],
       }[status];
       out.replaceChildren(h('div', { class: `feedback ${msg[0]}`, role: status === 'wrong' ? 'alert' : 'status' }, msg[1]));
-      if (status !== 'correct') out.append(h('div', { class: 'panel' }, h('strong', {}, 'פתרון: '), h('div', { steps: p.solution }),
+      if (status !== 'correct') out.append(h('div', { class: 'panel' }, h('strong', {}, 'פתרון: '), ...stepsOf(p.solution).map((st) => h('div', { steps: st })), figureEl(p.diagram, `סרטוט הפתרון לסעיף ${LETTERS[p.id] || p.id}`),
         h('p', { dir: 'ltr', class: 'muted' }, `${LETTERS[p.id] || p.id} = ${fmt(p.answer)}${p.unit ? ' ' + p.unit : ''}`)));
       if (i + 1 < q.parts.length) revealPart(i + 1); else finish();
     }
@@ -264,5 +284,5 @@ function runQuestion(ctx, data, q) {
 
   revealPart(0);
   ctx.show(crumbs('#/multipart', '→ לרשימת השאלות'), h('h1', {}, isolateTitle(q.title || q.id)),
-    rich('p', q.stem), givensLine(q), checklist, partsBox, summaryBox);
+    rich('p', q.stem), figureEl(q.diagram, q.title || q.id), givensLine(q), checklist, partsBox, summaryBox);
 }

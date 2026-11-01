@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { installFakeDom } from './fake-dom.mjs';
-import { validate, physics } from '../tools/verify-multipart.mjs';
+import { validate, physics, bodyModel, roots } from '../tools/verify-multipart.mjs';
 
 const dom = installFakeDom();
 const M = await import('../js/multipart.js');
@@ -86,7 +86,12 @@ test('offline: friendly error and retry', async () => {
 test('list screen links every question', async () => {
   M.resetMultipartCache();
   await M.viewMultipart(ctx);
-  assert.equal(dom.root.all((n) => n.tagName === 'A' && (n.getAttribute('href') || '').startsWith('#/multipart/')).length, 8);
+  assert.equal(dom.root.all((n) => n.tagName === 'A' && (n.getAttribute('href') || '').startsWith('#/multipart/')).length, 22);
+  assert.match(text(), /חימום/);
+  assert.match(text(), /רמת מבחן/);
+  const hrefs = dom.root.all((n) => n.tagName === 'A' && (n.getAttribute('href') || '').startsWith('#/multipart/')).map((a) => a.getAttribute('href'));
+  assert.equal(hrefs[8], '#/multipart/mp-9'); // warm-up first, exam level after, hardest last
+  assert.equal(hrefs[21], '#/multipart/mp-22');
 });
 
 test('flow: wrong first part carries into method credit; checklist shown; attempt saved', async () => {
@@ -135,7 +140,7 @@ test('verifier failure injection', () => {
   assert.ok(inject((q) => { q.parts[3].answer = 45.123; }).some((m) => /2 places/.test(m)));
   assert.ok(inject((q) => { q.parts[0].ask = 'english'; }).some((m) => /Hebrew/.test(m)));
   assert.ok(inject((q) => { q.given.g = 9.8; }).some((m) => /g must be 10/.test(m)));
-  assert.ok(validate(load().slice(1)).some((m) => /expected 8/.test(m)));
+  assert.ok(validate(load().slice(1)).some((m) => /expected 22/.test(m)));
 });
 
 test('route and hub tile', () => {
@@ -143,4 +148,59 @@ test('route and hub tile', () => {
   assert.deepEqual(nav.resolveRoute('#/multipart/mp-3'), { name: 'multipart', args: ['mp-3'] });
   nav.viewHub({ ...ctx, topics: [{ id: 'math-3', title: 'x' }], exercises: [] });
   assert.ok(dom.root.all((n) => n.tagName === 'A').some((a) => a.getAttribute('href') === '#/multipart'));
+});
+
+test('tiers: 8 warm-up then 14 exam, each exam question has 5-6 lettered parts with step lists', () => {
+  assert.deepEqual(data.slice(0, 8).map((q) => q.tier), Array(8).fill('warmup'));
+  const exam = data.slice(8);
+  assert.equal(exam.length, 14);
+  for (const q of exam) {
+    assert.equal(q.tier, 'exam');
+    assert.ok(q.parts.length >= 5 && q.parts.length <= 6, q.id);
+    assert.ok(q.parts.every((p) => Array.isArray(p.solution) && p.solution.length >= 2), q.id);
+    assert.ok(q.parts.filter((p) => p.uses.length).length >= 4, q.id);
+  }
+  assert.ok(exam.filter((q) => q.diagram).length >= 12);
+  assert.ok(exam.some((q) => q.parts.some((p) => p.diagram))); // sketch self-check graph shown with the solution
+});
+
+test('numeric engine: meetings, landings, second angle (independent of closed forms)', () => {
+  const cars = bodyModel({ bodies: [{ vx: 4, ax: 2 }, { x0: 30, ax: 4, t0: 3 }] });
+  assert.ok(Math.abs(cars.val({ k: 'meet', b: [0, 1], n: 1 }) - 4) < 1e-6);
+  assert.ok(Math.abs(cars.val({ k: 'meet', b: [0, 1], n: 2 }) - 12) < 1e-6);
+  assert.ok(Number.isNaN(cars.val({ k: 'meet', b: [0, 1], n: 3 })));
+  const ball = bodyModel({ bodies: [{ y0: 45, vy: 12.5, ay: -10 }] });
+  assert.ok(Math.abs(ball.val({ k: 'land', b: 0 }) - 4.5) < 1e-6);
+  const shotM = bodyModel({ bodies: [{ y0: 1.7, vx: 8, vy: 6, ay: -10 }] });
+  assert.ok(Math.abs(shotM.val({ k: 'altAngle', b: 0, target: [7.2, 3.05] }) - 63.75) < 0.01);
+  assert.deepEqual(roots((x) => x - 1, 0, 3).map((r) => Math.round(r)), [1]);
+});
+
+test('formula atand and carried angle', () => {
+  assert.ok(Math.abs(M.evalFormula('atand(1)', {}) - 45) < 1e-9);
+  const q = byId('mp-21');
+  const e = q.parts.find((p) => p.id === 'e');
+  assert.equal(M.classifyPart(q, e, 20.56, { a: 10, d: -3 }), 'correct');
+  assert.equal(M.classifyPart(q, e, 14.04, { a: 10, d: -2 }), 'carried'); // atand(2/8) = 14.04
+});
+
+test('exam flow: a full question renders its diagram and finishes', async () => {
+  dom.store.clear();
+  M.resetMultipartCache();
+  await M.viewMultipart(ctx, 'mp-12');
+  assert.ok(dom.root.all((n) => n.tagName === 'FIGURE').length >= 1);
+  for (const v of ['21', '9', '8', '16', '4', '12']) { inputs()[0].value = v; press('בדיקה'); }
+  assert.match(text(), /6 מתוך 6 נקודות/);
+  assert.deepEqual(Object.values(M.loadSaved().items['mp-12'].last), Array(6).fill('correct'));
+});
+
+test('verifier failure injection on exam questions', () => {
+  const inject = (mutate) => { const c = load(); mutate(c[11]); return validate(c); }; // mp-12 cars
+  assert.ok(inject((q) => { q.parts[4].answer = 5; }).some((m) => /independent physics|formula/.test(m)));
+  assert.ok(inject((q) => { q.model.bodies[1].ax = 3; }).some((m) => /independent physics/.test(m)));
+  assert.ok(inject((q) => { q.diagram = q.diagram.replace('30', '31'); }).some((m) => /stale/.test(m)));
+  assert.ok(inject((q) => { q.tier = 'warmup'; }).length > 0);
+  const c = load();
+  c[16].parts[1].answer = -31; // mp-17 vy
+  assert.ok(validate(c).some((m) => /independent physics/.test(m)));
 });
