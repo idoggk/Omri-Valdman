@@ -1,0 +1,15 @@
+{
+  "app": "brain-gains",
+  "version": 1,
+  "records": [
+    {"id": "a1", "ts": 1, "exerciseId": "phys-vertical-001", "topic": "phys-vertical", "level": 3, "rating": 9, "hardTags": ["diagram", "time"], "correct": false, "hintsUsed": 1},
+    {"id": "a2", "ts": 2, "exerciseId": "phys-vertical-001", "topic": "phys-vertical", "rating": 10, "hardTags": ["time"], "correct": true},
+    {"id": "a3", "ts": 3, "exerciseId": "phys-vertical-002", "topic": "phys-vertical", "rating": 8, "hardTags": ["signs"], "correct": false},
+    {"id": "b1", "ts": 4, "exerciseId": "math-3-001", "topic": "math-3", "rating": 2, "hardTags": [], "correct": true},
+    {"id": "b2", "ts": 5, "exerciseId": "math-3-001", "topic": "math-3", "rating": 1, "correct": true},
+    {"id": "b3", "ts": 6, "exerciseId": "math-3-002", "topic": "math-3", "rating": 3, "hardTags": ["algebra"], "correct": false},
+    {"id": "c1", "ts": 7, "exerciseId": "math-4-001", "rating": 6, "hardTags": ["algebra", "calc"]},
+    {"id": "bad1", "exerciseId": "x"},
+    "garbage"
+  ]
+}
