@@ -8,6 +8,7 @@ import { validAnswerSets } from './answersets.js';
 import { diagramFigure, badge } from './exercise-view.js';
 import { gradeQuestion, isBlank, formatClock, createTicker } from './exam.js';
 import * as store from './store.js';
+import { safeSetItem } from './storage.js';
 import { feedbackCard } from './feedback-ui.js';
 
 export const CONF_KEY = 'omri-study-confidence-v1';
@@ -83,7 +84,7 @@ export function sanitizeConf(raw) {
 export function loadConf() {
   try { return sanitizeConf(JSON.parse(localStorage.getItem(CONF_KEY))); } catch (e) { return sanitizeConf(null); }
 }
-function saveConf(d) { try { localStorage.setItem(CONF_KEY, JSON.stringify(d)); } catch (e) { /* ignore */ } }
+function saveConf(d) { safeSetItem(CONF_KEY, JSON.stringify(d)); }
 export function recordConf(rec) {
   const d = loadConf();
   d.recs.push(sanitizeConf({ recs: [rec] }).recs[0]);

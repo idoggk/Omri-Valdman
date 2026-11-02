@@ -4,6 +4,7 @@
 // A stage item is either { ref } (an exercise of data/physics.json, progress in the main store) or an INLINE exercise
 // object with its own id (progress in this module's key, under "items", in the shape of progress.js).
 import * as P from './progress.js';
+import { safeSetItem } from './storage.js';
 
 export const LADDER_KEY = 'omri-study-ladder-v1';
 export const UNLOCK_RATIO = 0.7;
@@ -26,7 +27,7 @@ export function sanitizeLadder(raw) {
 export function loadLadder() {
   try { return sanitizeLadder(JSON.parse(localStorage.getItem(LADDER_KEY))); } catch (e) { return sanitizeLadder(null); }
 }
-const save = (d) => { try { localStorage.setItem(LADDER_KEY, JSON.stringify(d)); } catch (e) { /* ignore */ } };
+const save = (d) => { safeSetItem(LADDER_KEY, JSON.stringify(d)); };
 export function setSkip(stageId, on = true) {
   const d = loadLadder();
   if (on) d.skip[stageId] = true; else delete d.skip[stageId];

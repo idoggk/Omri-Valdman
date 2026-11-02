@@ -5,6 +5,7 @@
 // Examples come from data/examples.json (unchanged); data/fading.json says which steps are key steps and what
 // checkable value each one has. Stage completion lives in its own storage key.
 import { h } from './dom.js';
+import { safeSetItem } from './storage.js';
 import { isolateFormulas, isolateTitle, ltrIsolate } from './bidi.js';
 import { isCorrect } from './check.js';
 import { sanitizeHtml } from './sanitize.js';
@@ -57,7 +58,7 @@ export function recordStage(id, stage, revealed = 0) {
   rec.revealed[i] = nonneg(revealed);
   rec.ts = Date.now();
   d.items[id] = rec;
-  try { localStorage.setItem(FADING_KEY, JSON.stringify(d)); } catch (e) { /* ignore */ }
+  safeSetItem(FADING_KEY, JSON.stringify(d));
 }
 const doneCount = (rec) => (rec ? rec.done.filter(Boolean).length : 0);
 

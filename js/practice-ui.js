@@ -5,9 +5,10 @@ import { isolateTitle } from './bidi.js';
 import * as store from './store.js';
 import {
   ERROR_REASONS, dueReviews, schedules, weakTopics, levelInfo, topicStats,
-  recurringReasons, currentStreak, last7Days, reasonLabel,
+  recurringReasons, currentStreak, last7Days, reasonLabel, withVirtual,
 } from './srs.js';
 import { pickWorkout } from './workout.js';
+import { topicsWithEngine, topicTitle, itemHref } from './engine.js';
 import { loadFeedback } from './feedback.js';
 import { loadLadder } from './ladder.js';
 import { trapAccuracySection } from './drills-ui.js';
@@ -135,7 +136,9 @@ export function viewProgress(ctx) {
   const streak = currentStreak(log, now);
   const week = last7Days(log, now);
   const max = Math.max(1, ...week.map((d) => d.attempts));
-  const stats = topicStats(log, exercises);
+  const all = withVirtual(exercises, log);
+  const stats = topicStats(log, all);
+  const allTopics = topicsWithEngine(ctx.topics, log);
 
   const bars = h('div', { class: 'week', role: 'img', 'aria-label': `פעילות ב-7 הימים האחרונים: ${week.map((d) => d.attempts).join(', ')}` },
     week.map((d) => h('div', { class: 'day' },
@@ -154,11 +157,21 @@ export function viewProgress(ctx) {
       h('div', { class: 'progress-bar', role: 'img', 'aria-label': `שליטה ${pct}%` }, h('span', { style: `width:${pct}%` })));
   });
 
+  // standalone modes (hard math, multipart, trig, logs): no fixed exercise list, so show what was practiced
+  for (const t of allTopics.slice(ctx.topics.length)) {
+    const s = stats[t.id];
+    if (s) topicRows.push(h('li', { class: 'topic-row' }, h('strong', {}, isolateTitle(t.title)),
+      h('span', { class: 'muted' }, `${s.exercises} פריטים · נפתרו לבד ${Math.round(s.aloneRate * 100)}% · דיוק ${Math.round(s.accuracy * 100)}%`)));
+  }
+  const known = new Set(exercises.map((e) => e.id));
+  const topicOfId = new Map(log.filter((a) => a.topic).map((a) => [a.exerciseId, a.topic]));
+  const dueExtra = dueReviews(log, now).filter((id) => !known.has(id) && itemHref(id, topicOfId.get(id))).slice(0, 8);
+
   const reasons = recurringReasons(log);
-  const weakest = weakTopics(log, exercises)[0];
+  const weakest = weakTopics(log, all)[0];
   let target;
   if (weakest) {
-    const t = ctx.topics.find((x) => x.id === weakest.topic);
+    const t = allTopics.find((x) => x.id === weakest.topic);
     const lvl = levelInfo(log, exercises.filter((e) => e.topic === weakest.topic)).suggested;
     target = `כדאי להמשיך עם "${t ? t.title : weakest.topic}"${lvl ? `, רמה ${lvl}` : ''}.`;
   } else target = 'התחילו אימון ראשון כדי לקבל המלצה.';
@@ -169,6 +182,10 @@ export function viewProgress(ctx) {
     h('div', { class: 'panel' }, h('strong', {}, `🔥 רצף: ${streak} ${streak === 1 ? 'יום' : 'ימים'}`)),
     h('h2', {}, '7 הימים האחרונים'), bars,
     h('h2', {}, 'שליטה לפי נושא'), h('ul', { class: 'topic-list' }, topicRows),
+    dueExtra.length ? h('section', { 'aria-label': 'חזרות מתוזמנות' },
+      h('h2', {}, 'חזרות שהגיע זמנן'),
+      h('ul', { class: 'ex-list' }, dueExtra.map((id) => h('li', {}, h('a', { class: 'ex-item', href: itemHref(id, topicOfId.get(id)) },
+        h('span', { class: 't' }, isolateTitle(topicTitle(topicOfId.get(id)) || id)), h('span', { class: 'muted' }, id)))))) : null,
     h('h2', {}, 'סיבות חוזרות לטעויות'),
     reasons.length
       ? h('ul', { class: 'reasons' }, reasons.map((r) => h('li', {}, `${reasonLabel(r.reason)}: ${r.count}`)))

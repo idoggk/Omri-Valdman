@@ -3,6 +3,8 @@
 // numbers, a b t pi, the degree sign, + - * / ^, superscripts ² ³ ⁴, implicit multiplication,
 // sin cos tan cot sec csc sqrt (always with parentheses). Angles are radians; t is tan(a/2).
 
+import { safeSetItem } from './storage.js';
+
 export const KEY = 'omri-study-trig-v1';
 export const DAY_MS = 86400000;
 export const BOX_DAYS = [0, 1, 2, 4, 8, 16]; // days until due, indexed by Leitner box 0..5
@@ -226,5 +228,5 @@ export function loadState(storage = globalThis.localStorage) {
   try { return sanitizeState(JSON.parse(storage.getItem(KEY))); } catch (e) { return emptyState(); }
 }
 export function saveState(state, storage = globalThis.localStorage) {
-  try { storage.setItem(KEY, JSON.stringify(state)); return true; } catch (e) { return false; }
+  return safeSetItem(KEY, JSON.stringify(state), storage);
 }

@@ -3,6 +3,9 @@
 // A wrong part whose value equals the part's formula applied to the student's OWN earlier answers is
 // "carried forward": the method was right, only an earlier result was off.
 import { h } from './dom.js';
+import { safeSetItem } from './storage.js';
+import * as store from './store.js';
+import { MULTIPART_TOPIC, multipartOutcome } from './engine.js';
 import { sanitizeHtml, sanitizeSvg } from './sanitize.js';
 import { isolateTitle, isolateFormulasHtml } from './bidi.js';
 import { feedbackCard } from './feedback-ui.js';
@@ -125,7 +128,7 @@ export function recordAttempt(id, statuses) {
   const it = d.items[id] || (d.items[id] = { attempts: 0, best: 0, last: {}, ts: 0 });
   it.attempts++; it.last = { ...statuses }; it.ts = Date.now();
   it.best = Math.max(it.best, pointsOf(statuses));
-  try { localStorage.setItem(KEY, JSON.stringify(d)); } catch (e) { /* ignore */ }
+  safeSetItem(KEY, JSON.stringify(d));
   return it;
 }
 
@@ -235,7 +238,7 @@ function runQuestion(ctx, data, q) {
     const out = h('div', { 'aria-live': 'polite' });
     const uses = p.uses.length ? h('p', { class: 'muted' }, `נשען על סעיף: ${p.uses.map((u) => LETTERS[u] || u).join(', ')}`) : null;
     const checkBtn = h('button', { class: 'btn primary', type: 'button', style: 'min-height:44px' }, 'בדיקה');
-    const skipBtn = h('button', { class: 'btn', type: 'button', style: 'min-height:44px' }, 'אין לי תשובה: הציגו פתרון');
+    const skipBtn = h('button', { class: 'btn', type: 'button', style: 'min-height:44px' }, 'אין לי תשובה, להציג פתרון');
     const box = h('section', { class: 'panel', 'aria-label': `סעיף ${LETTERS[p.id] || p.id}` },
       h('p', {}, h('strong', {}, `${LETTERS[p.id] || p.id}. `), rich('span', p.ask)), uses,
       h('div', { class: 'btn-row' }, input, p.unit ? h('span', { class: 'muted' }, p.unit) : null, checkBtn, skipBtn), out);
@@ -246,7 +249,7 @@ function runQuestion(ctx, data, q) {
       input.disabled = true; checkBtn.disabled = true; skipBtn.disabled = true;
       const msg = {
         correct: ['ok', 'נכון!'],
-        carried: ['ok', `שגיאה מועברת: השיטה נכונה. הערך שהצבתם מסעיף קודם שגוי, ובהצבתו הגעתם לתוצאה נכונה לפיו. התשובה הנכונה: ${fmt(p.answer)}${p.unit ? ' ' + p.unit : ''} (ניקוד חלקי).`],
+        carried: ['ok', `שגיאה מועברת: השיטה נכונה, אבל הסעיף נשען על ערך שגוי מסעיף קודם. התשובה שלכם מתאימה לערך הזה, ולכן יש ניקוד חלקי. התשובה הנכונה: ${fmt(p.answer)}${p.unit ? ' ' + p.unit : ''}.`],
         wrong: ['bad', value == null ? 'הנה הפתרון.' : 'לא מדויק. ראו את הפתרון.'],
       }[status];
       out.replaceChildren(h('div', { class: `feedback ${msg[0]}`, role: status === 'wrong' ? 'alert' : 'status' }, msg[1]));
@@ -266,6 +269,7 @@ function runQuestion(ctx, data, q) {
 
   function finish() {
     recordAttempt(q.id, statuses);
+    store.recordAttempt({ exerciseId: q.id, topic: MULTIPART_TOPIC, outcome: multipartOutcome(statuses), hintsUsed: 0, seconds: Math.round((Date.now() - t0) / 1000) });
     const pts = pointsOf(statuses);
     const last = q.parts[q.parts.length - 1];
     const finalOk = statuses[last.id] === 'correct';

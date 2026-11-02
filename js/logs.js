@@ -3,6 +3,7 @@
 // Shared by js/logs-ui.js, tools/verify-logs.mjs and tests/logs.test.mjs.
 // Source syntax in the data: log_2(x), log_x(x+2), log_(1/2)(x), lg(x) = log_10, ln(x) = log_e, |x| for absolute value.
 import { compileExpr, parseRelation } from './mathhard.js';
+import { safeSetItem } from './storage.js';
 import {
   emptyState, sanitizeState, gradeCard, dueCards, requeueGap, boxCounts, MAX_BOX,
 } from './trig.js';
@@ -112,7 +113,7 @@ export function loadCards(storage = globalThis.localStorage) {
   try { return sanitizeState(JSON.parse(storage.getItem(LOGS_KEY))); } catch (e) { return emptyState(); }
 }
 export function saveCards(state, storage = globalThis.localStorage) {
-  try { storage.setItem(LOGS_KEY, JSON.stringify(state)); return true; } catch (e) { return false; }
+  return safeSetItem(LOGS_KEY, JSON.stringify(state), storage);
 }
 
 /** Typical-wrong-answer / structural feedback for the hub: how many exercises per tier. */

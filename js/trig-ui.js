@@ -2,6 +2,8 @@
 // drills with a numeric spot check, and a step-by-step proof trainer. Logic lives in trig.js, content in trig-data.js.
 import { h } from './dom.js';
 import { feedbackCard } from './feedback-ui.js';
+import * as store from './store.js';
+import { TRIG_TOPIC, visitOutcome } from './engine.js';
 import { LESSONS, CARDS, FILL, WRONG, PROOFS, CHAIN } from './trig-data.js';
 import {
   loadState, saveState, gradeCard, dueCards, requeueGap, boxCounts, recordDrill, recordProof, pickDrills,
@@ -156,6 +158,7 @@ function viewCards(ctx) {
         reveal, answer, grade));
   }
   function finish() {
+    store.recordAttempt({ exerciseId: 'trig-cards', topic: TRIG_TOPIC, outcome: wrong === 0 ? 'alone' : 'hinted', hintsUsed: 0, seconds: Math.round((Date.now() - t0) / 1000) });
     box.replaceChildren(
       h('div', { class: 'feedback ok', role: 'status' }, `סיימנו: ${right} נכונות, ${wrong} טעויות (חזרו לתור עד שנזכרו).`),
       feedbackCard({
@@ -215,6 +218,8 @@ function viewDrill(ctx) {
     box.replaceChildren(h('p', { class: 'muted' }, `${i + 1} מתוך ${items.length}`), h('section', { class: 'panel' }, ...body, out));
   }
   function finish() {
+    const outcome = right === items.length && !hints ? 'alone' : right >= items.length * 0.7 ? 'hinted' : 'wrong';
+    store.recordAttempt({ exerciseId: 'trig-drill', topic: TRIG_TOPIC, outcome, hintsUsed: hints, seconds: Math.round((Date.now() - t0) / 1000) });
     box.replaceChildren(
       h('div', { class: `feedback ${right === items.length ? 'ok' : 'bad'}`, role: 'status' }, `${right} מתוך ${items.length} נכונות.`),
       h('p', { class: 'muted' }, 'הרגל טוב: לפני שסומכים על זהות, מציבים a = 30° ובודקים שני צדדים.'),
@@ -291,6 +296,7 @@ function viewProof(ctx, id) {
   function finish() {
     recordProof(state, p.id, { mistakes, hints });
     saveState(state);
+    store.recordAttempt({ exerciseId: `trig-${p.id}`, topic: TRIG_TOPIC, outcome: visitOutcome({ solved: true, hints, wrongs: mistakes }), hintsUsed: hints, seconds: Math.round((Date.now() - t0) / 1000) });
     area.replaceChildren(
       h('div', { class: 'feedback ok', role: 'status' }, `הוכחתם! טעויות: ${mistakes}, רמזים: ${hints}.`),
       h('p', {}, h('strong', {}, 'מה שהוכחנו: '), eq(`${p.lhs} = ${p.rhs}`, 'eq-block')),

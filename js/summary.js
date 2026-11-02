@@ -2,7 +2,8 @@
 import { h, ltr } from './dom.js';
 import { sanitizeHtml } from './sanitize.js';
 import { cleanFormulas } from './examples.js';
-import { cleanLog, weakTopics, countReasons } from './srs.js';
+import { cleanLog, weakTopics, countReasons, withVirtual } from './srs.js';
+import { topicsWithEngine, topicHref } from './engine.js';
 import * as store from './store.js';
 
 export const CHECKLIST = [
@@ -20,10 +21,11 @@ const MAX_ITEMS = 6;
 /** Pure data for the page. attempts/traps/formulas may be anything: they are sanitized here. */
 export function buildSummary({ attempts, exercises, topics, traps, formulas }) {
   const log = cleanLog(attempts);
-  const exs = Array.isArray(exercises) ? exercises : [];
-  const title = (id) => ((Array.isArray(topics) ? topics : []).find((t) => t.id === id) || { title: id }).title;
+  const exs = withVirtual(Array.isArray(exercises) ? exercises : [], log);
+  const allTopics = topicsWithEngine(Array.isArray(topics) ? topics : [], log);
+  const title = (id) => (allTopics.find((t) => t.id === id) || { title: id }).title;
   const weak = weakTopics(log, exs).filter((t) => t.score < 0.8).slice(0, 3)
-    .map((t) => ({ topic: t.topic, title: title(t.topic), score: Math.round(t.score * 100), attempts: t.attempts }));
+    .map((t) => ({ topic: t.topic, title: title(t.topic), href: topicHref(t.topic) || `#/topic/${t.topic}`, score: Math.round(t.score * 100), attempts: t.attempts }));
   const reasons = countReasons(log).slice(0, 4);
   const missedTraps = (Array.isArray(traps) ? traps : [])
     .filter((t) => t && typeof t.trapId === 'string' && t.wrong > 0).slice(0, 8)
@@ -74,7 +76,7 @@ export function viewSummary(ctx, opts = {}) {
     h('h2', {}, 'נושאים חלשים'),
     d0.weak.length
       ? h('ol', { class: 'sum-weak' }, d0.weak.map((w) => h('li', {},
-        h('a', { href: `#/topic/${w.topic}` }, w.title), ` · ציון ${w.score}% · ${w.attempts} ניסיונות`)))
+        h('a', { href: w.href }, w.title), ` · ציון ${w.score}% · ${w.attempts} ניסיונות`)))
       : h('p', { class: 'muted' }, d0.hasHistory ? 'אין כרגע נושא חלש. המשיכו לתרגל.' : 'עדיין אין היסטוריית תרגול. פתרו כמה תרגילים והסיכום יתמלא.'),
     h('h2', {}, 'סיבות טעות חוזרות'),
     d0.reasons.length

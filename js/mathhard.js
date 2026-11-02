@@ -2,6 +2,7 @@
 // intervals with open/closed ends and unions), grading, wrong-answer diagnosis and saved progress. No DOM.
 // Shared by js/mathhard-ui.js, tools/verify-mathhard.mjs and tests/mathhard.test.mjs.
 import { normalize } from './check.js';
+import { safeSetItem } from './storage.js';
 
 export const KEY = 'omri-study-mathhard-v1';
 export const EPS = 1e-9;
@@ -360,7 +361,7 @@ export function recordAttempt(id, attempt, storage = globalThis.localStorage, no
   it.alone = it.alone || (attempt.solved === true && !attempt.hints && !attempt.wrongs);
   it.hints = nn(attempt.hints);
   it.ts = now;
-  try { storage.setItem(KEY, JSON.stringify(d)); } catch (e) { /* ignore */ }
+  safeSetItem(KEY, JSON.stringify(d), storage);
   return it;
 }
 

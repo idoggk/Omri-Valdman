@@ -1,6 +1,7 @@
 // Persists progress state in localStorage; every access is guarded (private mode, disabled storage).
 import * as P from './progress.js';
 import { createLog } from './srs.js';
+import { safeSetItem } from './storage.js';
 
 const KEY = 'omri-study-progress-v2';
 const OLD_KEY = 'omri-study-progress-v1';
@@ -21,7 +22,7 @@ function load() {
 }
 
 function save() {
-  try { localStorage.setItem(KEY, JSON.stringify(state)); } catch (e) { /* ignore */ }
+  safeSetItem(KEY, JSON.stringify(state));
 }
 
 export const isDone = (id) => P.isDone(load(), id);
@@ -48,7 +49,7 @@ export function loadExam() {
   try { const raw = localStorage.getItem(EXAM_KEY); return raw ? JSON.parse(raw) : null; } catch (e) { return null; }
 }
 export function saveExam(exam) {
-  try { localStorage.setItem(EXAM_KEY, JSON.stringify(exam)); } catch (e) { /* ignore */ }
+  safeSetItem(EXAM_KEY, JSON.stringify(exam));
 }
 export function clearExam() {
   try { localStorage.removeItem(EXAM_KEY); } catch (e) { /* ignore */ }
@@ -60,7 +61,7 @@ function attempts() {
   if (!attemptLog) {
     attemptLog = createLog({
       getItem: (k) => localStorage.getItem(k),
-      setItem: (k, v) => localStorage.setItem(k, v),
+      setItem: (k, v) => safeSetItem(k, v),
     });
     try { attemptLog.migrateFrom(load()); } catch (e) { /* ignore */ }
   }
@@ -100,7 +101,7 @@ export function recordDrill(id, trapId, correct) {
   const it = d.items[id] || (d.items[id] = { right: 0, wrong: 0, ts: 0 });
   it[f]++; it.ts = Date.now();
   if (trapId) { const t = d.traps[trapId] || (d.traps[trapId] = { right: 0, wrong: 0 }); t[f]++; }
-  try { localStorage.setItem(DRILLS_KEY, JSON.stringify(d)); } catch (e) { /* ignore */ }
+  safeSetItem(DRILLS_KEY, JSON.stringify(d));
 }
 /** Trap ids with at least one miss, lowest accuracy first. */
 export function weakTraps(limit = 5) {
@@ -139,7 +140,7 @@ export function recordFindMistake(id, errorType, correct) {
   it[f]++; it.ts = Date.now();
   if (correct) it.solved = true;
   if (typeof errorType === 'string' && errorType) { const t = d.types[errorType] || (d.types[errorType] = { right: 0, wrong: 0 }); t[f]++; }
-  try { localStorage.setItem(FM_KEY, JSON.stringify(d)); } catch (e) { /* ignore */ }
+  safeSetItem(FM_KEY, JSON.stringify(d));
 }
 export const countFindMistakeSolved = () => Object.values(loadFindMistake().items).filter((x) => x.solved).length;
 
@@ -163,7 +164,7 @@ export function recordOrder(id, percent) {
   const p = Math.min(100, Math.max(0, Math.round(Number(percent) || 0)));
   const prev = d.items[id];
   if (!prev || p > prev.best) d.items[id] = { best: p, ts: Date.now() };
-  try { localStorage.setItem(ORDER_KEY, JSON.stringify(d)); } catch (e) { /* ignore */ }
+  safeSetItem(ORDER_KEY, JSON.stringify(d));
 }
 export const countOrderPerfect = () => Object.values(loadOrder().items).filter((x) => x.best === 100).length;
 
@@ -176,7 +177,7 @@ export function loadWorkout() {
   } catch (e) { return null; }
 }
 export function saveWorkout(w) {
-  try { localStorage.setItem(WORKOUT_KEY, JSON.stringify(w)); } catch (e) { /* ignore */ }
+  safeSetItem(WORKOUT_KEY, JSON.stringify(w));
 }
 
 /* endless practice (generated variants): { v, tpl: {templateId: {attempts, alone, hinted}} }.
@@ -198,7 +199,7 @@ export function recordEndless(templateId, delta) {
   const d = loadEndless();
   const it = d.tpl[templateId] || (d.tpl[templateId] = { attempts: 0, alone: 0, hinted: 0 });
   for (const k of ['attempts', 'alone', 'hinted']) it[k] += cnt(delta[k]);
-  try { localStorage.setItem(ENDLESS_KEY, JSON.stringify(d)); } catch (e) { /* ignore */ }
+  safeSetItem(ENDLESS_KEY, JSON.stringify(d));
 }
 export function endlessTotals() {
   const t = { attempts: 0, alone: 0, hinted: 0 };

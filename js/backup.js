@@ -28,7 +28,16 @@ export const KNOWN_KEYS = {
   'omri-study-feedback-v1': 'משוב על קושי',
   'omri-study-trig-v1': 'זהויות טריגונומטריות',
   'omri-study-logs-v1': 'לוגריתמים: כרטיסיות',
+  'omri-study-multipart-v1': 'שאלות בכמה סעיפים',
+  'omri-study-mathhard-v1': 'מתמטיקה ברמה גבוהה ולוגריתמים: תרגילים',
+  'omri-study-endless-v1': 'תרגול ללא הגבלה',
 };
+
+/** Keys the app writes that are deliberately not part of a backup (tests scan js/*.js against KNOWN_KEYS + this list). */
+export const EXCLUDED_KEYS = [
+  'omri-study-progress-v1', // legacy copy, migrated into progress-v2 on first load
+  LAST_BACKUP_KEY, // device-local timestamp
+];
 
 const isRec = (x) => x && typeof x === 'object' && !Array.isArray(x);
 const DAY = 86_400_000;

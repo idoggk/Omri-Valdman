@@ -39,7 +39,19 @@ export function makeAttempt(a) {
   };
   if (REASON_IDS.includes(a.errorReason)) r.errorReason = a.errorReason;
   if (a.migrated) r.migrated = true;
+  if (typeof a.topic === 'string' && a.topic && a.topic.length <= 60) r.topic = a.topic;
   return r;
+}
+
+/**
+ * Exercises that live outside the data/*.json lists (hard math, multipart, trig, logs) are recorded with their own
+ * `topic`. This turns such attempts into pseudo-exercises {id, topic, level} so topic stats and weak topics see them.
+ */
+export function withVirtual(exercises, log) {
+  const known = new Set(exercises.map((e) => e.id));
+  const extra = new Map();
+  for (const a of log) if (a.topic && !known.has(a.exerciseId)) extra.set(a.exerciseId, { id: a.exerciseId, topic: a.topic, level: 1, virtual: true });
+  return extra.size ? exercises.concat([...extra.values()]) : exercises;
 }
 
 export function cleanLog(raw) {
@@ -238,6 +250,24 @@ export function recordsFromProgress(progressState, log = []) {
 
 export const LOG_KEY = 'omri-study-attempts-v1';
 
+export const MAX_LOG_ROWS = 5000;
+
+/**
+ * Keeps the log under `max` rows. The oldest rows are compacted to the single latest row of each exercise that has no
+ * newer row (so its review schedule survives); only if that is still too many are the oldest rows dropped. Order kept.
+ */
+export function compactLog(log, max = MAX_LOG_ROWS) {
+  if (log.length <= max) return log;
+  const order = log.map((a, i) => ({ a, i })).sort((x, y) => x.a.ts - y.a.ts || x.i - y.i);
+  const keepN = Math.floor(max * 0.9);
+  const recent = order.slice(order.length - keepN);
+  const seen = new Set(recent.map((x) => x.a.exerciseId));
+  const lastOld = new Map();
+  for (const x of order.slice(0, order.length - keepN)) if (!seen.has(x.a.exerciseId)) lastOld.set(x.a.exerciseId, x);
+  const out = [...lastOld.values(), ...recent].sort((x, y) => x.i - y.i).map((x) => x.a);
+  return out.length > max ? out.slice(out.length - max) : out;
+}
+
 export function createLog(storage, key = LOG_KEY) {
   let log = null;
   const load = () => {
@@ -246,7 +276,10 @@ export function createLog(storage, key = LOG_KEY) {
     try { const raw = storage.getItem(key); if (raw) log = cleanLog(JSON.parse(raw)); } catch (e) { /* in-memory */ }
     return log;
   };
-  const save = () => { try { storage.setItem(key, JSON.stringify(log)); } catch (e) { /* ignore */ } };
+  const save = () => {
+    if (log.length > MAX_LOG_ROWS) log.splice(0, log.length, ...compactLog(log));
+    try { storage.setItem(key, JSON.stringify(log)); } catch (e) { /* ignore */ }
+  };
   return {
     all: () => load().slice(),
     add(a) { const r = makeAttempt(a); if (r) { load().push(r); save(); } return r; },

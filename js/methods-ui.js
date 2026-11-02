@@ -2,6 +2,7 @@
 // (#/methods/round). The learner picks the best first method / the justified next step and sees the
 // explanation for every option immediately. Results live in their own storage key.
 import { h } from './dom.js';
+import { safeSetItem } from './storage.js';
 import { isolateFormulas, isolateTitle, ltrIsolate } from './bidi.js';
 
 export const METHODS_KEY = 'omri-study-methods-v1';
@@ -27,7 +28,7 @@ export function recordMethod(id, ok) {
   const d = loadMethods();
   const p = d.items[id];
   d.items[id] = { tries: (p ? p.tries : 0) + 1, right: (p ? p.right : 0) + (ok ? 1 : 0), last: !!ok, ts: Date.now() };
-  try { localStorage.setItem(METHODS_KEY, JSON.stringify(d)); } catch (e) { /* ignore */ }
+  safeSetItem(METHODS_KEY, JSON.stringify(d));
 }
 
 /* ---------- data and helpers ---------- */

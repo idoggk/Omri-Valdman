@@ -3,6 +3,7 @@
 //
 // data = { skills: [{ id, prereqs: [id], ... }], skillTags: { exerciseId: [skillId] } }
 import { cleanLog } from './srs.js';
+import { safeSetItem } from './storage.js';
 
 export const WINDOW = 5; // last attempts per skill that are looked at
 export const MIN_MISSES = 2; // misses inside the window that make a skill "weak"
@@ -47,7 +48,7 @@ export function recordRepair(skillId, tier, score, now = Date.now()) {
   const t = p ? p.t.slice() : [null, null, null];
   t[i] = Math.max(t[i] || 0, sc);
   d.skills[skillId] = { tries: (p ? p.tries : 0) + 1, best: t.reduce((a, n) => a + (n || 0), 0), last: sc, ts: now, t };
-  try { localStorage.setItem(REPAIR_KEY, JSON.stringify(d)); } catch (e) { /* ignore */ }
+  safeSetItem(REPAIR_KEY, JSON.stringify(d));
 }
 const tiersOf = (repair, id) => (repair && repair.skills && repair.skills[id] ? repair.skills[id].t : [null, null, null]);
 /** Repaired = every tier finished and at least MASTERY of the 8 questions answered correctly (best per tier). */

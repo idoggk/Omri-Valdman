@@ -2,6 +2,7 @@
 // The learner ticks which candidate answers are really valid (none ticked = "no solution") and gets immediate
 // feedback: a reason for every candidate and a full explanation. Results live in their own storage key.
 import { h } from './dom.js';
+import { safeSetItem } from './storage.js';
 import { isolateFormulas, isolateTitle, ltrIsolate } from './bidi.js';
 
 export const EDGE_KEY = 'omri-study-edgecases-v1';
@@ -26,7 +27,7 @@ export function recordEdge(id, ok) {
   const d = loadEdge();
   const p = d.items[id];
   d.items[id] = { tries: (p ? p.tries : 0) + 1, right: (p ? p.right : 0) + (ok ? 1 : 0), last: !!ok, ts: Date.now() };
-  try { localStorage.setItem(EDGE_KEY, JSON.stringify(d)); } catch (e) { /* ignore */ }
+  safeSetItem(EDGE_KEY, JSON.stringify(d));
 }
 
 /* ---------- data and helpers ---------- */

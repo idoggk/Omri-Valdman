@@ -121,7 +121,7 @@ test('flow: invalid input is rejected without advancing; skip shows solution', a
   press('בדיקה');
   assert.match(text(), /יש להקליד מספר/);
   assert.equal(inputs().length, 1);
-  press('אין לי תשובה: הציגו פתרון');
+  press('אין לי תשובה, להציג פתרון');
   assert.match(text(), /פתרון:/);
   assert.equal(inputs().length, 1); // part ב revealed
 });

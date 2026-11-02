@@ -3,6 +3,7 @@
 // then the final answer, then sees which steps were missed. Attempts live in their own storage key and
 // are kept separate from the review queue / mastery data (progress.js has no per-step API).
 import { h } from './dom.js';
+import { safeSetItem } from './storage.js';
 import { isolateFormulas, isolateTitle, ltrIsolate } from './bidi.js';
 import { isCorrect } from './check.js';
 
@@ -38,7 +39,7 @@ export function recordCheckpoints(id, missed) {
     missed,
     ts: Date.now(),
   };
-  try { localStorage.setItem(CP_KEY, JSON.stringify(d)); } catch (e) { /* ignore */ }
+  safeSetItem(CP_KEY, JSON.stringify(d));
 }
 
 /* ---------- data ---------- */

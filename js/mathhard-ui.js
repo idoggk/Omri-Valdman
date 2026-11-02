@@ -4,6 +4,8 @@
 import { h, ltr } from './dom.js';
 import { isolateTitle } from './bidi.js';
 import { feedbackCard } from './feedback-ui.js';
+import * as store from './store.js';
+import { mathHardTopic, visitOutcome } from './engine.js';
 import {
   FAMILIES, TIERS, loadMathHardData, loadSaved, recordAttempt, canonSpec, studentCanon, sameCanon, diagnose, prettyAnswer,
 } from './mathhard.js';
@@ -43,7 +45,7 @@ function list(ctx, data) {
             const s = saved[e.id];
             return h('li', {}, h('a', { class: 'ex-item', href: `#/mathhard/${e.id}` },
               h('span', { class: 't' }, isolateTitle(e.title)),
-              e.trap ? h('span', { class: 'muted', title: 'יש כאן מלכודת' }, '⚠️ מלכודת') : null,
+              e.trap && s && s.solved ? h('span', { class: 'muted', title: 'יש כאן מלכודת' }, '⚠️ מלכודת') : null, // shown only after solving: it would spoil the trap
               h('span', { class: `tick o-${s && s.solved ? (s.alone ? 'alone' : 'hinted') : 'none'}`, role: 'img', 'aria-label': s && s.solved ? 'נפתר' : 'טרם נפתר' }, s && s.solved ? '✓' : '○')));
           })));
       }))));
@@ -134,6 +136,7 @@ function runExercise(ctx, data, ex) {
     widget.lock();
     [checkBtn, hintBtn, solBtn].forEach((b) => { b.disabled = true; });
     recordAttempt(ex.id, { solved: st.solved, hints: st.hints, wrongs: st.wrongs });
+    store.recordAttempt({ exerciseId: ex.id, topic: mathHardTopic(ex.family), outcome: visitOutcome(st), hintsUsed: st.hints, seconds: Math.round((Date.now() - t0) / 1000) });
     showSolution();
     out.append(feedbackCard({
       exerciseId: ex.id, topic: 'math', mode: 'mathhard', level: ex.tier, attemptId: t0,
@@ -172,7 +175,7 @@ function runExercise(ctx, data, ex) {
   solBtn.addEventListener('click', () => finish());
 
   ctx.show(crumbs('#/mathhard', '→ לרשימת התרגילים'), h('h1', {}, isolateTitle(ex.title)),
-    h('p', { class: 'muted' }, `${fam.title} · ${tierOf(ex.tier).label}`, ex.trap ? ' · ⚠️ יש כאן מלכודת' : ''),
+    h('p', { class: 'muted' }, `${fam.title} · ${tierOf(ex.tier).label}`),
     h('p', {}, ex.ask),
     h('div', { class: 'panel' }, ...ex.eq.map((line) => h('div', { dir: 'ltr', class: 'eq-block' }, ltr(line)))),
     h('details', {}, h('summary', {}, `כרטיס שיטה: ${fam.title}`), h('ul', {}, fam.method.map((m) => h('li', {}, m)))),

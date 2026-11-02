@@ -18,7 +18,7 @@ test('three easy solves at the current level promote the topic by one', () => {
   const p = topicLevels(log, EXS, fbs).get('p');
   assert.equal(p.level, 3); assert.equal(p.from, 2); assert.equal(p.rated, true);
   assert.equal(topicLevels(log, EXS, fbs).get("m").from, null); // other topic unaffected
-  assert.match(levelLine(log, EXS, fbs, () => 'פיזיקה'), /עלית רמה/);
+  assert.match(levelLine(log, EXS, fbs, () => 'פיזיקה'), /רמת האימון עלתה ב/);
 });
 
 test('missing rating: correct and no hints is enough', () => {

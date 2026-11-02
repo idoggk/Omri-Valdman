@@ -169,5 +169,5 @@ export function levelLine(attempts, exercises, feedback, titleOf = (t) => t) {
     const levels = [...new Set([...lv.values()].map((v) => v.level))].sort((a, b) => a - b);
     return `האימון היום ברמה ${levels.join('–')}.`;
   }
-  return up.map(([topic, v]) => `עלית רמה ב${titleOf(topic)}: האימון עכשיו ברמה ${v.level} כי שלושת התרגילים האחרונים ברמה ${v.from} נפתרו נכון, בלי רמזים, ${v.rated ? 'ודירגת אותם כקלים' : 'בלי עזרה'}.`).join(' ');
+  return up.map(([topic, v]) => `רמת האימון עלתה ב${titleOf(topic)}: האימון עכשיו ברמה ${v.level} כי שלושת התרגילים האחרונים ברמה ${v.from} נפתרו נכון, בלי רמזים, ${v.rated ? 'ודורגו כקלים' : 'בלי עזרה'}.`).join(' ');
 }

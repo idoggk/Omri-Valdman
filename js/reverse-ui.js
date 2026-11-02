@@ -2,6 +2,7 @@
 // The learner enters the unknown values, can reveal two hints and the full solution, and marks the item done.
 // Results live in their own storage key. Answers are parsed and compared with check.js.
 import { h } from './dom.js';
+import { safeSetItem } from './storage.js';
 import { isolateFormulas, isolateTitle, ltrIsolate } from './bidi.js';
 import { isCorrect } from './check.js';
 
@@ -33,7 +34,7 @@ export function recordReverse(id, patch) {
     solution: p.solution || patch.solution === true,
     ts: Date.now(),
   };
-  try { localStorage.setItem(REVERSE_KEY, JSON.stringify(d)); } catch (e) { /* ignore */ }
+  safeSetItem(REVERSE_KEY, JSON.stringify(d));
 }
 
 /* ---------- data ---------- */

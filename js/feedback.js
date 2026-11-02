@@ -1,6 +1,7 @@
 // Difficulty feedback: pure record logic, local storage and the export JSON. No DOM, nothing leaves the device
 // unless the learner shares the exported file themselves. Malformed storage always reads as empty.
-import { topicStats, weakTopics, countReasons } from './srs.js';
+import { topicStats, weakTopics, countReasons, withVirtual } from './srs.js';
+import { safeSetItem } from './storage.js';
 
 export const FEEDBACK_KEY = 'omri-study-feedback-v1';
 export const FEEDBACK_CAP = 2000;
@@ -80,9 +81,7 @@ export function loadFeedback() {
 export function saveFeedback(raw, now = Date.now()) {
   const rec = sanitizeRecord(raw, now);
   if (!rec) return null;
-  try {
-    localStorage.setItem(FEEDBACK_KEY, JSON.stringify({ v: 1, records: upsert(loadFeedback(), rec) }));
-  } catch (e) { return null; }
+  if (!safeSetItem(FEEDBACK_KEY, JSON.stringify({ v: 1, records: upsert(loadFeedback(), rec) }))) return null;
   return rec;
 }
 
@@ -111,7 +110,8 @@ export function hardestExercises(records, limit = 10) {
 }
 
 /** Compact learning summary. log = attempt log, exercises = exercise list (for topics); both read-only. */
-export function buildSummary(records, log = [], exercises = []) {
+export function buildSummary(records, log = [], exercisesIn = []) {
+  const exercises = withVirtual(exercisesIn, log);
   const st = topicStats(log, exercises);
   const rated = Object.fromEntries(averageByTopic(records).map((t) => [t.topic, t]));
   const topics = [...new Set([...Object.keys(st), ...Object.keys(rated)])].sort().map((topic) => ({

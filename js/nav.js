@@ -2,7 +2,7 @@
 // Pure helpers (resolveRoute, activeTab, tabsHidden) are testable without the DOM.
 import { h } from './dom.js';
 import * as store from './store.js';
-import { weakTopics } from './srs.js';
+import { weakTopics, withVirtual } from './srs.js';
 import { workoutMix, workoutResults, workoutOpts, WORKOUT_SIZE } from './practice-ui.js';
 import { pickWorkout, levelLine } from './workout.js';
 import { loadFeedback } from './feedback.js';
@@ -88,7 +88,7 @@ export function viewHome(ctx, loadErrors = []) {
   const title = (t) => (ctx.topics.find((x) => x.id === t) || { title: t }).title;
   const lvlLine = ctx.exercises.length ? levelLine(log, ctx.exercises, fb, title) : '';
   const mix = workoutMix(log, ctx.exercises, now, ids);
-  const weak = ctx.exercises.length ? weakTopics(log, ctx.exercises).filter((t) => t.score < 0.8).length : 0;
+  const weak = ctx.exercises.length ? weakTopics(log, withVirtual(ctx.exercises, log)).filter((t) => t.score < 0.8).length : 0;
   const cont = ids.length ? continueHref(store.loadWorkout(), log, (id) => ctx.byId(id)) : null;
   ctx.show(
     h('h1', {}, 'היום'),

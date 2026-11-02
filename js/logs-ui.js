@@ -4,6 +4,8 @@
 import { h } from './dom.js';
 import { isolateTitle } from './bidi.js';
 import { feedbackCard } from './feedback-ui.js';
+import * as store from './store.js';
+import { LOGS_TOPIC, visitOutcome } from './engine.js';
 import { answerWidget } from './mathhard-ui.js';
 import { canonSpec, studentCanon, sameCanon, diagnose, prettyAnswer, loadSaved, recordAttempt } from './mathhard.js';
 import {
@@ -177,6 +179,7 @@ function viewCards(ctx, res) {
         reveal, answer, grade));
   }
   function finish() {
+    store.recordAttempt({ exerciseId: 'logs-cards', topic: LOGS_TOPIC, outcome: wrong === 0 ? 'alone' : 'hinted', hintsUsed: 0, seconds: Math.round((Date.now() - t0) / 1000) });
     box.replaceChildren(
       h('div', { class: 'feedback ok', role: 'status' }, `סיימנו: ${right} נכונות, ${wrong} טעויות (חזרו לתור עד שנזכרו).`),
       feedbackCard({
@@ -205,7 +208,7 @@ function practiceList(ctx, res) {
           const s = saved[e.id];
           return h('li', {}, h('a', { class: 'ex-item', href: `#/logs/ex/${e.id}` },
             h('span', { class: 't' }, isolateTitle(e.title)),
-            e.trap ? h('span', { class: 'muted', title: 'יש כאן מלכודת' }, '⚠️ מלכודת') : null,
+            e.trap && s && s.solved ? h('span', { class: 'muted', title: 'יש כאן מלכודת' }, '⚠️ מלכודת') : null,
             h('span', { class: `tick o-${s && s.solved ? (s.alone ? 'alone' : 'hinted') : 'none'}`, role: 'img', 'aria-label': s && s.solved ? 'נפתר' : 'טרם נפתר' }, s && s.solved ? '✓' : '○')));
         })));
     }));
@@ -241,6 +244,7 @@ function viewExercise(ctx, res, id) {
     widget.lock();
     [checkBtn, hintBtn, solBtn].forEach((b) => { b.disabled = true; });
     recordAttempt(ex.id, { solved: st.solved, hints: st.hints, wrongs: st.wrongs });
+    store.recordAttempt({ exerciseId: ex.id, topic: LOGS_TOPIC, outcome: visitOutcome(st), hintsUsed: st.hints, seconds: Math.round((Date.now() - t0) / 1000) });
     showSolution();
     out.append(feedbackCard({
       exerciseId: ex.id, topic: 'math', mode: 'logs', level: ex.tier, attemptId: t0,
@@ -279,7 +283,7 @@ function viewExercise(ctx, res, id) {
   solBtn.addEventListener('click', () => finish());
 
   ctx.show(crumbs('#/logs/practice', '→ לרשימת התרגילים'), h('h1', {}, isolateTitle(ex.title)),
-    h('p', { class: 'muted' }, `${tier.label}`, ex.trap ? ' · ⚠️ יש כאן מלכודת' : ''),
+    h('p', { class: 'muted' }, `${tier.label}`),
     para(ex.ask),
     h('div', { class: 'panel' }, ...ex.eq.map((e) => line(e))),
     h('details', {}, h('summary', {}, `כרטיס שיטה: ${tier.label}`), h('ul', {}, tier.method.map((m) => h('li', {}, para(m))))),
