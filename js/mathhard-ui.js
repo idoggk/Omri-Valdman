@@ -50,7 +50,7 @@ function list(ctx, data) {
 }
 
 /** Answer widget for one kind. Returns { el, read() -> input for studentCanon, busy(flag) }. */
-function answerWidget(ex) {
+export function answerWidget(ex) {
   const kind = ex.answer.kind;
   const rowsBox = h('div');
   let none = false;

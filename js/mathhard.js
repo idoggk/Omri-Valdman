@@ -57,7 +57,7 @@ export const FAMILIES = [
 ];
 
 /* ---------- expressions ---------- */
-const TOKEN = /\d+\.?\d*|\.\d+|sqrt|cbrt|abs|[a-z]|[-+*/^()]/y;
+const TOKEN = /\d+\.?\d*|\.\d+|sqrt|cbrt|abs|log|[a-z]|[-+*/^();]/y; // log(base;arg): used by js/logs.js, undefined unless base > 0, base != 1, arg > 0
 const FN = { sqrt: Math.sqrt, cbrt: Math.cbrt, abs: Math.abs };
 
 /** Compiles an expression into (vars) => number. Variables are single letters; implicit multiplication is allowed. Throws on bad syntax. */
@@ -86,6 +86,10 @@ export function compileExpr(src) {
     if (/^[\d.]/.test(t)) { const v = Number(t); return () => v; }
     if (t === '(') { const e = expr(); take(')'); return e; }
     if (FN[t]) { take('('); const e = expr(); take(')'); const f = FN[t]; return (vars) => f(e(vars)); }
+    if (t === 'log') {
+      take('('); const b = expr(); take(';'); const e = expr(); take(')');
+      return (vars) => { const B = b(vars); const X = e(vars); return B > 0 && B !== 1 && X > 0 ? Math.log(X) / Math.log(B) : NaN; };
+    }
     if (/^[a-z]$/.test(t)) return (vars) => (vars && Object.prototype.hasOwnProperty.call(vars, t) ? vars[t] : NaN);
     throw new Error(`bad token ${t} in "${raw}"`);
   }

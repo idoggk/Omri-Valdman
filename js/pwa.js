@@ -14,7 +14,7 @@ const isMobile = () => /Android|iPhone|iPad|iPod/i.test(navigator.userAgent) ||
 const isIOS = () => /iPhone|iPad|iPod/i.test(navigator.userAgent) ||
   (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
 
-const APP_VERSION = '43'; // keep equal to CACHE_VERSION in sw.js
+const APP_VERSION = '44'; // keep equal to CACHE_VERSION in sw.js
 const RELOAD_KEY = 'omri-sw-reloaded-' + APP_VERSION;
 let hadControllerAtLoad = false;
 

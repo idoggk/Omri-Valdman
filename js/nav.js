@@ -17,7 +17,7 @@ export const TABS = [
 
 /** Routes whose first segment alone is enough to resolve (the rest are optional arguments). */
 const SIMPLE = ['progress', 'practice-hub', 'backup', 'summary', 'drills', 'endless', 'order', 'methods', 'edge', 'reverse', 'fading', 'solve',
-  'repair', 'checkpoints', 'hunt', 'workout', 'exam', 'feedback', 'ladder', 'multipart', 'trig', 'mathhard'];
+  'repair', 'checkpoints', 'hunt', 'workout', 'exam', 'feedback', 'ladder', 'multipart', 'trig', 'mathhard', 'logs'];
 
 /** hash -> { name, args } or { name: 'notfound' }. One parser shared by app.js and the tests. */
 export function resolveRoute(hash) {
@@ -103,6 +103,7 @@ export function viewHome(ctx, loadErrors = []) {
         : h('span', { class: 'muted' }, 'אין תרגילים זמינים לאימון.')),
     ctx.exercises.length ? repair.homeCard(ctx) : null,
     h('p', {}, h('a', { href: '#/trig' }, '📐 זהויות טריגונומטריות: שלושה עוגנים וכל השאר נגזר')),
+    h('p', {}, h('a', { href: '#/logs' }, '📏 לוגריתמים: 12 שיעורים מהיסוד, כרטיסיות ו־70 תרגילים')),
     h('p', {}, h('a', { href: '#/mathhard' }, '🧠 מתמטיקה ברמה גבוהה: שורשים, מעריכי, אי־שוויונות, פרמטר ומעגלים')));
 }
 
@@ -138,6 +139,7 @@ export function viewHub(ctx) {
         h('strong', {}, '📐 דף נוסחאות'), h('span', { class: 'muted' }, 'כל הנוסחאות וטעויות נפוצות במקום אחד')),
       tile(`#/topic/${firstTopic}`, '📖 דוגמאות פתורות', 'בראש עמוד כל נושא: דוגמה פתורה צעד אחר צעד'),
       tile('#/trig', '📐 זהויות טריגונומטריות', 'שלושה עוגנים, גזירה צעד אחר צעד, כרטיסיות זכירה, תרגול ומאמן הוכחות'),
+      tile('#/logs', '📏 לוגריתמים מהיסוד', '12 שיעורים מפורטים עם דוגמאות פתורות ומבחן עצמי, כרטיסיות זכירה לעשרה כללים, ו־70 תרגילים בחמש רמות עם תחום, מלכודות וכרטיס שיטה'),
       tile('#/mathhard', '🧠 מתמטיקה ברמה גבוהה', '42 תרגילים בחמישה נושאים ושלוש רמות: משוואות שורש, מעריכי, אי־שוויונות רציונליים, פרמטר ומעגלים. תשובות מדויקות וכרטיס שיטה'),
       tile('#/fading', '🌓 דוגמאות מתפוגגות', 'אותה דוגמה בארבעה שלבים: מפתרון מלא ועד פתרון עצמאי, עם הסתרה הדרגתית'),
     ],
