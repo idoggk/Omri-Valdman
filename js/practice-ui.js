@@ -7,7 +7,7 @@ import {
   ERROR_REASONS, dueReviews, schedules, weakTopics, levelInfo, topicStats,
   recurringReasons, currentStreak, last7Days, reasonLabel, withVirtual,
 } from './srs.js';
-import { pickWorkout } from './workout.js';
+import { pickWorkout, hardHref } from './workout.js';
 import { topicsWithEngine, topicTitle, itemHref } from './engine.js';
 import { loadFeedback } from './feedback.js';
 import { loadLadder } from './ladder.js';
@@ -32,12 +32,12 @@ export function workoutMix(log, exercises, now, ids) {
 }
 
 /** Inputs of the workout picker that live outside the attempt log: difficulty feedback and the ladder stages. */
-export function workoutOpts(ladder) {
-  return { feedback: loadFeedback(), ladder: Array.isArray(ladder) ? ladder : null, skip: loadLadder().skip };
+export function workoutOpts(ladder, hard = null) {
+  return { feedback: loadFeedback(), ladder: Array.isArray(ladder) ? ladder : null, skip: loadLadder().skip, hard };
 }
 
-export function startWorkout(exercises, now = Date.now(), ladder = null) {
-  const ids = pickWorkout(store.getAttempts(), exercises, now, WORKOUT_SIZE, workoutOpts(ladder));
+export function startWorkout(exercises, now = Date.now(), ladder = null, hard = null) {
+  const ids = pickWorkout(store.getAttempts(), exercises, now, WORKOUT_SIZE, workoutOpts(ladder, hard));
   if (!ids.length) return false;
   store.saveWorkout({ ids, startedAt: now });
   return true;
@@ -54,7 +54,7 @@ export function workoutResults(workout, log) {
 export function homeCard(ctx) {
   const exercises = ctx.exercises;
   const now = Date.now();
-  const ids = pickWorkout(store.getAttempts(), exercises, now, WORKOUT_SIZE, workoutOpts(ctx.ladder));
+  const ids = pickWorkout(store.getAttempts(), exercises, now, WORKOUT_SIZE, workoutOpts(ctx.ladder, ctx.hard));
   const mix = workoutMix(store.getAttempts(), exercises, now, ids);
   const stat = (n, label) => h('li', {}, h('strong', {}, String(n)), ' ', label);
   return h('section', { class: 'card workout-card', 'aria-labelledby': 'workout-h' },
@@ -74,6 +74,25 @@ export function workoutBar(n, total) {
     h('div', { class: 'progress-bar', 'aria-hidden': 'true' }, h('span', { style: `width:${Math.round((n / total) * 100)}%` })));
 }
 
+/** Workout step that is a hard-set item (hard math / multipart / logs): one card linking to the real page. */
+export function viewHardStep(ctx, id, wk) {
+  const href = hardHref(id);
+  const w = store.loadWorkout();
+  const a = w ? workoutResults(w, store.getAttempts())[id] : null;
+  const title = ctx.hardTitle ? ctx.hardTitle(id) : id;
+  document.title = `${title} – Brain Gains`;
+  const last = wk.n >= wk.total;
+  ctx.show(
+    workoutBar(wk.n, wk.total),
+    h('h1', {}, isolateTitle(title)),
+    h('p', { class: 'muted' }, 'תרגיל ברמה גבוהה. הוא נפתח בעמוד משלו; כשמסיימים חוזרים לכאן.'),
+    a ? h('p', { class: 'feedback ok', role: 'status' }, a.outcome === 'alone' ? '✓ נפתר לבד' : 'התרגיל נוסה. אפשר להמשיך.') : null,
+    h('div', { class: 'btn-row' }, h('a', { class: a ? 'btn' : 'btn primary', href }, a ? 'לפתוח שוב' : 'פותחים את התרגיל')),
+    h('nav', { class: 'nav', 'aria-label': 'ניווט באימון' },
+      wk.n > 1 ? h('a', { class: 'btn', href: `#/workout/${wk.n - 1}` }, '→ השאלה הקודמת') : h('a', { class: 'btn', href: '#/' }, 'יציאה'),
+      h('a', { class: a ? 'btn primary' : 'btn', href: last ? '#/workout/summary' : `#/workout/${wk.n + 1}` }, last ? 'סיום וסיכום ←' : 'השאלה הבאה ←')));
+}
+
 export function viewWorkoutSummary(ctx) {
   document.title = 'סיכום אימון – Brain Gains';
   const w = store.loadWorkout();
@@ -89,7 +108,7 @@ export function viewWorkoutSummary(ctx) {
     const a = res[id];
     const mark = !a ? '○' : a.outcome === 'alone' ? '✓' : a.outcome === 'hinted' ? '💡' : '🔁';
     return h('li', {}, h('a', { class: 'ex-item', href: `#/workout/${i + 1}` },
-      h('span', { class: 't' }, isolateTitle(ex ? (ex.title || ex.id) : id)), h('span', { 'aria-hidden': 'true' }, mark)));
+      h('span', { class: 't' }, isolateTitle(ex ? (ex.title || ex.id) : ctx.hardTitle ? ctx.hardTitle(id) : id)), h('span', { 'aria-hidden': 'true' }, mark)));
   });
   ctx.show(
     h('h1', {}, 'סיכום האימון'),

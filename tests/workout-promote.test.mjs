@@ -26,10 +26,12 @@ test('missing rating: correct and no hints is enough', () => {
   assert.equal(p.level, 3); assert.equal(p.rated, false);
 });
 
-test('no promotion: rating 3, hints, solution viewed, wrong outcome or fewer than 3 attempts', () => {
+test('a rating above 2 no longer blocks promotion; hints, solution viewed, wrong outcome or fewer than 3 attempts still do', () => {
   const log = [...base, ...three(2)];
   const lv = (l, f) => topicLevels(l, EXS, f).get("p").from;
-  assert.equal(lv(log, [fb('p-2-1', 3)]), null);
+  const six = [1, 2, 3].map((i) => fb(`p-2-${i}`, 6));
+  assert.equal(lv(log, six), 2); // Omri rates 3-6 even when it is easy
+  assert.equal(topicLevels(log, EXS, six).get('p').rated, false);
   assert.equal(lv(log, [fb('p-2-1', 1, { hintsUsed: 1 })]), null);
   assert.equal(lv(log, [fb('p-2-1', 1, { solutionViewed: true })]), null);
   assert.equal(topicLevels([...base, ...three(2).slice(0, 2)], EXS, []).get("p").level, 2);

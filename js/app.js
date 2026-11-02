@@ -23,6 +23,9 @@ import * as repair from './skills-ui.js';
 import * as trig from './trig-ui.js';
 import * as mathhard from './mathhard-ui.js';
 import * as logs from './logs-ui.js';
+import { loadMathHardData } from './mathhard.js';
+import { loadLogsData } from './logs.js';
+import { hardHref } from './workout.js';
 import * as nav from './nav.js';
 import * as feedbackUi from './feedback-ui.js';
 import { installSignKeys } from './signkey.js';
@@ -81,6 +84,11 @@ async function loadData() {
     const data = res.ok ? await res.json() : null;
     if (data && Array.isArray(data.stages)) examCtx.ladder = data.stages;
   } catch (err) { /* offline without the file: workout simply skips the ladder share */ }
+  // hard sets feed 4 of the 10 daily items; each loader fails soft (offline without the files = no hard slots)
+  const [mh, mp, lg] = await Promise.all([loadMathHardData(), multipart.loadMultipartData(), loadLogsData()]);
+  examCtx.hard = { mathhard: mh.ok ? mh.data : [], multipart: mp.ok ? mp.data : [], logs: lg.ok ? lg.exercises : [] };
+  const titles = new Map(Object.values(examCtx.hard).flat().map((e) => [e.id, e.title || e.id]));
+  examCtx.hardTitle = (id) => titles.get(id) || id;
 }
 
 /* ---------- views ---------- */
@@ -162,18 +170,21 @@ const examCtx = {
   topicOf: (id) => topicOf(id),
   renderExercise: (ex, o) => renderExercise(ex, o),
   ladder: null,
+  hard: null,
+  hardTitle: (id) => id,
 };
 
 function viewWorkoutRoute(arg) {
   if (arg === 'start') {
-    location.replace(practice.startWorkout(exercises, Date.now(), examCtx.ladder) ? '#/workout/1' : '#/');
+    location.replace(practice.startWorkout(exercises, Date.now(), examCtx.ladder, examCtx.hard) ? '#/workout/1' : '#/');
     return;
   }
   if (arg === 'summary') return practice.viewWorkoutSummary(examCtx);
   const w = store.loadWorkout();
-  const ids = w ? w.ids.filter((x) => byId(x)) : [];
+  const ids = w ? w.ids.filter((x) => byId(x) || hardHref(x)) : [];
   const n = Number(arg);
   if (!ids.length || !Number.isInteger(n) || n < 1 || n > ids.length) return location.replace('#/');
+  if (!byId(ids[n - 1])) return practice.viewHardStep(examCtx, ids[n - 1], { n, total: ids.length });
   viewExercise(ids[n - 1], false, { n, total: ids.length });
 }
 

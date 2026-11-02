@@ -20,15 +20,18 @@ function latestFeedback(feedback) {
   return m;
 }
 
-/** An attempt counts as "too easy" when solved alone and, if rated, rated <= 2 (no hints / solution in the feedback either). */
+/**
+ * A clean attempt: solved alone, no hints, and (if feedback exists) correct with no hints / solution viewed.
+ * Omri rates difficulty 3-6 even when an item is easy, so the rating no longer blocks promotion; `rated` stays true
+ * only when every rating is <= MAX_RATING_EASY (used for the explanation line).
+ */
 function easyAttempt(a, fb) {
   if (a.outcome !== 'alone' || a.hintsUsed > 0) return null;
   const r = fb.get(a.exerciseId);
   if (!r) return { rated: false };
   if (r.correct === false || Number(r.hintsUsed) > 0 || r.solutionViewed === true) return null;
   const rating = Number(r.rating);
-  if (!Number.isFinite(rating)) return { rated: false };
-  return rating <= MAX_RATING_EASY ? { rated: true } : null;
+  return { rated: Number.isFinite(rating) && rating <= MAX_RATING_EASY };
 }
 
 /**
@@ -37,9 +40,10 @@ function easyAttempt(a, fb) {
  * level were all easy (see easyAttempt) the level goes up one step, up to the hardest level the topic has. The result is
  * never below the level of the topic's most recent failure (wrong / solution viewed). `from` is the level promoted from.
  */
-export function topicLevels(attempts, exercises, feedback = []) {
+export function topicLevels(attempts, exercises, feedback = [], { useBase = true } = {}) {
   const log = Array.isArray(attempts) ? attempts : [];
-  const base = levelInfo(log, exercises).suggested ?? Math.min(...exercises.map((e) => e.level));
+  // useBase=false: purely per-topic promotion (the hard sets, where levels 3-5 span several independent topics)
+  const base = useBase ? (levelInfo(log, exercises).suggested ?? Math.min(...exercises.map((e) => e.level))) : -Infinity;
   const fb = latestFeedback(feedback);
   const byId = new Map(exercises.map((e) => [e.id, e]));
   const sorted = log.map((a, i) => ({ a, i })).filter((x) => byId.has(x.a.exerciseId))
@@ -62,7 +66,7 @@ export function topicLevels(attempts, exercises, feedback = []) {
     let level = Math.max(chain, base);
     const failed = [...mine].reverse().find((a) => a.outcome === 'wrong' || a.outcome === 'solution');
     if (failed) level = Math.max(level, byId.get(failed.exerciseId).level);
-    out.set(topic, { level, base, from: from !== null && chain === level ? from : null, rated });
+    out.set(topic, { level, base: useBase ? base : levels[0], from: from !== null && chain === level ? from : null, rated });
   }
   return out;
 }
@@ -82,9 +86,83 @@ export function logOutcome(attempts) {
   return (id) => { const a = last.get(id); return !a ? null : a.outcome === 'alone' ? 'alone' : a.outcome === 'hinted' ? 'hinted' : 'review'; };
 }
 
+/* ---------- hard sets: hard math (5 families x 3 tiers), multipart exam questions, logarithms (5 tiers) ---------- */
+const HARD_PREFIX = [['mh-', '#/mathhard/'], ['mp-', '#/multipart/'], ['lg-', '#/logs/ex/']];
+
+/** Page of a hard-set item id (mathhard / multipart / logs), or null for an ordinary data/*.json exercise id. */
+export function hardHref(id) {
+  const p = HARD_PREFIX.find(([pre]) => String(id).startsWith(pre));
+  return p ? p[1] + id : null;
+}
+
+/**
+ * Hard items as workout-level records { id, topic, level }, per group.
+ * hard = { mathhard: [items with family, tier 1-3], multipart: [items with tier 'warmup'|'exam'], logs: [items with tier 1-5] }.
+ * Levels: mathhard tier 1 = level 3, tier 2 = level 4, tier 3 = level 5; multipart warm-up = 4, exam = 5; logs tier = level.
+ */
+export function hardPool(hard) {
+  const h = isRec(hard) ? hard : {};
+  const list = (k) => (Array.isArray(h[k]) ? h[k].filter((e) => isRec(e) && typeof e.id === 'string') : []);
+  return {
+    mathhard: list('mathhard').map((e) => ({ id: e.id, topic: `math-hard-${e.family}`, level: Number(e.tier) + 2 })),
+    multipart: list('multipart').map((e) => ({ id: e.id, topic: 'multipart', level: e.tier === 'exam' ? 5 : 4 })),
+    logs: list('logs').map((e) => ({ id: e.id, topic: 'logs', level: Number(e.tier) })),
+  };
+}
+
+const dayNumber = (now) => { const d = new Date(now); return d.getFullYear() * 372 + d.getMonth() * 31 + d.getDate(); };
+
+/** Item of one topic nearest to `level` (same level, then lower, then higher) that is not yet solved alone; null if none. */
+function nextUnsolved(items, level, outcome) {
+  const rank = (e) => (e.level === level ? 0 : e.level < level ? level - e.level : 10 + e.level - level);
+  const open = items.filter((e) => outcome(e.id) !== 'alone');
+  return open.length ? open.map((e, i) => ({ e, i })).sort((a, b) => rank(a.e) - rank(b.e) || a.i - b.i)[0].e : null;
+}
+
+/**
+ * Hard items for the daily workout: 2 hard-math (two different families, rotating by day, tier by promotion level),
+ * 1 multipart exam question (as a linked card) and 1 logarithms item (first tier until promoted). Deterministic for
+ * a given date and attempt log. Returns [{ id, kind }] with kind 'mathhard' | 'multipart' | 'logs'.
+ */
+export function pickHard(attempts, hard, now, feedback = []) {
+  const log = Array.isArray(attempts) ? attempts : [];
+  const pool = hardPool(hard);
+  const outcome = logOutcome(log);
+  const out = [];
+  const lv = (items) => topicLevels(log, items, feedback, { useBase: false });
+  if (pool.mathhard.length) {
+    const levels = lv(pool.mathhard);
+    const fams = [...levels.keys()];
+    const start = dayNumber(now) % fams.length;
+    const rotated = [...fams.slice(start), ...fams.slice(0, start)];
+    const mine = (t) => pool.mathhard.filter((e) => e.topic === t);
+    const chosen = rotated.map((t) => nextUnsolved(mine(t), levels.get(t).level, outcome)).filter(Boolean);
+    // everything solved alone: repeat the least recently touched families rather than leave the slots empty
+    const again = rotated.map((t) => mine(t)[0]);
+    for (const e of [...chosen, ...again]) if (out.length < 2 && !out.some((o) => o.id === e.id)) out.push({ id: e.id, kind: 'mathhard' });
+  }
+  for (const kind of ['multipart', 'logs']) {
+    const items = pool[kind];
+    if (!items.length) continue;
+    const levels = lv(items);
+    const e = nextUnsolved(items, levels.get(kind).level, outcome) || items[dayNumber(now) % items.length];
+    out.push({ id: e.id, kind });
+  }
+  return out;
+}
+
+/** Spread `hard` ids evenly among `ids` (keeps both orders), e.g. 6 + 4 -> a hard item every 2-3 slots. */
+function weave(ids, hard) {
+  const out = [...ids];
+  hard.forEach((id, i) => out.splice(Math.min(out.length, Math.floor(((i + 1) * (ids.length + hard.length)) / (hard.length + 1)) - 1), 0, id));
+  return out;
+}
+
 /**
  * pickWorkout(attempts, exercises, now, size=10, opts) -> [exerciseId]
- * opts = { feedback: [records], ladder: [stages], skip: {stageId: true} } (all optional).
+ * opts = { feedback: [records], ladder: [stages], skip: {stageId: true}, hard: {mathhard, multipart, logs} } (all optional).
+ * With opts.hard and size >= 8: 2 hard-math + 1 multipart + 1 logs items (see pickHard) are part of the workout and the rest
+ * is picked as below for the remaining slots.
  * Quotas: ~40% due reviews (most overdue first), ~1/3 from the ladder stage the learner is on (exam-style items not yet
  * solved alone), ~30% weak-topic exercises (weakest topic first), the rest new exercises at the topic's level
  * (see topicLevels; then nearest levels). Gaps are filled from the remaining pool: other new, unmastered, then anything.
@@ -94,6 +172,8 @@ export function pickWorkout(attempts, exercises, now, size = 10, opts = {}) {
   const log = Array.isArray(attempts) ? attempts : [];
   const n = Math.min(Math.max(0, Math.floor(size)), exercises.length);
   if (!n) return [];
+  const hardIds = opts.hard && n >= 8 ? pickHard(log, opts.hard, now, opts.feedback).map((x) => x.id) : [];
+  if (hardIds.length) return weave(pickWorkout(log, exercises, now, n - hardIds.length, { ...opts, hard: null }), hardIds);
   const byId = new Map(exercises.map((e) => [e.id, e]));
   const sch = schedules(log.filter((a) => byId.has(a.exerciseId)));
   const levels = topicLevels(log, exercises, opts.feedback);

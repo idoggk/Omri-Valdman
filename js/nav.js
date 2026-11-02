@@ -4,7 +4,7 @@ import { h } from './dom.js';
 import * as store from './store.js';
 import { weakTopics, withVirtual } from './srs.js';
 import { workoutMix, workoutResults, workoutOpts, WORKOUT_SIZE } from './practice-ui.js';
-import { pickWorkout, levelLine } from './workout.js';
+import { pickWorkout, levelLine, pickHard, hardHref } from './workout.js';
 import { loadFeedback } from './feedback.js';
 import { openFormulaSheet } from './sheet.js';
 import * as repair from './skills-ui.js';
@@ -79,17 +79,59 @@ export function continueHref(workout, log, exists = () => true) {
   return i < 0 || (i === 0 && !Object.keys(done).length) ? null : `#/workout/${i + 1}`;
 }
 
+const dayStart = (now) => { const d = new Date(now); d.setHours(0, 0, 0, 0); return d.getTime(); };
+const isMathTopic = (a) => (typeof a.topic === 'string' && (a.topic.startsWith('math-hard-') || a.topic === 'logs')) || /^(mh|lg)-/.test(String(a.exerciseId));
+const isPhysTopic = (a) => a.topic === 'multipart' || /^mp-/.test(String(a.exerciseId));
+
+/**
+ * "המסלול של היום": 3 ordered steps -> [{ id, label, href, done }]. 1 today's workout (done when every question of a
+ * workout started today has an attempt), 2 a hard-math or logs item (done when one was attempted today), 3 a multipart
+ * exam question (physics; done when one was attempted today). Done marks come from the stored attempts only.
+ */
+export function dailyPath({ log = [], hard = null, now = Date.now(), workout = null, title = (id) => id, workoutExists = () => true } = {}) {
+  const start = dayStart(now);
+  const today = log.filter((a) => a && a.ts >= start);
+  const picks = pickHard(log, hard, now);
+  const lastToday = (pred) => [...today].reverse().find(pred);
+  const step = (id, label, pred, pick, listHref) => {
+    const a = lastToday(pred);
+    const itemId = a ? a.exerciseId : pick ? pick.id : null;
+    return { id, label: itemId ? `${label}: ${title(itemId)}` : label, href: itemId ? (hardHref(itemId) || listHref) : listHref, done: !!a };
+  };
+  let wDone = false;
+  if (workout && workout.startedAt >= start) {
+    const ids = workout.ids.filter(workoutExists);
+    const res = workoutResults(workout, log);
+    wDone = ids.length > 0 && ids.every((id) => res[id]);
+  }
+  return [
+    { id: 'workout', label: 'האימון של היום', href: '#/workout/start', done: wDone },
+    step('math', 'מתמטיקה ברמה גבוהה', isMathTopic, picks.find((p) => p.kind === 'mathhard') || picks.find((p) => p.kind === 'logs'), '#/mathhard'),
+    step('physics', 'שאלת מבחן בפיזיקה', isPhysTopic, picks.find((p) => p.kind === 'multipart'), '#/multipart'),
+  ];
+}
+
+const MORE_LINKS = [
+  ['#/multipart', '🧮 שאלות מבחן בכמה סעיפים'],
+  ['#/ladder', '🪜 סולם הקושי בפיזיקה'],
+  ['#/mathhard', '🧠 מתמטיקה ברמה גבוהה: שורשים, מעריכי, אי־שוויונות, פרמטר ומעגלים'],
+  ['#/logs', '📏 לוגריתמים: 12 שיעורים מהיסוד, כרטיסיות ו־70 תרגילים'],
+  ['#/trig', '📐 זהויות טריגונומטריות: שלושה עוגנים וכל השאר נגזר'],
+];
+
 export function viewHome(ctx, loadErrors = []) {
   document.title = 'Brain Gains – היום';
   const log = store.getAttempts();
   const now = Date.now();
   const fb = loadFeedback();
-  const ids = ctx.exercises.length ? pickWorkout(log, ctx.exercises, now, WORKOUT_SIZE, workoutOpts(ctx.ladder)) : [];
+  const ids = ctx.exercises.length ? pickWorkout(log, ctx.exercises, now, WORKOUT_SIZE, workoutOpts(ctx.ladder, ctx.hard)) : [];
   const title = (t) => (ctx.topics.find((x) => x.id === t) || { title: t }).title;
   const lvlLine = ctx.exercises.length ? levelLine(log, ctx.exercises, fb, title) : '';
   const mix = workoutMix(log, ctx.exercises, now, ids);
   const weak = ctx.exercises.length ? weakTopics(log, withVirtual(ctx.exercises, log)).filter((t) => t.score < 0.8).length : 0;
-  const cont = ids.length ? continueHref(store.loadWorkout(), log, (id) => ctx.byId(id)) : null;
+  const exists = (id) => ctx.byId(id) || hardHref(id);
+  const cont = ids.length ? continueHref(store.loadWorkout(), log, exists) : null;
+  const path = dailyPath({ log, hard: ctx.hard, now, workout: store.loadWorkout(), title: ctx.hardTitle || ((id) => id), workoutExists: exists });
   ctx.show(
     h('h1', {}, 'היום'),
     loadErrors.length ? h('p', { class: 'error', role: 'alert' }, 'לא ניתן לטעון חלק מקבצי התרגילים. נסו לרענן את הדף.') : null,
@@ -98,13 +140,20 @@ export function viewHome(ctx, loadErrors = []) {
       ids.length
         ? [h('p', { class: 'muted' }, planLine(mix, weak)),
           lvlLine ? h('p', { class: 'muted workout-level' }, lvlLine) : null,
-          h('a', { class: 'btn primary cta', href: '#/workout/start' }, 'מתחילים אימון'),
           cont ? h('p', {}, h('a', { href: cont }, 'להמשיך מאיפה שעצרתם')) : null]
         : h('span', { class: 'muted' }, 'אין תרגילים זמינים לאימון.')),
+    h('section', { class: 'card path-card', 'aria-labelledby': 'path-h' },
+      h('strong', { id: 'path-h' }, 'המסלול של היום'),
+      h('ol', { class: 'path-steps' }, path.map((s, i) => h('li', { class: s.done ? 'done' : '' },
+        h('span', { class: `tick o-${s.done ? 'alone' : 'none'}`, role: 'img', 'aria-label': s.done ? 'הושלם' : 'טרם הושלם' }, s.done ? '✓' : '○'), ' ',
+        i === 0 && ids.length
+          ? h('a', { class: 'btn primary cta', href: s.href }, 'מתחילים אימון')
+          : i === 0 ? h('span', { class: 'muted' }, s.label)
+            : h('a', { href: s.href }, s.label))))),
     ctx.exercises.length ? repair.homeCard(ctx) : null,
-    h('p', {}, h('a', { href: '#/trig' }, '📐 זהויות טריגונומטריות: שלושה עוגנים וכל השאר נגזר')),
-    h('p', {}, h('a', { href: '#/logs' }, '📏 לוגריתמים: 12 שיעורים מהיסוד, כרטיסיות ו־70 תרגילים')),
-    h('p', {}, h('a', { href: '#/mathhard' }, '🧠 מתמטיקה ברמה גבוהה: שורשים, מעריכי, אי־שוויונות, פרמטר ומעגלים')));
+    h('section', { class: 'card', 'aria-labelledby': 'more-h' },
+      h('strong', { id: 'more-h' }, 'עוד'),
+      h('ul', { class: 'more-links' }, MORE_LINKS.filter(([href]) => !path.some((s) => s.href === href)).map(([href, text]) => h('li', {}, h('a', { href }, text))))));
 }
 
 /* ---------- practice hub (תרגול) ---------- */
@@ -161,8 +210,7 @@ export function viewHub(ctx) {
     endless: [tile('#/endless', '♾️ תרגול ללא הגבלה', 'תרגילים חדשים בכל פעם, באותה רמה ועם רמזים ופתרון מלא')],
     exams: [
       tile('#/solve', '✍️ פתרון מלא כמו במבחן', 'פותרים על דף, בלי רמזים: תשובה, רמת ביטחון, פתרון רשמי ורשימת בדיקה עצמית'),
-      tile('#/exam', '📝 מצב מבחן', 'שאלות מעורבות, שעון, בלי רמזים ועם דוח בסוף'),
-      tile('#/exam', '🎯 מבחן חכם', 'מבחן שנבנה לפי החולשות שלכם (מסמנים במסך ההגדרות)'),
+      tile('#/exam', '📝 מצב מבחן', 'שאלות מעורבות, שעון, בלי רמזים ועם דוח בסוף. במסך ההגדרות אפשר לסמן "מבחן חכם", שנבנה לפי החולשות שלכם'),
       tile('#/summary', '🖨️ סיכום להדפסה', 'דף אחד מהנתונים שלכם: חולשות, נוסחאות ורשימת בדיקה לפני המבחן'),
     ],
     backup: [
