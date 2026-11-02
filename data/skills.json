@@ -2019,41 +2019,11 @@
       "math-elim",
       "math-lin"
     ],
-    "math-3-009": [
-      "math-elim"
-    ],
-    "math-3-010": [
-      "math-elim"
-    ],
     "math-3-011": [
       "math-elim",
       "math-lin"
     ],
     "math-3-012": [
-      "math-elim",
-      "math-lin"
-    ],
-    "math-3-013": [
-      "math-elim",
-      "math-lin"
-    ],
-    "math-3-014": [
-      "math-elim",
-      "math-lin"
-    ],
-    "math-3-015": [
-      "math-elim",
-      "math-lin"
-    ],
-    "math-3-016": [
-      "math-elim",
-      "math-lin"
-    ],
-    "math-3-017": [
-      "math-elim",
-      "math-lin"
-    ],
-    "math-3-018": [
       "math-elim",
       "math-lin"
     ],
@@ -2111,33 +2081,6 @@
       "math-elim",
       "math-lin"
     ],
-    "math-4-010": [
-      "math-elim"
-    ],
-    "math-4-011": [
-      "math-elim"
-    ],
-    "math-4-012": [
-      "math-elim",
-      "math-lin"
-    ],
-    "math-4-013": [
-      "math-elim",
-      "math-lin"
-    ],
-    "math-4-014": [
-      "math-elim",
-      "math-lin"
-    ],
-    "math-4-015": [
-      "math-elim",
-      "math-lin"
-    ],
-    "math-4-016": [
-      "math-elim",
-      "math-lin",
-      "math-subst"
-    ],
     "math-4-017": [
       "math-elim"
     ],
@@ -2183,20 +2126,12 @@
       "math-disc",
       "math-check"
     ],
-    "math-4-024": [
-      "math-elim",
-      "math-lin"
-    ],
     "math-4-025": [
       "math-elim",
       "math-subst",
       "math-factor",
       "math-disc",
       "math-check"
-    ],
-    "math-4-026": [
-      "math-elim",
-      "math-lin"
     ],
     "math-4-027": [
       "math-elim",
@@ -2222,10 +2157,6 @@
       "math-factor",
       "math-disc",
       "math-check"
-    ],
-    "math-3-030": [
-      "math-elim",
-      "math-lin"
     ],
     "math-3-031": [
       "math-elim",
@@ -2262,10 +2193,6 @@
       "math-elim",
       "math-lin"
     ],
-    "math-4-029": [
-      "math-elim",
-      "math-lin"
-    ],
     "math-4-030": [
       "math-elim",
       "math-subst",
@@ -2279,11 +2206,6 @@
       "math-factor",
       "math-disc",
       "math-check"
-    ],
-    "math-4-032": [
-      "math-elim",
-      "math-lin",
-      "math-subst"
     ],
     "math-4-033": [
       "math-elim",

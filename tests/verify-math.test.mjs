@@ -362,19 +362,21 @@ test('implied equations must be combinations of the system and enable the comple
 const newIds = [];
 for (let i = 26; i <= 35; i++) newIds.push(`math-3-0${i}`);
 for (let i = 28; i <= 37; i++) newIds.push(`math-4-0${i}`);
+// three of the 20 hard linear items were later replaced by prerequisite-topic items (radicals, powers, parameter, logs)
+for (const gone of ['math-3-030', 'math-4-029', 'math-4-032']) newIds.splice(newIds.indexOf(gone), 1);
 
 test('20 new hard exercises: ids, levels, long solutions, equation-only', () => {
   const data = JSON.parse(readFileSync(dataFile, 'utf8'));
   const fresh = newIds.map((id) => data.find((e) => e.id === id));
   assert.ok(fresh.every(Boolean));
-  assert.equal(fresh.filter((e) => e.topic === 'math-3').length, 10);
-  assert.equal(fresh.filter((e) => e.topic === 'math-4').length, 10);
+  assert.equal(fresh.filter((e) => e.topic === 'math-3').length, 9);
+  assert.equal(fresh.filter((e) => e.topic === 'math-4').length, 8);
   assert.ok(fresh.filter((e) => e.level === 3).length >= 12);
   for (const e of fresh) {
     assert.ok(e.solution.length >= 6, `${e.id}: at least 6 solution steps`);
     assert.equal(e.tips.length, 3);
   }
-  assert.equal(data.filter((e) => !newIds.includes(e.id)).length, 64); // the original 40 keep their ids, plus 24 level 1/2 exercises
+  assert.equal(data.filter((e) => !newIds.includes(e.id)).length, 67); // 47 other linear exercises + 20 prerequisite-topic items
 });
 
 test('guided steps: at least 10 new exercises and 8 existing level-3 exercises have them, all valid', () => {
@@ -404,7 +406,8 @@ test('data/math.json: at most 12 level-1 and at least 70% level-3 exercises, 20+
   const data = JSON.parse(readFileSync(dataFile, 'utf8'));
   assert.deepEqual(levelProblems(data), []);
   assert.ok(data.filter((e) => e.guided).length >= 20);
-  for (const e of data) assert.ok(e.level === 3 ? e.solution.length >= 4 : e.solution.length >= 3, e.id);
+  // the short prerequisite topics (radicals, powers, parameter, logs) may have 3-step solutions
+  for (const e of data) assert.ok(e.level === 3 && /^math-[34]$/.test(e.topic) ? e.solution.length >= 4 : e.solution.length >= 3, e.id);
 });
 
 for (const file of ['math', 'physics']) {

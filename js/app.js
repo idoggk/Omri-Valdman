@@ -34,6 +34,10 @@ import { renderExercise, diagramFigure, OUTCOME_UI, badge } from './exercise-vie
 const TOPICS = [
   { id: 'math-3', title: 'מערכת משוואות עם 3 נעלמים', file: 'math' },
   { id: 'math-4', title: 'מערכת משוואות עם 4 נעלמים', file: 'math' },
+  { id: 'math-rad', title: 'שורשים: חישוב ומשוואות', file: 'math' },
+  { id: 'math-pow', title: 'חוקי חזקות ומשוואות מעריכיות', file: 'math' },
+  { id: 'math-par', title: 'משוואה ריבועית עם פרמטר', file: 'math' },
+  { id: 'math-lg', title: 'חישוב לוגריתמים', file: 'math' },
   { id: 'phys-vertical', title: 'תנועה אנכית', file: 'physics' },
   { id: 'phys-horizontal', title: 'תנועה אופקית', file: 'physics' },
 ];

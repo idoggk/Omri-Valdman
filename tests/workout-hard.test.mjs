@@ -130,3 +130,17 @@ test('hub: no two tiles share a target, so the exam modes are no longer duplicat
   const hs = hrefs();
   assert.equal(hs.filter((h) => h === '#/exam').length, 1);
 });
+
+test('prerequisite math topics: verifier catches a wrong answer and a wrong root count', async () => {
+  const { validate, extraProblems } = await import('../tools/verify-math.mjs');
+  const data = rd('math');
+  assert.deepEqual(validate(data), []);
+  const ex = structuredClone(data.find((e) => e.id === 'math-rad-002'));
+  assert.deepEqual(extraProblems(ex), []);
+  ex.inputs[0].answer = '2'; // the extraneous root, not a solution
+  assert.ok(extraProblems(ex).some((m) => m.includes('independent check gives 9')));
+  const ex2 = structuredClone(data.find((e) => e.id === 'math-pow-004'));
+  ex2.verify.checks[0].count = 3;
+  assert.ok(extraProblems(ex2).some((m) => m.includes('root(s)')));
+  assert.equal(data.filter((e) => ['math-rad', 'math-pow', 'math-par', 'math-lg'].includes(e.topic)).length, 20);
+});

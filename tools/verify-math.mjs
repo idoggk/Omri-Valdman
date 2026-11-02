@@ -6,6 +6,8 @@
 import { readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import path from 'node:path';
+import { holds } from '../js/mathhard.js';
+import { compileLog, parseLogRel } from '../js/logs.js';
 
 const abs = (a) => (a < 0n ? -a : a);
 const gcd = (a, b) => {
@@ -475,8 +477,126 @@ export function guidedProblems(g) {
   return out;
 }
 
+// ---------------------------------------------------------------- prerequisite topics (radicals, powers, parameter, logs)
+// These exercises carry verify = { kind: 'checks', checks: [...] } and every input a `src` that names the check value it
+// must equal. Nothing is taken from the declared answers: roots are found numerically by scanning the equation itself.
+//   {type:'eval', expr, env?}                      -> one number            src "c0"
+//   {type:'roots', eq, var, env?, range?, count?}  -> real roots, ascending  src "c1.0" (i-th), "c1.count|sum|sumsq|min|max"
+//   {type:'intcount', conds:[...], var, from, to}  -> integers in [from,to] satisfying every condition, src "c2", "c2.min|max"
+// env values: a number, "cK.<part>" (a value of an earlier check) or "iN" (the declared answer of input N, 0-based).
+export const EXTRA_TOPICS = ['math-rad', 'math-pow', 'math-par', 'math-lg'];
+export const EXPECTED_COUNTS = { 'math-3': 33, 'math-4': 31, 'math-rad': 5, 'math-pow': 5, 'math-par': 5, 'math-lg': 5 };
+const NUM_TOL = 1e-9;
+
+/** All real roots of fn on [lo, hi]: sign changes (bisected, poles rejected) and tangent touches (|f| local minima). */
+export function scanRoots(fn, lo = -60, hi = 60, step = 0.0005) {
+  const found = [];
+  const add = (r) => { if (!found.some((x) => Math.abs(x - r) < 1e-6)) found.push(Number(r.toFixed(9))); };
+  const N = Math.round((hi - lo) / step);
+  const f = (x) => fn(x);
+  let p2 = NaN, p1 = NaN; // f at i-2, i-1
+  for (let i = 0; i <= N; i++) {
+    const x = lo + i * step;
+    const v = f(x);
+    if (Number.isFinite(v) && Number.isFinite(p1)) {
+      if (p1 === 0) add(x - step);
+      else if ((p1 < 0) !== (v < 0) && v !== 0) {
+        let a = x - step, b = x;
+        for (let k = 0; k < 80; k++) { const m = (a + b) / 2; const fm = f(m); if ((fm < 0) === (f(a) < 0)) a = m; else b = m; }
+        const r = (a + b) / 2;
+        if (Math.abs(f(r)) < 1e-7) add(r);
+      }
+      if (Number.isFinite(p2) && Math.abs(p1) < Math.abs(p2) && Math.abs(p1) <= Math.abs(v) && Math.abs(p1) < 1e-4 && (p2 < 0) === (v < 0) && p1 !== 0) {
+        let a = x - 2 * step, b = x;
+        for (let k = 0; k < 120; k++) {
+          const m1 = a + (b - a) / 3, m2 = b - (b - a) / 3;
+          if (Math.abs(f(m1)) < Math.abs(f(m2))) b = m2; else a = m1;
+        }
+        const r = (a + b) / 2;
+        if (Math.abs(f(r)) < 1e-10) add(r);
+      }
+    }
+    p2 = p1; p1 = v;
+  }
+  return found.sort((a, b) => a - b);
+}
+
+const refPart = (val, part) => {
+  if (typeof val === 'number') return val;
+  const roots = val.roots, list = roots || val.members;
+  if (part === undefined) { if (list && !val.hasOwnProperty('value')) throw new Error('needs .part'); return val.value; }
+  if (/^\d+$/.test(part)) { const x = list && list[Number(part)]; if (x === undefined) throw new Error(`no item ${part}`); return x; }
+  if (!list || !list.length) { if (part === 'count' && list) return 0; throw new Error(`.${part} of an empty list`); }
+  if (part === 'count') return list.length;
+  if (part === 'sum') return list.reduce((a, b) => a + b, 0);
+  if (part === 'sumsq') return list.reduce((a, b) => a + b * b, 0);
+  if (part === 'min') return Math.min(...list);
+  if (part === 'max') return Math.max(...list);
+  throw new Error(`unknown part ${part}`);
+};
+
+/** Evaluates ex.verify.checks; returns { results, errors }. */
+export function runChecks(ex) {
+  const errors = [];
+  const results = [];
+  const resolve = (ref) => {
+    if (typeof ref === 'number') return ref;
+    const mi = /^i(\d+)$/.exec(ref);
+    if (mi) { const inp = (ex.inputs || [])[Number(mi[1])]; if (!inp) throw new Error(`no input ${mi[1]}`); return Number(inp.answer); }
+    const m = /^c(\d+)(?:\.(\w+))?$/.exec(ref);
+    if (!m || Number(m[1]) >= results.length) throw new Error(`bad reference "${ref}"`);
+    return refPart(results[Number(m[1])], m[2]);
+  };
+  const envOf = (c) => Object.fromEntries(Object.entries(c.env || {}).map(([k, r]) => [k, resolve(r)]));
+  for (const [k, c] of (ex.verify.checks || []).entries()) {
+    try {
+      if (c.type === 'eval') {
+        const value = compileLog(c.expr)(envOf(c));
+        if (!Number.isFinite(value)) throw new Error(`"${c.expr}" is not a finite number`);
+        if (c.expect !== undefined && Math.abs(value - c.expect) > NUM_TOL * (1 + Math.abs(value))) throw new Error(`"${c.expr}" is ${value}, expected ${c.expect}`);
+        results.push({ value });
+      } else if (c.type === 'roots') {
+        const rel = parseLogRel(c.eq);
+        if (rel.ops.length !== 1 || rel.ops[0] !== '=') throw new Error('roots needs one "="');
+        const env = envOf(c);
+        const [lo, hi] = c.range || [-60, 60];
+        const roots = scanRoots((x) => rel.sides[0]({ ...env, [c.var]: x }) - rel.sides[1]({ ...env, [c.var]: x }), lo, hi);
+        if (c.count !== undefined && roots.length !== c.count) throw new Error(`"${c.eq}" has ${roots.length} root(s): ${roots.join(', ')}; check says ${c.count}`);
+        results.push({ roots });
+      } else if (c.type === 'intcount') {
+        const rels = c.conds.map((s) => parseLogRel(s));
+        const members = [];
+        for (let x = c.from; x <= c.to; x++) if (rels.every((r) => holds(r, { [c.var]: x }))) members.push(x);
+        results.push({ value: members.length, members });
+      } else throw new Error(`unknown check type "${c.type}"`);
+    } catch (e) { errors.push(`check ${k}: ${e.message}`); results.push({ value: NaN, roots: [] }); }
+  }
+  return { results, errors };
+}
+
+/** Problems of one prerequisite-topic exercise (math-rad / math-pow / math-par / math-lg). */
+export function extraProblems(ex) {
+  const out = [];
+  const v = ex.verify;
+  if (!v || v.kind !== 'checks' || !Array.isArray(v.checks) || !v.checks.length) return ['verify.kind must be "checks" with a non-empty checks list'];
+  const { results, errors } = runChecks(ex);
+  out.push(...errors);
+  if (!Array.isArray(ex.inputs) || !ex.inputs.length) return [...out, 'inputs missing'];
+  ex.inputs.forEach((inp, i) => {
+    if (typeof inp.src !== 'string') { out.push(`input ${i + 1}: src missing`); return; }
+    try {
+      const m = /^c(\d+)(?:\.(\w+))?$/.exec(inp.src);
+      if (!m || Number(m[1]) >= results.length) throw new Error(`bad src "${inp.src}"`);
+      const want = refPart(results[Number(m[1])], m[2]);
+      if (!(Math.abs(want - Number(inp.answer)) <= NUM_TOL * (1 + Math.abs(want)))) out.push(`input ${i + 1} answer "${inp.answer}" but the independent check gives ${want}`);
+    } catch (e) { out.push(`input ${i + 1}: ${e.message}`); }
+  });
+  return out;
+}
+
 export function validate(data, opts = {}) {
-  const expected = opts.expectedPerTopic ?? 42;
+  // a number keeps the old meaning (per linear topic only); the default is the table of the real data file
+  const expected = typeof opts.expectedPerTopic === 'number' ? { 'math-3': opts.expectedPerTopic, 'math-4': opts.expectedPerTopic } : { ...EXPECTED_COUNTS, ...(opts.expectedPerTopic || {}) };
   const errors = [];
   const err = (id, msg) => errors.push(`${id}: ${msg}`);
   if (!Array.isArray(data)) return ['top level must be an array'];
@@ -487,9 +607,10 @@ export function validate(data, opts = {}) {
     if (!ex || typeof ex !== 'object') { err(id, 'not an object'); continue; }
     if (seen.has(ex.id)) err(id, 'duplicate id');
     seen.add(ex.id);
-    if (ex.topic !== 'math-3' && ex.topic !== 'math-4') { err(id, `bad topic ${ex.topic}`); continue; }
+    const extra = EXTRA_TOPICS.includes(ex.topic);
+    if (ex.topic !== 'math-3' && ex.topic !== 'math-4' && !extra) { err(id, `bad topic ${ex.topic}`); continue; }
     counts[ex.topic] = (counts[ex.topic] || 0) + 1;
-    const n = ex.topic === 'math-3' ? 3 : 4;
+    const n = extra ? 0 : ex.topic === 'math-3' ? 3 : 4;
     if (!new RegExp(`^${ex.topic}-\\d{3}$`).test(ex.id)) err(id, 'id must look like math-3-001');
     if (![1, 2, 3].includes(ex.level)) err(id, 'level must be 1, 2 or 3');
     for (const f of ['title', 'statement']) {
@@ -511,6 +632,18 @@ export function validate(data, opts = {}) {
     // No word problems: the statement must be written as equations.
     const plain = typeof ex.statement === 'string' ? ex.statement.replace(/<[^>]*>/g, ' ') : '';
     if ((plain.match(/=/g) || []).length < n) err(id, `statement must contain at least ${n} equations ("=")`);
+
+    if (extra) {
+      for (const m of extraProblems(ex)) err(id, m);
+      try { for (const l of tipLeaks(ex)) err(id, `tip leaks an answer value: ${l}`); } catch (e) { err(id, `tip leak check failed: ${e.message}`); }
+      if (!Array.isArray(ex.inputs) || !ex.inputs.length) err(id, 'inputs required');
+      else ex.inputs.forEach((inp, i) => {
+        if (!inp || typeof inp.label !== 'string' || !inp.label.trim()) err(id, `input ${i + 1} label empty`);
+        if (typeof inp.unit !== 'string') err(id, `input ${i + 1} unit must be a string`);
+        if (typeof inp.tolerance !== 'number' || !(inp.tolerance > 0)) err(id, `input ${i + 1} tolerance must be > 0`);
+      });
+      continue;
+    }
 
     const v = ex.verify;
     if (!v || typeof v !== 'object') { err(id, 'verify missing'); continue; }
@@ -712,8 +845,8 @@ export function validate(data, opts = {}) {
       }
     }
   }
-  for (const t of ['math-3', 'math-4']) {
-    if (counts[t] !== expected) errors.push(`${t}: expected ${expected} exercises, found ${counts[t] || 0}`);
+  for (const [t, want] of Object.entries(expected)) {
+    if ((counts[t] || 0) !== want) errors.push(`${t}: expected ${want} exercises, found ${counts[t] || 0}`);
   }
   return errors;
 }
