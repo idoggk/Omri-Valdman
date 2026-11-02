@@ -21,6 +21,7 @@ import * as ladder from './ladder-ui.js';
 import * as solve from './fullsolve-ui.js';
 import * as repair from './skills-ui.js';
 import * as trig from './trig-ui.js';
+import * as mathhard from './mathhard-ui.js';
 import * as nav from './nav.js';
 import * as feedbackUi from './feedback-ui.js';
 import { installSignKeys } from './signkey.js';
@@ -207,6 +208,7 @@ function route() {
     else if (name === 'hunt') hunt.viewHunt(examCtx, args[0]);
     else if (name === 'multipart') multipart.viewMultipart(examCtx, args[0]);
     else if (name === 'trig') trig.viewTrigRoute(examCtx, args[0], args[1]);
+    else if (name === 'mathhard') mathhard.viewMathHard(examCtx, args[0]);
     else if (name === 'workout') viewWorkoutRoute(args[0]);
     else if (name === 'exam') viewExam(examCtx, args[0]);
     else if (name === 'review-start') {

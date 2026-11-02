@@ -17,7 +17,7 @@ export const TABS = [
 
 /** Routes whose first segment alone is enough to resolve (the rest are optional arguments). */
 const SIMPLE = ['progress', 'practice-hub', 'backup', 'summary', 'drills', 'endless', 'order', 'methods', 'edge', 'reverse', 'fading', 'solve',
-  'repair', 'checkpoints', 'hunt', 'workout', 'exam', 'feedback', 'ladder', 'multipart', 'trig'];
+  'repair', 'checkpoints', 'hunt', 'workout', 'exam', 'feedback', 'ladder', 'multipart', 'trig', 'mathhard'];
 
 /** hash -> { name, args } or { name: 'notfound' }. One parser shared by app.js and the tests. */
 export function resolveRoute(hash) {
@@ -102,7 +102,8 @@ export function viewHome(ctx, loadErrors = []) {
           cont ? h('p', {}, h('a', { href: cont }, 'להמשיך מאיפה שעצרתם')) : null]
         : h('span', { class: 'muted' }, 'אין תרגילים זמינים לאימון.')),
     ctx.exercises.length ? repair.homeCard(ctx) : null,
-    h('p', {}, h('a', { href: '#/trig' }, '📐 זהויות טריגונומטריות: שלושה עוגנים וכל השאר נגזר')));
+    h('p', {}, h('a', { href: '#/trig' }, '📐 זהויות טריגונומטריות: שלושה עוגנים וכל השאר נגזר')),
+    h('p', {}, h('a', { href: '#/mathhard' }, '🧠 מתמטיקה ברמה גבוהה: שורשים, מעריכי, אי־שוויונות, פרמטר ומעגלים')));
 }
 
 /* ---------- practice hub (תרגול) ---------- */
@@ -137,6 +138,7 @@ export function viewHub(ctx) {
         h('strong', {}, '📐 דף נוסחאות'), h('span', { class: 'muted' }, 'כל הנוסחאות וטעויות נפוצות במקום אחד')),
       tile(`#/topic/${firstTopic}`, '📖 דוגמאות פתורות', 'בראש עמוד כל נושא: דוגמה פתורה צעד אחר צעד'),
       tile('#/trig', '📐 זהויות טריגונומטריות', 'שלושה עוגנים, גזירה צעד אחר צעד, כרטיסיות זכירה, תרגול ומאמן הוכחות'),
+      tile('#/mathhard', '🧠 מתמטיקה ברמה גבוהה', '42 תרגילים בחמישה נושאים ושלוש רמות: משוואות שורש, מעריכי, אי־שוויונות רציונליים, פרמטר ומעגלים. תשובות מדויקות וכרטיס שיטה'),
       tile('#/fading', '🌓 דוגמאות מתפוגגות', 'אותה דוגמה בארבעה שלבים: מפתרון מלא ועד פתרון עצמאי, עם הסתרה הדרגתית'),
     ],
     repair: [tile('#/repair', '🩹 חיזוק יסודות', 'מיני־שיעור ו־3 שאלות על מיומנות בסיס שבה יש טעויות חוזרות')],
