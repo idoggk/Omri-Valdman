@@ -83,6 +83,8 @@ const PRECACHE = [
   'js/estimate.js',
   'js/estimate-data.js',
   'js/estimate-ui.js',
+  'js/plan.js',
+  'js/plan-ui.js',
   'js/tryfirst.js',
   'js/tryfirst-ui.js',
   'js/logs.js',
