@@ -4,6 +4,7 @@ import { h } from './dom.js';
 import { feedbackCard } from './feedback-ui.js';
 import * as store from './store.js';
 import { TRIG_TOPIC, visitOutcome } from './engine.js';
+import { mathBlock, mathInline, mathButton, orderBlankOptions } from './mathdir.js';
 import { LESSONS, CARDS, FILL, WRONG, PROOFS, CHAIN } from './trig-data.js';
 import {
   loadState, saveState, gradeCard, dueCards, requeueGap, boxCounts, recordDrill, recordProof, pickDrills,
@@ -11,12 +12,12 @@ import {
 } from './trig.js';
 
 const BTN = 'min-height:44px;';
-const eq = (s, cls = '') => h('div', { class: cls, steps: s });
+const eq = (s) => mathBlock(s);
 const crumbs = (href = '#/trig', label = '→ חזרה ללימוד הזהויות') => h('p', { class: 'crumbs' }, h('a', { href }, label));
 const lessonOf = (id) => LESSONS.find((l) => l.id === id);
 const fmtV = (v) => (v == null ? 'לא מוגדר' : String(v));
 /** "תנאי: cos(a) ≠ 0 וגם ..." under a formula or step that divides or cancels; null when there is no condition. */
-export const condNote = (cond) => (String(cond || '').trim() ? h('p', { class: 'muted', dir: 'rtl' }, h('span', {}, 'תנאי: '), h('span', { dir: 'ltr' }, String(cond).trim().replace(/,\s*/g, ' , '))) : null);
+export const condNote = (cond) => (String(cond || '').trim() ? h('p', { class: 'muted', dir: 'rtl' }, h('span', {}, 'תנאי: '), mathInline(String(cond).trim().replace(/,\s*/g, ' , '))) : null);
 
 /** Deterministic shuffle so the right option is not always first (stable per seed, re-render safe). */
 export function shuffled(list, seed) {
@@ -39,7 +40,7 @@ export function spotPanel(statement) {
   const known = vals.every((v) => v != null);
   return h('div', { class: 'panel', dir: 'rtl' },
     h('strong', {}, 'בדיקה מספרית ב־a = 30°, b = 60°'),
-    ...parts.map((p, i) => h('div', {}, h('span', { dir: 'ltr' }, `${p}  =  ${fmtV(vals[i])}`))),
+    ...parts.map((p, i) => h('div', {}, mathInline(`${p}  =  ${fmtV(vals[i])}`))),
     h('p', { class: known && same ? 'muted' : 'error' }, !known ? 'באחד הצדדים הביטוי לא מוגדר בזוויות האלה, בוחרים זוויות אחרות.' : same ? 'שני הצדדים שווים ✓ (זה לא הוכחה, אבל סימן טוב).' : 'הצדדים שונים ✗: הנוסחה לא נכונה.'));
 }
 
@@ -90,7 +91,7 @@ function viewLesson(ctx, id) {
   const all = h('button', { class: 'btn', type: 'button', style: BTN }, 'הציגו הכול');
   function reveal() {
     const st = l.derive[shown++];
-    stepsBox.append(h('div', { class: 'panel' }, h('p', {}, h('strong', {}, `צעד ${shown}. `), st.say), st.eq ? eq(st.eq, 'eq-block') : null, condNote(st.cond)));
+    stepsBox.append(h('div', { class: 'panel' }, h('p', {}, h('strong', {}, `צעד ${shown}. `), st.say), st.eq ? eq(st.eq) : null, condNote(st.cond)));
     status.textContent = shown < l.derive.length ? `${shown} מתוך ${l.derive.length}. נסו לנחש את הצעד הבא לפני שלוחצים.` : 'זהו, סיימנו את הגזירה.';
     if (shown >= l.derive.length) { more.disabled = true; all.disabled = true; }
   }
@@ -100,7 +101,7 @@ function viewLesson(ctx, id) {
   ctx.show(crumbs('#/trig/learn', '→ לרשימת השיעורים'),
     h('h1', {}, l.title),
     l.anchor ? h('p', { class: 'notice' }, '⚓ זה אחד משלושת העוגנים: את זה מחזיקים בראש.') : null,
-    h('section', { class: 'panel' }, h('strong', {}, 'מה זוכרים'), ...l.formulas.flatMap((f) => [eq(f.eq, 'eq-block'), condNote(f.cond)])),
+    h('section', { class: 'panel' }, h('strong', {}, 'מה זוכרים'), ...l.formulas.flatMap((f) => [eq(f.eq), condNote(f.cond)])),
     h('section', { class: 'panel' }, h('strong', {}, 'איך זוכרים'), h('p', {}, l.mnemonic),
       l.pattern ? h('table', { class: 'pattern' }, ...l.pattern.map((r) => h('tr', {}, ...r.map((c) => h('td', {}, c))))) : null),
     h('section', { 'aria-label': 'גזרו בעצמכם' }, h('h2', {}, 'גזרו בעצמכם'),
@@ -136,7 +137,7 @@ function viewCards(ctx) {
     if (!queue.length) return finish();
     const card = queue[0];
     const lesson = lessonOf(card.lessonId);
-    const answer = h('div', { hidden: true }, eq(card.eq, 'eq-block'));
+    const answer = h('div', { hidden: true }, eq(card.eq));
     const reveal = h('button', { class: 'btn primary', type: 'button', style: BTN }, 'הצג תשובה');
     const grade = h('div', { class: 'btn-row', hidden: true });
     const mark = (ok) => {
@@ -204,15 +205,16 @@ function viewDrill(ctx) {
     };
     let body;
     if (it.kind === 'fill') {
-      const opts = shuffled(it.options.map((o, k) => ({ o, k })), it.id);
-      body = [h('p', {}, 'מה חסר בזהות?'), eq(it.template.replace('?', '___'), 'eq-block'),
-        h('div', { class: 'btn-row' }, opts.map(({ o, k }) => h('button', {
-          class: 'btn', type: 'button', style: BTN + 'direction:ltr',
+      const opts = orderBlankOptions(shuffled(it.options.map((o, k) => ({ o, k })), it.id), (e) => e.o);
+      body = [h('p', {}, 'השלימו את הזהות: מה נכנס במקום החסר (___)?'), eq(it.template.replace('?', '___')),
+        h('p', { class: 'muted' }, 'בחרו מה ימלא את החסר:'),
+        h('div', { class: 'btn-row' }, opts.map(({ o, k }) => mathButton(o, {
+          style: BTN, 'aria-label': `במקום החסר: ${o}`,
           onclick: () => { answer(k === it.ans, it.template.replace('?', it.options[it.ans])); },
-        }, o)))];
+        })))];
     } else {
       body = [h('p', {}, 'איזו מהזהויות הבאות שגויה? אפשר לבדוק מספרית לפני שבוחרים.'),
-        ...it.statements.map((s, k) => h('div', { class: 'panel' }, eq(s, 'eq-block'),
+        ...it.statements.map((s, k) => h('div', { class: 'panel' }, eq(s),
           h('div', { class: 'btn-row' },
             h('button', { class: 'btn', type: 'button', style: BTN, onclick: () => { if (!done) hints++; spot.replaceChildren(spotPanel(s)); } }, 'בדיקה ב־a=30°'),
             h('button', { class: 'btn primary', type: 'button', style: BTN, onclick: () => answer(k === it.wrong, it.statements[it.wrong]) }, 'זו השגויה')))), spot];
@@ -262,7 +264,7 @@ function viewProof(ctx, id) {
   let si = 0;
   let mistakes = 0;
   let hints = 0;
-  history.append(h('div', { class: 'panel' }, h('strong', {}, 'מתחילים מ: '), eq(p.lhs, 'eq-block')));
+  history.append(h('div', { class: 'panel' }, h('strong', {}, 'מתחילים מ: '), eq(p.lhs)));
 
   function step() {
     if (si >= p.steps.length) return finish();
@@ -276,10 +278,10 @@ function viewProof(ctx, id) {
       hintBox.replaceChildren(h('p', { class: 'notice' }, `רמז: ${s.hint}`));
     } }, 'רמז: איזו זהות?');
     const buttons = opts.map((o) => {
-      const b = h('button', { class: 'btn', type: 'button', style: BTN + 'display:block;width:100%;direction:ltr;text-align:left;margin:6px 0' }, eq(o.to));
+      const b = mathButton(eq(o.to), { style: BTN + 'display:block;width:100%;text-align:left;margin:6px 0' });
       b.addEventListener('click', () => {
         if (o.ok) {
-          history.append(h('div', { class: 'panel' }, h('span', { class: 'muted' }, `צעד ${si + 1}: `), eq(`= ${s.ok}`, 'eq-block'), h('p', { class: 'muted' }, s.why)));
+          history.append(h('div', { class: 'panel' }, h('span', { class: 'muted' }, `צעד ${si + 1}: `), eq(`= ${s.ok}`), h('p', { class: 'muted' }, s.why)));
           si++;
           step();
         } else {
@@ -292,7 +294,7 @@ function viewProof(ctx, id) {
     });
     area.replaceChildren(
       h('p', { class: 'muted' }, `צעד ${si + 1} מתוך ${p.steps.length}`),
-      h('p', {}, h('strong', {}, 'הביטוי כרגע: '), eq(si ? p.steps[si - 1].ok : p.lhs, 'eq-block')),
+      h('p', {}, h('strong', {}, 'הביטוי כרגע: '), eq(si ? p.steps[si - 1].ok : p.lhs)),
       h('p', {}, h('strong', {}, 'מה הצעד הבא?')), ...buttons, h('div', { class: 'btn-row' }, hintBtn), hintBox, out);
   }
   function finish() {
@@ -301,7 +303,7 @@ function viewProof(ctx, id) {
     store.recordAttempt({ exerciseId: `trig-${p.id}`, topic: TRIG_TOPIC, outcome: visitOutcome({ solved: true, hints, wrongs: mistakes }), hintsUsed: hints, seconds: Math.round((Date.now() - t0) / 1000) });
     area.replaceChildren(
       h('div', { class: 'feedback ok', role: 'status' }, `הוכחתם! טעויות: ${mistakes}, רמזים: ${hints}.`),
-      h('p', {}, h('strong', {}, 'מה שהוכחנו: '), eq(`${p.lhs} = ${p.rhs}`, 'eq-block')),
+      h('p', {}, h('strong', {}, 'מה שהוכחנו: '), eq(`${p.lhs} = ${p.rhs}`)),
       h('p', { class: 'muted' }, `הזהות נכונה ${WHERE_DEFINED}.`), ...[condNote(p.cond)].filter(Boolean),
       spotPanel(`${p.lhs} = ${p.rhs}`),
       feedbackCard({
@@ -310,7 +312,7 @@ function viewProof(ctx, id) {
       }),
       h('div', { class: 'btn-row' }, next ? h('a', { class: 'btn primary', href: `#/trig/proof/${next.id}` }, 'ההוכחה הבאה ←') : null, h('a', { class: 'btn', href: '#/trig/proof' }, 'לרשימה')));
   }
-  ctx.show(crumbs('#/trig/proof', '→ לרשימת ההוכחות'), h('h1', {}, p.title), h('p', {}, h('strong', {}, 'להוכיח: '), eq(`${p.lhs} = ${p.rhs}`, 'eq-block')),
+  ctx.show(crumbs('#/trig/proof', '→ לרשימת ההוכחות'), h('h1', {}, p.title), h('p', {}, h('strong', {}, 'להוכיח: '), eq(`${p.lhs} = ${p.rhs}`)),
     h('p', { class: 'muted' }, `הזהות נכונה ${WHERE_DEFINED}.`), condNote(p.cond), history, area);
   step();
 }

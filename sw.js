@@ -17,6 +17,7 @@ const PRECACHE = [
   'js/eqblocks.js',
   'js/math.js',
   'js/mathtex.js',
+  'js/mathdir.js',
   'vendor/katex/katex.min.js',
   'vendor/katex/katex.min.css',
   'vendor/katex/fonts/KaTeX_AMS-Regular.woff2',

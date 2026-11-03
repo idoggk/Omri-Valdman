@@ -251,7 +251,11 @@ body.no-tabs { padding-block-end: 0; }
 
 /* solution steps: Hebrew sentence line + each equation chain as its own ltr display block */
 .step-text { margin: .1em 0; }
-.eq-block { direction: ltr; text-align: left; unicode-bidi: isolate; font-size: 1.15em; line-height: 1.7; margin: .2em 0; padding: .1em 0; overflow-x: auto; max-width: 100%; white-space: nowrap; }
+.eq-block { direction: ltr; text-align: left; unicode-bidi: isolate; font-size: 1.15em; line-height: 1.7; margin: .2em 0; padding: .1em 0; overflow-x: auto; max-width: 100%; min-width: 0; white-space: normal; overflow-wrap: break-word; }
+/* every math string in an RTL page: ltr isolate that wraps at spaces/operators and scrolls, never clips (no overflow:hidden) */
+.math-ltr { direction: ltr; text-align: left; unicode-bidi: isolate; max-width: 100%; min-width: 0; overflow-x: auto; }
+.math-inline { direction: ltr; unicode-bidi: isolate; }
+.math-btn { direction: ltr; unicode-bidi: isolate; text-align: left; white-space: normal; overflow-wrap: break-word; }
 .eq-block .eq-math-line, .eq-block .eq-math { direction: ltr; unicode-bidi: isolate; }
 .eq-block .katex { color: inherit; font-size: 1.1em; text-align: left; direction: ltr; unicode-bidi: isolate; }
 .eq-block .eq-he { margin-inline-start: .4em; font-size: .9em; }

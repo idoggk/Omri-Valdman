@@ -3,6 +3,7 @@
 // Logic is in logs.js, content in data/logs-*.json (checked by tools/verify-logs.mjs).
 import { h } from './dom.js';
 import { isolateTitle } from './bidi.js';
+import { mathBlock } from './mathdir.js';
 import { feedbackCard } from './feedback-ui.js';
 import * as store from './store.js';
 import { tryFirst } from './tryfirst-ui.js';
@@ -21,7 +22,7 @@ const tierOf = (n) => TIERS.find((t) => t.id === n);
 const fmt = (s) => String(s ?? '').replace(/log_(\d+(?:\.\d+)?|[a-z])\(/g, 'log<sub>$1</sub>(');
 /** Name shown in front of the answer: "A" for "A = ..." value items, otherwise x. */
 const varOf = (ex) => { const m = ex.check.type === 'value' ? /^\s*([A-Za-z])\s*=/.exec(ex.eq[0]) : null; return m ? m[1] : 'x'; };
-const line = (s, cls = 'eq-block') => h('div', { class: cls, steps: fmt(s) });
+const line = (s, cls = '') => mathBlock(fmt(s), cls);
 const para = (s, cls = '') => h('p', { class: cls, steps: fmt(s) });
 
 export async function viewLogsRoute(ctx, sub, id) {
