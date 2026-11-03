@@ -1390,8 +1390,9 @@ export function shot(sc) {
 //   columns    L: A, B, H, note?
 //   intercept  L: v0, ang, X, H, hit
 //   drop       L: H, v (plane), j (jeep), D (distance jeep - plane at release)
+//   collide    L: H, D, A (horizontal launch from the tower), B (launch from the ground towards the tower), P (collision point)
 //   trio       L: A (angled launch), ang, B (dropped), C (thrown horizontally), dA, dC, H, P (meeting point)
-export const DUO_KINDS = ['table', 'cars', 'tower3', 'columns', 'intercept', 'drop', 'trio'];
+export const DUO_KINDS = ['table', 'cars', 'tower3', 'columns', 'intercept', 'drop', 'trio', 'collide'];
 export function duo(sc) {
   const L = sc.labels || {};
   let s = '', h;
@@ -1453,6 +1454,14 @@ export function duo(sc) {
     s += line(ax, gy - 6, ax + 60, gy - 6, { dash: true, op: 0.6 }) + txt(ax + 64, gy - 10, L.ang, 'b', 'start');
     s += ball(px, gy - 6, 'c', 4) + txt(px - 8, gy - 14, L.P, 'c', 'end');
     s += dim(cx, top - 24, px, top - 24, L.dC) + dim(ax, gy + 18, px, gy + 18, L.dA, { below: true });
+  } else if (sc.kind === 'collide') {
+    const gy = 150, top = 52, ax = 92, bx = 272, mx = 176, my = 104;
+    h = gy + 44;
+    s += ground(10, 310, gy) + building(40, top, ax - 40, gy) + dim(24, top, 24, gy, L.H);
+    s += qpath(ax, top, (ax + mx) / 2, top, mx, my, 'k') + ball(ax, top, 'a', 5) + arrow(ax + 6, top, ax + 36, top, 'a') + txt(ax + 34, top - 12, L.A, 'a', 'start');
+    s += qpath(bx, gy - 6, (bx + mx) / 2, 126, mx, my, 'k') + ball(bx, gy - 6, 'b', 5) + arrow(bx - 6, gy - 10, bx - 40, gy - 20, 'b') + txt(bx - 4, gy - 28, L.B, 'b', 'end');
+    s += ball(mx, my, 'c', 4) + txt(mx + 10, my + 22, L.P, 'c', 'start');
+    s += dim(ax, gy + 18, bx, gy + 18, L.D, { below: true });
   } else if (sc.kind === 'intercept') {
     const gy = 150, lx = 36, cxo = 136, oy = 44;
     h = gy + 44;
