@@ -12,6 +12,7 @@ import { readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import path from 'node:path';
 import { evalFormula, formulaRefs, classifyPart, validQuestion, tierOf } from '../js/multipart.js';
+import { airResistanceProblem } from './wording.mjs';
 import { graph, duo, shot, DUO_KINDS, validateSvg, layoutIssues, sameText } from './diagrams.mjs';
 
 const G = 10;
@@ -351,6 +352,7 @@ export function validate(data) {
       if (/sin|cos|סינוס|קוסינוס/i.test(`${q.stem} ${q.parts.map((p) => p.ask).join(' ')}`) || 'sin' in q.given || 'cos' in q.given) e('no sin/cos hints in the text');
       if (((q.model && q.model.bodies) || []).some((b) => b.ay) && !q.stem.includes('התנגדות האוויר זניחה')) e('stem must say that air resistance is negligible');
     }
+    { const ar = airResistanceProblem(q.title, q.stem); if (ar) e(ar); }
     let quantity;
     let simulated = null; // second engine (fixed-step simulation); only for bodies models
     const graphQ = q.figure && q.figure.graph ? graphModel(q.figure.graph) : null;

@@ -402,7 +402,7 @@ test('levelProblems enforces the difficulty policy', () => {
   assert.equal(levelProblems(mk([...Array(13).fill(1), ...Array(40).fill(3)])).length, 1);
 });
 
-test('data/math.json: at most 12 level-1 and at least 70% level-3 exercises, 20+ guided, 6+ solution steps for upgraded ones', () => {
+test('data/math.json: at most 12 level-1 and at least 65% level-3 exercises, 20+ guided, 6+ solution steps for upgraded ones', () => {
   const data = JSON.parse(readFileSync(dataFile, 'utf8'));
   assert.deepEqual(levelProblems(data), []);
   assert.ok(data.filter((e) => e.guided).length >= 20);

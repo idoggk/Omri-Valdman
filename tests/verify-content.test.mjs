@@ -1,9 +1,9 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { readFileSync } from 'node:fs';
+import { readFileSync, readdirSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import path from 'node:path';
-import { htmlProblems, validateFormulas, validateExamples, models, TOPICS } from '../tools/verify-content.mjs';
+import { htmlProblems, validateFormulas, validateExamples, models, TOPICS, wordingProblems } from '../tools/verify-content.mjs';
 
 const dataDir = path.join(path.dirname(fileURLToPath(import.meta.url)), '..', 'data');
 const load = (f) => JSON.parse(readFileSync(path.join(dataDir, f), 'utf8'));
@@ -18,6 +18,15 @@ test('real examples.json passes and covers every topic', () => {
   assert.deepEqual(validateExamples(ex), []);
   assert.ok(ex.length >= 14);
   for (const t of TOPICS) assert.ok(ex.some((e) => e.topic === t), t);
+});
+
+test('wording lint: audited strings are banned in every data file and the real data is clean', () => {
+  const files = readdirSync(dataDir).filter((f) => f.endsWith('.json')).map((f) => [f, readFileSync(path.join(dataDir, f), 'utf8')]);
+  assert.deepEqual(wordingProblems(files), []);
+  for (const bad of ['ולקחו {{g = 10 מ/ש²}}', 'לקחו g = 10', 'מהירות ההקרבה', 'מהירות הקרבה בין', 'מרבעים: x', "v = 5 מ'/ש", 'log_2(x)^2 - 3']) {
+    assert.equal(wordingProblems([['x.json', bad]]).length, 1, bad);
+  }
+  assert.deepEqual(wordingProblems([['x.json', 'קחו g = 10 מ/ש², (log_2(x))^2, מהירות התקרבות']]), []);
 });
 
 test('formulas: at least 8 items and 6 mistakes per topic', () => {

@@ -260,54 +260,54 @@
   },
   {
     "id": "rc-p-01", "subject": "physics", "errorType": "gravity-sign", "title": "זריקה למעלה וסימן התאוצה",
-    "statement": "כדור נזרק אנכית כלפי מעלה מהקרקע במהירות 20 מ'/ש. מצאו את גובהו, ואת מהירותו, אחרי 3 שניות. (g = 10 מ'/ש²)",
+    "statement": "כדור נזרק אנכית כלפי מעלה מהקרקע במהירות 20 מ/ש. מצאו את גובהו, ואת מהירותו, אחרי 3 שניות. (g = 10 מ/ש²)",
     "steps": [
-      "ציר y כלפי מעלה: <span dir=\"ltr\">y₀ = 0</span>, <span dir=\"ltr\">v₀ = +20</span> מ'/ש.",
-      "התאוצה: <span dir=\"ltr\">a = +10</span> מ'/ש², כי <span dir=\"ltr\">g = 10</span>.",
+      "ציר y כלפי מעלה: <span dir=\"ltr\">y₀ = 0</span>, <span dir=\"ltr\">v₀ = +20</span> מ/ש.",
+      "התאוצה: <span dir=\"ltr\">a = +10</span> מ/ש², כי <span dir=\"ltr\">g = 10</span>.",
       "<span dir=\"ltr\">y = v₀t + ½at² = 20·3 + 5·9 = 105</span> מ'.",
-      "<span dir=\"ltr\">v = v₀ + at = 20 + 10·3 = 50</span> מ'/ש.",
-      "תשובה: הכדור בגובה 105 מ' ומהירותו 50 מ'/ש כלפי מעלה."
+      "<span dir=\"ltr\">v = v₀ + at = 20 + 10·3 = 50</span> מ/ש.",
+      "תשובה: הכדור בגובה 105 מ' ומהירותו 50 מ/ש כלפי מעלה."
     ],
     "firstWrong": 1,
     "whyWrong": "כשהציר מצביע כלפי מעלה, הכובד מאיץ כלפי מטה, ולכן <span dir=\"ltr\">a = −10</span>. סימן שגוי הופך האטה להאצה.",
-    "correctedStep": "<span dir=\"ltr\">a = −10</span> מ'/ש² (הכובד מצביע נגד כיוון הציר).",
+    "correctedStep": "<span dir=\"ltr\">a = −10</span> מ/ש² (הכובד מצביע נגד כיוון הציר).",
     "hints": ["באיזה כיוון מאיץ הכובד, ולאיזה כיוון הצבתם את הציר?", "האם הגיוני שכדור שנזרק למעלה מגיע ל־105 מ' כשהמהירות ההתחלתית 20?"],
-    "fix": { "ask": "מהי התאוצה (עם סימן) בציר שבו כלפי מעלה חיובי?", "answer": { "kind": "number", "value": "-10" }, "unit": "מ'/ש²" },
+    "fix": { "ask": "מהי התאוצה (עם סימן) בציר שבו כלפי מעלה חיובי?", "answer": { "kind": "number", "value": "-10" }, "unit": "מ/ש²" },
     "finish": [
       { "id": "a", "ask": "מהו גובה הכדור אחרי 3 שניות?", "answer": { "kind": "number", "value": "15" }, "unit": "מ'", "ifError": { "kind": "number", "value": "105" }, "solution": "<span dir=\"ltr\">y = 20·3 − 5·9 = 15</span> מ'." },
-      { "id": "b", "ask": "מהי מהירות הכדור אחרי 3 שניות (עם סימן)?", "answer": { "kind": "number", "value": "-10" }, "unit": "מ'/ש", "ifError": { "kind": "number", "value": "50" }, "solution": "<span dir=\"ltr\">v = 20 − 10·3 = −10</span> מ'/ש: הכדור כבר יורד." },
+      { "id": "b", "ask": "מהי מהירות הכדור אחרי 3 שניות (עם סימן)?", "answer": { "kind": "number", "value": "-10" }, "unit": "מ/ש", "ifError": { "kind": "number", "value": "50" }, "solution": "<span dir=\"ltr\">v = 20 − 10·3 = −10</span> מ/ש: הכדור כבר יורד." },
       { "id": "c", "ask": "מהו הגובה המרבי שהכדור מגיע אליו?", "answer": { "kind": "number", "value": "20" }, "unit": "מ'", "solution": "<span dir=\"ltr\">h = v₀²/(2g) = 400/20 = 20</span> מ'." }
     ]
   },
   {
     "id": "rc-p-02", "subject": "physics", "errorType": "mixed-components", "title": "חבילה ממזל״ט",
-    "statement": "מזל״ט טס אופקית בגובה 45 מ' במהירות 40 מ'/ש ומשחרר חבילה. מצאו את זמן הנפילה, את הטווח האופקי ואת מהירות החבילה ברגע הפגיעה. (g = 10 מ'/ש²)",
+    "statement": "מזל״ט טס אופקית בגובה 45 מ' במהירות 40 מ/ש ומשחרר חבילה. מצאו את זמן הנפילה, את הטווח האופקי ואת מהירות החבילה ברגע הפגיעה. (g = 10 מ/ש²)",
     "steps": [
-      "ציר y כלפי מטה מנקודת השחרור. בשחרור: <span dir=\"ltr\">v_x = 40</span> מ'/ש.",
+      "ציר y כלפי מטה מנקודת השחרור. בשחרור: <span dir=\"ltr\">v_x = 40</span> מ/ש.",
       "זמן הנפילה: <span dir=\"ltr\">45 = 40·t + 5t²</span>.",
       "<span dir=\"ltr\">t² + 8t − 9 = 0</span>, כלומר <span dir=\"ltr\">(t + 9)(t − 1) = 0</span>, ולכן <span dir=\"ltr\">t = 1</span> ש'.",
       "הטווח: <span dir=\"ltr\">x = 40·1 = 40</span> מ'.",
-      "מהירות אנכית בפגיעה: <span dir=\"ltr\">v_y = 10·1 = 10</span> מ'/ש.",
-      "מהירות כוללת: <span dir=\"ltr\">√(40² + 10²) = √1700 ≈ 41.2</span> מ'/ש."
+      "מהירות אנכית בפגיעה: <span dir=\"ltr\">v_y = 10·1 = 10</span> מ/ש.",
+      "מהירות כוללת: <span dir=\"ltr\">√(40² + 10²) = √1700 ≈ 41.2</span> מ/ש."
     ],
     "firstWrong": 1,
     "whyWrong": "המהירות האופקית לא משתתפת בתנועה האנכית. בציר האנכי <span dir=\"ltr\">v_y0 = 0</span>, ולכן <span dir=\"ltr\">45 = 5t²</span> ו־<span dir=\"ltr\">t = 3</span> ש'. ערבבו רכיב אופקי במשוואה אנכית.",
     "correctedStep": "<span dir=\"ltr\">45 = 0·t + 5t²</span>, ולכן <span dir=\"ltr\">t² = 9</span> ו־<span dir=\"ltr\">t = 3</span> ש'.",
     "hints": ["אילו מהירויות משפיעות על הנפילה האנכית?", "מהי המהירות האנכית של החבילה ברגע השחרור?"],
-    "fix": { "ask": "מהי המהירות האנכית ההתחלתית של החבילה ברגע השחרור?", "answer": { "kind": "number", "value": "0" }, "unit": "מ'/ש" },
+    "fix": { "ask": "מהי המהירות האנכית ההתחלתית של החבילה ברגע השחרור?", "answer": { "kind": "number", "value": "0" }, "unit": "מ/ש" },
     "finish": [
       { "id": "a", "ask": "מהו זמן הנפילה?", "answer": { "kind": "number", "value": "3" }, "unit": "ש'", "ifError": { "kind": "number", "value": "1" }, "solution": "<span dir=\"ltr\">45 = 5t²</span>, ולכן <span dir=\"ltr\">t = 3</span> ש'." },
       { "id": "b", "ask": "מהו הטווח האופקי?", "answer": { "kind": "number", "value": "120" }, "unit": "מ'", "ifError": { "kind": "number", "value": "40" }, "solution": "<span dir=\"ltr\">x = 40·3 = 120</span> מ'." },
-      { "id": "c", "ask": "מהי המהירות האנכית ברגע הפגיעה?", "answer": { "kind": "number", "value": "30" }, "unit": "מ'/ש", "ifError": { "kind": "number", "value": "10" }, "solution": "<span dir=\"ltr\">v_y = 10·3 = 30</span> מ'/ש." },
-      { "id": "d", "ask": "מהי המהירות הכוללת ברגע הפגיעה?", "answer": { "kind": "number", "value": "50" }, "unit": "מ'/ש", "ifError": { "kind": "number", "value": "sqrt(1700)" }, "solution": "<span dir=\"ltr\">√(40² + 30²) = √2500 = 50</span> מ'/ש." }
+      { "id": "c", "ask": "מהי המהירות האנכית ברגע הפגיעה?", "answer": { "kind": "number", "value": "30" }, "unit": "מ/ש", "ifError": { "kind": "number", "value": "10" }, "solution": "<span dir=\"ltr\">v_y = 10·3 = 30</span> מ/ש." },
+      { "id": "d", "ask": "מהי המהירות הכוללת ברגע הפגיעה?", "answer": { "kind": "number", "value": "50" }, "unit": "מ/ש", "ifError": { "kind": "number", "value": "sqrt(1700)" }, "solution": "<span dir=\"ltr\">√(40² + 30²) = √2500 = 50</span> מ/ש." }
     ]
   },
   {
     "id": "rc-p-03", "subject": "physics", "errorType": "wrong-component", "title": "בעיטה בזווית",
-    "statement": "כדור נבעט מהקרקע במהירות 50 מ'/ש בזווית θ מעל האופק, כאשר sinθ = 0.6. מצאו את זמן התעופה, את הגובה המרבי ואת המרחק האופקי אחרי 2 שניות. (g = 10 מ'/ש², בלי התנגדות אוויר)",
+    "statement": "כדור נבעט מהקרקע במהירות 50 מ/ש בזווית θ מעל האופק, כאשר sinθ = 0.6. מצאו את זמן התעופה, את הגובה המרבי ואת המרחק האופקי אחרי 2 שניות. (g = 10 מ/ש², בלי התנגדות אוויר)",
     "steps": [
       "נתון <span dir=\"ltr\">sinθ = 0.6</span>, ולכן <span dir=\"ltr\">cosθ = 0.8</span>.",
-      "הרכיבים: <span dir=\"ltr\">v_x = v₀·sinθ = 30</span> ו־<span dir=\"ltr\">v_y = v₀·cosθ = 40</span> מ'/ש.",
+      "הרכיבים: <span dir=\"ltr\">v_x = v₀·sinθ = 30</span> ו־<span dir=\"ltr\">v_y = v₀·cosθ = 40</span> מ/ש.",
       "זמן עלייה <span dir=\"ltr\">t = v_y/g = 4</span> ש', ולכן זמן התעופה 8 ש'.",
       "גובה מרבי: <span dir=\"ltr\">v_y²/(2g) = 1600/20 = 80</span> מ'.",
       "מרחק אופקי אחרי 2 ש': <span dir=\"ltr\">x = v_x·2 = 60</span> מ'.",
@@ -315,9 +315,9 @@
     ],
     "firstWrong": 1,
     "whyWrong": "כשהזווית נמדדת מהאופק, הרכיב האופקי הוא <span dir=\"ltr\">v₀·cosθ</span> והאנכי <span dir=\"ltr\">v₀·sinθ</span>. התבלבלו בין סינוס לקוסינוס.",
-    "correctedStep": "<span dir=\"ltr\">v_x = v₀·cosθ = 40</span> ו־<span dir=\"ltr\">v_y = v₀·sinθ = 30</span> מ'/ש.",
+    "correctedStep": "<span dir=\"ltr\">v_x = v₀·cosθ = 40</span> ו־<span dir=\"ltr\">v_y = v₀·sinθ = 30</span> מ/ש.",
     "hints": ["שרטטו משולש מהירויות: איזו צלע צמודה לזווית ואיזו מולה?", "בזווית קטנה מאוד, האם הכדור נע בעיקר אופקית או אנכית?"],
-    "fix": { "ask": "מהו הרכיב האופקי הנכון <span dir=\"ltr\">v_x</span>?", "answer": { "kind": "number", "value": "40" }, "unit": "מ'/ש" },
+    "fix": { "ask": "מהו הרכיב האופקי הנכון <span dir=\"ltr\">v_x</span>?", "answer": { "kind": "number", "value": "40" }, "unit": "מ/ש" },
     "finish": [
       { "id": "a", "ask": "מהו זמן התעופה?", "answer": { "kind": "number", "value": "6" }, "unit": "ש'", "ifError": { "kind": "number", "value": "8" }, "solution": "<span dir=\"ltr\">v_y = 30</span>, זמן עלייה 3 ש', זמן תעופה 6 ש'." },
       { "id": "b", "ask": "מהו הגובה המרבי?", "answer": { "kind": "number", "value": "45" }, "unit": "מ'", "ifError": { "kind": "number", "value": "80" }, "solution": "<span dir=\"ltr\">900/20 = 45</span> מ'." },
@@ -326,14 +326,14 @@
   },
   {
     "id": "rc-p-04", "subject": "physics", "errorType": "forgot-initial-height", "title": "זריקה מגג בניין",
-    "statement": "כדור נזרק אנכית כלפי מעלה במהירות 20 מ'/ש מגג בניין שגובהו 25 מ'. כעבור כמה זמן הוא פוגע בקרקע, באיזו מהירות, ומהי הדרך הכוללת שעבר? (g = 10 מ'/ש²)",
+    "statement": "כדור נזרק אנכית כלפי מעלה במהירות 20 מ/ש מגג בניין שגובהו 25 מ'. כעבור כמה זמן הוא פוגע בקרקע, באיזו מהירות, ומהי הדרך הכוללת שעבר? (g = 10 מ/ש²)",
     "steps": [
       "ציר y כלפי מעלה מהקרקע: <span dir=\"ltr\">y₀ = 25</span>, <span dir=\"ltr\">v₀ = +20</span>, <span dir=\"ltr\">a = −10</span>.",
       "משוואת המקום: <span dir=\"ltr\">y = 20t − 5t²</span>.",
       "פגיעה בקרקע: <span dir=\"ltr\">y = 0</span>, כלומר <span dir=\"ltr\">20t − 5t² = 0</span>.",
       "<span dir=\"ltr\">t(20 − 5t) = 0</span>, ולכן <span dir=\"ltr\">t = 4</span> ש'.",
-      "מהירות: <span dir=\"ltr\">v = 20 − 10·4 = −20</span> מ'/ש.",
-      "תשובה: 4 ש' ומהירות 20 מ'/ש כלפי מטה."
+      "מהירות: <span dir=\"ltr\">v = 20 − 10·4 = −20</span> מ/ש.",
+      "תשובה: 4 ש' ומהירות 20 מ/ש כלפי מטה."
     ],
     "firstWrong": 1,
     "whyWrong": "בציר שראשיתו בקרקע חייבים לכתוב את הגובה ההתחלתי: <span dir=\"ltr\">y = y₀ + v₀t + ½at²</span>. בלי <span dir=\"ltr\">y₀ = 25</span> המשוואה מתארת חזרה לגובה הגג ולא לקרקע.",
@@ -342,20 +342,20 @@
     "fix": { "ask": "מהו הערך של y ברגע <span dir=\"ltr\">t = 0</span> במשוואת המקום הנכונה?", "answer": { "kind": "number", "value": "25" }, "unit": "מ'" },
     "finish": [
       { "id": "a", "ask": "כעבור כמה זמן הכדור פוגע בקרקע?", "answer": { "kind": "number", "value": "5" }, "unit": "ש'", "ifError": { "kind": "number", "value": "4" }, "solution": "<span dir=\"ltr\">25 + 20t − 5t² = 0</span>, כלומר <span dir=\"ltr\">t² − 4t − 5 = 0</span>, ולכן <span dir=\"ltr\">t = 5</span> ש'." },
-      { "id": "b", "ask": "מהי מהירות הכדור (גודל) ברגע הפגיעה?", "answer": { "kind": "number", "value": "30" }, "unit": "מ'/ש", "ifError": { "kind": "number", "value": "20" }, "solution": "<span dir=\"ltr\">v = 20 − 10·5 = −30</span>, כלומר 30 מ'/ש כלפי מטה." },
+      { "id": "b", "ask": "מהי מהירות הכדור (גודל) ברגע הפגיעה?", "answer": { "kind": "number", "value": "30" }, "unit": "מ/ש", "ifError": { "kind": "number", "value": "20" }, "solution": "<span dir=\"ltr\">v = 20 − 10·5 = −30</span>, כלומר 30 מ/ש כלפי מטה." },
       { "id": "c", "ask": "מהי הדרך הכוללת שעבר הכדור?", "answer": { "kind": "number", "value": "65" }, "unit": "מ'", "ifError": { "kind": "number", "value": "40" }, "solution": "עלייה של 20 מ' עד גובה 45 מ', ואז ירידה של 45 מ': <span dir=\"ltr\">20 + 45 = 65</span> מ'." }
     ]
   },
   {
     "id": "rc-p-05", "subject": "physics", "errorType": "meeting-equation", "title": "אבן נופלת ואבן עולה",
-    "statement": "מראש מגדל בגובה 80 מ' משוחררת אבן A ממנוחה. באותו רגע נזרקת אבן B מהקרקע כלפי מעלה, בדיוק מתחת ל־A, במהירות 40 מ'/ש. מתי ואיפה הן נפגשות? (g = 10 מ'/ש²)",
+    "statement": "מראש מגדל בגובה 80 מ' משוחררת אבן A ממנוחה. באותו רגע נזרקת אבן B מהקרקע כלפי מעלה, בדיוק מתחת ל־A, במהירות 40 מ/ש. מתי ואיפה הן נפגשות? (g = 10 מ/ש²)",
     "steps": [
       "אבן A עוברת מרחק <span dir=\"ltr\">5t²</span> כלפי מטה. אבן B נמצאת בגובה <span dir=\"ltr\">40t − 5t²</span>.",
       "הן נפגשות כשהמרחק ש־A עברה שווה למרחק ש־B עברה: <span dir=\"ltr\">5t² = 40t − 5t²</span>.",
       "<span dir=\"ltr\">10t² = 40t</span>, ולכן <span dir=\"ltr\">t = 4</span> ש'.",
       "גובה המפגש: <span dir=\"ltr\">y = 80 − 5·16 = 0</span> מ'.",
       "כלומר הן נפגשות על הקרקע אחרי 4 ש'.",
-      "מהירות A במפגש: <span dir=\"ltr\">10·4 = 40</span> מ'/ש."
+      "מהירות A במפגש: <span dir=\"ltr\">10·4 = 40</span> מ/ש."
     ],
     "firstWrong": 1,
     "whyWrong": "במפגש שני הגופים באותו גובה: <span dir=\"ltr\">80 − 5t² = 40t − 5t²</span>. (או: סכום המרחקים שעברו שווה לגובה המגדל, 80 מ'.) השוואת המרחקים ששני הגופים עברו אינה תנאי למפגש.",
@@ -365,12 +365,12 @@
     "finish": [
       { "id": "a", "ask": "מתי הן נפגשות?", "answer": { "kind": "number", "value": "2" }, "unit": "ש'", "ifError": { "kind": "number", "value": "4" }, "solution": "<span dir=\"ltr\">40t = 80</span>, ולכן <span dir=\"ltr\">t = 2</span> ש'." },
       { "id": "b", "ask": "באיזה גובה הן נפגשות?", "answer": { "kind": "number", "value": "60" }, "unit": "מ'", "ifError": { "kind": "number", "value": "0" }, "solution": "<span dir=\"ltr\">y = 80 − 5·4 = 60</span> מ'. בדיקה עם B: <span dir=\"ltr\">80 − 20 = 60</span>." },
-      { "id": "c", "ask": "מהי מהירות A (גודל) ברגע המפגש?", "answer": { "kind": "number", "value": "20" }, "unit": "מ'/ש", "ifError": { "kind": "number", "value": "40" }, "solution": "<span dir=\"ltr\">v = 10·2 = 20</span> מ'/ש." }
+      { "id": "c", "ask": "מהי מהירות A (גודל) ברגע המפגש?", "answer": { "kind": "number", "value": "20" }, "unit": "מ/ש", "ifError": { "kind": "number", "value": "40" }, "solution": "<span dir=\"ltr\">v = 10·2 = 20</span> מ/ש." }
     ]
   },
   {
     "id": "rc-p-06", "subject": "physics", "errorType": "meeting-equation", "title": "שתי מכוניות זו מול זו",
-    "statement": "מכונית A יוצאת מהנקודה x = 0 במהירות 20 מ'/ש בכיוון החיובי. באותו רגע מכונית B יוצאת מהנקודה x = 300 מ' ונוסעת לעבר A במהירות 10 מ'/ש. מתי ואיפה הן נפגשות?",
+    "statement": "מכונית A יוצאת מהנקודה x = 0 במהירות 20 מ/ש בכיוון החיובי. באותו רגע מכונית B יוצאת מהנקודה x = 300 מ' ונוסעת לעבר A במהירות 10 מ/ש. מתי ואיפה הן נפגשות?",
     "steps": [
       "מכונית A: <span dir=\"ltr\">x_A = 20t</span>.",
       "מכונית B מתחילה ב־300 ונוסעת לעבר A: <span dir=\"ltr\">x_B = 300 + 10t</span>.",
@@ -388,15 +388,15 @@
       { "id": "a", "ask": "אחרי כמה זמן הן נפגשות?", "answer": { "kind": "number", "value": "10" }, "unit": "ש'", "ifError": { "kind": "number", "value": "30" }, "solution": "<span dir=\"ltr\">20t = 300 − 10t</span>, ולכן <span dir=\"ltr\">30t = 300</span> ו־<span dir=\"ltr\">t = 10</span> ש'." },
       { "id": "b", "ask": "באיזו נקודה (x) הן נפגשות?", "answer": { "kind": "number", "value": "200" }, "unit": "מ'", "ifError": { "kind": "number", "value": "600" }, "solution": "<span dir=\"ltr\">x = 20·10 = 200</span> מ'." },
       { "id": "c", "ask": "כמה מטרים נסעה B עד המפגש?", "answer": { "kind": "number", "value": "100" }, "unit": "מ'", "ifError": { "kind": "number", "value": "300" }, "solution": "<span dir=\"ltr\">10·10 = 100</span> מ'." },
-      { "id": "d", "ask": "אחרי כמה שניות המרחק בין המכוניות הוא 60 מ' (לפני המפגש)?", "answer": { "kind": "number", "value": "8" }, "unit": "ש'", "solution": "המרחק קטן בקצב <span dir=\"ltr\">30</span> מ'/ש: <span dir=\"ltr\">300 − 30t = 60</span>, ולכן <span dir=\"ltr\">t = 8</span> ש'." }
+      { "id": "d", "ask": "אחרי כמה שניות המרחק בין המכוניות הוא 60 מ' (לפני המפגש)?", "answer": { "kind": "number", "value": "8" }, "unit": "ש'", "solution": "המרחק קטן בקצב <span dir=\"ltr\">30</span> מ/ש: <span dir=\"ltr\">300 − 30t = 60</span>, ולכן <span dir=\"ltr\">t = 8</span> ש'." }
     ]
   },
   {
     "id": "rc-p-07", "subject": "physics", "errorType": "initial-sign", "title": "אבן נזרקת מגשר",
-    "statement": "אבן נזרקת אנכית כלפי מטה במהירות 10 מ'/ש מגשר שגובהו 40 מ' מעל פני המים. כעבור כמה זמן היא פוגעת במים? מה גובהה ומהירותה אחרי שנייה אחת? (g = 10 מ'/ש²)",
+    "statement": "אבן נזרקת אנכית כלפי מטה במהירות 10 מ/ש מגשר שגובהו 40 מ' מעל פני המים. כעבור כמה זמן היא פוגעת במים? מה גובהה ומהירותה אחרי שנייה אחת? (g = 10 מ/ש²)",
     "steps": [
-      "ציר y כלפי מעלה מפני המים: <span dir=\"ltr\">y₀ = 40</span>, <span dir=\"ltr\">a = −10</span> מ'/ש².",
-      "מהירות התחלתית: <span dir=\"ltr\">v₀ = +10</span> מ'/ש.",
+      "ציר y כלפי מעלה מפני המים: <span dir=\"ltr\">y₀ = 40</span>, <span dir=\"ltr\">a = −10</span> מ/ש².",
+      "מהירות התחלתית: <span dir=\"ltr\">v₀ = +10</span> מ/ש.",
       "<span dir=\"ltr\">y = 40 + 10t − 5t² = 0</span>, כלומר <span dir=\"ltr\">t² − 2t − 8 = 0</span>.",
       "<span dir=\"ltr\">(t − 4)(t + 2) = 0</span>, ולכן <span dir=\"ltr\">t = 4</span> ש'.",
       "אחרי שנייה: <span dir=\"ltr\">y = 40 + 10 − 5 = 45</span> מ' ו־<span dir=\"ltr\">v = 10 − 10 = 0</span>.",
@@ -404,74 +404,74 @@
     ],
     "firstWrong": 1,
     "whyWrong": "האבן נזרקת כלפי מטה, והציר מצביע כלפי מעלה, ולכן <span dir=\"ltr\">v₀ = −10</span>. סימן שגוי הופך זריקה כלפי מטה לזריקה כלפי מעלה.",
-    "correctedStep": "<span dir=\"ltr\">v₀ = −10</span> מ'/ש (נגד כיוון הציר).",
+    "correctedStep": "<span dir=\"ltr\">v₀ = −10</span> מ/ש (נגד כיוון הציר).",
     "hints": ["לאיזה כיוון נזרקת האבן, ולאיזה כיוון מצביע הציר?", "האם הגיוני שאבן שנזרקה למטה תעמוד לרגע אחרי שנייה?"],
-    "fix": { "ask": "מהי המהירות ההתחלתית <span dir=\"ltr\">v₀</span> (עם סימן) בציר שבו מעלה חיובי?", "answer": { "kind": "number", "value": "-10" }, "unit": "מ'/ש" },
+    "fix": { "ask": "מהי המהירות ההתחלתית <span dir=\"ltr\">v₀</span> (עם סימן) בציר שבו מעלה חיובי?", "answer": { "kind": "number", "value": "-10" }, "unit": "מ/ש" },
     "finish": [
       { "id": "a", "ask": "כעבור כמה זמן האבן פוגעת במים?", "answer": { "kind": "number", "value": "2" }, "unit": "ש'", "ifError": { "kind": "number", "value": "4" }, "solution": "<span dir=\"ltr\">40 − 10t − 5t² = 0</span>, כלומר <span dir=\"ltr\">t² + 2t − 8 = 0</span>, ולכן <span dir=\"ltr\">t = 2</span> ש'." },
       { "id": "b", "ask": "מהו גובה האבן מעל המים אחרי שנייה אחת?", "answer": { "kind": "number", "value": "25" }, "unit": "מ'", "ifError": { "kind": "number", "value": "45" }, "solution": "<span dir=\"ltr\">y = 40 − 10 − 5 = 25</span> מ'." },
-      { "id": "c", "ask": "מהי מהירות האבן (עם סימן) אחרי שנייה אחת?", "answer": { "kind": "number", "value": "-20" }, "unit": "מ'/ש", "ifError": { "kind": "number", "value": "0" }, "solution": "<span dir=\"ltr\">v = −10 − 10·1 = −20</span> מ'/ש." }
+      { "id": "c", "ask": "מהי מהירות האבן (עם סימן) אחרי שנייה אחת?", "answer": { "kind": "number", "value": "-20" }, "unit": "מ/ש", "ifError": { "kind": "number", "value": "0" }, "solution": "<span dir=\"ltr\">v = −10 − 10·1 = −20</span> מ/ש." }
     ]
   },
   {
     "id": "rc-p-08", "subject": "physics", "errorType": "mixed-components", "title": "זריקה אופקית מגג",
-    "statement": "כדור נזרק אופקית במהירות 15 מ'/ש מגג בגובה 20 מ'. מצאו את מהירות הכדור (גודל והזווית מתחת לאופק) ברגע הפגיעה בקרקע. (g = 10 מ'/ש²)",
+    "statement": "כדור נזרק אופקית במהירות 15 מ/ש מגג בגובה 20 מ'. מצאו את מהירות הכדור (גודל והזווית מתחת לאופק) ברגע הפגיעה בקרקע. (g = 10 מ/ש²)",
     "steps": [
       "זמן הנפילה: <span dir=\"ltr\">20 = 5t²</span>, ולכן <span dir=\"ltr\">t = 2</span> ש'.",
-      "הרכיב האנכי בפגיעה: <span dir=\"ltr\">v_y = v_x + g·t = 15 + 10·2 = 35</span> מ'/ש.",
-      "הרכיב האופקי לא משתנה: <span dir=\"ltr\">v_x = 15</span> מ'/ש.",
-      "מהירות כוללת: <span dir=\"ltr\">√(15² + 35²) = √1450 ≈ 38.1</span> מ'/ש.",
+      "הרכיב האנכי בפגיעה: <span dir=\"ltr\">v_y = v_x + g·t = 15 + 10·2 = 35</span> מ/ש.",
+      "הרכיב האופקי לא משתנה: <span dir=\"ltr\">v_x = 15</span> מ/ש.",
+      "מהירות כוללת: <span dir=\"ltr\">√(15² + 35²) = √1450 ≈ 38.1</span> מ/ש.",
       "הזווית מתחת לאופק: <span dir=\"ltr\">tanφ = 35/15 = 7/3</span>.",
-      "תשובה: כ־38.1 מ'/ש."
+      "תשובה: כ־38.1 מ/ש."
     ],
     "firstWrong": 1,
     "whyWrong": "הכדור נזרק אופקית, ולכן <span dir=\"ltr\">v_y0 = 0</span> והכובד משנה רק את הרכיב האנכי: <span dir=\"ltr\">v_y = g·t = 20</span>. את המהירות האופקית אסור להוסיף לרכיב האנכי.",
-    "correctedStep": "<span dir=\"ltr\">v_y = 0 + g·t = 10·2 = 20</span> מ'/ש.",
+    "correctedStep": "<span dir=\"ltr\">v_y = 0 + g·t = 10·2 = 20</span> מ/ש.",
     "hints": ["האם המהירות האופקית משתתפת בחישוב של v_y?", "מהי המהירות האנכית ההתחלתית בזריקה אופקית?"],
-    "fix": { "ask": "מהי המהירות האנכית ההתחלתית של הכדור?", "answer": { "kind": "number", "value": "0" }, "unit": "מ'/ש" },
+    "fix": { "ask": "מהי המהירות האנכית ההתחלתית של הכדור?", "answer": { "kind": "number", "value": "0" }, "unit": "מ/ש" },
     "finish": [
-      { "id": "a", "ask": "מהי המהירות האנכית בפגיעה?", "answer": { "kind": "number", "value": "20" }, "unit": "מ'/ש", "ifError": { "kind": "number", "value": "35" }, "solution": "<span dir=\"ltr\">v_y = 10·2 = 20</span> מ'/ש." },
-      { "id": "b", "ask": "מהי המהירות הכוללת בפגיעה?", "answer": { "kind": "number", "value": "25" }, "unit": "מ'/ש", "ifError": { "kind": "number", "value": "sqrt(1450)" }, "solution": "<span dir=\"ltr\">√(15² + 20²) = √625 = 25</span> מ'/ש." },
+      { "id": "a", "ask": "מהי המהירות האנכית בפגיעה?", "answer": { "kind": "number", "value": "20" }, "unit": "מ/ש", "ifError": { "kind": "number", "value": "35" }, "solution": "<span dir=\"ltr\">v_y = 10·2 = 20</span> מ/ש." },
+      { "id": "b", "ask": "מהי המהירות הכוללת בפגיעה?", "answer": { "kind": "number", "value": "25" }, "unit": "מ/ש", "ifError": { "kind": "number", "value": "sqrt(1450)" }, "solution": "<span dir=\"ltr\">√(15² + 20²) = √625 = 25</span> מ/ש." },
       { "id": "c", "ask": "מהו <span dir=\"ltr\">tanφ</span> של הזווית מתחת לאופק בפגיעה? (אפשר לכתוב שבר)", "answer": { "kind": "number", "value": "4/3" }, "ifError": { "kind": "number", "value": "7/3" }, "solution": "<span dir=\"ltr\">tanφ = 20/15 = 4/3</span>." }
     ]
   },
   {
     "id": "rc-p-09", "subject": "physics", "errorType": "wrong-component", "title": "בעיטה בזווית 30°",
-    "statement": "כדור נבעט מהקרקע במהירות 10 מ'/ש בזווית 30° מעל האופק. מצאו את זמן התעופה, את הגובה המרבי ואת המהירות האנכית אחרי חצי שנייה. (g = 10 מ'/ש², sin30° = 0.5, cos30° = √3/2)",
+    "statement": "כדור נבעט מהקרקע במהירות 10 מ/ש בזווית 30° מעל האופק. מצאו את זמן התעופה, את הגובה המרבי ואת המהירות האנכית אחרי חצי שנייה. (g = 10 מ/ש², sin30° = 0.5, cos30° = √3/2)",
     "steps": [
       "נפרק את המהירות ההתחלתית לרכיבים.",
-      "<span dir=\"ltr\">v_y0 = v₀·cos30° = 5√3</span> ו־<span dir=\"ltr\">v_x = v₀·sin30° = 5</span> מ'/ש.",
+      "<span dir=\"ltr\">v_y0 = v₀·cos30° = 5√3</span> ו־<span dir=\"ltr\">v_x = v₀·sin30° = 5</span> מ/ש.",
       "זמן עלייה: <span dir=\"ltr\">5√3/10 = √3/2</span>, ולכן זמן התעופה <span dir=\"ltr\">√3 ≈ 1.73</span> ש'.",
       "גובה מרבי: <span dir=\"ltr\">(5√3)²/20 = 75/20 = 3.75</span> מ'.",
-      "אחרי חצי שנייה: <span dir=\"ltr\">v_y = 5√3 − 10·0.5 = 5√3 − 5</span> מ'/ש.",
+      "אחרי חצי שנייה: <span dir=\"ltr\">v_y = 5√3 − 10·0.5 = 5√3 − 5</span> מ/ש.",
       "תשובה: 1.73 ש', 3.75 מ'."
     ],
     "firstWrong": 1,
     "whyWrong": "הרכיב האנכי הוא <span dir=\"ltr\">v₀·sin30° = 5</span> והאופקי <span dir=\"ltr\">v₀·cos30° = 5√3</span>. התחלפו הסינוס והקוסינוס.",
-    "correctedStep": "<span dir=\"ltr\">v_y0 = v₀·sin30° = 5</span> ו־<span dir=\"ltr\">v_x = v₀·cos30° = 5√3</span> מ'/ש.",
+    "correctedStep": "<span dir=\"ltr\">v_y0 = v₀·sin30° = 5</span> ו־<span dir=\"ltr\">v_x = v₀·cos30° = 5√3</span> מ/ש.",
     "hints": ["הרכיב האנכי הוא הצלע שמול הזווית.", "האם בבעיטה בזווית קטנה הכדור עולה גבוה או נע רחוק?"],
-    "fix": { "ask": "מהו <span dir=\"ltr\">v_y0</span> הנכון?", "answer": { "kind": "number", "value": "5" }, "unit": "מ'/ש" },
+    "fix": { "ask": "מהו <span dir=\"ltr\">v_y0</span> הנכון?", "answer": { "kind": "number", "value": "5" }, "unit": "מ/ש" },
     "finish": [
       { "id": "a", "ask": "מהו זמן התעופה?", "answer": { "kind": "number", "value": "1" }, "unit": "ש'", "ifError": { "kind": "number", "value": "sqrt(3)" }, "solution": "זמן עלייה <span dir=\"ltr\">5/10 = 0.5</span>, ולכן זמן התעופה 1 ש'." },
       { "id": "b", "ask": "מהו הגובה המרבי?", "answer": { "kind": "number", "value": "5/4" }, "unit": "מ'", "ifError": { "kind": "number", "value": "3.75" }, "solution": "<span dir=\"ltr\">25/20 = 1.25</span> מ'." },
-      { "id": "c", "ask": "מהי המהירות האנכית אחרי חצי שנייה?", "answer": { "kind": "number", "value": "0" }, "unit": "מ'/ש", "ifError": { "kind": "number", "value": "5*sqrt(3)-5" }, "solution": "<span dir=\"ltr\">5 − 10·0.5 = 0</span>: הכדור בשיא." }
+      { "id": "c", "ask": "מהי המהירות האנכית אחרי חצי שנייה?", "answer": { "kind": "number", "value": "0" }, "unit": "מ/ש", "ifError": { "kind": "number", "value": "5*sqrt(3)-5" }, "solution": "<span dir=\"ltr\">5 − 10·0.5 = 0</span>: הכדור בשיא." }
     ]
   },
   {
     "id": "rc-p-10", "subject": "physics", "errorType": "meeting-equation", "title": "מכונית משיגה משאית",
-    "statement": "משאית A נוסעת בכביש ישר במהירות 15 מ'/ש. מכונית B נמצאת 60 מ' מאחוריה ונוסעת באותו כיוון במהירות 25 מ'/ש. כעבור כמה זמן B משיגה את A, וכמה מטרים היא נוסעת עד אז?",
+    "statement": "משאית A נוסעת בכביש ישר במהירות 15 מ/ש. מכונית B נמצאת 60 מ' מאחוריה ונוסעת באותו כיוון במהירות 25 מ/ש. כעבור כמה זמן B משיגה את A, וכמה מטרים היא נוסעת עד אז?",
     "steps": [
       "שני כלי הרכב נעים באותו כיוון, ו־B נמצאת 60 מ' מאחור.",
-      "מהירות ההקרבה: <span dir=\"ltr\">v_rel = 25 + 15 = 40</span> מ'/ש.",
+      "מהירות ההתקרבות: <span dir=\"ltr\">v_rel = 25 + 15 = 40</span> מ/ש.",
       "זמן ההשגה: <span dir=\"ltr\">t = 60/40 = 1.5</span> ש'.",
       "הדרך של B: <span dir=\"ltr\">25·1.5 = 37.5</span> מ'.",
       "תשובה: 1.5 ש' ו־37.5 מ'."
     ],
     "firstWrong": 1,
-    "whyWrong": "כששני גופים נעים באותו כיוון, מהירות ההקרבה היא ההפרש בין המהירויות: <span dir=\"ltr\">25 − 15 = 10</span>. חיבור מתאים לתנועה זה מול זה.",
-    "correctedStep": "<span dir=\"ltr\">v_rel = 25 − 15 = 10</span> מ'/ש.",
+    "whyWrong": "כששני גופים נעים באותו כיוון, מהירות ההתקרבות היא ההפרש בין המהירויות: <span dir=\"ltr\">25 − 15 = 10</span>. חיבור מתאים לתנועה זה מול זה.",
+    "correctedStep": "<span dir=\"ltr\">v_rel = 25 − 15 = 10</span> מ/ש.",
     "hints": ["באיזה קצב קטן המרחק בין B ל־A כששניהם נוסעים קדימה?", "בדקו: אחרי 1.5 ש', כמה נסעה A וכמה נסעה B? האם B הגיעה אל A?"],
-    "fix": { "ask": "מהי מהירות ההקרבה הנכונה של B ביחס ל־A?", "answer": { "kind": "number", "value": "10" }, "unit": "מ'/ש" },
+    "fix": { "ask": "מהי מהירות ההתקרבות הנכונה של B ל־A?", "answer": { "kind": "number", "value": "10" }, "unit": "מ/ש" },
     "finish": [
       { "id": "a", "ask": "אחרי כמה זמן B משיגה את A?", "answer": { "kind": "number", "value": "6" }, "unit": "ש'", "ifError": { "kind": "number", "value": "1.5" }, "solution": "<span dir=\"ltr\">t = 60/10 = 6</span> ש'." },
       { "id": "b", "ask": "כמה מטרים נוסעת B עד ההשגה?", "answer": { "kind": "number", "value": "150" }, "unit": "מ'", "ifError": { "kind": "number", "value": "37.5" }, "solution": "<span dir=\"ltr\">25·6 = 150</span> מ'. בדיקה: <span dir=\"ltr\">60 + 15·6 = 150</span>." },
@@ -480,14 +480,14 @@
   },
   {
     "id": "rc-p-11", "subject": "physics", "errorType": "forgot-initial-height", "title": "גובה בשיא ממרפסת",
-    "statement": "כדור נזרק כלפי מעלה במהירות 10 מ'/ש ממרפסת שגובהה 15 מ' מעל הקרקע. כמה זמן הוא נופל מהשיא עד הקרקע, מהו זמן התעופה הכולל, ובאיזו מהירות הוא פוגע בקרקע? (g = 10 מ'/ש²)",
+    "statement": "כדור נזרק כלפי מעלה במהירות 10 מ/ש ממרפסת שגובהה 15 מ' מעל הקרקע. כמה זמן הוא נופל מהשיא עד הקרקע, מהו זמן התעופה הכולל, ובאיזו מהירות הוא פוגע בקרקע? (g = 10 מ/ש²)",
     "steps": [
       "זמן עלייה עד השיא: <span dir=\"ltr\">0 = 10 − 10t</span>, ולכן <span dir=\"ltr\">t = 1</span> ש'.",
       "הגובה בשיא: <span dir=\"ltr\">y = v₀t − 5t² = 10 − 5 = 5</span> מ'.",
       "נפילה מהשיא: <span dir=\"ltr\">5 = 5t²</span>, ולכן <span dir=\"ltr\">t = 1</span> ש'.",
       "זמן כולל: <span dir=\"ltr\">1 + 1 = 2</span> ש'.",
-      "מהירות הפגיעה: <span dir=\"ltr\">v = 10·1 = 10</span> מ'/ש.",
-      "תשובה: 2 ש' ו־10 מ'/ש."
+      "מהירות הפגיעה: <span dir=\"ltr\">v = 10·1 = 10</span> מ/ש.",
+      "תשובה: 2 ש' ו־10 מ/ש."
     ],
     "firstWrong": 1,
     "whyWrong": "הערך <span dir=\"ltr\">10 − 5 = 5</span> הוא העלייה מעל המרפסת, לא הגובה מעל הקרקע. את 15 המטרים של המרפסת שכחו להוסיף, ולכן הנפילה מהשיא נראית קצרה מדי.",
@@ -497,27 +497,27 @@
     "finish": [
       { "id": "a", "ask": "כמה זמן נמשכת הנפילה מהשיא עד הקרקע?", "answer": { "kind": "number", "value": "2" }, "unit": "ש'", "ifError": { "kind": "number", "value": "1" }, "solution": "<span dir=\"ltr\">20 = 5t²</span>, ולכן <span dir=\"ltr\">t = 2</span> ש'." },
       { "id": "b", "ask": "מהו זמן התעופה הכולל?", "answer": { "kind": "number", "value": "3" }, "unit": "ש'", "ifError": { "kind": "number", "value": "2" }, "solution": "<span dir=\"ltr\">1 + 2 = 3</span> ש'." },
-      { "id": "c", "ask": "מהי מהירות הכדור (גודל) בפגיעה בקרקע?", "answer": { "kind": "number", "value": "20" }, "unit": "מ'/ש", "ifError": { "kind": "number", "value": "10" }, "solution": "<span dir=\"ltr\">v = 10·2 = 20</span> מ'/ש." }
+      { "id": "c", "ask": "מהי מהירות הכדור (גודל) בפגיעה בקרקע?", "answer": { "kind": "number", "value": "20" }, "unit": "מ/ש", "ifError": { "kind": "number", "value": "10" }, "solution": "<span dir=\"ltr\">v = 10·2 = 20</span> מ/ש." }
     ]
   },
   {
     "id": "rc-p-12", "subject": "physics", "errorType": "wrong-component", "title": "החלקה על מישור משופע",
-    "statement": "גוש משתחרר ממנוחה בראש מישור משופע חלק שאורכו 10 מ' ושזוויתו 30° לאופק. מצאו את זמן ההחלקה, את מהירות הגוף בתחתית ואת הזמן להגיע לאמצע המישור. (g = 10 מ'/ש²)",
+    "statement": "גוש משתחרר ממנוחה בראש מישור משופע חלק שאורכו 10 מ' ושזוויתו 30° לאופק. מצאו את זמן ההחלקה, את מהירות הגוף בתחתית ואת הזמן להגיע לאמצע המישור. (g = 10 מ/ש²)",
     "steps": [
       "הכוח המאיץ הוא רכיב הכובד לאורך המישור.",
-      "התאוצה לאורך המישור: <span dir=\"ltr\">a = g·cos30° = 5√3 ≈ 8.66</span> מ'/ש².",
+      "התאוצה לאורך המישור: <span dir=\"ltr\">a = g·cos30° = 5√3 ≈ 8.66</span> מ/ש².",
       "<span dir=\"ltr\">10 = ½·a·t²</span>, ולכן <span dir=\"ltr\">t² = 4/√3 ≈ 2.31</span> ו־<span dir=\"ltr\">t ≈ 1.52</span> ש'.",
-      "מהירות בתחתית: <span dir=\"ltr\">v = a·t ≈ 13.2</span> מ'/ש.",
-      "תשובה: כ־1.52 ש' וכ־13.2 מ'/ש."
+      "מהירות בתחתית: <span dir=\"ltr\">v = a·t ≈ 13.2</span> מ/ש.",
+      "תשובה: כ־1.52 ש' וכ־13.2 מ/ש."
     ],
     "firstWrong": 1,
     "whyWrong": "הרכיב של הכובד לאורך מישור משופע הוא <span dir=\"ltr\">g·sinθ</span>. הרכיב <span dir=\"ltr\">g·cosθ</span> מאונך למישור ונמחק על ידי הכוח הנורמלי.",
-    "correctedStep": "<span dir=\"ltr\">a = g·sin30° = 10·0.5 = 5</span> מ'/ש².",
+    "correctedStep": "<span dir=\"ltr\">a = g·sin30° = 10·0.5 = 5</span> מ/ש².",
     "hints": ["במישור אופקי (θ = 0) אין האצה. איזו פונקציה מתאפסת בזווית 0?", "איזה רכיב של הכובד מקביל למישור?"],
-    "fix": { "ask": "מהי התאוצה הנכונה של הגוש לאורך המישור?", "answer": { "kind": "number", "value": "5" }, "unit": "מ'/ש²" },
+    "fix": { "ask": "מהי התאוצה הנכונה של הגוש לאורך המישור?", "answer": { "kind": "number", "value": "5" }, "unit": "מ/ש²" },
     "finish": [
       { "id": "a", "ask": "מהו זמן ההחלקה לכל אורך המישור?", "answer": { "kind": "number", "value": "2" }, "unit": "ש'", "ifError": { "kind": "number", "value": "sqrt(4/sqrt(3))" }, "solution": "<span dir=\"ltr\">10 = ½·5·t²</span>, ולכן <span dir=\"ltr\">t² = 4</span> ו־<span dir=\"ltr\">t = 2</span> ש'." },
-      { "id": "b", "ask": "מהי מהירות הגוש בתחתית?", "answer": { "kind": "number", "value": "10" }, "unit": "מ'/ש", "solution": "<span dir=\"ltr\">v = 5·2 = 10</span> מ'/ש." },
+      { "id": "b", "ask": "מהי מהירות הגוש בתחתית?", "answer": { "kind": "number", "value": "10" }, "unit": "מ/ש", "solution": "<span dir=\"ltr\">v = 5·2 = 10</span> מ/ש." },
       { "id": "c", "ask": "אחרי כמה זמן הגוש מגיע לאמצע המישור (5 מ' מהראש)? אפשר לכתוב שורש.", "answer": { "kind": "number", "value": "sqrt(2)" }, "unit": "ש'", "solution": "<span dir=\"ltr\">5 = ½·5·t²</span>, ולכן <span dir=\"ltr\">t² = 2</span> ו־<span dir=\"ltr\">t = √2 ≈ 1.41</span> ש'." }
     ]
   }

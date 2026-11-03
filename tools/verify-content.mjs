@@ -9,7 +9,7 @@
 //    A "verify" may also be an array of such blocks.
 //  - every verified value must be mentioned in the written steps.
 // Usage: node tools/verify-content.mjs [formulas.json] [examples.json]
-import { readFileSync } from 'node:fs';
+import { readFileSync, readdirSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import path from 'node:path';
 import { solveSystem, parseFrac, parseEquation, solveFinite } from './verify-math.mjs';
@@ -281,6 +281,28 @@ export function validateExamples(data, opts = {}) {
   return errors;
 }
 
+// ---------------------------------------------------------------- wording lint
+// Strings found wrong in the 2026-11-03 teaching-correctness audit; they must not come back anywhere in data/*.json.
+export const BANNED_WORDING = [
+  [/ו?לקחו\s*(\{\{)?\s*g\b/, 'use the imperative "קחו g", not "לקחו g"'],
+  [/מהירות\s+ההקרבה|מהירות\s+הקרבה/, '"הקרבה" means sacrifice: use "מהירות התקרבות" or "מהירות יחסית"'],
+  [/מרבעים/, 'use "מעלים בריבוע"'],
+  [/מ['׳’]\/ש/, 'the speed unit is written "מ/ש" everywhere (no apostrophe)'],
+  [/(?<!\()log_\d+\(x\)\^2/, 'write the squared logarithm as (log_2(x))^2 so it cannot be read as log_2(x^2)'],
+];
+
+/** Problems found by scanning the raw text of every data/*.json. `files` = [[name, text]]. */
+export function wordingProblems(files) {
+  const out = [];
+  for (const [name, text] of files) {
+    for (const [re, why] of BANNED_WORDING) {
+      const m = re.exec(text);
+      if (m) out.push(`${name}: banned wording "${m[0]}": ${why}`);
+    }
+  }
+  return out;
+}
+
 // ---------------------------------------------------------------- CLI
 const isMain = process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url);
 if (isMain) {
@@ -294,6 +316,7 @@ if (isMain) {
   try { examples = JSON.parse(readFileSync(eFile, 'utf8')); } catch (e) { errors.push(`cannot read ${eFile}: ${e.message}`); }
   if (formulas) errors.push(...validateFormulas(formulas));
   if (examples) errors.push(...validateExamples(examples));
+  errors.push(...wordingProblems(readdirSync(dir).filter((f) => f.endsWith('.json')).map((f) => [f, readFileSync(path.join(dir, f), 'utf8')])));
   if (errors.length) {
     console.error(errors.map((e) => `FAIL ${e}`).join('\n'));
     console.error(`${errors.length} problem(s)`);

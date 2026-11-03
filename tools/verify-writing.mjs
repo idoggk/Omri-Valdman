@@ -144,10 +144,14 @@ const MODEL = {
     return sol.length === 1 ? sol[0] : { a: NaN, b: NaN };
   },
   'wr-m-3': () => { // roots of the ORIGINAL equation (not the squared one)
-    const r = scan((x) => Math.sqrt(x + 7) - (x - 5), -7, 30, 1e-4);
+    const r = scan((x) => Math.sqrt(x + 10) - (x - 2), -10, 30, 1e-4);
     return { xa: r.length === 1 ? Math.round(r[0] * 1000) / 1000 : NaN, rootCount: r.length };
   },
-  'wr-m-4': () => { const r = scan((x) => Math.pow(4, x + 1) - Math.pow(8, x - 1), -20, 20, 1e-3); return { sum: r.length === 1 ? Math.round(r[0] * 100) / 100 : NaN }; },
+  'wr-m-4': () => { // both sides compared as exponents of 3 (9^(x-1) = 3^(2(x-1)) vs 27^(x+1) = 3^(3(x+1))), and the original equation scanned
+    const r = scan((x) => Math.pow(9, x - 1) - Math.pow(27, x + 1), -20, 20, 1e-3);
+    const x = r.length === 1 ? r[0] : NaN;
+    return { sum: Number.isFinite(x) ? Math.round(x * 100) / 100 : NaN, ea: 2 * (x - 1), eb: 3 * (x + 1) };
+  },
   'wr-m-5': () => { // sample the inequality and read off the boundaries
     const ok = (x) => (x - 1) / (x + 2) >= 0;
     const pts = []; let prev = ok(-50);
@@ -250,7 +254,7 @@ export function validate(tasks) {
     if (id === 'wr-m-3') {
       if (want.rootCount !== 1) err(id, `the original equation should have exactly one root, found ${want.rootCount}`);
       const x2 = byName.get('xb');
-      if (x2 && Math.abs(Math.sqrt(x2.v + 7) - (x2.v - 5)) < 1e-6) err(id, 'x = 2 is not extraneous');
+      if (x2 && Math.abs(Math.sqrt(x2.v + 10) - (x2.v - 2)) < 1e-6) err(id, 'the second root is not extraneous');
     }
     if (id === 'wr-m-5') {
       const v = want;

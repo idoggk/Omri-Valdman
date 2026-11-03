@@ -257,6 +257,21 @@ test('verifier failure injection on mp-23..32 (second route, plotted data, text 
   assert.ok(inject('mp-26', (q) => { q.parts.pop(); }).some((m) => /6 parts|5-6|uses/.test(m)));
 });
 
+test('lint: every projectile stem in multipart (not only mp-23+) and transfer says "התנגדות", and the audited stems carry it', async () => {
+  const { airResistanceProblem } = await import('../tools/wording.mjs');
+  for (const q of data) assert.equal(airResistanceProblem(q.title, q.stem), null, q.id);
+  for (const id of ['mp-3', 'mp-4', 'mp-5', 'mp-6', 'mp-7', 'mp-8', 'mp-10', 'mp-13', 'mp-19']) assert.ok(data.find((q) => q.id === id).stem.includes('התנגדות האוויר זניחה'), id);
+  for (const id of ['mp-4', 'mp-5', 'mp-7']) assert.ok(/ציר y חיובי כלפי מעלה/.test(data.find((q) => q.id === id).stem), `${id} must state the y axis`);
+  assert.ok(!data.find((q) => q.id === 'mp-11').stem.includes('שמרחקו האופקי מקצה הבמה d'));
+  const idx = (id) => data.findIndex((q) => q.id === id);
+  const c = load();
+  c[idx('mp-3')].stem = c[idx('mp-3')].stem.replace('התנגדות האוויר זניחה', 'ללא חיכוך');
+  assert.ok(validate(c).some((m) => /air resistance/.test(m)));
+  const tr = JSON.parse((await import('node:fs')).readFileSync(new URL('../data/transfer.json', import.meta.url), 'utf8'));
+  const trItems = Array.isArray(tr) ? tr : Object.values(tr).flat();
+  for (const id of ['tr-p-01', 'tr-p-04', 'tr-p-05', 'tr-p-08', 'tr-p-10', 'tr-p-11']) assert.ok(trItems.find((q) => q.id === id).stem.includes('התנגדות'), id);
+});
+
 test('exam flow with a graph question: mp-24 finishes with full marks and a wrong v0 is carried forward', async () => {
   dom.store.clear();
   M.resetMultipartCache();

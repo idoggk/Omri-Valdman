@@ -12,6 +12,8 @@ import path from 'node:path';
 import { parseRelation, holds, parseIntervals, normUnion, inUnion, canonSpec, evalExact } from '../js/mathhard.js';
 import { scanRoots } from './verify-mathhard.mjs';
 import { validItem, ID_PREFIX } from '../js/transfer.js';
+import { airResistanceProblem } from './wording.mjs';
+import { loadEquationItems, itemEquations, equationProblems } from './equations.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const HEB = /[֐-׿]/;
@@ -288,6 +290,17 @@ export function reservedLeaks(items) {
   return errors;
 }
 
+/**
+ * Duplicate equations across every pool (tools/equations.mjs): the same normalised equation text in two items, and a
+ * reserved transfer question whose equation family (numbers masked) equals that of any practice item.
+ * `items` replaces the transfer.json rows so tests can plant a copy.
+ */
+export function equationDuplicates(items) {
+  const rows = loadEquationItems(path.join(ROOT, 'data')).filter((r) => r.file !== 'transfer.json');
+  for (const q of items) rows.push({ file: 'transfer.json', id: q.id, equations: itemEquations(q) });
+  return equationProblems(rows, new Set(items.map((q) => q.id)));
+}
+
 /* ---------- main validation ---------- */
 export function validate(items = loadTransfer()) {
   const errors = [];
@@ -312,6 +325,7 @@ export function validate(items = loadTransfer()) {
     } else {
       stats.physics++;
       if (!HEB.test(q.stem)) err(q.id, 'stem must be Hebrew');
+      { const ar = airResistanceProblem(q.title, q.stem); if (ar) err(q.id, ar); }
       const solver = PHYS[q.id];
       if (!solver) { err(q.id, 'no independent solver'); continue; }
       let got;
@@ -329,6 +343,7 @@ export function validate(items = loadTransfer()) {
   if (stats.math !== 12) errors.push(`expected 12 math questions, found ${stats.math}`);
   if (stats.physics !== 12) errors.push(`expected 12 physics questions, found ${stats.physics}`);
   errors.push(...reservedLeaks(items));
+  errors.push(...equationDuplicates(items));
   void parseIntervals; void normUnion; void evalExact;
   return { errors, stats };
 }

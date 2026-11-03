@@ -167,7 +167,7 @@ export const TIERS = [
 ];
 /** Questions without a tier field are warm-up. */
 export const tierOf = (q) => (q && q.tier === 'exam' ? 'exam' : 'warmup');
-const GIVEN_LABELS = { v0: ['v₀', "מ'/ש"], h0: ['h₀', "מ'"], H: ['H', "מ'"], t1: ['t', "ש'"], g: ['g', "מ'/ש²"] };
+const GIVEN_LABELS = { v0: ['v₀', "מ/ש"], h0: ['h₀', "מ'"], H: ['H', "מ'"], t1: ['t', "ש'"], g: ['g', "מ/ש²"] };
 
 export async function viewMultipart(ctx, id) {
   document.title = 'שאלה בכמה סעיפים – Brain Gains';
