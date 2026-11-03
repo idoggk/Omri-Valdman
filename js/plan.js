@@ -363,7 +363,7 @@ export function buildPlan(input) {
   return {
     settings, hz, timeline: timeline(hz), weak, ceiling, exams,
     days: weekDays(settings, hz, log, now, { weak, ceiling, topicOf }),
-    due: { reviews: dueReviews(log.filter(isRec), now).length, notebook: dueNotebook },
+    due: { reviews: dueReviews(log.filter(isRec), now).length, notebook: dueNotebook, derive: Number.isFinite(input.dueDerive) ? input.dueDerive : 0 },
     goals: weeklyGoals(hz.phase, log, now, { mocks, dueNotebook }),
     sessions: weeklySessions(settings, log, now),
     readiness: readiness(log, now, { topicOf, mocks }),

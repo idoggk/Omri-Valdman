@@ -6,6 +6,7 @@ import * as store from './store.js';
 import { cleanLog, compactLog, LOG_KEY } from './srs.js';
 import { cleanList, FEEDBACK_KEY, FEEDBACK_CAP } from './feedback.js';
 import { KEY as NOTEBOOK_KEY, mergeNotebook } from './notebook.js';
+import { KEY as DERIVE_KEY, mergeDerive } from './derive.js';
 
 export const BACKUP_APP = 'brain-gains';
 export const BACKUP_VERSION = 2;
@@ -47,6 +48,7 @@ export const KNOWN_KEYS = {
   'omri-study-units-v1': 'יחידות וניתוח ממדים',
   'omri-study-estimate-v1': 'הערכה לפני חישוב',
   'omri-study-notes-v1': 'דגשים: כרטיסיות ותרגילים',
+  'omri-study-derive-v1': 'גזירה מהזיכרון: לוח חזרות',
   'omri-study-plan-v1': 'ספירה לאחור: תאריך מבחן והגדרות',
 };
 
@@ -184,7 +186,7 @@ export function restoreCounts(storage, parsed) {
 
 /**
  * Restores a parsed backup. Atomic: every known key is snapshotted first and put back if any write throws.
- * The attempts log, feedback records and the error notebook (by exerciseId) are merged with what is on the device; every other key is replaced.
+ * The attempts log, feedback records, the error notebook (by exerciseId) and the derivation schedule (by task id) are merged with what is on the device; every other key is replaced.
  * One undo snapshot is kept for 24 h. Returns {ok, undo, rolledBack}.
  */
 export function restoreBackup(storage, parsed, now = Date.now()) {
@@ -196,6 +198,7 @@ export function restoreBackup(storage, parsed, now = Date.now()) {
     if (parsed.data[LOG_KEY] != null && snapshot[LOG_KEY] != null) entries[LOG_KEY] = mergeAttempts(snapshot[LOG_KEY], parsed.data[LOG_KEY]);
     if (parsed.data[FEEDBACK_KEY] != null && snapshot[FEEDBACK_KEY] != null) entries[FEEDBACK_KEY] = mergeFeedback(snapshot[FEEDBACK_KEY], parsed.data[FEEDBACK_KEY]);
     if (parsed.data[NOTEBOOK_KEY] != null && snapshot[NOTEBOOK_KEY] != null) entries[NOTEBOOK_KEY] = mergeNotebook(snapshot[NOTEBOOK_KEY], parsed.data[NOTEBOOK_KEY]);
+    if (parsed.data[DERIVE_KEY] != null && snapshot[DERIVE_KEY] != null) entries[DERIVE_KEY] = mergeDerive(snapshot[DERIVE_KEY], parsed.data[DERIVE_KEY]);
   } catch (e) { return { ok: false, undo: false, rolledBack: true }; }
   try { if (typeof storage.removeItem === 'function') storage.removeItem(UNDO_KEY); } catch (e) { /* frees space; ignore */ }
   const res = writeAll(storage, entries);

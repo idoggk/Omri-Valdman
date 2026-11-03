@@ -51,7 +51,8 @@ export function makeAttempt(a) {
 export const WRITING_TOPIC = 'writing';
 // Also reserved: fluency sprints ('sprint-<family>': dozens of seeded items per set, not independent mastery of an exam topic;
 // they still feed the ceiling detector) and the estimation trainer ('estimate': calibration, not a right/wrong skill).
-export const isReservedTopic = (t) => typeof t === 'string' && (t.startsWith('transfer-') || t === WRITING_TOPIC || t.startsWith('booklet-') || t.startsWith('sprint-') || t === 'estimate');
+export const isReservedTopic = (t) => typeof t === 'string' && (t.startsWith('transfer-') || t === WRITING_TOPIC || t.startsWith('booklet-') || t.startsWith('sprint-') || t === 'estimate' || t === 'derive');
+// 'derive' (spaced derivation recall, #/derive) is practice with its own 1/3/7/14 day schedule, not independent mastery of a topic.
 
 /**
  * Exercises that live outside the data/*.json lists (hard math, multipart, trig, logs) are recorded with their own

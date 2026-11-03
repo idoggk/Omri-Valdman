@@ -12,6 +12,7 @@ import * as repair from './skills-ui.js';
 import { homeReminder } from './backup.js';
 import { dueCount } from './notebook.js';
 import { homeSummary, loadSettings } from './plan.js';
+import { dueCount as deriveDueCount } from './derive.js';
 
 export const TABS = [
   { id: 'today', href: '#/', label: 'היום', icon: '🏠' },
@@ -21,7 +22,7 @@ export const TABS = [
 
 /** Routes whose first segment alone is enough to resolve (the rest are optional arguments). */
 const SIMPLE = ['progress', 'practice-hub', 'backup', 'summary', 'drills', 'endless', 'order', 'methods', 'edge', 'reverse', 'fading', 'solve',
-  'repair', 'checkpoints', 'hunt', 'workout', 'exam', 'feedback', 'ladder', 'multipart', 'trig', 'mathhard', 'logs', 'transfer', 'recover', 'notebook', 'writing', 'booklet', 'formulas', 'sprint', 'units', 'estimate', 'plan', 'notes'];
+  'repair', 'checkpoints', 'hunt', 'workout', 'exam', 'feedback', 'ladder', 'multipart', 'trig', 'mathhard', 'logs', 'transfer', 'recover', 'notebook', 'writing', 'booklet', 'formulas', 'sprint', 'units', 'estimate', 'plan', 'notes', 'derive'];
 
 /** hash -> { name, args } or { name: 'notfound' }. One parser shared by app.js and the tests. */
 export function resolveRoute(hash) {
@@ -93,7 +94,7 @@ const isPhysTopic = (a) => a.topic === 'multipart' || /^mp-/.test(String(a.exerc
  * workout started today has an attempt), 2 a hard-math or logs item (done when one was attempted today), 3 a multipart
  * exam question (physics; done when one was attempted today). Done marks come from the stored attempts only.
  */
-export function dailyPath({ log = [], hard = null, now = Date.now(), workout = null, title = (id) => id, workoutExists = () => true, notebookDue = 0 } = {}) {
+export function dailyPath({ log = [], hard = null, now = Date.now(), workout = null, title = (id) => id, workoutExists = () => true, notebookDue = 0, deriveDue = 0 } = {}) {
   const start = dayStart(now);
   const today = log.filter((a) => a && a.ts >= start);
   const picks = pickHard(log, hard, now);
@@ -116,6 +117,8 @@ export function dailyPath({ log = [], hard = null, now = Date.now(), workout = n
   ];
   // due entries of the error notebook (only listed when there are some; the notebook sync is what clears them)
   if (notebookDue > 0) steps.push({ id: 'notebook', label: `מחברת טעויות: ${notebookDue} ${notebookDue === 1 ? 'רשומה' : 'רשומות'} לחזרה`, href: '#/notebook', done: false });
+  // derivations whose spaced recall is due (the schedule of #/derive is what clears them)
+  if (deriveDue > 0) steps.push({ id: 'derive', label: `גזירה מהזיכרון: ${deriveDue} ${deriveDue === 1 ? 'גזירה' : 'גזירות'} לחזרה`, href: '#/derive', done: false });
   return steps;
 }
 
@@ -133,6 +136,7 @@ const MORE_LINKS = [
   ['#/mathhard', '🧠 מתמטיקה ברמה גבוהה: שורשים, מעריכי, אי־שוויונות, פרמטר ומעגלים'],
   ['#/logs', '📏 לוגריתמים: 12 שיעורים מהיסוד, כרטיסיות ו־70 תרגילים'],
   ['#/notes', '📌 דגשים: חזקות חיוביות תמיד, כפל באי־שוויון וכללי לוגריתם'],
+  ['#/derive', '🧩 גזירה מהזיכרון: 24 הוכחות וגזירות עם חזרות מרווחות'],
   ['#/trig', '📐 זהויות טריגונומטריות: שלושה עוגנים וכל השאר נגזר'],
 ];
 
@@ -168,7 +172,9 @@ export function viewHome(ctx, loadErrors = []) {
   const cont = ids.length ? continueHref(store.loadWorkout(), log, exists) : null;
   let notebookDue = 0;
   try { notebookDue = dueCount(log, fb, now); } catch (e) { /* the notebook is optional on the home screen */ }
-  const path = dailyPath({ log, hard: ctx.hard, now, workout: store.loadWorkout(), title: ctx.hardTitle || ((id) => id), workoutExists: exists, notebookDue });
+  let deriveDue = 0;
+  try { deriveDue = deriveDueCount(globalThis.localStorage, now); } catch (e) { /* optional on the home screen */ }
+  const path = dailyPath({ log, hard: ctx.hard, now, workout: store.loadWorkout(), title: ctx.hardTitle || ((id) => id), workoutExists: exists, notebookDue, deriveDue });
   ctx.show(
     h('h1', {}, 'היום'),
     bootNotice(loadErrors, ctx.retry),
@@ -264,6 +270,7 @@ export function viewHub(ctx) {
       tile('#/sprint', '⏱️ ספרינטים באלגברה', 'סטים של 2 או 5 דקות: פירוק לגורמים, שברים, חזקות ושורשים, משוואות, בידוד משתנה, אי־שוויונות ולוגריתמים. משוב מיד, נכונות לדקה, שיא אישי וקושי שמתאים את עצמו לכל נושא'),
       tile('#/units', '📏 יחידות וניתוח ממדים', '30 שאלות קצרות: יחידות SI, המרות, האם נוסחה תקינה מבחינת יחידות, סקלר מול וקטור, שיפוע ושטח בגרף ודוגמאות הנדסיות'),
       tile('#/notes', '📌 דגשים', '12 כרטיסי זכירה ו־16 תרגילים על מלכודות מבחן: חזקה חיובית תמיד, מתי מותר להכפיל אי־שוויון, וכללי הלוגריתם'),
+      tile('#/derive', '🧩 גזירה מהזיכרון', '24 גזירות (12 במתמטיקה, 12 בפיזיקה): קוראים פעם אחת, ואז משחזרים שלב אחר שלב עם חזרות אחרי 1, 3, 7 ו־14 ימים. בחירת הצעד הבא, הקלדת שורות, ובסוף דף ריק'),
       tile('#/estimate', '🎯 קודם מעריכים', '24 שאלות שבהן בוחרים טווח או הערכה בסדר גודל לפני שמחשבים, ואז רואים את החישוב המדויק ואם ההערכה תפסה אותו'),
     ],
     backup: [

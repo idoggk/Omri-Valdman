@@ -3,6 +3,7 @@ import { h } from './dom.js';
 import * as store from './store.js';
 import { loadFeedback } from './feedback.js';
 import { dueCount } from './notebook.js';
+import { dueCount as deriveDueCount } from './derive.js';
 import { loadSaved as loadBooklet } from './booklet.js';
 import { topicTitle, topicHref } from './engine.js';
 import {
@@ -118,7 +119,8 @@ function dueBlock(plan) {
     h('strong', { id: 'plan-due-h' }, 'מה מחכה לכם'),
     h('ul', { class: 'more-links' },
       h('li', {}, h('a', { href: '#/review/start' }, `חזרות מתוזמנות: ${due.reviews}`)),
-      h('li', {}, h('a', { href: '#/notebook' }, due.notebook === null ? 'מחברת טעויות' : `רשומות במחברת הטעויות לחזרה: ${due.notebook}`))),
+      h('li', {}, h('a', { href: '#/notebook' }, due.notebook === null ? 'מחברת טעויות' : `רשומות במחברת הטעויות לחזרה: ${due.notebook}`)),
+      h('li', {}, h('a', { href: '#/derive' }, `גזירות מהזיכרון לחזרה: ${due.derive || 0}`))),
     h('p', {}, h('strong', {}, 'שלושת הנושאים החלשים ביותר')),
     weak.length ? h('ul', { class: 'more-links' }, weak.map((w) => h('li', {}, h('a', { href: w.href }, w.title), h('span', { class: 'muted' }, ` · ${w.score}% (${w.attempts} ניסיונות)`))))
       : h('p', { class: 'muted' }, `${NO_DATA}, או שאין כרגע נושא חלש.`),
@@ -161,8 +163,10 @@ export function collectPlan(ctx, now = Date.now()) {
   const feedback = loadFeedback();
   let dueNotebook = null;
   try { dueNotebook = dueCount(log, feedback, now); } catch (e) { /* optional */ }
+  let dueDerive = 0;
+  try { dueDerive = deriveDueCount(globalThis.localStorage, now); } catch (e) { /* optional */ }
   return buildPlan({
-    settings: loadSettings(), log, now, exercises: ctx.exercises || [], feedback, mocks: loadBooklet().results, dueNotebook,
+    settings: loadSettings(), log, now, exercises: ctx.exercises || [], feedback, mocks: loadBooklet().results, dueNotebook, dueDerive,
     titleOf: (t) => titles.get(t) || topicTitle(t) || t, hrefOf: (t) => topicHref(t) || `#/topic/${t}`,
   });
 }

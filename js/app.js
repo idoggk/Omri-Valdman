@@ -33,6 +33,7 @@ import * as sprint from './sprint-ui.js';
 import * as units from './units-ui.js';
 import * as estimate from './estimate-ui.js';
 import * as notes from './notes-ui.js';
+import * as derive from './derive-ui.js';
 import * as plan from './plan-ui.js';
 import { loadMathHardData, resetMathHardCache } from './mathhard.js';
 import { loadLogsData, resetLogsCache } from './logs.js';
@@ -255,6 +256,7 @@ function route() {
     else if (name === 'units') units.viewUnits(examCtx, args[0], args[1]);
     else if (name === 'estimate') estimate.viewEstimate(examCtx, args[0], args[1]);
     else if (name === 'notes') notes.viewNotesRoute(examCtx, args[0], args[1]);
+    else if (name === 'derive') derive.viewDeriveRoute(examCtx, args[0], args[1]);
     else if (name === 'plan') plan.viewPlan(examCtx);
     else if (name === 'workout') viewWorkoutRoute(args[0]);
     else if (name === 'exam') viewExam(examCtx, args[0]);

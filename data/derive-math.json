@@ -1,0 +1,237 @@
+{
+  "tasks": [
+    {
+      "id": "dv-m-01", "subject": "math", "title": "קוסינוס של זווית כפולה מתוך קוסינוס של סכום", "sym": { "a": "α", "b": "β" },
+      "start": "ידוע: cos(a+b) = cos a · cos b − sin a · sin b", "goal": "cos(2a) = 2cos²a − 1",
+      "vars": { "a": [0.3, 2.8] }, "mode": "identity",
+      "goalF": "cos(2*a) = 2*cos(a)^2 - 1",
+      "steps": [
+        { "f": "cos(a+a) = cos(a)*cos(a) - sin(a)*sin(a)", "n": "מציבים b = a בנוסחת הסכום.",
+          "w": [ { "f": "cos(a+a) = cos(a)*cos(a) + sin(a)*sin(a)", "e": "sign" }, { "f": "cos(a+a) = cos(a) + cos(a)", "e": "linear" }, { "f": "cos(a+a) = cos(a)*sin(a) - sin(a)*cos(a)", "e": "swap" } ] },
+        { "f": "cos(2*a) = cos(a)^2 - sin(a)^2", "n": "a + a = 2a, ומכפלה של אותו גורם בעצמו היא ריבוע.",
+          "w": [ { "f": "cos(2*a) = 2*cos(a)", "e": "linear" }, { "f": "cos(2*a) = cos(a)^2 + sin(a)^2", "e": "sign" }, { "f": "cos(2*a) = cos(a^2) - sin(a^2)", "e": "power" } ] },
+        { "f": "sin(a)^2 = 1 - cos(a)^2", "n": "זהות פיתגורס: sin² + cos² = 1. רוצים להיפטר מהסינוס.",
+          "w": [ { "f": "sin(a)^2 = 1 + cos(a)^2", "e": "sign" }, { "f": "sin(a)^2 = 1 - cos(a)", "e": "power" }, { "f": "sin(a)^2 = cos(a)^2 - 1", "e": "sign" } ] },
+        { "f": "cos(2*a) = cos(a)^2 - (1 - cos(a)^2)", "n": "מציבים את sin² במקום הסינוס, ושומרים על הסוגריים.",
+          "w": [ { "f": "cos(2*a) = cos(a)^2 - 1 - cos(a)^2", "e": "paren" }, { "f": "cos(2*a) = cos(a)^2 + 1 - cos(a)^2", "e": "paren" }, { "f": "cos(2*a) = cos(a)^2 - (1 + cos(a)^2)", "e": "sign" } ] },
+        { "f": "cos(2*a) = 2*cos(a)^2 - 1", "n": "פותחים סוגריים ומאחדים: cos² + cos² = 2cos².",
+          "w": [ { "f": "cos(2*a) = 2*cos(a)^2 + 1", "e": "sign" }, { "f": "cos(2*a) = cos(a)^2 - 1", "e": "dropped" }, { "f": "cos(2*a) = 2*cos(a) - 1", "e": "power" } ] }
+      ],
+      "key": [1, 2, 3]
+    },
+    {
+      "id": "dv-m-02", "subject": "math", "title": "סינוס דרך הטנגנס של חצי הזווית", "sym": { "a": "α" },
+      "start": "ידוע: sin(a) = 2 sin(a/2) cos(a/2), ו־ sin² + cos² = 1", "goal": "sin(a) = 2·tan(a/2) / (1 + tan²(a/2))",
+      "vars": { "a": [0.3, 2.8] }, "mode": "identity",
+      "goalF": "sin(a) = 2*tan(a/2)/(1 + tan(a/2)^2)",
+      "steps": [
+        { "f": "sin(a) = 2*sin(a/2)*cos(a/2)", "n": "זווית כפולה, כש־a/2 היא הזווית הבסיסית.",
+          "w": [ { "f": "sin(a) = 2*sin(a/2) + cos(a/2)", "e": "linear" }, { "f": "sin(a) = sin(a/2)*cos(a/2)", "e": "factor" }, { "f": "sin(a) = 2*sin(a/2)*sin(a/2)", "e": "swap" } ] },
+        { "f": "sin(a) = 2*sin(a/2)*cos(a/2)/(sin(a/2)^2 + cos(a/2)^2)", "n": "מחלקים ב־1, ואת ה־1 כותבים כ־sin² + cos².",
+          "w": [ { "f": "sin(a) = 2*sin(a/2)*cos(a/2)/(sin(a/2)^2 - cos(a/2)^2)", "e": "sign" }, { "f": "sin(a) = 2*sin(a/2)*cos(a/2)/(sin(a/2) + cos(a/2))", "e": "power" }, { "f": "sin(a) = 2*sin(a/2)*cos(a/2)/(sin(a/2)^2 + cos(a/2)^2 + 1)", "e": "factor" } ] },
+        { "f": "sin(a) = (2*sin(a/2)*cos(a/2)/cos(a/2)^2)/((sin(a/2)^2 + cos(a/2)^2)/cos(a/2)^2)", "n": "מחלקים גם את המונה וגם את המכנה ב־cos²(a/2).",
+          "w": [ { "f": "sin(a) = (2*sin(a/2)*cos(a/2)/cos(a/2)^2)/(sin(a/2)^2 + cos(a/2)^2)", "e": "partial" }, { "f": "sin(a) = (2*sin(a/2)*cos(a/2)/cos(a/2)^2)/((sin(a/2)^2 + cos(a/2)^2)/cos(a/2))", "e": "power" }, { "f": "sin(a) = (2*sin(a/2)*cos(a/2)/cos(a/2)^2)*((sin(a/2)^2 + cos(a/2)^2)/cos(a/2)^2)", "e": "invert" } ] },
+        { "f": "sin(a) = (2*sin(a/2)/cos(a/2))/(sin(a/2)^2/cos(a/2)^2 + 1)", "n": "מצמצמים במונה, ומפצלים את המכנה לשני שברים.",
+          "w": [ { "f": "sin(a) = (2*sin(a/2)/cos(a/2))/(sin(a/2)/cos(a/2) + 1)", "e": "power" }, { "f": "sin(a) = (2*sin(a/2)/cos(a/2))/(sin(a/2)^2/cos(a/2)^2 - 1)", "e": "sign" }, { "f": "sin(a) = (2*sin(a/2)/cos(a/2))/(sin(a/2)^2/cos(a/2)^2)", "e": "dropped" } ] },
+        { "f": "sin(a) = 2*tan(a/2)/(1 + tan(a/2)^2)", "n": "sin/cos = tan, ולכן גם sin²/cos² = tan².",
+          "w": [ { "f": "sin(a) = 2*tan(a/2)/(1 - tan(a/2)^2)", "e": "sign" }, { "f": "sin(a) = 2*tan(a/2)/(1 + tan(a/2))", "e": "power" }, { "f": "sin(a) = tan(a/2)/(1 + tan(a/2)^2)", "e": "factor" } ] }
+      ],
+      "key": [1, 2, 3]
+    },
+    {
+      "id": "dv-m-03", "subject": "math", "title": "מסכום סינוסים למכפלה, מתוך מכפלה לסכום", "sym": {},
+      "start": "ידוע: 2 sin A cos B = sin(A+B) + sin(A−B)", "goal": "sin p + sin q = 2 sin((p+q)/2) cos((p−q)/2)",
+      "vars": { "p": [0.2, 3], "q": [0.2, 3] }, "mode": "identity",
+      "goalF": "sin(p) + sin(q) = 2*sin((p+q)/2)*cos((p-q)/2)",
+      "steps": [
+        { "f": "2*sin((p+q)/2)*cos((p-q)/2) = sin((p+q)/2 + (p-q)/2) + sin((p+q)/2 - (p-q)/2)", "n": "מציבים A = (p+q)/2 ו־B = (p−q)/2 בנוסחת המכפלה לסכום.",
+          "w": [ { "f": "2*sin((p+q)/2)*cos((p-q)/2) = sin((p+q)/2 + (p-q)/2) - sin((p+q)/2 - (p-q)/2)", "e": "sign" }, { "f": "2*sin((p+q)/2)*cos((p-q)/2) = cos((p+q)/2 + (p-q)/2) + cos((p+q)/2 - (p-q)/2)", "e": "swap" }, { "f": "2*sin((p+q)/2)*cos((p-q)/2) = sin((p+q)/2 + (p-q)/2)*sin((p+q)/2 - (p-q)/2)", "e": "identity" } ] },
+        { "f": "(p+q)/2 + (p-q)/2 = p", "n": "A + B: ה־q וה־־q מצטמצמים, ונשארים עם 2p/2.",
+          "w": [ { "f": "(p+q)/2 + (p-q)/2 = q", "e": "swap" }, { "f": "(p+q)/2 + (p-q)/2 = p + q", "e": "factor" }, { "f": "(p+q)/2 + (p-q)/2 = 2*p", "e": "factor" } ] },
+        { "f": "(p+q)/2 - (p-q)/2 = q", "n": "A − B: עכשיו ה־p מצטמצם. שימו לב לסימן מינוס על כל הסוגריים.",
+          "w": [ { "f": "(p+q)/2 - (p-q)/2 = p", "e": "swap" }, { "f": "(p+q)/2 - (p-q)/2 = p + q", "e": "paren" }, { "f": "(p+q)/2 - (p-q)/2 = 0", "e": "paren" } ] },
+        { "f": "sin(p) + sin(q) = 2*sin((p+q)/2)*cos((p-q)/2)", "n": "אחרי ההצבה סכום הסינוסים שווה למכפלה.",
+          "w": [ { "f": "sin(p) + sin(q) = 2*sin((p-q)/2)*cos((p+q)/2)", "e": "swap" }, { "f": "sin(p) + sin(q) = sin((p+q)/2)*cos((p-q)/2)", "e": "factor" }, { "f": "sin(p) + sin(q) = 2*sin(p+q)*cos(p-q)", "e": "power" } ] }
+      ],
+      "key": [0, 1, 2]
+    },
+    {
+      "id": "dv-m-04", "subject": "math", "title": "נוסחת המעבר בין בסיסים של לוגריתם", "sym": {},
+      "start": "ידוע: log_b(x) = y פירושו b^y = x", "goal": "log_b(x) = log_c(x) / log_c(b)",
+      "vars": { "x": [1.5, 9], "b": [1.5, 5], "c": [1.5, 6] }, "mode": "identity",
+      "goalF": "log_b(x) = log_c(x)/log_c(b)",
+      "steps": [
+        { "f": "b^(log_b(x)) = x", "n": "זו ההגדרה של הלוגריתם: החזקה שמעלים בה את b כדי לקבל x.",
+          "w": [ { "f": "b^(log_b(x)) = b", "e": "dropped" }, { "f": "x^(log_b(x)) = b", "e": "swap" }, { "f": "b^x = log_b(x)", "e": "invert" } ] },
+        { "f": "ln(b^(log_b(x))) = ln(x)", "n": "לוקחים ln משני האגפים (שניהם חיוביים).",
+          "w": [ { "f": "ln(b^(log_b(x))) = ln(x) + ln(b)", "e": "linear" }, { "f": "ln(b)^(log_b(x)) = ln(x)", "e": "power" }, { "f": "ln(b^(log_b(x))) = ln(log_b(x))", "e": "premature" } ] },
+        { "f": "log_b(x)*ln(b) = ln(x)", "n": "כלל החזקה: ln(b^y) = y·ln(b).",
+          "w": [ { "f": "log_b(x) + ln(b) = ln(x)", "e": "linear" }, { "f": "log_b(x)^ln(b) = ln(x)", "e": "power" }, { "f": "log_b(x)*ln(x) = ln(b)", "e": "swap" } ] },
+        { "f": "log_b(x) = ln(x)/ln(b)", "n": "מחלקים ב־ln(b), שאינו אפס כי b ≠ 1.",
+          "w": [ { "f": "log_b(x) = ln(b)/ln(x)", "e": "invert" }, { "f": "log_b(x) = ln(x) - ln(b)", "e": "linear" }, { "f": "log_b(x) = ln(x/b)", "e": "partial" } ] },
+        { "f": "log_b(x) = log_c(x)/log_c(b)", "n": "אותו חישוב עם ln אפשר לעשות בכל בסיס c, כי היחס בין שני לוגריתמים באותו בסיס נשאר.",
+          "w": [ { "f": "log_b(x) = log_c(b)/log_c(x)", "e": "invert" }, { "f": "log_b(x) = log_c(x) - log_c(b)", "e": "linear" }, { "f": "log_b(x) = log_c(x)/log_b(c)", "e": "swap" } ] }
+      ],
+      "key": [1, 2, 3]
+    },
+    {
+      "id": "dv-m-05", "subject": "math", "title": "כלל החזקה בלוגריתם מתוך חוק החזקות", "sym": {},
+      "start": "ידוע: (b^m)^n = b^(m·n), ו־ b^(log_b x) = x", "goal": "log_b(x^n) = n · log_b(x)",
+      "vars": { "x": [1.2, 8], "b": [1.5, 5], "n": [1, 4] }, "mode": "identity",
+      "goalF": "log_b(x^n) = n*log_b(x)",
+      "steps": [
+        { "f": "x = b^(log_b(x))", "n": "כותבים את x כחזקה של b.",
+          "w": [ { "f": "x = b*log_b(x)", "e": "quantity" }, { "f": "x = log_b(x)^b", "e": "power" }, { "f": "x = b^(log_x(b))", "e": "swap" } ] },
+        { "f": "x^n = (b^(log_b(x)))^n", "n": "מעלים את שני האגפים בחזקה n.",
+          "w": [ { "f": "x^n = n*b^(log_b(x))", "e": "factor" }, { "f": "x^n = b^(log_b(x)) + n", "e": "linear" }, { "f": "x^n = (b^(log_b(x)))^(1/n)", "e": "invert" } ] },
+        { "f": "x^n = b^(n*log_b(x))", "n": "חוק חזקה בחזקה: מכפילים את החזקות.",
+          "w": [ { "f": "x^n = b^(n + log_b(x))", "e": "linear" }, { "f": "x^n = b^(log_b(x)^n)", "e": "power" }, { "f": "x^n = b^(n*log_b(x))*b", "e": "factor" } ] },
+        { "f": "log_b(x^n) = log_b(b^(n*log_b(x)))", "n": "לוקחים log בבסיס b משני האגפים.",
+          "w": [ { "f": "log_b(x^n) = b^(n*log_b(x))", "e": "dropped" }, { "f": "log_b(x^n) = log_b(n*b^(log_b(x)))", "e": "factor" }, { "f": "log_b(x)^n = log_b(b^(n*log_b(x)))", "e": "power" } ] },
+        { "f": "log_b(x^n) = n*log_b(x)", "n": "log_b(b^k) = k, ולכן נשארת החזקה עצמה.",
+          "w": [ { "f": "log_b(x^n) = log_b(x)^n", "e": "power" }, { "f": "log_b(x^n) = log_b(x) + n", "e": "linear" }, { "f": "log_b(x^n) = x*log_b(n)", "e": "swap" } ] }
+      ],
+      "key": [1, 2, 3]
+    },
+    {
+      "id": "dv-m-06", "subject": "math", "title": "נוסחת השורשים של משוואה ריבועית: השלמה לריבוע", "sym": {},
+      "start": "משוואה ריבועית a·x² + b·x + c = 0, כש־a ≠ 0 וכש־b² − 4ac ≥ 0", "goal": "x = ( −b ± √(b² − 4ac) ) / (2a)",
+      "vars": { "a": [0.5, 3], "b": [-3, 3], "c": [-4, 1], "x": [-3, 3] }, "dom": "b^2 - 4*a*c >= 0", "mode": "solve", "unknown": "x", "scan": [-30, 30],
+      "startF": "a*x^2 + b*x + c = 0",
+      "goalF": "x = (-b + sqrt(b^2-4*a*c))/(2*a) or x = (-b - sqrt(b^2-4*a*c))/(2*a)",
+      "steps": [
+        { "f": "x^2 + (b/a)*x + c/a = 0", "n": "מחלקים את כל המשוואה ב־a, כל האיברים ולא רק הראשון.",
+          "w": [ { "f": "x^2 + b*x + c = 0", "e": "partial" }, { "f": "x^2 + (b/a)*x + c = 0", "e": "partial" }, { "f": "x^2 + b*x + c/a = 0", "e": "partial" } ] },
+        { "f": "x^2 + (b/a)*x = -c/a", "n": "מעבירים את האיבר החופשי לאגף ימין, והסימן מתהפך.",
+          "w": [ { "f": "x^2 + (b/a)*x = c/a", "e": "sign" }, { "f": "x^2 + (b/a)*x = -c", "e": "partial" }, { "f": "x^2 - (b/a)*x = -c/a", "e": "sign" } ] },
+        { "f": "(x + b/(2*a))^2 = b^2/(4*a^2) - c/a", "n": "מוסיפים את ריבוע חצי המקדם, (b/2a)², לשני האגפים.",
+          "w": [ { "f": "(x + b/(2*a))^2 = -c/a", "e": "dropped" }, { "f": "(x + b/(2*a))^2 = b^2/(4*a^2) + c/a", "e": "sign" }, { "f": "(x + b/a)^2 = b^2/a^2 - c/a", "e": "factor" } ] },
+        { "f": "(x + b/(2*a))^2 = (b^2 - 4*a*c)/(4*a^2)", "n": "מאחדים את האגף הימני למכנה משותף 4a².",
+          "w": [ { "f": "(x + b/(2*a))^2 = (b^2 - 4*a*c)/(2*a^2)", "e": "factor" }, { "f": "(x + b/(2*a))^2 = (b^2 + 4*a*c)/(4*a^2)", "e": "sign" }, { "f": "(x + b/(2*a))^2 = (b^2 - 4*a*c)/(4*a)", "e": "power" } ] },
+        { "f": "x + b/(2*a) = sqrt(b^2-4*a*c)/(2*a) or x + b/(2*a) = -sqrt(b^2-4*a*c)/(2*a)", "n": "שורש משני האגפים נותן שתי אפשרויות: חיובי ושלילי.", "typed": false,
+          "w": [ { "f": "x + b/(2*a) = sqrt(b^2-4*a*c)/(2*a)", "e": "dropped" }, { "f": "x + b/(2*a) = (b^2-4*a*c)/(2*a) or x + b/(2*a) = -(b^2-4*a*c)/(2*a)", "e": "power" }, { "f": "x + b/(2*a) = sqrt(b^2-4*a*c)/(4*a^2) or x + b/(2*a) = -sqrt(b^2-4*a*c)/(4*a^2)", "e": "factor" } ] },
+        { "f": "x = (-b + sqrt(b^2-4*a*c))/(2*a) or x = (-b - sqrt(b^2-4*a*c))/(2*a)", "n": "מעבירים את b/(2a) לאגף ימין ומאחדים לשבר אחד.", "typed": false,
+          "w": [ { "f": "x = (-b + sqrt(b^2-4*a*c))/(2*a)", "e": "dropped" }, { "f": "x = (b + sqrt(b^2-4*a*c))/(2*a) or x = (b - sqrt(b^2-4*a*c))/(2*a)", "e": "sign" }, { "f": "x = (-b + sqrt(b^2-4*a*c))/2*a or x = (-b - sqrt(b^2-4*a*c))/2*a", "e": "paren" } ] }
+      ],
+      "key": [1, 2, 3]
+    },
+    {
+      "id": "dv-m-07", "subject": "math", "title": "תנאי המשיקות של ישר ומעגל דרך דיסקרימיננטה", "sym": {},
+      "start": "המעגל x² + y² = r² והישר y = m·x + k. הישר משיק כשהמשוואה הריבועית שמתקבלת בהצבה יש לה פתרון יחיד, כלומר Δ = 0", "goal": "k = ±r·√(1 + m²)",
+      "vars": { "m": [-2, 2], "r": [1, 3], "k": [-3, 3] }, "mode": "solve", "unknown": "k", "scan": [-30, 30],
+      "goalF": "k = r*sqrt(1+m^2) or k = -r*sqrt(1+m^2)",
+      "steps": [
+        { "f": "(2*m*k)^2 - 4*(1+m^2)*(k^2-r^2) = 0", "n": "ההצבה נותנת (1+m²)x² + 2mk·x + (k² − r²) = 0. הדיסקרימיננטה b² − 4ac מתאפסת.",
+          "w": [ { "f": "(2*m*k)^2 + 4*(1+m^2)*(k^2-r^2) = 0", "e": "sign" }, { "f": "2*m*k - 4*(1+m^2)*(k^2-r^2) = 0", "e": "power" }, { "f": "(2*m*k)^2 - 4*(1+m^2)*(k^2+r^2) = 0", "e": "sign" } ] },
+        { "f": "4*m^2*k^2 - 4*(k^2 + m^2*k^2 - r^2 - m^2*r^2) = 0", "n": "פותחים את הסוגריים (1+m²)(k²−r²) איבר איבר.",
+          "w": [ { "f": "4*m^2*k^2 - 4*(k^2 + m^2*k^2 - r^2) = 0", "e": "cross" }, { "f": "4*m^2*k^2 - 4*k^2 - 4*m^2*k^2 - 4*r^2 - 4*m^2*r^2 = 0", "e": "paren" }, { "f": "2*m*k^2 - 4*(k^2 + m^2*k^2 - r^2 - m^2*r^2) = 0", "e": "factor" } ] },
+        { "f": "-4*k^2 + 4*r^2 + 4*m^2*r^2 = 0", "n": "האיברים 4m²k² מצטמצמים.",
+          "w": [ { "f": "-4*k^2 + 4*r^2 - 4*m^2*r^2 = 0", "e": "sign" }, { "f": "-4*k^2 + 4*r^2 = 0", "e": "dropped" }, { "f": "4*k^2 + 4*r^2 + 4*m^2*r^2 = 0", "e": "sign" } ] },
+        { "f": "k^2 = r^2*(1+m^2)", "n": "מחלקים ב־4, מעבירים את k² ומוציאים r² גורם משותף.",
+          "w": [ { "f": "k^2 = r^2 + m^2", "e": "partial" }, { "f": "k^2 = r*(1+m^2)", "e": "power" }, { "f": "k = r^2*(1+m^2)", "e": "power" } ] },
+        { "f": "k = r*sqrt(1+m^2) or k = -r*sqrt(1+m^2)", "n": "שורש משני האגפים, עם ± כי k יכול להיות גם שלילי.", "typed": false,
+          "w": [ { "f": "k = r*sqrt(1+m^2)", "e": "dropped" }, { "f": "k = r*(1+m^2) or k = -r*(1+m^2)", "e": "power" }, { "f": "k = r^2*sqrt(1+m^2) or k = -r^2*sqrt(1+m^2)", "e": "factor" } ] }
+      ],
+      "key": [1, 2, 3]
+    },
+    {
+      "id": "dv-m-08", "subject": "math", "title": "סכום סדרה הנדסית", "sym": {},
+      "start": "S = 1 + q + q² + … + q^(n−1), כש־ q ≠ 1", "goal": "S = (qⁿ − 1) / (q − 1)",
+      "vars": { "n": [2, 7, "int"], "q": [0.4, 3] }, "defs": { "S": "sum(i;0;n-1;q^i)" }, "mode": "identity",
+      "goalF": "S = (q^n - 1)/(q - 1)",
+      "steps": [
+        { "f": "q*S = sum(i;1;n;q^i)", "s": "q·S = Σ<sub>i=1</sub><sup>n</sup> q<sup>i</sup>", "n": "כפל ב־q מעלה כל חזקה באחד: החזקות הן עכשיו מ־1 עד n.",
+          "w": [ { "f": "q*S = sum(i;0;n;q^i)", "e": "dropped" }, { "f": "q*S = sum(i;1;n-1;q^i)", "e": "dropped" }, { "f": "q*S = sum(i;1;n;q^(i+1))", "s": "q·S = Σ<sub>i=1</sub><sup>n</sup> q<sup>i+1</sup>", "e": "power" } ] },
+        { "f": "q*S - S = sum(i;1;n;q^i) - sum(i;0;n-1;q^i)", "s": "q·S − S = Σ<sub>i=1</sub><sup>n</sup> q<sup>i</sup> − Σ<sub>i=0</sub><sup>n−1</sup> q<sup>i</sup>", "n": "מחסרים את S משני האגפים.",
+          "w": [ { "f": "q*S - S = sum(i;1;n;q^i) + sum(i;0;n-1;q^i)", "s": "q·S − S = Σ<sub>i=1</sub><sup>n</sup> q<sup>i</sup> + Σ<sub>i=0</sub><sup>n−1</sup> q<sup>i</sup>", "e": "sign" }, { "f": "q*S - S = sum(i;1;n;q^i)", "s": "q·S − S = Σ<sub>i=1</sub><sup>n</sup> q<sup>i</sup>", "e": "dropped" }, { "f": "q*S - S = sum(i;1;n;q^i) - sum(i;1;n-1;q^i)", "s": "q·S − S = Σ<sub>i=1</sub><sup>n</sup> q<sup>i</sup> − Σ<sub>i=1</sub><sup>n−1</sup> q<sup>i</sup>", "e": "dropped" } ] },
+        { "f": "q*S - S = q^n - 1", "n": "כל החזקות מ־q¹ עד q^(n−1) מופיעות בשני הסכומים ומתבטלות. נשארים q^n ו־1−.",
+          "w": [ { "f": "q*S - S = q^n + 1", "e": "sign" }, { "f": "q*S - S = q^(n-1) - 1", "e": "power" }, { "f": "q*S - S = q^n - q", "e": "partial" } ] },
+        { "f": "S*(q-1) = q^n - 1", "n": "מוציאים S גורם משותף באגף שמאל.",
+          "w": [ { "f": "S*q - 1 = q^n - 1", "e": "paren" }, { "f": "S*(q+1) = q^n - 1", "e": "sign" }, { "f": "S/(q-1) = q^n - 1", "e": "invert" } ] },
+        { "f": "S = (q^n - 1)/(q - 1)", "n": "מחלקים ב־(q − 1), שאינו אפס כי q ≠ 1.",
+          "w": [ { "f": "S = (q^n - 1)/(q + 1)", "e": "sign" }, { "f": "S = (q^n + 1)/(q - 1)", "e": "sign" }, { "f": "S = q^n - 1/(q - 1)", "e": "paren" } ] }
+      ],
+      "key": [1, 2, 3]
+    },
+    {
+      "id": "dv-m-09", "subject": "math", "title": "קוסינוס של זווית משולשת", "sym": { "a": "α" },
+      "start": "ידוע: cos(2a) = 2cos²a − 1, sin(2a) = 2 sin a cos a, וכן נוסחת cos של סכום", "goal": "cos(3a) = 4cos³a − 3cos a",
+      "vars": { "a": [0.2, 2.9] }, "mode": "identity",
+      "goalF": "cos(3*a) = 4*cos(a)^3 - 3*cos(a)",
+      "steps": [
+        { "f": "cos(3*a) = cos(2*a + a)", "n": "מפרקים 3a ל־2a + a כדי להשתמש בנוסחת הסכום.",
+          "w": [ { "f": "cos(3*a) = cos(2*a) + cos(a)", "e": "linear" }, { "f": "cos(3*a) = 3*cos(a)", "e": "linear" }, { "f": "cos(3*a) = cos(2*a)*cos(a)", "e": "partial" } ] },
+        { "f": "cos(3*a) = cos(2*a)*cos(a) - sin(2*a)*sin(a)", "n": "cos(A+B) = cos A cos B − sin A sin B עם A = 2a ו־B = a.",
+          "w": [ { "f": "cos(3*a) = cos(2*a)*cos(a) + sin(2*a)*sin(a)", "e": "sign" }, { "f": "cos(3*a) = cos(2*a)*sin(a) - sin(2*a)*cos(a)", "e": "swap" }, { "f": "cos(3*a) = cos(2*a)*cos(a) - sin(a)*sin(a)", "e": "partial" } ] },
+        { "f": "cos(3*a) = (2*cos(a)^2 - 1)*cos(a) - 2*sin(a)*cos(a)*sin(a)", "n": "מציבים את שתי נוסחאות הזווית הכפולה.",
+          "w": [ { "f": "cos(3*a) = (2*cos(a)^2 - 1)*cos(a) - 2*sin(a)*cos(a)", "e": "dropped" }, { "f": "cos(3*a) = (2*cos(a)^2 + 1)*cos(a) - 2*sin(a)^2*cos(a)", "e": "sign" }, { "f": "cos(3*a) = (2*cos(a) - 1)*cos(a) - 2*sin(a)*cos(a)*sin(a)", "e": "power" } ] },
+        { "f": "cos(3*a) = 2*cos(a)^3 - cos(a) - 2*cos(a)*sin(a)^2", "n": "פותחים סוגריים ומסדרים את הגורמים של האיבר השני.",
+          "w": [ { "f": "cos(3*a) = 2*cos(a)^3 - cos(a) + 2*cos(a)*sin(a)^2", "e": "sign" }, { "f": "cos(3*a) = 2*cos(a)^3 - 1 - 2*cos(a)*sin(a)^2", "e": "dropped" }, { "f": "cos(3*a) = 2*cos(a)^3 - cos(a) - 2*cos(a)*sin(a)", "e": "power" } ] },
+        { "f": "cos(3*a) = 2*cos(a)^3 - cos(a) - 2*cos(a)*(1 - cos(a)^2)", "n": "מחליפים sin² ב־1 − cos².",
+          "w": [ { "f": "cos(3*a) = 2*cos(a)^3 - cos(a) - 2*cos(a)*(1 + cos(a)^2)", "e": "sign" }, { "f": "cos(3*a) = 2*cos(a)^3 - cos(a) - 2*cos(a)*1 - cos(a)^2", "e": "paren" }, { "f": "cos(3*a) = 2*cos(a)^3 - cos(a) - 2*cos(a)*(1 - cos(a))", "e": "power" } ] },
+        { "f": "cos(3*a) = 4*cos(a)^3 - 3*cos(a)", "n": "מאחדים: 2cos³ + 2cos³ = 4cos³, ו־ −cos − 2cos = −3cos.",
+          "w": [ { "f": "cos(3*a) = 4*cos(a)^3 + 3*cos(a)", "e": "sign" }, { "f": "cos(3*a) = 4*cos(a)^3 - 3", "e": "dropped" }, { "f": "cos(3*a) = 3*cos(a)^3 - 4*cos(a)", "e": "swap" } ] }
+      ],
+      "key": [1, 2, 4]
+    },
+    {
+      "id": "dv-m-10", "subject": "math", "title": "טנגנס של סכום זוויות", "sym": { "a": "α", "b": "β" },
+      "start": "ידוע: tan = sin/cos, ונוסחאות הסכום של sin ו־cos", "goal": "tan(a+b) = (tan a + tan b) / (1 − tan a · tan b)",
+      "vars": { "a": [0.2, 0.7], "b": [0.2, 0.7] }, "mode": "identity",
+      "goalF": "tan(a+b) = (tan(a) + tan(b))/(1 - tan(a)*tan(b))",
+      "steps": [
+        { "f": "tan(a+b) = sin(a+b)/cos(a+b)", "n": "ההגדרה של טנגנס.",
+          "w": [ { "f": "tan(a+b) = cos(a+b)/sin(a+b)", "e": "invert" }, { "f": "tan(a+b) = sin(a+b)*cos(a+b)", "e": "invert" }, { "f": "tan(a+b) = sin(a)/cos(b)", "e": "partial" } ] },
+        { "f": "tan(a+b) = (sin(a)*cos(b) + cos(a)*sin(b))/(cos(a)*cos(b) - sin(a)*sin(b))", "n": "נוסחאות הסכום, במונה ובמכנה.",
+          "w": [ { "f": "tan(a+b) = (sin(a)*cos(b) - cos(a)*sin(b))/(cos(a)*cos(b) + sin(a)*sin(b))", "e": "sign" }, { "f": "tan(a+b) = (sin(a) + sin(b))/(cos(a) + cos(b))", "e": "linear" }, { "f": "tan(a+b) = (sin(a)*sin(b) + cos(a)*cos(b))/(cos(a)*sin(b) - sin(a)*cos(b))", "e": "swap" } ] },
+        { "f": "tan(a+b) = ((sin(a)*cos(b) + cos(a)*sin(b))/(cos(a)*cos(b)))/((cos(a)*cos(b) - sin(a)*sin(b))/(cos(a)*cos(b)))", "n": "מחלקים גם את המונה וגם את המכנה ב־cos a · cos b.",
+          "w": [ { "f": "tan(a+b) = ((sin(a)*cos(b) + cos(a)*sin(b))/(cos(a)*cos(b)))/(cos(a)*cos(b) - sin(a)*sin(b))", "e": "partial" }, { "f": "tan(a+b) = ((sin(a)*cos(b) + cos(a)*sin(b))/(cos(a)*cos(b)))/((cos(a)*cos(b) - sin(a)*sin(b))/cos(a))", "e": "partial" }, { "f": "tan(a+b) = ((sin(a)*cos(b) + cos(a)*sin(b))/(cos(a)*cos(b)))/((cos(a)*cos(b) - sin(a)*sin(b))*cos(a)*cos(b))", "e": "invert" } ] },
+        { "f": "tan(a+b) = (sin(a)/cos(a) + sin(b)/cos(b))/(1 - sin(a)*sin(b)/(cos(a)*cos(b)))", "n": "מפצלים כל שבר ומצמצמים: במונה cos b מצטמצם באיבר הראשון, ובמכנה מתקבל 1 פחות מכפלת שברים.",
+          "w": [ { "f": "tan(a+b) = (sin(a)/cos(a) + sin(b)/cos(b))/(1 + sin(a)*sin(b)/(cos(a)*cos(b)))", "e": "sign" }, { "f": "tan(a+b) = (sin(a)/cos(a) + sin(b)/cos(b))/(1 - sin(a)*sin(b))", "e": "partial" }, { "f": "tan(a+b) = (sin(a)/cos(a) - sin(b)/cos(b))/(1 - sin(a)*sin(b)/(cos(a)*cos(b)))", "e": "sign" } ] },
+        { "f": "tan(a+b) = (tan(a) + tan(b))/(1 - tan(a)*tan(b))", "n": "sin/cos = tan בכל שבר.",
+          "w": [ { "f": "tan(a+b) = (tan(a) + tan(b))/(1 + tan(a)*tan(b))", "e": "sign" }, { "f": "tan(a+b) = tan(a) + tan(b)/(1 - tan(a)*tan(b))", "e": "paren" }, { "f": "tan(a+b) = (tan(a) + tan(b))/(1 - tan(a) - tan(b))", "e": "partial" } ] }
+      ],
+      "key": [1, 2, 3]
+    },
+    {
+      "id": "dv-m-11", "subject": "math", "title": "סכום סדרה חשבונית בשיטת הסכום ההפוך", "sym": {},
+      "start": "S = a₁ + (a₁+d) + … + (a₁+(n−1)d). R הוא אותו סכום בסדר הפוך", "goal": "S = n · (2a₁ + (n−1)d) / 2",
+      "vars": { "a1": [1, 5], "d": [0.5, 3], "n": [2, 8, "int"] }, "defs": { "S": "sum(i;1;n;a1+(i-1)*d)", "R": "sum(i;1;n;a1+(n-i)*d)" }, "mode": "identity",
+      "goalF": "S = n*(2*a1+(n-1)*d)/2",
+      "steps": [
+        { "f": "R = S", "n": "אותם איברים בדיוק, רק בסדר הפוך, ולכן אותו סכום.",
+          "w": [ { "f": "R = S + d", "e": "dropped" }, { "f": "R = 2*S", "e": "factor" }, { "f": "R = S - n*d", "e": "dropped" } ] },
+        { "f": "S + R = sum(i;1;n;(a1+(i-1)*d)+(a1+(n-i)*d))", "s": "S + R = Σ<sub>i=1</sub><sup>n</sup> [ (a<sub>1</sub>+(i−1)d) + (a<sub>1</sub>+(n−i)d) ]", "n": "מחברים את שני הסכומים איבר מול איבר.",
+          "w": [ { "f": "S + R = sum(i;1;n;(a1+(i-1)*d)*(a1+(n-i)*d))", "s": "S + R = Σ<sub>i=1</sub><sup>n</sup> [ (a<sub>1</sub>+(i−1)d) · (a<sub>1</sub>+(n−i)d) ]", "e": "identity" }, { "f": "S + R = sum(i;1;n;a1+(i-1)*d)", "s": "S + R = Σ<sub>i=1</sub><sup>n</sup> (a<sub>1</sub>+(i−1)d)", "e": "dropped" }, { "f": "S + R = S*R", "e": "identity" } ] },
+        { "f": "S + R = sum(i;1;n;2*a1+(n-1)*d)", "s": "S + R = Σ<sub>i=1</sub><sup>n</sup> (2a<sub>1</sub> + (n−1)d)", "n": "בכל זוג איברים i נעלם: (i−1)d + (n−i)d = (n−1)d.",
+          "w": [ { "f": "S + R = sum(i;1;n;2*a1+(n+1)*d)", "s": "S + R = Σ<sub>i=1</sub><sup>n</sup> (2a<sub>1</sub> + (n+1)d)", "e": "sign" }, { "f": "S + R = sum(i;1;n;a1+(n-1)*d)", "s": "S + R = Σ<sub>i=1</sub><sup>n</sup> (a<sub>1</sub> + (n−1)d)", "e": "dropped" }, { "f": "S + R = sum(i;1;n;2*a1+(n-1)*d*i)", "s": "S + R = Σ<sub>i=1</sub><sup>n</sup> (2a<sub>1</sub> + (n−1)d·i)", "e": "power" } ] },
+        { "f": "S + R = n*(2*a1+(n-1)*d)", "n": "סוכמים n פעמים את אותו ערך קבוע.",
+          "w": [ { "f": "S + R = 2*a1+(n-1)*d", "e": "dropped" }, { "f": "S + R = n*(a1+(n-1)*d)", "e": "factor" }, { "f": "S + R = n^2*(2*a1+(n-1)*d)", "e": "power" } ] },
+        { "f": "2*S = n*(2*a1+(n-1)*d)", "n": "R = S, ולכן S + R = 2S.",
+          "w": [ { "f": "S = n*(2*a1+(n-1)*d)", "e": "factor" }, { "f": "2*S = n*(2*a1+(n-1)*d)/2", "e": "factor" }, { "f": "2*S = 2*a1+(n-1)*d", "e": "dropped" } ] },
+        { "f": "S = n*(2*a1+(n-1)*d)/2", "n": "מחלקים ב־2.",
+          "w": [ { "f": "S = n*(2*a1+(n-1)*d)", "e": "factor" }, { "f": "S = n*(a1+(n-1)*d)/2", "e": "factor" }, { "f": "S = n*(2*a1+(n-1)*d)/4", "e": "factor" } ] }
+      ],
+      "key": [1, 2, 3]
+    },
+    {
+      "id": "dv-m-12", "subject": "math", "title": "סינוס בריבוע של חצי זווית מתוך הקוסינוס", "sym": { "a": "α" },
+      "start": "ידוע: cos(2t) = cos²t − sin²t, ו־ sin² + cos² = 1", "goal": "sin²(a/2) = (1 − cos a) / 2",
+      "vars": { "a": [0.3, 3] }, "mode": "identity",
+      "goalF": "sin(a/2)^2 = (1 - cos(a))/2",
+      "steps": [
+        { "f": "cos(a) = cos(a/2)^2 - sin(a/2)^2", "n": "נוסחת הזווית הכפולה עם t = a/2.",
+          "w": [ { "f": "cos(a) = cos(a/2)^2 + sin(a/2)^2", "e": "sign" }, { "f": "cos(a) = cos(a/2) - sin(a/2)", "e": "power" }, { "f": "cos(a) = cos(a/2)*cos(a/2) - sin(a)*sin(a)", "e": "partial" } ] },
+        { "f": "cos(a) = (1 - sin(a/2)^2) - sin(a/2)^2", "n": "מחליפים cos² ב־ 1 − sin² כדי שיישאר רק סינוס.",
+          "w": [ { "f": "cos(a) = (1 + sin(a/2)^2) - sin(a/2)^2", "e": "sign" }, { "f": "cos(a) = (1 - sin(a/2)^2) + sin(a/2)^2", "e": "sign" }, { "f": "cos(a) = (1 - sin(a/2)) - sin(a/2)^2", "e": "power" } ] },
+        { "f": "cos(a) = 1 - 2*sin(a/2)^2", "n": "מאחדים את שני האיברים עם הסינוס.",
+          "w": [ { "f": "cos(a) = 1 - sin(a/2)^2", "e": "dropped" }, { "f": "cos(a) = 1 + 2*sin(a/2)^2", "e": "sign" }, { "f": "cos(a) = 1 - 2*sin(a/2)", "e": "power" } ] },
+        { "f": "2*sin(a/2)^2 = 1 - cos(a)", "n": "מעבירים אגפים: 2sin² לשמאל ו־cos a לימין.",
+          "w": [ { "f": "2*sin(a/2)^2 = cos(a) - 1", "e": "sign" }, { "f": "2*sin(a/2)^2 = 1 + cos(a)", "e": "sign" }, { "f": "sin(a/2)^2 = 1 - cos(a)", "e": "dropped" } ] },
+        { "f": "sin(a/2)^2 = (1 - cos(a))/2", "n": "מחלקים ב־2 את כל האגף הימני.",
+          "w": [ { "f": "sin(a/2)^2 = 1 - cos(a)/2", "e": "paren" }, { "f": "sin(a/2)^2 = (1 + cos(a))/2", "e": "sign" }, { "f": "sin(a/2)^2 = (1 - cos(a))/4", "e": "factor" } ] }
+      ],
+      "key": [1, 2, 3]
+    }
+  ]
+}

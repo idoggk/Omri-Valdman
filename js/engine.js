@@ -18,6 +18,7 @@ const FIXED = {
   units: ['יחידות וניתוח ממדים', '#/units'],
   estimate: ['הערכה לפני חישוב', '#/estimate'],
   notes: ['דגשים: חזקות, כפל באי־שוויון ולוגריתמים', '#/notes'],
+  derive: ['גזירה מהזיכרון: שחזור הוכחות ונוסחאות', '#/derive'],
 };
 
 /** Hebrew title of an engine topic, or null when the id is not one of the standalone modes. */
@@ -51,6 +52,7 @@ export function itemHref(id, topic) {
   if (topic === 'formulas') return '#/formulas';
   if (topic === 'notes') return id === 'notes-cards' || id.startsWith('nt-c') ? '#/notes/cards' : `#/notes/ex/${id}`;
   if (topic === 'units') return '#/units';
+  if (topic === 'derive') return `#/derive/t/${id}`;
   if (topic === 'estimate' || String(topic).startsWith('sprint-')) return topic === 'estimate' ? '#/estimate' : '#/sprint';
   if (topic === 'recover-math' || topic === 'recover-physics') return `#/recover/${id}`;
   if (topic === TRIG_TOPIC) {
