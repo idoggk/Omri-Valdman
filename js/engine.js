@@ -17,6 +17,7 @@ const FIXED = {
   formulas: ['הדף שלי: נוסחאות מהזיכרון', '#/formulas'],
   units: ['יחידות וניתוח ממדים', '#/units'],
   estimate: ['הערכה לפני חישוב', '#/estimate'],
+  notes: ['דגשים: חזקות, כפל באי־שוויון ולוגריתמים', '#/notes'],
 };
 
 /** Hebrew title of an engine topic, or null when the id is not one of the standalone modes. */
@@ -48,6 +49,7 @@ export function itemHref(id, topic) {
   if (topic === MULTIPART_TOPIC) return `#/multipart/${id}`;
   if (topic === 'writing') return `#/writing/${id}`;
   if (topic === 'formulas') return '#/formulas';
+  if (topic === 'notes') return id === 'notes-cards' || id.startsWith('nt-c') ? '#/notes/cards' : `#/notes/ex/${id}`;
   if (topic === 'units') return '#/units';
   if (topic === 'estimate' || String(topic).startsWith('sprint-')) return topic === 'estimate' ? '#/estimate' : '#/sprint';
   if (topic === 'recover-math' || topic === 'recover-physics') return `#/recover/${id}`;

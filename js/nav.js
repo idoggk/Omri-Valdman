@@ -20,7 +20,7 @@ export const TABS = [
 
 /** Routes whose first segment alone is enough to resolve (the rest are optional arguments). */
 const SIMPLE = ['progress', 'practice-hub', 'backup', 'summary', 'drills', 'endless', 'order', 'methods', 'edge', 'reverse', 'fading', 'solve',
-  'repair', 'checkpoints', 'hunt', 'workout', 'exam', 'feedback', 'ladder', 'multipart', 'trig', 'mathhard', 'logs', 'transfer', 'recover', 'notebook', 'writing', 'booklet', 'formulas', 'sprint', 'units', 'estimate'];
+  'repair', 'checkpoints', 'hunt', 'workout', 'exam', 'feedback', 'ladder', 'multipart', 'trig', 'mathhard', 'logs', 'transfer', 'recover', 'notebook', 'writing', 'booklet', 'formulas', 'sprint', 'units', 'estimate', 'notes'];
 
 /** hash -> { name, args } or { name: 'notfound' }. One parser shared by app.js and the tests. */
 export function resolveRoute(hash) {
@@ -123,6 +123,7 @@ const MORE_LINKS = [
   ['#/ladder', '🪜 סולם הקושי בפיזיקה'],
   ['#/mathhard', '🧠 מתמטיקה ברמה גבוהה: שורשים, מעריכי, אי־שוויונות, פרמטר ומעגלים'],
   ['#/logs', '📏 לוגריתמים: 12 שיעורים מהיסוד, כרטיסיות ו־70 תרגילים'],
+  ['#/notes', '📌 דגשים: חזקות חיוביות תמיד, כפל באי־שוויון וכללי לוגריתם'],
   ['#/trig', '📐 זהויות טריגונומטריות: שלושה עוגנים וכל השאר נגזר'],
 ];
 
@@ -245,6 +246,7 @@ export function viewHub(ctx) {
     more: [
       tile('#/sprint', '⏱️ ספרינטים באלגברה', 'סטים של 2 או 5 דקות: פירוק לגורמים, שברים, חזקות ושורשים, משוואות, בידוד משתנה, אי־שוויונות ולוגריתמים. משוב מיד, נכונות לדקה, שיא אישי וקושי שמתאים את עצמו לכל נושא'),
       tile('#/units', '📏 יחידות וניתוח ממדים', '30 שאלות קצרות: יחידות SI, המרות, האם נוסחה תקינה מבחינת יחידות, סקלר מול וקטור, שיפוע ושטח בגרף ודוגמאות הנדסיות'),
+      tile('#/notes', '📌 דגשים', '12 כרטיסי זכירה ו־16 תרגילים על מלכודות מבחן: חזקה חיובית תמיד, מתי מותר להכפיל אי־שוויון, וכללי הלוגריתם'),
       tile('#/estimate', '🎯 קודם מעריכים', '24 שאלות שבהן בוחרים טווח או הערכה בסדר גודל לפני שמחשבים, ואז רואים את החישוב המדויק ואם ההערכה תפסה אותו'),
     ],
     backup: [
