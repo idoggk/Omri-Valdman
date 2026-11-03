@@ -133,7 +133,7 @@ function viewTask(ctx, task) {
         actions.append(h('div', {}, b));
       });
     } else {
-      const input = h('input', { type: 'text', dir: 'ltr', class: 'math-input', autocomplete: 'off', autocapitalize: 'off', spellcheck: 'false', 'aria-label': 'השורה הבאה בגזירה', placeholder: 'למשל: cos(2*a) = ...' });
+      const input = h('input', { type: 'text', dir: 'ltr', class: 'math-input', autocomplete: 'off', autocapitalize: 'off', spellcheck: 'false', inputmode: 'text', maxlength: '160', 'aria-label': 'השורה הבאה בגזירה', placeholder: 'למשל: cos(2*a) = ...' });
       input.addEventListener('input', () => tf.attempt());
       const check = h('button', { class: 'btn primary', type: 'button', style: BTN }, 'בדיקה');
       check.addEventListener('click', () => {
