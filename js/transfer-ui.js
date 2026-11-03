@@ -15,6 +15,15 @@ import {
   subjectLabel, formatTime, pickSession, PHYSICS_LETTERS, SESSION_SIZE, SUBJECTS,
 } from './transfer.js';
 
+import { track, timelineCard, replayLine } from './replay-ui.js';
+import { load as replayStore } from './replay.js';
+
+const replayKey = (session) => `transfer-${session.startedAt}`;
+const replayQuestions = (items, session) => session.ids.map((id, i) => {
+  const q = items.find((x) => x.id === id);
+  const r = session.results[id];
+  return { key: id, label: `שאלה ${i + 1}`, marks: q ? (q.subject === 'math' ? 1 : q.parts.length) : 1, earned: r ? r.score : 0 };
+});
 const TITLE = '🧊 מבחן העברה: שאלות חדשות לגמרי';
 const BTN = 'min-height:44px;';
 const crumbs = (href = '#/practice-hub', label = '→ חזרה לתרגול') => h('p', { class: 'crumbs' }, h('a', { href }, label));
@@ -108,13 +117,17 @@ function runQuestion(ctx, items) {
     over.textContent = s > item.budget ? ' · עברתם את הזמן המומלץ, אפשר להגיש מה שיש' : '';
   }, 1000);
 
+  const rkey = replayKey(session);
+  track('transfer', rkey, 'open', id, { start: true }); // strategy replay: the question page was opened
   const finish = (grade) => {
     clearInterval(tick);
     const seconds = Math.round((Date.now() - t0) / 1000);
     if (widget.lock) widget.lock();
     submit.disabled = true; skip.disabled = true;
     if (submitResult(items, id, grade, seconds)) store.recordAttempt({ ...attemptFor(item, grade, seconds), ...predExtra(conf) });
+    track('transfer', rkey, grade.skipped ? 'skip' : 'answer', id);
     const done = loadSaved().session;
+    if (done && done.finishedAt) track('transfer', rkey, 'finish', '');
     viewTransfer(ctx, done && done.finishedAt ? 'result' : 'run');
   };
   submit.addEventListener('click', () => {
@@ -171,13 +184,17 @@ function resultView(ctx, items) {
     const tot = Object.values(data.perSubject).reduce((a, r) => ({ s: a.s + r.score, t: a.t + r.total }), { s: 0, t: 0 });
     jentry = finishEntry(jr, 'transfer', TRANSFER_KEY, jid, {
       score: tot.t ? Math.round((tot.s / tot.t) * 100) : 0, topic: hard ? hard.topic : null, topicLabel: hard ? hard.topicLabel : '', minutes: data.seconds ? Math.max(1, Math.round(data.seconds / 60)) : null,
+      replay: replayStore().logs[replayKey(session)] ? replayKey(session) : undefined,
     }, session.finishedAt);
     if (jentry) saveJournal(jr);
   }
+  const rqs = replayQuestions(items, session);
+  const rlog = replayStore().logs[replayKey(session)];
   document.title = 'תוצאות מבחן ההעברה – Brain Gains';
   ctx.show(crumbs('#/transfer', '→ למבחן ההעברה'), h('h1', {}, 'תוצאות מבחן ההעברה'),
-    jentry ? comparisonCard(jentry, compare(jentry)) : null,
+    jentry ? comparisonCard(jentry, compare(jentry), replayLine(jentry.act.replay, rqs)) : null,
     h('div', { class: 'cards' }, SUBJECTS.map(subjectCard)),
+    timelineCard(rlog, rqs, 'סעיפים'),
     h('p', {}, `זמן כולל: ${formatTime(data.seconds)} (זמן מומלץ לכל המבחן: ${formatTime(data.budget)}).`),
     h('h2', {}, 'מה הוחמץ'),
     data.missed.length ? stepsList(data.missed.map(missedItem)) : h('p', { class: 'feedback ok', role: 'status' }, 'אין החמצות. כל השאלות נפתרו נכון בניסיון ראשון.'),

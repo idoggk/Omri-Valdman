@@ -5,6 +5,8 @@ import { h, ltr } from './dom.js';
 import * as store from './store.js';
 import { predictionForm, comparisonCard, historyBlock } from './journal-ui.js';
 import { load as loadJournal, save as saveJournal, finishEntry, compare, hardestInPaper } from './journal.js';
+import { trackerPanel, timelineCard, replayLine, track } from './replay-ui.js';
+import { load as replayStore } from './replay.js';
 import {
   loadBookletData, buildPaper, paperParts, loadSaved, saveSaved, recordResult, attemptFor, historySummary, parseSeed, subjectLabel,
   SUBJECTS, COUNTS, MINUTES, TOTAL, SEED_MAX,
@@ -141,8 +143,15 @@ function paperView(ctx, paper) {
     kind: 'booklet', key: paper.key, withConf: true,
     topics: paper.questions.map((q) => ({ id: `q:${q.id}`, label: `שאלה ${q.n}: ${q.title}` })),
   }));
-  ctx.show(toolbar, predict, root);
+  const tracker = trackerPanel(paper.key, bookletQuestions(paper), { onStart: startClock });
+  ctx.show(toolbar, predict, tracker, root);
 }
+
+/** Questions of a paper for the strategy replay (marks available, marks earned when the points are known). */
+export const bookletQuestions = (paper, parts = null) => paper.questions.map((q) => ({
+  key: q.id, label: `שאלה ${q.n}`, marks: q.total,
+  earned: parts ? q.parts.reduce((s, p) => s + (Number(parts[`${q.id}.${p.id}`]) || 0), 0) : undefined,
+}));
 
 function enterView(ctx, paper) {
   document.title = 'הזנת תוצאות – Brain Gains';
@@ -180,11 +189,16 @@ function enterView(ctx, paper) {
     const hard = hardestInPaper(paper, r.entry.parts);
     const closed = finishEntry(jr, 'booklet', paper.key, paper.key, {
       score: Math.round(r.entry.fraction * 100), topic: hard ? hard.topic : null, topicLabel: hard ? hard.topicLabel : '', minutes: r.entry.minutes || null,
+      replay: replayStore().logs[paper.key] ? paper.key : undefined,
     });
     if (closed) saveJournal(jr);
+    const qs = bookletQuestions(paper, r.entry.parts);
+    const log = track('booklet', paper.key, 'finish', '', {}); // a mock whose tracker was never closed ends when the points are saved
+    const tl = timelineCard(log, qs);
     out.replaceChildren(
       h('p', { class: 'feedback ok', role: 'status' }, `נשמר: ${r.entry.total} מתוך ${r.entry.max} (${pct(r.entry.fraction)}). ${r.isNew ? 'התוצאה נוספה להיסטוריה וליומן הניסיונות.' : 'התוצאה בהיסטוריה עודכנה.'}`),
-      closed ? comparisonCard(closed, compare(closed)) : h('p', { class: 'muted' }, 'לא נרשמה תחזית לפני המבחן הזה, ולכן אין השוואה. בפעם הבאה אפשר לנחש בדף המבחן, לפני שמתחילים.'),
+      closed ? comparisonCard(closed, compare(closed), replayLine(closed.act.replay, qs)) : h('p', { class: 'muted' }, 'לא נרשמה תחזית לפני המבחן הזה, ולכן אין השוואה. בפעם הבאה אפשר לנחש בדף המבחן, לפני שמתחילים.'),
+      ...(tl ? [tl] : []),
       h('div', { class: 'btn-row' }, h('a', { class: 'btn primary', style: BTN, href: '#/booklet' }, 'להיסטוריה ולמבחן הבא'), h('a', { class: 'btn', style: BTN, href: '#/notebook' }, 'למחברת הטעויות')));
   };
   update();

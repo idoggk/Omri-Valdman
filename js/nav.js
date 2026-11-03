@@ -22,7 +22,7 @@ export const TABS = [
 
 /** Routes whose first segment alone is enough to resolve (the rest are optional arguments). */
 const SIMPLE = ['progress', 'practice-hub', 'backup', 'summary', 'drills', 'endless', 'order', 'methods', 'edge', 'reverse', 'fading', 'solve',
-  'repair', 'checkpoints', 'hunt', 'workout', 'exam', 'feedback', 'ladder', 'multipart', 'trig', 'mathhard', 'logs', 'transfer', 'recover', 'notebook', 'writing', 'booklet', 'formulas', 'sprint', 'units', 'estimate', 'plan', 'notes', 'derive', 'calibration', 'examday', 'counter'];
+  'repair', 'checkpoints', 'hunt', 'workout', 'exam', 'feedback', 'ladder', 'multipart', 'trig', 'mathhard', 'logs', 'transfer', 'recover', 'notebook', 'writing', 'booklet', 'formulas', 'sprint', 'units', 'estimate', 'plan', 'notes', 'derive', 'calibration', 'examday', 'counter', 'blind', 'recovery', 'pressure'];
 
 /** hash -> { name, args } or { name: 'notfound' }. One parser shared by app.js and the tests. */
 export function resolveRoute(hash) {
@@ -49,7 +49,7 @@ export function tabsHidden(hash) {
   const { name, args } = resolveRoute(hash);
   if (name === 'exam') return args[0] === 'run';
   if (name === 'workout') return /^\d+$/.test(args[0] || '');
-  if (name === 'transfer') return args[0] === 'run';
+  if (name === 'transfer' || name === 'blind' || name === 'recovery' || name === 'pressure') return args[0] === 'run';
   return false;
 }
 
@@ -265,6 +265,9 @@ export function viewHub(ctx) {
       tile('#/writing', '✍️ כתיבת פתרון לניקוד חלקי', '16 משימות: כותבים על דף נתונים, נוסחאות, הצבה, חישוב ומסקנה עם יחידות, ומנקדים את עצמכם מול פתרון מודל ורשימת בדיקה'),
       tile('#/transfer', '🧊 מבחן העברה', '24 שאלות חדשות לגמרי שלא מופיעות בשום מקום אחר, בניסוח לא מוכר. מבחן של 6 שאלות, ניסיון ראשון בלבד, בלי רמזים ועם הערכת זמן'),
       tile('#/booklet', '📄 חוברת מבחן להדפסה', 'מבחן A4 של 90 דקות ו־100 נקודות במתמטיקה או בפיזיקה, שאלות ארוכות חדשות עם מקום לפתרון, מפתח ניקוד בדפים נפרדים והזנת הציון שנתתם לעצמכם'),
+      tile('#/blind', '🕶️ טורניר חולשות עיוור', '12 שאלות מעורבות בלי שם נושא ובלי רמת קושי, ניסיון אחד לכל שאלה. בסוף: שלושת הנושאים החלשים לפי דיוק, זמן וסוג הטעות. הטעויות נכנסות למחברת'),
+      tile('#/recovery', '🛟 התאוששות תחת לחץ', 'מיני־מבחן של 20 דקות ו־4 שאלות, שאחת מהן (השנייה) קשה מאוד ולא מוכרת. מאמנים דילוג בזמן וחזרה, ומקבלים ציון אסטרטגיה והסבר'),
+      tile('#/pressure', '🪜 סולם לחץ (רשות)', 'אותה מיומנות ב־100%, 85% ו־70% מהזמן, עם פריטים שונים בכל שלב. הדיוק מוצג לפני הזמן ואין ציון מהירות. כבוי כברירת מחדל'),
       tile('#/plan', '🗓️ ספירה לאחור והתוכנית שלי', 'תאריך המבחן, שבועות שנשארו, שלב נוכחי, תוכנית שבועית עם קישורים והתקדמות. התאריך מוזן ידנית'),
       tile('#/summary', '🖨️ סיכום להדפסה', 'דף אחד מהנתונים שלכם: חולשות, נוסחאות ורשימת בדיקה לפני המבחן'),
     ],

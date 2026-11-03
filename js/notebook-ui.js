@@ -10,6 +10,7 @@ import { topicTitle } from './engine.js';
 import { isolateTitle } from './bidi.js';
 import { describeFormula } from './fbuilder.js';
 import { describeUnits } from './units.js';
+import { describeBlind, baseTopic } from './blind.js';
 import {
   load, save, syncNotebook, sortedEntries, topicsOf, setNote, markUnderstood, isDue, reopenHref, STATUS_LABELS, NOTE_MAX, KEY_MAX,
 } from './notebook.js';
@@ -23,6 +24,11 @@ const plainText = (s) => String(s == null ? '' : s).replace(/<[^>]*>/g, ' ').rep
 export function describer(ctx) {
   const hard = new Map(Object.values((ctx && ctx.hard) || {}).flat().map((e) => [e.id, e]));
   return (id, topic) => {
+    if (String(topic).startsWith('blind-')) { // a miss from the blind tournament: its own saved title / key / link, else the bank's topic
+      const b = describeBlind(id);
+      if (b) return b;
+      topic = baseTopic(topic);
+    }
     if (topic === 'formulas') { const f = describeFormula(id); if (f) return { ...f, key: f.key.slice(0, KEY_MAX) }; }
     if (topic === 'units') { const u = describeUnits(id); if (u) return { ...u, key: u.key.slice(0, KEY_MAX) }; }
     const ex = ctx && ctx.byId ? ctx.byId(id) : null;
@@ -35,7 +41,8 @@ export function describer(ctx) {
   };
 }
 
-const topicName = (ctx, t) => {
+const topicName = (ctx, t0) => {
+  const t = baseTopic(t0);
   const own = ctx && ctx.topics ? ctx.topics.find((x) => x.id === t) : null;
   return (own && own.title) || topicTitle(t) || t || 'אחר';
 };

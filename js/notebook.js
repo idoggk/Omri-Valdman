@@ -25,7 +25,8 @@ const nn = (n) => (Number.isFinite(n) && n >= 0 ? n : 0);
 const str = (s, max) => (typeof s === 'string' ? s.slice(0, max) : '');
 
 /** Attempts that never enter the notebook: reserved transfer questions and the self-marked writing trainer. */
-export const skipTopic = isReservedTopic;
+// Blind-tournament misses ('blind-<topic>') are reserved for topic stats but DO enter the notebook: that is where they are reviewed.
+export const skipTopic = (t) => isReservedTopic(t) && !(typeof t === 'string' && t.startsWith('blind-'));
 
 /** A mistake worth recording: wrong, gave up (solution shown) or hint-heavy. */
 export const isProblem = (a) => !!a && (a.outcome === 'wrong' || a.outcome === 'solution' || (a.outcome === 'hinted' && a.hintsUsed >= HINT_HEAVY) || confidentWrong(a));

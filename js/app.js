@@ -38,6 +38,9 @@ import * as counter from './counter-ui.js';
 import * as calibration from './calibration-ui.js';
 import * as examday from './examday-ui.js';
 import * as plan from './plan-ui.js';
+import * as blind from './blind-ui.js';
+import * as recovery from './recovery-ui.js';
+import * as pressure from './pressure-ui.js';
 import { loadMathHardData, resetMathHardCache } from './mathhard.js';
 import { loadLogsData, resetLogsCache } from './logs.js';
 import { loadBootData, droppedNote } from './boot.js';
@@ -264,6 +267,9 @@ function route() {
     else if (name === 'calibration') calibration.viewCalibration(examCtx);
     else if (name === 'examday') examday.viewExamDay(examCtx);
     else if (name === 'plan') plan.viewPlan(examCtx);
+    else if (name === 'blind') blind.viewBlind(examCtx, args[0]);
+    else if (name === 'recovery') recovery.viewRecovery(examCtx, args[0]);
+    else if (name === 'pressure') pressure.viewPressure(examCtx, args[0]);
     else if (name === 'workout') viewWorkoutRoute(args[0]);
     else if (name === 'exam') viewExam(examCtx, args[0]);
     else if (name === 'review-start') {

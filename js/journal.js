@@ -54,7 +54,9 @@ function cleanAct(a) {
   if (!isRec(a)) return null;
   const score = clampInt(a.score, 0, 100);
   if (score === null) return null;
-  return { score, topic: a.topic == null ? null : str(a.topic, 40), topicLabel: str(a.topicLabel, 80), minutes: clampInt(a.minutes, 1, 600) };
+  const out = { score, topic: a.topic == null ? null : str(a.topic, 40), topicLabel: str(a.topicLabel, 80), minutes: clampInt(a.minutes, 1, 600) };
+  if (typeof a.replay === 'string' && a.replay) out.replay = a.replay.slice(0, 60); // key of the strategy log in js/replay.js
+  return out;
 }
 function cleanEntry(e) {
   if (!isRec(e) || typeof e.id !== 'string' || !e.id || e.id.length > 60 || !KINDS.includes(e.kind)) return null;

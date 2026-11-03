@@ -50,7 +50,7 @@ export function predictionForm({ kind, key, topics, withConf = false, now = () =
 }
 
 /** Comparison card of one journal entry: the three gaps. */
-export function comparisonCard(entry, cmp) {
+export function comparisonCard(entry, cmp, extra = null) {
   const t = gapTexts(cmp);
   return h('section', { class: 'card', 'aria-label': 'תחזית מול מציאות' },
     h('strong', {}, '🔮 תחזית מול מציאות'),
@@ -58,6 +58,7 @@ export function comparisonCard(entry, cmp) {
       h('li', {}, h('strong', {}, 'ציון: '), t.score),
       h('li', {}, h('strong', {}, 'נושא קשה: '), t.topic),
       h('li', {}, h('strong', {}, 'זמן סיום: '), t.time)),
+    extra,
     cmp.score.gap < -10 ? h('p', { class: 'notice' }, 'הציון בפועל נמוך בהרבה מהתחזית. כדאי לבדוק איפה הרגשתם בטוחים וטעיתם.')
       : cmp.score.gap > 10 ? h('p', { class: 'muted' }, 'הציון בפועל גבוה מהתחזית: אתם מצליחים יותר ממה שאתם מאמינים.') : null);
 }

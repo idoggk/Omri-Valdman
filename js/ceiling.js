@@ -61,6 +61,7 @@ export function subjectOf(topic) {
   if (t.startsWith('phys') || t === 'multipart') return 'physics';
   return null;
 }
+export const baseOf = (t) => (typeof t === 'string' ? t.replace(/^(blind|pressure|recovery)-/, '') : t);
 export const isTransferTopic = (t) => String(t || '').startsWith(TRANSFER_PREFIX);
 /** Self-marked mock exams (#/booklet): reported apart (summary.booklet), never a topic verdict. */
 export const isBookletTopic = (t) => String(t || '').startsWith('booklet-');
@@ -115,7 +116,8 @@ function feedbackIndex(feedback) {
 export function analyzeTopic(topic, attempts, feedback = [], opts = {}) {
   const topicOf = opts.topicOf || ((a) => a.topic);
   const log = Array.isArray(attempts) ? attempts.filter(isRec) : [];
-  const mine = firstAttempts(log.filter((a) => { const t = topicOf(a); return t === topic && !isTransferTopic(t); })).slice(-WINDOW);
+  // 'blind-<topic>' (blind tournament) and 'pressure-<topic>' attempts count for the topic they were drawn from
+  const mine = firstAttempts(log.filter((a) => { const t = baseOf(topicOf(a)); return t === topic && !isTransferTopic(t); })).slice(-WINDOW);
   const fbIdx = feedbackIndex(feedback);
 
   const subject = subjectOf(topic);
@@ -167,7 +169,7 @@ export function analyzeTopic(topic, attempts, feedback = [], opts = {}) {
 /** Verdicts for the given topics (default: every topic seen in the log, transfer topics excluded). Map topic -> verdict. */
 export function analyzeTopics(attempts, feedback = [], opts = {}, topics = null) {
   const topicOf = opts.topicOf || ((a) => a.topic);
-  const list = topics || [...new Set((Array.isArray(attempts) ? attempts : []).filter(isRec).map(topicOf).filter((t) => t && !isTransferTopic(t) && !isBookletTopic(t)))].sort();
+  const list = topics || [...new Set((Array.isArray(attempts) ? attempts : []).filter(isRec).map(topicOf).map(baseOf).filter((t) => t && !isTransferTopic(t) && !isBookletTopic(t)))].sort();
   return new Map(list.map((t) => [t, analyzeTopic(t, attempts, feedback, opts)]));
 }
 

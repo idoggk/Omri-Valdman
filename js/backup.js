@@ -10,6 +10,10 @@ import { KEY as DERIVE_KEY, mergeDerive } from './derive.js';
 import { KEY as JOURNAL_KEY, mergeJournal } from './journal.js';
 import { KEY as EXAMDAY_KEY, mergeExamday } from './examday.js';
 import { KEY as COUNTER_KEY, mergeCounter } from './counter.js';
+import { KEY as REPLAY_KEY, mergeReplay } from './replay.js';
+import { KEY as BLIND_KEY, mergeBlind } from './blind.js';
+import { KEY as RECOVERY_KEY, mergeRecovery } from './recovery.js';
+import { KEY as PRESSURE_KEY, mergePressure } from './pressure.js';
 
 export const BACKUP_APP = 'brain-gains';
 export const BACKUP_VERSION = 2;
@@ -57,6 +61,10 @@ export const KNOWN_KEYS = {
   'omri-study-journal-v1': 'יומן תחזית מול מציאות',
   'omri-study-examday-v1': 'שגרת יום המבחן',
   'omri-study-counter-v1': 'אתגר הדוגמה הנגדית',
+  'omri-study-replay-v1': 'שחזור אסטרטגיה במבחנים',
+  'omri-study-blind-v1': 'טורניר חולשות עיוור',
+  'omri-study-recovery-v1': 'התאוששות תחת לחץ',
+  'omri-study-pressure-v1': 'סולם לחץ (רשות)',
 };
 
 /** Keys the app writes that are deliberately not part of a backup (tests scan js/*.js against KNOWN_KEYS + this list). */
