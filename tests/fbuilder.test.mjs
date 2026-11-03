@@ -46,6 +46,17 @@ test('equivalence, not string match: other correct forms are accepted', () => {
   assert.ok(!F.checkAnswer(item('fc-quad-root'), '(-b-sqrt(b^2-4*a*c))/(2*a)').correct, 'the other root is a different formula');
 });
 
+test('typing the left-hand side back is not a correct recall', () => {
+  const cat = JSON.parse(readFileSync(new URL('../data/formula-catalogue.json', import.meta.url), 'utf8'));
+  for (const id of ['fc-sin2', 'fc-sin3', 'fc-cossum', 'fc-pow-mul', 'fc-log-prod', 'fc-sum-prod', 'fc-pow-pow']) {
+    const q = cat.items.find((x) => x.id === id);
+    const r = F.checkAnswer(q, q.lhs.replace(/[=\s]+$/, '').replace(/(\d)([a-z])/g, '$1*$2'));
+    assert.equal(r.correct, false, id);
+    assert.equal(r.echo, true, id);
+    assert.ok(F.checkAnswer(q, q.ref).correct, id + ' real answer still accepted');
+  }
+});
+
 test('whitespace, unicode minus and times signs are normalised', () => {
   assert.ok(F.checkAnswer(item('fc-quad-vsum'), '  − b / a ').correct);
   assert.ok(F.checkAnswer(item('fc-sin2'), '2 × sin( x ) × cos( x )').correct);

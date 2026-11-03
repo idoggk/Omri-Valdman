@@ -172,7 +172,13 @@ export function checkAnswer(item, src) {
   if (!p.ok) return { valid: false, error: p.error.msg, code: p.error.code };
   const ref = parseFormula(item.ref, names).fn;
   const pts = samplePoints(item, ref);
-  const correct = equivalent(p.fn, ref, pts);
+  let correct = equivalent(p.fn, ref, pts);
+  let echo = false;
+  if (correct) {
+    // typing the left-hand side back is not recalling the formula (it is numerically equal, so compare the text)
+    const flat = (s) => String(s).replace(/[=\s]+$/, '').replace(/[\s−×]/g, (c) => (c === '−' ? '-' : c === '×' ? '*' : '')).replace(/\*/g, '').replace(/^\((.*)\)$/, '$1');
+    if (flat(src) === flat(item.lhs || '')) { correct = false; echo = true; }
+  }
   let trap = null;
   if (!correct) {
     for (const t of item.traps || []) {
@@ -180,7 +186,7 @@ export function checkAnswer(item, src) {
       if (tf.ok && sameValues(p.fn, tf.fn, pts)) { trap = t; break; }
     }
   }
-  return { valid: true, correct, trap };
+  return { valid: true, correct, trap, echo };
 }
 
 /* ---------- catalogue ---------- */

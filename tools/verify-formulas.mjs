@@ -3,7 +3,7 @@
 // listed trap ("wrong form") must really differ from that implementation. Run: node tools/verify-formulas.mjs
 import { readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
-import { parseFormula, samplePoints, validItem, CHECK_POINTS } from '../js/fbuilder.js';
+import { parseFormula, samplePoints, validItem, checkAnswer, CHECK_POINTS } from '../js/fbuilder.js';
 
 const ROOT = fileURLToPath(new URL('../', import.meta.url));
 const sin = Math.sin, cos = Math.cos, tan = Math.tan, sqrt = Math.sqrt, ln = Math.log;
@@ -92,6 +92,11 @@ export function verifyCatalogue(cat) {
       const same = pts.filter((p) => close(tf.fn(p), native(p))).length;
       if (same > pts.length * 0.25) bad(`${q.id}: trap "${t.expr}" equals the true value at ${same}/${pts.length} points (not really different)`);
     }
+    // the reference must be accepted and the echoed left-hand side must not be
+    const ok = checkAnswer(q, q.ref);
+    if (!ok.correct) bad(`${q.id}: reference not accepted by checkAnswer`);
+    const lhsSrc = q.lhs.replace(/[=\s]+$/, '').replace(/(\d)([a-z])/g, '$1*$2');
+    if (parseFormula(lhsSrc, names).ok && checkAnswer(q, lhsSrc).correct) bad(`${q.id}: the left-hand side "${lhsSrc}" is accepted as an answer`);
     // a sanity check on the checker: the stripped / spaced / unicode form of the reference is accepted
     const spaced = parseFormula(' ' + q.ref.replace(/\*/g, ' * ').replace(/-/g, '−') + ' ', names);
     if (!spaced.ok) bad(`${q.id}: spaced / unicode variant rejected: ${spaced.error && spaced.error.msg}`);

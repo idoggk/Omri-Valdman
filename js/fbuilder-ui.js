@@ -109,6 +109,7 @@ function runQueue(ctx, cat, mode, topic) {
     const submit = () => {
       const r = checkAnswer(q, input.value);
       if (!r.valid) { out.replaceChildren(h('p', { class: 'error', role: 'alert' }, r.error)); return; }
+      if (r.echo) { out.replaceChildren(h('p', { class: 'error', role: 'alert' }, 'זה אגף שמאל של השוויון. כתבו את אגף ימין.')); return; }
       input.disabled = true; check.disabled = true;
       applyResult(ctx, q, r.correct, (Date.now() - t0) / 1000);
       if (r.correct) {
