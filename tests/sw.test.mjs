@@ -41,8 +41,8 @@ test('sw: skipWaiting, clients.claim, old caches deleted, network-first, version
   assert.match(sw, /clients\.claim\(\)/);
   assert.match(sw, /caches\.delete/);
   assert.doesNotMatch(sw, /cacheFirst/);
-  assert.match(sw, /event\.respondWith\(networkFirst\(req\)\)/);
-  assert.equal(sw.match(/CACHE_VERSION = 'v(\d+)'/)[1], '50');
+  assert.match(sw, /event\.respondWith\(networkFirst\(req, event\)\)/);
+  assert.equal(sw.match(/CACHE_VERSION = 'v(\d+)'/)[1], '51');
   assert.ok(files.includes('js/summary.js'));
 });
 
@@ -155,7 +155,7 @@ function loadSw({ fetchImpl, cached }) {
     caches: { open: async () => cache, keys: async () => [], delete: async () => true },
     fetch: fetchImpl, URL, Request: class {}, Promise, setTimeout, clearTimeout,
   };
-  vm.runInNewContext(sw.replace('NETWORK_TIMEOUT_MS = 4000', 'NETWORK_TIMEOUT_MS = 30'), ctx);
+  vm.runInNewContext(sw.replace('NETWORK_TIMEOUT_MS = 4000', 'NETWORK_TIMEOUT_MS = 30').replace('STATIC_TIMEOUT_MS = 1500', 'STATIC_TIMEOUT_MS = 30'), ctx);
   const fetchReq = (req) => new Promise((resolve, reject) => {
     handlers.fetch({ request: { method: 'GET', url: 'https://h/js/app.js', mode: 'cors', ...req }, respondWith: (p) => p.then(resolve, reject) });
   });
@@ -163,7 +163,7 @@ function loadSw({ fetchImpl, cached }) {
 }
 
 test('sw fetch: online gets fresh network response over cache', async () => {
-  const { fetchReq, puts } = loadSw({ fetchImpl: async () => ({ ok: true, tag: 'net', clone() { return this; } }), cached: { tag: 'cache' } });
+  const { fetchReq, puts } = loadSw({ fetchImpl: async () => ({ ok: true, status: 200, tag: 'net', clone() { return this; } }), cached: { tag: 'cache' } });
   assert.equal((await fetchReq({})).tag, 'net');
   assert.equal(puts.length, 1);
 });

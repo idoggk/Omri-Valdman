@@ -61,7 +61,7 @@ function attempts() {
   if (!attemptLog) {
     attemptLog = createLog({
       getItem: (k) => localStorage.getItem(k),
-      setItem: (k, v) => safeSetItem(k, v),
+      setItem: (k, v) => localStorage.setItem(k, v), // createLog guards the write (safeSetItem)
     });
     try { attemptLog.migrateFrom(load()); } catch (e) { /* ignore */ }
   }

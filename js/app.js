@@ -25,8 +25,9 @@ import * as mathhard from './mathhard-ui.js';
 import * as logs from './logs-ui.js';
 import * as transfer from './transfer-ui.js';
 import * as recover from './recover-ui.js';
-import { loadMathHardData } from './mathhard.js';
-import { loadLogsData } from './logs.js';
+import { loadMathHardData, resetMathHardCache } from './mathhard.js';
+import { loadLogsData, resetLogsCache } from './logs.js';
+import { loadBootData } from './boot.js';
 import { hardHref } from './workout.js';
 import * as nav from './nav.js';
 import * as feedbackUi from './feedback-ui.js';
@@ -43,7 +44,6 @@ const TOPICS = [
   { id: 'phys-vertical', title: 'תנועה אנכית', file: 'physics' },
   { id: 'phys-horizontal', title: 'תנועה אופקית', file: 'physics' },
 ];
-const FILES = ['math', 'physics'];
 
 const app = document.getElementById('app');
 let exercises = []; // flat list, file order preserved
@@ -71,28 +71,19 @@ function validExercise(e) {
     (Array.isArray(e.inputs) || validAnswerSets(e.answerSets) || (e.choice && Array.isArray(e.choice.options)));
 }
 
+// Which files failed at boot (names from boot.js); the home screen shows a message and a retry button.
 async function loadData() {
-  const results = await Promise.all(FILES.map(async (f) => {
-    try {
-      const res = await fetch(`data/${f}.json`, { cache: 'no-cache' });
-      if (!res.ok) throw new Error(String(res.status));
-      const arr = await res.json();
-      if (!Array.isArray(arr)) throw new Error('not an array');
-      return arr.filter(validExercise);
-    } catch (err) {
-      loadErrors.push(f);
-      return [];
-    }
-  }));
-  exercises = results.flat();
-  try { // ladder stages feed a share of the daily workout; the app works without them
-    const res = await fetch('data/ladder.json', { cache: 'no-cache' });
-    const data = res.ok ? await res.json() : null;
-    if (data && Array.isArray(data.stages)) examCtx.ladder = data.stages;
-  } catch (err) { /* offline without the file: workout simply skips the ladder share */ }
+  const r = await loadBootData({
+    fetchFn: (u, o) => fetch(u, o),
+    validExercise,
+    loaders: { mathhard: loadMathHardData, multipart: multipart.loadMultipartData, logs: loadLogsData },
+    resets: [resetMathHardCache, multipart.resetMultipartCache, resetLogsCache],
+  });
+  loadErrors = r.failed;
+  exercises = r.exercises;
+  examCtx.ladder = r.ladder; // workout simply skips the ladder share when null
   // hard sets feed 4 of the 10 daily items; each loader fails soft (offline without the files = no hard slots)
-  const [mh, mp, lg] = await Promise.all([loadMathHardData(), multipart.loadMultipartData(), loadLogsData()]);
-  examCtx.hard = { mathhard: mh.ok ? mh.data : [], multipart: mp.ok ? mp.data : [], logs: lg.ok ? lg.exercises : [] };
+  examCtx.hard = r.hard;
   const titles = new Map(Object.values(examCtx.hard).flat().map((e) => [e.id, e.title || e.id]));
   examCtx.hardTitle = (id) => titles.get(id) || id;
 }
@@ -178,6 +169,8 @@ const examCtx = {
   ladder: null,
   hard: null,
   hardTitle: (id) => id,
+  // home "נסו שוב": reload the data and redraw the route without a full page reload
+  retry: async () => { await loadData(); route(); },
 };
 
 function viewWorkoutRoute(arg) {

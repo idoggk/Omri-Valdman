@@ -6,6 +6,7 @@ import { weakTopics, withVirtual } from './srs.js';
 import { workoutMix, workoutResults, workoutOpts, WORKOUT_SIZE } from './practice-ui.js';
 import { pickWorkout, levelLine, pickHard, hardHref } from './workout.js';
 import { loadFeedback } from './feedback.js';
+import { onlyHardFailed } from './boot.js';
 import { openFormulaSheet } from './sheet.js';
 import * as repair from './skills-ui.js';
 
@@ -120,6 +121,18 @@ const MORE_LINKS = [
   ['#/trig', '📐 זהויות טריגונומטריות: שלושה עוגנים וכל השאר נגזר'],
 ];
 
+/** Plain message plus a retry button when boot data failed; a one-line notice when only hard sets are missing. */
+export function bootNotice(failed, retry) {
+  if (!failed || !failed.length) return null;
+  const hardOnly = onlyHardFailed(failed);
+  const btn = typeof retry === 'function'
+    ? h('button', { class: 'btn', type: 'button', onclick: () => { retry(); } }, 'נסו שוב') : null;
+  return h('p', { class: hardOnly ? 'notice' : 'error', role: 'alert' },
+    hardOnly ? 'התרגילים הקשים לא נטענו, ולכן באימון של היום אין סעיפים קשים.'
+      : 'לא הצלחנו לטעון חלק מהתרגילים. בדקו את החיבור לאינטרנט ונסו שוב.',
+    ' ', btn);
+}
+
 export function viewHome(ctx, loadErrors = []) {
   document.title = 'Brain Gains – היום';
   const log = store.getAttempts();
@@ -135,7 +148,7 @@ export function viewHome(ctx, loadErrors = []) {
   const path = dailyPath({ log, hard: ctx.hard, now, workout: store.loadWorkout(), title: ctx.hardTitle || ((id) => id), workoutExists: exists });
   ctx.show(
     h('h1', {}, 'היום'),
-    loadErrors.length ? h('p', { class: 'error', role: 'alert' }, 'לא ניתן לטעון חלק מקבצי התרגילים. נסו לרענן את הדף.') : null,
+    bootNotice(loadErrors, ctx.retry),
     h('section', { class: 'card today-card', 'aria-labelledby': 'today-h' },
       h('strong', { id: 'today-h' }, 'האימון של היום'),
       ids.length

@@ -144,6 +144,16 @@ Settings → Pages → Deploy from a branch → `main` / root. כל הנתיבי
 - כשמוסיפים קובץ JS/נתונים חדש לאתר: להוסיף אותו לרשימת `PRECACHE` ב-`sw.js` ולהעלות את `CACHE_VERSION`.
 - אייקונים: `node tools/make-icons.mjs`.
 
+## עדכון גרסה
+
+כל שינוי בקובץ שנמצא ב-`PRECACHE` של `sw.js` (קוד, נתונים, CSS, גופנים, אייקונים) דורש עדכון גרסה, אחרת מכשירים ישנים ימשיכו להציג את הקבצים מהמטמון.
+
+1. `node tools/stamp-version.mjs` – מחשב גיבוב (hash) של כל קבצי ה-`PRECACHE` וכותב אותו ל-`BUILD_HASH` ב-`sw.js`. הכלי לא מעלה מספרי גרסה בעצמו.
+2. מעלים ידנית את `CACHE_VERSION` ב-`sw.js`, את `APP_VERSION` ב-`js/pwa.js` ואת מספר הגרסה ב-`tests/sw.test.mjs` (שלושתם חייבים להיות שווים).
+3. `node tools/stamp-version.mjs --check` בודק שהחתימה תואמת לקבצים (קוד יציאה 1 אם לא); גם הבדיקה `offline-hardening.test.mjs` נכשלת כשהחתימה לא עדכנית.
+
+ההתקנה של ה-service worker אטומית: אם קובץ אחד לא ירד (אחרי ניסיון חוזר), הגרסה החדשה לא מופעלת והישנה ממשיכה לעבוד.
+
 ## Analyzing feedback
 
 כלי לא-נשלח (לא חלק מהאתר) שמנתח את קובץ ה-JSON שיוצא ממסך המשוב:

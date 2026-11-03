@@ -40,6 +40,7 @@ export const KNOWN_KEYS = {
 export const EXCLUDED_KEYS = [
   'omri-study-progress-v1', // legacy copy, migrated into progress-v2 on first load
   LAST_BACKUP_KEY, // device-local timestamp
+  'omri-study-attempts-v1-corrupt', // raw copy of an unreadable attempts log, kept for manual recovery
 ];
 
 const isRec = (x) => x && typeof x === 'object' && !Array.isArray(x);

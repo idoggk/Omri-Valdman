@@ -3,7 +3,9 @@
 //
 // attempt = { exerciseId, ts, outcome: 'alone'|'hinted'|'solution'|'wrong', hintsUsed, seconds, errorReason? }
 
-export const OUTCOMES = ['alone', 'hinted', 'solution', 'wrong'];
+import { safeSetItem, stashCorrupt, corruptKey } from './storage.js';
+
+export const OUTCOMES =['alone', 'hinted', 'solution', 'wrong'];
 export const DAY_MS = 86400000;
 export const INTERVAL_DAYS = [1, 3, 7, 14];
 export const MASTERED_STREAK = 3;
@@ -272,15 +274,25 @@ export function compactLog(log, max = MAX_LOG_ROWS) {
 
 export function createLog(storage, key = LOG_KEY) {
   let log = null;
+  let unsafeToWrite = false; // unreadable stored value that could not be stashed: keep it, stay in memory
   const load = () => {
     if (log) return log;
     log = [];
-    try { const raw = storage.getItem(key); if (raw) log = cleanLog(JSON.parse(raw)); } catch (e) { /* in-memory */ }
+    let raw = null;
+    try { raw = storage.getItem(key); } catch (e) { /* in-memory */ }
+    if (raw) {
+      try { log = cleanLog(JSON.parse(raw)); } catch (e) {
+        // never overwrite the only copy of unreadable history until it sits under '<key>-corrupt'
+        stashCorrupt(key, storage);
+        try { unsafeToWrite = storage.getItem(corruptKey(key)) == null; } catch (e2) { unsafeToWrite = true; }
+      }
+    }
     return log;
   };
   const save = () => {
     if (log.length > MAX_LOG_ROWS) log.splice(0, log.length, ...compactLog(log));
-    try { storage.setItem(key, JSON.stringify(log)); } catch (e) { /* ignore */ }
+    if (unsafeToWrite) return;
+    safeSetItem(key, JSON.stringify(log), storage);
   };
   return {
     all: () => load().slice(),

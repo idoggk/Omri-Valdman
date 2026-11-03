@@ -1,7 +1,8 @@
 // Service worker. Bump CACHE_VERSION when the shell list changes.
 // All URLs are relative to the SW scope, so it works under /Omri-Valdman/.
-const CACHE_VERSION = 'v50';
+const CACHE_VERSION = 'v51';
 const CACHE_NAME = 'omri-study-' + CACHE_VERSION;
+const BUILD_HASH = '148b1b2e3673cda3'; // written by tools/stamp-version.mjs; do not edit by hand
 
 const PRECACHE = [
   './',
@@ -88,6 +89,7 @@ const PRECACHE = [
   'js/skills.js',
   'js/skills-ui.js',
   'js/nav.js',
+  'js/boot.js',
   'js/exercise-view.js',
   'data/drills.json',
   'data/checkpoints.json',
@@ -121,11 +123,46 @@ const PRECACHE = [
   'icons/icon-v3-maskable-512.png',
 ];
 
+// Fetches one shell file, retrying once. Resolves true when it is stored in `cache`.
+async function precacheEntry(cache, url) {
+  for (let attempt = 0; attempt < 2; attempt++) {
+    try {
+      const res = await fetch(new Request(url, { cache: 'reload' }));
+      if (res && res.ok) { await cache.put(url, res); return true; }
+    } catch (err) { /* retried once below */ }
+  }
+  return false;
+}
+
+// Copies a file from the newest previous omri-study-* cache that has it.
+async function copyFromOldCaches(cache, url, oldNames) {
+  for (const name of oldNames) {
+    try {
+      const old = await caches.open(name);
+      const hit = await old.match(url);
+      if (hit) { await cache.put(url, hit); return true; }
+    } catch (err) { /* try the next old cache */ }
+  }
+  return false;
+}
+
+// Atomic install: either every shell file is in the new cache (fetched, or carried over from the previous
+// version) or install rejects, so the old worker and its cache keep serving. Old caches are only deleted in
+// activate, which never runs after a rejected install.
 self.addEventListener('install', (event) => {
   event.waitUntil((async () => {
     const cache = await caches.open(CACHE_NAME);
-    // One bad URL must not abort the whole install.
-    await Promise.allSettled(PRECACHE.map((u) => cache.add(new Request(u, { cache: 'reload' }))));
+    const versionOf = (k) => Number(k.slice('omri-study-'.length).replace(/\D/g, '')) || 0;
+    const oldNames = (await caches.keys())
+      .filter((k) => k.startsWith('omri-study-') && k !== CACHE_NAME)
+      .sort((a, b) => versionOf(b) - versionOf(a));
+    const results = await Promise.allSettled(PRECACHE.map(async (u) =>
+      (await precacheEntry(cache, u)) || (await copyFromOldCaches(cache, u, oldNames))));
+    const missing = PRECACHE.filter((u, i) => !(results[i].status === 'fulfilled' && results[i].value));
+    if (missing.length) {
+      try { await caches.delete(CACHE_NAME); } catch (err) { /* partial cache is harmless */ }
+      throw new Error('precache incomplete: ' + missing.join(', '));
+    }
     await self.skipWaiting();
   })());
 });
@@ -139,34 +176,43 @@ self.addEventListener('activate', (event) => {
 });
 
 // Online visits get the newest files; a slow or dead network falls back to the cache after this long.
+// Shell assets (js, css, fonts, icons, html) are precached, so they give up quickly; data JSON waits longer.
+const STATIC_TIMEOUT_MS = 1500;
 const NETWORK_TIMEOUT_MS = 4000;
+const timeoutFor = (url) => (/\.json$/.test(url.pathname) ? NETWORK_TIMEOUT_MS : STATIC_TIMEOUT_MS);
 
 self.addEventListener('message', (event) => {
   if (event.data === 'skip-waiting') self.skipWaiting();
 });
 
-async function networkFirst(request) {
+async function networkFirst(request, event) {
   const cache = await caches.open(CACHE_NAME);
-  try {
-    const net = fetch(request, { cache: 'no-cache' }).then((res) => {
-      if (res && res.ok) cache.put(request, res.clone());
-      return res;
-    });
-    const cached = await cache.match(request, { ignoreSearch: true });
-    if (!cached) return await net;
-    net.catch(() => {});
-    let timer;
-    const timeout = new Promise((resolve) => { timer = setTimeout(() => resolve(cached), NETWORK_TIMEOUT_MS); });
-    try { return await Promise.race([net, timeout]); } finally { clearTimeout(timer); }
-  } catch (err) {
-    const hit = await cache.match(request, { ignoreSearch: true });
-    if (hit) return hit;
-    if (request.mode === 'navigate') {
-      const shell = await cache.match('index.html');
-      if (shell) return shell;
+  const cached = await cache.match(request, { ignoreSearch: true });
+  const net = fetch(request, { cache: 'no-cache' }).then((res) => {
+    if (res && res.status === 200) { // only a plain 200 may replace the cached copy (never 404/5xx/opaque)
+      const saving = Promise.resolve(cache.put(request, res.clone())).catch(() => {});
+      if (event && typeof event.waitUntil === 'function') event.waitUntil(saving);
     }
-    throw err;
+    return res;
+  });
+  if (!cached) {
+    try { return await net; } catch (err) {
+      if (request.mode === 'navigate') {
+        const shell = await cache.match('index.html');
+        if (shell) return shell;
+      }
+      throw err;
+    }
   }
+  net.catch(() => {});
+  let timer;
+  const timeout = new Promise((resolve) => { timer = setTimeout(() => resolve(cached), timeoutFor(new URL(request.url))); });
+  try {
+    const res = await Promise.race([net, timeout]);
+    return res && res.ok ? res : cached; // a failed response never hides a good cached copy
+  } catch (err) {
+    return cached;
+  } finally { clearTimeout(timer); }
 }
 
 self.addEventListener('fetch', (event) => {
@@ -175,5 +221,5 @@ self.addEventListener('fetch', (event) => {
   const url = new URL(req.url);
   if (url.origin !== self.location.origin) return;
   // html, css, js, json, manifest, icons: fresh when online, cached only when offline
-  event.respondWith(networkFirst(req));
+  event.respondWith(networkFirst(req, event));
 });
