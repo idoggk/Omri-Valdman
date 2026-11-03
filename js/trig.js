@@ -147,6 +147,34 @@ export function spotValues(eq) {
 }
 export const spotAgrees = (eq) => { const v = spotValues(eq); return v.length > 1 && v.every((x) => x != null && Math.abs(x - v[0]) < 0.0015); };
 
+/* ---------- domain conditions ---------- */
+// A condition string lists what must be non-zero, e.g. "cos(a) ≠ 0, 1 + cos(a) ≠ 0". It is shown to the student next to
+// every step that divides or cancels, and tools/verify-trig.mjs checks that each identity holds where it is satisfied.
+export const COND_EPS = 1e-3;
+
+/** "cos(a) ≠ 0, cos(b) ≠ 0" -> ['cos(a)', 'cos(b)']. Empty string -> []. Throws when an atom is not "<expression> ≠ 0". */
+export function parseCond(cond) {
+  const s = String(cond == null ? '' : cond).trim();
+  if (!s) return [];
+  return s.split(',').map((atom) => {
+    const m = /^(.+?)\s*[≠]\s*0$/.exec(atom.trim());
+    if (!m) throw new Error(`bad condition "${atom.trim()}" in "${cond}"`);
+    evalExpr(m[1], { a: 0.3, b: 0.2 }); // must parse
+    return m[1].trim();
+  });
+}
+
+/** True when every expression of the condition is finite and clearly non-zero at env. */
+export function condHolds(exprs, env) {
+  return exprs.every((e) => { const v = evalExpr(e, env); return Number.isFinite(v) && Math.abs(v) > COND_EPS; });
+}
+
+/** The sample angles that satisfy the condition. */
+export const anglesUnder = (cond, angles) => { const ex = parseCond(cond); return angles.filter((env) => condHolds(ex, env)); };
+
+/** The sentence every proof carries: the identity is claimed only where both sides are defined. */
+export const WHERE_DEFINED = 'בכל a שבו מוגדר הביטוי';
+
 /* ---------- Leitner boxes ---------- */
 const isObj = (x) => x && typeof x === 'object' && !Array.isArray(x);
 const nn = (n, d = 0) => (Number.isFinite(n) && n >= 0 ? n : d);

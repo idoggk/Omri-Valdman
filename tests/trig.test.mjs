@@ -59,6 +59,42 @@ test('the verifier would catch a corrupted formula, option and proof', () => {
   assert.deepEqual(validate().errs, []);
 });
 
+test('domain conditions: every cond parses; a missing or too weak cond is caught; proofs say where the identity holds', () => {
+  assert.deepEqual(T.parseCond('cos(a) ≠ 0, 1 + cos(a) ≠ 0'), ['cos(a)', '1 + cos(a)']);
+  assert.deepEqual(T.parseCond(''), []);
+  assert.throws(() => T.parseCond('cos(a) > 0'));
+  assert.ok(/בכל \w+ שבו מוגדר/.test(T.WHERE_DEFINED));
+  const all = [...D.LESSONS.flatMap((l) => [...l.formulas, ...l.derive]), ...D.PROOFS].filter((x) => x.cond);
+  assert.ok(all.length >= 20);
+  for (const x of all) T.parseCond(x.cond);
+  // required places named in the audit
+  const tansum = D.LESSONS.find((l) => l.id === 'tansum');
+  assert.ok(tansum.derive[1].cond.includes('cos(a)') && tansum.derive[1].cond.includes('cos(b)'));
+  assert.ok(D.LESSONS.find((l) => l.id === 'half').derive.every((s) => s.cond));
+  for (const id of ['p1', 'p5']) assert.ok(D.PROOFS.find((p) => p.id === id).cond);
+  // removing the cond of a tan formula or weakening a proof cond must be reported
+  const f = tansum.formulas[0];
+  const c0 = f.cond;
+  f.cond = '';
+  assert.ok(validate().errs.some((e) => e.includes('no cond')));
+  f.cond = c0;
+  const p1 = D.PROOFS.find((p) => p.id === 'p1');
+  const p0 = p1.cond;
+  p1.cond = 'cos(a) ≠ 0';
+  assert.ok(validate().errs.some((e) => e.includes('undefined')));
+  p1.cond = p0;
+  assert.deepEqual(validate().errs, []);
+});
+
+test('UI: lesson and proof screens show the cond and the "where defined" sentence', async () => {
+  UI.viewTrigRoute(ctx, 'proof', 'p1');
+  assert.ok(text().includes('תנאי'));
+  assert.ok(text().replace(/[⁦-⁩]/g, '').includes(T.WHERE_DEFINED));
+  UI.viewTrigRoute(ctx, 'learn', 'tansum');
+  click('הציגו הכול');
+  assert.ok(text().replace(/[⁦-⁩]/g, '').includes('cos(a) ≠ 0'));
+});
+
 test('spot check values at a=30, b=60', () => {
   assert.deepEqual(T.spotValues('sin(a+b) = sin(a)cos(b) + cos(a)sin(b)'), [1, 1]);
   assert.ok(T.spotAgrees('cos(2a) = 1 - 2sin²(a)'));

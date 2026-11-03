@@ -26,7 +26,7 @@ export const LESSONS = [
     derive: [
       { say: "פיתגורס במשולש ישר זווית שהיתר שלו 1 והניצבים cos a ו־sin a:", eq: "cos²(a) + sin²(a) = 1" },
       { say: "מזה אפשר להעביר אגפים ולקבל כל צורה שצריך:", eq: "sin²(a) = 1 - cos²(a)" },
-      { say: "ואם מחלקים ב־cos² (נשתמש בזה בשיעור הקשרים):", eq: "1 + tan²(a) = 1/cos²(a)" },
+      { say: "ואם מחלקים ב־cos² (מותר רק כש־cos a ≠ 0; נשתמש בזה בשיעור הקשרים):", eq: "1 + tan²(a) = 1/cos²(a)", cond: "cos(a) ≠ 0" },
     ],
     check: "בדיקה: a = 30° נותן 0.25 + 0.75 = 1.",
   },
@@ -66,13 +66,13 @@ export const LESSONS = [
   {
     id: "tansum", title: "tan של סכום (מחלקים את העוגנים)",
     formulas: [
-      { name: "tan(a+b)", eq: "tan(a+b) = (tan(a) + tan(b))/(1 - tan(a)tan(b))" },
-      { name: "tan(a−b)", eq: "tan(a-b) = (tan(a) - tan(b))/(1 + tan(a)tan(b))" },
+      { name: "tan(a+b)", eq: "tan(a+b) = (tan(a) + tan(b))/(1 - tan(a)tan(b))", cond: "cos(a) ≠ 0, cos(b) ≠ 0, cos(a+b) ≠ 0" },
+      { name: "tan(a−b)", eq: "tan(a-b) = (tan(a) - tan(b))/(1 + tan(a)tan(b))", cond: "cos(a) ≠ 0, cos(b) ≠ 0, cos(a-b) ≠ 0" },
     ],
     mnemonic: "tan הוא סינוס חלקי קוסינוס, אז מחלקים את שני העוגנים. במונה הסימן כמו בסוגריים, במכנה הסימן הפוך.",
     derive: [
-      { say: "כותבים tan כמנה של שני העוגנים:", eq: "tan(a+b) = sin(a+b)/cos(a+b) = (sin(a)cos(b) + cos(a)sin(b))/(cos(a)cos(b) - sin(a)sin(b))" },
-      { say: "מחלקים מונה ומכנה ב־cos a · cos b:", eq: "(sin(a)cos(b) + cos(a)sin(b))/(cos(a)cos(b) - sin(a)sin(b)) = (tan(a) + tan(b))/(1 - tan(a)tan(b))" },
+      { say: "כותבים tan כמנה של שני העוגנים (דורש cos(a+b) ≠ 0):", eq: "tan(a+b) = sin(a+b)/cos(a+b) = (sin(a)cos(b) + cos(a)sin(b))/(cos(a)cos(b) - sin(a)sin(b))", cond: "cos(a+b) ≠ 0" },
+      { say: "מחלקים מונה ומכנה ב־cos a · cos b (מותר רק כש־cos a ≠ 0 וגם cos b ≠ 0):", eq: "(sin(a)cos(b) + cos(a)sin(b))/(cos(a)cos(b) - sin(a)sin(b)) = (tan(a) + tan(b))/(1 - tan(a)tan(b))", cond: "cos(a) ≠ 0, cos(b) ≠ 0, cos(a+b) ≠ 0" },
     ],
     check: "בדיקה: b = 0 נותן tan a.",
   },
@@ -83,7 +83,7 @@ export const LESSONS = [
       { name: "cos 2a (הפרש ריבועים)", eq: "cos(2a) = cos²(a) - sin²(a)" },
       { name: "cos 2a (רק sin)", eq: "cos(2a) = 1 - 2sin²(a)" },
       { name: "cos 2a (רק cos)", eq: "cos(2a) = 2cos²(a) - 1" },
-      { name: "tan 2a", eq: "tan(2a) = 2tan(a)/(1 - tan²(a))" },
+      { name: "tan 2a", eq: "tan(2a) = 2tan(a)/(1 - tan²(a))", cond: "cos(a) ≠ 0, cos(2a) ≠ 0" },
     ],
     mnemonic: "שלושה ״בגדים״ לאותו cos 2a. בוחרים לפי מה שיש בשאלה: רק sin ← 1 − 2sin²; רק cos ← 2cos² − 1; שניהם ← cos² − sin². בדיקת סימן: a = 0 נותן 1 בשלושתם.",
     derive: [
@@ -91,7 +91,7 @@ export const LESSONS = [
       { say: "מציבים b = a בעוגן של הקוסינוס:", eq: "cos(2a) = cos(a+a) = cos(a)cos(a) - sin(a)sin(a) = cos²(a) - sin²(a)" },
       { say: "מחליפים cos² = 1 − sin² (פיתגורס) ומקבלים צורה בלי cos:", eq: "cos²(a) - sin²(a) = (1 - sin²(a)) - sin²(a) = 1 - 2sin²(a)" },
       { say: "מחליפים sin² = 1 − cos² ומקבלים צורה בלי sin:", eq: "cos²(a) - sin²(a) = cos²(a) - (1 - cos²(a)) = 2cos²(a) - 1" },
-      { say: "מחלקים sin 2a ב־cos 2a, ואז מונה ומכנה ב־cos²:", eq: "tan(2a) = sin(2a)/cos(2a) = 2sin(a)cos(a)/(cos²(a) - sin²(a)) = 2tan(a)/(1 - tan²(a))" },
+      { say: "מחלקים sin 2a ב־cos 2a, ואז מונה ומכנה ב־cos² (מותר רק כש־cos a ≠ 0 וגם cos 2a ≠ 0):", eq: "tan(2a) = sin(2a)/cos(2a) = 2sin(a)cos(a)/(cos²(a) - sin²(a)) = 2tan(a)/(1 - tan²(a))", cond: "cos(a) ≠ 0, cos(2a) ≠ 0" },
     ],
     check: "בדיקה: a = 30°: sin 60° = 0.866 = 2·0.5·0.866, ו־cos 60° = 0.5 = 1 − 2·0.25.",
   },
@@ -101,7 +101,7 @@ export const LESSONS = [
       { name: "sin 3a", eq: "sin(3a) = 3sin(a) - 4sin³(a)" },
       { name: "cos 3a", eq: "cos(3a) = 4cos³(a) - 3cos(a)" },
     ],
-    mnemonic: "״שלוש־ארבע״ כמו שלישיית פיתגורס: בסינוס 3 קודם ואז 4 (3 sin − 4 sin³), בקוסינוס ההפוך: 4cos³ − 3cos. הפונקציה שמתחילים בה היא גם זו שמעלים בשלישית.",
+    mnemonic: "בשתי הנוסחאות מופיעים רק המספרים 3 ו־4 והחזקה השלישית. סינוס: ״הקטן קודם״, 3 sin − 4 sin³. קוסינוס: ״הגדול קודם״, 4cos³ − 3cos. הסימנים נבדקים מיד: ב־a = 0 הקוסינוס חייב לתת 1, וזה 4 − 3; ב־a = 90° הסינוס חייב לתת sin 270° = −1, וזה 3 − 4.",
     derive: [
       { say: "מפרקים 3a = 2a + a ומשתמשים בעוגן ובכפולה:", eq: "sin(3a) = sin(2a+a) = sin(2a)cos(a) + cos(2a)sin(a)" },
       { say: "מציבים sin 2a = 2 sin a cos a ו־cos 2a = 1 − 2sin²a:", eq: "sin(2a)cos(a) + cos(2a)sin(a) = 2sin(a)cos²(a) + (1 - 2sin²(a))sin(a)" },
@@ -133,19 +133,19 @@ export const LESSONS = [
   {
     id: "half", title: "חצי זווית ו־t = tan(a/2)",
     formulas: [
-      { name: "sin a לפי t", eq: "sin(a) = 2t/(1 + t²)" },
-      { name: "cos a לפי t", eq: "cos(a) = (1 - t²)/(1 + t²)" },
-      { name: "tan a לפי t", eq: "tan(a) = 2t/(1 - t²)" },
-      { name: "tan²(a/2)", eq: "tan²(a/2) = (1 - cos(a))/(1 + cos(a))" },
-      { name: "tan(a/2)", eq: "tan(a/2) = sin(a)/(1 + cos(a))" },
+      { name: "sin a לפי t", eq: "sin(a) = 2t/(1 + t²)", cond: "cos(a/2) ≠ 0" },
+      { name: "cos a לפי t", eq: "cos(a) = (1 - t²)/(1 + t²)", cond: "cos(a/2) ≠ 0" },
+      { name: "tan a לפי t", eq: "tan(a) = 2t/(1 - t²)", cond: "cos(a/2) ≠ 0, cos(a) ≠ 0" },
+      { name: "tan²(a/2)", eq: "tan²(a/2) = (1 - cos(a))/(1 + cos(a))", cond: "1 + cos(a) ≠ 0" },
+      { name: "tan(a/2)", eq: "tan(a/2) = sin(a)/(1 + cos(a))", cond: "1 + cos(a) ≠ 0" },
     ],
     mnemonic: "t קטן עושה הכול. המכנה של sin ושל cos זהה (1 + t²), ובמונה: 2t לסינוס, (1 − t²) לקוסינוס. tan הוא המנה שלהם, ולכן מכנה 1 − t². לפי תבנית: ״2t על 1 ועוד, 1 פחות על 1 ועוד״.",
     derive: [
-      { say: "כותבים sin a כזווית כפולה של a/2 ומחלקים ב־1 = sin² + cos² ואז ב־cos²:", eq: "sin(a) = 2sin(a/2)cos(a/2) = 2sin(a/2)cos(a/2)/(sin²(a/2) + cos²(a/2)) = 2tan(a/2)/(tan²(a/2) + 1) = 2t/(1 + t²)" },
-      { say: "אותו טריק לקוסינוס:", eq: "cos(a) = cos²(a/2) - sin²(a/2) = (cos²(a/2) - sin²(a/2))/(cos²(a/2) + sin²(a/2)) = (1 - tan²(a/2))/(1 + tan²(a/2)) = (1 - t²)/(1 + t²)" },
-      { say: "tan a הוא המנה:", eq: "tan(a) = sin(a)/cos(a) = 2t/(1 - t²)" },
-      { say: "ל־tan² של חצי זווית: 1 − cos a = 2sin²(a/2) ו־1 + cos a = 2cos²(a/2):", eq: "tan²(a/2) = sin²(a/2)/cos²(a/2) = 2sin²(a/2)/(2cos²(a/2)) = (1 - cos(a))/(1 + cos(a))" },
-      { say: "ועוד צורה שימושית (מכפילים מונה ומכנה ב־2cos(a/2)):", eq: "tan(a/2) = sin(a/2)/cos(a/2) = 2sin(a/2)cos(a/2)/(2cos²(a/2)) = sin(a)/(1 + cos(a))" },
+      { say: "כותבים sin a כזווית כפולה של a/2 ומחלקים ב־1 = sin² + cos² ואז ב־cos² (החלוקה ב־cos² דורשת cos(a/2) ≠ 0, והיא גם התנאי לכך ש־t קיים):", eq: "sin(a) = 2sin(a/2)cos(a/2) = 2sin(a/2)cos(a/2)/(sin²(a/2) + cos²(a/2)) = 2tan(a/2)/(tan²(a/2) + 1) = 2t/(1 + t²)", cond: "cos(a/2) ≠ 0" },
+      { say: "אותו טריק לקוסינוס (שוב בלי לחלק באפס: cos(a/2) ≠ 0):", eq: "cos(a) = cos²(a/2) - sin²(a/2) = (cos²(a/2) - sin²(a/2))/(cos²(a/2) + sin²(a/2)) = (1 - tan²(a/2))/(1 + tan²(a/2)) = (1 - t²)/(1 + t²)", cond: "cos(a/2) ≠ 0" },
+      { say: "tan a הוא המנה (דורש גם cos a ≠ 0, כלומר t² ≠ 1):", eq: "tan(a) = sin(a)/cos(a) = 2t/(1 - t²)", cond: "cos(a/2) ≠ 0, cos(a) ≠ 0" },
+      { say: "ל־tan² של חצי זווית: 1 − cos a = 2sin²(a/2) ו־1 + cos a = 2cos²(a/2). המכנה לא מתאפס כש־cos(a/2) ≠ 0:", eq: "tan²(a/2) = sin²(a/2)/cos²(a/2) = 2sin²(a/2)/(2cos²(a/2)) = (1 - cos(a))/(1 + cos(a))", cond: "cos(a/2) ≠ 0" },
+      { say: "ועוד צורה שימושית (מכפילים מונה ומכנה ב־2cos(a/2), שאינו אפס):", eq: "tan(a/2) = sin(a/2)/cos(a/2) = 2sin(a/2)cos(a/2)/(2cos²(a/2)) = sin(a)/(1 + cos(a))", cond: "cos(a/2) ≠ 0" },
     ],
     check: "בדיקת סימן: a = 90° ← t = 1: sin = 2/2 = 1, cos = 0/2 = 0.",
   },
@@ -192,18 +192,18 @@ export const LESSONS = [
   {
     id: "rel", title: "קשרים: tan, cot, sec",
     formulas: [
-      { name: "tan ו־cot", eq: "tan(a) = sin(a)/cos(a)" },
-      { name: "1 + tan²", eq: "1 + tan²(a) = 1/cos²(a)" },
-      { name: "1 + cot²", eq: "1 + cot²(a) = 1/sin²(a)" },
-      { name: "tan + cot", eq: "tan(a) + cot(a) = 2/sin(2a)" },
-      { name: "cot − tan", eq: "cot(a) - tan(a) = 2cot(2a)" },
+      { name: "tan ו־cot", eq: "tan(a) = sin(a)/cos(a)", cond: "cos(a) ≠ 0" },
+      { name: "1 + tan²", eq: "1 + tan²(a) = 1/cos²(a)", cond: "cos(a) ≠ 0" },
+      { name: "1 + cot²", eq: "1 + cot²(a) = 1/sin²(a)", cond: "sin(a) ≠ 0" },
+      { name: "tan + cot", eq: "tan(a) + cot(a) = 2/sin(2a)", cond: "sin(2a) ≠ 0" },
+      { name: "cot − tan", eq: "cot(a) - tan(a) = 2cot(2a)", cond: "sin(2a) ≠ 0" },
     ],
     mnemonic: "sec a הוא פשוט 1/cos a (ו־csc a הוא 1/sin a): אין צורך להכיר אותם כפונקציות חדשות. מחלקים את פיתגורס ב־cos² ← 1 + tan² = sec², וב־sin² ← 1 + cot² = csc². ״tan ועוד cot״ תמיד מתכנס למכנה אחד sin·cos.",
     derive: [
-      { say: "מחלקים את sin² + cos² = 1 ב־cos²:", eq: "1 + tan²(a) = (cos²(a) + sin²(a))/cos²(a) = 1/cos²(a)" },
-      { say: "מחלקים ב־sin²:", eq: "1 + cot²(a) = (sin²(a) + cos²(a))/sin²(a) = 1/sin²(a)" },
-      { say: "מכנה משותף sin·cos, פיתגורס במונה, ואז sin 2a = 2 sin a cos a:", eq: "tan(a) + cot(a) = sin(a)/cos(a) + cos(a)/sin(a) = (sin²(a) + cos²(a))/(sin(a)cos(a)) = 2/sin(2a)" },
-      { say: "אותו מהלך, רק במונה cos² − sin² = cos 2a:", eq: "cot(a) - tan(a) = cos(a)/sin(a) - sin(a)/cos(a) = (cos²(a) - sin²(a))/(sin(a)cos(a)) = 2cos(2a)/sin(2a) = 2cot(2a)" },
+      { say: "מחלקים את sin² + cos² = 1 ב־cos² (מותר רק כש־cos a ≠ 0):", eq: "1 + tan²(a) = (cos²(a) + sin²(a))/cos²(a) = 1/cos²(a)", cond: "cos(a) ≠ 0" },
+      { say: "מחלקים ב־sin² (מותר רק כש־sin a ≠ 0):", eq: "1 + cot²(a) = (sin²(a) + cos²(a))/sin²(a) = 1/sin²(a)", cond: "sin(a) ≠ 0" },
+      { say: "מכנה משותף sin·cos (דורש sin a ≠ 0 וגם cos a ≠ 0), פיתגורס במונה, ואז sin 2a = 2 sin a cos a:", eq: "tan(a) + cot(a) = sin(a)/cos(a) + cos(a)/sin(a) = (sin²(a) + cos²(a))/(sin(a)cos(a)) = 2/sin(2a)", cond: "sin(2a) ≠ 0" },
+      { say: "אותו מהלך (באותו תנאי), רק במונה cos² − sin² = cos 2a:", eq: "cot(a) - tan(a) = cos(a)/sin(a) - sin(a)/cos(a) = (cos²(a) - sin²(a))/(sin(a)cos(a)) = 2cos(2a)/sin(2a) = 2cot(2a)", cond: "sin(2a) ≠ 0" },
     ],
     check: "בדיקה: a = 45°: tan + cot = 2 = 2/sin 90°, ו־cot − tan = 0 = 2cot 90°.",
   },
@@ -252,7 +252,7 @@ const B = (to, why) => ({ to, why });
 export const PROOFS = [
   {
     id: "p1", tier: 1, title: "מנה עם זווית כפולה",
-    lhs: "(1 - cos(2a))/sin(2a)", rhs: "tan(a)",
+    lhs: "(1 - cos(2a))/sin(2a)", rhs: "tan(a)", cond: "sin(2a) ≠ 0",
     steps: [
       S("בוחרים את cos 2a בצורה שמתחילה ב־1: cos 2a = 1 − 2sin²a, כך שה־1 מתבטל.", "(1 - (1 - 2sin²(a)))/sin(2a)",
         "נכון. cos 2a = 1 − 2sin²a, והמינוס לפני הסוגריים מבטל את ה־1.",
@@ -261,7 +261,7 @@ export const PROOFS = [
       S("פותחים סוגריים במונה, ובמכנה sin 2a = 2 sin a cos a.", "2sin²(a)/(2sin(a)cos(a))",
         "נכון: המונה 2sin²a והמכנה 2sin a cos a.",
         [B("2sin²(a)/(sin(a)cos(a))", "sin 2a הוא 2 sin a cos a, בלי ה־2 איבדתם גורם."), B("sin²(a)/(2sin(a)cos(a))", "במונה נשאר 2sin²a, ה־2 לא נעלם.")]),
-      S("מצמצמים 2 ואחד מה־sin.", "sin(a)/cos(a)",
+      S("מצמצמים 2 ואחד מה־sin (מותר כי sin a ≠ 0 לפי התנאי sin 2a ≠ 0).", "sin(a)/cos(a)",
         "נכון.",
         [B("sin(a)cos(a)", "אחרי צמצום ה־cos נשאר במכנה."), B("cos(a)/sin(a)", "הצמצום משאיר את sin במונה.")]),
       S("sin חלקי cos הוא פונקציה מוכרת.", "tan(a)", "נכון, וסיימנו.", [B("cot(a)", "cot הוא cos/sin, כלומר ההפוך."), B("sin(a)cos(a)", "אין כאן כפל.")]),
@@ -297,7 +297,7 @@ export const PROOFS = [
   },
   {
     id: "p4", tier: 1, title: "tan ועוד cot",
-    lhs: "tan(a) + cot(a)", rhs: "2/sin(2a)",
+    lhs: "tan(a) + cot(a)", rhs: "2/sin(2a)", cond: "sin(2a) ≠ 0",
     steps: [
       S("מציבים tan = sin/cos ו־cot = cos/sin.", "sin(a)/cos(a) + cos(a)/sin(a)",
         "נכון.",
@@ -312,7 +312,7 @@ export const PROOFS = [
   },
   {
     id: "p5", tier: 2, title: "sin 3a חלקי sin a",
-    lhs: "sin(3a)/sin(a)", rhs: "4cos²(a) - 1",
+    lhs: "sin(3a)/sin(a)", rhs: "4cos²(a) - 1", cond: "sin(a) ≠ 0",
     steps: [
       S("3a = 2a + a, ואז עוגן הסינוס.", "(sin(2a)cos(a) + cos(2a)sin(a))/sin(a)",
         "נכון.",
@@ -320,7 +320,7 @@ export const PROOFS = [
       S("מחליפים sin 2a ב־2 sin a cos a.", "(2sin(a)cos(a)cos(a) + cos(2a)sin(a))/sin(a)",
         "נכון.",
         [B("(2sin(a)cos(a) + cos(2a)sin(a))/sin(a)", "נשאר גם הגורם cos a מהעוגן."), B("(2sin(a)cos(a)cos(a) + cos(2a)cos(a))/sin(a)", "במחובר השני הגורם הוא sin a.")]),
-      S("מוציאים sin a מהמונה ומצמצמים עם המכנה.", "2cos²(a) + cos(2a)",
+      S("מוציאים sin a מהמונה ומצמצמים עם המכנה (מותר כי sin a ≠ 0).", "2cos²(a) + cos(2a)",
         "נכון.",
         [B("2cos(a) + cos(2a)", "cos a מופיע פעמיים במחובר הראשון."), B("2cos²(a) + cos(2a)sin(a)", "אחרי צמצום ה־sin נעלם גם מהמחובר השני.")]),
       S("יש לנו רק cos, אז בוחרים את cos 2a שמכילה רק cos.", "2cos²(a) + 2cos²(a) - 1",
@@ -332,7 +332,7 @@ export const PROOFS = [
   },
   {
     id: "p6", tier: 2, title: "שבר של חצי זווית",
-    lhs: "(1 - cos(a))/(1 + cos(a))", rhs: "tan²(a/2)",
+    lhs: "(1 - cos(a))/(1 + cos(a))", rhs: "tan²(a/2)", cond: "1 + cos(a) ≠ 0",
     steps: [
       S("cos a = 1 − 2sin²(a/2) היא cos 2x עם x = a/2, ולכן 1 − cos a = 2sin²(a/2).", "2sin²(a/2)/(1 + cos(a))",
         "נכון.",
@@ -346,7 +346,7 @@ export const PROOFS = [
   },
   {
     id: "p7", tier: 2, title: "סכום ← מכפלה במנה",
-    lhs: "(sin(7a) - sin(a))/(cos(7a) + cos(a))", rhs: "tan(3a)",
+    lhs: "(sin(7a) - sin(a))/(cos(7a) + cos(a))", rhs: "tan(3a)", cond: "cos(4a) ≠ 0, cos(3a) ≠ 0",
     steps: [
       S("sin − sin = 2 cos(ממוצע) sin(חצי הפרש), ממוצע 4a וחצי הפרש 3a.", "2cos(4a)sin(3a)/(cos(7a) + cos(a))",
         "נכון: ממוצע (7a+a)/2 = 4a וחצי הפרש (7a−a)/2 = 3a.",
@@ -354,13 +354,13 @@ export const PROOFS = [
       S("cos + cos = 2 cos(ממוצע) cos(חצי הפרש).", "2cos(4a)sin(3a)/(2cos(4a)cos(3a))",
         "נכון.",
         [B("2cos(4a)sin(3a)/(2sin(4a)sin(3a))", "בסכום קוסינוסים שני הגורמים הם קוסינוסים."), B("2cos(4a)sin(3a)/(2cos(4a)sin(3a))", "במכנה כתבתם את המונה, אבל הוא סכום קוסינוסים.")]),
-      S("מצמצמים 2cos 4a.", "sin(3a)/cos(3a)", "נכון.", [B("sin(3a)/cos(4a)", "לאחר הצמצום cos 3a נשאר במכנה."), B("cos(3a)/sin(3a)", "היפוך.")]),
+      S("מצמצמים 2cos 4a (מותר כי cos 4a ≠ 0 לפי התנאי).", "sin(3a)/cos(3a)", "נכון.", [B("sin(3a)/cos(4a)", "לאחר הצמצום cos 3a נשאר במכנה."), B("cos(3a)/sin(3a)", "היפוך.")]),
       S("שבר סינוס חלקי קוסינוס של אותה זווית.", "tan(3a)", "נכון, וסיימנו.", [B("cot(3a)", "cot הוא ההפוך.")]),
     ],
   },
   {
     id: "p8", tier: 2, title: "הפרש קוסינוסים: מלכודת הסימן",
-    lhs: "(cos(a) - cos(3a))/(sin(3a) + sin(a))", rhs: "tan(a)",
+    lhs: "(cos(a) - cos(3a))/(sin(3a) + sin(a))", rhs: "tan(a)", cond: "sin(2a) ≠ 0",
     steps: [
       S("cos x − cos y = −2 sin(ממוצע) sin(חצי הפרש). הממוצע של a ו־3a הוא 2a וחצי ההפרש (a − 3a)/2 = −a.", "-2sin(2a)sin(-a)/(sin(3a) + sin(a))",
         "נכון: חצי ההפרש שלילי, וזו הסיבה שבסוף המינוס יתבטל.",
@@ -371,13 +371,13 @@ export const PROOFS = [
       S("sin + sin = 2 sin(ממוצע) cos(חצי הפרש), ממוצע 2a וחצי הפרש a.", "2sin(2a)sin(a)/(2sin(2a)cos(a))",
         "נכון.",
         [B("2sin(2a)sin(a)/(2cos(2a)sin(a))", "סי־קו: בסכום סינוסים הממוצע בסינוס וחצי ההפרש בקוסינוס."), B("2sin(2a)sin(a)/(2sin(2a)sin(a))", "במכנה חצי ההפרש בקוסינוס.")]),
-      S("מצמצמים 2 sin 2a.", "sin(a)/cos(a)", "נכון.", [B("cos(a)/sin(a)", "ההיפוך.")]),
+      S("מצמצמים 2 sin 2a (מותר כי sin 2a ≠ 0 לפי התנאי).", "sin(a)/cos(a)", "נכון.", [B("cos(a)/sin(a)", "ההיפוך.")]),
       S("sin חלקי cos.", "tan(a)", "נכון, וסיימנו.", [B("cot(a)", "cot הוא ההפוך.")]),
     ],
   },
   {
     id: "p9", tier: 3, title: "cot פחות tan",
-    lhs: "cot(a) - tan(a)", rhs: "2cot(2a)",
+    lhs: "cot(a) - tan(a)", rhs: "2cot(2a)", cond: "sin(2a) ≠ 0",
     steps: [
       S("מציבים cot = cos/sin ו־tan = sin/cos.", "cos(a)/sin(a) - sin(a)/cos(a)",
         "נכון.",
@@ -434,7 +434,7 @@ export const PROOFS = [
   },
   {
     id: "p12", tier: 3, title: "שבר עם 1, sin ו־cos",
-    lhs: "(1 + sin(a) - cos(a))/(1 + sin(a) + cos(a))", rhs: "tan(a/2)",
+    lhs: "(1 + sin(a) - cos(a))/(1 + sin(a) + cos(a))", rhs: "tan(a/2)", cond: "cos(a/2) ≠ 0, sin(a/2) + cos(a/2) ≠ 0",
     steps: [
       S("הופכים הכול לחצי זווית: 1 − cos a = 2sin²(a/2), 1 + cos a = 2cos²(a/2), sin a = 2 sin(a/2)cos(a/2).", "(2sin²(a/2) + 2sin(a/2)cos(a/2))/(2cos²(a/2) + 2sin(a/2)cos(a/2))",
         "נכון.",
@@ -442,7 +442,7 @@ export const PROOFS = [
       S("מוציאים גורם משותף: 2 sin(a/2) במונה ו־2 cos(a/2) במכנה.", "2sin(a/2)(sin(a/2) + cos(a/2))/(2cos(a/2)(cos(a/2) + sin(a/2)))",
         "נכון.",
         [B("2sin(a/2)(sin(a/2) + cos(a/2))/(2cos(a/2)(cos(a/2) - sin(a/2)))", "במכנה: 2cos² + 2sin cos נותן (cos + sin), בלי מינוס."), B("2sin(a/2)(sin(a/2) + cos(a/2))/(2sin(a/2)(cos(a/2) + sin(a/2)))", "במכנה מוציאים 2 cos(a/2) כי cos² הוא המחובר הראשון.")]),
-      S("מצמצמים 2 ואת הסוגריים (sin + cos).", "sin(a/2)/cos(a/2)", "נכון.", [B("sin(a/2)/(cos(a/2) + sin(a/2))", "הסוגריים מצטמצמים לגמרי."), B("cos(a/2)/sin(a/2)", "ההיפוך.")]),
+      S("מצמצמים 2 ואת הסוגריים (sin + cos), שאינם אפס לפי התנאי.", "sin(a/2)/cos(a/2)", "נכון.", [B("sin(a/2)/(cos(a/2) + sin(a/2))", "הסוגריים מצטמצמים לגמרי."), B("cos(a/2)/sin(a/2)", "ההיפוך.")]),
       S("sin חלקי cos של אותה זווית.", "tan(a/2)", "נכון, וסיימנו.", [B("2tan(a/2)", "אין ה־2."), B("tan(a)", "הזווית היא a/2.")]),
     ],
   },

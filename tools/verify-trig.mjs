@@ -11,13 +11,42 @@ import {
   LESSONS, FILL, WRONG, PROOFS, CARDS, ANCHOR_IDS, CHAIN,
 } from '../js/trig-data.js';
 import {
-  isIdentity, isFalse, chainHolds, splitChain, randomAngles, spotAgrees, spotValues, evalExpr, SPOT,
+  isIdentity, isFalse, chainHolds, splitChain, randomAngles, spotAgrees, spotValues, evalExpr, SPOT, parseCond, condHolds, WHERE_DEFINED,
 } from '../js/trig.js';
 
 const HEB = /[֐-׿]/;
 const ANGLES = randomAngles(200, 987654321);
 const norm = (s) => String(s).replace(/\s+/g, '');
 const clauses = (eq) => String(eq).split('⟹').map((s) => s.trim());
+
+/**
+ * Domain conditions: every expression of an equation chain must be defined (finite) at all sample angles that satisfy `cond`;
+ * with no cond it must be defined at ALL sample angles (a missing cond is how a division by zero hides).
+ * The identity itself is then compared at those angles only. Returns an error text or null.
+ */
+// Random angles never hit a pole exactly (tan(pi/2) in floating point is 1.6e16, not Infinity), so the definedness check
+// also runs on a grid of multiples of 15 degrees where the poles are, and treats |value| > 1e9 as undefined.
+const GRID = [];
+for (let k = -48; k <= 48; k++) for (const bd of [30, 60, -45, 90]) GRID.push({ a: (k * Math.PI) / 12, b: (bd * Math.PI) / 180 });
+const defined = (v) => Number.isFinite(v) && Math.abs(v) < 1e9;
+
+function checkCond(eq, cond, what) {
+  let ex;
+  try { ex = parseCond(cond); } catch (e) { return `${what}: ${e.message}`; }
+  const angles = ex.length ? ANGLES.filter((env) => condHolds(ex, env)) : ANGLES;
+  if (angles.length < 40) return `${what}: condition "${cond}" leaves only ${angles.length} of ${ANGLES.length} sample angles`;
+  const parts = splitChain(eq);
+  const probe = [...angles, ...(ex.length ? GRID.filter((env) => condHolds(ex, env)) : GRID)];
+  for (const env of probe) {
+    for (const p of parts) {
+      let v;
+      try { v = evalExpr(p, env); } catch (e) { return `${what}: ${e.message}`; }
+      if (!defined(v)) return ex.length ? `${what}: "${p}" is undefined at a=${env.a}, b=${env.b} although "${cond}" holds` : `${what}: "${p}" is undefined at a=${env.a}, b=${env.b} and the step has no cond`;
+    }
+  }
+  for (const p of parts.slice(1)) if (!isIdentity(parts[0], p, angles)) return `${what}: not an identity where "${cond || 'everywhere'}" holds: ${parts[0]} = ${p}`;
+  return null;
+}
 
 function spotDiffers(x, y) {
   try { const p = evalExpr(x, SPOT); const q = evalExpr(y, SPOT); return Number.isFinite(p) && Number.isFinite(q) && Math.abs(p - q) > 0.0015; } catch (e) { return false; }
@@ -26,7 +55,7 @@ function spotDiffers(x, y) {
 export function validate() {
   const errs = [];
   const err = (m) => errs.push(m);
-  const stats = { lessons: LESSONS.length, formulas: 0, deriveEqs: 0, fill: FILL.length, wrong: WRONG.length, proofs: PROOFS.length, proofSteps: 0, options: 0, statements: 0 };
+  const stats = { lessons: LESSONS.length, formulas: 0, deriveEqs: 0, fill: FILL.length, wrong: WRONG.length, proofs: PROOFS.length, proofSteps: 0, options: 0, statements: 0, conds: 0 };
 
   // --- lessons ---
   const ids = new Set();
@@ -39,6 +68,9 @@ export function validate() {
     for (const f of l.formulas) {
       stats.formulas++;
       stats.statements++;
+      stats.conds++;
+      const ce = checkCond(f.eq, f.cond, `${l.id} formula "${f.name}"`);
+      if (ce) err(ce);
       if (!chainHolds(f.eq, ANGLES)) err(`${l.id}: formula is not an identity: ${f.eq}`);
       else if (!spotValues(f.eq).includes(null) && !spotAgrees(f.eq)) err(`${l.id}: formula fails the a=30°/b=60° spot check: ${f.eq} -> ${spotValues(f.eq)}`);
     }
@@ -46,7 +78,12 @@ export function validate() {
       if (!HEB.test(st.say)) err(`${l.id} step ${i + 1}: say must be Hebrew`);
       if (st.eq) {
         stats.deriveEqs++;
-        for (const c of clauses(st.eq)) if (!chainHolds(c, ANGLES)) err(`${l.id} step ${i + 1}: not an identity: ${c}`);
+        for (const c of clauses(st.eq)) {
+          if (!chainHolds(c, ANGLES)) err(`${l.id} step ${i + 1}: not an identity: ${c}`);
+          stats.conds++;
+          const ce = checkCond(c, st.cond, `${l.id} step ${i + 1}`);
+          if (ce) err(ce);
+        }
       }
     }
     if (l.pattern) for (const row of l.pattern) if (row.length !== 3) err(`${l.id}: pattern rows need 3 cells`);
@@ -93,6 +130,7 @@ export function validate() {
   }
 
   // --- proofs ---
+  if (!/בכל \w+ שבו מוגדר/.test(WHERE_DEFINED)) err('WHERE_DEFINED must read "בכל <var> שבו מוגדר ..."');
   if (PROOFS.length < 12) err(`need at least 12 proofs, got ${PROOFS.length}`);
   const pids = new Set();
   let lastTier = 0;
@@ -103,6 +141,13 @@ export function validate() {
     lastTier = p.tier;
     if (!HEB.test(p.title)) err(`${p.id}: title must be Hebrew`);
     if (!isIdentity(p.lhs, p.rhs, ANGLES)) err(`${p.id}: claim is not an identity`);
+    {
+      // the claim and every correct step expression must be defined wherever the proof's cond holds, and equal there
+      stats.conds++;
+      const ce = checkCond(`${p.lhs} = ${p.rhs}`, p.cond, `${p.id} claim`);
+      if (ce) err(ce);
+      for (const [i, s] of p.steps.entries()) { stats.conds++; const se = checkCond(`${p.lhs} = ${s.ok}`, p.cond, `${p.id} step ${i + 1}`); if (se) err(se); }
+    }
     if (p.steps.length < 3) err(`${p.id}: needs at least 3 steps`);
     let cur = p.lhs;
     p.steps.forEach((s, i) => {

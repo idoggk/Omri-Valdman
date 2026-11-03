@@ -237,6 +237,43 @@ function checkSystem(e, want, err) {
   }
 }
 
+/* ---------- displayed step lines: consecutive lines must be equivalent ---------- */
+// Each entry names an exercise, the step index and the first line of the chain (taken from the statement);
+// the lines of the step (split at "כלומר") are compared pairwise at random points of the domain.
+const STEP_CHECKS = [
+  { id: 'mh-rat-8', step: 2, D: '((x-2)*(x+1))', start: (e) => e.eq[0].split('≤').slice(0, 2).join('≤') },
+];
+
+function mulFix(s) { return s.replace(/(\d)\s*\(/g, '$1*(').replace(/(\d)\s*x/g, '$1*x'); }
+
+export function stepLines(e, chk) {
+  const text = e.steps[chk.step].split(/\.\s*מקבלים|:\s/).filter((p) => /[≤≥<>]/.test(p)).pop();
+  const lines = text.split('כלומר').map((p) => p.replace(/^[\s:,]+|[\s,.]+$/g, ''));
+  return [chk.start(e), ...lines.map((l) => mulFix(l.replace(/\bD\b/g, chk.D)))];
+}
+
+export function checkStepChains(data, err) {
+  let seed = 12345;
+  const rnd = () => { seed = (seed * 1103515245 + 12345) % 2147483648; return seed / 2147483648; };
+  for (const chk of STEP_CHECKS) {
+    const e = data.find((x) => x.id === chk.id);
+    if (!e) { err(`${chk.id}: step-check exercise missing`); continue; }
+    const rels = stepLines(e, chk).map((l) => parseRelation(mulFix(l)));
+    if (rels.length < 3) { err(`${e.id}: expected at least 3 displayed lines in step ${chk.step}`); continue; }
+    let tested = 0;
+    for (let i = 0; i < 200; i++) {
+      const x = -12 + 24 * rnd();
+      if (Math.abs(x - 2) < 1e-6 || Math.abs(x + 1) < 1e-6) continue; // outside the domain
+      const truth = rels.map((r) => holds(r, { x }));
+      tested++;
+      for (let k = 1; k < truth.length; k++) {
+        if (truth[k] !== truth[k - 1]) { err(`${e.id}: displayed line ${k} is not equivalent to line ${k - 1} at x=${x}`); return; }
+      }
+    }
+    if (tested < 150) err(`${e.id}: too few domain points tested`);
+  }
+}
+
 export function validate(data = loadAll()) {
   const errors = [];
   const stats = { exercises: data.length, byFamily: {}, byTier: {}, traps: 0, hints: 0, wrongs: 0, solve: 0, param: 0, system: 0 };
@@ -275,6 +312,7 @@ export function validate(data = loadAll()) {
   for (const f of FAMILIES) for (const t of TIERS) {
     if (!data.some((e) => e.family === f.id && e.tier === t.id)) errors.push(`family ${f.id} has no tier ${t.id} exercise`);
   }
+  checkStepChains(data, (m) => errors.push(m));
   if (data.length < 40) errors.push(`expected at least 40 exercises, found ${data.length}`);
   return { errors, stats };
 }

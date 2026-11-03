@@ -7,7 +7,7 @@ import { TRIG_TOPIC, visitOutcome } from './engine.js';
 import { LESSONS, CARDS, FILL, WRONG, PROOFS, CHAIN } from './trig-data.js';
 import {
   loadState, saveState, gradeCard, dueCards, requeueGap, boxCounts, recordDrill, recordProof, pickDrills,
-  spotValues, splitChain, MAX_BOX,
+  spotValues, splitChain, MAX_BOX, WHERE_DEFINED,
 } from './trig.js';
 
 const BTN = 'min-height:44px;';
@@ -15,6 +15,8 @@ const eq = (s, cls = '') => h('div', { class: cls, steps: s });
 const crumbs = (href = '#/trig', label = '→ חזרה ללימוד הזהויות') => h('p', { class: 'crumbs' }, h('a', { href }, label));
 const lessonOf = (id) => LESSONS.find((l) => l.id === id);
 const fmtV = (v) => (v == null ? 'לא מוגדר' : String(v));
+/** "תנאי: cos(a) ≠ 0 וגם ..." under a formula or step that divides or cancels; null when there is no condition. */
+export const condNote = (cond) => (String(cond || '').trim() ? h('p', { class: 'muted', dir: 'rtl' }, h('span', {}, 'תנאי: '), h('span', { dir: 'ltr' }, String(cond).trim().replace(/,\s*/g, ' , '))) : null);
 
 /** Deterministic shuffle so the right option is not always first (stable per seed, re-render safe). */
 export function shuffled(list, seed) {
@@ -88,7 +90,7 @@ function viewLesson(ctx, id) {
   const all = h('button', { class: 'btn', type: 'button', style: BTN }, 'הציגו הכול');
   function reveal() {
     const st = l.derive[shown++];
-    stepsBox.append(h('div', { class: 'panel' }, h('p', {}, h('strong', {}, `צעד ${shown}. `), st.say), st.eq ? eq(st.eq, 'eq-block') : null));
+    stepsBox.append(h('div', { class: 'panel' }, h('p', {}, h('strong', {}, `צעד ${shown}. `), st.say), st.eq ? eq(st.eq, 'eq-block') : null, condNote(st.cond)));
     status.textContent = shown < l.derive.length ? `${shown} מתוך ${l.derive.length}. נסו לנחש את הצעד הבא לפני שלוחצים.` : 'זהו, סיימנו את הגזירה.';
     if (shown >= l.derive.length) { more.disabled = true; all.disabled = true; }
   }
@@ -98,7 +100,7 @@ function viewLesson(ctx, id) {
   ctx.show(crumbs('#/trig/learn', '→ לרשימת השיעורים'),
     h('h1', {}, l.title),
     l.anchor ? h('p', { class: 'notice' }, '⚓ זה אחד משלושת העוגנים: את זה מחזיקים בראש.') : null,
-    h('section', { class: 'panel' }, h('strong', {}, 'מה זוכרים'), ...l.formulas.map((f) => eq(f.eq, 'eq-block'))),
+    h('section', { class: 'panel' }, h('strong', {}, 'מה זוכרים'), ...l.formulas.flatMap((f) => [eq(f.eq, 'eq-block'), condNote(f.cond)])),
     h('section', { class: 'panel' }, h('strong', {}, 'איך זוכרים'), h('p', {}, l.mnemonic),
       l.pattern ? h('table', { class: 'pattern' }, ...l.pattern.map((r) => h('tr', {}, ...r.map((c) => h('td', {}, c))))) : null),
     h('section', { 'aria-label': 'גזרו בעצמכם' }, h('h2', {}, 'גזרו בעצמכם'),
@@ -300,6 +302,7 @@ function viewProof(ctx, id) {
     area.replaceChildren(
       h('div', { class: 'feedback ok', role: 'status' }, `הוכחתם! טעויות: ${mistakes}, רמזים: ${hints}.`),
       h('p', {}, h('strong', {}, 'מה שהוכחנו: '), eq(`${p.lhs} = ${p.rhs}`, 'eq-block')),
+      h('p', { class: 'muted' }, `הזהות נכונה ${WHERE_DEFINED}.`), ...[condNote(p.cond)].filter(Boolean),
       spotPanel(`${p.lhs} = ${p.rhs}`),
       feedbackCard({
         exerciseId: `trig-${p.id}`, topic: 'trig', mode: 'trig', attemptId: t0,
@@ -307,7 +310,8 @@ function viewProof(ctx, id) {
       }),
       h('div', { class: 'btn-row' }, next ? h('a', { class: 'btn primary', href: `#/trig/proof/${next.id}` }, 'ההוכחה הבאה ←') : null, h('a', { class: 'btn', href: '#/trig/proof' }, 'לרשימה')));
   }
-  ctx.show(crumbs('#/trig/proof', '→ לרשימת ההוכחות'), h('h1', {}, p.title), h('p', {}, h('strong', {}, 'להוכיח: '), eq(`${p.lhs} = ${p.rhs}`, 'eq-block')), history, area);
+  ctx.show(crumbs('#/trig/proof', '→ לרשימת ההוכחות'), h('h1', {}, p.title), h('p', {}, h('strong', {}, 'להוכיח: '), eq(`${p.lhs} = ${p.rhs}`, 'eq-block')),
+    h('p', { class: 'muted' }, `הזהות נכונה ${WHERE_DEFINED}.`), condNote(p.cond), history, area);
   step();
 }
 

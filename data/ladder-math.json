@@ -2934,7 +2934,7 @@
         },
         {
           "id": "lad-m4-07",
-          "topic": "math-rad",
+          "topic": "math-pow",
           "level": 4,
           "title": "משוואה מעריכית ובסיסים שונים",
           "statement": "פתרו את המשוואה <span dir=\"ltr\">4^(x + 1) − 17·2^x + 4 = 0</span>.<br>א. נציב <span dir=\"ltr\">t = 2^x</span>. מהו הערך הגדול של t?<br>ב. מהו הערך הקטן של t?<br>ג. מהו הפתרון הקטן של x?<br>ד. מהו הפתרון הגדול של x?",
@@ -3025,7 +3025,7 @@
         },
         {
           "id": "lad-m4-08",
-          "topic": "math-rad",
+          "topic": "math-pow",
           "level": 4,
           "title": "הצבה ופסילת t שלילי",
           "statement": "פתרו את המשוואה <span dir=\"ltr\">9^x + 3^(x + 1) = 108</span>.<br>א. נציב <span dir=\"ltr\">t = 3^x</span>. מהו הערך של t שמתאים לפתרון?<br>ב. מהו הערך של t שנפסל?<br>ג. מהו הפתרון x?<br>ד. מהו ערך הביטוי <span dir=\"ltr\">3^(x + 1)</span> בפתרון?",
@@ -3115,7 +3115,7 @@
         },
         {
           "id": "lad-m4-09",
-          "topic": "math-rad",
+          "topic": "math-pow",
           "level": 4,
           "title": "הצבה עם הופכי וסכום הפתרונות",
           "statement": "פתרו את המשוואה <span dir=\"ltr\">2^x + 2^(3 − x) = 9</span>.<br>א. נציב <span dir=\"ltr\">t = 2^x</span>. מהו הערך הקטן של t?<br>ב. מהו הערך הגדול של t?<br>ג. מהו הפתרון הקטן של x?<br>ד. מהו הפתרון הגדול של x?<br>ה. מהו סכום שני הפתרונות? (רמז: מכפלת שני הערכים של t היא 2 בחזקת סכום הפתרונות.)",
@@ -4722,7 +4722,7 @@
         },
         {
           "id": "lad-m6-03",
-          "topic": "math-par",
+          "topic": "math-hard-circle",
           "level": 5,
           "title": "מעגל וישר משיקים עם פרמטר",
           "statement": "נתונים המעגל <span dir=\"ltr\">x² + y² − 2x + 4y − 3 = 0</span> והישר <span dir=\"ltr\">y = x + m</span>.<br>א. מהו ריבוע הרדיוס של המעגל?<br>ב. מהו הערך הקטן של m שעבורו הישר משיק למעגל?<br>ג. מהו הערך הגדול של m שעבורו הישר משיק למעגל?<br>ד. כמה נקודות חיתוך יש כאשר <span dir=\"ltr\">m = 0</span>?<br>ה. כמה נקודות חיתוך יש כאשר <span dir=\"ltr\">m = 4</span>?",
@@ -5063,7 +5063,7 @@
         },
         {
           "id": "lad-m6-05",
-          "topic": "math-par",
+          "topic": "trig",
           "level": 5,
           "title": "משוואה טריגונומטרית: זווית כפולה והצבה",
           "statement": "פתרו את המשוואה <span dir=\"ltr\">cos(2x) + 3sin(x) − 2 = 0</span> בתחום <span dir=\"ltr\">0° ≤ x &lt; 360°</span>.<br>א. בעזרת <span dir=\"ltr\">cos(2x) = 1 − 2sin²(x)</span> מציבים <span dir=\"ltr\">s = sin(x)</span>. מהו השורש הקטן של המשוואה הריבועית ב־s?<br>ב. מהו השורש הגדול של המשוואה הריבועית ב־s?<br>ג. מהו הפתרון הקטן ביותר של x (במעלות)?<br>ד. מהו סכום כל הפתרונות בתחום (במעלות)?<br>ה. כמה פתרונות יש בתחום?",
@@ -5170,8 +5170,8 @@
         },
         {
           "id": "lad-m6-06",
-          "topic": "math-par",
-          "level": 5,
+          "topic": "trig",
+          "level": 4,
           "title": "שרשרת תלויה: tan של חצי זווית לכל הערכים",
           "statement": "נתון <span dir=\"ltr\">tan(a/2) = 0.5</span> וגם <span dir=\"ltr\">0° &lt; a &lt; 180°</span>.<br>א. מהו <span dir=\"ltr\">sin(a)</span>? (רמז: <span dir=\"ltr\">sin(a) = 2t/(1 + t²)</span> כאשר <span dir=\"ltr\">t = tan(a/2)</span>.)<br>ב. מהו <span dir=\"ltr\">cos(a)</span>? (רמז: <span dir=\"ltr\">cos(a) = (1 − t²)/(1 + t²)</span>.)<br>ג. מהו <span dir=\"ltr\">sin(2a)</span>?<br>ד. מהו <span dir=\"ltr\">cos(2a)</span>?<br>ה. מהו <span dir=\"ltr\">cos(3a)</span>? (רמז: <span dir=\"ltr\">cos(3a) = 4cos³(a) − 3cos(a)</span>.)",
           "domain": "<span dir=\"ltr\">0° &lt; a &lt; 180°</span>, ולכן <span dir=\"ltr\">sin(a) &gt; 0</span>. <span dir=\"ltr\">tan(a/2)</span> מוגדר כי <span dir=\"ltr\">a/2</span> בין 0° ל־90°.",
@@ -5307,7 +5307,7 @@
         {
           "id": "lad-m6-07",
           "topic": "math-par",
-          "level": 5,
+          "level": 4,
           "title": "פרמטר ושורשי משוואה ריבועית",
           "statement": "נתונה המשוואה <span dir=\"ltr\">x² − 2(m − 1)x + m² − 5 = 0</span>, כאשר m פרמטר.<br>א. מהו הערך הגדול ביותר של m שעבורו יש למשוואה פתרון ממשי?<br>ב. מהו הפתרון הגדול כאשר <span dir=\"ltr\">m = 1</span>?<br>ג. מהו הפתרון הגדול כאשר <span dir=\"ltr\">m = −5</span>?<br>ד. מהי מכפלת שני הפתרונות כאשר <span dir=\"ltr\">m = −5</span>?",
           "domain": "כל x ממשי.",
@@ -5607,8 +5607,8 @@
         },
         {
           "id": "lad-m6-09",
-          "topic": "math-par",
-          "level": 5,
+          "topic": "math-hard-circle",
+          "level": 4,
           "title": "מעגל, ישר ומשיק: שלושה סעיפים תלויים",
           "statement": "נתונים המעגל <span dir=\"ltr\">x² + y² = 25</span> והישר <span dir=\"ltr\">y = x + 1</span>. הישר חותך את המעגל בשתי נקודות. A היא הנקודה שברביע הראשון ו־B היא הנקודה השנייה.<br>א. מהו שיעור ה־x של A?<br>ב. מהו שיעור ה־y של A?<br>ג. מהו שיעור ה־x של B?<br>ד. מהו ריבוע אורך המיתר AB?<br>ה. המשיק למעגל בנקודה A חותך את ציר ה־y בנקודה שערך ה־y שלה הוא? (רמז: המשיק בנקודה (x₀, y₀) הוא <span dir=\"ltr\">x₀x + y₀y = 25</span>.)",
           "domain": "כל x ו־y ממשיים.",

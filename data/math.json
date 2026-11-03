@@ -6833,7 +6833,7 @@
   {
     "id": "math-par-001",
     "topic": "math-par",
-    "level": 3,
+    "level": 2,
     "title": "פרמטר: פתרון אחד בדיוק",
     "statement": "נתונה המשוואה <span dir=\"ltr\">x² − 6x + m = 0</span>. עבור איזה ערך של הפרמטר m יש למשוואה פתרון אחד בדיוק? ומהו הפתרון הזה?",
     "inputs": [
@@ -7165,7 +7165,7 @@
   {
     "id": "math-lg-001",
     "topic": "math-lg",
-    "level": 3,
+    "level": 2,
     "title": "חישוב לוגריתמים פשוטים",
     "statement": "חשבו (בלי מחשבון):<br><span dir=\"ltr\">A = log₂ 32</span><br><span dir=\"ltr\">B = log₅ (1/25)</span><br><span dir=\"ltr\">C = lg 0.001</span> (כאן lg הוא לוגריתם בבסיס 10)",
     "inputs": [

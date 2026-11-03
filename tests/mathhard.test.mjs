@@ -170,3 +170,11 @@ test('UI: interval answer with "no solution" style input and reveal-solution pat
   assert.match(dom.root.textContent, /פתרון/);
   assert.equal(M.loadSaved().items['mh-rat-2'].solved, false);
 });
+
+test('step chain: a wrongly flipped displayed inequality line is caught', () => {
+  const bad = JSON.parse(JSON.stringify(data));
+  const e = bad.find((x) => x.id === 'mh-rat-8');
+  e.steps[2] = e.steps[2].replace('(x + 4 − 3x − 3)/D ≥ 0', '(x + 4 − 3x − 3)/D ≤ 0');
+  const { errors } = validate(bad);
+  assert.ok(errors.some((m) => m.startsWith('mh-rat-8') && /not equivalent/.test(m)));
+});
