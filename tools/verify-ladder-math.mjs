@@ -12,6 +12,7 @@
 //   Expression syntax: numbers (decimals ok), single-letter names, + - * / ^n, parentheses; the system must be linear.
 import { readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
+import { runScan, partValue as scanPartValue } from './ladder-scan.mjs';
 
 // ---------------------------------------------------------------- exact fractions (BigInt)
 const big = (x) => BigInt(x);
@@ -265,8 +266,66 @@ function partValue(part, env, eqs) {
 }
 const partText = (part, item) => (typeof part.e === 'string' ? part.e : item.verify.eqs[part.eq - 1].split('=')[part.side === 'left' ? 0 : 1]);
 
+/**
+ * Issues of a "scan" item (stages M4-M6): structure, then every check of verify.checks is run by tools/ladder-scan.mjs and every
+ * stored answer must equal its part expression (independent numeric scan, nothing is taken from the stored numbers).
+ */
+const scanCache = new Map(); // the numeric scans are slow: identical items are verified once per process
+export function checkScanItem(it) {
+  const key = JSON.stringify(it);
+  if (!scanCache.has(key)) scanCache.set(key, scanItemIssues(it));
+  return scanCache.get(key).slice();
+}
+function scanItemIssues(it) {
+  const bad = [];
+  const say = (m) => bad.push(`${it.id || '?'}: ${m}`);
+  try {
+    const m = ID_RE.exec(it.id || '');
+    if (!m) say('bad id (lad-mS-NN)');
+    for (const k of ['topic', 'title', 'statement', 'domain']) if (typeof it[k] !== 'string' || !it[k]) say(`missing ${k}`);
+    if (!HEB.test(it.title || '') || !HEB.test(it.statement || '') || !HEB.test(it.domain || '')) say('title, statement and domain must be Hebrew');
+    if (!Number.isInteger(it.level) || it.level < 3 || it.level > 5) say('bad level (3-5 for M4-M6)');
+    if (!Array.isArray(it.tips) || it.tips.length !== 2 || it.tips.some((t) => typeof t !== 'string' || !HEB.test(t))) say('tips must be exactly 2 Hebrew strings');
+    if (!Array.isArray(it.solution) || it.solution.length < 4 || it.solution.some((t) => typeof t !== 'string' || !t)) say('solution needs at least 4 steps');
+    else if (!/^תחום:/.test(it.solution[0])) say('the first solution step must be the domain ("תחום: ...")');
+    if (!it.trap || typeof it.trap.text !== 'string' || !HEB.test(it.trap.text)) say('trap.text (Hebrew) is required');
+    if (/<script|onerror|javascript:/i.test(JSON.stringify(it))) say('unsafe markup');
+    if (/sqrt\(\s*-|(?<![A-Za-z])i(?![A-Za-z])|imaginary|complex|מרוכב|דמיוני/i.test(`${it.statement} ${it.solution.join(' ')}`.replace(/<[^>]*>/g, ' ').replace(/[A-Za-z]+\(/g, ' '))) say('complex numbers are not allowed');
+    const v = it.verify;
+    if (!v || v.kind !== 'scan' || !Array.isArray(v.parts) || !Array.isArray(it.inputs)) { say('verify.kind "scan", verify.parts and inputs are required'); return bad; }
+    if (it.inputs.length < 3 || it.inputs.length > 5) say('3-5 lettered parts expected');
+    if (v.parts.length !== it.inputs.length) say('verify.parts and inputs differ in length');
+    const lettered = LETTERS.filter((l) => new RegExp(`(^|<br>|\\s)${l}\\.`).test(it.statement));
+    if (lettered.length !== it.inputs.length) say(`statement has ${lettered.length} lettered parts, inputs ${it.inputs.length}`);
+    if (!Array.isArray(v.checks) || !v.checks.some((c) => c.stmt || (c.show && c.show.length))) say('at least one check must be tied to the statement (stmt: true)');
+    const { env, errors } = runScan(v, it.statement);
+    errors.forEach(say);
+    it.inputs.forEach((inp, k) => {
+      const at = `part ${k + 1}`;
+      if (typeof inp.answer !== 'string' || !/^-?\d+(\.\d{1,3})?$/.test(inp.answer) || /\.\d*0$/.test(inp.answer) || inp.answer === '-0') { say(`${at}: answer "${inp.answer}" must be a canonical integer or finite decimal (at most 3 decimals, no trailing zero)`); return; }
+      if (!(inp.label || '').trim()) say(`${at}: label required`);
+      if (inp.unit !== '') say(`${at}: math answers have no unit`);
+      if (!(inp.tolerance > 0 && inp.tolerance <= TOL)) say(`${at}: tolerance must be in (0, ${TOL}]`);
+      let val;
+      try { val = scanPartValue(v.parts[k], env); } catch (e) { say(`${at}: ${e.message}`); return; }
+      if (!Number.isFinite(val) || Math.abs(val - Number(inp.answer)) > 1e-7 * (1 + Math.abs(val))) say(`${at}: stored answer ${inp.answer} but the independent scan gives ${val}`);
+      for (const w of inp.wrongs || []) {
+        if (!HEB.test(w.why || '') || typeof w.value !== 'string' || !Number.isFinite(Number(w.value))) say(`${at}: bad typical-wrong entry`);
+        else if (Math.abs(Number(w.value) - Number(inp.answer)) <= inp.tolerance) say(`${at}: typical wrong answer ${w.value} equals the correct answer`);
+      }
+      // a hint must not hand over an answer written as "= value"
+      const leak = new RegExp(`=\\s*${inp.answer.replace('-', '[-−]?').replace('.', '\\.')}(?![\\d.\\w^²³·*/+\\-−÷(]|\\s*[÷·*/^+\\-−])`);
+      if (Math.abs(Number(inp.answer)) >= 2 && it.tips.some((t) => leak.test(String(t).replace(/<[^>]*>/g, '')))) say(`a tip gives the answer to ${at}`);
+    });
+  } catch (e) {
+    say(`verification error: ${e.message}`);
+  }
+  return bad;
+}
+
 /** Issues of one inline item (empty array = fine). */
 export function checkItem(it) {
+  if (it && it.verify && it.verify.kind === 'scan') return checkScanItem(it);
   const bad = [];
   const say = (m) => bad.push(`${it.id || '?'}: ${m}`);
   try {
@@ -375,6 +434,11 @@ export function checkLadder(data, math = []) {
   for (const s of data.stages.filter((x) => ['M1', 'M2', 'M3'].includes(x.id))) {
     const n = s.items.filter((x) => !x.ref).length;
     if (n < 8) bad.push(`${s.id}: needs at least 8 new inline items, has ${n}`);
+  }
+  for (const s of data.stages.filter((x) => ['M4', 'M5', 'M6'].includes(x.id))) {
+    const n = s.items.filter((x) => !x.ref && x.verify?.kind === 'scan').length;
+    if (n < 10) bad.push(`${s.id}: needs at least 10 scan items, has ${n}`);
+    if (s.soon) bad.push(`${s.id}: a filled stage must not keep the "soon" note`);
   }
   return bad;
 }

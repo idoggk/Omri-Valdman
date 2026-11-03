@@ -2317,24 +2317,3557 @@
     },
     {
       "id": "M4",
-      "title": "משוואה ריבועית במערכת",
-      "intro": "מערכת של שני נעלמים שבה אחת המשוואות ריבועית: ל־0, ל־1 או ל־2 פתרונות, ופסילת פתרונות זרים.",
-      "items": [],
-      "soon": "התרגילים בשלב הזה יתווספו בקרוב."
+      "title": "שורשים, תחום והצבות",
+      "intro": "משוואות עם שורשים, שורש בתוך שורש, הצבת t ופסילת פתרונות זרים. בכל תרגיל כותבים תחום, פותרים ובודקים כל פתרון במשוואה המקורית.",
+      "items": [
+        {
+          "id": "lad-m4-01",
+          "topic": "math-rad",
+          "level": 3,
+          "title": "שורש ושורש זר",
+          "statement": "פתרו את המשוואה <span dir=\"ltr\">√(2x + 3) = x</span>.<br>א. מהו הערך הקטן ביותר ש־x יכול לקבל כדי שהביטוי שבתוך השורש יהיה מוגדר?<br>ב. העלאה בריבוע נותנת משוואה ריבועית. מהו השורש הקטן שלה?<br>ג. מהו השורש הגדול של המשוואה המרובעת?<br>ד. כמה פתרונות יש למשוואה המקורית?<br>ה. מהו הפתרון?",
+          "domain": "<span dir=\"ltr\">2x + 3 ≥ 0</span>, כלומר <span dir=\"ltr\">x ≥ −1.5</span>. בנוסף האגף הימני שווה לשורש, ולכן <span dir=\"ltr\">x ≥ 0</span>.",
+          "inputs": [
+            {
+              "label": "x מינימלי בתחום",
+              "unit": "",
+              "answer": "-1.5",
+              "tolerance": 0.005
+            },
+            {
+              "label": "השורש הקטן של המשוואה המרובעת",
+              "unit": "",
+              "answer": "-1",
+              "tolerance": 0.01
+            },
+            {
+              "label": "השורש הגדול של המשוואה המרובעת",
+              "unit": "",
+              "answer": "3",
+              "tolerance": 0.01
+            },
+            {
+              "label": "מספר הפתרונות",
+              "unit": "",
+              "answer": "1",
+              "tolerance": 0.01,
+              "wrongs": [
+                {
+                  "value": "2",
+                  "why": "ספרתם את שני השורשים של המשוואה המרובעת. אחד מהם לא מקיים את המשוואה המקורית: הצבה בה נותנת שורש ששווה למספר שלילי."
+                }
+              ]
+            },
+            {
+              "label": "x",
+              "unit": "",
+              "answer": "3",
+              "tolerance": 0.01,
+              "wrongs": [
+                {
+                  "value": "-1",
+                  "why": "x = −1 מקיים את המשוואה המרובעת, אבל במשוואה המקורית מתקבל √1 = −1. שורש אינו שלילי, ולכן הפתרון נפסל."
+                }
+              ]
+            }
+          ],
+          "tips": [
+            "כתבו את התחום ואז העלו את שני האגפים בריבוע. השורש כבר מבודד, ולכן אין צורך בבידוד נוסף.",
+            "פתרו את המשוואה הריבועית שהתקבלה, ואחר כך הציבו כל שורש שלה במשוואה המקורית. שימו לב לסימן של האגף הימני: הוא שווה לשורש."
+          ],
+          "solution": [
+            "תחום: <span dir=\"ltr\">2x + 3 ≥ 0</span>, כלומר <span dir=\"ltr\">x ≥ −1.5</span>. בנוסף האגף הימני שווה לשורש, ולכן <span dir=\"ltr\">x ≥ 0</span>.",
+            "מעלים בריבוע: <span dir=\"ltr\">2x + 3 = x²</span>.",
+            "מסדרים: <span dir=\"ltr\">x² − 2x − 3 = 0</span>, כלומר <span dir=\"ltr\">(x − 3)(x + 1) = 0</span>, ולכן <span dir=\"ltr\">x = 3</span> או <span dir=\"ltr\">x = −1</span>.",
+            "בדיקה במשוואה המקורית: <span dir=\"ltr\">x = 3</span> נותן <span dir=\"ltr\">√9 = 3</span> ✓. <span dir=\"ltr\">x = −1</span> נותן <span dir=\"ltr\">√1 = −1</span>, כלומר <span dir=\"ltr\">1 = −1</span>, וזה שקר.",
+            "<span dir=\"ltr\">x = −1</span> הוא שורש זר שנוצר מההעלאה בריבוע. התשובה: פתרון יחיד, <span dir=\"ltr\">x = 3</span>."
+          ],
+          "trap": {
+            "text": "העלאה בריבוע יוצרת פתרון זר. בלי הצבה חזרה במשוואה המקורית היה נרשם גם הפתרון הנפסל."
+          },
+          "verify": {
+            "kind": "scan",
+            "domain": {
+              "exprs": [
+                "√(2x+3)"
+              ],
+              "claim": "[-1.5,inf)"
+            },
+            "checks": [
+              {
+                "type": "roots",
+                "name": "q",
+                "eq": "x^2=2x+3",
+                "var": "x",
+                "count": 2
+              },
+              {
+                "type": "roots",
+                "name": "r",
+                "eq": "√(2x+3)=x",
+                "var": "x",
+                "count": 1,
+                "stmt": true
+              },
+              {
+                "type": "rejected",
+                "eq": "√(2x+3)=x",
+                "squared": "x^2=2x+3",
+                "var": "x",
+                "values": [
+                  -1
+                ]
+              }
+            ],
+            "parts": [
+              "d1",
+              "q1",
+              "q2",
+              "r_count",
+              "r1"
+            ]
+          }
+        },
+        {
+          "id": "lad-m4-02",
+          "topic": "math-rad",
+          "level": 4,
+          "title": "שני שורשים וחילוק שמאבד פתרון",
+          "statement": "פתרו את המשוואה <span dir=\"ltr\">√(3x + 1) − √(x − 1) = 2</span>.<br>א. מהו הערך הקטן ביותר ש־x יכול לקבל בתחום?<br>ב. נסמן <span dir=\"ltr\">u = √(x − 1)</span>. אחרי בידוד השורש הראשון, העלאה בריבוע ופישוט מקבלים משוואה ריבועית ב־u. מהו הערך החיובי של u בפתרון הגדול?<br>ג. מהו הפתרון הקטן של המשוואה?<br>ד. מהו הפתרון הגדול?<br>ה. כמה פתרונות יש למשוואה?",
+          "domain": "<span dir=\"ltr\">3x + 1 ≥ 0</span> וגם <span dir=\"ltr\">x − 1 ≥ 0</span>, ולכן <span dir=\"ltr\">x ≥ 1</span>.",
+          "inputs": [
+            {
+              "label": "x מינימלי בתחום",
+              "unit": "",
+              "answer": "1",
+              "tolerance": 0.01
+            },
+            {
+              "label": "u",
+              "unit": "",
+              "answer": "2",
+              "tolerance": 0.01
+            },
+            {
+              "label": "הפתרון הקטן",
+              "unit": "",
+              "answer": "1",
+              "tolerance": 0.01,
+              "wrongs": [
+                {
+                  "value": "5",
+                  "why": "זה הפתרון הגדול. הקטן הוא u = 0 (כלומר x = 1), שאובד אם מחלקים ב־u."
+                }
+              ]
+            },
+            {
+              "label": "הפתרון הגדול",
+              "unit": "",
+              "answer": "5",
+              "tolerance": 0.01
+            },
+            {
+              "label": "מספר הפתרונות",
+              "unit": "",
+              "answer": "2",
+              "tolerance": 0.01,
+              "wrongs": [
+                {
+                  "value": "1",
+                  "why": "כנראה חילקתם ב־u (או ב־√(x − 1)) ואיבדתם את u = 0, כלומר x = 1. הצבה במשוואה המקורית מראה שגם הוא פתרון."
+                }
+              ]
+            }
+          ],
+          "tips": [
+            "בודדו את אחד השורשים, למשל נעבור אגף כך שיישאר √(3x + 1) לבד, והעלו בריבוע. עדיין יישאר שורש אחד.",
+            "אחרי הפישוט כל הביטוי מכיל את u = √(x − 1). פתרו את המשוואה בלי לחלק ב־u: העבירו אגף והוציאו u כגורם משותף."
+          ],
+          "solution": [
+            "תחום: <span dir=\"ltr\">3x + 1 ≥ 0</span> וגם <span dir=\"ltr\">x − 1 ≥ 0</span>, ולכן <span dir=\"ltr\">x ≥ 1</span>.",
+            "מבודדים: <span dir=\"ltr\">√(3x + 1) = 2 + √(x − 1)</span>. מעלים בריבוע: <span dir=\"ltr\">3x + 1 = 4 + 4√(x − 1) + x − 1</span>.",
+            "מסדרים: <span dir=\"ltr\">2x − 2 = 4√(x − 1)</span>, כלומר <span dir=\"ltr\">x − 1 = 2√(x − 1)</span>. מציבים <span dir=\"ltr\">u = √(x − 1)</span>: <span dir=\"ltr\">u² = 2u</span>, כלומר <span dir=\"ltr\">u(u − 2) = 0</span>.",
+            "אסור לחלק ב־u, כי אז מאבדים את <span dir=\"ltr\">u = 0</span>. מקבלים <span dir=\"ltr\">u = 0</span> או <span dir=\"ltr\">u = 2</span>, כלומר <span dir=\"ltr\">x = 1</span> או <span dir=\"ltr\">x = 5</span>.",
+            "בדיקה: <span dir=\"ltr\">x = 1</span>: <span dir=\"ltr\">√4 − √0 = 2</span> ✓. <span dir=\"ltr\">x = 5</span>: <span dir=\"ltr\">√16 − √4 = 4 − 2 = 2</span> ✓. שני הפתרונות תקינים."
+          ],
+          "trap": {
+            "text": "חילוק ב־√(x − 1) מאבד את הפתרון x = 1, שנמצא בדיוק בקצה התחום."
+          },
+          "verify": {
+            "kind": "scan",
+            "domain": {
+              "exprs": [
+                "√(3x+1)",
+                "√(x-1)"
+              ],
+              "claim": "[1,inf)"
+            },
+            "checks": [
+              {
+                "type": "roots",
+                "name": "w",
+                "eq": "u^2=2u",
+                "var": "u",
+                "count": 2
+              },
+              {
+                "type": "roots",
+                "name": "r",
+                "eq": "√(3x+1)-√(x-1)=2",
+                "var": "x",
+                "count": 2,
+                "stmt": true
+              },
+              {
+                "type": "eval",
+                "name": "u",
+                "expr": "sqrt(r2-1)"
+              }
+            ],
+            "parts": [
+              "d1",
+              "u",
+              "r1",
+              "r2",
+              "r_count"
+            ]
+          }
+        },
+        {
+          "id": "lad-m4-03",
+          "topic": "math-rad",
+          "level": 5,
+          "title": "שורש בתוך שורש: קטע שלם של פתרונות",
+          "statement": "פתרו את המשוואה <span dir=\"ltr\">√(x + 2√(x − 1)) + √(x − 2√(x − 1)) = 2</span>.<br>א. מהו הערך הקטן ביותר ש־x יכול לקבל בתחום?<br>ב. מהו ערך אגף שמאל של המשוואה כאשר <span dir=\"ltr\">x = 1.5</span>?<br>ג. פתרונות המשוואה יוצרים קטע. מהו הקצה השמאלי שלו?<br>ד. מהו הקצה הימני של הקטע?<br>ה. כמה מספרים שלמים הם פתרונות של המשוואה?",
+          "domain": "<span dir=\"ltr\">x − 1 ≥ 0</span>, כלומר <span dir=\"ltr\">x ≥ 1</span>. הביטוי <span dir=\"ltr\">x − 2√(x − 1)</span> תמיד אי־שלילי בתחום, כי הוא ריבוע שלם (ראו בפתרון).",
+          "inputs": [
+            {
+              "label": "x מינימלי בתחום",
+              "unit": "",
+              "answer": "1",
+              "tolerance": 0.01
+            },
+            {
+              "label": "ערך אגף שמאל ב־x = 1.5",
+              "unit": "",
+              "answer": "2",
+              "tolerance": 0.01
+            },
+            {
+              "label": "קצה שמאלי",
+              "unit": "",
+              "answer": "1",
+              "tolerance": 0.01
+            },
+            {
+              "label": "קצה ימני",
+              "unit": "",
+              "answer": "2",
+              "tolerance": 0.01,
+              "wrongs": [
+                {
+                  "value": "5",
+                  "why": "בדקתם ערך בודד. הפתרון הוא כל x בקטע, והקצה הימני מתקבל כאשר u = √(x − 1) = 1."
+                }
+              ]
+            },
+            {
+              "label": "מספר הפתרונות השלמים",
+              "unit": "",
+              "answer": "2",
+              "tolerance": 0.01
+            }
+          ],
+          "tips": [
+            "נסמן u = √(x − 1), כלומר x = u² + 1. הביטויים שמתחת לשורשים הגדולים הופכים לריבועים שלמים של ביטויים ב־u.",
+            "זכרו ש־√(A²) = |A|. פתרו את המשוואה בשני מקרים: u ≥ 1 ו־0 ≤ u &lt; 1, ובדקו מה קורה לאגף שמאל בכל מקרה."
+          ],
+          "solution": [
+            "תחום: <span dir=\"ltr\">x − 1 ≥ 0</span>, כלומר <span dir=\"ltr\">x ≥ 1</span>. הביטוי <span dir=\"ltr\">x − 2√(x − 1)</span> תמיד אי־שלילי בתחום, כי הוא ריבוע שלם (ראו בפתרון).",
+            "מציבים <span dir=\"ltr\">u = √(x − 1)</span> (<span dir=\"ltr\">u ≥ 0</span>), ולכן <span dir=\"ltr\">x = u² + 1</span>. אז <span dir=\"ltr\">x + 2√(x − 1) = u² + 2u + 1 = (u + 1)²</span> וגם <span dir=\"ltr\">x − 2√(x − 1) = u² − 2u + 1 = (u − 1)²</span>.",
+            "לכן אגף שמאל שווה <span dir=\"ltr\">|u + 1| + |u − 1|</span>. מכיוון ש־<span dir=\"ltr\">u ≥ 0</span> זה <span dir=\"ltr\">(u + 1) + |u − 1|</span>.",
+            "אם <span dir=\"ltr\">u ≥ 1</span>: האגף שווה <span dir=\"ltr\">2u</span>, ו־<span dir=\"ltr\">2u = 2</span> נותן <span dir=\"ltr\">u = 1</span>. אם <span dir=\"ltr\">0 ≤ u &lt; 1</span>: האגף שווה <span dir=\"ltr\">(u + 1) + (1 − u) = 2</span> תמיד, לכל u בקטע.",
+            "לכן כל <span dir=\"ltr\">0 ≤ u ≤ 1</span> מתאים, כלומר <span dir=\"ltr\">1 ≤ x ≤ 2</span>. זו לא נקודה בודדת אלא קטע: <span dir=\"ltr\">[1, 2]</span>.",
+            "בדיקה: <span dir=\"ltr\">x = 1.5</span>: <span dir=\"ltr\">u = √0.5</span>, והאגף שווה <span dir=\"ltr\">(u + 1) + (1 − u) = 2</span> ✓. השלמים בקטע: 1 ו־2."
+          ],
+          "trap": {
+            "text": "כותבים √((u − 1)²) = u − 1 בלי ערך מוחלט, ומקבלים פתרון בודד x = 2 במקום הקטע כולו."
+          },
+          "verify": {
+            "kind": "scan",
+            "domain": {
+              "exprs": [
+                "√(x-1)",
+                "√(x+2√(x-1))",
+                "√(x-2√(x-1))"
+              ],
+              "claim": "[1,inf)"
+            },
+            "checks": [
+              {
+                "type": "eval",
+                "name": "v",
+                "expr": "sqrt(x+2*sqrt(x-1))+sqrt(x-2*sqrt(x-1))",
+                "env": {
+                  "x": 1.5
+                }
+              },
+              {
+                "type": "set",
+                "name": "s",
+                "rels": [
+                  "√(x+2√(x-1))+√(x-2√(x-1))=2"
+                ],
+                "var": "x",
+                "range": [
+                  -5,
+                  10
+                ],
+                "claim": "[1,2]",
+                "stmt": true
+              },
+              {
+                "type": "intcount",
+                "name": "c",
+                "rels": [
+                  "√(x+2√(x-1))+√(x-2√(x-1))=2"
+                ],
+                "var": "x",
+                "from": -5,
+                "to": 10
+              }
+            ],
+            "parts": [
+              "d1",
+              "v",
+              "s1",
+              "s2",
+              "c"
+            ]
+          }
+        },
+        {
+          "id": "lad-m4-04",
+          "topic": "math-rad",
+          "level": 4,
+          "title": "ביטוי חוזר: הצבת t ופסילת ערך שלילי",
+          "statement": "פתרו את המשוואה <span dir=\"ltr\">√(x² + 2x − 8) + x² + 2x = 28</span>.<br>א. נציב <span dir=\"ltr\">t = √(x² + 2x − 8)</span>. מהו הערך של t שמתאים לפתרון?<br>ב. מהו הערך של t שנפסל?<br>ג. מהו הפתרון הקטן של המשוואה?<br>ד. מהו הפתרון הגדול של המשוואה?<br>ה. כמה פתרונות יש למשוואה?",
+          "domain": "<span dir=\"ltr\">x² + 2x − 8 ≥ 0</span>, כלומר <span dir=\"ltr\">(x + 4)(x − 2) ≥ 0</span>, ולכן <span dir=\"ltr\">x ≤ −4</span> או <span dir=\"ltr\">x ≥ 2</span>.",
+          "inputs": [
+            {
+              "label": "t שמתאים",
+              "unit": "",
+              "answer": "4",
+              "tolerance": 0.01
+            },
+            {
+              "label": "t שנפסל",
+              "unit": "",
+              "answer": "-5",
+              "tolerance": 0.01
+            },
+            {
+              "label": "הפתרון הקטן",
+              "unit": "",
+              "answer": "-6",
+              "tolerance": 0.01
+            },
+            {
+              "label": "הפתרון הגדול",
+              "unit": "",
+              "answer": "4",
+              "tolerance": 0.01
+            },
+            {
+              "label": "מספר הפתרונות",
+              "unit": "",
+              "answer": "2",
+              "tolerance": 0.01,
+              "wrongs": [
+                {
+                  "value": "4",
+                  "why": "ספרתם גם את t = −5. אבל t הוא שורש, ולכן t ≥ 0, והערך −5 לא נותן אף פתרון."
+                }
+              ]
+            }
+          ],
+          "tips": [
+            "הביטוי x² + 2x מופיע גם מחוץ לשורש וגם בתוכו. אם t הוא השורש, מה שווה x² + 2x במונחי t?",
+            "פתרו משוואה ריבועית ב־t, ופסלו כל ערך שאינו מתאים להגדרה של t (שורש לעולם אינו שלילי). רק אחר כך חזרו ל־x."
+          ],
+          "solution": [
+            "תחום: <span dir=\"ltr\">x² + 2x − 8 ≥ 0</span>, כלומר <span dir=\"ltr\">(x + 4)(x − 2) ≥ 0</span>, ולכן <span dir=\"ltr\">x ≤ −4</span> או <span dir=\"ltr\">x ≥ 2</span>.",
+            "מציבים <span dir=\"ltr\">t = √(x² + 2x − 8)</span>, ולכן <span dir=\"ltr\">t ≥ 0</span> וגם <span dir=\"ltr\">x² + 2x = t² + 8</span>.",
+            "המשוואה הופכת ל־<span dir=\"ltr\">t + t² + 8 = 28</span>, כלומר <span dir=\"ltr\">t² + t − 20 = 0</span>, <span dir=\"ltr\">(t − 4)(t + 5) = 0</span>. <span dir=\"ltr\">t = −5</span> נפסל כי <span dir=\"ltr\">t ≥ 0</span>, ולכן <span dir=\"ltr\">t = 4</span>.",
+            "חוזרים ל־x: <span dir=\"ltr\">x² + 2x = 16 + 8 = 24</span>, כלומר <span dir=\"ltr\">(x − 4)(x + 6) = 0</span>: <span dir=\"ltr\">x = 4</span> או <span dir=\"ltr\">x = −6</span>. שניהם בתחום.",
+            "בדיקה: <span dir=\"ltr\">x = 4</span>: <span dir=\"ltr\">√16 + 24 = 28</span> ✓. <span dir=\"ltr\">x = −6</span>: <span dir=\"ltr\">√(36 − 12 − 8) = 4</span> ועוד <span dir=\"ltr\">36 − 12 = 24</span>, סך הכול 28 ✓."
+          ],
+          "trap": {
+            "text": "ערך t שלילי נפסל לפני שחוזרים ל־x. אחרת מחפשים פתרונות עבור t = −5, שאינם מקיימים את המשוואה."
+          },
+          "verify": {
+            "kind": "scan",
+            "domain": {
+              "exprs": [
+                "√(x^2+2x-8)"
+              ],
+              "claim": "(-inf,-4]U[2,inf)"
+            },
+            "checks": [
+              {
+                "type": "roots",
+                "name": "w",
+                "eq": "t^2+t-20=0",
+                "var": "t",
+                "count": 2
+              },
+              {
+                "type": "roots",
+                "name": "r",
+                "eq": "√(x^2+2x-8)+x^2+2x=28",
+                "var": "x",
+                "count": 2,
+                "stmt": true
+              }
+            ],
+            "parts": [
+              "w2",
+              "w1",
+              "r1",
+              "r2",
+              "r_count"
+            ]
+          }
+        },
+        {
+          "id": "lad-m4-05",
+          "topic": "math-rad",
+          "level": 4,
+          "title": "שני שורשים שווים ושורש שנפסל בתחום",
+          "statement": "פתרו את המשוואה <span dir=\"ltr\">√(x² − 4x) = √(3x − 12)</span>.<br>א. מהו הערך הקטן ביותר ש־x יכול לקבל כאשר שני השורשים מוגדרים יחד?<br>ב. העלאה בריבוע נותנת משוואה ריבועית. מהו השורש הקטן שלה?<br>ג. מהו השורש הגדול של המשוואה המרובעת?<br>ד. כמה פתרונות יש למשוואה המקורית?<br>ה. מהו הפתרון?",
+          "domain": "<span dir=\"ltr\">x² − 4x ≥ 0</span> נותן <span dir=\"ltr\">x ≤ 0</span> או <span dir=\"ltr\">x ≥ 4</span>. <span dir=\"ltr\">3x − 12 ≥ 0</span> נותן <span dir=\"ltr\">x ≥ 4</span>. החיתוך: <span dir=\"ltr\">x ≥ 4</span>.",
+          "inputs": [
+            {
+              "label": "x מינימלי בתחום",
+              "unit": "",
+              "answer": "4",
+              "tolerance": 0.01
+            },
+            {
+              "label": "השורש הקטן של המשוואה המרובעת",
+              "unit": "",
+              "answer": "3",
+              "tolerance": 0.01
+            },
+            {
+              "label": "השורש הגדול של המשוואה המרובעת",
+              "unit": "",
+              "answer": "4",
+              "tolerance": 0.01
+            },
+            {
+              "label": "מספר הפתרונות",
+              "unit": "",
+              "answer": "1",
+              "tolerance": 0.01,
+              "wrongs": [
+                {
+                  "value": "2",
+                  "why": "x = 3 נפסל: מציבים אותו ומקבלים √(−3) בשני האגפים, וזה לא מוגדר. שימו לב לתחום של 3x − 12."
+                }
+              ]
+            },
+            {
+              "label": "x",
+              "unit": "",
+              "answer": "4",
+              "tolerance": 0.01
+            }
+          ],
+          "tips": [
+            "התחום הוא חיתוך של שני תנאים, אחד לכל שורש. כתבו כל תנאי בנפרד ואז מצאו את החיתוך.",
+            "מעלים בריבוע ופותרים. אחר כך בודקים כל שורש מול התחום: ערך שנופל מחוץ לו נפסל גם בלי הצבה."
+          ],
+          "solution": [
+            "תחום: <span dir=\"ltr\">x² − 4x ≥ 0</span> נותן <span dir=\"ltr\">x ≤ 0</span> או <span dir=\"ltr\">x ≥ 4</span>. <span dir=\"ltr\">3x − 12 ≥ 0</span> נותן <span dir=\"ltr\">x ≥ 4</span>. החיתוך: <span dir=\"ltr\">x ≥ 4</span>.",
+            "מעלים בריבוע: <span dir=\"ltr\">x² − 4x = 3x − 12</span>, כלומר <span dir=\"ltr\">x² − 7x + 12 = 0</span>, <span dir=\"ltr\">(x − 3)(x − 4) = 0</span>.",
+            "<span dir=\"ltr\">x = 3</span> לא בתחום (<span dir=\"ltr\">3 &lt; 4</span>): בו <span dir=\"ltr\">3x − 12 = −3</span> ו־<span dir=\"ltr\">x² − 4x = −3</span>, ושני השורשים אינם מוגדרים.",
+            "<span dir=\"ltr\">x = 4</span> בתחום: <span dir=\"ltr\">√0 = √0</span> ✓.",
+            "התשובה: פתרון יחיד, <span dir=\"ltr\">x = 4</span>."
+          ],
+          "trap": {
+            "text": "x = 3 מקיים את המשוואה המרובעת, אבל נופל מחוץ לתחום. התחום הוא החיתוך של התנאים משני השורשים."
+          },
+          "verify": {
+            "kind": "scan",
+            "domain": {
+              "exprs": [
+                "√(x^2-4x)",
+                "√(3x-12)"
+              ],
+              "claim": "[4,inf)"
+            },
+            "checks": [
+              {
+                "type": "roots",
+                "name": "q",
+                "eq": "x^2-4x=3x-12",
+                "var": "x",
+                "count": 2
+              },
+              {
+                "type": "roots",
+                "name": "r",
+                "eq": "√(x^2-4x)=√(3x-12)",
+                "var": "x",
+                "count": 1,
+                "stmt": true
+              },
+              {
+                "type": "rejected",
+                "eq": "√(x^2-4x)=√(3x-12)",
+                "squared": "x^2-4x=3x-12",
+                "var": "x",
+                "values": [
+                  3
+                ]
+              }
+            ],
+            "parts": [
+              "d1",
+              "q1",
+              "q2",
+              "r_count",
+              "r1"
+            ]
+          }
+        },
+        {
+          "id": "lad-m4-06",
+          "topic": "math-rad",
+          "level": 4,
+          "title": "הצבת t = x³ והמכפלה הצמודה",
+          "statement": "פתרו את המשוואה <span dir=\"ltr\">√(x³ + 8) − √(x³ + 1) = 1</span>.<br>א. מהו הערך הקטן ביותר ש־x יכול לקבל בתחום?<br>ב. נציב <span dir=\"ltr\">t = x³</span>. מהו הערך של t בפתרון?<br>ג. מהו הפתרון x?<br>ד. מהו ערך הסכום <span dir=\"ltr\">√(x³ + 8) + √(x³ + 1)</span> בפתרון?",
+          "domain": "<span dir=\"ltr\">x³ + 1 ≥ 0</span> נותן <span dir=\"ltr\">x ≥ −1</span>, ו־<span dir=\"ltr\">x³ + 8 ≥ 0</span> נותן <span dir=\"ltr\">x ≥ −2</span>. החיתוך: <span dir=\"ltr\">x ≥ −1</span>.",
+          "inputs": [
+            {
+              "label": "x מינימלי בתחום",
+              "unit": "",
+              "answer": "-1",
+              "tolerance": 0.01
+            },
+            {
+              "label": "t",
+              "unit": "",
+              "answer": "8",
+              "tolerance": 0.01
+            },
+            {
+              "label": "x",
+              "unit": "",
+              "answer": "2",
+              "tolerance": 0.01,
+              "wrongs": [
+                {
+                  "value": "8",
+                  "why": "8 הוא הערך של t = x³, לא של x. חוזרים: x³ = 8 ולכן x הוא השורש השלישי של 8."
+                }
+              ]
+            },
+            {
+              "label": "ערך הסכום בפתרון",
+              "unit": "",
+              "answer": "7",
+              "tolerance": 0.01
+            }
+          ],
+          "tips": [
+            "הנעלם מופיע רק בצורה x³. הציבו t = x³ ופתרו את משוואת השורשים ב־t, ורק בסוף חזרו ל־x.",
+            "בודדו √(t + 8), העלו בריבוע, והשורש השני יתבודד. ובסעיף האחרון: ההפרש של שני הביטויים בשורש ידוע, ולכן אפשר להשתמש בנוסחת הכפל המקוצר (a − b)(a + b)."
+          ],
+          "solution": [
+            "תחום: <span dir=\"ltr\">x³ + 1 ≥ 0</span> נותן <span dir=\"ltr\">x ≥ −1</span>, ו־<span dir=\"ltr\">x³ + 8 ≥ 0</span> נותן <span dir=\"ltr\">x ≥ −2</span>. החיתוך: <span dir=\"ltr\">x ≥ −1</span>.",
+            "מציבים <span dir=\"ltr\">t = x³</span>: <span dir=\"ltr\">√(t + 8) − √(t + 1) = 1</span>, <span dir=\"ltr\">t ≥ −1</span>. מבודדים: <span dir=\"ltr\">√(t + 8) = 1 + √(t + 1)</span>.",
+            "מעלים בריבוע: <span dir=\"ltr\">t + 8 = 1 + 2√(t + 1) + t + 1</span>, כלומר <span dir=\"ltr\">6 = 2√(t + 1)</span>, <span dir=\"ltr\">√(t + 1) = 3</span>, <span dir=\"ltr\">t = 8</span>.",
+            "חוזרים: <span dir=\"ltr\">x³ = 8</span>, ולכן <span dir=\"ltr\">x = 2</span> (לשורש שלישי יש ערך ממשי יחיד).",
+            "בדיקה: <span dir=\"ltr\">√16 − √9 = 4 − 3 = 1</span> ✓. סעיף ד: <span dir=\"ltr\">(√(t+8) − √(t+1))(√(t+8) + √(t+1)) = (t + 8) − (t + 1) = 7</span>, ולכן הסכום הוא <span dir=\"ltr\">7 ÷ 1 = 7</span>. אכן <span dir=\"ltr\">4 + 3 = 7</span>."
+          ],
+          "trap": {
+            "text": "עוצרים ב־t = 8 ושוכחים לחזור ל־x. ההצבה t = x³ משנה את הנעלם."
+          },
+          "verify": {
+            "kind": "scan",
+            "domain": {
+              "exprs": [
+                "√(x^3+8)",
+                "√(x^3+1)"
+              ],
+              "claim": "[-1,inf)"
+            },
+            "checks": [
+              {
+                "type": "roots",
+                "name": "r",
+                "eq": "√(x^3+8)-√(x^3+1)=1",
+                "var": "x",
+                "count": 1,
+                "stmt": true
+              },
+              {
+                "type": "eval",
+                "name": "tt",
+                "expr": "r1^3"
+              },
+              {
+                "type": "eval",
+                "name": "sm",
+                "expr": "sqrt(r1^3+8)+sqrt(r1^3+1)"
+              }
+            ],
+            "parts": [
+              "d1",
+              "tt",
+              "r1",
+              "sm"
+            ]
+          }
+        },
+        {
+          "id": "lad-m4-07",
+          "topic": "math-rad",
+          "level": 4,
+          "title": "משוואה מעריכית ובסיסים שונים",
+          "statement": "פתרו את המשוואה <span dir=\"ltr\">4^(x + 1) − 17·2^x + 4 = 0</span>.<br>א. נציב <span dir=\"ltr\">t = 2^x</span>. מהו הערך הגדול של t?<br>ב. מהו הערך הקטן של t?<br>ג. מהו הפתרון הקטן של x?<br>ד. מהו הפתרון הגדול של x?",
+          "domain": "כל x ממשי (חזקה עם בסיס חיובי מוגדרת תמיד). חשוב: <span dir=\"ltr\">2^x &gt; 0</span> לכל x.",
+          "inputs": [
+            {
+              "label": "הערך הגדול של t",
+              "unit": "",
+              "answer": "4",
+              "tolerance": 0.01
+            },
+            {
+              "label": "הערך הקטן של t",
+              "unit": "",
+              "answer": "0.25",
+              "tolerance": 0.005
+            },
+            {
+              "label": "x קטן",
+              "unit": "",
+              "answer": "-2",
+              "tolerance": 0.01,
+              "wrongs": [
+                {
+                  "value": "0.25",
+                  "why": "0.25 הוא ערך t = 2^x. מחפשים את x: 2 בחזקת מה נותן 0.25?"
+                }
+              ]
+            },
+            {
+              "label": "x גדול",
+              "unit": "",
+              "answer": "2",
+              "tolerance": 0.01
+            }
+          ],
+          "tips": [
+            "כתבו את 4^(x+1) באמצעות 2^x: 4 = 2², ולכן 4^(x+1) = 4·4^x = 4·(2^x)².",
+            "אחרי ההצבה t = 2^x מקבלים משוואה ריבועית. פתרו אותה ובדקו ששני הערכים חיוביים, ואז פתרו 2^x = t לכל אחד."
+          ],
+          "solution": [
+            "תחום: כל x ממשי (חזקה עם בסיס חיובי מוגדרת תמיד). חשוב: <span dir=\"ltr\">2^x &gt; 0</span> לכל x.",
+            "<span dir=\"ltr\">4^(x + 1) = 4 · 4^x = 4(2^x)²</span>. מציבים <span dir=\"ltr\">t = 2^x</span> (<span dir=\"ltr\">t &gt; 0</span>): <span dir=\"ltr\">4t² − 17t + 4 = 0</span>.",
+            "<span dir=\"ltr\">Δ = 289 − 64 = 225</span>, ולכן <span dir=\"ltr\">t = (17 ± 15) ÷ 8</span>: <span dir=\"ltr\">t = 4</span> או <span dir=\"ltr\">t = 0.25</span>. שניהם חיוביים, ולכן שניהם מתקבלים.",
+            "<span dir=\"ltr\">2^x = 4</span> נותן <span dir=\"ltr\">x = 2</span>. <span dir=\"ltr\">2^x = 0.25 = 2^(−2)</span> נותן <span dir=\"ltr\">x = −2</span>.",
+            "בדיקה: <span dir=\"ltr\">x = 2</span>: <span dir=\"ltr\">4³ − 17 · 4 + 4 = 64 − 68 + 4 = 0</span> ✓."
+          ],
+          "trap": {
+            "text": "שוכחים את הגורם 4 ב־4^(x + 1) = 4·(2^x)² ומקבלים משוואה ריבועית אחרת."
+          },
+          "verify": {
+            "kind": "scan",
+            "domain": {
+              "exprs": [
+                "4^(x+1)",
+                "2^x"
+              ],
+              "claim": "(-inf,inf)"
+            },
+            "checks": [
+              {
+                "type": "roots",
+                "name": "w",
+                "eq": "4t^2-17t+4=0",
+                "var": "t",
+                "count": 2
+              },
+              {
+                "type": "roots",
+                "name": "r",
+                "eq": "4^(x+1)-17*2^x+4=0",
+                "var": "x",
+                "range": [
+                  -30,
+                  30
+                ],
+                "count": 2,
+                "stmt": true
+              }
+            ],
+            "parts": [
+              "w2",
+              "w1",
+              "r1",
+              "r2"
+            ]
+          }
+        },
+        {
+          "id": "lad-m4-08",
+          "topic": "math-rad",
+          "level": 4,
+          "title": "הצבה ופסילת t שלילי",
+          "statement": "פתרו את המשוואה <span dir=\"ltr\">9^x + 3^(x + 1) = 108</span>.<br>א. נציב <span dir=\"ltr\">t = 3^x</span>. מהו הערך של t שמתאים לפתרון?<br>ב. מהו הערך של t שנפסל?<br>ג. מהו הפתרון x?<br>ד. מהו ערך הביטוי <span dir=\"ltr\">3^(x + 1)</span> בפתרון?",
+          "domain": "כל x ממשי. <span dir=\"ltr\">3^x &gt; 0</span> לכל x, ולכן ערך שלילי של t תמיד נפסל.",
+          "inputs": [
+            {
+              "label": "t שמתאים",
+              "unit": "",
+              "answer": "9",
+              "tolerance": 0.01
+            },
+            {
+              "label": "t שנפסל",
+              "unit": "",
+              "answer": "-12",
+              "tolerance": 0.01
+            },
+            {
+              "label": "x",
+              "unit": "",
+              "answer": "2",
+              "tolerance": 0.01
+            },
+            {
+              "label": "ערך 3^(x + 1) בפתרון",
+              "unit": "",
+              "answer": "27",
+              "tolerance": 0.01
+            }
+          ],
+          "tips": [
+            "כתבו 9^x = (3^x)² ו־3^(x+1) = 3·3^x. עכשיו כל האיברים תלויים ב־3^x.",
+            "פתרו את המשוואה הריבועית ב־t. זכרו ש־3^x חיובי תמיד: מה עושים עם פתרון t שלילי?"
+          ],
+          "solution": [
+            "תחום: כל x ממשי. <span dir=\"ltr\">3^x &gt; 0</span> לכל x, ולכן ערך שלילי של t תמיד נפסל.",
+            "<span dir=\"ltr\">9^x = (3^x)²</span> ו־<span dir=\"ltr\">3^(x + 1) = 3 · 3^x</span>. מציבים <span dir=\"ltr\">t = 3^x</span>: <span dir=\"ltr\">t² + 3t − 108 = 0</span>.",
+            "<span dir=\"ltr\">(t − 9)(t + 12) = 0</span>: <span dir=\"ltr\">t = 9</span> או <span dir=\"ltr\">t = −12</span>. הערך <span dir=\"ltr\">t = −12</span> נפסל כי <span dir=\"ltr\">3^x &gt; 0</span>.",
+            "<span dir=\"ltr\">3^x = 9</span> נותן <span dir=\"ltr\">x = 2</span>.",
+            "בדיקה: <span dir=\"ltr\">81 + 27 = 108</span> ✓. ערך <span dir=\"ltr\">3^(x + 1) = 3³ = 27</span>."
+          ],
+          "trap": {
+            "text": "פתרון t = −12 נפסל: חזקה של 3 אף פעם אינה שלילית, ולכן אין x שמתאים לו."
+          },
+          "verify": {
+            "kind": "scan",
+            "domain": {
+              "exprs": [
+                "9^x",
+                "3^(x+1)"
+              ],
+              "claim": "(-inf,inf)"
+            },
+            "checks": [
+              {
+                "type": "roots",
+                "name": "w",
+                "eq": "t^2+3t-108=0",
+                "var": "t",
+                "count": 2
+              },
+              {
+                "type": "roots",
+                "name": "r",
+                "eq": "9^x+3^(x+1)=108",
+                "var": "x",
+                "range": [
+                  -30,
+                  30
+                ],
+                "count": 1,
+                "stmt": true
+              },
+              {
+                "type": "eval",
+                "name": "v",
+                "expr": "3^(r1+1)"
+              }
+            ],
+            "parts": [
+              "w2",
+              "w1",
+              "r1",
+              "v"
+            ]
+          }
+        },
+        {
+          "id": "lad-m4-09",
+          "topic": "math-rad",
+          "level": 4,
+          "title": "הצבה עם הופכי וסכום הפתרונות",
+          "statement": "פתרו את המשוואה <span dir=\"ltr\">2^x + 2^(3 − x) = 9</span>.<br>א. נציב <span dir=\"ltr\">t = 2^x</span>. מהו הערך הקטן של t?<br>ב. מהו הערך הגדול של t?<br>ג. מהו הפתרון הקטן של x?<br>ד. מהו הפתרון הגדול של x?<br>ה. מהו סכום שני הפתרונות? (רמז: מכפלת שני הערכים של t היא 2 בחזקת סכום הפתרונות.)",
+          "domain": "כל x ממשי.",
+          "inputs": [
+            {
+              "label": "הערך הקטן של t",
+              "unit": "",
+              "answer": "1",
+              "tolerance": 0.01
+            },
+            {
+              "label": "הערך הגדול של t",
+              "unit": "",
+              "answer": "8",
+              "tolerance": 0.01
+            },
+            {
+              "label": "x קטן",
+              "unit": "",
+              "answer": "0",
+              "tolerance": 0.01
+            },
+            {
+              "label": "x גדול",
+              "unit": "",
+              "answer": "3",
+              "tolerance": 0.01
+            },
+            {
+              "label": "סכום הפתרונות",
+              "unit": "",
+              "answer": "3",
+              "tolerance": 0.01
+            }
+          ],
+          "tips": [
+            "כתבו 2^(3−x) = 2³ ÷ 2^x = 8 ÷ 2^x, והציבו t = 2^x.",
+            "הכפילו את המשוואה ב־t כדי להיפטר מהשבר, פתרו את המשוואה הריבועית ואז חזרו ל־x. בסעיף האחרון חשבו את מכפלת שני ערכי t."
+          ],
+          "solution": [
+            "תחום: כל x ממשי.",
+            "<span dir=\"ltr\">2^(3 − x) = 8 ÷ 2^x</span>. מציבים <span dir=\"ltr\">t = 2^x</span>: <span dir=\"ltr\">t + 8/t = 9</span>.",
+            "מכפילים ב־t (<span dir=\"ltr\">t &gt; 0</span>): <span dir=\"ltr\">t² − 9t + 8 = 0</span>, <span dir=\"ltr\">(t − 1)(t − 8) = 0</span>.",
+            "<span dir=\"ltr\">2^x = 1</span> נותן <span dir=\"ltr\">x = 0</span>. <span dir=\"ltr\">2^x = 8</span> נותן <span dir=\"ltr\">x = 3</span>.",
+            "בדיקה: <span dir=\"ltr\">x = 0</span>: <span dir=\"ltr\">1 + 8 = 9</span> ✓. <span dir=\"ltr\">x = 3</span>: <span dir=\"ltr\">8 + 1 = 9</span> ✓. מכפלת t היא <span dir=\"ltr\">1 · 8 = 8 = 2³</span>, ולכן סכום הפתרונות הוא 3."
+          ],
+          "trap": {
+            "text": "מחברים מעריכים בלי לשים לב ש־2^x + 2^(3 − x) אינו 2^3. אין לחבר חזקות עם בסיס זהה."
+          },
+          "verify": {
+            "kind": "scan",
+            "domain": {
+              "exprs": [
+                "2^x",
+                "2^(3-x)"
+              ],
+              "claim": "(-inf,inf)"
+            },
+            "checks": [
+              {
+                "type": "roots",
+                "name": "w",
+                "eq": "t^2-9t+8=0",
+                "var": "t",
+                "count": 2
+              },
+              {
+                "type": "roots",
+                "name": "r",
+                "eq": "2^x+2^(3-x)=9",
+                "var": "x",
+                "range": [
+                  -30,
+                  30
+                ],
+                "count": 2,
+                "stmt": true
+              },
+              {
+                "type": "eval",
+                "name": "sm",
+                "expr": "r1+r2"
+              }
+            ],
+            "parts": [
+              "w1",
+              "w2",
+              "r1",
+              "r2",
+              "sm"
+            ]
+          }
+        },
+        {
+          "id": "lad-m4-10",
+          "topic": "math-rad",
+          "level": 5,
+          "title": "פירוק שורש של מכפלה: אותו מספר, תחום אחר",
+          "statement": "פתרו שתי משוואות:<br>משוואה (1): <span dir=\"ltr\">√((x − 2)(x + 3)) = 6</span><br>משוואה (2): <span dir=\"ltr\">√(x − 2) · √(x + 3) = 6</span><br>א. כמה פתרונות יש למשוואה (1)?<br>ב. כמה פתרונות יש למשוואה (2)?<br>ג. מהו הפתרון המשותף לשתי המשוואות?<br>ד. מהו הפתרון של משוואה (1) שאינו פתרון של משוואה (2)?",
+          "domain": "משוואה (1): <span dir=\"ltr\">(x − 2)(x + 3) ≥ 0</span>, כלומר <span dir=\"ltr\">x ≤ −3</span> או <span dir=\"ltr\">x ≥ 2</span>. משוואה (2): שני השורשים מוגדרים בנפרד, <span dir=\"ltr\">x ≥ 2</span>.",
+          "inputs": [
+            {
+              "label": "מספר הפתרונות של (1)",
+              "unit": "",
+              "answer": "2",
+              "tolerance": 0.01
+            },
+            {
+              "label": "מספר הפתרונות של (2)",
+              "unit": "",
+              "answer": "1",
+              "tolerance": 0.01,
+              "wrongs": [
+                {
+                  "value": "2",
+                  "why": "במשוואה (2) כל שורש חייב להיות מוגדר בנפרד: x ≥ 2 וגם x ≥ −3. לכן הפתרון x = −7 נפסל."
+                }
+              ]
+            },
+            {
+              "label": "הפתרון המשותף",
+              "unit": "",
+              "answer": "6",
+              "tolerance": 0.01
+            },
+            {
+              "label": "פתרון של (1) בלבד",
+              "unit": "",
+              "answer": "-7",
+              "tolerance": 0.01
+            }
+          ],
+          "tips": [
+            "שתי המשוואות נראות אותו דבר, אבל התחום שלהן שונה. כתבו את התחום של כל אחת בנפרד לפני שפותרים.",
+            "העלו בריבוע ופתרו. אחר כך בדקו כל שורש מול התחום של כל משוואה בנפרד."
+          ],
+          "solution": [
+            "תחום: משוואה (1): <span dir=\"ltr\">(x − 2)(x + 3) ≥ 0</span>, כלומר <span dir=\"ltr\">x ≤ −3</span> או <span dir=\"ltr\">x ≥ 2</span>. משוואה (2): שני השורשים מוגדרים בנפרד, <span dir=\"ltr\">x ≥ 2</span>.",
+            "בשתי המשוואות מעלים בריבוע ומקבלים <span dir=\"ltr\">(x − 2)(x + 3) = 36</span>, כלומר <span dir=\"ltr\">x² + x − 42 = 0</span>, <span dir=\"ltr\">(x − 6)(x + 7) = 0</span>.",
+            "משוואה (1): גם <span dir=\"ltr\">x = 6</span> וגם <span dir=\"ltr\">x = −7</span> בתחום (<span dir=\"ltr\">x = −7</span>: <span dir=\"ltr\">(−9)(−4) = 36 ≥ 0</span>). שני פתרונות.",
+            "משוואה (2): התחום <span dir=\"ltr\">x ≥ 2</span>, ולכן <span dir=\"ltr\">x = −7</span> נפסל (<span dir=\"ltr\">√(−9)</span> לא מוגדר). נשאר <span dir=\"ltr\">x = 6</span>: <span dir=\"ltr\">√4 · √9 = 2 · 3 = 6</span> ✓.",
+            "הפתרון המשותף <span dir=\"ltr\">x = 6</span>. <span dir=\"ltr\">x = −7</span> פותר רק את משוואה (1)."
+          ],
+          "trap": {
+            "text": "√(AB) = √A · √B נכון רק כש־A ו־B אי־שליליים. בלי התנאי הזה הצד הימני לא מוגדר ופתרון נאבד."
+          },
+          "verify": {
+            "kind": "scan",
+            "domain": {
+              "exprs": [
+                "√((x-2)(x+3))"
+              ],
+              "claim": "(-inf,-3]U[2,inf)"
+            },
+            "checks": [
+              {
+                "type": "set",
+                "name": "bd",
+                "rels": [
+                  "√(x-2)√(x+3)=√(x-2)√(x+3)"
+                ],
+                "var": "x",
+                "range": [
+                  -40,
+                  40
+                ],
+                "claim": "[2,inf)"
+              },
+              {
+                "type": "roots",
+                "name": "a",
+                "eq": "√((x-2)(x+3))=6",
+                "var": "x",
+                "count": 2,
+                "stmt": true
+              },
+              {
+                "type": "roots",
+                "name": "b",
+                "eq": "√(x-2)√(x+3)=6",
+                "var": "x",
+                "count": 1,
+                "stmt": true
+              }
+            ],
+            "parts": [
+              "a_count",
+              "b_count",
+              "b1",
+              "a1"
+            ]
+          }
+        }
+      ]
     },
     {
       "id": "M5",
-      "title": "שלושה נעלמים עם ריבועים",
-      "intro": "מערכות של שלושה נעלמים שבהן יש משוואה עם ריבועים.",
-      "items": [],
-      "soon": "התרגילים בשלב הזה יתווספו בקרוב."
+      "title": "אי־שוויונות",
+      "intro": "אי־שוויונות מעריכיים עם בסיס קטן מ־1, רציונליים עם טבלת סימנים ותחום, לוגריתמיים, עם ערך מוחלט ועם שורש. התוצאה היא קטעים, ולכן חשוב לדעת איזה קצה נכלל.",
+      "items": [
+        {
+          "id": "lad-m5-01",
+          "topic": "math-ineq",
+          "level": 4,
+          "title": "אי־שוויון מעריכי עם בסיס קטן מ־1",
+          "statement": "פתרו את אי־השוויון <span dir=\"ltr\">(1/2)^(x² − 2x) &lt; 1/8</span>.<br>א. אחרי שכותבים <span dir=\"ltr\">1/8 = (1/2)^3</span> ועוברים למעריכים, הביטוי <span dir=\"ltr\">x² − 2x</span> צריך להיות גדול ממספר. מהו המספר?<br>ב. מהו השורש הקטן של <span dir=\"ltr\">x² − 2x = 3</span>?<br>ג. מהו השורש הגדול של <span dir=\"ltr\">x² − 2x = 3</span>?<br>ד. כמה מספרים שלמים בקטע <span dir=\"ltr\">[−5, 5]</span> הם פתרונות של אי־השוויון?",
+          "domain": "כל x ממשי.",
+          "inputs": [
+            {
+              "label": "המספר",
+              "unit": "",
+              "answer": "3",
+              "tolerance": 0.01
+            },
+            {
+              "label": "השורש הקטן",
+              "unit": "",
+              "answer": "-1",
+              "tolerance": 0.01
+            },
+            {
+              "label": "השורש הגדול",
+              "unit": "",
+              "answer": "3",
+              "tolerance": 0.01
+            },
+            {
+              "label": "מספר השלמים ב־[−5, 5]",
+              "unit": "",
+              "answer": "6",
+              "tolerance": 0.01,
+              "wrongs": [
+                {
+                  "value": "4",
+                  "why": "בדקתם רק את הצד האחד של הפתרון. אי־השוויון מתקיים מחוץ לקטע בין השורשים, כלומר משני צדדיו: x &lt; −1 וגם x &gt; 3."
+                }
+              ]
+            }
+          ],
+          "tips": [
+            "כתבו את שני האגפים כחזקות של אותו בסיס: 1/8 = (1/2)³. עכשיו משווים מעריכים.",
+            "הבסיס 1/2 קטן מ־1, ולכן הפונקציה יורדת: כשעוברים למעריכים כיוון האי־שוויון מתהפך."
+          ],
+          "solution": [
+            "תחום: כל x ממשי.",
+            "<span dir=\"ltr\">1/8 = (1/2)^3</span>, ולכן <span dir=\"ltr\">(1/2)^(x² − 2x) &lt; (1/2)^3</span>.",
+            "הבסיס <span dir=\"ltr\">1/2</span> קטן מ־1: הפונקציה יורדת, ולכן הכיוון מתהפך: <span dir=\"ltr\">x² − 2x &gt; 3</span>.",
+            "<span dir=\"ltr\">x² − 2x − 3 &gt; 0</span>, <span dir=\"ltr\">(x − 3)(x + 1) &gt; 0</span>, ולכן <span dir=\"ltr\">x &lt; −1</span> או <span dir=\"ltr\">x &gt; 3</span>. פתרון: <span dir=\"ltr\">(−∞, −1) ∪ (3, ∞)</span>.",
+            "בקטע <span dir=\"ltr\">[−5, 5]</span>: <span dir=\"ltr\">−5, −4, −3, −2</span> ו־<span dir=\"ltr\">4, 5</span>, סך הכול 6 מספרים. <span dir=\"ltr\">x = −1</span> ו־<span dir=\"ltr\">x = 3</span> אינם נכללים (אי־שוויון חזק)."
+          ],
+          "trap": {
+            "text": "בסיס קטן מ־1: שוכחים להפוך את כיוון האי־שוויון בעברת למעריכים."
+          },
+          "verify": {
+            "kind": "scan",
+            "domain": {
+              "exprs": [
+                "(1/2)^(x^2-2x)"
+              ],
+              "claim": "(-inf,inf)",
+              "range": [
+                -10,
+                10
+              ]
+            },
+            "checks": [
+              {
+                "type": "eval",
+                "name": "a",
+                "expr": "log(0.5;0.125)"
+              },
+              {
+                "type": "roots",
+                "name": "q",
+                "eq": "x^2-2x=3",
+                "var": "x",
+                "count": 2
+              },
+              {
+                "type": "set",
+                "name": "s",
+                "rels": [
+                  "(1/2)^(x^2-2x)<1/8"
+                ],
+                "var": "x",
+                "range": [
+                  -20,
+                  20
+                ],
+                "claim": "(-inf,-1)U(3,inf)",
+                "stmt": true
+              },
+              {
+                "type": "intcount",
+                "name": "c",
+                "rels": [
+                  "(1/2)^(x^2-2x)<1/8"
+                ],
+                "var": "x",
+                "from": -5,
+                "to": 5
+              }
+            ],
+            "parts": [
+              "a",
+              "q1",
+              "q2",
+              "c"
+            ]
+          }
+        },
+        {
+          "id": "lad-m5-02",
+          "topic": "math-ineq",
+          "level": 5,
+          "title": "אי־שוויון מעריכי עם הצבה, פעמיים היפוך",
+          "statement": "פתרו את אי־השוויון <span dir=\"ltr\">(1/4)^x − 6·(1/2)^x + 8 ≥ 0</span>.<br>א. נציב <span dir=\"ltr\">t = (1/2)^x</span>. מהו הערך הקטן ש־t מתאפס בו (שורש קטן של הטרינום ב־t)?<br>ב. מהו השורש הגדול של הטרינום ב־t?<br>ג. פתרון האי־שוויון הוא קרן שמאלית וקרן ימנית. מהו הקצה של הקרן השמאלית?<br>ד. מהו הקצה של הקרן הימנית?",
+          "domain": "כל x ממשי, ו־<span dir=\"ltr\">t = (1/2)^x &gt; 0</span>.",
+          "inputs": [
+            {
+              "label": "השורש הקטן של t",
+              "unit": "",
+              "answer": "2",
+              "tolerance": 0.01
+            },
+            {
+              "label": "השורש הגדול של t",
+              "unit": "",
+              "answer": "4",
+              "tolerance": 0.01
+            },
+            {
+              "label": "קצה הקרן השמאלית",
+              "unit": "",
+              "answer": "-2",
+              "tolerance": 0.01,
+              "wrongs": [
+                {
+                  "value": "2",
+                  "why": "זה ערך t. כדי לחזור ל־x פותרים (1/2)^x = 4, והבסיס קטן מ־1 ולכן x שלילי."
+                }
+              ]
+            },
+            {
+              "label": "קצה הקרן הימנית",
+              "unit": "",
+              "answer": "-1",
+              "tolerance": 0.01
+            }
+          ],
+          "tips": [
+            "הציבו t = (1/2)^x, ואז (1/4)^x = t². פתרו את אי־השוויון הריבועי ב־t, והוא יתחלק לשני תחומים.",
+            "חזרו ל־x בנפרד בכל תחום. ככל ש־x גדל, t קטן: הבסיס קטן מ־1, ולכן כיוון האי־שוויון מתהפך בכל מעבר."
+          ],
+          "solution": [
+            "תחום: כל x ממשי, ו־<span dir=\"ltr\">t = (1/2)^x &gt; 0</span>.",
+            "<span dir=\"ltr\">(1/4)^x = ((1/2)^x)²</span>. מציבים <span dir=\"ltr\">t = (1/2)^x &gt; 0</span>: <span dir=\"ltr\">t² − 6t + 8 ≥ 0</span>, <span dir=\"ltr\">(t − 2)(t − 4) ≥ 0</span>.",
+            "לכן <span dir=\"ltr\">t ≤ 2</span> או <span dir=\"ltr\">t ≥ 4</span>.",
+            "<span dir=\"ltr\">(1/2)^x ≥ 4 = (1/2)^(−2)</span>: הבסיס קטן מ־1, ולכן <span dir=\"ltr\">x ≤ −2</span>. <span dir=\"ltr\">(1/2)^x ≤ 2 = (1/2)^(−1)</span>: ולכן <span dir=\"ltr\">x ≥ −1</span>.",
+            "פתרון: <span dir=\"ltr\">(−∞, −2] ∪ [−1, ∞)</span>. הקטע <span dir=\"ltr\">(−2, −1)</span> אינו פתרון: בו <span dir=\"ltr\">2 &lt; t &lt; 4</span>."
+          ],
+          "trap": {
+            "text": "בכל חזרה מ־t ל־x הבסיס 1/2 הופך את כיוון האי־שוויון. מי שלא הופך מקבל את שתי הקרניים הפוכות."
+          },
+          "verify": {
+            "kind": "scan",
+            "domain": {
+              "exprs": [
+                "(1/4)^x",
+                "(1/2)^x"
+              ],
+              "claim": "(-inf,inf)"
+            },
+            "checks": [
+              {
+                "type": "roots",
+                "name": "w",
+                "eq": "t^2-6t+8=0",
+                "var": "t",
+                "count": 2
+              },
+              {
+                "type": "set",
+                "name": "s",
+                "rels": [
+                  "(1/4)^x-6*(1/2)^x+8>=0"
+                ],
+                "var": "x",
+                "range": [
+                  -20,
+                  20
+                ],
+                "claim": "(-inf,-2]U[-1,inf)",
+                "stmt": true
+              }
+            ],
+            "parts": [
+              "w1",
+              "w2",
+              "s1",
+              "s2"
+            ]
+          }
+        },
+        {
+          "id": "lad-m5-03",
+          "topic": "math-ineq",
+          "level": 4,
+          "title": "אי־שוויון רציונלי: מכנה משותף וטבלת סימנים",
+          "statement": "פתרו את אי־השוויון <span dir=\"ltr\">(2x − 1)/(x² − 4) ≤ 1/(x + 2)</span>.<br>א. כמה ערכים של x נפסלים מהתחום?<br>ב. מעבירים הכול לאגף שמאל ומביאים למכנה משותף. המונה מתאפס בערך אחד של x. מהו?<br>ג. פתרון האי־שוויון הוא איחוד של קרן וקטע. מהו הקצה הימני של הקטע?<br>ד. כמה מספרים שלמים בקטע <span dir=\"ltr\">[−6, 6]</span> הם פתרונות?",
+          "domain": "<span dir=\"ltr\">x² − 4 ≠ 0</span> וגם <span dir=\"ltr\">x + 2 ≠ 0</span>, כלומר <span dir=\"ltr\">x ≠ 2</span> וגם <span dir=\"ltr\">x ≠ −2</span>.",
+          "inputs": [
+            {
+              "label": "מספר הערכים שנפסלים",
+              "unit": "",
+              "answer": "2",
+              "tolerance": 0.01
+            },
+            {
+              "label": "הערך שבו המונה מתאפס",
+              "unit": "",
+              "answer": "-1",
+              "tolerance": 0.01
+            },
+            {
+              "label": "הקצה הימני של הקטע",
+              "unit": "",
+              "answer": "2",
+              "tolerance": 0.01,
+              "wrongs": [
+                {
+                  "value": "1",
+                  "why": "הקצה הימני של הקטע הוא ערך שנפסל בגלל המכנה, והוא לא נכלל (סוגר עגול)."
+                }
+              ]
+            },
+            {
+              "label": "מספר השלמים ב־[−6, 6]",
+              "unit": "",
+              "answer": "7",
+              "tolerance": 0.01
+            }
+          ],
+          "tips": [
+            "לא מכפילים במכנה (הוא יכול להיות שלילי). מעבירים אגף, מביאים למכנה משותף x² − 4 ומפשטים את המונה.",
+            "אחרי הפישוט נשאר מנה של מכפלות. סמנו את כל האפסים על ציר, בנו טבלת סימנים ובחרו את התחומים שבהם הביטוי ≤ 0."
+          ],
+          "solution": [
+            "תחום: <span dir=\"ltr\">x² − 4 ≠ 0</span> וגם <span dir=\"ltr\">x + 2 ≠ 0</span>, כלומר <span dir=\"ltr\">x ≠ 2</span> וגם <span dir=\"ltr\">x ≠ −2</span>.",
+            "<span dir=\"ltr\">(2x − 1)/(x² − 4) − 1/(x + 2) = (2x − 1 − (x − 2))/((x − 2)(x + 2)) = (x + 1)/((x − 2)(x + 2)) ≤ 0</span>.",
+            "נקודות קריטיות: <span dir=\"ltr\">−2</span> (מכנה, לא נכלל), <span dir=\"ltr\">−1</span> (מונה, נכלל כי האי־שוויון חלש), <span dir=\"ltr\">2</span> (מכנה, לא נכלל).",
+            "טבלת סימנים: <span dir=\"ltr\">x &lt; −2</span>: שלילי ✓. בין <span dir=\"ltr\">−2</span> ל־<span dir=\"ltr\">−1</span>: חיובי ✗. בין <span dir=\"ltr\">−1</span> ל־<span dir=\"ltr\">2</span>: שלילי ✓. <span dir=\"ltr\">x &gt; 2</span>: חיובי ✗.",
+            "פתרון: <span dir=\"ltr\">(−∞, −2) ∪ [−1, 2)</span>. שלמים ב־<span dir=\"ltr\">[−6, 6]</span>: <span dir=\"ltr\">−6, −5, −4, −3</span> ו־<span dir=\"ltr\">−1, 0, 1</span>, סך הכול 7."
+          ],
+          "trap": {
+            "text": "כפל במכנה x² − 4 משנה סימן בקטע שבו הוא שלילי. מעבירים אגף ובונים טבלת סימנים במקום."
+          },
+          "verify": {
+            "kind": "scan",
+            "domain": {
+              "exprs": [
+                "(2x-1)/(x^2-4)",
+                "1/(x+2)"
+              ],
+              "claim": "(-inf,-2)U(-2,2)U(2,inf)"
+            },
+            "checks": [
+              {
+                "type": "set",
+                "name": "s",
+                "rels": [
+                  "(2x-1)/(x^2-4)<=1/(x+2)"
+                ],
+                "var": "x",
+                "range": [
+                  -30,
+                  30
+                ],
+                "claim": "(-inf,-2)U[-1,2)",
+                "stmt": true
+              },
+              {
+                "type": "intcount",
+                "name": "c",
+                "rels": [
+                  "(2x-1)/(x^2-4)<=1/(x+2)"
+                ],
+                "var": "x",
+                "from": -6,
+                "to": 6
+              }
+            ],
+            "parts": [
+              "d_count",
+              "s2",
+              "s3",
+              "c"
+            ]
+          }
+        },
+        {
+          "id": "lad-m5-04",
+          "topic": "math-ineq",
+          "level": 5,
+          "title": "שרשרת רציונלית",
+          "statement": "פתרו את שרשרת אי־השוויונות <span dir=\"ltr\">1/(x − 1) ≤ 2/(x + 1) ≤ 3/x</span>.<br>א. כמה ערכים של x נפסלים מהתחום?<br>ב. פתרון השרשרת הוא איחוד של קטע וקרן. מהו הקצה השמאלי של הקטע?<br>ג. מהו הקצה הימני של הקטע?<br>ד. מהו הקצה השמאלי של הקרן?<br>ה. מהו המספר השלם הקטן ביותר שהוא פתרון?",
+          "domain": "<span dir=\"ltr\">x ≠ 1</span>, <span dir=\"ltr\">x ≠ −1</span> וגם <span dir=\"ltr\">x ≠ 0</span>.",
+          "inputs": [
+            {
+              "label": "מספר הערכים שנפסלים",
+              "unit": "",
+              "answer": "3",
+              "tolerance": 0.01
+            },
+            {
+              "label": "הקצה השמאלי של הקטע",
+              "unit": "",
+              "answer": "0",
+              "tolerance": 0.01
+            },
+            {
+              "label": "הקצה הימני של הקטע",
+              "unit": "",
+              "answer": "1",
+              "tolerance": 0.01
+            },
+            {
+              "label": "הקצה השמאלי של הקרן",
+              "unit": "",
+              "answer": "3",
+              "tolerance": 0.01,
+              "wrongs": [
+                {
+                  "value": "-3",
+                  "why": "−3 הוא קצה שמאלי של הפתרון של אי־השוויון השני לבדו. בשרשרת מחשבים חיתוך של שני הפתרונות."
+                }
+              ]
+            },
+            {
+              "label": "השלם הקטן ביותר",
+              "unit": "",
+              "answer": "3",
+              "tolerance": 0.01
+            }
+          ],
+          "tips": [
+            "שרשרת A ≤ B ≤ C היא שני אי־שוויונות: A ≤ B וגם B ≤ C. פתרו כל אחד בנפרד עם טבלת סימנים.",
+            "הפתרון הסופי הוא החיתוך של שני הפתרונות. סרטטו את שניהם על אותו ציר כדי לא לטעות בחיתוך, ובדקו כל קצה מול התחום."
+          ],
+          "solution": [
+            "תחום: <span dir=\"ltr\">x ≠ 1</span>, <span dir=\"ltr\">x ≠ −1</span> וגם <span dir=\"ltr\">x ≠ 0</span>.",
+            "<span dir=\"ltr\">1/(x − 1) ≤ 2/(x + 1)</span>: <span dir=\"ltr\">(3 − x)/((x − 1)(x + 1)) ≤ 0</span>. פתרון: <span dir=\"ltr\">(−1, 1) ∪ [3, ∞)</span>.",
+            "<span dir=\"ltr\">2/(x + 1) ≤ 3/x</span>: <span dir=\"ltr\">(x + 3)/(x(x + 1)) ≥ 0</span>. פתרון: <span dir=\"ltr\">[−3, −1) ∪ (0, ∞)</span>.",
+            "חיתוך: <span dir=\"ltr\">(−1, 1)</span> עם <span dir=\"ltr\">(0, ∞)</span> נותן <span dir=\"ltr\">(0, 1)</span>. <span dir=\"ltr\">[3, ∞)</span> כולו בתוך <span dir=\"ltr\">(0, ∞)</span>. הקטע <span dir=\"ltr\">[−3, −1)</span> לא נחתך עם <span dir=\"ltr\">(−1, 1)</span>.",
+            "פתרון השרשרת: <span dir=\"ltr\">(0, 1) ∪ [3, ∞)</span>. אין שלם בקטע <span dir=\"ltr\">(0, 1)</span>, ולכן השלם הקטן ביותר הוא 3."
+          ],
+          "trap": {
+            "text": "מחברים את שני הפתרונות במקום לחתוך אותם. שרשרת פירושה \"וגם\"."
+          },
+          "verify": {
+            "kind": "scan",
+            "domain": {
+              "exprs": [
+                "1/(x-1)",
+                "2/(x+1)",
+                "3/x"
+              ],
+              "claim": "(-inf,-1)U(-1,0)U(0,1)U(1,inf)"
+            },
+            "checks": [
+              {
+                "type": "set",
+                "name": "p",
+                "rels": [
+                  "1/(x-1)<=2/(x+1)"
+                ],
+                "var": "x",
+                "range": [
+                  -30,
+                  30
+                ],
+                "claim": "(-1,1)U[3,inf)"
+              },
+              {
+                "type": "set",
+                "name": "q",
+                "rels": [
+                  "2/(x+1)<=3/x"
+                ],
+                "var": "x",
+                "range": [
+                  -30,
+                  30
+                ],
+                "claim": "[-3,-1)U(0,inf)"
+              },
+              {
+                "type": "set",
+                "name": "s",
+                "rels": [
+                  "1/(x-1)<=2/(x+1)<=3/x"
+                ],
+                "var": "x",
+                "range": [
+                  -30,
+                  30
+                ],
+                "claim": "(0,1)U[3,inf)",
+                "stmt": true
+              },
+              {
+                "type": "intcount",
+                "name": "c",
+                "rels": [
+                  "1/(x-1)<=2/(x+1)<=3/x"
+                ],
+                "var": "x",
+                "from": -10,
+                "to": 10
+              }
+            ],
+            "parts": [
+              "d_count",
+              "s1",
+              "s2",
+              "s3",
+              "c_min"
+            ]
+          }
+        },
+        {
+          "id": "lad-m5-05",
+          "topic": "math-ineq",
+          "level": 5,
+          "title": "אי־שוויון לוגריתמי עם בסיס קטן מ־1",
+          "statement": "פתרו את אי־השוויון <span dir=\"ltr\">log<sub>0.5</sub>(x² − 3x) ≥ −2</span>.<br>א. מהו הקצה הימני של החלק השמאלי של התחום (התחום הוא איחוד של שתי קרניים פתוחות)?<br>ב. מהו הקצה השמאלי של החלק הימני של התחום?<br>ג. מהו הקצה השמאלי של הפתרון הסופי?<br>ד. מהו הקצה הימני של הפתרון הסופי?<br>ה. כמה מספרים שלמים הם פתרונות?",
+          "domain": "<span dir=\"ltr\">x² − 3x &gt; 0</span>, כלומר <span dir=\"ltr\">x(x − 3) &gt; 0</span>, ולכן <span dir=\"ltr\">x &lt; 0</span> או <span dir=\"ltr\">x &gt; 3</span>.",
+          "inputs": [
+            {
+              "label": "קצה החלק השמאלי של התחום",
+              "unit": "",
+              "answer": "0",
+              "tolerance": 0.01
+            },
+            {
+              "label": "קצה החלק הימני של התחום",
+              "unit": "",
+              "answer": "3",
+              "tolerance": 0.01
+            },
+            {
+              "label": "הקצה השמאלי של הפתרון",
+              "unit": "",
+              "answer": "-1",
+              "tolerance": 0.01
+            },
+            {
+              "label": "הקצה הימני של הפתרון",
+              "unit": "",
+              "answer": "4",
+              "tolerance": 0.01,
+              "wrongs": [
+                {
+                  "value": "-4",
+                  "why": "בבסיס קטן מ־1 האי־שוויון מתהפך: x² − 3x ≤ 4, ולא ≥ 4."
+                }
+              ]
+            },
+            {
+              "label": "מספר השלמים בפתרון",
+              "unit": "",
+              "answer": "2",
+              "tolerance": 0.01
+            }
+          ],
+          "tips": [
+            "כתבו קודם את התחום. אחר כך כתבו −2 כלוגריתם: −2 = log בסיס 0.5 של 0.5 בחזקת −2, כלומר של 4.",
+            "הבסיס קטן מ־1, ולכן הלוגריתם יורד: כשמסירים את הלוגריתם, האי־שוויון מתהפך. הפתרון הסופי הוא החיתוך עם התחום."
+          ],
+          "solution": [
+            "תחום: <span dir=\"ltr\">x² − 3x &gt; 0</span>, כלומר <span dir=\"ltr\">x(x − 3) &gt; 0</span>, ולכן <span dir=\"ltr\">x &lt; 0</span> או <span dir=\"ltr\">x &gt; 3</span>.",
+            "<span dir=\"ltr\">−2 = log<sub>0.5</sub>(4)</span>, כי <span dir=\"ltr\">0.5^(−2) = 4</span>.",
+            "<span dir=\"ltr\">log<sub>0.5</sub>(x² − 3x) ≥ log<sub>0.5</sub>(4)</span>. הבסיס קטן מ־1, ולכן הכיוון מתהפך: <span dir=\"ltr\">x² − 3x ≤ 4</span>.",
+            "<span dir=\"ltr\">x² − 3x − 4 ≤ 0</span>, <span dir=\"ltr\">(x − 4)(x + 1) ≤ 0</span>, ולכן <span dir=\"ltr\">−1 ≤ x ≤ 4</span>.",
+            "חיתוך עם התחום (<span dir=\"ltr\">x &lt; 0</span> או <span dir=\"ltr\">x &gt; 3</span>): <span dir=\"ltr\">[−1, 0) ∪ (3, 4]</span>. השלמים: <span dir=\"ltr\">−1</span> ו־<span dir=\"ltr\">4</span>."
+          ],
+          "trap": {
+            "text": "שוכחים את התחום ומשאירים את כל הקטע [−1, 4], או שלא הופכים את האי־שוויון בבסיס קטן מ־1."
+          },
+          "verify": {
+            "kind": "scan",
+            "domain": {
+              "exprs": [
+                "log_0.5(x^2-3x)"
+              ],
+              "claim": "(-inf,0)U(3,inf)"
+            },
+            "checks": [
+              {
+                "type": "set",
+                "name": "s",
+                "rels": [
+                  "log_0.5(x^2-3x)>=-2"
+                ],
+                "var": "x",
+                "range": [
+                  -30,
+                  30
+                ],
+                "claim": "[-1,0)U(3,4]",
+                "stmt": true
+              },
+              {
+                "type": "intcount",
+                "name": "c",
+                "rels": [
+                  "log_0.5(x^2-3x)>=-2"
+                ],
+                "var": "x",
+                "from": -10,
+                "to": 10
+              }
+            ],
+            "parts": [
+              "d1",
+              "d2",
+              "s1",
+              "s4",
+              "c"
+            ]
+          }
+        },
+        {
+          "id": "lad-m5-06",
+          "topic": "math-ineq",
+          "level": 5,
+          "title": "טרינום בלוגריתם עם בסיס קטן מ־1",
+          "statement": "פתרו את אי־השוויון <span dir=\"ltr\">(log<sub>0.5</sub>(x))² − 3log<sub>0.5</sub>(x) + 2 &lt; 0</span>.<br>א. נציב <span dir=\"ltr\">t = log<sub>0.5</sub>(x)</span>. מהו השורש הקטן של הטרינום ב־t?<br>ב. מהו השורש הגדול של הטרינום ב־t?<br>ג. מהו הקצה השמאלי של פתרון האי־שוויון ב־x?<br>ד. מהו הקצה הימני של פתרון האי־שוויון ב־x?",
+          "domain": "הארגומנט של הלוגריתם חיובי: <span dir=\"ltr\">x &gt; 0</span>.",
+          "inputs": [
+            {
+              "label": "השורש הקטן של t",
+              "unit": "",
+              "answer": "1",
+              "tolerance": 0.01
+            },
+            {
+              "label": "השורש הגדול של t",
+              "unit": "",
+              "answer": "2",
+              "tolerance": 0.01
+            },
+            {
+              "label": "הקצה השמאלי של x",
+              "unit": "",
+              "answer": "0.25",
+              "tolerance": 0.005,
+              "wrongs": [
+                {
+                  "value": "4",
+                  "why": "הבסיס 0.5 קטן מ־1, ולכן ככל ש־t גדל x קטן. t = 2 נותן x = 0.5² = 0.25, ו־t = 1 נותן x = 0.5."
+                }
+              ]
+            },
+            {
+              "label": "הקצה הימני של x",
+              "unit": "",
+              "answer": "0.5",
+              "tolerance": 0.005
+            }
+          ],
+          "tips": [
+            "הציבו t = log בסיס 0.5 של x. מקבלים אי־שוויון ריבועי רגיל ב־t. מה הפתרון שלו?",
+            "חזרו ל־x בעזרת x = 0.5^t. הבסיס קטן מ־1, ולכן הסדר מתהפך: t גדול נותן x קטן."
+          ],
+          "solution": [
+            "תחום: הארגומנט של הלוגריתם חיובי: <span dir=\"ltr\">x &gt; 0</span>.",
+            "<span dir=\"ltr\">t² − 3t + 2 &lt; 0</span>, <span dir=\"ltr\">(t − 1)(t − 2) &lt; 0</span>, ולכן <span dir=\"ltr\">1 &lt; t &lt; 2</span>.",
+            "<span dir=\"ltr\">x = 0.5^t</span>. הבסיס קטן מ־1 ולכן הפונקציה יורדת: <span dir=\"ltr\">t = 1</span> נותן <span dir=\"ltr\">x = 0.5</span> ו־<span dir=\"ltr\">t = 2</span> נותן <span dir=\"ltr\">x = 0.25</span>.",
+            "לכן <span dir=\"ltr\">0.25 &lt; x &lt; 0.5</span>. כל הקטע בתוך התחום <span dir=\"ltr\">x &gt; 0</span>.",
+            "פתרון: <span dir=\"ltr\">(0.25, 0.5)</span>."
+          ],
+          "trap": {
+            "text": "בחזרה מ־t ל־x הבסיס 0.5 הופך סדר: קצה t הגדול הופך לקצה x הקטן."
+          },
+          "verify": {
+            "kind": "scan",
+            "domain": {
+              "exprs": [
+                "log_0.5(x)"
+              ],
+              "claim": "(0,inf)"
+            },
+            "checks": [
+              {
+                "type": "roots",
+                "name": "w",
+                "eq": "t^2-3t+2=0",
+                "var": "t",
+                "count": 2
+              },
+              {
+                "type": "set",
+                "name": "s",
+                "rels": [
+                  "(log_0.5(x))^2-3log_0.5(x)+2<0"
+                ],
+                "var": "x",
+                "range": [
+                  -5,
+                  30
+                ],
+                "claim": "(0.25,0.5)",
+                "stmt": true
+              }
+            ],
+            "parts": [
+              "w1",
+              "w2",
+              "s1",
+              "s2"
+            ]
+          }
+        },
+        {
+          "id": "lad-m5-07",
+          "topic": "math-ineq",
+          "level": 4,
+          "title": "ערך מוחלט ופתרון שלא קיים",
+          "statement": "פתרו את אי־השוויון <span dir=\"ltr\">|x² − 2x − 3| ≥ 5</span>.<br>א. האי־שוויון מתפצל לשניים: <span dir=\"ltr\">x² − 2x − 3 ≥ 5</span> או <span dir=\"ltr\">x² − 2x − 3 ≤ −5</span>. כמה פתרונות ממשיים יש למשוואה <span dir=\"ltr\">x² − 2x + 2 = 0</span> (הגבול של השני)?<br>ב. מהו הקצה של הקרן השמאלית בפתרון הסופי?<br>ג. מהו הקצה של הקרן הימנית?<br>ד. כמה מספרים שלמים בקטע <span dir=\"ltr\">[−5, 6]</span> הם פתרונות?",
+          "domain": "כל x ממשי.",
+          "inputs": [
+            {
+              "label": "מספר הפתרונות של x² − 2x + 2 = 0",
+              "unit": "",
+              "answer": "0",
+              "tolerance": 0.01,
+              "wrongs": [
+                {
+                  "value": "2",
+                  "why": "חשבו Δ = 4 − 8 = −4 &lt; 0: אין שורשים ממשיים. לכן ל־x² − 2x + 2 ≤ 0 אין פתרון."
+                }
+              ]
+            },
+            {
+              "label": "קצה הקרן השמאלית",
+              "unit": "",
+              "answer": "-2",
+              "tolerance": 0.01
+            },
+            {
+              "label": "קצה הקרן הימנית",
+              "unit": "",
+              "answer": "4",
+              "tolerance": 0.01
+            },
+            {
+              "label": "מספר השלמים ב־[−5, 6]",
+              "unit": "",
+              "answer": "7",
+              "tolerance": 0.01
+            }
+          ],
+          "tips": [
+            "|A| ≥ 5 פירושו A ≥ 5 או A ≤ −5. פתרו כל אי־שוויון בנפרד ואחדו.",
+            "באחד משני האי־שוויונות הדיסקרימיננטה שלילית. מה זה אומר על הפרבולה ביחס לישר, ומה הפתרון של אי־השוויון הזה?"
+          ],
+          "solution": [
+            "תחום: כל x ממשי.",
+            "<span dir=\"ltr\">|x² − 2x − 3| ≥ 5</span> שקול ל־<span dir=\"ltr\">x² − 2x − 3 ≥ 5</span> או <span dir=\"ltr\">x² − 2x − 3 ≤ −5</span>.",
+            "הראשון: <span dir=\"ltr\">x² − 2x − 8 ≥ 0</span>, <span dir=\"ltr\">(x − 4)(x + 2) ≥ 0</span>, ולכן <span dir=\"ltr\">x ≤ −2</span> או <span dir=\"ltr\">x ≥ 4</span>.",
+            "השני: <span dir=\"ltr\">x² − 2x + 2 ≤ 0</span>. <span dir=\"ltr\">Δ = 4 − 8 = −4 &lt; 0</span> והפרבולה פונה כלפי מעלה, ולכן תמיד חיובית: אין פתרון.",
+            "פתרון: <span dir=\"ltr\">(−∞, −2] ∪ [4, ∞)</span>. שלמים ב־<span dir=\"ltr\">[−5, 6]</span>: <span dir=\"ltr\">−5, −4, −3, −2</span> ו־<span dir=\"ltr\">4, 5, 6</span>, סך הכול 7."
+          ],
+          "trap": {
+            "text": "פותרים רק את הענף A ≥ 5 ושוכחים את A ≤ −5, או מניחים שלכל ענף חייב להיות פתרון."
+          },
+          "verify": {
+            "kind": "scan",
+            "domain": {
+              "exprs": [
+                "x^2-2x-3"
+              ],
+              "claim": "(-inf,inf)"
+            },
+            "checks": [
+              {
+                "type": "roots",
+                "name": "n",
+                "eq": "x^2-2x+2=0",
+                "var": "x",
+                "count": 0
+              },
+              {
+                "type": "set",
+                "name": "s",
+                "rels": [
+                  "|x^2-2x-3|>=5"
+                ],
+                "var": "x",
+                "range": [
+                  -30,
+                  30
+                ],
+                "claim": "(-inf,-2]U[4,inf)",
+                "stmt": true
+              },
+              {
+                "type": "intcount",
+                "name": "c",
+                "rels": [
+                  "|x^2-2x-3|>=5"
+                ],
+                "var": "x",
+                "from": -5,
+                "to": 6
+              }
+            ],
+            "parts": [
+              "n_count",
+              "s1",
+              "s2",
+              "c"
+            ]
+          }
+        },
+        {
+          "id": "lad-m5-08",
+          "topic": "math-ineq",
+          "level": 4,
+          "title": "אי־שוויון עם שורש: שני מקרים לפי סימן האגף הימני",
+          "statement": "פתרו את אי־השוויון <span dir=\"ltr\">√(x + 6) &gt; x</span>.<br>א. מהו הערך הקטן ביותר ש־x יכול לקבל בתחום?<br>ב. במקרה <span dir=\"ltr\">x ≥ 0</span> מעלים בריבוע ומקבלים <span dir=\"ltr\">x + 6 &gt; x²</span>. מהו השורש החיובי של <span dir=\"ltr\">x² = x + 6</span>?<br>ג. כמה מספרים שלמים בקטע <span dir=\"ltr\">[−10, 10]</span> הם פתרונות?<br>ד. האם <span dir=\"ltr\">x = −4</span> פתרון? כתבו 1 אם כן ו־0 אם לא.",
+          "domain": "<span dir=\"ltr\">x + 6 ≥ 0</span>, כלומר <span dir=\"ltr\">x ≥ −6</span>.",
+          "inputs": [
+            {
+              "label": "x מינימלי בתחום",
+              "unit": "",
+              "answer": "-6",
+              "tolerance": 0.01
+            },
+            {
+              "label": "השורש החיובי",
+              "unit": "",
+              "answer": "3",
+              "tolerance": 0.01
+            },
+            {
+              "label": "מספר השלמים ב־[−10, 10]",
+              "unit": "",
+              "answer": "9",
+              "tolerance": 0.01,
+              "wrongs": [
+                {
+                  "value": "3",
+                  "why": "שכחתם את המקרה x &lt; 0: אז האגף הימני שלילי והשורש אי־שלילי, ולכן האי־שוויון מתקיים לכל x בתחום."
+                }
+              ]
+            },
+            {
+              "label": "האם x = −4 פתרון (1 או 0)",
+              "unit": "",
+              "answer": "1",
+              "tolerance": 0.01
+            }
+          ],
+          "tips": [
+            "שורש הוא תמיד אי־שלילי. מה קורה לאי־שוויון כשהאגף הימני x שלילי? חלקו לשני מקרים לפי הסימן של x.",
+            "במקרה x ≥ 0 שני האגפים אי־שליליים ואפשר להעלות בריבוע. אחר כך חותכים עם התנאי של המקרה, ואוחדים את שני המקרים."
+          ],
+          "solution": [
+            "תחום: <span dir=\"ltr\">x + 6 ≥ 0</span>, כלומר <span dir=\"ltr\">x ≥ −6</span>.",
+            "מקרה 1, <span dir=\"ltr\">−6 ≤ x &lt; 0</span>: האגף הימני שלילי והשורש אי־שלילי, ולכן האי־שוויון נכון לכל x בקטע.",
+            "מקרה 2, <span dir=\"ltr\">x ≥ 0</span>: מעלים בריבוע: <span dir=\"ltr\">x + 6 &gt; x²</span>, כלומר <span dir=\"ltr\">x² − x − 6 &lt; 0</span>, <span dir=\"ltr\">(x − 3)(x + 2) &lt; 0</span>, <span dir=\"ltr\">−2 &lt; x &lt; 3</span>. בחיתוך עם <span dir=\"ltr\">x ≥ 0</span>: <span dir=\"ltr\">0 ≤ x &lt; 3</span>.",
+            "איחוד: <span dir=\"ltr\">[−6, 3)</span>.",
+            "שלמים ב־<span dir=\"ltr\">[−10, 10]</span>: מ־<span dir=\"ltr\">−6</span> עד <span dir=\"ltr\">2</span>, סך הכול 9. <span dir=\"ltr\">x = −4</span>: <span dir=\"ltr\">√2 ≈ 1.41 &gt; −4</span> ✓."
+          ],
+          "trap": {
+            "text": "מעלים בריבוע בלי לפצל למקרים: ההעלאה בריבוע של אי־שוויון מותרת רק כששני האגפים אי־שליליים."
+          },
+          "verify": {
+            "kind": "scan",
+            "domain": {
+              "exprs": [
+                "√(x+6)"
+              ],
+              "claim": "[-6,inf)"
+            },
+            "checks": [
+              {
+                "type": "roots",
+                "name": "q",
+                "eq": "x^2=x+6",
+                "var": "x",
+                "count": 2
+              },
+              {
+                "type": "set",
+                "name": "s",
+                "rels": [
+                  "√(x+6)>x"
+                ],
+                "var": "x",
+                "range": [
+                  -30,
+                  30
+                ],
+                "claim": "[-6,3)",
+                "stmt": true
+              },
+              {
+                "type": "intcount",
+                "name": "c",
+                "rels": [
+                  "√(x+6)>x"
+                ],
+                "var": "x",
+                "from": -10,
+                "to": 10
+              },
+              {
+                "type": "intcount",
+                "name": "e",
+                "rels": [
+                  "√(x+6)>x"
+                ],
+                "var": "x",
+                "from": -4,
+                "to": -4
+              }
+            ],
+            "parts": [
+              "d1",
+              "q2",
+              "c",
+              "e"
+            ]
+          }
+        },
+        {
+          "id": "lad-m5-09",
+          "topic": "math-ineq",
+          "level": 5,
+          "title": "גורם מרובע בטבלת סימנים ונקודה בודדת",
+          "statement": "פתרו את אי־השוויון <span dir=\"ltr\">(x − 1)²(x + 3)/(x² − 4) ≥ 0</span>.<br>א. מהו ערך הביטוי <span dir=\"ltr\">(x − 1)²(x + 3)/(x² − 4)</span> כאשר <span dir=\"ltr\">x = 0</span>?<br>ב. הפתרון כולל נקודה בודדת, שבה המונה מתאפס כגורם מרובע. מהי?<br>ג. מהו הקצה השמאלי של הפתרון?<br>ד. כמה מספרים שלמים בקטע <span dir=\"ltr\">[−4, 4]</span> הם פתרונות?",
+          "domain": "<span dir=\"ltr\">x² − 4 ≠ 0</span>, כלומר <span dir=\"ltr\">x ≠ 2</span> וגם <span dir=\"ltr\">x ≠ −2</span>.",
+          "inputs": [
+            {
+              "label": "ערך הביטוי ב־x = 0",
+              "unit": "",
+              "answer": "-0.75",
+              "tolerance": 0.005
+            },
+            {
+              "label": "הנקודה הבודדת",
+              "unit": "",
+              "answer": "1",
+              "tolerance": 0.01
+            },
+            {
+              "label": "הקצה השמאלי של הפתרון",
+              "unit": "",
+              "answer": "-3",
+              "tolerance": 0.01
+            },
+            {
+              "label": "מספר השלמים ב־[−4, 4]",
+              "unit": "",
+              "answer": "4",
+              "tolerance": 0.01,
+              "wrongs": [
+                {
+                  "value": "3",
+                  "why": "x = 1 מאפס את המונה, ולכן הביטוי שווה 0 וגם ≥ 0 מתקיים בו. הוא פתרון בודד."
+                }
+              ]
+            }
+          ],
+          "tips": [
+            "סמנו על ציר את כל האפסים: מונה (−3 ו־1) ומכנה (−2 ו־2). שימו לב שהגורם (x − 1) בריבוע.",
+            "גורם בריבוע לא מחליף סימן ליד האפס שלו. האפס של המונה נכלל כי האי־שוויון חלש, גם אם משני צדדיו הביטוי שלילי."
+          ],
+          "solution": [
+            "תחום: <span dir=\"ltr\">x² − 4 ≠ 0</span>, כלומר <span dir=\"ltr\">x ≠ 2</span> וגם <span dir=\"ltr\">x ≠ −2</span>.",
+            "אפסי מונה: <span dir=\"ltr\">−3</span> ו־<span dir=\"ltr\">1</span> (כפול). אפסי מכנה: <span dir=\"ltr\">−2</span> ו־<span dir=\"ltr\">2</span> (לא נכללים).",
+            "סימנים: <span dir=\"ltr\">x &lt; −3</span>: שלילי ✗. <span dir=\"ltr\">−3 &lt; x &lt; −2</span>: חיובי ✓. <span dir=\"ltr\">−2 &lt; x &lt; 2</span>: שלילי ✗ (הסימן לא מתחלף ב־1). <span dir=\"ltr\">x &gt; 2</span>: חיובי ✓.",
+            "<span dir=\"ltr\">x = −3</span> נכלל (מונה 0). <span dir=\"ltr\">x = 1</span> נכלל (מונה 0), ולכן הוא נקודה בודדת. <span dir=\"ltr\">x = ±2</span> לא נכללים.",
+            "פתרון: <span dir=\"ltr\">[−3, −2) ∪ {1} ∪ (2, ∞)</span>. שלמים ב־<span dir=\"ltr\">[−4, 4]</span>: <span dir=\"ltr\">−3, 1, 3, 4</span>, סך הכול 4."
+          ],
+          "trap": {
+            "text": "שוכחים שנקודה שבה גורם מרובע מתאפס עדיין פותרת אי־שוויון חלש, גם כשסביבה הביטוי שלילי."
+          },
+          "verify": {
+            "kind": "scan",
+            "domain": {
+              "exprs": [
+                "(x-1)^2(x+3)/(x^2-4)"
+              ],
+              "claim": "(-inf,-2)U(-2,2)U(2,inf)"
+            },
+            "checks": [
+              {
+                "type": "eval",
+                "name": "v",
+                "expr": "(0-1)^2*(0+3)/(0^2-4)"
+              },
+              {
+                "type": "set",
+                "name": "s",
+                "rels": [
+                  "(x-1)^2(x+3)/(x^2-4)>=0"
+                ],
+                "var": "x",
+                "range": [
+                  -30,
+                  30
+                ],
+                "claim": "[-3,-2)U{1}U(2,inf)",
+                "stmt": true
+              },
+              {
+                "type": "intcount",
+                "name": "c",
+                "rels": [
+                  "(x-1)^2(x+3)/(x^2-4)>=0"
+                ],
+                "var": "x",
+                "from": -4,
+                "to": 4
+              }
+            ],
+            "parts": [
+              "v",
+              "s3",
+              "s1",
+              "c"
+            ]
+          }
+        },
+        {
+          "id": "lad-m5-10",
+          "topic": "math-ineq",
+          "level": 5,
+          "title": "מערכת: לוגריתם וחזקה",
+          "statement": "פתרו את מערכת אי־השוויונות:<br><span dir=\"ltr\">log<sub>3</sub>(x − 1) ≤ 2</span><br><span dir=\"ltr\">2^(x² − 2x) ≥ 8</span><br>א. מהו הקצה הימני של פתרון האי־שוויון הראשון (בתוך התחום)?<br>ב. מהו השורש החיובי של המשוואה <span dir=\"ltr\">x² − 2x = 3</span>?<br>ג. מהו אורך הקטע של הפתרון המשותף?<br>ד. כמה מספרים שלמים הם פתרונות של המערכת?",
+          "domain": "<span dir=\"ltr\">x − 1 &gt; 0</span>, כלומר <span dir=\"ltr\">x &gt; 1</span>. החזקה מוגדרת לכל x.",
+          "inputs": [
+            {
+              "label": "הקצה הימני של האי־שוויון הראשון",
+              "unit": "",
+              "answer": "10",
+              "tolerance": 0.01
+            },
+            {
+              "label": "השורש החיובי",
+              "unit": "",
+              "answer": "3",
+              "tolerance": 0.01
+            },
+            {
+              "label": "אורך הקטע",
+              "unit": "",
+              "answer": "7",
+              "tolerance": 0.01,
+              "wrongs": [
+                {
+                  "value": "9",
+                  "why": "האורך מחשבים בין הקצה הימני 10 לקצה השמאלי של הפתרון המשותף, שהוא 3 ולא 1: האי־שוויון השני פוסל את x &lt; 3 בתחום."
+                }
+              ]
+            },
+            {
+              "label": "מספר השלמים בפתרון",
+              "unit": "",
+              "answer": "8",
+              "tolerance": 0.01
+            }
+          ],
+          "tips": [
+            "פתרו כל אי־שוויון לחוד. בראשון: בסיס 3 גדול מ־1, ולכן כיוון האי־שוויון נשמר, ואסור לשכוח את התחום x &gt; 1.",
+            "בשני: 8 = 2³, משווים מעריכים. הפתרון של המערכת הוא החיתוך של שני הפתרונות."
+          ],
+          "solution": [
+            "תחום: <span dir=\"ltr\">x − 1 &gt; 0</span>, כלומר <span dir=\"ltr\">x &gt; 1</span>. החזקה מוגדרת לכל x.",
+            "<span dir=\"ltr\">log<sub>3</sub>(x − 1) ≤ 2</span>: הבסיס גדול מ־1, ולכן <span dir=\"ltr\">0 &lt; x − 1 ≤ 9</span>, כלומר <span dir=\"ltr\">1 &lt; x ≤ 10</span>.",
+            "<span dir=\"ltr\">2^(x² − 2x) ≥ 2^3</span>: <span dir=\"ltr\">x² − 2x ≥ 3</span>, <span dir=\"ltr\">(x − 3)(x + 1) ≥ 0</span>, ולכן <span dir=\"ltr\">x ≤ −1</span> או <span dir=\"ltr\">x ≥ 3</span>.",
+            "חיתוך עם <span dir=\"ltr\">1 &lt; x ≤ 10</span>: הקרן <span dir=\"ltr\">x ≤ −1</span> מחוץ לקטע. נשאר <span dir=\"ltr\">[3, 10]</span>, באורך <span dir=\"ltr\">10 − 3 = 7</span>.",
+            "שלמים: מ־<span dir=\"ltr\">3</span> עד <span dir=\"ltr\">10</span>, סך הכול 8."
+          ],
+          "trap": {
+            "text": "מחברים את הפתרונות או שוכחים את התחום x &gt; 1, ואז מוסיפים את הקרן x ≤ −1 שאינה בתחום."
+          },
+          "verify": {
+            "kind": "scan",
+            "domain": {
+              "exprs": [
+                "log_3(x-1)",
+                "2^(x^2-2x)"
+              ],
+              "claim": "(1,inf)",
+              "range": [
+                -10,
+                10
+              ]
+            },
+            "checks": [
+              {
+                "type": "set",
+                "name": "a",
+                "rels": [
+                  "log_3(x-1)<=2"
+                ],
+                "var": "x",
+                "range": [
+                  -30,
+                  30
+                ],
+                "claim": "(1,10]",
+                "stmt": true
+              },
+              {
+                "type": "roots",
+                "name": "q",
+                "eq": "x^2-2x=3",
+                "var": "x",
+                "count": 2
+              },
+              {
+                "type": "set",
+                "name": "s",
+                "rels": [
+                  "log_3(x-1)<=2",
+                  "2^(x^2-2x)>=8"
+                ],
+                "var": "x",
+                "range": [
+                  -30,
+                  30
+                ],
+                "claim": "[3,10]",
+                "stmt": true
+              },
+              {
+                "type": "eval",
+                "name": "ln",
+                "expr": "s2-s1"
+              },
+              {
+                "type": "intcount",
+                "name": "c",
+                "rels": [
+                  "log_3(x-1)<=2",
+                  "2^(x^2-2x)>=8"
+                ],
+                "var": "x",
+                "from": -10,
+                "to": 20
+              }
+            ],
+            "parts": [
+              "a2",
+              "q2",
+              "ln",
+              "c"
+            ]
+          }
+        }
+      ]
     },
     {
       "id": "M6",
-      "title": "רמת מבחן: ארבעה נעלמים",
-      "intro": "תרגילים מלאים בסגנון מבחן, מרובי סעיפים, עם ארבעה נעלמים.",
-      "items": [],
-      "soon": "התרגילים בשלב הזה יתווספו בקרוב."
+      "title": "רמת מבחן: פרמטר ומעורב",
+      "intro": "תרגילים מלאים בסגנון מבחן, עם סעיפים שתלויים זה בזה: משוואות עם פרמטר (מקרים ומספר פתרונות), מעגל וישר, חזקות ולוגריתמים עם פרמטר, וטריגונומטריה.",
+      "items": [
+        {
+          "id": "lad-m6-01",
+          "topic": "math-par",
+          "level": 4,
+          "title": "משוואה עם פרמטר: מקרים ומספר פתרונות",
+          "statement": "נתונה המשוואה <span dir=\"ltr\">mx² − 4x + m = 0</span>, כאשר m פרמטר.<br>א. עבור איזה ערך של m המשוואה אינה ריבועית?<br>ב. עבור איזה ערך חיובי של m יש למשוואה פתרון יחיד כפול?<br>ג. כמה פתרונות יש למשוואה כאשר <span dir=\"ltr\">m = 1</span>?<br>ד. כמה פתרונות יש למשוואה כאשר <span dir=\"ltr\">m = 3</span>?<br>ה. כמה ערכים שלמים של m נותנים למשוואה בדיוק שני פתרונות?",
+          "domain": "כל x ממשי (אין מכנה ואין שורש).",
+          "inputs": [
+            {
+              "label": "ערך m שבו המשוואה לא ריבועית",
+              "unit": "",
+              "answer": "0",
+              "tolerance": 0.01
+            },
+            {
+              "label": "m חיובי עם פתרון כפול",
+              "unit": "",
+              "answer": "2",
+              "tolerance": 0.01,
+              "wrongs": [
+                {
+                  "value": "4",
+                  "why": "הדיסקרימיננטה היא 16 − 4m², ולא 16 − 4m. מאפסים אותה: m² = 4."
+                }
+              ]
+            },
+            {
+              "label": "מספר פתרונות ב־m = 1",
+              "unit": "",
+              "answer": "2",
+              "tolerance": 0.01
+            },
+            {
+              "label": "מספר פתרונות ב־m = 3",
+              "unit": "",
+              "answer": "0",
+              "tolerance": 0.01
+            },
+            {
+              "label": "מספר ערכי m שלמים עם שני פתרונות",
+              "unit": "",
+              "answer": "2",
+              "tolerance": 0.01,
+              "wrongs": [
+                {
+                  "value": "3",
+                  "why": "m = 0 לא נותן שני פתרונות: אז המשוואה לינארית, −4x = 0, ויש לה פתרון אחד בלבד."
+                }
+              ]
+            }
+          ],
+          "tips": [
+            "בדקו קודם מתי מקדם x² מתאפס. אז המשוואה לינארית, ויש לה פתרון אחד, ולא מחשבים דיסקרימיננטה.",
+            "בשאר המקרים חשבו Δ = b² − 4ac כביטוי ב־m. Δ &gt; 0: שני פתרונות, Δ = 0: פתרון אחד, Δ &lt; 0: אין פתרון. פתרו את אי־השוויון ב־m."
+          ],
+          "solution": [
+            "תחום: כל x ממשי (אין מכנה ואין שורש).",
+            "אם <span dir=\"ltr\">m = 0</span>: <span dir=\"ltr\">−4x = 0</span>, פתרון אחד <span dir=\"ltr\">x = 0</span>. המשוואה לא ריבועית.",
+            "אם <span dir=\"ltr\">m ≠ 0</span>: <span dir=\"ltr\">Δ = 16 − 4m² = 4(2 − m)(2 + m)</span>.",
+            "<span dir=\"ltr\">Δ &gt; 0</span> כש־<span dir=\"ltr\">−2 &lt; m &lt; 2</span> ו־<span dir=\"ltr\">m ≠ 0</span>: שני פתרונות. <span dir=\"ltr\">Δ = 0</span> כש־<span dir=\"ltr\">m = ±2</span>: פתרון אחד. <span dir=\"ltr\">|m| &gt; 2</span>: אין פתרון.",
+            "בדיקה: <span dir=\"ltr\">m = 1</span>: <span dir=\"ltr\">Δ = 12 &gt; 0</span>, שני פתרונות. <span dir=\"ltr\">m = 3</span>: <span dir=\"ltr\">Δ = −20 &lt; 0</span>, אין. שלמים עם שני פתרונות: <span dir=\"ltr\">m = −1, 1</span>, כלומר 2 (<span dir=\"ltr\">m = 0</span> לא נחשב)."
+          ],
+          "trap": {
+            "text": "שוכחים את m = 0, שבו המשוואה לינארית: סופרים שני פתרונות במקום אחד."
+          },
+          "verify": {
+            "kind": "scan",
+            "domain": {
+              "exprs": [
+                "x^2-4x"
+              ],
+              "claim": "(-inf,inf)"
+            },
+            "checks": [
+              {
+                "type": "roots",
+                "name": "z",
+                "eq": "m=0",
+                "var": "m",
+                "count": 1
+              },
+              {
+                "type": "roots",
+                "name": "k",
+                "eq": "16-4m^2=0",
+                "var": "m",
+                "count": 2
+              },
+              {
+                "type": "param",
+                "eq": "mx^2-4x+m=0",
+                "var": "x",
+                "param": "m",
+                "range": [
+                  -100,
+                  100
+                ],
+                "prange": [
+                  -10,
+                  10
+                ],
+                "rules": [
+                  {
+                    "when": "m=0",
+                    "count": 1
+                  },
+                  {
+                    "when": "-2<m<0",
+                    "count": 2
+                  },
+                  {
+                    "when": "0<m<2",
+                    "count": 2
+                  },
+                  {
+                    "when": "m=2",
+                    "count": 1
+                  },
+                  {
+                    "when": "m=-2",
+                    "count": 1
+                  },
+                  {
+                    "when": "m<-2",
+                    "count": 0
+                  },
+                  {
+                    "when": "m>2",
+                    "count": 0
+                  }
+                ],
+                "stmt": true
+              },
+              {
+                "type": "roots",
+                "name": "p",
+                "eq": "mx^2-4x+m=0",
+                "var": "x",
+                "env": {
+                  "m": 1
+                },
+                "count": 2
+              },
+              {
+                "type": "roots",
+                "name": "pp",
+                "eq": "mx^2-4x+m=0",
+                "var": "x",
+                "env": {
+                  "m": 3
+                },
+                "count": 0
+              },
+              {
+                "type": "intparam",
+                "name": "ip",
+                "eq": "mx^2-4x+m=0",
+                "var": "x",
+                "param": "m",
+                "from": -10,
+                "to": 10,
+                "count": 2
+              }
+            ],
+            "parts": [
+              "z1",
+              "k2",
+              "p_count",
+              "pp_count",
+              "ip"
+            ]
+          }
+        },
+        {
+          "id": "lad-m6-02",
+          "topic": "math-par",
+          "level": 5,
+          "title": "משוואה שברית עם פרמטר: פתרון שנפסל",
+          "statement": "נתונה המשוואה <span dir=\"ltr\">(x − m)/(x + 1) = (x + 2)/(x − 1)</span>, כאשר m פרמטר.<br>א. עבור איזה ערך של m המשוואה, אחרי כפל בשני המכנים, מתכווצת למשוואה מהצורה <span dir=\"ltr\">0 = מספר שאינו אפס</span> (ואין פתרון)?<br>ב. עבור איזה ערך של m הפתרון של המשוואה הלינארית נפסל כי הוא שווה <span dir=\"ltr\">−1</span>?<br>ג. מהו הפתרון כאשר <span dir=\"ltr\">m = 0</span>?<br>ד. כמה ערכים שלמים של m בקטע <span dir=\"ltr\">[−6, 3]</span> נותנים בדיוק פתרון אחד?",
+          "domain": "<span dir=\"ltr\">x ≠ −1</span> וגם <span dir=\"ltr\">x ≠ 1</span> (המכנים שונים מאפס), לכל m.",
+          "inputs": [
+            {
+              "label": "ערך m ללא פתרון בגלל 0 = מספר",
+              "unit": "",
+              "answer": "-4",
+              "tolerance": 0.01
+            },
+            {
+              "label": "ערך m שבו הפתרון נפסל",
+              "unit": "",
+              "answer": "-1",
+              "tolerance": 0.01
+            },
+            {
+              "label": "הפתרון ב־m = 0",
+              "unit": "",
+              "answer": "-0.5",
+              "tolerance": 0.005
+            },
+            {
+              "label": "מספר ערכי m שלמים עם פתרון אחד",
+              "unit": "",
+              "answer": "8",
+              "tolerance": 0.01,
+              "wrongs": [
+                {
+                  "value": "9",
+                  "why": "יש שני ערכים ללא פתרון: m = −4 (0 = מספר) ו־m = −1 (פתרון שנפסל). 10 − 2 = 8."
+                }
+              ]
+            }
+          ],
+          "tips": [
+            "כפלו בשני המכנים (בתנאי שהם שונים מאפס) ופתחו סוגריים. אפשר לצמצם את x² משני האגפים: מה נשאר?",
+            "המשוואה שנשארה לינארית ב־x: בודדו x. בדקו שני דברים: מתי אי אפשר לחלק במקדם של x, ומתי הפתרון שמצאתם הוא ערך אסור."
+          ],
+          "solution": [
+            "תחום: <span dir=\"ltr\">x ≠ −1</span> וגם <span dir=\"ltr\">x ≠ 1</span> (המכנים שונים מאפס), לכל m.",
+            "כופלים: <span dir=\"ltr\">(x − m)(x − 1) = (x + 2)(x + 1)</span>, כלומר <span dir=\"ltr\">x² − (m + 1)x + m = x² + 3x + 2</span>, ומכאן <span dir=\"ltr\">−(m + 4)x = 2 − m</span>.",
+            "אם <span dir=\"ltr\">m = −4</span>: <span dir=\"ltr\">0 · x = 6</span>, אין פתרון. אחרת: <span dir=\"ltr\">x = (m − 2)/(m + 4)</span>.",
+            "הפתרון נפסל אם <span dir=\"ltr\">x = −1</span>: <span dir=\"ltr\">m − 2 = −(m + 4)</span> נותן <span dir=\"ltr\">m = −1</span>. הוא אף פעם לא שווה 1 (<span dir=\"ltr\">m − 2 = m + 4</span> אינו אפשרי).",
+            "לכן: <span dir=\"ltr\">m = −4</span> או <span dir=\"ltr\">m = −1</span>: אין פתרון. כל m אחר: פתרון אחד. <span dir=\"ltr\">m = 0</span>: <span dir=\"ltr\">x = −2/4 = −0.5</span>. בקטע <span dir=\"ltr\">[−6, 3]</span> יש 10 שלמים, פחות 2: סך הכול 8."
+          ],
+          "trap": {
+            "text": "מוצאים את הפתרון הכללי x = (m − 2)/(m + 4) וחושבים שיש פתרון לכל m. שני ערכים מיוחדים נפסלים."
+          },
+          "verify": {
+            "kind": "scan",
+            "domain": {
+              "exprs": [
+                "(x-m)/(x+1)",
+                "(x+2)/(x-1)"
+              ],
+              "env": {
+                "m": 0
+              },
+              "claim": "(-inf,-1)U(-1,1)U(1,inf)"
+            },
+            "checks": [
+              {
+                "type": "roots",
+                "name": "z",
+                "eq": "m+4=0",
+                "var": "m",
+                "count": 1
+              },
+              {
+                "type": "roots",
+                "name": "k",
+                "eq": "(m-2)/(m+4)=-1",
+                "var": "m",
+                "range": [
+                  -60,
+                  60
+                ],
+                "count": 1
+              },
+              {
+                "type": "roots",
+                "name": "p",
+                "eq": "(x-m)/(x+1)=(x+2)/(x-1)",
+                "var": "x",
+                "env": {
+                  "m": 0
+                },
+                "count": 1,
+                "show": [
+                  "(x − m)/(x + 1) = (x + 2)/(x − 1)"
+                ]
+              },
+              {
+                "type": "param",
+                "eq": "(x-m)/(x+1)=(x+2)/(x-1)",
+                "var": "x",
+                "param": "m",
+                "range": [
+                  -100,
+                  100
+                ],
+                "prange": [
+                  -10,
+                  10
+                ],
+                "rules": [
+                  {
+                    "when": "m=-4",
+                    "count": 0
+                  },
+                  {
+                    "when": "m=-1",
+                    "count": 0
+                  },
+                  {
+                    "when": "m<-4",
+                    "count": 1
+                  },
+                  {
+                    "when": "-4<m<-1",
+                    "count": 1
+                  },
+                  {
+                    "when": "m>-1",
+                    "count": 1
+                  }
+                ],
+                "stmt": true
+              },
+              {
+                "type": "intparam",
+                "name": "ip",
+                "eq": "(x-m)/(x+1)=(x+2)/(x-1)",
+                "var": "x",
+                "param": "m",
+                "from": -6,
+                "to": 3,
+                "count": 1,
+                "range": [
+                  -100,
+                  100
+                ]
+              }
+            ],
+            "parts": [
+              "z1",
+              "k1",
+              "p1",
+              "ip"
+            ]
+          }
+        },
+        {
+          "id": "lad-m6-03",
+          "topic": "math-par",
+          "level": 5,
+          "title": "מעגל וישר משיקים עם פרמטר",
+          "statement": "נתונים המעגל <span dir=\"ltr\">x² + y² − 2x + 4y − 3 = 0</span> והישר <span dir=\"ltr\">y = x + m</span>.<br>א. מהו ריבוע הרדיוס של המעגל?<br>ב. מהו הערך הקטן של m שעבורו הישר משיק למעגל?<br>ג. מהו הערך הגדול של m שעבורו הישר משיק למעגל?<br>ד. כמה נקודות חיתוך יש כאשר <span dir=\"ltr\">m = 0</span>?<br>ה. כמה נקודות חיתוך יש כאשר <span dir=\"ltr\">m = 4</span>?",
+          "domain": "כל x ו־y ממשיים.",
+          "inputs": [
+            {
+              "label": "ריבוע הרדיוס",
+              "unit": "",
+              "answer": "8",
+              "tolerance": 0.01,
+              "wrongs": [
+                {
+                  "value": "2.83",
+                  "why": "זה הרדיוס עצמו (בקירוב). ריבוע הרדיוס: משלימים לריבוע, (x − 1)² + (y + 2)² = 8."
+                }
+              ]
+            },
+            {
+              "label": "m קטן של משיק",
+              "unit": "",
+              "answer": "-7",
+              "tolerance": 0.01
+            },
+            {
+              "label": "m גדול של משיק",
+              "unit": "",
+              "answer": "1",
+              "tolerance": 0.01
+            },
+            {
+              "label": "מספר נקודות חיתוך ב־m = 0",
+              "unit": "",
+              "answer": "2",
+              "tolerance": 0.01
+            },
+            {
+              "label": "מספר נקודות חיתוך ב־m = 4",
+              "unit": "",
+              "answer": "0",
+              "tolerance": 0.01
+            }
+          ],
+          "tips": [
+            "משלימים לריבוע ומוצאים מרכז ורדיוס. ישר משיק כשהמרחק מהמרכז לישר שווה לרדיוס. כתבו את הישר בצורה x − y + m = 0.",
+            "מרחק מנקודה (x₀, y₀) לישר Ax + By + C = 0 הוא |Ax₀ + By₀ + C| / √(A² + B²). השוו לרדיוס, ופתרו ערך מוחלט: שני פתרונות. מרחק קטן מהרדיוס: שתי נקודות, גדול: אפס."
+          ],
+          "solution": [
+            "תחום: כל x ו־y ממשיים.",
+            "<span dir=\"ltr\">(x − 1)² + (y + 2)² = 1 + 4 + 3 = 8</span>: מרכז <span dir=\"ltr\">(1, −2)</span>, <span dir=\"ltr\">r² = 8</span>.",
+            "הישר <span dir=\"ltr\">x − y + m = 0</span>. מרחק המרכז מהישר: <span dir=\"ltr\">|1 + 2 + m| / √2 = |m + 3| / √2</span>.",
+            "משיק: <span dir=\"ltr\">|m + 3| / √2 = √8</span>, כלומר <span dir=\"ltr\">|m + 3| = 4</span>, ולכן <span dir=\"ltr\">m = 1</span> או <span dir=\"ltr\">m = −7</span>.",
+            "<span dir=\"ltr\">m = 0</span>: מרחק <span dir=\"ltr\">3/√2 ≈ 2.12 &lt; 2.83</span>: שתי נקודות. <span dir=\"ltr\">m = 4</span>: מרחק <span dir=\"ltr\">7/√2 ≈ 4.95 &gt; 2.83</span>: אפס נקודות."
+          ],
+          "trap": {
+            "text": "חושבים שיש רק ערך m אחד למשיק. לישר בשיפוע נתון יש שני משיקים למעגל, אחד מכל צד."
+          },
+          "verify": {
+            "kind": "scan",
+            "domain": {
+              "exprs": [
+                "x^2"
+              ],
+              "claim": "(-inf,inf)"
+            },
+            "checks": [
+              {
+                "type": "eval",
+                "name": "g1",
+                "expr": "(1+sqrt(8))^2+(0-2)^2-2*(1+sqrt(8))+4*(0-2)-3",
+                "expect": 0,
+                "show": [
+                  "x² + y² − 2x + 4y − 3 = 0",
+                  "y = x + m"
+                ]
+              },
+              {
+                "type": "eval",
+                "name": "g2",
+                "expr": "1^2+(0-2+sqrt(8))^2-2*1+4*(0-2+sqrt(8))-3",
+                "expect": 0
+              },
+              {
+                "type": "eval",
+                "name": "rr",
+                "expr": "8"
+              },
+              {
+                "type": "roots",
+                "name": "k",
+                "eq": "|3+m|/sqrt(2)=sqrt(8)",
+                "var": "m",
+                "range": [
+                  -60,
+                  60
+                ],
+                "count": 2
+              },
+              {
+                "type": "param",
+                "eq": "x^2+(x+m)^2-2x+4(x+m)-3=0",
+                "var": "x",
+                "param": "m",
+                "range": [
+                  -100,
+                  100
+                ],
+                "prange": [
+                  -12,
+                  8
+                ],
+                "rules": [
+                  {
+                    "when": "m=-7",
+                    "count": 1
+                  },
+                  {
+                    "when": "m=1",
+                    "count": 1
+                  },
+                  {
+                    "when": "-7<m<1",
+                    "count": 2
+                  },
+                  {
+                    "when": "m<-7",
+                    "count": 0
+                  },
+                  {
+                    "when": "m>1",
+                    "count": 0
+                  }
+                ]
+              },
+              {
+                "type": "roots",
+                "name": "p",
+                "eq": "x^2+(x+m)^2-2x+4(x+m)-3=0",
+                "var": "x",
+                "env": {
+                  "m": 0
+                },
+                "count": 2
+              },
+              {
+                "type": "roots",
+                "name": "pp",
+                "eq": "x^2+(x+m)^2-2x+4(x+m)-3=0",
+                "var": "x",
+                "env": {
+                  "m": 4
+                },
+                "count": 0
+              }
+            ],
+            "parts": [
+              "rr",
+              "k1",
+              "k2",
+              "p_count",
+              "pp_count"
+            ]
+          }
+        },
+        {
+          "id": "lad-m6-04",
+          "topic": "math-par",
+          "level": 5,
+          "title": "משוואה מעריכית עם פרמטר ו־t > 0",
+          "statement": "נתונה המשוואה <span dir=\"ltr\">4^x − 4·2^x + m = 0</span>, כאשר m פרמטר.<br>א. נציב <span dir=\"ltr\">t = 2^x</span>. עבור איזה ערך של m יש לטרינום ב־t שורש כפול?<br>ב. כמה פתרונות יש למשוואה כאשר <span dir=\"ltr\">m = −5</span>?<br>ג. כמה פתרונות יש למשוואה כאשר <span dir=\"ltr\">m = 0</span>?<br>ד. כמה פתרונות יש למשוואה כאשר <span dir=\"ltr\">m = 3</span>?<br>ה. כמה ערכים שלמים של m נותנים בדיוק שני פתרונות?",
+          "domain": "כל x ממשי, ו־<span dir=\"ltr\">t = 2^x &gt; 0</span>.",
+          "inputs": [
+            {
+              "label": "ערך m עם שורש כפול ב־t",
+              "unit": "",
+              "answer": "4",
+              "tolerance": 0.01
+            },
+            {
+              "label": "מספר פתרונות ב־m = −5",
+              "unit": "",
+              "answer": "1",
+              "tolerance": 0.01,
+              "wrongs": [
+                {
+                  "value": "2",
+                  "why": "ב־m = −5 למשוואה ב־t יש שני שורשים, אבל אחד שלילי, ו־2^x אף פעם אינו שלילי. נשאר פתרון אחד."
+                }
+              ]
+            },
+            {
+              "label": "מספר פתרונות ב־m = 0",
+              "unit": "",
+              "answer": "1",
+              "tolerance": 0.01
+            },
+            {
+              "label": "מספר פתרונות ב־m = 3",
+              "unit": "",
+              "answer": "2",
+              "tolerance": 0.01
+            },
+            {
+              "label": "מספר ערכי m שלמים עם שני פתרונות",
+              "unit": "",
+              "answer": "3",
+              "tolerance": 0.01
+            }
+          ],
+          "tips": [
+            "הציבו t = 2^x, אז 4^x = t² ומתקבלת t² − 4t + m = 0. כל שורש חיובי של t נותן בדיוק x אחד, ושורש שאינו חיובי לא נותן כלום.",
+            "ספרו שורשים חיוביים: Δ = 16 − 4m. מכפלת השורשים היא m וסכומם 4, ולכן הסימן של m קובע כמה שורשים חיוביים יש."
+          ],
+          "solution": [
+            "תחום: כל x ממשי, ו־<span dir=\"ltr\">t = 2^x &gt; 0</span>.",
+            "<span dir=\"ltr\">t² − 4t + m = 0</span>, <span dir=\"ltr\">Δ = 16 − 4m</span>. סכום השורשים 4 (חיובי), מכפלתם <span dir=\"ltr\">m</span>.",
+            "<span dir=\"ltr\">m &gt; 4</span>: <span dir=\"ltr\">Δ &lt; 0</span>, אין פתרון. <span dir=\"ltr\">m = 4</span>: <span dir=\"ltr\">t = 2</span> כפול, פתרון אחד <span dir=\"ltr\">x = 1</span>.",
+            "<span dir=\"ltr\">0 &lt; m &lt; 4</span>: שני שורשים חיוביים, ולכן שני פתרונות. <span dir=\"ltr\">m = 0</span>: שורשים 0 ו־4, רק 4 מתאים: פתרון אחד. <span dir=\"ltr\">m &lt; 0</span>: מכפלה שלילית, שורש חיובי אחד ושלילי אחד: פתרון אחד.",
+            "סיכום: <span dir=\"ltr\">m = −5</span>: 1. <span dir=\"ltr\">m = 0</span>: 1. <span dir=\"ltr\">m = 3</span>: 2. שני פתרונות כש־<span dir=\"ltr\">0 &lt; m &lt; 4</span>: <span dir=\"ltr\">m = 1, 2, 3</span>, כלומר 3 ערכים שלמים."
+          ],
+          "trap": {
+            "text": "סופרים שני פתרונות בכל מקום שבו Δ &gt; 0, ושוכחים ש־t = 2^x חייב להיות חיובי."
+          },
+          "verify": {
+            "kind": "scan",
+            "domain": {
+              "exprs": [
+                "4^x",
+                "2^x"
+              ],
+              "claim": "(-inf,inf)"
+            },
+            "checks": [
+              {
+                "type": "roots",
+                "name": "k",
+                "eq": "16-4m=0",
+                "var": "m",
+                "count": 1
+              },
+              {
+                "type": "param",
+                "eq": "4^x-4*2^x+m=0",
+                "var": "x",
+                "param": "m",
+                "range": [
+                  -30,
+                  30
+                ],
+                "prange": [
+                  -10,
+                  8
+                ],
+                "rules": [
+                  {
+                    "when": "m>4",
+                    "count": 0
+                  },
+                  {
+                    "when": "m=4",
+                    "count": 1
+                  },
+                  {
+                    "when": "0<m<4",
+                    "count": 2
+                  },
+                  {
+                    "when": "m<=0",
+                    "count": 1
+                  }
+                ],
+                "stmt": true
+              },
+              {
+                "type": "roots",
+                "name": "p",
+                "eq": "4^x-4*2^x+m=0",
+                "var": "x",
+                "range": [
+                  -30,
+                  30
+                ],
+                "env": {
+                  "m": -5
+                },
+                "count": 1
+              },
+              {
+                "type": "roots",
+                "name": "pp",
+                "eq": "4^x-4*2^x+m=0",
+                "var": "x",
+                "range": [
+                  -30,
+                  30
+                ],
+                "env": {
+                  "m": 0
+                },
+                "count": 1
+              },
+              {
+                "type": "roots",
+                "name": "q",
+                "eq": "4^x-4*2^x+m=0",
+                "var": "x",
+                "range": [
+                  -30,
+                  30
+                ],
+                "env": {
+                  "m": 3
+                },
+                "count": 2
+              },
+              {
+                "type": "intparam",
+                "name": "ip",
+                "eq": "4^x-4*2^x+m=0",
+                "var": "x",
+                "param": "m",
+                "from": -10,
+                "to": 10,
+                "count": 2,
+                "range": [
+                  -30,
+                  30
+                ]
+              }
+            ],
+            "parts": [
+              "k1",
+              "p_count",
+              "pp_count",
+              "q_count",
+              "ip"
+            ]
+          }
+        },
+        {
+          "id": "lad-m6-05",
+          "topic": "math-par",
+          "level": 5,
+          "title": "משוואה טריגונומטרית: זווית כפולה והצבה",
+          "statement": "פתרו את המשוואה <span dir=\"ltr\">cos(2x) + 3sin(x) − 2 = 0</span> בתחום <span dir=\"ltr\">0° ≤ x &lt; 360°</span>.<br>א. בעזרת <span dir=\"ltr\">cos(2x) = 1 − 2sin²(x)</span> מציבים <span dir=\"ltr\">s = sin(x)</span>. מהו השורש הקטן של המשוואה הריבועית ב־s?<br>ב. מהו השורש הגדול של המשוואה הריבועית ב־s?<br>ג. מהו הפתרון הקטן ביותר של x (במעלות)?<br>ד. מהו סכום כל הפתרונות בתחום (במעלות)?<br>ה. כמה פתרונות יש בתחום?",
+          "domain": "<span dir=\"ltr\">0° ≤ x &lt; 360°</span>, כפי שנתון. ב־<span dir=\"ltr\">s = sin(x)</span> מתקיים <span dir=\"ltr\">−1 ≤ s ≤ 1</span>.",
+          "inputs": [
+            {
+              "label": "השורש הקטן של s",
+              "unit": "",
+              "answer": "0.5",
+              "tolerance": 0.005
+            },
+            {
+              "label": "השורש הגדול של s",
+              "unit": "",
+              "answer": "1",
+              "tolerance": 0.01
+            },
+            {
+              "label": "הפתרון הקטן (°)",
+              "unit": "",
+              "answer": "30",
+              "tolerance": 0.01
+            },
+            {
+              "label": "סכום הפתרונות (°)",
+              "unit": "",
+              "answer": "270",
+              "tolerance": 0.01,
+              "wrongs": [
+                {
+                  "value": "180",
+                  "why": "ספרתם רק את שני הפתרונות של sin x = 0.5 (30° ו־150°). גם sin x = 1 נותן פתרון: x = 90°."
+                }
+              ]
+            },
+            {
+              "label": "מספר הפתרונות",
+              "unit": "",
+              "answer": "3",
+              "tolerance": 0.01
+            }
+          ],
+          "tips": [
+            "החליפו את cos(2x) בנוסחה שמכילה רק sin(x), והציבו s = sin(x). מקבלים משוואה ריבועית ב־s.",
+            "לכל ערך של s בקטע [−1, 1] מצאו את כל הזוויות בתחום 0° עד 360°. sin(x) = 1 נותן זווית אחת בלבד, ו־sin(x) = ערך חיובי קטן מ־1 נותן שתיים."
+          ],
+          "solution": [
+            "תחום: <span dir=\"ltr\">0° ≤ x &lt; 360°</span>, כפי שנתון. ב־<span dir=\"ltr\">s = sin(x)</span> מתקיים <span dir=\"ltr\">−1 ≤ s ≤ 1</span>.",
+            "<span dir=\"ltr\">cos(2x) = 1 − 2sin²(x)</span>, ולכן <span dir=\"ltr\">1 − 2s² + 3s − 2 = 0</span>, כלומר <span dir=\"ltr\">2s² − 3s + 1 = 0</span>.",
+            "<span dir=\"ltr\">(2s − 1)(s − 1) = 0</span>: <span dir=\"ltr\">s = 0.5</span> או <span dir=\"ltr\">s = 1</span>. שניהם בקטע <span dir=\"ltr\">[−1, 1]</span>.",
+            "<span dir=\"ltr\">sin(x) = 0.5</span> נותן <span dir=\"ltr\">x = 30°</span> ו־<span dir=\"ltr\">x = 150°</span>. <span dir=\"ltr\">sin(x) = 1</span> נותן <span dir=\"ltr\">x = 90°</span>.",
+            "בדיקה: <span dir=\"ltr\">x = 90°</span>: <span dir=\"ltr\">cos(180°) + 3 · 1 − 2 = −1 + 3 − 2 = 0</span> ✓. סכום: <span dir=\"ltr\">30 + 90 + 150 = 270</span>. שלושה פתרונות."
+          ],
+          "trap": {
+            "text": "שוכחים שהזווית 90° היא פתרון מיוחד: sin(x) = 1 נותן פתרון בודד, ולא שניים כמו ערך אחר."
+          },
+          "verify": {
+            "kind": "scan",
+            "domain": {
+              "conds": [
+                "x>=0",
+                "x<360"
+              ],
+              "claim": "[0,360)",
+              "range": [
+                -30,
+                400
+              ]
+            },
+            "checks": [
+              {
+                "type": "roots",
+                "name": "w",
+                "eq": "2s^2-3s+1=0",
+                "var": "s",
+                "count": 2
+              },
+              {
+                "type": "roots",
+                "name": "r",
+                "eq": "cos(2x)+3sin(x)-2=0",
+                "var": "x",
+                "range": [
+                  0,
+                  359.99
+                ],
+                "count": 3,
+                "stmt": true
+              },
+              {
+                "type": "eval",
+                "name": "sm",
+                "expr": "r1+r2+r3"
+              }
+            ],
+            "parts": [
+              "w1",
+              "w2",
+              "r1",
+              "sm",
+              "r_count"
+            ]
+          }
+        },
+        {
+          "id": "lad-m6-06",
+          "topic": "math-par",
+          "level": 5,
+          "title": "שרשרת תלויה: tan של חצי זווית לכל הערכים",
+          "statement": "נתון <span dir=\"ltr\">tan(a/2) = 0.5</span> וגם <span dir=\"ltr\">0° &lt; a &lt; 180°</span>.<br>א. מהו <span dir=\"ltr\">sin(a)</span>? (רמז: <span dir=\"ltr\">sin(a) = 2t/(1 + t²)</span> כאשר <span dir=\"ltr\">t = tan(a/2)</span>.)<br>ב. מהו <span dir=\"ltr\">cos(a)</span>? (רמז: <span dir=\"ltr\">cos(a) = (1 − t²)/(1 + t²)</span>.)<br>ג. מהו <span dir=\"ltr\">sin(2a)</span>?<br>ד. מהו <span dir=\"ltr\">cos(2a)</span>?<br>ה. מהו <span dir=\"ltr\">cos(3a)</span>? (רמז: <span dir=\"ltr\">cos(3a) = 4cos³(a) − 3cos(a)</span>.)",
+          "domain": "<span dir=\"ltr\">0° &lt; a &lt; 180°</span>, ולכן <span dir=\"ltr\">sin(a) &gt; 0</span>. <span dir=\"ltr\">tan(a/2)</span> מוגדר כי <span dir=\"ltr\">a/2</span> בין 0° ל־90°.",
+          "inputs": [
+            {
+              "label": "sin(a)",
+              "unit": "",
+              "answer": "0.8",
+              "tolerance": 0.005
+            },
+            {
+              "label": "cos(a)",
+              "unit": "",
+              "answer": "0.6",
+              "tolerance": 0.005
+            },
+            {
+              "label": "sin(2a)",
+              "unit": "",
+              "answer": "0.96",
+              "tolerance": 0.005
+            },
+            {
+              "label": "cos(2a)",
+              "unit": "",
+              "answer": "-0.28",
+              "tolerance": 0.005
+            },
+            {
+              "label": "cos(3a)",
+              "unit": "",
+              "answer": "-0.936",
+              "tolerance": 0.0005,
+              "wrongs": [
+                {
+                  "value": "0.936",
+                  "why": "בדקו את הסימן: 4 · 0.6³ − 3 · 0.6 = 0.864 − 1.8 = −0.936."
+                }
+              ]
+            }
+          ],
+          "tips": [
+            "הציבו t = 0.5 בשתי נוסחאות חצי הזווית, ואז sin(a) ו־cos(a) מתקבלים מיד. בדקו ש־sin²(a) + cos²(a) = 1.",
+            "sin(2a) = 2sin(a)cos(a) ו־cos(2a) = cos²(a) − sin²(a). את cos(3a) אפשר לחשב מ־cos(a) בלבד בעזרת נוסחת הזווית המשולשת."
+          ],
+          "solution": [
+            "תחום: <span dir=\"ltr\">0° &lt; a &lt; 180°</span>, ולכן <span dir=\"ltr\">sin(a) &gt; 0</span>. <span dir=\"ltr\">tan(a/2)</span> מוגדר כי <span dir=\"ltr\">a/2</span> בין 0° ל־90°.",
+            "<span dir=\"ltr\">sin(a) = 2t/(1 + t²) = 1/1.25 = 0.8</span>.",
+            "<span dir=\"ltr\">cos(a) = (1 − t²)/(1 + t²) = 0.75/1.25 = 0.6</span>. בדיקה: <span dir=\"ltr\">0.64 + 0.36 = 1</span> ✓.",
+            "<span dir=\"ltr\">sin(2a) = 2 · 0.8 · 0.6 = 0.96</span> ו־<span dir=\"ltr\">cos(2a) = 0.36 − 0.64 = −0.28</span>.",
+            "<span dir=\"ltr\">cos(3a) = 4 · 0.6³ − 3 · 0.6 = 0.864 − 1.8 = −0.936</span>. בדיקה לפי סכום: <span dir=\"ltr\">cos(2a)cos(a) − sin(2a)sin(a) = −0.168 − 0.768 = −0.936</span> ✓."
+          ],
+          "trap": {
+            "text": "מחליפים בין הנוסחאות של sin ו־cos של חצי זווית: ב־sin המונה הוא 2t, וב־cos המונה הוא 1 − t². המכנה זהה."
+          },
+          "verify": {
+            "kind": "scan",
+            "domain": {
+              "var": "a",
+              "conds": [
+                "a>0",
+                "a<180"
+              ],
+              "claim": "(0,180)",
+              "range": [
+                -30,
+                210
+              ]
+            },
+            "checks": [
+              {
+                "type": "roots",
+                "name": "r",
+                "eq": "tan(a/2)=0.5",
+                "var": "a",
+                "range": [
+                  0.5,
+                  179.5
+                ],
+                "count": 1,
+                "stmt": true
+              },
+              {
+                "type": "eval",
+                "name": "sa",
+                "expr": "sin(a)",
+                "env": {
+                  "a": "r1"
+                }
+              },
+              {
+                "type": "eval",
+                "name": "ca",
+                "expr": "cos(a)",
+                "env": {
+                  "a": "r1"
+                }
+              },
+              {
+                "type": "eval",
+                "name": "s2a",
+                "expr": "sin(2*a)",
+                "env": {
+                  "a": "r1"
+                }
+              },
+              {
+                "type": "eval",
+                "name": "c2a",
+                "expr": "cos(2*a)",
+                "env": {
+                  "a": "r1"
+                }
+              },
+              {
+                "type": "eval",
+                "name": "c3a",
+                "expr": "cos(3*a)",
+                "env": {
+                  "a": "r1"
+                }
+              }
+            ],
+            "parts": [
+              "sa",
+              "ca",
+              "s2a",
+              "c2a",
+              "c3a"
+            ]
+          }
+        },
+        {
+          "id": "lad-m6-07",
+          "topic": "math-par",
+          "level": 5,
+          "title": "פרמטר ושורשי משוואה ריבועית",
+          "statement": "נתונה המשוואה <span dir=\"ltr\">x² − 2(m − 1)x + m² − 5 = 0</span>, כאשר m פרמטר.<br>א. מהו הערך הגדול ביותר של m שעבורו יש למשוואה פתרון ממשי?<br>ב. מהו הפתרון הגדול כאשר <span dir=\"ltr\">m = 1</span>?<br>ג. מהו הפתרון הגדול כאשר <span dir=\"ltr\">m = −5</span>?<br>ד. מהי מכפלת שני הפתרונות כאשר <span dir=\"ltr\">m = −5</span>?",
+          "domain": "כל x ממשי.",
+          "inputs": [
+            {
+              "label": "ערך m גדול ביותר עם פתרון",
+              "unit": "",
+              "answer": "3",
+              "tolerance": 0.01
+            },
+            {
+              "label": "הפתרון הגדול ב־m = 1",
+              "unit": "",
+              "answer": "2",
+              "tolerance": 0.01
+            },
+            {
+              "label": "הפתרון הגדול ב־m = −5",
+              "unit": "",
+              "answer": "-2",
+              "tolerance": 0.01,
+              "wrongs": [
+                {
+                  "value": "-10",
+                  "why": "זה הפתרון הקטן. הגדול הוא הקרוב יותר לאפס: −2."
+                }
+              ]
+            },
+            {
+              "label": "מכפלת הפתרונות ב־m = −5",
+              "unit": "",
+              "answer": "20",
+              "tolerance": 0.01
+            }
+          ],
+          "tips": [
+            "חשבו את Δ/4 = (m − 1)² − (m² − 5) וצמצמו: מה מקבלים כביטוי לינארי ב־m? פתרונות ממשיים קיימים כש־Δ ≥ 0.",
+            "לכל ערך m שנתון הציבו וקבלו משוואה ריבועית רגילה בלי פרמטר. מכפלת שורשים אפשר לחשב גם בעזרת וייטה: c/a."
+          ],
+          "solution": [
+            "תחום: כל x ממשי.",
+            "<span dir=\"ltr\">Δ/4 = (m − 1)² − (m² − 5) = m² − 2m + 1 − m² + 5 = 6 − 2m</span>.",
+            "<span dir=\"ltr\">Δ ≥ 0</span> כש־<span dir=\"ltr\">m ≤ 3</span>, ולכן הערך הגדול ביותר הוא <span dir=\"ltr\">m = 3</span> (פתרון כפול <span dir=\"ltr\">x = 2</span>).",
+            "<span dir=\"ltr\">m = 1</span>: <span dir=\"ltr\">x² − 4 = 0</span>, <span dir=\"ltr\">x = ±2</span>, הגדול 2. <span dir=\"ltr\">m = −5</span>: <span dir=\"ltr\">x² + 12x + 20 = 0</span>, <span dir=\"ltr\">(x + 2)(x + 10) = 0</span>: <span dir=\"ltr\">x = −2</span> או <span dir=\"ltr\">x = −10</span>.",
+            "מכפלת הפתרונות ב־<span dir=\"ltr\">m = −5</span>: <span dir=\"ltr\">(−2)(−10) = 20</span>, ובוייטה <span dir=\"ltr\">c/a = m² − 5 = 25 − 5 = 20</span> ✓."
+          ],
+          "trap": {
+            "text": "טועים בדיסקרימיננטה כשהמקדם האמצעי הוא 2(m − 1): b = −2(m − 1), ו־b² = 4(m − 1)². לכן משתמשים ב־Δ/4."
+          },
+          "verify": {
+            "kind": "scan",
+            "domain": {
+              "exprs": [
+                "x^2"
+              ],
+              "claim": "(-inf,inf)"
+            },
+            "checks": [
+              {
+                "type": "param",
+                "eq": "x^2-2(m-1)x+m^2-5=0",
+                "var": "x",
+                "param": "m",
+                "range": [
+                  -100,
+                  100
+                ],
+                "prange": [
+                  -10,
+                  8
+                ],
+                "rules": [
+                  {
+                    "when": "m<3",
+                    "count": 2
+                  },
+                  {
+                    "when": "m=3",
+                    "count": 1
+                  },
+                  {
+                    "when": "m>3",
+                    "count": 0
+                  }
+                ],
+                "stmt": true
+              },
+              {
+                "type": "roots",
+                "name": "k",
+                "eq": "(m-1)^2-(m^2-5)=0",
+                "var": "m",
+                "count": 1
+              },
+              {
+                "type": "roots",
+                "name": "p",
+                "eq": "x^2-2(m-1)x+m^2-5=0",
+                "var": "x",
+                "env": {
+                  "m": 1
+                },
+                "count": 2
+              },
+              {
+                "type": "roots",
+                "name": "pp",
+                "eq": "x^2-2(m-1)x+m^2-5=0",
+                "var": "x",
+                "env": {
+                  "m": -5
+                },
+                "count": 2
+              },
+              {
+                "type": "eval",
+                "name": "pr",
+                "expr": "pp1*pp2"
+              }
+            ],
+            "parts": [
+              "k1",
+              "p2",
+              "pp2",
+              "pr"
+            ]
+          }
+        },
+        {
+          "id": "lad-m6-08",
+          "topic": "math-par",
+          "level": 5,
+          "title": "לוגריתם עם פרמטר: תחום ומספר פתרונות",
+          "statement": "נתונה המשוואה <span dir=\"ltr\">log<sub>2</sub>(x + m) = 2log<sub>2</sub>(x)</span>, כאשר m פרמטר.<br>א. לאחר מעבר ל־<span dir=\"ltr\">x + m = x²</span> מקבלים <span dir=\"ltr\">x² − x − m = 0</span>. עבור איזה ערך של m יש לה שורש כפול?<br>ב. כמה פתרונות יש למשוואה המקורית כאשר <span dir=\"ltr\">m = −0.2</span>?<br>ג. כמה פתרונות יש למשוואה המקורית כאשר <span dir=\"ltr\">m = 2</span>?<br>ד. כמה פתרונות יש למשוואה המקורית כאשר <span dir=\"ltr\">m = −1</span>?<br>ה. מהו הפתרון כאשר <span dir=\"ltr\">m = 2</span>?",
+          "domain": "<span dir=\"ltr\">x &gt; 0</span> וגם <span dir=\"ltr\">x + m &gt; 0</span>. (אם <span dir=\"ltr\">x² = x + m</span> ו־<span dir=\"ltr\">x &gt; 0</span>, התנאי השני מתקיים אוטומטית.)",
+          "inputs": [
+            {
+              "label": "ערך m עם שורש כפול",
+              "unit": "",
+              "answer": "-0.25",
+              "tolerance": 0.005
+            },
+            {
+              "label": "מספר פתרונות ב־m = −0.2",
+              "unit": "",
+              "answer": "2",
+              "tolerance": 0.01
+            },
+            {
+              "label": "מספר פתרונות ב־m = 2",
+              "unit": "",
+              "answer": "1",
+              "tolerance": 0.01,
+              "wrongs": [
+                {
+                  "value": "2",
+                  "why": "x² − x − 2 = 0 נותן x = 2 או x = −1, אבל x = −1 לא בתחום (x &gt; 0), ולכן נשאר פתרון אחד."
+                }
+              ]
+            },
+            {
+              "label": "מספר פתרונות ב־m = −1",
+              "unit": "",
+              "answer": "0",
+              "tolerance": 0.01
+            },
+            {
+              "label": "הפתרון ב־m = 2",
+              "unit": "",
+              "answer": "2",
+              "tolerance": 0.01
+            }
+          ],
+          "tips": [
+            "כתבו את התחום: x &gt; 0. אחרי מעבר ל־x + m = x² מתקבלת משוואה ריבועית, ורק שורשים חיוביים מתאימים.",
+            "בדקו Δ = 1 + 4m. אחר כך בדקו את הסימן של השורשים: סכומם 1 ומכפלתם −m."
+          ],
+          "solution": [
+            "תחום: <span dir=\"ltr\">x &gt; 0</span> וגם <span dir=\"ltr\">x + m &gt; 0</span>. (אם <span dir=\"ltr\">x² = x + m</span> ו־<span dir=\"ltr\">x &gt; 0</span>, התנאי השני מתקיים אוטומטית.)",
+            "<span dir=\"ltr\">2log<sub>2</sub>(x) = log<sub>2</sub>(x²)</span> (עם <span dir=\"ltr\">x &gt; 0</span>), ולכן <span dir=\"ltr\">x + m = x²</span>, כלומר <span dir=\"ltr\">x² − x − m = 0</span>, <span dir=\"ltr\">Δ = 1 + 4m</span>.",
+            "<span dir=\"ltr\">m &lt; −0.25</span>: אין פתרון. <span dir=\"ltr\">m = −0.25</span>: <span dir=\"ltr\">x = 0.5</span>, פתרון אחד. <span dir=\"ltr\">−0.25 &lt; m &lt; 0</span>: מכפלה <span dir=\"ltr\">−m &gt; 0</span> וסכום 1, ולכן שני שורשים חיוביים: שני פתרונות.",
+            "<span dir=\"ltr\">m = 0</span>: <span dir=\"ltr\">x(x − 1) = 0</span>, רק <span dir=\"ltr\">x = 1</span> בתחום: פתרון אחד. <span dir=\"ltr\">m &gt; 0</span>: מכפלה שלילית, שורש חיובי אחד: פתרון אחד.",
+            "<span dir=\"ltr\">m = 2</span>: <span dir=\"ltr\">(x − 2)(x + 1) = 0</span>, רק <span dir=\"ltr\">x = 2</span>. בדיקה: <span dir=\"ltr\">log<sub>2</sub>4 = 2 = 2log<sub>2</sub>2</span> ✓. <span dir=\"ltr\">m = −1</span>: <span dir=\"ltr\">Δ = −3 &lt; 0</span>, אין פתרון."
+          ],
+          "trap": {
+            "text": "סופרים את שני שורשי המשוואה הריבועית. שורש שלילי לא בתחום של הלוגריתם ונפסל."
+          },
+          "verify": {
+            "kind": "scan",
+            "domain": {
+              "exprs": [
+                "log_2(x)"
+              ],
+              "claim": "(0,inf)",
+              "range": [
+                -5,
+                40
+              ]
+            },
+            "checks": [
+              {
+                "type": "roots",
+                "name": "k",
+                "eq": "1+4m=0",
+                "var": "m",
+                "count": 1
+              },
+              {
+                "type": "param",
+                "eq": "log_2(x+m)=2log_2(x)",
+                "var": "x",
+                "param": "m",
+                "range": [
+                  0,
+                  50
+                ],
+                "prange": [
+                  -2,
+                  3
+                ],
+                "step": 0.05,
+                "rules": [
+                  {
+                    "when": "m>0",
+                    "count": 1
+                  },
+                  {
+                    "when": "m=0",
+                    "count": 1
+                  },
+                  {
+                    "when": "-0.25<m<0",
+                    "count": 2
+                  },
+                  {
+                    "when": "m=-0.25",
+                    "count": 1
+                  },
+                  {
+                    "when": "m<-0.25",
+                    "count": 0
+                  }
+                ],
+                "stmt": true
+              },
+              {
+                "type": "roots",
+                "name": "p",
+                "eq": "log_2(x+m)=2log_2(x)",
+                "var": "x",
+                "range": [
+                  0,
+                  50
+                ],
+                "env": {
+                  "m": -0.2
+                },
+                "count": 2
+              },
+              {
+                "type": "roots",
+                "name": "q",
+                "eq": "log_2(x+m)=2log_2(x)",
+                "var": "x",
+                "range": [
+                  0,
+                  50
+                ],
+                "env": {
+                  "m": 2
+                },
+                "count": 1
+              },
+              {
+                "type": "roots",
+                "name": "z",
+                "eq": "log_2(x+m)=2log_2(x)",
+                "var": "x",
+                "range": [
+                  0,
+                  50
+                ],
+                "env": {
+                  "m": -1
+                },
+                "count": 0
+              }
+            ],
+            "parts": [
+              "k1",
+              "p_count",
+              "q_count",
+              "z_count",
+              "q1"
+            ]
+          }
+        },
+        {
+          "id": "lad-m6-09",
+          "topic": "math-par",
+          "level": 5,
+          "title": "מעגל, ישר ומשיק: שלושה סעיפים תלויים",
+          "statement": "נתונים המעגל <span dir=\"ltr\">x² + y² = 25</span> והישר <span dir=\"ltr\">y = x + 1</span>. הישר חותך את המעגל בשתי נקודות. A היא הנקודה שברביע הראשון ו־B היא הנקודה השנייה.<br>א. מהו שיעור ה־x של A?<br>ב. מהו שיעור ה־y של A?<br>ג. מהו שיעור ה־x של B?<br>ד. מהו ריבוע אורך המיתר AB?<br>ה. המשיק למעגל בנקודה A חותך את ציר ה־y בנקודה שערך ה־y שלה הוא? (רמז: המשיק בנקודה (x₀, y₀) הוא <span dir=\"ltr\">x₀x + y₀y = 25</span>.)",
+          "domain": "כל x ו־y ממשיים.",
+          "inputs": [
+            {
+              "label": "x של A",
+              "unit": "",
+              "answer": "3",
+              "tolerance": 0.01
+            },
+            {
+              "label": "y של A",
+              "unit": "",
+              "answer": "4",
+              "tolerance": 0.01
+            },
+            {
+              "label": "x של B",
+              "unit": "",
+              "answer": "-4",
+              "tolerance": 0.01
+            },
+            {
+              "label": "ריבוע אורך AB",
+              "unit": "",
+              "answer": "98",
+              "tolerance": 0.01,
+              "wrongs": [
+                {
+                  "value": "7",
+                  "why": "ההפרש בין שיעורי ה־x הוא 7, וגם בין שיעורי ה־y הוא 7. ריבוע האורך הוא 7² + 7² = 98."
+                }
+              ]
+            },
+            {
+              "label": "חיתוך המשיק עם ציר y",
+              "unit": "",
+              "answer": "6.25",
+              "tolerance": 0.005
+            }
+          ],
+          "tips": [
+            "הציבו y = x + 1 במשוואת המעגל ופתרו משוואה ריבועית ב־x. שני השורשים הם שיעורי ה־x של שתי הנקודות. A ברביע הראשון, ולכן x ו־y חיוביים.",
+            "את y מוצאים מהישר. את ריבוע המיתר מחשבים מהפרשי השיעורים: Δx² + Δy². המשיק מאונך לרדיוס, והמשוואה שבסעיף ה נותנת את החיתוך עם ציר y: מציבים x = 0."
+          ],
+          "solution": [
+            "תחום: כל x ו־y ממשיים.",
+            "<span dir=\"ltr\">x² + (x + 1)² = 25</span>, <span dir=\"ltr\">2x² + 2x − 24 = 0</span>, <span dir=\"ltr\">x² + x − 12 = 0</span>, <span dir=\"ltr\">(x − 3)(x + 4) = 0</span>.",
+            "<span dir=\"ltr\">x = 3</span>: <span dir=\"ltr\">y = 4</span>, זו A (רביע ראשון). <span dir=\"ltr\">x = −4</span>: <span dir=\"ltr\">y = −3</span>, זו B.",
+            "<span dir=\"ltr\">AB² = (3 − (−4))² + (4 − (−3))² = 49 + 49 = 98</span>.",
+            "משיק ב־A: <span dir=\"ltr\">3x + 4y = 25</span>. עבור <span dir=\"ltr\">x = 0</span>: <span dir=\"ltr\">y = 25/4 = 6.25</span>. בדיקה: המרחק מהראשית לישר הוא <span dir=\"ltr\">25/√(9 + 16) = 5</span>, כרדיוס ✓."
+          ],
+          "trap": {
+            "text": "משתמשים בנקודה הלא נכונה (B במקום A) לשיפוע המשיק, או שוכחים לרבע את ההפרשים באורך המיתר."
+          },
+          "verify": {
+            "kind": "scan",
+            "domain": {
+              "exprs": [
+                "x^2"
+              ],
+              "claim": "(-inf,inf)"
+            },
+            "checks": [
+              {
+                "type": "roots",
+                "name": "p",
+                "eq": "x^2+(x+1)^2=25",
+                "var": "x",
+                "count": 2,
+                "show": [
+                  "x² + y² = 25",
+                  "y = x + 1"
+                ]
+              },
+              {
+                "type": "eval",
+                "name": "ya",
+                "expr": "p2+1"
+              },
+              {
+                "type": "eval",
+                "name": "ab",
+                "expr": "(p2-p1)^2+((p2+1)-(p1+1))^2"
+              },
+              {
+                "type": "eval",
+                "name": "dist",
+                "expr": "25/sqrt(p2^2+(p2+1)^2)",
+                "expect": 5
+              },
+              {
+                "type": "eval",
+                "name": "ic",
+                "expr": "25/(p2+1)"
+              }
+            ],
+            "parts": [
+              "p2",
+              "ya",
+              "p1",
+              "ab",
+              "ic"
+            ]
+          }
+        },
+        {
+          "id": "lad-m6-10",
+          "topic": "math-par",
+          "level": 5,
+          "title": "משוואה מעריכית סימטרית: פרמטר, סכום וערך קטן ביותר",
+          "statement": "נתונה המשוואה <span dir=\"ltr\">2^(x + 1) + 2^(1 − x) = k</span>, כאשר k פרמטר. בסעיפים א–ג נתון <span dir=\"ltr\">k = 5</span>.<br>א. מהו הפתרון הקטן של x?<br>ב. מהו הפתרון הגדול של x?<br>ג. מהו ערך הביטוי <span dir=\"ltr\">4^x + 4^(−x)</span> בפתרון? (הערך זהה בשני הפתרונות.)<br>ד. מהו הערך הקטן ביותר של k שעבורו יש למשוואה פתרון?<br>ה. כמה פתרונות יש למשוואה כאשר <span dir=\"ltr\">k = 6</span>?",
+          "domain": "כל x ממשי. החזקות 2^x ו־2^(−x) חיוביות תמיד.",
+          "inputs": [
+            {
+              "label": "הפתרון הקטן",
+              "unit": "",
+              "answer": "-1",
+              "tolerance": 0.01
+            },
+            {
+              "label": "הפתרון הגדול",
+              "unit": "",
+              "answer": "1",
+              "tolerance": 0.01
+            },
+            {
+              "label": "ערך 4^x + 4^(−x)",
+              "unit": "",
+              "answer": "4.25",
+              "tolerance": 0.005,
+              "wrongs": [
+                {
+                  "value": "5",
+                  "why": "הביטוי 4^x + 4^(−x) הוא ריבוע של 2^x + 2^(−x) פחות 2, ולא ערך k. בפתרון x = 1 מתקבל 4 + 0.25."
+                }
+              ]
+            },
+            {
+              "label": "k קטן ביותר עם פתרון",
+              "unit": "",
+              "answer": "4",
+              "tolerance": 0.01
+            },
+            {
+              "label": "מספר פתרונות ב־k = 6",
+              "unit": "",
+              "answer": "2",
+              "tolerance": 0.01
+            }
+          ],
+          "tips": [
+            "כתבו 2^(x+1) = 2·2^x ו־2^(1−x) = 2 ÷ 2^x. הציבו t = 2^x וכפלו ב־t כדי לקבל משוואה ריבועית.",
+            "בסעיף ג חשבו את 4^x + 4^(−x) בעזרת t² + 1/t². בסעיף ד הביטוי t + 1/t (עם t &gt; 0) לעולם אינו קטן מ־2: מה זה אומר על 2t + 2/t?"
+          ],
+          "solution": [
+            "תחום: כל x ממשי. החזקות 2^x ו־2^(−x) חיוביות תמיד.",
+            "<span dir=\"ltr\">2t + 2/t = 5</span>, כלומר <span dir=\"ltr\">2t² − 5t + 2 = 0</span>, <span dir=\"ltr\">(2t − 1)(t − 2) = 0</span>: <span dir=\"ltr\">t = 0.5</span> או <span dir=\"ltr\">t = 2</span>. ולכן <span dir=\"ltr\">x = −1</span> או <span dir=\"ltr\">x = 1</span>.",
+            "בפתרון <span dir=\"ltr\">x = 1</span>: <span dir=\"ltr\">4^1 + 4^(−1) = 4 + 0.25 = 4.25</span>. בפתרון <span dir=\"ltr\">x = −1</span>: אותו ערך (הביטוי סימטרי ב־x).",
+            "לכל <span dir=\"ltr\">t &gt; 0</span> מתקיים <span dir=\"ltr\">t + 1/t ≥ 2</span>, כי <span dir=\"ltr\">(t − 1)² ≥ 0</span>. לכן <span dir=\"ltr\">2t + 2/t ≥ 4</span>, עם שוויון רק ב־<span dir=\"ltr\">t = 1</span>, כלומר <span dir=\"ltr\">x = 0</span>. הערך הקטן ביותר של k הוא 4.",
+            "<span dir=\"ltr\">k = 4</span>: פתרון יחיד <span dir=\"ltr\">x = 0</span>. <span dir=\"ltr\">k &gt; 4</span>: שני פתרונות (סימטריים סביב 0), ולכן ב־<span dir=\"ltr\">k = 6</span> יש שניים. <span dir=\"ltr\">k &lt; 4</span>: אין פתרון."
+          ],
+          "trap": {
+            "text": "חושבים שלמשוואה ריבועית ב־t יש תמיד שני פתרונות, בלי לבדוק שהפתרון t חיובי ומתאים ל־x."
+          },
+          "verify": {
+            "kind": "scan",
+            "domain": {
+              "exprs": [
+                "2^(x+1)",
+                "2^(1-x)"
+              ],
+              "claim": "(-inf,inf)"
+            },
+            "checks": [
+              {
+                "type": "roots",
+                "name": "r",
+                "eq": "2^(x+1)+2^(1-x)=k",
+                "var": "x",
+                "range": [
+                  -30,
+                  30
+                ],
+                "env": {
+                  "k": 5
+                },
+                "count": 2,
+                "stmt": true
+              },
+              {
+                "type": "eval",
+                "name": "v",
+                "expr": "4^r1+4^(0-r1)"
+              },
+              {
+                "type": "eval",
+                "name": "v2",
+                "expr": "4^r2+4^(0-r2)",
+                "expect": 4.25
+              },
+              {
+                "type": "eval",
+                "name": "kmin",
+                "expr": "2^(0+1)+2^(1-0)"
+              },
+              {
+                "type": "param",
+                "eq": "2^(x+1)+2^(1-x)=k",
+                "var": "x",
+                "param": "k",
+                "range": [
+                  -30,
+                  30
+                ],
+                "prange": [
+                  0,
+                  12
+                ],
+                "rules": [
+                  {
+                    "when": "k<4",
+                    "count": 0
+                  },
+                  {
+                    "when": "k=4",
+                    "count": 1
+                  },
+                  {
+                    "when": "k>4",
+                    "count": 2
+                  }
+                ]
+              },
+              {
+                "type": "roots",
+                "name": "q",
+                "eq": "2^(x+1)+2^(1-x)=k",
+                "var": "x",
+                "range": [
+                  -30,
+                  30
+                ],
+                "env": {
+                  "k": 6
+                },
+                "count": 2
+              }
+            ],
+            "parts": [
+              "r1",
+              "r2",
+              "v",
+              "kmin",
+              "q_count"
+            ]
+          }
+        }
+      ]
     }
   ]
 }

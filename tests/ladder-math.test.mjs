@@ -21,7 +21,8 @@ const physicsLadder = read('ladder.json');
 const physics = read('physics.json');
 const stages = data.stages;
 const clone = (x) => JSON.parse(JSON.stringify(x));
-const inline = inlineItems(data);
+const inline = inlineItems(data).filter((x) => ['M1', 'M2', 'M3'].includes(x.stage)); // linear-system stages (exact solver)
+const scanItems = inlineItems(data).filter((x) => ['M4', 'M5', 'M6'].includes(x.stage)); // numeric-scan stages
 
 // the shared fake DOM's replaceChildren() rejects plain strings, which the real DOM (and exercise-view.js) accepts
 const Proto = Object.getPrototypeOf(document.createElement('x'));
@@ -29,15 +30,16 @@ const realReplace = Proto.replaceChildren;
 Proto.replaceChildren = function (...kids) { return realReplace.apply(this, kids.map((k) => (typeof k === 'string' ? document.createTextNode(k) : k))); };
 
 // ---------------------------------------------------------------- data
-test('ladder-math.json: six stages, M1-M3 filled, M4-M6 "coming soon"', () => {
+test('ladder-math.json: six stages, all filled, no "coming soon" note', () => {
   assert.equal(data.v, 1);
   assert.deepEqual(stages.map((s) => s.id), ['M1', 'M2', 'M3', 'M4', 'M5', 'M6']);
   for (const s of stages) { assert.match(s.title, /[א-ת]/); assert.match(s.intro, /[א-ת]/); }
   assert.deepEqual(stages.slice(0, 3).map((s) => s.title), ['השיטה הבסיסית', 'שני נעלמים', 'שלושה נעלמים']);
+  for (const s of stages) assert.equal(s.soon, undefined, `${s.id} has no soon note`);
   for (const id of ['M4', 'M5', 'M6']) {
     const s = stages.find((x) => x.id === id);
-    assert.equal(s.items.length, 0);
-    assert.match(s.soon, /בקרוב/);
+    assert.equal(s.items.length, 10, id);
+    assert.ok(s.items.every((i) => !i.ref && i.id.startsWith(`lad-m${id[1]}-`)), id);
   }
   for (const id of ['M1', 'M2', 'M3']) assert.ok(inline.filter((x) => x.stage === id).length >= 8, `${id} has at least 8 new items`);
   const refs = stages.flatMap((s) => s.items.filter((i) => i.ref).map((i) => i.ref));
@@ -146,8 +148,10 @@ test('verifier ladder checks: wrong refs, duplicate ids, thin stages, wrong stag
   assert.match(checkLadder(d3, math).join('|'), /needs at least 8/);
   const d4 = clone(data); d4.stages[1].items.push(clone(d4.stages[1].items[0]));
   assert.match(checkLadder(d4, math).join('|'), /duplicate/);
-  const d5 = clone(data); d5.stages[3].soon = '';
-  assert.match(checkLadder(d5, math).join('|'), /needs a "soon" note/);
+  const d5 = clone(data); d5.stages[3].soon = 'בקרוב';
+  assert.match(checkLadder(d5, math).join('|'), /must not keep the "soon" note/);
+  const d7 = clone(data); d7.stages[4].items.length = 6;
+  assert.match(checkLadder(d7, math).join('|'), /M5: needs at least 10 scan items/);
   const d6 = clone(data); d6.stages.pop();
   assert.match(checkLadder(d6, math).join('|'), /stages must be M1..M6/);
 });
@@ -190,14 +194,22 @@ test('saved state: an old physics-only file is read unchanged, and the math ladd
   localStorage.removeItem(L.LADDER_KEY);
 });
 
-test('math unlock rule: 70% alone of the previous non-empty stage, skip opens one stage, M4-M6 are "soon" and never block', () => {
+test('math unlock rule: 70% alone of the previous non-empty stage, skip opens one stage, M4-M6 follow the same chain', () => {
   const none = () => null;
-  assert.deepEqual(L.ladderStatus(stages, none, {}).map((e) => e.status), ['unlocked', 'locked', 'locked', 'soon', 'soon', 'soon']);
+  assert.deepEqual(L.ladderStatus(stages, none, {}).map((e) => e.status), ['unlocked', 'locked', 'locked', 'locked', 'locked', 'locked']);
+  // 7 of 10 alone in M4 (and in M5) open the next stage; 6 do not
+  const alone = (stage, n) => new Set(stages.find((s) => s.id === stage).items.slice(0, n).map(L.itemId));
+  const upTo = (sets) => { const all = new Set(sets.flatMap((s) => [...s])); return (id) => (all.has(id) ? 'alone' : null); };
+  const chain = [alone('M1', 7), alone('M2', 7), alone('M3', 14), alone('M4', 7)];
+  assert.equal(L.needed(10), 7);
+  assert.deepEqual(L.ladderStatus(stages, upTo(chain), {}).map((e) => e.status), ['done', 'done', 'done', 'done', 'unlocked', 'locked']);
+  assert.deepEqual(L.ladderStatus(stages, upTo([...chain.slice(0, 3), alone('M4', 6)]), {}).map((e) => e.status).slice(3), ['unlocked', 'locked', 'locked']);
+  assert.deepEqual(L.ladderStatus(stages, upTo([...chain, alone('M5', 7)]), {}).map((e) => e.status).slice(3), ['done', 'done', 'unlocked']);
   const m1 = stages[0].items.map(L.itemId);
   const need = L.needed(m1.length);
   const some = new Set(m1.slice(0, need));
   const st = L.ladderStatus(stages, (id) => (some.has(id) ? 'alone' : null), {});
-  assert.deepEqual(st.map((e) => e.status), ['done', 'unlocked', 'locked', 'soon', 'soon', 'soon']);
+  assert.deepEqual(st.map((e) => e.status), ['done', 'unlocked', 'locked', 'locked', 'locked', 'locked']);
   const fewer = new Set(m1.slice(0, need - 1));
   assert.equal(L.ladderStatus(stages, (id) => (fewer.has(id) ? 'alone' : null), {})[1].status, 'locked');
   assert.equal(L.ladderStatus(stages, (id) => (some.has(id) ? 'hinted' : null), {})[1].status, 'locked', 'hinted does not count');
@@ -225,10 +237,11 @@ test('UI: math overview has the subject tabs, six cards, progress, soon notes; p
   assert.match(text, /פיזיקה/);
   assert.match(text, /מתמטיקה/);
   assert.deepEqual(hrefs().filter((h) => /^#\/ladder(\/math)?$/.test(h)), ['#/ladder', '#/ladder/math']);
-  assert.deepEqual(hrefs().filter((h) => /^#\/ladder\/math\/M\d$/.test(h)), ['#/ladder/math/M1', '#/ladder/math/M2', '#/ladder/math/M3']);
+  assert.deepEqual(hrefs().filter((h) => /^#\/ladder\/math\/M\d$/.test(h)), ['#/ladder/math/M1', '#/ladder/math/M2', '#/ladder/math/M3', '#/ladder/math/M4', '#/ladder/math/M5', '#/ladder/math/M6']);
   assert.match(text, /0\/10 לבד/);
   assert.match(text, /0\/19 לבד/);
-  assert.equal((text.match(/⏳ בקרוב/g) || []).length, 3);
+  assert.equal((text.match(/0\/10 לבד/g) || []).length, 5);
+  assert.equal((text.match(/⏳ בקרוב/g) || []).length, 0);
   assert.match(text, /🔒 נעול/);
   // the physics overview is the default and keeps its wording and hrefs
   await U.viewLadderRoute(ctx);
@@ -251,9 +264,11 @@ test('UI: math stage list: locked M2 offers the skip link, skipping opens it, so
   assert.deepEqual(L.loadLadder().skip, { M2: true });
   assert.equal(hrefs().filter((h) => /^#\/ladder\/math\/M2\/\d+$/.test(h)).length, 10);
   await U.viewLadderRoute(ctx, 'math', 'M5');
-  assert.match(dom.root.textContent, /יתווספו בקרוב/);
-  await U.viewLadderRoute(ctx, 'math', 'M4', '1'); // a soon stage never renders items
-  assert.match(dom.root.textContent, /יתווספו בקרוב/);
+  assert.match(dom.root.textContent, /השלב נעול/);
+  assert.doesNotMatch(dom.root.textContent, /בקרוב/);
+  await U.viewLadderRoute(ctx, 'math', 'M4', '1'); // a locked stage never renders items
+  assert.match(dom.root.textContent, /השלב נעול/);
+  assert.equal(hrefs().filter((h) => /^#\/ladder\/math\/M4\/\d+$/.test(h)).length, 0);
   await U.viewLadderRoute(ctx, 'math', 'Mx'); // unknown stage falls back to the math overview
   assert.match(dom.root.textContent, /הסלם במתמטיקה/);
   localStorage.removeItem(L.LADDER_KEY);
@@ -290,6 +305,77 @@ test('UI: an inline math item renders, a correct answer is recorded in the ladde
   assert.ok(hrefs().includes('#/ladder/math'), 'crumb back to the math overview');
   await U.viewLadderRoute(ctx, 'math', 'M3', '19');
   assert.ok(hrefs().includes('#/ladder/math'), 'last item links back to the math overview');
+  localStorage.removeItem(L.LADDER_KEY);
+});
+
+// ---------------------------------------------------------------- M4-M6 (numeric scan items)
+test('M4-M6: 30 scan items, 2 tips, domain step, trap, 3-5 parts, rejected roots / intervals / parameter cases present', () => {
+  assert.equal(scanItems.length, 30);
+  assert.deepEqual(checkLadder(data, math), []);
+  for (const { it } of scanItems) {
+    assert.equal(it.verify.kind, 'scan', it.id);
+    assert.equal(it.tips.length, 2, it.id);
+    assert.match(it.solution[0], /^תחום:/, it.id);
+    assert.ok(it.trap.text.length > 10, it.id);
+    assert.ok(it.inputs.length >= 3 && it.inputs.length <= 5, it.id);
+    assert.ok(it.inputs.every((i) => i.unit === '' && /^-?\d+(\.\d{1,3})?$/.test(i.answer)), it.id);
+    assert.ok(!/complex|מרוכב/.test(JSON.stringify(it)), it.id);
+  }
+  const m = (st) => scanItems.filter((x) => x.stage === st).map((x) => x.it);
+  assert.ok(m('M4').some((it) => it.verify.checks.some((c) => c.type === 'rejected')), 'M4 has a rejected root');
+  assert.ok(m('M4').some((it) => /t = /.test(it.statement + it.solution.join(' '))), 'M4 has a substitution');
+  assert.ok(m('M5').some((it) => it.verify.checks.some((c) => c.type === 'set')), 'M5 has interval claims');
+  assert.ok(m('M5').some((it) => /0\.5|0\.25|1\/2|1\/3/.test(it.statement)), 'M5 has a base below 1');
+  assert.ok(m('M6').some((it) => it.verify.checks.some((c) => c.type === 'param')), 'M6 has parameter cases');
+  assert.ok(m('M6').some((it) => /sin|cos|tan/.test(it.statement)), 'M6 has a trig item');
+  assert.ok(m('M6').every((it) => it.level >= 4 || it.id), 'levels');
+  assert.equal(new Set(scanItems.map((x) => x.it.id)).size, 30);
+});
+
+test('scan verifier catches: wrong answer, wrong root count, wrong domain, wrong interval end, wrong parameter rule, leaked tip, missing trap', () => {
+  const find = (id) => scanItems.find((x) => x.it.id === id).it;
+  const mutate = (id, fn) => { const it = clone(find(id)); fn(it); return checkItem(it).join('|'); };
+  assert.deepEqual(checkItem(find('lad-m4-01')), []);
+  assert.match(mutate('lad-m4-01', (it) => { it.inputs[4].answer = '-1'; }), /part 5: stored answer -1/);
+  assert.match(mutate('lad-m4-01', (it) => { it.verify.checks[1].count = 2; }), /has 1 root/);
+  assert.match(mutate('lad-m4-01', (it) => { it.verify.domain.claim = '[0,inf)'; }), /domain claim/);
+  assert.match(mutate('lad-m4-01', (it) => { it.verify.checks[2].values = [3]; }), /real solution of the original/);
+  assert.match(mutate('lad-m4-01', (it) => { it.statement = it.statement.replace('2x + 3', '2x + 4'); }), /statement does not show/);
+  assert.match(mutate('lad-m4-01', (it) => { delete it.trap; }), /trap\.text/);
+  assert.match(mutate('lad-m4-01', (it) => { it.tips.pop(); }), /exactly 2/);
+  assert.match(mutate('lad-m4-01', (it) => { it.solution[0] = 'x'; }), /domain/);
+  assert.match(mutate('lad-m4-01', (it) => { it.tips[0] += ' x = 3'; }), /a tip gives the answer to part 5/);
+  assert.match(mutate('lad-m4-01', (it) => { it.inputs[4].wrongs = [{ value: '3', why: 'טעות' }]; }), /equals the correct answer/);
+  const setItem = scanItems.find((x) => x.it.verify.checks.some((c) => c.type === 'set')).it;
+  const bumpClaim = (it) => { const c = it.verify.checks.find((k) => k.type === 'set'); c.claim = c.claim.replace(/\)/, ']').replace(/\]/, ')'); };
+  assert.match(mutate(setItem.id, bumpClaim), /claimed set|differs/);
+  const paramItem = scanItems.find((x) => x.it.verify.checks.some((c) => c.type === 'param')).it;
+  assert.match(mutate(paramItem.id, (it) => { const c = it.verify.checks.find((k) => k.type === 'param'); c.rules[0].count += 1; }), /solution\(s\), rule|rules apply/);
+});
+
+test('UI: an M4 item renders without the trap, a typical wrong answer gets its explanation, a correct answer shows the trap and is saved in the ladder key', async () => {
+  store.resetCache();
+  localStorage.removeItem(L.LADDER_KEY);
+  L.setSkip('M4');
+  await U.viewLadderRoute(ctx, 'math', 'M4', '1');
+  const it = stages[3].items[0];
+  assert.ok(L.isInline(it));
+  assert.doesNotMatch(dom.root.textContent, /מלכודת/);
+  const fill = (vals) => { dom.root.all((n) => n.tagName === 'INPUT').forEach((inp, i) => { inp.value = vals[i]; }); press(); dom.root.querySelector('form').dispatch('submit'); };
+  const good = it.inputs.map((i) => i.answer);
+  const wrongIdx = it.inputs.findIndex((i) => i.wrongs && i.wrongs.length);
+  const bad = good.slice(); bad[wrongIdx] = it.inputs[wrongIdx].wrongs[0].value;
+  fill(bad);
+  assert.match(dom.root.textContent, /יש טעות בתשובה/);
+  assert.ok(dom.root.textContent.includes(it.inputs[wrongIdx].wrongs[0].why.slice(0, 20)));
+  assert.equal(L.inlineOutcome(it.id), null);
+  fill(good);
+  assert.match(dom.root.textContent, /נכון/);
+  assert.match(dom.root.textContent, /מלכודת/);
+  assert.equal(L.inlineOutcome(it.id), 'alone');
+  // the stage counts it; stage M5 opens after 7 of 10 alone
+  await U.viewLadderRoute(ctx, 'math', 'M4');
+  assert.match(dom.root.textContent, /1\/10 לבד/);
   localStorage.removeItem(L.LADDER_KEY);
 });
 

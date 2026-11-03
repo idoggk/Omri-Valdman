@@ -1,4 +1,4 @@
-import { checkAll } from './check.js';
+import { checkAll, isCorrect } from './check.js';
 import * as store from './store.js';
 import { matchSets, validAnswerSets } from './answersets.js';
 import { sanitizeSvgSafe as sanitizeSvg } from './sanitize.js';
@@ -146,6 +146,8 @@ export function renderExercise(ex, o) {
     sink.correct();
     const ui = OUTCOME_UI[sink.outcome()] || { icon: '✏️', label: 'התשובות נכונות, נותר לסמן את סעיף השרטוט' }; // a sink may hold the result back
     outcomeLine.replaceChildren(`${ui.icon} ${ui.label}`);
+    // the trap is named only after solving: showing it earlier would spoil it
+    if (ex.trap && ex.trap.text) outcomeLine.append(h('span', { class: 'notice' }, ` ⚠️ מלכודת: ${ex.trap.text}`));
   }
 
   function check() {
@@ -178,8 +180,11 @@ export function renderExercise(ex, o) {
     if (res.every(Boolean)) { solved(); return setFeedback('ok', 'נכון! כל הכבוד 🎉'); }
     noteWrong();
     const wrongNames = ex.inputs.map((s, i) => (res[i] ? null : (s.label || `תשובה ${i + 1}`))).filter(Boolean);
+    // typical wrong answers (input.wrongs: [{ value, why }]) get a targeted explanation
+    const whys = ex.inputs.map((s, i) => (res[i] ? null : (s.wrongs || []).find((w) => isCorrect(values[i], w.value, s.tolerance)))).filter(Boolean);
     feedback.replaceChildren(h('div', { class: 'feedback bad', role: 'alert' },
-      'יש טעות בתשובה עבור: ', wrongNames.map((n, i) => [i ? ', ' : '', ltr(n)]), '. בדקו ונסו שוב.'));
+      'יש טעות בתשובה עבור: ', wrongNames.map((n, i) => [i ? ', ' : '', ltr(n)]), '. בדקו ונסו שוב.',
+      whys.map((w) => h('p', { class: 'muted' }, w.why))));
   }
 
   /* tips: must open in order */
