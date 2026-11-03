@@ -163,7 +163,7 @@ function viewItem(ctx, sub, stages, stage, n) {
     ctx.show(...(k < 0 ? [...nodes, gate.node] : [...nodes.slice(0, k + 1), gate.node, ...nodes.slice(k + 1)]));
   } : ctx.show;
   ctx.renderExercise(ex, {
-    ctx: gate ? { ...ctx, show } : ctx, nav,
+    ctx: gate ? { ...ctx, show } : ctx, nav, tryFirst: sub.id === 'math',
     sink: gate ? gatedSink(sink, gate) : sink,
     crumbs: h('p', { class: 'crumbs' }, h('a', { href: `${sub.base}/${stage.id}` }, `→ ${stage.title} (${n}/${total})`)),
   });

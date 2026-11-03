@@ -11,6 +11,7 @@ import { pickWorkout, hardHref } from './workout.js';
 import { topicsWithEngine, topicTitle, itemHref } from './engine.js';
 import { loadFeedback } from './feedback.js';
 import { outgrownTopics } from './ceiling.js';
+import { firstAttemptStats, formatSeconds } from './tryfirst.js';
 import { loadLadder } from './ladder.js';
 import { trapAccuracySection } from './drills-ui.js';
 import { findMistakeSection } from './findmistake-ui.js';
@@ -159,6 +160,16 @@ export function outgrownCard(outgrown, titleOf = (t) => t) {
       : h('p', { class: 'muted' }, 'עדיין לא. נושא נכנס לכאן אחרי חמש שאלות שנפתרו מהר, לבד ובלי רמזים.'));
 }
 
+/** "זמן עד הניסיון הראשון": median seconds from opening a hard exercise to the first typed answer (try-first mode data). */
+export function firstAttemptSection(log) {
+  const s = firstAttemptStats(log);
+  return h('section', { 'aria-labelledby': 'tfa-h' },
+    h('h2', { id: 'tfa-h' }, 'זמן עד הניסיון הראשון'),
+    s.count
+      ? h('p', {}, `חציון: ${formatSeconds(s.median)} (מתוך ${s.count} תרגילים קשים). ככל שהמספר קטן, מתחילים לכתוב מהר יותר.`)
+      : h('p', { class: 'muted' }, 'עדיין אין נתונים. הם נאספים בתרגילים הקשים, ובמיוחד כשמצב ״קודם מנסים״ דלוק.'));
+}
+
 export function viewProgress(ctx) {
   document.title = 'ההתקדמות שלי – Brain Gains';
   const log = store.getAttempts();
@@ -228,6 +239,7 @@ export function viewProgress(ctx) {
       : h('p', { class: 'muted' }, 'עדיין אין סיבה שחוזרת על עצמה.'),
     trapAccuracySection(),
     findMistakeSection(),
+    firstAttemptSection(log),
     endlessSection(),
     orderSection(),
     h('h2', {}, 'היעד הבא'),

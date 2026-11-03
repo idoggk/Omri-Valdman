@@ -24,6 +24,7 @@ import * as trig from './trig-ui.js';
 import * as mathhard from './mathhard-ui.js';
 import * as logs from './logs-ui.js';
 import * as transfer from './transfer-ui.js';
+import * as recover from './recover-ui.js';
 import { loadMathHardData } from './mathhard.js';
 import { loadLogsData } from './logs.js';
 import { hardHref } from './workout.js';
@@ -228,6 +229,7 @@ function route() {
     else if (name === 'logs') logs.viewLogsRoute(examCtx, args[0], args[1]);
     else if (name === 'mathhard') mathhard.viewMathHard(examCtx, args[0]);
     else if (name === 'transfer') transfer.viewTransfer(examCtx, args[0]);
+    else if (name === 'recover') recover.viewRecover(examCtx, args[0]);
     else if (name === 'workout') viewWorkoutRoute(args[0]);
     else if (name === 'exam') viewExam(examCtx, args[0]);
     else if (name === 'review-start') {

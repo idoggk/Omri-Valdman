@@ -5,6 +5,8 @@
 import { h } from './dom.js';
 import { safeSetItem } from './storage.js';
 import * as store from './store.js';
+import { tryFirst } from './tryfirst-ui.js';
+import { attemptExtra } from './tryfirst.js';
 import { MULTIPART_TOPIC, multipartOutcome } from './engine.js';
 import { sanitizeHtml, sanitizeSvg } from './sanitize.js';
 import { isolateTitle, isolateFormulasHtml } from './bidi.js';
@@ -230,6 +232,7 @@ function runQuestion(ctx, data, q) {
     tickStatus);
   const partsBox = h('div');
   const summaryBox = h('div', { 'aria-live': 'polite' });
+  const tf = tryFirst();
 
   const partEls = [];
   function revealPart(i) {
@@ -242,6 +245,9 @@ function runQuestion(ctx, data, q) {
     const box = h('section', { class: 'panel', 'aria-label': `סעיף ${LETTERS[p.id] || p.id}` },
       h('p', {}, h('strong', {}, `${LETTERS[p.id] || p.id}. `), rich('span', p.ask)), uses,
       h('div', { class: 'btn-row' }, input, p.unit ? h('span', { class: 'muted' }, p.unit) : null, checkBtn, skipBtn), out);
+
+    tf.add(skipBtn); // the "show me the solution" shortcut waits for a first attempt when the try-first mode is on
+    input.addEventListener('input', () => { if (input.value.trim()) tf.attempt(); });
 
     function finishPart(status, value) {
       statuses[p.id] = status;
@@ -258,6 +264,7 @@ function runQuestion(ctx, data, q) {
       if (i + 1 < q.parts.length) revealPart(i + 1); else finish();
     }
     checkBtn.addEventListener('click', () => {
+      tf.attempt();
       const v = parseNumber(input.value);
       if (!Number.isFinite(v)) { out.replaceChildren(h('p', { class: 'error', role: 'alert' }, 'יש להקליד מספר (למשל 12, -0.75 או 3.5).')); return; }
       finishPart(classifyPart(q, p, v, mine), v);
@@ -269,7 +276,7 @@ function runQuestion(ctx, data, q) {
 
   function finish() {
     recordAttempt(q.id, statuses);
-    store.recordAttempt({ exerciseId: q.id, topic: MULTIPART_TOPIC, outcome: multipartOutcome(statuses), hintsUsed: 0, seconds: Math.round((Date.now() - t0) / 1000) });
+    store.recordAttempt({ exerciseId: q.id, topic: MULTIPART_TOPIC, outcome: multipartOutcome(statuses), hintsUsed: 0, seconds: Math.round((Date.now() - t0) / 1000), ...attemptExtra(tf.gate) });
     const pts = pointsOf(statuses);
     const last = q.parts[q.parts.length - 1];
     const finalOk = statuses[last.id] === 'correct';
@@ -288,5 +295,5 @@ function runQuestion(ctx, data, q) {
 
   revealPart(0);
   ctx.show(crumbs('#/multipart', '→ לרשימת השאלות'), h('h1', {}, isolateTitle(q.title || q.id)),
-    rich('p', q.stem), figureEl(q.diagram, q.title || q.id), givensLine(q), checklist, partsBox, summaryBox);
+    rich('p', q.stem), figureEl(q.diagram, q.title || q.id), givensLine(q), tf.bar, checklist, partsBox, summaryBox);
 }

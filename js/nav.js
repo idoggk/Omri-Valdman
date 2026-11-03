@@ -17,7 +17,7 @@ export const TABS = [
 
 /** Routes whose first segment alone is enough to resolve (the rest are optional arguments). */
 const SIMPLE = ['progress', 'practice-hub', 'backup', 'summary', 'drills', 'endless', 'order', 'methods', 'edge', 'reverse', 'fading', 'solve',
-  'repair', 'checkpoints', 'hunt', 'workout', 'exam', 'feedback', 'ladder', 'multipart', 'trig', 'mathhard', 'logs', 'transfer'];
+  'repair', 'checkpoints', 'hunt', 'workout', 'exam', 'feedback', 'ladder', 'multipart', 'trig', 'mathhard', 'logs', 'transfer', 'recover'];
 
 /** hash -> { name, args } or { name: 'notfound' }. One parser shared by app.js and the tests. */
 export function resolveRoute(hash) {
@@ -206,6 +206,7 @@ export function viewHub(ctx) {
     traps: [
       tile('#/drills', '⚡ תרגולים מהירים', 'מלכודות, בדיקות שפיות וכרטיסיות בסשן של 10 פריטים'),
       tile('#/hunt', '🔎 מצאו את הטעות', 'פתרון מלא עם טעות אחת: מצאו את השלב הראשון השגוי'),
+      tile('#/recover', '🩹 תקנו ותמשיכו', '24 פתרונות עם טעות אחת בשלב מוקדם: מוצאים אותה, מתקנים את הערך וממשיכים עד הסוף מהערך הנכון, עם ניקוד חלקי'),
       tile('#/review/start', '🔁 חזרה על טעויות', 'תרגילים שנפתרו עם רמזים או עם הצגת פתרון'),
     ],
     endless: [tile('#/endless', '♾️ תרגול ללא הגבלה', 'תרגילים חדשים בכל פעם, באותה רמה ועם רמזים ופתרון מלא')],

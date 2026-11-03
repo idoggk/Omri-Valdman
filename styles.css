@@ -219,6 +219,7 @@ body.no-tabs { padding-block-end: 0; }
   padding-bottom: env(safe-area-inset-bottom);
 }
 .tabbar[hidden] { display: none; }
+[hidden] { display: none !important; } /* hint controls hidden by the try-first mode must stay hidden even in flex rows */
 .tab {
   flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px;
   min-height: 56px; padding: 6px 4px; color: var(--muted); text-decoration: none; font-size: .9rem;

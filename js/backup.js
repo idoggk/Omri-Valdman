@@ -32,6 +32,8 @@ export const KNOWN_KEYS = {
   'omri-study-mathhard-v1': 'מתמטיקה ברמה גבוהה ולוגריתמים: תרגילים',
   'omri-study-endless-v1': 'תרגול ללא הגבלה',
   'omri-study-transfer-v1': 'מבחן העברה',
+  'omri-study-recover-v1': 'תקנו ותמשיכו',
+  'omri-study-tryfirst-v1': 'מצב ״קודם מנסים״',
 };
 
 /** Keys the app writes that are deliberately not part of a backup (tests scan js/*.js against KNOWN_KEYS + this list). */

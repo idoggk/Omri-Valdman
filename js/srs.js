@@ -38,6 +38,7 @@ export function makeAttempt(a) {
     seconds: num(a.seconds),
   };
   if (REASON_IDS.includes(a.errorReason)) r.errorReason = a.errorReason;
+  if (Number.isFinite(a.timeToFirstAttempt) && a.timeToFirstAttempt >= 0 && a.timeToFirstAttempt <= 86400) r.timeToFirstAttempt = Math.round(a.timeToFirstAttempt); // optional: seconds until the first typed answer
   if (a.migrated) r.migrated = true;
   if (typeof a.topic === 'string' && a.topic && a.topic.length <= 60) r.topic = a.topic;
   return r;

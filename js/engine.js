@@ -19,6 +19,8 @@ export function topicTitle(id) {
   if (FIXED[id]) return FIXED[id][0];
   if (id === 'transfer-math') return 'מבחן העברה: מתמטיקה';
   if (id === 'transfer-physics') return 'מבחן העברה: פיזיקה';
+  if (id === 'recover-math') return 'תקנו ותמשיכו: מתמטיקה';
+  if (id === 'recover-physics') return 'תקנו ותמשיכו: פיזיקה';
   const fam = FAMILIES.find((f) => mathHardTopic(f.id) === id);
   return fam ? `מתמטיקה ברמה גבוהה: ${fam.title}` : null;
 }
@@ -26,6 +28,7 @@ export function topicTitle(id) {
 /** Page that practices the topic, or null for data/*.json topics (those use #/topic/<id>). */
 export function topicHref(id) {
   if (FIXED[id]) return FIXED[id][1];
+  if (id === 'recover-math' || id === 'recover-physics') return '#/recover';
   return FAMILIES.some((f) => mathHardTopic(f.id) === id) ? '#/mathhard' : null;
 }
 
@@ -33,6 +36,7 @@ export function topicHref(id) {
 export function itemHref(id, topic) {
   if (topic === LOGS_TOPIC) return id === 'logs-cards' ? '#/logs/cards' : `#/logs/ex/${id}`;
   if (topic === MULTIPART_TOPIC) return `#/multipart/${id}`;
+  if (topic === 'recover-math' || topic === 'recover-physics') return `#/recover/${id}`;
   if (topic === TRIG_TOPIC) {
     if (id === 'trig-cards') return '#/trig/cards';
     if (id === 'trig-drill') return '#/trig/drill';

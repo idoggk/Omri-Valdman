@@ -5,6 +5,8 @@ import { h } from './dom.js';
 import { isolateTitle } from './bidi.js';
 import { feedbackCard } from './feedback-ui.js';
 import * as store from './store.js';
+import { tryFirst } from './tryfirst-ui.js';
+import { attemptExtra } from './tryfirst.js';
 import { LOGS_TOPIC, visitOutcome } from './engine.js';
 import { answerWidget } from './mathhard-ui.js';
 import { canonSpec, studentCanon, sameCanon, diagnose, prettyAnswer, loadSaved, recordAttempt } from './mathhard.js';
@@ -230,7 +232,10 @@ function viewExercise(ctx, res, id) {
   const checkBtn = h('button', { class: 'btn primary', type: 'button', style: BTN }, 'בדיקה');
   const hintBtn = h('button', { class: 'btn', type: 'button', style: BTN }, 'רמז 1');
   const domBtn = ex.domain ? h('button', { class: 'btn', type: 'button', style: BTN }, 'הצגת התחום') : null;
+  const methodCard = h('details', {}, h('summary', {}, `כרטיס שיטה: ${tier.label}`), h('ul', {}, tier.method.map((m) => h('li', {}, para(m)))));
   const solBtn = h('button', { class: 'btn', type: 'button', style: BTN }, 'הצגת פתרון מלא');
+  const tf = tryFirst([hintBtn, domBtn, solBtn, hintBox, methodCard]); // hidden until a first attempt or 60 s, when the mode is on
+  widget.el.addEventListener('input', (ev) => { if (ev && ev.target && String(ev.target.value || '').trim()) tf.attempt(); });
 
   function showSolution() {
     solBox.replaceChildren(h('section', { class: 'panel', 'aria-label': 'פתרון מלא' }, h('strong', {}, 'פתרון: '),
@@ -244,7 +249,7 @@ function viewExercise(ctx, res, id) {
     widget.lock();
     [checkBtn, hintBtn, solBtn].forEach((b) => { b.disabled = true; });
     recordAttempt(ex.id, { solved: st.solved, hints: st.hints, wrongs: st.wrongs });
-    store.recordAttempt({ exerciseId: ex.id, topic: LOGS_TOPIC, outcome: visitOutcome(st), hintsUsed: st.hints, seconds: Math.round((Date.now() - t0) / 1000) });
+    store.recordAttempt({ exerciseId: ex.id, topic: LOGS_TOPIC, outcome: visitOutcome(st), hintsUsed: st.hints, seconds: Math.round((Date.now() - t0) / 1000), ...attemptExtra(tf.gate) });
     showSolution();
     out.append(feedbackCard({
       exerciseId: ex.id, topic: 'math', mode: 'logs', level: ex.tier, attemptId: t0,
@@ -255,6 +260,7 @@ function viewExercise(ctx, res, id) {
   }
   checkBtn.addEventListener('click', () => {
     if (st.over) return;
+    tf.attempt();
     const r = studentCanon(ex.answer.kind, widget.read());
     if (!r.ok) { out.replaceChildren(h('p', { class: 'error', role: 'alert' }, r.error)); return; }
     if (sameCanon(r.canon, want)) {
@@ -286,7 +292,7 @@ function viewExercise(ctx, res, id) {
     h('p', { class: 'muted' }, `${tier.label}`),
     para(ex.ask),
     h('div', { class: 'panel' }, ...ex.eq.map((e) => line(e))),
-    h('details', {}, h('summary', {}, `כרטיס שיטה: ${tier.label}`), h('ul', {}, tier.method.map((m) => h('li', {}, para(m))))),
+    tf.bar, methodCard,
     widget.el,
     h('div', { class: 'btn-row' }, checkBtn, hintBtn, domBtn, solBtn),
     hintBox, out, solBox);

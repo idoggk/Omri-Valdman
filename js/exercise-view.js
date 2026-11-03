@@ -7,6 +7,8 @@ import { h, ltr } from './dom.js';
 import { formulaButton, guidedStepper } from './sheet.js';
 import * as practice from './practice-ui.js';
 import { feedbackCard } from './feedback-ui.js';
+import { tryFirst } from './tryfirst-ui.js';
+import { attemptExtra } from './tryfirst.js';
 
 export const OUTCOME_UI = {
   alone: { icon: '✓', label: 'נפתר לבד' },
@@ -111,8 +113,9 @@ export function renderExercise(ex, o) {
   const reasonBox = h('div', { 'aria-live': 'polite' });
   const t0 = Date.now();
   let wrongNoted = false, solutionNoted = false;
+  let tf = null; // try-first controller, set below when o.tryFirst
   const note = (outcome) => sink.attempt({
-    exerciseId: ex.id, outcome, hintsUsed: shownTips, seconds: Math.round((Date.now() - t0) / 1000),
+    exerciseId: ex.id, outcome, hintsUsed: shownTips, seconds: Math.round((Date.now() - t0) / 1000), ...attemptExtra(tf && tf.gate),
   });
   const askReason = (rec) => {
     if (rec) reasonBox.replaceChildren(practice.reasonChips((r) => sink.setReason(rec, r)));
@@ -151,6 +154,7 @@ export function renderExercise(ex, o) {
   }
 
   function check() {
+    if (tf) tf.attempt();
     fieldEls.forEach((f) => f.wrap.classList.remove('wrong', 'right'));
     rowEls.forEach((r) => r.wrap.classList.remove('wrong', 'right'));
     if (sets) {
@@ -233,6 +237,7 @@ export function renderExercise(ex, o) {
   }
   const solutionBtn = h('button', { class: 'btn', type: 'button', onclick: showConfirm }, 'הציגו פתרון מלא');
 
+  answerArea.addEventListener('input', (ev) => { if (tf && ev && ev.target && String(ev.target.value || '').trim()) tf.attempt(); });
   const form = h('form', { onsubmit: (ev) => { ev.preventDefault(); check(); } },
     answerArea,
     h('div', { class: 'btn-row' },
@@ -241,6 +246,18 @@ export function renderExercise(ex, o) {
     reasonBox);
 
   renderTips();
+  const help = [
+    h('h2', {}, 'עזרה'),
+    h('div', { class: 'btn-row' }, formulaButton(ex.topic)),
+    guidedStepper(ex.guided, () => sink.guided()),
+    tips.length ? h('div', { class: 'btn-row' }, tipButtons) : h('p', { class: 'muted' }, 'אין רמזים בתרגיל הזה.'),
+    tipList,
+    solution.length ? h('div', { class: 'btn-row' }, solutionBtn) : null,
+    solutionBox,
+  ];
+  // try-first mode (o.tryFirst): the whole help area stays hidden until a first attempt or 60 s, when the learner switched it on
+  const helpBox = o.tryFirst ? h('div', {}, help) : null;
+  tf = o.tryFirst ? tryFirst([helpBox]) : null;
   show(
     o.crumbs || h('p', { class: 'crumbs' }, h('a', { href: `#/topic/${ex.topic}` }, `→ ${topic ? topic.title : 'חזרה'}`)),
     h('h1', {}, isolateTitle(ex.title || ex.id), ' ', badge(ex.level)),
@@ -252,13 +269,7 @@ export function renderExercise(ex, o) {
     form,
     outcomeLine,
     feedbackBox,
-    h('h2', {}, 'עזרה'),
-    h('div', { class: 'btn-row' }, formulaButton(ex.topic)),
-    guidedStepper(ex.guided, () => sink.guided()),
-    tips.length ? h('div', { class: 'btn-row' }, tipButtons) : h('p', { class: 'muted' }, 'אין רמזים בתרגיל הזה.'),
-    tipList,
-    solution.length ? h('div', { class: 'btn-row' }, solutionBtn) : null,
-    solutionBox,
+    ...(tf ? [tf.bar, helpBox] : help),
     o.nav ? o.nav
     : reviewMode ? h('nav', { class: 'nav', 'aria-label': 'ניווט בחזרה' },
       h('a', { class: 'btn', href: '#/' }, 'סיום החזרה'),

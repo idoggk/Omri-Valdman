@@ -28,7 +28,7 @@ export const HARD_TAGS = [
 const TAG_IDS = HARD_TAGS.map((t) => t.id);
 export const tagLabel = (id) => (HARD_TAGS.find((t) => t.id === id) || { label: id }).label;
 
-export const MODES = ['exercise', 'workout', 'solve', 'endless', 'checkpoints', 'methods', 'order', 'edge', 'reverse', 'fading', 'review', 'multipart', 'trig', 'mathhard', 'logs'];
+export const MODES = ['exercise', 'workout', 'solve', 'endless', 'checkpoints', 'methods', 'order', 'edge', 'reverse', 'fading', 'review', 'multipart', 'trig', 'mathhard', 'logs', 'recover'];
 
 const isRec = (x) => x && typeof x === 'object' && !Array.isArray(x);
 const cnt = (n) => (Number.isFinite(n) && n > 0 ? Math.floor(n) : 0);
