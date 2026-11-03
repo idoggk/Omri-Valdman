@@ -29,6 +29,9 @@ import * as notebook from './notebook-ui.js';
 import * as writing from './writing-ui.js';
 import * as booklet from './booklet-ui.js';
 import * as formulas from './fbuilder-ui.js';
+import * as sprint from './sprint-ui.js';
+import * as units from './units-ui.js';
+import * as estimate from './estimate-ui.js';
 import { loadMathHardData, resetMathHardCache } from './mathhard.js';
 import { loadLogsData, resetLogsCache } from './logs.js';
 import { loadBootData, droppedNote } from './boot.js';
@@ -246,6 +249,9 @@ function route() {
     else if (name === 'writing') writing.viewWriting(examCtx, args[0]);
     else if (name === 'booklet') booklet.viewBooklet(examCtx, ...args);
     else if (name === 'formulas') formulas.viewFormulas(examCtx, args[0], args[1]);
+    else if (name === 'sprint') sprint.viewSprint(examCtx, args[0], args[1], args[2]);
+    else if (name === 'units') units.viewUnits(examCtx, args[0], args[1]);
+    else if (name === 'estimate') estimate.viewEstimate(examCtx, args[0], args[1]);
     else if (name === 'workout') viewWorkoutRoute(args[0]);
     else if (name === 'exam') viewExam(examCtx, args[0]);
     else if (name === 'review-start') {

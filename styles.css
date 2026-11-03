@@ -299,6 +299,13 @@ body::before { content: ''; position: fixed; top: 0; left: 0; right: 0; height: 
 /* printable personal formula sheet (#/formulas/sheet) */
 .fs-sheet { column-count: 1; column-gap: 24px; }
 @media (min-width: 900px) { .fs-sheet { column-count: 2; } }
+.sp-math { font-size: 1.5rem; text-align: center; }
+.sp-expr { font-family: monospace; }
+.sp-last { min-height: 2em; }
+.sp-list { padding-inline-start: 1.4em; }
+.sp-list li { margin: 4px 0; }
+.sp-list li.bad { color: #b3261e; }
+.sp-history { padding-inline-start: 1.2em; }
 .fs-group { break-inside: avoid; margin-bottom: 10px; }
 .fs-list { list-style: none; padding: 0; margin: 0; }
 .fs-item { padding: 3px 0; border-bottom: 1px dotted var(--border); }

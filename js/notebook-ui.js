@@ -9,6 +9,7 @@ import { reasonLabel, INTERVAL_DAYS } from './srs.js';
 import { topicTitle } from './engine.js';
 import { isolateTitle } from './bidi.js';
 import { describeFormula } from './fbuilder.js';
+import { describeUnits } from './units.js';
 import {
   load, save, syncNotebook, sortedEntries, topicsOf, setNote, markUnderstood, isDue, reopenHref, STATUS_LABELS, NOTE_MAX, KEY_MAX,
 } from './notebook.js';
@@ -23,6 +24,7 @@ export function describer(ctx) {
   const hard = new Map(Object.values((ctx && ctx.hard) || {}).flat().map((e) => [e.id, e]));
   return (id, topic) => {
     if (topic === 'formulas') { const f = describeFormula(id); if (f) return { ...f, key: f.key.slice(0, KEY_MAX) }; }
+    if (topic === 'units') { const u = describeUnits(id); if (u) return { ...u, key: u.key.slice(0, KEY_MAX) }; }
     const ex = ctx && ctx.byId ? ctx.byId(id) : null;
     const it = ex || hard.get(id) || null;
     const steps = it ? (Array.isArray(it.solution) ? it.solution : Array.isArray(it.steps) ? it.steps : []) : [];

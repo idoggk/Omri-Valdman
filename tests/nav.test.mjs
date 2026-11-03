@@ -66,10 +66,10 @@ const ctx = { topics: [{ id: 'math-3', title: 'מתמטיקה' }], exercises: EX
 test('practice hub: groups in learning order, counts on topic tiles', () => {
   nav.viewHub(ctx);
   const heads = dom.root.all((n) => n.tagName === 'H2').map((n) => n.textContent);
-  assert.deepEqual(heads, ['לימוד', 'חיזוק יסודות', 'תרגול מונחה', 'מלכודות וטעויות', 'תרגול ללא הגבלה', 'מבחנים', 'גיבוי']);
+  assert.deepEqual(heads, ['לימוד', 'חיזוק יסודות', 'תרגול מונחה', 'מלכודות וטעויות', 'תרגול ללא הגבלה', 'מבחנים', 'עוד: מהירות, יחידות והערכה', 'גיבוי']);
   assert.ok(dom.root.byText('a', '1 תרגילים · הושלמו 0'));
   const hrefs = new Set(dom.root.all((n) => n.tagName === 'A').map((a) => a.getAttribute('href')));
-  for (const r of ['#/repair', '#/checkpoints', '#/methods', '#/order', '#/drills', '#/hunt', '#/review/start', '#/endless', '#/exam', '#/summary', '#/backup', '#/topic/math-3'])
+  for (const r of ['#/repair', '#/checkpoints', '#/methods', '#/order', '#/drills', '#/hunt', '#/review/start', '#/endless', '#/exam', '#/summary', '#/backup', '#/sprint', '#/units', '#/estimate', '#/topic/math-3'])
     assert.ok(hrefs.has(r), r);
 });
 

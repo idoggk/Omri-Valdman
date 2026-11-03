@@ -2,6 +2,7 @@
 // Pure: no DOM, no storage. The modes call store.recordAttempt with the topic ids below, and the progress,
 // summary and home screens use topicTitle / topicHref to show them in Hebrew with a working link.
 import { FAMILIES } from './mathhard.js';
+import { familyTitle } from './sprint.js';
 
 export const MULTIPART_TOPIC = 'multipart';
 export const TRIG_TOPIC = 'trig';
@@ -14,11 +15,14 @@ const FIXED = {
   [LOGS_TOPIC]: ['לוגריתמים', '#/logs'],
   writing: ['כתיבת פתרון (ניקוד חלקי)', '#/writing'],
   formulas: ['הדף שלי: נוסחאות מהזיכרון', '#/formulas'],
+  units: ['יחידות וניתוח ממדים', '#/units'],
+  estimate: ['הערכה לפני חישוב', '#/estimate'],
 };
 
 /** Hebrew title of an engine topic, or null when the id is not one of the standalone modes. */
 export function topicTitle(id) {
   if (FIXED[id]) return FIXED[id][0];
+  if (id.startsWith('sprint-')) return `ספרינט אלגברה: ${familyTitle(id.slice(7))}`;
   if (id === 'transfer-math') return 'מבחן העברה: מתמטיקה';
   if (id === 'transfer-physics') return 'מבחן העברה: פיזיקה';
   if (id === 'booklet-math') return 'חוברת מבחן: מתמטיקה';
@@ -33,6 +37,7 @@ export function topicTitle(id) {
 export function topicHref(id) {
   if (FIXED[id]) return FIXED[id][1];
   if (id === 'recover-math' || id === 'recover-physics') return '#/recover';
+  if (id.startsWith('sprint-')) return '#/sprint';
   if (id === 'booklet-math' || id === 'booklet-physics') return '#/booklet';
   return FAMILIES.some((f) => mathHardTopic(f.id) === id) ? '#/mathhard' : null;
 }
@@ -43,6 +48,8 @@ export function itemHref(id, topic) {
   if (topic === MULTIPART_TOPIC) return `#/multipart/${id}`;
   if (topic === 'writing') return `#/writing/${id}`;
   if (topic === 'formulas') return '#/formulas';
+  if (topic === 'units') return '#/units';
+  if (topic === 'estimate' || String(topic).startsWith('sprint-')) return topic === 'estimate' ? '#/estimate' : '#/sprint';
   if (topic === 'recover-math' || topic === 'recover-physics') return `#/recover/${id}`;
   if (topic === TRIG_TOPIC) {
     if (id === 'trig-cards') return '#/trig/cards';

@@ -20,7 +20,7 @@ export const TABS = [
 
 /** Routes whose first segment alone is enough to resolve (the rest are optional arguments). */
 const SIMPLE = ['progress', 'practice-hub', 'backup', 'summary', 'drills', 'endless', 'order', 'methods', 'edge', 'reverse', 'fading', 'solve',
-  'repair', 'checkpoints', 'hunt', 'workout', 'exam', 'feedback', 'ladder', 'multipart', 'trig', 'mathhard', 'logs', 'transfer', 'recover', 'notebook', 'writing', 'booklet', 'formulas'];
+  'repair', 'checkpoints', 'hunt', 'workout', 'exam', 'feedback', 'ladder', 'multipart', 'trig', 'mathhard', 'logs', 'transfer', 'recover', 'notebook', 'writing', 'booklet', 'formulas', 'sprint', 'units', 'estimate'];
 
 /** hash -> { name, args } or { name: 'notfound' }. One parser shared by app.js and the tests. */
 export function resolveRoute(hash) {
@@ -189,6 +189,7 @@ export const HUB_GROUPS = [
   { id: 'traps', title: 'מלכודות וטעויות' },
   { id: 'endless', title: 'תרגול ללא הגבלה' },
   { id: 'exams', title: 'מבחנים' },
+  { id: 'more', title: 'עוד: מהירות, יחידות והערכה' },
   { id: 'backup', title: 'גיבוי' },
 ];
 
@@ -240,6 +241,11 @@ export function viewHub(ctx) {
       tile('#/transfer', '🧊 מבחן העברה', '24 שאלות חדשות לגמרי שלא מופיעות בשום מקום אחר, בניסוח לא מוכר. מבחן של 6 שאלות, ניסיון ראשון בלבד, בלי רמזים ועם הערכת זמן'),
       tile('#/booklet', '📄 חוברת מבחן להדפסה', 'מבחן A4 של 90 דקות ו־100 נקודות במתמטיקה או בפיזיקה, שאלות ארוכות חדשות עם מקום לפתרון, מפתח ניקוד בדפים נפרדים והזנת הציון שנתתם לעצמכם'),
       tile('#/summary', '🖨️ סיכום להדפסה', 'דף אחד מהנתונים שלכם: חולשות, נוסחאות ורשימת בדיקה לפני המבחן'),
+    ],
+    more: [
+      tile('#/sprint', '⏱️ ספרינטים באלגברה', 'סטים של 2 או 5 דקות: פירוק לגורמים, שברים, חזקות ושורשים, משוואות, בידוד משתנה, אי־שוויונות ולוגריתמים. משוב מיד, נכונות לדקה, שיא אישי וקושי שמתאים את עצמו לכל נושא'),
+      tile('#/units', '📏 יחידות וניתוח ממדים', '30 שאלות קצרות: יחידות SI, המרות, האם נוסחה תקינה מבחינת יחידות, סקלר מול וקטור, שיפוע ושטח בגרף ודוגמאות הנדסיות'),
+      tile('#/estimate', '🎯 קודם מעריכים', '24 שאלות שבהן בוחרים טווח או הערכה בסדר גודל לפני שמחשבים, ואז רואים את החישוב המדויק ואם ההערכה תפסה אותו'),
     ],
     backup: [
       tile('#/backup', '💾 גיבוי והעברה', 'שמרו את ההתקדמות או העבירו אותה למכשיר אחר'),

@@ -50,7 +50,8 @@ export const TOPIC_BUDGET = {
   multipart: 900, logs: 300, trig: 360,
 };
 export const DEFAULT_BUDGET = 300;
-export const budgetOf = (topic) => TOPIC_BUDGET[topic] || DEFAULT_BUDGET;
+export const SPRINT_BUDGET = 40; // a sprint item is a few lines of algebra: the generic 300 s would call every one of them fast
+export const budgetOf = (topic) => TOPIC_BUDGET[topic] || (String(topic).startsWith('sprint-') ? SPRINT_BUDGET : DEFAULT_BUDGET);
 
 /** Subject of a topic id ('math' | 'physics'), used to match it with the transfer questions. */
 export function subjectOf(topic) {
