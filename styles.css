@@ -331,3 +331,13 @@ body::before { content: ''; position: fixed; top: 0; left: 0; right: 0; height: 
   .fs-group, .fs-item { break-inside: avoid; }
   .fs-mark { color: #000; }
 }
+
+/* exam countdown and study plan (#/plan) */
+.plan-card { margin-bottom: 12px; }
+.plan-days, .plan-goals, .plan-exams, .plan-ready { list-style: none; margin: 8px 0; padding: 0; }
+.plan-day { border: 1px solid var(--border, #ccc); border-radius: var(--radius); padding: 10px 12px; margin-bottom: 8px; }
+.plan-day.today { border-width: 2px; }
+.plan-day.rest { opacity: 0.7; }
+.plan-day.done .tick { color: var(--ok); }
+.plan-tick { display: inline-block; padding: 8px 0; }
+.plan-timeline li.active { font-weight: 700; }

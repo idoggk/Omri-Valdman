@@ -47,6 +47,7 @@ export const KNOWN_KEYS = {
   'omri-study-units-v1': 'יחידות וניתוח ממדים',
   'omri-study-estimate-v1': 'הערכה לפני חישוב',
   'omri-study-notes-v1': 'דגשים: כרטיסיות ותרגילים',
+  'omri-study-plan-v1': 'ספירה לאחור: תאריך מבחן והגדרות',
 };
 
 /** Keys the app writes that are deliberately not part of a backup (tests scan js/*.js against KNOWN_KEYS + this list). */

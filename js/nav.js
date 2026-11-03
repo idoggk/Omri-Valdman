@@ -11,6 +11,7 @@ import { openFormulaSheet } from './sheet.js';
 import * as repair from './skills-ui.js';
 import { homeReminder } from './backup.js';
 import { dueCount } from './notebook.js';
+import { homeSummary, loadSettings } from './plan.js';
 
 export const TABS = [
   { id: 'today', href: '#/', label: 'היום', icon: '🏠' },
@@ -20,7 +21,7 @@ export const TABS = [
 
 /** Routes whose first segment alone is enough to resolve (the rest are optional arguments). */
 const SIMPLE = ['progress', 'practice-hub', 'backup', 'summary', 'drills', 'endless', 'order', 'methods', 'edge', 'reverse', 'fading', 'solve',
-  'repair', 'checkpoints', 'hunt', 'workout', 'exam', 'feedback', 'ladder', 'multipart', 'trig', 'mathhard', 'logs', 'transfer', 'recover', 'notebook', 'writing', 'booklet', 'formulas', 'sprint', 'units', 'estimate', 'notes'];
+  'repair', 'checkpoints', 'hunt', 'workout', 'exam', 'feedback', 'ladder', 'multipart', 'trig', 'mathhard', 'logs', 'transfer', 'recover', 'notebook', 'writing', 'booklet', 'formulas', 'sprint', 'units', 'estimate', 'plan', 'notes'];
 
 /** hash -> { name, args } or { name: 'notfound' }. One parser shared by app.js and the tests. */
 export function resolveRoute(hash) {
@@ -37,7 +38,7 @@ export function resolveRoute(hash) {
 /** Which tab is highlighted for a hash. Home and today's workout belong to "today"; progress screens to "progress". */
 export function activeTab(hash) {
   const { name } = resolveRoute(hash);
-  if (name === 'home' || name === 'workout') return 'today';
+  if (name === 'home' || name === 'workout' || name === 'plan') return 'today';
   if (name === 'progress' || name === 'summary' || name === 'backup') return 'progress';
   return 'practice';
 }
@@ -118,6 +119,14 @@ export function dailyPath({ log = [], hard = null, now = Date.now(), workout = n
   return steps;
 }
 
+/** Compact home card text for the exam countdown: { title, line }. No date -> an invitation, never a made-up countdown. */
+export function planCardText(s) {
+  if (!s.hasDate) return { title: 'ספירה לאחור למבחן', line: 'קבעו תאריך מבחן וקבלו תוכנית שבועית לפי השבועות שנשארו.' };
+  if (s.past) return { title: 'תאריך המבחן עבר', line: 'עדכנו את התאריך כדי לקבל תוכנית חדשה.' };
+  const left = s.days === 0 ? 'המבחן היום' : s.days === 1 ? 'נשאר יום אחד למבחן' : `נשארו ${s.days} ימים למבחן`;
+  return { title: left, line: `${s.phase.title} · השבוע: ${s.sessions.done} מתוך ${s.sessions.target} ימי לימוד` };
+}
+
 const MORE_LINKS = [
   ['#/multipart', '🧮 שאלות מבחן בכמה סעיפים'],
   ['#/ladder', '🪜 סולם הקושי בפיזיקה'],
@@ -137,6 +146,12 @@ export function bootNotice(failed, retry) {
     hardOnly ? 'התרגילים הקשים לא נטענו, ולכן באימון של היום אין סעיפים קשים.'
       : 'לא הצלחנו לטעון חלק מהתרגילים. בדקו את החיבור לאינטרנט ונסו שוב.',
     ' ', btn);
+}
+
+function planCard(log, now) {
+  let t;
+  try { t = planCardText(homeSummary(loadSettings(), log, now)); } catch (e) { return null; }
+  return h('a', { class: 'card plan-card', href: '#/plan' }, h('strong', {}, `🗓️ ${t.title}`), h('span', { class: 'muted' }, t.line));
 }
 
 export function viewHome(ctx, loadErrors = []) {
@@ -173,6 +188,7 @@ export function viewHome(ctx, loadErrors = []) {
           ? h('a', { class: 'btn primary cta', href: s.href }, 'מתחילים אימון')
           : i === 0 ? h('span', { class: 'muted' }, s.label)
             : h('a', { href: s.href }, s.label))))),
+    planCard(log, now),
     ctx.exercises.length ? repair.homeCard(ctx) : null,
     h('section', { class: 'card', 'aria-labelledby': 'more-h' },
       h('strong', { id: 'more-h' }, 'עוד'),
@@ -241,6 +257,7 @@ export function viewHub(ctx) {
       tile('#/writing', '✍️ כתיבת פתרון לניקוד חלקי', '16 משימות: כותבים על דף נתונים, נוסחאות, הצבה, חישוב ומסקנה עם יחידות, ומנקדים את עצמכם מול פתרון מודל ורשימת בדיקה'),
       tile('#/transfer', '🧊 מבחן העברה', '24 שאלות חדשות לגמרי שלא מופיעות בשום מקום אחר, בניסוח לא מוכר. מבחן של 6 שאלות, ניסיון ראשון בלבד, בלי רמזים ועם הערכת זמן'),
       tile('#/booklet', '📄 חוברת מבחן להדפסה', 'מבחן A4 של 90 דקות ו־100 נקודות במתמטיקה או בפיזיקה, שאלות ארוכות חדשות עם מקום לפתרון, מפתח ניקוד בדפים נפרדים והזנת הציון שנתתם לעצמכם'),
+      tile('#/plan', '🗓️ ספירה לאחור והתוכנית שלי', 'תאריך המבחן, שבועות שנשארו, שלב נוכחי, תוכנית שבועית עם קישורים והתקדמות. התאריך מוזן ידנית'),
       tile('#/summary', '🖨️ סיכום להדפסה', 'דף אחד מהנתונים שלכם: חולשות, נוסחאות ורשימת בדיקה לפני המבחן'),
     ],
     more: [
