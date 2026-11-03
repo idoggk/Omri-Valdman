@@ -5,6 +5,7 @@
 import { h } from './dom.js';
 import { isolateTitle } from './bidi.js';
 import * as store from './store.js';
+import { LADDER_MATH_TOPIC } from './engine.js';
 import { ladderStatus, loadLadder, setSkip, needed, outcomeLookup, inlineSink, isInline, itemId, SUBJECTS, subjectOf, parseLadderArgs } from './ladder.js';
 import { OUTCOME_UI, badge, diagramFigure } from './exercise-view.js';
 
@@ -156,14 +157,16 @@ function viewItem(ctx, sub, stages, stage, n) {
     n < total ? h('a', { class: 'btn primary', href: `${sub.base}/${stage.id}/${n + 1}` }, 'התרגיל הבא ←') : h('a', { class: 'btn primary', href: sub.base }, 'סיום השלב ←'));
   const sketches = isInline(item) && Array.isArray(ex.sketches) ? ex.sketches : [];
   const gate = sketches.length ? sketchGate(sketches) : null;
-  const sink = isInline(item) ? inlineSink(item.id) : undefined;
+  const inline = isInline(item) ? inlineSink(item.id) : undefined;
+  // inline items never reach the attempt log, except a visit with a stated chance of full marks (calibration.js): that one is logged as 'ladder-math'
+  const sink = inline && sub.id === 'math' ? { ...inline, attempt: (a) => (a.predicted ? store.recordAttempt({ ...a, topic: LADDER_MATH_TOPIC }) : null) } : inline;
   // the sketch panel goes right under the answer form
   const show = gate ? (...nodes) => {
     const k = nodes.findIndex((x) => x && x.tagName === 'FORM');
     ctx.show(...(k < 0 ? [...nodes, gate.node] : [...nodes.slice(0, k + 1), gate.node, ...nodes.slice(k + 1)]));
   } : ctx.show;
   ctx.renderExercise(ex, {
-    ctx: gate ? { ...ctx, show } : ctx, nav, tryFirst: sub.id === 'math',
+    ctx: gate ? { ...ctx, show } : ctx, nav, tryFirst: sub.id === 'math', confidence: sub.id === 'math',
     sink: gate ? gatedSink(sink, gate) : sink,
     crumbs: h('p', { class: 'crumbs' }, h('a', { href: `${sub.base}/${stage.id}` }, `→ ${stage.title} (${n}/${total})`)),
   });

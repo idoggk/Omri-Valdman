@@ -22,7 +22,7 @@ export const TABS = [
 
 /** Routes whose first segment alone is enough to resolve (the rest are optional arguments). */
 const SIMPLE = ['progress', 'practice-hub', 'backup', 'summary', 'drills', 'endless', 'order', 'methods', 'edge', 'reverse', 'fading', 'solve',
-  'repair', 'checkpoints', 'hunt', 'workout', 'exam', 'feedback', 'ladder', 'multipart', 'trig', 'mathhard', 'logs', 'transfer', 'recover', 'notebook', 'writing', 'booklet', 'formulas', 'sprint', 'units', 'estimate', 'plan', 'notes', 'derive'];
+  'repair', 'checkpoints', 'hunt', 'workout', 'exam', 'feedback', 'ladder', 'multipart', 'trig', 'mathhard', 'logs', 'transfer', 'recover', 'notebook', 'writing', 'booklet', 'formulas', 'sprint', 'units', 'estimate', 'plan', 'notes', 'derive', 'calibration', 'examday', 'counter'];
 
 /** hash -> { name, args } or { name: 'notfound' }. One parser shared by app.js and the tests. */
 export function resolveRoute(hash) {
@@ -137,6 +137,8 @@ const MORE_LINKS = [
   ['#/logs', '📏 לוגריתמים: 12 שיעורים מהיסוד, כרטיסיות ו־70 תרגילים'],
   ['#/notes', '📌 דגשים: חזקות חיוביות תמיד, כפל באי־שוויון וכללי לוגריתם'],
   ['#/derive', '🧩 גזירה מהזיכרון: 24 הוכחות וגזירות עם חזרות מרווחות'],
+  ['#/counter', '🔍 אתגר הדוגמה הנגדית: 20 טענות שנשמעות נכונות ואינן'],
+  ['#/calibration', '🎲 כיול: כמה אתם יודעים שאתם יודעים'],
   ['#/trig', '📐 זהויות טריגונומטריות: שלושה עוגנים וכל השאר נגזר'],
 ];
 
@@ -271,6 +273,8 @@ export function viewHub(ctx) {
       tile('#/units', '📏 יחידות וניתוח ממדים', '30 שאלות קצרות: יחידות SI, המרות, האם נוסחה תקינה מבחינת יחידות, סקלר מול וקטור, שיפוע ושטח בגרף ודוגמאות הנדסיות'),
       tile('#/notes', '📌 דגשים', '12 כרטיסי זכירה ו־16 תרגילים על מלכודות מבחן: חזקה חיובית תמיד, מתי מותר להכפיל אי־שוויון, וכללי הלוגריתם'),
       tile('#/derive', '🧩 גזירה מהזיכרון', '24 גזירות (12 במתמטיקה, 12 בפיזיקה): קוראים פעם אחת, ואז משחזרים שלב אחר שלב עם חזרות אחרי 1, 3, 7 ו־14 ימים. בחירת הצעד הבא, הקלדת שורות, ובסוף דף ריק'),
+      tile('#/counter', '🔍 אתגר הדוגמה הנגדית', '20 טענות שנשמעות נכונות (העלאה בריבוע, חילוק במשתנה, לוגריתם של סכום, מהירות ממוצעת ועוד): מקלידים מספרים שמפריכים כל טענה, והבדיקה מוודאת שהם בתחום ושהטענה נכשלת בהם'),
+      tile('#/calibration', '🎲 כיול הביטחון', 'לפני תרגיל קשה מעריכים כמה סביר שתקבלו ציון מלא (50, 70, 90 או 100 אחוז). טבלת כיול, ציון בריאר, ביטחון יתר או נמוך ורשימת הפעמים שהייתם בטוחים וטעיתם. מופעל בהגדרה'),
       tile('#/estimate', '🎯 קודם מעריכים', '24 שאלות שבהן בוחרים טווח או הערכה בסדר גודל לפני שמחשבים, ואז רואים את החישוב המדויק ואם ההערכה תפסה אותו'),
     ],
     backup: [

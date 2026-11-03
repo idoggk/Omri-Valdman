@@ -9,6 +9,7 @@ import { safeSetItem } from './storage.js';
 import { INTERVAL_DAYS, DAY_MS, isReservedTopic } from './srs.js';
 import { hardHref } from './workout.js';
 import { itemHref } from './engine.js';
+import { confidentWrong } from './calibration.js';
 
 export const KEY = 'omri-study-notebook-v1';
 export const STATUSES = ['open', 'understood', 'mastered'];
@@ -27,7 +28,9 @@ const str = (s, max) => (typeof s === 'string' ? s.slice(0, max) : '');
 export const skipTopic = isReservedTopic;
 
 /** A mistake worth recording: wrong, gave up (solution shown) or hint-heavy. */
-export const isProblem = (a) => !!a && (a.outcome === 'wrong' || a.outcome === 'solution' || (a.outcome === 'hinted' && a.hintsUsed >= HINT_HEAVY));
+export const isProblem = (a) => !!a && (a.outcome === 'wrong' || a.outcome === 'solution' || (a.outcome === 'hinted' && a.hintsUsed >= HINT_HEAVY) || confidentWrong(a));
+/** Tag added to an entry whose attempt was predicted at 90-100 percent and failed (calibration.js). */
+export const OVERCONFIDENT_TAG = 'ביטחון יתר';
 /** A clean independent solve: alone and without hints. */
 export const isClean = (a) => !!a && a.outcome === 'alone' && !(a.hintsUsed > 0);
 
@@ -108,6 +111,7 @@ export function syncNotebook(state, log, feedback = [], describe = () => null, n
     if (isProblem(a)) {
       const d = describe(a.exerciseId, a.topic) || {};
       const tags = tagsFor(a, feedback);
+      if (confidentWrong(a) && !tags.includes(OVERCONFIDENT_TAG)) tags.push(OVERCONFIDENT_TAG);
       const e = cur || {
         id: a.exerciseId, topic: a.topic || '', title: '', key: '', href: '', count: 0, firstTs: a.ts, lastTs: 0, seen: 0, reason: '', tags: [],
         hints: 0, seconds: 0, note: '', status: 'open', step: 0, due: null, upd: 0,

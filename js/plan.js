@@ -6,6 +6,7 @@ import { safeSetItem } from './storage.js';
 import { weakTopics, withVirtual, isReservedTopic, dayKey, dueReviews } from './srs.js';
 import { analyzeTopics, isIndependent, subjectOf } from './ceiling.js';
 import { topicHref, topicTitle } from './engine.js';
+import { inWindow } from './examday.js';
 
 export const KEY = 'omri-study-plan-v1';
 export const DEFAULT_DAYS = 6;
@@ -367,6 +368,9 @@ export function buildPlan(input) {
     goals: weeklyGoals(hz.phase, log, now, { mocks, dueNotebook }),
     sessions: weeklySessions(settings, log, now),
     readiness: readiness(log, now, { topicOf, mocks }),
+    journal: input.journal || null, // { text, time, topic } lines of the prediction journal (journal-ui.planLines) or null
+    // exam-day rehearsal: shown only in the last two weeks before the (manually entered) exam date
+    examday: { show: hz.hasDate && inWindow(hz.days), count: input.examday ? input.examday.count : 0, last: input.examday ? input.examday.last : null },
   };
 }
 

@@ -7,6 +7,9 @@ import * as store from './store.js';
 import { answerWidget } from './mathhard-ui.js';
 import { prettyAnswer } from './mathhard.js';
 import { topicTitle } from './engine.js';
+import { confidenceBar, predExtra } from './calibration-ui.js';
+import { predictionForm, comparisonCard } from './journal-ui.js';
+import { load as loadJournal, save as saveJournal, finishEntry, compare, hardestInTransfer, CATEGORIES, TRANSFER_KEY } from './journal.js';
 import {
   loadTransferData, loadSaved, startSession, nextQuestionId, gradeItem, skipGrade, attemptFor, submitResult, resultData,
   subjectLabel, formatTime, pickSession, PHYSICS_LETTERS, SESSION_SIZE, SUBJECTS,
@@ -54,6 +57,7 @@ function home(ctx, items) {
       h('li', {}, 'כל שאלה מופיעה פעם אחת בלבד, ולכן אי אפשר לנסות שוב.'),
       h('li', {}, 'בפיזיקה g = 10 מ/ש² והתנגדות האוויר זניחה. אם לא כתוב אחרת, ציר y חיובי כלפי מעלה. התשובות לשתי ספרות אחרי הנקודה לכל היותר.')),
     h('p', { class: 'muted' }, `נענו ${seen} מתוך ${items.length} שאלות. נשארו ${left} שאלות חדשות.`),
+    !active && nextSize ? predictionForm({ kind: 'transfer', key: TRANSFER_KEY, topics: CATEGORIES.map((c) => ({ id: c.id, label: c.label })) }) : null,
     h('div', { class: 'btn-row' },
       active ? h('a', { class: 'btn primary', href: '#/transfer/run' }, 'להמשיך את המבחן') : null,
       !active && nextSize ? h('button', { class: 'btn primary', type: 'button', style: BTN, onclick: start }, `להתחיל מבחן חדש (${nextSize} שאלות)`) : null,
@@ -89,7 +93,8 @@ function runQuestion(ctx, items) {
   const t0 = Date.now();
   const body = item.subject === 'math' ? { widget: answerWidget(item) } : { widget: physicsBody(item) };
   const widget = body.widget;
-  const out = h('div', { 'aria-live': 'polite' });
+  const conf = confidenceBar(); // optional "chance of full marks" chips (calibration.js), off by default
+  const out =h('div', { 'aria-live': 'polite' });
   const timer = h('strong', { dir: 'ltr', 'aria-label': 'זמן שעבר' }, '0:00');
   const over = h('span', { class: 'muted' }, '');
   const submit = h('button', { class: 'btn primary', type: 'button', style: BTN }, n === session.ids.length ? 'הגשה וסיום' : 'הגשה ומעבר לשאלה הבאה');
@@ -108,7 +113,7 @@ function runQuestion(ctx, items) {
     const seconds = Math.round((Date.now() - t0) / 1000);
     if (widget.lock) widget.lock();
     submit.disabled = true; skip.disabled = true;
-    if (submitResult(items, id, grade, seconds)) store.recordAttempt(attemptFor(item, grade, seconds));
+    if (submitResult(items, id, grade, seconds)) store.recordAttempt({ ...attemptFor(item, grade, seconds), ...predExtra(conf) });
     const done = loadSaved().session;
     viewTransfer(ctx, done && done.finishedAt ? 'result' : 'run');
   };
@@ -124,6 +129,7 @@ function runQuestion(ctx, items) {
     h('h1', {}, `שאלה ${n} מתוך ${session.ids.length} · ${subjectLabel(item.subject)}`),
     h('p', { class: 'muted' }, budgetText, ' · ', timer, over),
     h('p', { class: 'notice' }, 'ניסיון ראשון בלבד. אין רמזים, ואין פתרון עד סוף המבחן.'),
+    conf.node,
     item.subject === 'math'
       ? [h('p', {}, item.ask), h('div', { class: 'panel' }, ...item.eq.map((line) => h('div', { dir: 'ltr', class: 'eq-block' }, ltr(line)))), widget.el]
       : widget.el,
@@ -156,8 +162,21 @@ function resultView(ctx, items) {
             h('div', { steps: p.solution })))));
   };
   const left = pickSession(items, saved.seen).length;
+  // prediction journal: close the entry of this session once (id = finish time), then show the comparison
+  const jr = loadJournal();
+  const jid = `transfer-${session.finishedAt}`;
+  let jentry = jr.entries.find((e) => e.id === jid) || null;
+  if (!jentry) {
+    const hard = hardestInTransfer(items, session);
+    const tot = Object.values(data.perSubject).reduce((a, r) => ({ s: a.s + r.score, t: a.t + r.total }), { s: 0, t: 0 });
+    jentry = finishEntry(jr, 'transfer', TRANSFER_KEY, jid, {
+      score: tot.t ? Math.round((tot.s / tot.t) * 100) : 0, topic: hard ? hard.topic : null, topicLabel: hard ? hard.topicLabel : '', minutes: data.seconds ? Math.max(1, Math.round(data.seconds / 60)) : null,
+    }, session.finishedAt);
+    if (jentry) saveJournal(jr);
+  }
   document.title = 'תוצאות מבחן ההעברה – Brain Gains';
   ctx.show(crumbs('#/transfer', '→ למבחן ההעברה'), h('h1', {}, 'תוצאות מבחן ההעברה'),
+    jentry ? comparisonCard(jentry, compare(jentry)) : null,
     h('div', { class: 'cards' }, SUBJECTS.map(subjectCard)),
     h('p', {}, `זמן כולל: ${formatTime(data.seconds)} (זמן מומלץ לכל המבחן: ${formatTime(data.budget)}).`),
     h('h2', {}, 'מה הוחמץ'),

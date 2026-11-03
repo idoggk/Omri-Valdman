@@ -5,6 +5,8 @@ import { loadFeedback } from './feedback.js';
 import { dueCount } from './notebook.js';
 import { dueCount as deriveDueCount } from './derive.js';
 import { loadSaved as loadBooklet } from './booklet.js';
+import { planLines } from './journal-ui.js';
+import { load as loadExamday } from './examday.js';
 import { topicTitle, topicHref } from './engine.js';
 import {
   buildPlan, loadSettings, saveSettings, toggleTick, validDate, DEFAULT_WEEKS,
@@ -145,7 +147,23 @@ function progressBlock(plan) {
     h('p', {}, `השבוע: ${plan.sessions.done} מתוך ${plan.sessions.target} ימי לימוד`),
     plan.hz.hasDate ? h('p', {}, `עד המבחן: ${daysText(plan.hz.days)}`) : null,
     subject('math', 'מתמטיקה'), subject('physics', 'פיזיקה'),
+    h('p', {}, h('strong', {}, 'תחזית מול מציאות')),
+    plan.journal
+      ? h('ul', { class: 'plan-ready' }, [plan.journal.text, plan.journal.time, plan.journal.topic].filter(Boolean).map((t) => h('li', {}, t)))
+      : h('p', { class: 'muted' }, `${NO_DATA}. רשמו תחזית לפני מבחן חוברת או מבחן העברה.`),
+    h('p', { class: 'muted' }, h('a', { href: '#/booklet' }, 'לחוברות מבחן'), ' · ', h('a', { href: '#/transfer' }, 'למבחן העברה'), ' · ', h('a', { href: '#/calibration' }, 'לכיול הביטחון')),
     h('p', { class: 'muted' }, 'אלה הערכות בלבד ולא תחזית. הן נבנות רק מתרגילים שפתרתם לבד בלי רמזים, ממבחני העברה ומציוני מבחנים מלאים שהזנתם.'));
+}
+
+/** The exam-day rehearsal card: only in the last two weeks before the exam date (plan.examday.show). */
+function examdayBlock(plan) {
+  const e = plan.examday;
+  if (!e || !e.show) return null;
+  return h('section', { class: 'card', 'aria-labelledby': 'plan-examday-h' },
+    h('strong', { id: 'plan-examday-h' }, 'שגרת יום המבחן'),
+    h('p', {}, 'נשארו פחות משבועיים. חזרה של חמש דקות: ציוד, נוסחאות מהזיכרון, קריאת המבחן, חלוקת זמן לפי נקודות, סימנים ונשימה.'),
+    h('p', { class: 'muted' }, e.count ? `עשיתם ${e.count} ${e.count === 1 ? 'פעם אחת' : 'פעמים'}, האחרונה ב־${dateText(e.last)}.` : 'עוד לא עשיתם את החזרה.'),
+    h('div', { class: 'btn-row' }, h('a', { class: 'btn primary', style: BTN, href: '#/examday' }, 'לחזרה של 5 דקות')));
 }
 
 /** Pure render of a built plan (also used by the tests). */
@@ -153,8 +171,8 @@ export function renderPlan(plan, { onSave = () => {}, onTick = () => {} } = {}) 
   return [
     h('p', { class: 'crumbs' }, h('a', { href: '#/' }, '→ חזרה להיום')),
     h('h1', {}, 'ספירה לאחור והתוכנית שלי'),
-    headerBlock(plan), phaseBlock(plan), weekBlock(plan, onTick), dueBlock(plan), progressBlock(plan), setupForm(plan.settings, onSave),
-  ];
+    headerBlock(plan), examdayBlock(plan), phaseBlock(plan), weekBlock(plan, onTick), dueBlock(plan), progressBlock(plan), setupForm(plan.settings, onSave),
+  ].filter(Boolean);
 }
 
 export function collectPlan(ctx, now = Date.now()) {
@@ -167,6 +185,7 @@ export function collectPlan(ctx, now = Date.now()) {
   try { dueDerive = deriveDueCount(globalThis.localStorage, now); } catch (e) { /* optional */ }
   return buildPlan({
     settings: loadSettings(), log, now, exercises: ctx.exercises || [], feedback, mocks: loadBooklet().results, dueNotebook, dueDerive,
+    journal: planLines(), examday: loadExamday(),
     titleOf: (t) => titles.get(t) || topicTitle(t) || t, hrefOf: (t) => topicHref(t) || `#/topic/${t}`,
   });
 }

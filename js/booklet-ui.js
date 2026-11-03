@@ -3,6 +3,8 @@
 // Logic and data are in js/booklet.js; the print layout is the .bk-* rules in styles.css.
 import { h, ltr } from './dom.js';
 import * as store from './store.js';
+import { predictionForm, comparisonCard, historyBlock } from './journal-ui.js';
+import { load as loadJournal, save as saveJournal, finishEntry, compare, hardestInPaper } from './journal.js';
 import {
   loadBookletData, buildPaper, paperParts, loadSaved, saveSaved, recordResult, attemptFor, historySummary, parseSeed, subjectLabel,
   SUBJECTS, COUNTS, MINUTES, TOTAL, SEED_MAX,
@@ -68,7 +70,8 @@ function home(ctx) {
       h('ul', { class: 'bk-history' }, rows.map((r) => h('li', {},
         `${dateText(r.ts)} · ${subjectLabel(r.subject)} · ${r.count} שאלות · מבחן ${r.seed} · `, h('strong', {}, `${r.total}/${r.max}`), ' ',
         h('a', { href: paperHref('paper', r.subject, r.count, r.seed) }, 'פתיחה'), ' · ', h('a', { href: paperHref('enter', r.subject, r.count, r.seed) }, 'עדכון ניקוד'))))]
-      : h('p', { class: 'muted' }, 'עוד אין מבחנים. אחרי המבחן הראשון תוצאה תופיע כאן.'));
+      : h('p', { class: 'muted' }, 'עוד אין מבחנים. אחרי המבחן הראשון תוצאה תופיע כאן.'),
+    h('h2', {}, 'תחזית מול מציאות'), historyBlock());
 }
 
 const lines = (n) => h('div', { class: 'bk-lines', 'aria-hidden': 'true' }, Array.from({ length: n }, () => h('div', { class: 'bk-line' })));
@@ -133,7 +136,12 @@ function paperView(ctx, paper) {
     h('div', { class: 'bk-key' }, h('h2', {}, `מפתח תשובות וחלוקת נקודות: ${subjectLabel(paper.subject)}, מבחן ${paper.seed}`), paper.questions.map(keyBlock)));
 
   root.append(header, ...paper.questions.map(questionBlock), keyset);
-  ctx.show(toolbar, root);
+  // prediction journal (no-print): score, hardest question and finishing time, compared after the points are entered
+  const predict = h('div', { class: 'no-print' }, predictionForm({
+    kind: 'booklet', key: paper.key, withConf: true,
+    topics: paper.questions.map((q) => ({ id: `q:${q.id}`, label: `שאלה ${q.n}: ${q.title}` })),
+  }));
+  ctx.show(toolbar, predict, root);
 }
 
 function enterView(ctx, paper) {
@@ -165,9 +173,18 @@ function enterView(ctx, paper) {
     const r = recordResult(state, paper, scores, Number(minutes.value) || 0);
     if (!r.ok) { out.replaceChildren(h('p', { class: 'error', role: 'alert' }, r.error)); return; }
     if (saveSaved(state) === false) { out.replaceChildren(h('p', { class: 'error', role: 'alert' }, 'השמירה נכשלה (האחסון מלא).')); return; }
-    if (r.isNew) store.recordAttempt(attemptFor(r.entry));
+    const jr = loadJournal();
+    const pend = jr.pending[paper.key];
+    if (r.isNew) store.recordAttempt({ ...attemptFor(r.entry), ...(pend && pend.conf ? { predicted: pend.conf } : {}) });
+    // close the journal entry (when a prediction was recorded): predicted vs actual score, hardest question and minutes
+    const hard = hardestInPaper(paper, r.entry.parts);
+    const closed = finishEntry(jr, 'booklet', paper.key, paper.key, {
+      score: Math.round(r.entry.fraction * 100), topic: hard ? hard.topic : null, topicLabel: hard ? hard.topicLabel : '', minutes: r.entry.minutes || null,
+    });
+    if (closed) saveJournal(jr);
     out.replaceChildren(
       h('p', { class: 'feedback ok', role: 'status' }, `נשמר: ${r.entry.total} מתוך ${r.entry.max} (${pct(r.entry.fraction)}). ${r.isNew ? 'התוצאה נוספה להיסטוריה וליומן הניסיונות.' : 'התוצאה בהיסטוריה עודכנה.'}`),
+      closed ? comparisonCard(closed, compare(closed)) : h('p', { class: 'muted' }, 'לא נרשמה תחזית לפני המבחן הזה, ולכן אין השוואה. בפעם הבאה אפשר לנחש בדף המבחן, לפני שמתחילים.'),
       h('div', { class: 'btn-row' }, h('a', { class: 'btn primary', style: BTN, href: '#/booklet' }, 'להיסטוריה ולמבחן הבא'), h('a', { class: 'btn', style: BTN, href: '#/notebook' }, 'למחברת הטעויות')));
   };
   update();

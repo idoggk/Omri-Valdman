@@ -7,6 +7,8 @@ import { familyTitle } from './sprint.js';
 export const MULTIPART_TOPIC = 'multipart';
 export const TRIG_TOPIC = 'trig';
 export const LOGS_TOPIC = 'logs';
+export const LADDER_MATH_TOPIC = 'ladder-math'; // only inline ladder items that carry a confidence prediction are logged under it
+export const COUNTER_TOPIC = 'counter';
 export const mathHardTopic = (family) => `math-hard-${family}`;
 
 const FIXED = {
@@ -19,6 +21,8 @@ const FIXED = {
   estimate: ['הערכה לפני חישוב', '#/estimate'],
   notes: ['דגשים: חזקות, כפל באי־שוויון ולוגריתמים', '#/notes'],
   derive: ['גזירה מהזיכרון: שחזור הוכחות ונוסחאות', '#/derive'],
+  [COUNTER_TOPIC]: ['אתגר הדוגמה הנגדית', '#/counter'],
+  [LADDER_MATH_TOPIC]: ['סולם המתמטיקה', '#/ladder/math'],
 };
 
 /** Hebrew title of an engine topic, or null when the id is not one of the standalone modes. */
@@ -53,6 +57,8 @@ export function itemHref(id, topic) {
   if (topic === 'notes') return id === 'notes-cards' || id.startsWith('nt-c') ? '#/notes/cards' : `#/notes/ex/${id}`;
   if (topic === 'units') return '#/units';
   if (topic === 'derive') return `#/derive/t/${id}`;
+  if (topic === COUNTER_TOPIC) return `#/counter/t/${id}`;
+  if (topic === LADDER_MATH_TOPIC) return '#/ladder/math';
   if (topic === 'estimate' || String(topic).startsWith('sprint-')) return topic === 'estimate' ? '#/estimate' : '#/sprint';
   if (topic === 'recover-math' || topic === 'recover-physics') return `#/recover/${id}`;
   if (topic === TRIG_TOPIC) {

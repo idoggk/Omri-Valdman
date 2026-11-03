@@ -1,9 +1,10 @@
 // Spaced repetition, mastery, streaks and error reasons. Pure logic: no DOM, storage is injected.
 // Additive module: progress.js / store.js keep working untouched.
 //
-// attempt = { exerciseId, ts, outcome: 'alone'|'hinted'|'solution'|'wrong', hintsUsed, seconds, errorReason?, score? }
+// attempt = { exerciseId, ts, outcome: 'alone'|'hinted'|'solution'|'wrong', hintsUsed, seconds, errorReason?, score?, predicted? }
 
 import { safeSetItem, stashCorrupt, corruptKey } from './storage.js';
+import { CHIPS } from './calibration.js';
 
 export const OUTCOMES =['alone', 'hinted', 'solution', 'wrong'];
 export const DAY_MS = 86400000;
@@ -41,6 +42,7 @@ export function makeAttempt(a) {
   };
   if (REASON_IDS.includes(a.errorReason)) r.errorReason = a.errorReason;
   if (Number.isFinite(a.timeToFirstAttempt) && a.timeToFirstAttempt >= 0 && a.timeToFirstAttempt <= 86400) r.timeToFirstAttempt = Math.round(a.timeToFirstAttempt); // optional: seconds until the first typed answer
+  if (CHIPS.includes(a.predicted)) r.predicted = a.predicted; // optional: stated chance of full marks (50/70/90/100), see calibration.js
   if (a.migrated) r.migrated = true;
   if (typeof a.topic === 'string' && a.topic && a.topic.length <= 60) r.topic = a.topic;
   if (Number.isFinite(a.score) && a.score >= 0 && a.score <= 1) r.score = Math.round(a.score * 100) / 100; // partial-credit fraction (writing trainer)

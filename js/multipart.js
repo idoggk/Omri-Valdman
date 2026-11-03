@@ -7,6 +7,7 @@ import { safeSetItem } from './storage.js';
 import * as store from './store.js';
 import { tryFirst } from './tryfirst-ui.js';
 import { attemptExtra } from './tryfirst.js';
+import { confidenceBar, predExtra } from './calibration-ui.js';
 import { MULTIPART_TOPIC, multipartOutcome } from './engine.js';
 import { sanitizeHtml, sanitizeSvg } from './sanitize.js';
 import { isolateTitle, isolateFormulasHtml } from './bidi.js';
@@ -233,6 +234,7 @@ function runQuestion(ctx, data, q) {
   const partsBox = h('div');
   const summaryBox = h('div', { 'aria-live': 'polite' });
   const tf = tryFirst();
+  const conf = confidenceBar(); // optional "chance of full marks" chips (calibration.js), off by default
 
   const partEls = [];
   function revealPart(i) {
@@ -265,6 +267,7 @@ function runQuestion(ctx, data, q) {
     }
     checkBtn.addEventListener('click', () => {
       tf.attempt();
+      conf.lock();
       const v = parseNumber(input.value);
       if (!Number.isFinite(v)) { out.replaceChildren(h('p', { class: 'error', role: 'alert' }, 'יש להקליד מספר (למשל 12, -0.75 או 3.5).')); return; }
       finishPart(classifyPart(q, p, v, mine), v);
@@ -276,7 +279,7 @@ function runQuestion(ctx, data, q) {
 
   function finish() {
     recordAttempt(q.id, statuses);
-    store.recordAttempt({ exerciseId: q.id, topic: MULTIPART_TOPIC, outcome: multipartOutcome(statuses), hintsUsed: 0, seconds: Math.round((Date.now() - t0) / 1000), ...attemptExtra(tf.gate) });
+    store.recordAttempt({ exerciseId: q.id, topic: MULTIPART_TOPIC, outcome: multipartOutcome(statuses), hintsUsed: 0, seconds: Math.round((Date.now() - t0) / 1000), ...attemptExtra(tf.gate), ...predExtra(conf) });
     const pts = pointsOf(statuses);
     const last = q.parts[q.parts.length - 1];
     const finalOk = statuses[last.id] === 'correct';
@@ -295,5 +298,5 @@ function runQuestion(ctx, data, q) {
 
   revealPart(0);
   ctx.show(crumbs('#/multipart', '→ לרשימת השאלות'), h('h1', {}, isolateTitle(q.title || q.id)),
-    rich('p', q.stem), figureEl(q.diagram, q.title || q.id), givensLine(q), tf.bar, checklist, partsBox, summaryBox);
+    rich('p', q.stem), figureEl(q.diagram, q.title || q.id), givensLine(q), conf.node, tf.bar, checklist, partsBox, summaryBox);
 }

@@ -9,6 +9,7 @@ import * as practice from './practice-ui.js';
 import { feedbackCard } from './feedback-ui.js';
 import { tryFirst } from './tryfirst-ui.js';
 import { attemptExtra } from './tryfirst.js';
+import { confidenceBar, predExtra } from './calibration-ui.js';
 
 export const OUTCOME_UI = {
   alone: { icon: '✓', label: 'נפתר לבד' },
@@ -114,8 +115,10 @@ export function renderExercise(ex, o) {
   const t0 = Date.now();
   let wrongNoted = false, solutionNoted = false;
   let tf = null; // try-first controller, set below when o.tryFirst
+  // optional "chance of full marks" chips, only where the caller asks (the math ladder); the first attempt of the visit carries the prediction
+  const conf = o.confidence ? confidenceBar() : { node: null, lock: () => {}, take: () => undefined };
   const note = (outcome) => sink.attempt({
-    exerciseId: ex.id, outcome, hintsUsed: shownTips, seconds: Math.round((Date.now() - t0) / 1000), ...attemptExtra(tf && tf.gate),
+    exerciseId: ex.id, outcome, hintsUsed: shownTips, seconds: Math.round((Date.now() - t0) / 1000), ...attemptExtra(tf && tf.gate), ...predExtra(conf),
   });
   const askReason = (rec) => {
     if (rec) reasonBox.replaceChildren(practice.reasonChips((r) => sink.setReason(rec, r)));
@@ -155,6 +158,7 @@ export function renderExercise(ex, o) {
 
   function check() {
     if (tf) tf.attempt();
+    conf.lock();
     fieldEls.forEach((f) => f.wrap.classList.remove('wrong', 'right'));
     rowEls.forEach((r) => r.wrap.classList.remove('wrong', 'right'));
     if (sets) {
@@ -266,6 +270,7 @@ export function renderExercise(ex, o) {
     reviewMode ? h('p', { class: 'notice' }, 'מצב חזרה על טעויות. פתרו לבד, בלי רמזים, כדי להוריד את התרגיל מהרשימה.') : null,
     h('div', { class: 'panel statement', html: ex.statement || '' }),
     diagramFigure(ex),
+    conf.node,
     form,
     outcomeLine,
     feedbackBox,

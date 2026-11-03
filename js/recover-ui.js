@@ -7,6 +7,7 @@ import { feedbackCard } from './feedback-ui.js';
 import * as store from './store.js';
 import { tryFirst } from './tryfirst-ui.js';
 import { attemptExtra } from './tryfirst.js';
+import { confidenceBar, predExtra } from './calibration-ui.js';
 import { answerWidget } from './mathhard-ui.js';
 import {
   SUBJECTS, loadRecoverData, loadSaved, recordResult, gradeAnswer, pointsOf, outcomeOf, creditLines, errorLabel, recoverTopic, MAX_POINTS,
@@ -62,6 +63,7 @@ function runItem(ctx, data, it) {
   const summaryBox = h('div', { 'aria-live': 'polite' });
   const hintBtn = h('button', { class: 'btn', type: 'button', style: BTN }, 'רמז');
   const tf = tryFirst([hintBtn, hintBox]);
+  const conf = confidenceBar(); // optional "chance of full marks" chips (calibration.js), off by default
   let taps = 0;
   let located = false;
   let over = false;
@@ -82,6 +84,7 @@ function runItem(ctx, data, it) {
   function choose(i) {
     if (located) return;
     tf.attempt();
+    conf.lock();
     taps++;
     if (i === it.firstWrong) {
       res.found = taps === 1;
@@ -169,7 +172,7 @@ function runItem(ctx, data, it) {
     hintBtn.disabled = true;
     const outcome = outcomeOf(res);
     recordResult(it.id, res);
-    store.recordAttempt({ exerciseId: it.id, topic: recoverTopic(it.subject), outcome, hintsUsed: res.hints, seconds: Math.round((Date.now() - t0) / 1000), ...attemptExtra(tf.gate) });
+    store.recordAttempt({ exerciseId: it.id, topic: recoverTopic(it.subject), outcome, hintsUsed: res.hints, seconds: Math.round((Date.now() - t0) / 1000), ...attemptExtra(tf.gate), ...predExtra(conf) });
     const pts = pointsOf(res);
     summaryBox.replaceChildren(
       h('div', { class: `feedback ${pts >= MAX_POINTS - 1e-9 ? 'ok' : 'bad'}`, role: 'status' }, `${fmt(pts)} מתוך ${MAX_POINTS} נקודות.`),
@@ -186,7 +189,7 @@ function runItem(ctx, data, it) {
   ctx.show(crumbs('#/recover', '→ לרשימת התרגילים'), h('h1', {}, isolateTitle(it.title)),
     h('p', { class: 'muted', role: 'status' }, `תרגיל ${data.indexOf(it) + 1} מתוך ${data.length}`),
     rich('div', it.statement, { class: 'panel statement' }),
-    tf.bar,
+    conf.node, tf.bar,
     h('h2', {}, 'שלב 1: הפתרון (יש בו טעות אחת)'),
     h('p', { class: 'muted' }, 'הקישו על השלב הראשון השגוי.'),
     h('div', { class: 'drill-options' }, buttons),
