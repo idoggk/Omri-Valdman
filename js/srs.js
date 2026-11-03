@@ -50,7 +50,8 @@ export function makeAttempt(a) {
 export function withVirtual(exercises, log) {
   const known = new Set(exercises.map((e) => e.id));
   const extra = new Map();
-  for (const a of log) if (a.topic && !known.has(a.exerciseId)) extra.set(a.exerciseId, { id: a.exerciseId, topic: a.topic, level: 1, virtual: true });
+  // reserved transfer-test questions stay out of every topic list, weak-topic list and review schedule
+  for (const a of log) if (a.topic && !a.topic.startsWith('transfer-') && !known.has(a.exerciseId)) extra.set(a.exerciseId, { id: a.exerciseId, topic: a.topic, level: 1, virtual: true });
   return extra.size ? exercises.concat([...extra.values()]) : exercises;
 }
 
@@ -104,7 +105,7 @@ export function schedules(log) {
 
 /** Ids due at `now`, most overdue first (ties by id). Mastered exercises are due too once their interval passed. */
 export function dueReviews(log, now) {
-  return [...schedules(log)].filter(([, s]) => s.due <= now)
+  return [...schedules(log.filter((a) => !(a.topic && a.topic.startsWith('transfer-'))))].filter(([, s]) => s.due <= now)
     .sort((a, b) => a[1].due - b[1].due || (a[0] < b[0] ? -1 : 1)).map(([id]) => id);
 }
 

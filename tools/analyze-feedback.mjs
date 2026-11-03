@@ -107,9 +107,18 @@ export function analyze(raw) {
     return { skill: g.topic, template: g.template, score, reason: why.join('; '), suggestedAction: 'להוסיף סט הכנה קצר ואז תרגיל חוזר בווריאציה' };
   }).sort((a, b) => b.score - a.score || a.template.localeCompare(b.template)).slice(0, 5);
 
+  // Ceiling data written by js/ceiling.js into summary.ceiling: topics whose content is already too easy.
+  const ceilRows = isObj(raw) && isObj(raw.summary) && Array.isArray(raw.summary.ceiling) ? raw.summary.ceiling.filter((c) => isObj(c) && typeof c.topic === 'string') : [];
+  const needHarder = ceilRows.map((c) => ({
+    topic: c.topic, signalCount: Number.isFinite(c.signalCount) ? c.signalCount : 0, contentCeilingReached: c.contentCeilingReached === true,
+    extremeMixed: c.extremeMixed === true, escalate: c.escalate === true, blocked: c.blocked === true,
+    signals: Array.isArray(c.signals) ? c.signals.map((s) => (s ? 1 : 0)) : [],
+  })).filter((c) => !c.blocked && (c.contentCeilingReached || c.extremeMixed))
+    .sort((a, b) => b.signalCount - a.signalCount || a.topic.localeCompare(b.topic));
+
   return {
     records: recs.length, avgDifficulty: avg(recs.map((r) => r.rating)), groups, tags,
-    misleveled, repair, promote, confidentWrong: cwAll, targets,
+    misleveled, repair, promote, confidentWrong: cwAll, targets, needHarder,
   };
 }
 
@@ -124,6 +133,7 @@ export function buildProposal(a) {
       ...s(a.promote, 'promote: offer a harder variant or the next ladder stage'),
       ...s(a.confidentWrong, 'misconception review: show the common mistake and a contrast example'),
     ],
+    topicsNeedingHarderContent: a.needHarder.map((c) => ({ topic: c.topic, signalCount: c.signalCount, contentCeilingReached: c.contentCeilingReached, suggestedAction: 'write harder content for this topic (new tier above the current top)' })),
     nextContentTargets: a.targets.map((t) => ({ skill: t.skill, template: t.template, reason: t.reason, suggestedAction: t.suggestedAction })),
   };
 }
@@ -143,6 +153,10 @@ export function renderReport(a) {
   L.push('', '## בטוח אבל שגוי', '', idList(a.confidentWrong, (x) => `x${x.count}: ${x.reason}`));
   L.push('', '## 5 יעדי תוכן מומלצים הבאים', '');
   L.push(a.targets.length ? a.targets.map((t, i) => `${i + 1}. ${t.skill}/${t.template} (ציון ${t.score}): ${t.reason}`).join('\n') : '- אין נתונים');
+  L.push('', '## נושאים שצריכים תוכן קשה יותר', '');
+  L.push(a.needHarder.length
+    ? a.needHarder.map((c) => `- ${c.topic}: ${c.signalCount}/5 סימנים${c.contentCeilingReached ? ' · הגיע לתקרת התוכן' : ' · עדיפות לתרגילים קשים ומעורבים'}`).join('\n')
+    : '- אין');
   return L.join('\n') + '\n';
 }
 

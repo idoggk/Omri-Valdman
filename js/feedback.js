@@ -2,6 +2,7 @@
 // unless the learner shares the exported file themselves. Malformed storage always reads as empty.
 import { topicStats, weakTopics, countReasons, withVirtual } from './srs.js';
 import { safeSetItem } from './storage.js';
+import { ceilingSummary } from './ceiling.js';
 
 export const FEEDBACK_KEY = 'omri-study-feedback-v1';
 export const FEEDBACK_CAP = 2000;
@@ -121,8 +122,11 @@ export function buildSummary(records, log = [], exercisesIn = []) {
     avgRating: rated[topic] ? rated[topic].avgRating : null,
     ratings: rated[topic] ? rated[topic].count : 0,
   }));
+  const topicById = new Map(exercises.map((e) => [e.id, e.topic]));
+  const ceiling = ceilingSummary(log, records, { topicOf: (a) => topicById.get(a.exerciseId) || a.topic });
   return {
     ratings: records.length,
+    ceiling, // per topic: the five ceiling signals (see js/ceiling.js) and whether its content is already too easy
     avgRating: avg(records.map((r) => r.rating)),
     topics,
     hardTags: tagCounts(records).map(({ tag, count }) => ({ tag, count })),

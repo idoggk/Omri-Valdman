@@ -34,7 +34,7 @@ test('a rating above 2 no longer blocks promotion; hints, solution viewed, wrong
   assert.equal(topicLevels(log, EXS, six).get('p').rated, false);
   assert.equal(lv(log, [fb('p-2-1', 1, { hintsUsed: 1 })]), null);
   assert.equal(lv(log, [fb('p-2-1', 1, { solutionViewed: true })]), null);
-  assert.equal(topicLevels([...base, ...three(2).slice(0, 2)], EXS, []).get("p").level, 2);
+  assert.equal(topicLevels([...base, ...three(2).slice(0, 2)], EXS, [], { ceiling: false }).get("p").level, 2); // ceiling detector off: pure streak rule
   assert.equal(topicLevels([...base, att("p-2-1", "hinted", 11, 1), att("p-2-2", "alone", 12), att("p-2-3", "alone", 13)], EXS, []).get("p").level, 2);
   assert.equal(topicLevels([...base, ...three(2).slice(0, 2), att("p-2-3", "wrong", 20)], EXS, []).get("p").level, 2);
 });

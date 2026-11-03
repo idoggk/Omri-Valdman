@@ -1,6 +1,7 @@
 // Deterministic workout picker: mixes due reviews, weak-topic practice and new exercises.
 import { schedules, weakTopics, levelInfo } from './srs.js';
 import { ladderStatus, outcomeLookup } from './ladder.js';
+import { analyzeTopics } from './ceiling.js';
 
 const cmp = (a, b) => (a < b ? -1 : a > b ? 1 : 0);
 
@@ -40,7 +41,8 @@ function easyAttempt(a, fb) {
  * level were all easy (see easyAttempt) the level goes up one step, up to the hardest level the topic has. The result is
  * never below the level of the topic's most recent failure (wrong / solution viewed). `from` is the level promoted from.
  */
-export function topicLevels(attempts, exercises, feedback = [], { useBase = true } = {}) {
+export function topicLevels(attempts, exercises, feedback = [], { useBase = true, ceiling = true, transferCovers = null } = {}) {
+  const opts = { ceiling, transferCovers };
   const log = Array.isArray(attempts) ? attempts : [];
   // useBase=false: purely per-topic promotion (the hard sets, where levels 3-5 span several independent topics)
   const base = useBase ? (levelInfo(log, exercises).suggested ?? Math.min(...exercises.map((e) => e.level))) : -Infinity;
@@ -49,7 +51,11 @@ export function topicLevels(attempts, exercises, feedback = [], { useBase = true
   const sorted = log.map((a, i) => ({ a, i })).filter((x) => byId.has(x.a.exerciseId))
     .sort((x, y) => x.a.ts - y.a.ts || x.i - y.i).map((x) => x.a);
   const out = new Map();
-  for (const topic of [...new Set(exercises.map((e) => e.topic))]) {
+  const topicIds = [...new Set(exercises.map((e) => e.topic))];
+  // ceiling detector (js/ceiling.js): 2+ signals = one more level, 4+ = the topic's top level; blocked/insufficient = no change
+  const ceil = opts.ceiling === false ? new Map()
+    : analyzeTopics(log, feedback, { topicOf: (a) => (byId.has(a.exerciseId) ? byId.get(a.exerciseId).topic : a.topic), transferCovers: opts.transferCovers }, topicIds);
+  for (const topic of topicIds) {
     const levels = [...new Set(exercises.filter((e) => e.topic === topic).map((e) => e.level))].sort((a, b) => a - b);
     const mine = sorted.filter((a) => byId.get(a.exerciseId).topic === topic);
     // easy-streak chain from the topic's lowest level; the global unlock level (base) stays a floor for old behaviour
@@ -64,9 +70,18 @@ export function topicLevels(attempts, exercises, feedback = [], { useBase = true
       chain = next;
     }
     let level = Math.max(chain, base);
+    const cv = ceil.get(topic);
+    let ceilingUp = false;
+    if (cv && cv.escalate) {
+      const up = cv.extremeMixed ? levels[levels.length - 1] : levels.find((l) => l > level);
+      if (up !== undefined && up > level) { level = up; ceilingUp = true; }
+    }
     const failed = [...mine].reverse().find((a) => a.outcome === 'wrong' || a.outcome === 'solution');
     if (failed) level = Math.max(level, byId.get(failed.exerciseId).level);
-    out.set(topic, { level, base: useBase ? base : levels[0], from: from !== null && chain === level ? from : null, rated });
+    out.set(topic, {
+      level, base: useBase ? base : levels[0], from: from !== null && chain === level ? from : null, rated,
+      ceiling: cv ? cv.count : 0, ceilingUp, extremeMixed: !!(cv && cv.extremeMixed), blocked: !!(cv && cv.blocked),
+    });
   }
   return out;
 }
@@ -245,6 +260,9 @@ export function levelLine(attempts, exercises, feedback, titleOf = (t) => t) {
   if (!exercises.length) return '';
   const lv = topicLevels(attempts, exercises, feedback);
   const up = [...lv].filter(([, v]) => v.from !== null);
+  const ceil = [...lv].filter(([, v]) => v.ceilingUp && v.from === null)
+    .map(([topic, v]) => `ב${titleOf(topic)} כבר עברתם את הרמה הרגילה (${v.ceiling} מתוך 5 סימנים), ולכן האימון עכשיו ברמה ${v.level}.`);
+  if (!up.length && ceil.length) return ceil.join(' ');
   if (!up.length) {
     const levels = [...new Set([...lv.values()].map((v) => v.level))].sort((a, b) => a - b);
     return `האימון היום ברמה ${levels.join('–')}.`;

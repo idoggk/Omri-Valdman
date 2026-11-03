@@ -31,6 +31,7 @@ export const KNOWN_KEYS = {
   'omri-study-multipart-v1': 'שאלות בכמה סעיפים',
   'omri-study-mathhard-v1': 'מתמטיקה ברמה גבוהה ולוגריתמים: תרגילים',
   'omri-study-endless-v1': 'תרגול ללא הגבלה',
+  'omri-study-transfer-v1': 'מבחן העברה',
 };
 
 /** Keys the app writes that are deliberately not part of a backup (tests scan js/*.js against KNOWN_KEYS + this list). */

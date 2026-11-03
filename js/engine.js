@@ -17,6 +17,8 @@ const FIXED = {
 /** Hebrew title of an engine topic, or null when the id is not one of the standalone modes. */
 export function topicTitle(id) {
   if (FIXED[id]) return FIXED[id][0];
+  if (id === 'transfer-math') return 'מבחן העברה: מתמטיקה';
+  if (id === 'transfer-physics') return 'מבחן העברה: פיזיקה';
   const fam = FAMILIES.find((f) => mathHardTopic(f.id) === id);
   return fam ? `מתמטיקה ברמה גבוהה: ${fam.title}` : null;
 }

@@ -10,6 +10,7 @@ import {
 import { pickWorkout, hardHref } from './workout.js';
 import { topicsWithEngine, topicTitle, itemHref } from './engine.js';
 import { loadFeedback } from './feedback.js';
+import { outgrownTopics } from './ceiling.js';
 import { loadLadder } from './ladder.js';
 import { trapAccuracySection } from './drills-ui.js';
 import { findMistakeSection } from './findmistake-ui.js';
@@ -147,6 +148,17 @@ export function suggestedLevel(topicExercises) {
 }
 
 /* ---------- progress screen ---------- */
+/** "מה כבר מאחוריך": topics where 2+ ceiling signals say the normal level is behind the learner. */
+export function outgrownCard(outgrown, titleOf = (t) => t) {
+  return h('section', { class: 'card outgrown-card', 'aria-labelledby': 'outgrown-h' },
+    h('strong', { id: 'outgrown-h' }, 'מה כבר מאחוריך'),
+    outgrown.length
+      ? h('ul', { class: 'outgrown-list' }, outgrown.map((v) => h('li', {},
+        h('span', {}, isolateTitle(titleOf(v.topic))), ' ',
+        h('span', { class: 'muted' }, `${v.count} מתוך 5 סימנים${v.contentCeilingReached ? ' · מעבר לתוכן הקיים, עוברים לשאלות קשות יותר' : v.extremeMixed ? ' · מתקדמים לשאלות קשות ומעורבות' : ' · האימון עולה רמה'}`))))
+      : h('p', { class: 'muted' }, 'עדיין לא. נושא נכנס לכאן אחרי חמש שאלות שנפתרו מהר, לבד ובלי רמזים.'));
+}
+
 export function viewProgress(ctx) {
   document.title = 'ההתקדמות שלי – Brain Gains';
   const log = store.getAttempts();
@@ -195,9 +207,14 @@ export function viewProgress(ctx) {
     target = `כדאי להמשיך עם "${t ? t.title : weakest.topic}"${lvl ? `, רמה ${lvl}` : ''}.`;
   } else target = 'התחילו אימון ראשון כדי לקבל המלצה.';
 
+  const topicById = new Map(exercises.map((e) => [e.id, e.topic]));
+  const outgrown = outgrownTopics(log, loadFeedback(), { topicOf: (a) => topicById.get(a.exerciseId) || a.topic });
+  const titleOf = (id) => (allTopics.find((x) => x.id === id) || { title: id }).title;
+
   ctx.show(
     h('p', { class: 'crumbs' }, h('a', { href: '#/' }, '→ חזרה לדף הבית')),
     h('h1', {}, 'ההתקדמות שלי'),
+    outgrownCard(outgrown, titleOf),
     h('div', { class: 'panel' }, h('strong', {}, `🔥 רצף: ${streak} ${streak === 1 ? 'יום' : 'ימים'}`)),
     h('h2', {}, '7 הימים האחרונים'), bars,
     h('h2', {}, 'שליטה לפי נושא'), h('ul', { class: 'topic-list' }, topicRows),
