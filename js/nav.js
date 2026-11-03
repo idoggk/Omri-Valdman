@@ -20,7 +20,7 @@ export const TABS = [
 
 /** Routes whose first segment alone is enough to resolve (the rest are optional arguments). */
 const SIMPLE = ['progress', 'practice-hub', 'backup', 'summary', 'drills', 'endless', 'order', 'methods', 'edge', 'reverse', 'fading', 'solve',
-  'repair', 'checkpoints', 'hunt', 'workout', 'exam', 'feedback', 'ladder', 'multipart', 'trig', 'mathhard', 'logs', 'transfer', 'recover', 'notebook', 'writing'];
+  'repair', 'checkpoints', 'hunt', 'workout', 'exam', 'feedback', 'ladder', 'multipart', 'trig', 'mathhard', 'logs', 'transfer', 'recover', 'notebook', 'writing', 'booklet', 'formulas'];
 
 /** hash -> { name, args } or { name: 'notfound' }. One parser shared by app.js and the tests. */
 export function resolveRoute(hash) {
@@ -212,6 +212,7 @@ export function viewHub(ctx) {
       tile('#/trig', '📐 זהויות טריגונומטריות', 'שלושה עוגנים, גזירה צעד אחר צעד, כרטיסיות זכירה, תרגול ומאמן הוכחות'),
       tile('#/logs', '📏 לוגריתמים מהיסוד', '12 שיעורים מפורטים עם דוגמאות פתורות ומבחן עצמי, כרטיסיות זכירה לעשרה כללים, ו־70 תרגילים בחמש רמות עם תחום, מלכודות וכרטיס שיטה'),
       tile('#/mathhard', '🧠 מתמטיקה ברמה גבוהה', '42 תרגילים בחמישה נושאים ושלוש רמות: משוואות שורש, מעריכי, אי־שוויונות רציונליים, פרמטר ומעגלים. תשובות מדויקות וכרטיס שיטה'),
+      tile('#/formulas', '📋 הדף שלי: נוסחאות מהזיכרון', '50 נוסחאות במתמטיקה ובפיזיקה: כותבים כל אחת מהזיכרון, הבדיקה מספרית ולא לפי צורה, וכך נבנה דף נוסחאות אישי להדפסה. טעויות חוזרות בכרטיסיות ובמחברת הטעויות'),
       tile('#/fading', '🌓 דוגמאות מתפוגגות', 'אותה דוגמה בארבעה שלבים: מפתרון מלא ועד פתרון עצמאי, עם הסתרה הדרגתית'),
     ],
     repair: [tile('#/repair', '🩹 חיזוק יסודות', 'מיני־שיעור ו־3 שאלות על מיומנות בסיס שבה יש טעויות חוזרות')],
@@ -237,6 +238,7 @@ export function viewHub(ctx) {
       tile('#/exam', '📝 מצב מבחן', 'שאלות מעורבות, שעון, בלי רמזים ועם דוח בסוף. במסך ההגדרות אפשר לסמן "מבחן חכם", שנבנה לפי החולשות שלכם'),
       tile('#/writing', '✍️ כתיבת פתרון לניקוד חלקי', '16 משימות: כותבים על דף נתונים, נוסחאות, הצבה, חישוב ומסקנה עם יחידות, ומנקדים את עצמכם מול פתרון מודל ורשימת בדיקה'),
       tile('#/transfer', '🧊 מבחן העברה', '24 שאלות חדשות לגמרי שלא מופיעות בשום מקום אחר, בניסוח לא מוכר. מבחן של 6 שאלות, ניסיון ראשון בלבד, בלי רמזים ועם הערכת זמן'),
+      tile('#/booklet', '📄 חוברת מבחן להדפסה', 'מבחן A4 של 90 דקות ו־100 נקודות במתמטיקה או בפיזיקה, שאלות ארוכות חדשות עם מקום לפתרון, מפתח ניקוד בדפים נפרדים והזנת הציון שנתתם לעצמכם'),
       tile('#/summary', '🖨️ סיכום להדפסה', 'דף אחד מהנתונים שלכם: חולשות, נוסחאות ורשימת בדיקה לפני המבחן'),
     ],
     backup: [

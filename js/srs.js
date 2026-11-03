@@ -49,7 +49,7 @@ export function makeAttempt(a) {
 
 /** Topics kept out of topic stats, weak topics and the review schedule: reserved transfer questions and the self-marked writing trainer. */
 export const WRITING_TOPIC = 'writing';
-export const isReservedTopic = (t) => typeof t === 'string' && (t.startsWith('transfer-') || t === WRITING_TOPIC);
+export const isReservedTopic = (t) => typeof t === 'string' && (t.startsWith('transfer-') || t === WRITING_TOPIC || t.startsWith('booklet-'));
 
 /**
  * Exercises that live outside the data/*.json lists (hard math, multipart, trig, logs) are recorded with their own

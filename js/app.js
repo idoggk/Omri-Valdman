@@ -27,6 +27,8 @@ import * as transfer from './transfer-ui.js';
 import * as recover from './recover-ui.js';
 import * as notebook from './notebook-ui.js';
 import * as writing from './writing-ui.js';
+import * as booklet from './booklet-ui.js';
+import * as formulas from './fbuilder-ui.js';
 import { loadMathHardData, resetMathHardCache } from './mathhard.js';
 import { loadLogsData, resetLogsCache } from './logs.js';
 import { loadBootData, droppedNote } from './boot.js';
@@ -242,6 +244,8 @@ function route() {
     else if (name === 'recover') recover.viewRecover(examCtx, args[0]);
     else if (name === 'notebook') notebook.viewNotebook(examCtx);
     else if (name === 'writing') writing.viewWriting(examCtx, args[0]);
+    else if (name === 'booklet') booklet.viewBooklet(examCtx, ...args);
+    else if (name === 'formulas') formulas.viewFormulas(examCtx, args[0], args[1]);
     else if (name === 'workout') viewWorkoutRoute(args[0]);
     else if (name === 'exam') viewExam(examCtx, args[0]);
     else if (name === 'review-start') {

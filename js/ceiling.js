@@ -61,6 +61,8 @@ export function subjectOf(topic) {
   return null;
 }
 export const isTransferTopic = (t) => String(t || '').startsWith(TRANSFER_PREFIX);
+/** Self-marked mock exams (#/booklet): reported apart (summary.booklet), never a topic verdict. */
+export const isBookletTopic = (t) => String(t || '').startsWith('booklet-');
 
 const isRec = (x) => x && typeof x === 'object' && !Array.isArray(x);
 const rate = (n, d) => (d ? n / d : 0);
@@ -164,7 +166,7 @@ export function analyzeTopic(topic, attempts, feedback = [], opts = {}) {
 /** Verdicts for the given topics (default: every topic seen in the log, transfer topics excluded). Map topic -> verdict. */
 export function analyzeTopics(attempts, feedback = [], opts = {}, topics = null) {
   const topicOf = opts.topicOf || ((a) => a.topic);
-  const list = topics || [...new Set((Array.isArray(attempts) ? attempts : []).filter(isRec).map(topicOf).filter((t) => t && !isTransferTopic(t)))].sort();
+  const list = topics || [...new Set((Array.isArray(attempts) ? attempts : []).filter(isRec).map(topicOf).filter((t) => t && !isTransferTopic(t) && !isBookletTopic(t)))].sort();
   return new Map(list.map((t) => [t, analyzeTopic(t, attempts, feedback, opts)]));
 }
 

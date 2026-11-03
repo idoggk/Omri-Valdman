@@ -13,6 +13,7 @@ const FIXED = {
   [TRIG_TOPIC]: ['זהויות טריגונומטריות', '#/trig'],
   [LOGS_TOPIC]: ['לוגריתמים', '#/logs'],
   writing: ['כתיבת פתרון (ניקוד חלקי)', '#/writing'],
+  formulas: ['הדף שלי: נוסחאות מהזיכרון', '#/formulas'],
 };
 
 /** Hebrew title of an engine topic, or null when the id is not one of the standalone modes. */
@@ -20,6 +21,8 @@ export function topicTitle(id) {
   if (FIXED[id]) return FIXED[id][0];
   if (id === 'transfer-math') return 'מבחן העברה: מתמטיקה';
   if (id === 'transfer-physics') return 'מבחן העברה: פיזיקה';
+  if (id === 'booklet-math') return 'חוברת מבחן: מתמטיקה';
+  if (id === 'booklet-physics') return 'חוברת מבחן: פיזיקה';
   if (id === 'recover-math') return 'תקנו ותמשיכו: מתמטיקה';
   if (id === 'recover-physics') return 'תקנו ותמשיכו: פיזיקה';
   const fam = FAMILIES.find((f) => mathHardTopic(f.id) === id);
@@ -30,6 +33,7 @@ export function topicTitle(id) {
 export function topicHref(id) {
   if (FIXED[id]) return FIXED[id][1];
   if (id === 'recover-math' || id === 'recover-physics') return '#/recover';
+  if (id === 'booklet-math' || id === 'booklet-physics') return '#/booklet';
   return FAMILIES.some((f) => mathHardTopic(f.id) === id) ? '#/mathhard' : null;
 }
 
@@ -38,6 +42,7 @@ export function itemHref(id, topic) {
   if (topic === LOGS_TOPIC) return id === 'logs-cards' ? '#/logs/cards' : `#/logs/ex/${id}`;
   if (topic === MULTIPART_TOPIC) return `#/multipart/${id}`;
   if (topic === 'writing') return `#/writing/${id}`;
+  if (topic === 'formulas') return '#/formulas';
   if (topic === 'recover-math' || topic === 'recover-physics') return `#/recover/${id}`;
   if (topic === TRIG_TOPIC) {
     if (id === 'trig-cards') return '#/trig/cards';

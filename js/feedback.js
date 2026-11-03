@@ -3,6 +3,7 @@
 import { topicStats, weakTopics, countReasons, withVirtual } from './srs.js';
 import { safeSetItem } from './storage.js';
 import { ceilingSummary } from './ceiling.js';
+import { bookletSummary } from './booklet.js';
 
 export const FEEDBACK_KEY = 'omri-study-feedback-v1';
 export const FEEDBACK_CAP = 2000;
@@ -130,6 +131,7 @@ export function buildSummary(records, log = [], exercisesIn = []) {
   const writing = wr.length ? { tasks: latest.size, attempts: wr.length, avgScore: Math.round([...latest.values()].reduce((s, x) => s + x, 0) / latest.size * 100) / 100 } : null;
   return {
     writing,
+    booklet: bookletSummary(log), // self-marked mock exams per subject (js/booklet.js), reported apart from mastery
     ratings: records.length,
     ceiling, // per topic: the five ceiling signals (see js/ceiling.js) and whether its content is already too easy
     avgRating: avg(records.map((r) => r.rating)),

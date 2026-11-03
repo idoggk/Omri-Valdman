@@ -273,3 +273,50 @@ body::before { content: ''; position: fixed; top: 0; left: 0; right: 0; height: 
 .wr-line { display: flex; gap: 8px; align-items: flex-start; margin: 8px 0; }
 .wr-line input { min-width: 22px; min-height: 22px; margin-top: 4px; }
 .wr-sum { font-weight: bold; }
+
+/* printable exam booklet (#/booklet): paper, answer lines, key pages */
+.bk-paper { background: #fff; color: #000; border: 1px solid var(--border); border-radius: 8px; padding: 16px; margin-top: 12px; }
+.bk-head h1 { font-size: 1.3rem; }
+.bk-fill { letter-spacing: .02em; }
+.bk-table { border-collapse: collapse; width: 100%; text-align: center; margin: 8px 0 16px; }
+.bk-table th, .bk-table td { border: 1px solid #555; padding: 4px 8px; min-width: 2.5em; }
+.bk-q { margin: 18px 0; padding-top: 6px; border-top: 2px solid #000; }
+.bk-q h2 { font-size: 1.1rem; }
+.bk-eq { font-size: 1.1rem; margin: 4px 0; text-align: left; }
+.bk-marks { font-size: .85em; color: #333; }
+.bk-lines { margin: 4px 0 12px; }
+.bk-line { height: 8mm; border-bottom: 1px solid #777; }
+.bk-keyset { margin-top: 24px; }
+.bk-nokey .bk-keyset { display: none; }
+.bk-stop { text-align: center; border: 3px double #000; padding: 40px 12px; margin: 24px 0; }
+.bk-stop h2 { font-size: 2rem; }
+.bk-key-q { margin: 12px 0; }
+.bk-solution { margin: 2px 0; padding-inline-start: 1.4em; }
+.bk-rubric { font-size: .9em; margin: 2px 0 10px; }
+.bk-enter-parts { display: flex; flex-wrap: wrap; gap: 10px 16px; margin-top: 6px; }
+.bk-history { padding-inline-start: 1.2em; }
+
+/* printable personal formula sheet (#/formulas/sheet) */
+.fs-sheet { column-count: 1; column-gap: 24px; }
+@media (min-width: 900px) { .fs-sheet { column-count: 2; } }
+.fs-group { break-inside: avoid; margin-bottom: 10px; }
+.fs-list { list-style: none; padding: 0; margin: 0; }
+.fs-item { padding: 3px 0; border-bottom: 1px dotted var(--border); }
+.fs-mark { color: #1a7f37; font-weight: 700; }
+.fs-note { color: var(--muted); font-size: .9em; }
+.fs-formula { font-family: monospace; font-weight: 600; }
+
+@media print {
+  .bk-paper { border: 0; padding: 0; margin: 0; }
+  .bk-toolbar, .no-print { display: none !important; }
+  .bk-q { break-inside: auto; }
+  .bk-q.fits { break-inside: avoid; }
+  .bk-q + .bk-q { break-before: page; }
+  .bk-part { break-inside: avoid; }
+  .bk-line { border-bottom: 1px solid #000; }
+  .bk-stop { break-before: page; break-after: page; margin: 0; padding-top: 80mm; }
+  .bk-key-q { break-inside: avoid; }
+  .fs-sheet { column-count: 2 !important; column-gap: 10mm; font-size: 10pt; }
+  .fs-group, .fs-item { break-inside: avoid; }
+  .fs-mark { color: #000; }
+}
