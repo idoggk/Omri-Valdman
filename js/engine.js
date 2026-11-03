@@ -12,6 +12,7 @@ const FIXED = {
   [MULTIPART_TOPIC]: ['שאלות בכמה סעיפים', '#/multipart'],
   [TRIG_TOPIC]: ['זהויות טריגונומטריות', '#/trig'],
   [LOGS_TOPIC]: ['לוגריתמים', '#/logs'],
+  writing: ['כתיבת פתרון (ניקוד חלקי)', '#/writing'],
 };
 
 /** Hebrew title of an engine topic, or null when the id is not one of the standalone modes. */
@@ -36,6 +37,7 @@ export function topicHref(id) {
 export function itemHref(id, topic) {
   if (topic === LOGS_TOPIC) return id === 'logs-cards' ? '#/logs/cards' : `#/logs/ex/${id}`;
   if (topic === MULTIPART_TOPIC) return `#/multipart/${id}`;
+  if (topic === 'writing') return `#/writing/${id}`;
   if (topic === 'recover-math' || topic === 'recover-physics') return `#/recover/${id}`;
   if (topic === TRIG_TOPIC) {
     if (id === 'trig-cards') return '#/trig/cards';

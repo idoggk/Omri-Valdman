@@ -10,6 +10,7 @@ import { onlyHardFailed } from './boot.js';
 import { openFormulaSheet } from './sheet.js';
 import * as repair from './skills-ui.js';
 import { homeReminder } from './backup.js';
+import { dueCount } from './notebook.js';
 
 export const TABS = [
   { id: 'today', href: '#/', label: 'היום', icon: '🏠' },
@@ -19,7 +20,7 @@ export const TABS = [
 
 /** Routes whose first segment alone is enough to resolve (the rest are optional arguments). */
 const SIMPLE = ['progress', 'practice-hub', 'backup', 'summary', 'drills', 'endless', 'order', 'methods', 'edge', 'reverse', 'fading', 'solve',
-  'repair', 'checkpoints', 'hunt', 'workout', 'exam', 'feedback', 'ladder', 'multipart', 'trig', 'mathhard', 'logs', 'transfer', 'recover'];
+  'repair', 'checkpoints', 'hunt', 'workout', 'exam', 'feedback', 'ladder', 'multipart', 'trig', 'mathhard', 'logs', 'transfer', 'recover', 'notebook', 'writing'];
 
 /** hash -> { name, args } or { name: 'notfound' }. One parser shared by app.js and the tests. */
 export function resolveRoute(hash) {
@@ -91,7 +92,7 @@ const isPhysTopic = (a) => a.topic === 'multipart' || /^mp-/.test(String(a.exerc
  * workout started today has an attempt), 2 a hard-math or logs item (done when one was attempted today), 3 a multipart
  * exam question (physics; done when one was attempted today). Done marks come from the stored attempts only.
  */
-export function dailyPath({ log = [], hard = null, now = Date.now(), workout = null, title = (id) => id, workoutExists = () => true } = {}) {
+export function dailyPath({ log = [], hard = null, now = Date.now(), workout = null, title = (id) => id, workoutExists = () => true, notebookDue = 0 } = {}) {
   const start = dayStart(now);
   const today = log.filter((a) => a && a.ts >= start);
   const picks = pickHard(log, hard, now);
@@ -107,11 +108,14 @@ export function dailyPath({ log = [], hard = null, now = Date.now(), workout = n
     const res = workoutResults(workout, log);
     wDone = ids.length > 0 && ids.every((id) => res[id]);
   }
-  return [
+  const steps = [
     { id: 'workout', label: 'האימון של היום', href: '#/workout/start', done: wDone },
     step('math', 'מתמטיקה ברמה גבוהה', isMathTopic, picks.find((p) => p.kind === 'mathhard') || picks.find((p) => p.kind === 'logs'), '#/mathhard'),
     step('physics', 'שאלת מבחן בפיזיקה', isPhysTopic, picks.find((p) => p.kind === 'multipart'), '#/multipart'),
   ];
+  // due entries of the error notebook (only listed when there are some; the notebook sync is what clears them)
+  if (notebookDue > 0) steps.push({ id: 'notebook', label: `מחברת טעויות: ${notebookDue} ${notebookDue === 1 ? 'רשומה' : 'רשומות'} לחזרה`, href: '#/notebook', done: false });
+  return steps;
 }
 
 const MORE_LINKS = [
@@ -146,7 +150,9 @@ export function viewHome(ctx, loadErrors = []) {
   const weak = ctx.exercises.length ? weakTopics(log, withVirtual(ctx.exercises, log)).filter((t) => t.score < 0.8).length : 0;
   const exists = (id) => ctx.byId(id) || hardHref(id);
   const cont = ids.length ? continueHref(store.loadWorkout(), log, exists) : null;
-  const path = dailyPath({ log, hard: ctx.hard, now, workout: store.loadWorkout(), title: ctx.hardTitle || ((id) => id), workoutExists: exists });
+  let notebookDue = 0;
+  try { notebookDue = dueCount(log, fb, now); } catch (e) { /* the notebook is optional on the home screen */ }
+  const path = dailyPath({ log, hard: ctx.hard, now, workout: store.loadWorkout(), title: ctx.hardTitle || ((id) => id), workoutExists: exists, notebookDue });
   ctx.show(
     h('h1', {}, 'היום'),
     bootNotice(loadErrors, ctx.retry),
@@ -222,12 +228,14 @@ export function viewHub(ctx) {
       tile('#/drills', '⚡ תרגולים מהירים', 'מלכודות, בדיקות שפיות וכרטיסיות בסשן של 10 פריטים'),
       tile('#/hunt', '🔎 מצאו את הטעות', 'פתרון מלא עם טעות אחת: מצאו את השלב הראשון השגוי'),
       tile('#/recover', '🩹 תקנו ותמשיכו', '24 פתרונות עם טעות אחת בשלב מוקדם: מוצאים אותה, מתקנים את הערך וממשיכים עד הסוף מהערך הנכון, עם ניקוד חלקי'),
+      tile('#/notebook', '📓 מחברת טעויות', 'כל תרגיל שטעיתם בו נכנס לכאן לבד, עם הצעד המרכזי, הערה אישית וחזרה אחרי 1, 3, 7 ו־14 ימים'),
       tile('#/review/start', '🔁 חזרה על טעויות', 'תרגילים שנפתרו עם רמזים או עם הצגת פתרון'),
     ],
     endless: [tile('#/endless', '♾️ תרגול ללא הגבלה', 'תרגילים חדשים בכל פעם, באותה רמה ועם רמזים ופתרון מלא')],
     exams: [
       tile('#/solve', '✍️ פתרון מלא כמו במבחן', 'פותרים על דף, בלי רמזים: תשובה, רמת ביטחון, פתרון רשמי ורשימת בדיקה עצמית'),
       tile('#/exam', '📝 מצב מבחן', 'שאלות מעורבות, שעון, בלי רמזים ועם דוח בסוף. במסך ההגדרות אפשר לסמן "מבחן חכם", שנבנה לפי החולשות שלכם'),
+      tile('#/writing', '✍️ כתיבת פתרון לניקוד חלקי', '16 משימות: כותבים על דף נתונים, נוסחאות, הצבה, חישוב ומסקנה עם יחידות, ומנקדים את עצמכם מול פתרון מודל ורשימת בדיקה'),
       tile('#/transfer', '🧊 מבחן העברה', '24 שאלות חדשות לגמרי שלא מופיעות בשום מקום אחר, בניסוח לא מוכר. מבחן של 6 שאלות, ניסיון ראשון בלבד, בלי רמזים ועם הערכת זמן'),
       tile('#/summary', '🖨️ סיכום להדפסה', 'דף אחד מהנתונים שלכם: חולשות, נוסחאות ורשימת בדיקה לפני המבחן'),
     ],

@@ -25,6 +25,8 @@ import * as mathhard from './mathhard-ui.js';
 import * as logs from './logs-ui.js';
 import * as transfer from './transfer-ui.js';
 import * as recover from './recover-ui.js';
+import * as notebook from './notebook-ui.js';
+import * as writing from './writing-ui.js';
 import { loadMathHardData, resetMathHardCache } from './mathhard.js';
 import { loadLogsData, resetLogsCache } from './logs.js';
 import { loadBootData, droppedNote } from './boot.js';
@@ -238,6 +240,8 @@ function route() {
     else if (name === 'mathhard') mathhard.viewMathHard(examCtx, args[0]);
     else if (name === 'transfer') transfer.viewTransfer(examCtx, args[0]);
     else if (name === 'recover') recover.viewRecover(examCtx, args[0]);
+    else if (name === 'notebook') notebook.viewNotebook(examCtx);
+    else if (name === 'writing') writing.viewWriting(examCtx, args[0]);
     else if (name === 'workout') viewWorkoutRoute(args[0]);
     else if (name === 'exam') viewExam(examCtx, args[0]);
     else if (name === 'review-start') {

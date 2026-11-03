@@ -124,7 +124,12 @@ export function buildSummary(records, log = [], exercisesIn = []) {
   }));
   const topicById = new Map(exercises.map((e) => [e.id, e.topic]));
   const ceiling = ceilingSummary(log, records, { topicOf: (a) => topicById.get(a.exerciseId) || a.topic });
+  // partial-credit writing trainer: score fractions of self-marked written solutions, reported apart from mastery
+  const wr = log.filter((a) => a.topic === 'writing' && Number.isFinite(a.score));
+  const latest = new Map(wr.map((a) => [a.exerciseId, a.score]));
+  const writing = wr.length ? { tasks: latest.size, attempts: wr.length, avgScore: Math.round([...latest.values()].reduce((s, x) => s + x, 0) / latest.size * 100) / 100 } : null;
   return {
+    writing,
     ratings: records.length,
     ceiling, // per topic: the five ceiling signals (see js/ceiling.js) and whether its content is already too easy
     avgRating: avg(records.map((r) => r.rating)),

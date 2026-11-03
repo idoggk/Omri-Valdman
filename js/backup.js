@@ -5,6 +5,7 @@ import { h } from './dom.js';
 import * as store from './store.js';
 import { cleanLog, compactLog, LOG_KEY } from './srs.js';
 import { cleanList, FEEDBACK_KEY, FEEDBACK_CAP } from './feedback.js';
+import { KEY as NOTEBOOK_KEY, mergeNotebook } from './notebook.js';
 
 export const BACKUP_APP = 'brain-gains';
 export const BACKUP_VERSION = 2;
@@ -38,6 +39,8 @@ export const KNOWN_KEYS = {
   'omri-study-transfer-v1': 'מבחן העברה',
   'omri-study-recover-v1': 'תקנו ותמשיכו',
   'omri-study-tryfirst-v1': 'מצב ״קודם מנסים״',
+  'omri-study-notebook-v1': 'מחברת טעויות',
+  'omri-study-writing-v1': 'כתיבת פתרון (ניקוד חלקי)',
 };
 
 /** Keys the app writes that are deliberately not part of a backup (tests scan js/*.js against KNOWN_KEYS + this list). */
@@ -174,7 +177,7 @@ export function restoreCounts(storage, parsed) {
 
 /**
  * Restores a parsed backup. Atomic: every known key is snapshotted first and put back if any write throws.
- * The attempts log and feedback records are merged with what is on the device; every other key is replaced.
+ * The attempts log, feedback records and the error notebook (by exerciseId) are merged with what is on the device; every other key is replaced.
  * One undo snapshot is kept for 24 h. Returns {ok, undo, rolledBack}.
  */
 export function restoreBackup(storage, parsed, now = Date.now()) {
@@ -185,6 +188,7 @@ export function restoreBackup(storage, parsed, now = Date.now()) {
   try {
     if (parsed.data[LOG_KEY] != null && snapshot[LOG_KEY] != null) entries[LOG_KEY] = mergeAttempts(snapshot[LOG_KEY], parsed.data[LOG_KEY]);
     if (parsed.data[FEEDBACK_KEY] != null && snapshot[FEEDBACK_KEY] != null) entries[FEEDBACK_KEY] = mergeFeedback(snapshot[FEEDBACK_KEY], parsed.data[FEEDBACK_KEY]);
+    if (parsed.data[NOTEBOOK_KEY] != null && snapshot[NOTEBOOK_KEY] != null) entries[NOTEBOOK_KEY] = mergeNotebook(snapshot[NOTEBOOK_KEY], parsed.data[NOTEBOOK_KEY]);
   } catch (e) { return { ok: false, undo: false, rolledBack: true }; }
   try { if (typeof storage.removeItem === 'function') storage.removeItem(UNDO_KEY); } catch (e) { /* frees space; ignore */ }
   const res = writeAll(storage, entries);

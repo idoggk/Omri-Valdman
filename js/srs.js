@@ -1,7 +1,7 @@
 // Spaced repetition, mastery, streaks and error reasons. Pure logic: no DOM, storage is injected.
 // Additive module: progress.js / store.js keep working untouched.
 //
-// attempt = { exerciseId, ts, outcome: 'alone'|'hinted'|'solution'|'wrong', hintsUsed, seconds, errorReason? }
+// attempt = { exerciseId, ts, outcome: 'alone'|'hinted'|'solution'|'wrong', hintsUsed, seconds, errorReason?, score? }
 
 import { safeSetItem, stashCorrupt, corruptKey } from './storage.js';
 
@@ -43,8 +43,13 @@ export function makeAttempt(a) {
   if (Number.isFinite(a.timeToFirstAttempt) && a.timeToFirstAttempt >= 0 && a.timeToFirstAttempt <= 86400) r.timeToFirstAttempt = Math.round(a.timeToFirstAttempt); // optional: seconds until the first typed answer
   if (a.migrated) r.migrated = true;
   if (typeof a.topic === 'string' && a.topic && a.topic.length <= 60) r.topic = a.topic;
+  if (Number.isFinite(a.score) && a.score >= 0 && a.score <= 1) r.score = Math.round(a.score * 100) / 100; // partial-credit fraction (writing trainer)
   return r;
 }
+
+/** Topics kept out of topic stats, weak topics and the review schedule: reserved transfer questions and the self-marked writing trainer. */
+export const WRITING_TOPIC = 'writing';
+export const isReservedTopic = (t) => typeof t === 'string' && (t.startsWith('transfer-') || t === WRITING_TOPIC);
 
 /**
  * Exercises that live outside the data/*.json lists (hard math, multipart, trig, logs) are recorded with their own
@@ -54,7 +59,7 @@ export function withVirtual(exercises, log) {
   const known = new Set(exercises.map((e) => e.id));
   const extra = new Map();
   // reserved transfer-test questions stay out of every topic list, weak-topic list and review schedule
-  for (const a of log) if (a.topic && !a.topic.startsWith('transfer-') && !known.has(a.exerciseId)) extra.set(a.exerciseId, { id: a.exerciseId, topic: a.topic, level: 1, virtual: true });
+  for (const a of log) if (a.topic && !isReservedTopic(a.topic) && !known.has(a.exerciseId)) extra.set(a.exerciseId, { id: a.exerciseId, topic: a.topic, level: 1, virtual: true });
   return extra.size ? exercises.concat([...extra.values()]) : exercises;
 }
 
@@ -108,7 +113,7 @@ export function schedules(log) {
 
 /** Ids due at `now`, most overdue first (ties by id). Mastered exercises are due too once their interval passed. */
 export function dueReviews(log, now) {
-  return [...schedules(log.filter((a) => !(a.topic && a.topic.startsWith('transfer-'))))].filter(([, s]) => s.due <= now)
+  return [...schedules(log.filter((a) => !isReservedTopic(a.topic)))].filter(([, s]) => s.due <= now)
     .sort((a, b) => a[1].due - b[1].due || (a[0] < b[0] ? -1 : 1)).map(([id]) => id);
 }
 

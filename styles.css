@@ -266,3 +266,10 @@ body::before { content: ''; position: fixed; top: 0; left: 0; right: 0; height: 
 .pattern { width: 100%; border-collapse: collapse; margin-top: .6em; }
 .pattern td { border: 1px solid var(--border); padding: 6px 8px; }
 .pattern td:nth-child(1), .pattern td:nth-child(2) { direction: ltr; text-align: left; }
+.wr-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; align-items: start; }
+@media (max-width: 720px) { .wr-cols { grid-template-columns: 1fr; } }
+.wr-step h3 { margin: .6em 0 .1em; font-size: 1rem; }
+.wr-rubric { list-style: none; padding: 0; }
+.wr-line { display: flex; gap: 8px; align-items: flex-start; margin: 8px 0; }
+.wr-line input { min-width: 22px; min-height: 22px; margin-top: 4px; }
+.wr-sum { font-weight: bold; }
