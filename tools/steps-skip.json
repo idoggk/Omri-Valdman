@@ -1,0 +1,8 @@
+{
+  "lg-4-11": "existence question (for which m is there an x): a claim about all x, not an equivalence between two formulas",
+  "rc-m-05": "the planted error is a for-all-m existence claim; each displayed equivalence is truth-preserving at every (x, m), so a pairwise check cannot show it",
+  "rc-m-12": "parameter case analysis on the discriminant: the planted error is a missed case of the existence question, not a bad transformation",
+  "default:data/mathhard-param.json": "parameter case analysis: the claim is about the number of solutions for all m, no pairwise formula chain",
+  "default:data/mathhard-circle.json": "analytic-geometry system (points / chord length): the steps do not form an equation-to-equation chain",
+  "default:data/ladder-math.json": "ladder item: the worked solution is HTML prose with an inputs-only answer; its formulas are not stored as a chain (not converted, text left untouched)"
+}

@@ -1,6 +1,10 @@
 [
   {
     "id": "rc-m-01", "subject": "math", "errorType": "lost-root", "title": "חילוק בגורם משותף",
+    "lines": [
+      {"step":1,"f":["(x-3)*(2*x+1)=(x-3)*(x+5)","2*x+1=x+5","x=4"],"wrong":true,"wrongAt":0},
+      {"f":["(x-3)*(2*x+1)=(x-3)*(x+5)","(x-3)*(2*x+1-x-5)=0","(x-3)*(x-4)=0","x=3 or x=4"]}
+    ],
     "statement": "פתרו את המשוואה <span dir=\"ltr\">(x − 3)(2x + 1) = (x − 3)(x + 5)</span> ומצאו את כל הפתרונות.",
     "steps": [
       "בשני האגפים מופיע הגורם <span dir=\"ltr\">(x − 3)</span>.",
@@ -21,6 +25,10 @@
   },
   {
     "id": "rc-m-02", "subject": "math", "errorType": "sign-flip", "title": "חילוק במספר שלילי באי־שוויון",
+    "lines": [
+      {"step":2,"f":["7-3*x>=2*x-8","-5*x>=-15","x>=3"],"wrong":true,"wrongAt":1},
+      {"f":["7-3*x>=2*x-8 and 4*x+3>-9","-5*x>=-15 and 4*x>-12","x<=3 and x>-3","x in (-3,3]"]}
+    ],
     "statement": "פתרו את מערכת אי־השוויונות: <span dir=\"ltr\">7 − 3x ≥ 2x − 8</span> וגם <span dir=\"ltr\">4x + 3 &gt; −9</span>.",
     "steps": [
       "נפתור כל אי־שוויון בנפרד ואחר כך נחתוך את הפתרונות.",
@@ -42,6 +50,10 @@
   },
   {
     "id": "rc-m-03", "subject": "math", "errorType": "extraneous", "title": "העלאה בריבוע בלי בדיקה",
+    "lines": [
+      {"step":1,"f":["sqrt(x+7)=x+1","x+7=x^2+2*x+1","x^2+x-6=0","(x+3)*(x-2)=0","x=-3 or x=2"],"wrong":true,"wrongAt":0},
+      {"f":["sqrt(x+7)=x+1","x+7=x^2+2*x+1","(x+3)*(x-2)=0","x=-3 or x=2","x=2"],"r":["implies","equiv","equiv",{"t":"domain-restrict","c":"x+1>=0"}]}
+    ],
     "statement": "פתרו את המשוואה <span dir=\"ltr\">√(x + 7) = x + 1</span>.",
     "steps": [
       "התחום: <span dir=\"ltr\">x + 7 ≥ 0</span>, כלומר <span dir=\"ltr\">x ≥ −7</span>.",
@@ -64,6 +76,10 @@
   },
   {
     "id": "rc-m-04", "subject": "math", "errorType": "log-domain", "title": "כלל החזקה בלוגריתם",
+    "lines": [
+      {"step":1,"f":["log_2(x^2)=4","2*log_2(x)=4","log_2(x)=2","x=4"],"wrong":true,"wrongAt":0},
+      {"f":["log_2(x^2)=4","2*log_2(abs(x))=4","log_2(abs(x))=2","abs(x)=4","x=4 or x=-4"]}
+    ],
     "statement": "פתרו את המשוואה <span dir=\"ltr\">log₂(x²) = 4</span>.",
     "steps": [
       "התחום: <span dir=\"ltr\">x² &gt; 0</span>, כלומר <span dir=\"ltr\">x ≠ 0</span>.",
@@ -107,6 +123,10 @@
   },
   {
     "id": "rc-m-06", "subject": "math", "errorType": "wrong-identity", "title": "פתיחת סוגריים בריבוע",
+    "lines": [
+      {"step":1,"f":["(x+3)^2-3*x=13","x^2+9-3*x-13=0","x^2-3*x-4=0","(x-4)*(x+1)=0","x=4 or x=-1"],"wrong":true,"wrongAt":0},
+      {"f":["(x+3)^2-3*x=13","x^2+6*x+9-3*x-13=0","x^2+3*x-4=0","(x+4)*(x-1)=0","x=-4 or x=1"]}
+    ],
     "statement": "פתרו את המשוואה <span dir=\"ltr\">(x + 3)² − 3x = 13</span>.",
     "steps": [
       "מעבירים את 13: <span dir=\"ltr\">(x + 3)² − 3x − 13 = 0</span>.",
@@ -129,6 +149,10 @@
   },
   {
     "id": "rc-m-07", "subject": "math", "errorType": "wrong-identity", "title": "חזקות עם מעריך סכום",
+    "lines": [
+      {"step":1,"f":["2^(x+1)+2^x=24","t+2+t=24","2*t=22","t=11"],"wrong":true,"wrongAt":0,"defs":{"t":"2^x"}},
+      {"f":["2^(x+1)+2^x=24","2*t+t=24","3*t=24","t=8","2^x=8","x=3"],"defs":{"t":"2^x"}}
+    ],
     "statement": "פתרו את המשוואה <span dir=\"ltr\">2^(x+1) + 2^x = 24</span>.",
     "steps": [
       "נסמן <span dir=\"ltr\">t = 2^x</span> ונבטא הכול באמצעות <span dir=\"ltr\">t</span>.",
@@ -151,6 +175,10 @@
   },
   {
     "id": "rc-m-08", "subject": "math", "errorType": "sign-flip", "title": "כפל במכנה שסימנו לא ידוע",
+    "lines": [
+      {"step":1,"f":["x/(x-2)>=3","x>=3*(x-2)","x>=3*x-6","6>=2*x","x<=3"],"wrong":true,"wrongAt":0},
+      {"f":["x/(x-2)>=3","x/(x-2)-3>=0","(6-2*x)/(x-2)>=0","x in (2,3]"]}
+    ],
     "statement": "פתרו את אי־השוויון <span dir=\"ltr\">x/(x − 2) ≥ 3</span>.",
     "steps": [
       "התחום: <span dir=\"ltr\">x ≠ 2</span>.",
@@ -173,6 +201,10 @@
   },
   {
     "id": "rc-m-09", "subject": "math", "errorType": "sqrt-abs", "title": "שורש של ביטוי בריבוע",
+    "lines": [
+      {"step":1,"f":["sqrt(x^2-6*x+9)=5","sqrt((x-3)^2)=5","x-3=5","x=8"],"wrong":true,"wrongAt":1},
+      {"f":["sqrt(x^2-6*x+9)=5","sqrt((x-3)^2)=5","abs(x-3)=5","x=8 or x=-2"]}
+    ],
     "statement": "פתרו את המשוואה <span dir=\"ltr\">√(x² − 6x + 9) = 5</span>.",
     "steps": [
       "מזהים ריבוע שלם: <span dir=\"ltr\">x² − 6x + 9 = (x − 3)²</span>.",
@@ -195,6 +227,10 @@
   },
   {
     "id": "rc-m-10", "subject": "math", "errorType": "sqrt-abs", "title": "שורש משני האגפים של אי־שוויון",
+    "lines": [
+      {"step":1,"f":["(x+1)^2>4","x+1>2","x>1"],"wrong":true,"wrongAt":0},
+      {"f":["(x+1)^2>4","abs(x+1)>2","x+1>2 or x+1<-2","x>1 or x<-3"]}
+    ],
     "statement": "פתרו את אי־השוויון <span dir=\"ltr\">(x + 1)² &gt; 4</span>.",
     "steps": [
       "אגף שמאל הוא ריבוע, ואגף ימין הוא <span dir=\"ltr\">4 = 2²</span>.",
@@ -216,6 +252,10 @@
   },
   {
     "id": "rc-m-11", "subject": "math", "errorType": "lost-root", "title": "ישר אנכי חותך מעגל",
+    "lines": [
+      {"step":2,"f":["(4-1)^2+(y+2)^2=25","9+(y+2)^2=25","(y+2)^2=16","y+2=4"],"wrong":true,"wrongAt":2},
+      {"f":["(4-1)^2+(y+2)^2=25","(y+2)^2=16","y+2=4 or y+2=-4","y=2 or y=-6"]}
+    ],
     "statement": "נתונים המעגל <span dir=\"ltr\">(x − 1)² + (y + 2)² = 25</span> והישר <span dir=\"ltr\">x = 4</span>. מצאו את נקודות החיתוך שלהם.",
     "steps": [
       "מציבים <span dir=\"ltr\">x = 4</span> במעגל: <span dir=\"ltr\">(4 − 1)² + (y + 2)² = 25</span>.",

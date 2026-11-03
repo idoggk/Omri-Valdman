@@ -1,6 +1,9 @@
 [
   {
     "id": "mh-rad-1", "family": "radical", "tier": 1, "kind": "solve", "var": "x",
+    "lines": [
+      {"step":1,"f":["@eq","2*x+7=(1+s)^2","x+3=2*s","s^2=2*s","s*(s-2)=0","s=0 or s=2","x=-3 or x=1"],"defs":{"s":"sqrt(x+3)"}}
+    ],
     "title": "שני שורשים והפרש קבוע",
     "ask": "פתרו את המשוואה. רשמו את כל הפתרונות.",
     "eq": ["√(2x+7) − √(x+3) = 1"],
@@ -20,6 +23,9 @@
   },
   {
     "id": "mh-rad-2", "family": "radical", "tier": 1, "kind": "solve", "var": "x",
+    "lines": [
+      {"step":1,"f":["@eq","sqrt(t+7)=5-t","t+7=(5-t)^2","t^2-11*t+18=0","(t-2)*(t-9)=0","t=2 or t=9","t=2","x^2+3*x-2=0","x=(-3+sqrt(17))/2 or x=(-3-sqrt(17))/2"],"r":["equiv","implies","equiv","equiv","equiv",{"t":"domain-restrict","c":"5-t>=0"},"equiv","equiv"],"defs":{"t":"x^2+3*x"}}
+    ],
     "title": "הצבה t = x² + 3x ושורש זר",
     "ask": "פתרו את המשוואה. רשמו את כל הפתרונות בצורה מדויקת (עם שורש).",
     "eq": ["√(x²+3x+7) + x²+3x = 5"],
@@ -42,6 +48,9 @@
   },
   {
     "id": "mh-rad-3", "family": "radical", "tier": 1, "kind": "solve", "var": "x",
+    "lines": [
+      {"step":1,"f":["@eq","10-3*x=(2*x-2)^2","4*x^2-5*x-6=0","(4*x+3)*(x-2)=0","x=2 or x=-3/4","x=2"],"r":["implies","equiv","equiv","equiv",{"t":"domain-restrict","c":"2*x-2>=0"}]}
+    ],
     "title": "שורש שווה לביטוי ליניארי",
     "ask": "פתרו את המשוואה. רשמו את כל הפתרונות.",
     "eq": ["√(10−3x) = 2x−2"],
@@ -62,6 +71,9 @@
   },
   {
     "id": "mh-rad-4", "family": "radical", "tier": 2, "kind": "solve", "var": "x",
+    "lines": [
+      {"step":1,"f":["@eq","sqrt(u+9)=9-sqrt(u)","u+9=81-18*sqrt(u)+u","sqrt(u)=4","u=16","x^3=16","x=cbrt(16)"],"r":["equiv","implies","equiv",{"t":"domain-restrict","c":"9-sqrt(u)>=0"},"equiv","equiv"],"defs":{"u":"x^3"}}
+    ],
     "title": "הצבה u = x³ בשני שורשים",
     "ask": "פתרו את המשוואה. רשמו את הפתרון בצורה מדויקת.",
     "eq": ["√(x³+9) + √(x³) = 9"],
@@ -80,6 +92,9 @@
   },
   {
     "id": "mh-rad-5", "family": "radical", "tier": 3, "kind": "solve", "var": "x",
+    "lines": [
+      {"step":1,"f":["@eq","sqrt((s-2)^2)+sqrt((s-3)^2)=1","abs(s-2)+abs(s-3)=1","2<=s and s<=3","4<=x-1 and x-1<=9","5<=x<=10"],"defs":{"s":"sqrt(x-1)"}}
+    ],
     "title": "שורשים מקוננים: התשובה היא קטע",
     "ask": "פתרו את המשוואה. התשובה היא קטע (או איחוד קטעים).",
     "eq": ["√(x+3−4√(x−1)) + √(x+8−6√(x−1)) = 1"],
@@ -99,6 +114,9 @@
   },
   {
     "id": "mh-rad-6", "family": "radical", "tier": 2, "kind": "solve", "var": "x",
+    "lines": [
+      {"step":1,"f":["@eq","3*x+1=(x-1)+(2*x-6)+2*sqrt((x-1)*(2*x-6))","8=2*sqrt((x-1)*(2*x-6))","sqrt(2*x^2-8*x+6)=4","2*x^2-8*x+6=16","x^2-4*x-5=0","x=5 or x=-1","x=5"],"r":["equiv","equiv","equiv","equiv","equiv","equiv",{"t":"domain-restrict","c":"x>=3"}]}
+    ],
     "title": "שלושה שורשים, תחום ושורש זר",
     "ask": "פתרו את המשוואה. שימו לב לתחום.",
     "eq": ["√(3x+1) = √(x−1) + √(2x−6)"],
@@ -120,6 +138,12 @@
   },
   {
     "id": "mh-rad-7", "family": "radical", "tier": 3, "kind": "solve", "var": "x",
+    "lines": [
+      {"step":1,"f":["@eq","sqrt((s-1)^2)+sqrt((s-3)^2)=4","abs(s-1)+abs(s-3)=4","s=0 or s=4","x=-1 or x=15"],"defs":{"s":"sqrt(x+1)"}},
+      {"step":3,"f":["abs(s-1)+abs(s-3)=4","(1-s)+(3-s)=4","s=0"],"defs":{"s":"sqrt(x+1)"},"dom":"s<1"},
+      {"step":4,"f":["abs(s-1)+abs(s-3)=4","(s-1)+(3-s)=4","false"],"defs":{"s":"sqrt(x+1)"},"dom":"s>=1 and s<=3"},
+      {"step":5,"f":["abs(s-1)+abs(s-3)=4","(s-1)+(s-3)=4","s=4"],"defs":{"s":"sqrt(x+1)"},"dom":"s>3"}
+    ],
     "title": "שורשים מקוננים עם ערך מוחלט: שתי נקודות",
     "ask": "פתרו את המשוואה. רשמו את כל הפתרונות.",
     "eq": ["√(x+2−2√(x+1)) + √(x+10−6√(x+1)) = 4"],
@@ -140,6 +164,9 @@
   },
   {
     "id": "mh-rad-8", "family": "radical", "tier": 2, "kind": "solve", "var": "x",
+    "lines": [
+      {"step":1,"f":["@eq","sqrt(u+9)=2+sqrt(u-7)","u+9=4+4*sqrt(u-7)+u-7","12=4*sqrt(u-7)","sqrt(u-7)=3","u-7=9","u=16","x=4 or x=-4"],"defs":{"u":"x^2"}}
+    ],
     "title": "הפרש שורשים עם x² ופתרון זוגי",
     "ask": "פתרו את המשוואה. שימו לב לתחום ולשני הסימנים של x.",
     "eq": ["√(x²+9) − √(x²−7) = 2"],
@@ -158,6 +185,11 @@
   },
   {
     "id": "mh-rad-9", "family": "radical", "tier": 3, "kind": "solve", "var": "x",
+    "lines": [
+      {"step":1,"f":["@eq","true"],"dom":"x<-1"},
+      {"step":2,"f":["@eq","2*x^2-x-3>=(x+1)^2","x^2-3*x-4>=0","(x-4)*(x+1)>=0","x<=-1 or x>=4","x=-1 or x>=4"],"dom":"x>=-1"},
+      {"step":5,"f":["@eq","x in (-inf,-1] U [4,inf)"]}
+    ],
     "title": "אי־שוויון עם שורש: שני מקרים",
     "ask": "פתרו את אי־השוויון. רשמו את הפתרון כאיחוד קטעים.",
     "eq": ["√(2x²−x−3) ≥ x+1"],
