@@ -26,7 +26,8 @@ test('round trip: build then restore into empty storage reproduces every known k
   const dst = fake();
   assert.equal(B.applyBackup(dst, res), true);
   for (const k of ['omri-study-progress-v2', 'omri-study-attempts-v1', 'omri-study-drills-v1']) assert.equal(dst.getItem(k), src.getItem(k));
-  assert.equal(dst.m.size, 3);
+  assert.equal(dst.m.size, 4); // three keys plus the undo snapshot
+  assert.ok(dst.m.has(B.UNDO_KEY));
 });
 
 test('code survives surrounding whitespace', () => {
@@ -37,7 +38,7 @@ const wrap = (data, extra = {}) => JSON.stringify({ app: 'brain-gains', v: 1, ts
 for (const [label, input] of [
   ['empty', ''], ['not a string', null], ['truncated json', B.buildBackup(sample()).slice(0, 40)], ['garbage', 'hello'],
   ['array', '[]'], ['wrong app', JSON.stringify({ app: 'x', v: 1, data: {} })],
-  ['wrong version', wrap({}, { v: 2 })], ['no data', JSON.stringify({ app: 'brain-gains', v: 1 })],
+  ['wrong version', wrap({}, { v: 3 })], ['no data', JSON.stringify({ app: 'brain-gains', v: 1 })],
   ['empty data', wrap({})],
   ['unknown key', wrap({ 'omri-study-progress-v2': '{}', evil: '{}' })],
   ['proto key', '{"app":"brain-gains","v":1,"data":{"__proto__":"{}"}}'],

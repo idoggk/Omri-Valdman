@@ -94,7 +94,8 @@ test('backup: ladder key is allowlisted and round-trips', () => {
   const dst = { getItem: (k) => (dstMap.has(k) ? dstMap.get(k) : null), setItem: (k, x) => dstMap.set(k, String(x)) };
   assert.equal(B.applyBackup(dst, res), true);
   assert.equal(dst.getItem(L.LADDER_KEY), v);
-  assert.equal(dstMap.size, 1);
+  assert.equal(dstMap.size, 2); // the key plus the undo snapshot
+  assert.ok(dstMap.has(B.UNDO_KEY));
 });
 
 test('routes: #/ladder resolves, hub shows the ladder card first', () => {

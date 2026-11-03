@@ -16,13 +16,19 @@ export const onlyHardFailed = (failed) => failed.length > 0 && failed.every((f) 
 export async function loadBootData({ fetchFn, validExercise, loaders, resets = [] }) {
   for (const r of resets) { try { r(); } catch (e) { /* best effort */ } }
   const failed = [];
+  const dropped = {}; // items the validator rejected, per file (an incompatible data file shows up here)
   const results = await Promise.all(CORE_FILES.map(async (f) => {
     try {
       const res = await fetchFn(`data/${f}.json`, { cache: 'no-cache' });
       if (!res.ok) throw new Error(String(res.status));
       const arr = await res.json();
       if (!Array.isArray(arr)) throw new Error('not an array');
-      return arr.filter(validExercise);
+      const good = arr.filter(validExercise);
+      if (good.length < arr.length) {
+        dropped[f] = arr.length - good.length;
+        try { console.warn(`data/${f}.json: ${dropped[f]} of ${arr.length} items were dropped by the validator`); } catch (e) { /* no console */ }
+      }
+      return good;
     } catch (err) {
       failed.push(f);
       return [];
@@ -44,5 +50,12 @@ export async function loadBootData({ fetchFn, validExercise, loaders, resets = [
   const [mh, mp, lg] = await Promise.all([
     safe('mathhard', loaders.mathhard), safe('multipart', loaders.multipart), safe('logs', loaders.logs)]);
   const hard = { mathhard: mh ? mh.data : [], multipart: mp ? mp.data : [], logs: lg ? lg.exercises : [] };
-  return { exercises: results.flat(), ladder, hard, failed };
+  return { exercises: results.flat(), ladder, hard, failed, dropped };
+}
+
+/** One Hebrew footer line when validators dropped items, else ''. */
+export function droppedNote(dropped) {
+  const n = Object.values(dropped || {}).reduce((s, x) => s + x, 0);
+  if (!n) return '';
+  return `${n} תרגילים לא נטענו כי קובץ הנתונים לא תואם לגרסת האפליקציה. רעננו את הדף או נסו שוב עם חיבור לאינטרנט.`;
 }

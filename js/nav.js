@@ -9,6 +9,7 @@ import { loadFeedback } from './feedback.js';
 import { onlyHardFailed } from './boot.js';
 import { openFormulaSheet } from './sheet.js';
 import * as repair from './skills-ui.js';
+import { homeReminder } from './backup.js';
 
 export const TABS = [
   { id: 'today', href: '#/', label: 'היום', icon: '🏠' },
@@ -149,6 +150,7 @@ export function viewHome(ctx, loadErrors = []) {
   ctx.show(
     h('h1', {}, 'היום'),
     bootNotice(loadErrors, ctx.retry),
+    homeReminder(),
     h('section', { class: 'card today-card', 'aria-labelledby': 'today-h' },
       h('strong', { id: 'today-h' }, 'האימון של היום'),
       ids.length

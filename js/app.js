@@ -27,7 +27,7 @@ import * as transfer from './transfer-ui.js';
 import * as recover from './recover-ui.js';
 import { loadMathHardData, resetMathHardCache } from './mathhard.js';
 import { loadLogsData, resetLogsCache } from './logs.js';
-import { loadBootData } from './boot.js';
+import { loadBootData, droppedNote } from './boot.js';
 import { hardHref } from './workout.js';
 import * as nav from './nav.js';
 import * as feedbackUi from './feedback-ui.js';
@@ -71,6 +71,20 @@ function validExercise(e) {
     (Array.isArray(e.inputs) || validAnswerSets(e.answerSets) || (e.choice && Array.isArray(e.choice.options)));
 }
 
+// Footer line when validators dropped items from an incompatible data file (text '' removes it).
+function showDataNote(text) {
+  let el = document.querySelector('.data-note');
+  if (!text) { if (el) el.remove(); return; }
+  if (!el) {
+    el = document.createElement('p');
+    el.className = 'data-note muted';
+    el.setAttribute('role', 'status');
+    el.style.cssText = 'text-align:center;font-size:.8rem;padding:8px 12px';
+    document.body.append(el);
+  }
+  el.textContent = text;
+}
+
 // Which files failed at boot (names from boot.js); the home screen shows a message and a retry button.
 async function loadData() {
   const r = await loadBootData({
@@ -80,6 +94,7 @@ async function loadData() {
     resets: [resetMathHardCache, multipart.resetMultipartCache, resetLogsCache],
   });
   loadErrors = r.failed;
+  showDataNote(droppedNote(r.dropped));
   exercises = r.exercises;
   examCtx.ladder = r.ladder; // workout simply skips the ladder share when null
   // hard sets feed 4 of the 10 daily items; each loader fails soft (offline without the files = no hard slots)

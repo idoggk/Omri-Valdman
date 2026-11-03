@@ -14,7 +14,7 @@ const isMobile = () => /Android|iPhone|iPad|iPod/i.test(navigator.userAgent) ||
 const isIOS = () => /iPhone|iPad|iPod/i.test(navigator.userAgent) ||
   (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
 
-const APP_VERSION = '51'; // keep equal to CACHE_VERSION in sw.js
+const APP_VERSION = '52'; // keep equal to CACHE_VERSION in sw.js
 const RELOAD_KEY = 'omri-sw-reloaded-' + APP_VERSION;
 let hadControllerAtLoad = false;
 
@@ -86,6 +86,10 @@ function buildHelpDialog() {
   dlg.addEventListener('click', (e) => { if (e.target === dlg) dlg.close(); });
   dlg.append(
     $('h2', { id: 'pwa-help-title', textContent: 'איך מוסיפים את Brain Gains למסך הבית' }),
+    $('p', { className: 'pwa-first-step' }, $('strong', { textContent: 'קודם כול: ' }),
+      'צרו גיבוי (',
+      Object.assign($('a', { href: '#/backup', textContent: 'גיבוי והעברה' }), { onclick: () => dlg.close() }),
+      '), ואחר כך שחזרו אותו באפליקציה שעל האייקון. הדפדפן והאייקון שומרים נתונים בנפרד, ולכן ההתקדמות שבדפדפן לא תופיע באייקון בלי שחזור.'),
     $('h3', { textContent: 'אייפון (Safari)' }),
     Object.assign($('ol'), {
       innerHTML: '<li>לוחצים על כפתור השיתוף בתחתית המסך.</li><li>גוללים למטה ובוחרים ״הוסף למסך הבית״ (Add to Home Screen).</li><li>לוחצים ״הוסף״ (Add).</li>',
@@ -149,14 +153,51 @@ function injectVersion() {
 }
 
 // When a new worker takes over, reload once so a stale page updates itself.
+// While the learner has typed an answer that is not submitted yet, or a timed test (exam, transfer) is open, the
+// reload waits: the banner is shown instead and the page reloads on the next route change once nothing is open.
+const TIMED_ROUTE = /^#\/(exam|transfer)\/run(\/|$)/;
+function isBusy() {
+  try {
+    if (TIMED_ROUTE.test(location.hash || '')) return true;
+    if (typeof document.querySelectorAll !== 'function') return false;
+    return [...document.querySelectorAll('textarea, input:not([type]), input[type="text"], input[type="number"], input[type="search"]')]
+      .some((el) => !el.disabled && !el.readOnly && String(el.value || '').trim() !== '');
+  } catch { return false; }
+}
+
+let reloadPending = false;
+function reloadOnce() {
+  if (store('get', RELOAD_KEY, null, 'session')) return false;
+  store('set', RELOAD_KEY, '1', 'session');
+  location.reload();
+  return true;
+}
+
 function reloadOnTakeover() {
   navigator.serviceWorker.addEventListener('controllerchange', () => {
     if (!hadControllerAtLoad) return; // first install: nothing stale to replace
     if (store('get', RELOAD_KEY, null, 'session')) return;
-    store('set', RELOAD_KEY, '1', 'session');
-    location.reload();
+    if (isBusy()) { reloadPending = true; showUpdateBanner(null); return; }
+    reloadOnce();
+  });
+  window.addEventListener('hashchange', () => {
+    if (reloadPending && !isBusy()) { reloadPending = false; reloadOnce(); }
   });
 }
+
+// Ask the browser for a newer worker: on load and when the page becomes visible again, at most every 30 minutes.
+const UPDATE_EVERY = 30 * 60 * 1000;
+const LAST_CHECK_KEY = 'omri-sw-lastcheck';
+async function checkForUpdate(now = Date.now()) {
+  if (!swReg) return false;
+  const last = Number(store('get', LAST_CHECK_KEY));
+  if (Number.isFinite(last) && last > 0 && now - last < UPDATE_EVERY && now >= last) return false;
+  store('set', LAST_CHECK_KEY, String(now));
+  try { await swReg.update(); } catch { /* offline: try again next time */ }
+  return true;
+}
+window.omriCheckForUpdate = checkForUpdate;
+window.omriPwa = { isBusy, isReloadPending: () => reloadPending };
 
 // Called by app.js on an unknown route or a render error: a stale cached app is the likely cause right after a
 // deploy. Look for a newer worker, activate it and reload ONCE per session (never loops on a truly missing route).
@@ -202,6 +243,8 @@ async function registerSW() {
     reloadOnTakeover();
     const reg = await navigator.serviceWorker.register('sw.js', { scope: './' });
     swReg = reg;
+    checkForUpdate();
+    document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'visible') checkForUpdate(); });
     reg.addEventListener('updatefound', () => {
       const w = reg.installing;
       if (!w) return;
@@ -228,7 +271,18 @@ function init() {
     // iOS has no install prompt, so show the instructions once; Android users also get the install button.
     setTimeout(openHelp, isIOS() ? 1500 : 4000);
   }
+  requestPersist();
   registerSW();
 }
+
+// In the installed app ask the browser not to evict this origin's storage. Fails soft: unsupported or refused is fine.
+async function requestPersist() {
+  try {
+    if (!isStandalone() || !navigator.storage || typeof navigator.storage.persist !== 'function') return false;
+    if (typeof navigator.storage.persisted === 'function' && await navigator.storage.persisted()) return true;
+    return !!(await navigator.storage.persist());
+  } catch { return false; }
+}
+window.omriRequestPersist = requestPersist;
 
 if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();
