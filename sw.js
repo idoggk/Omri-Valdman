@@ -43,6 +43,7 @@ const PRECACHE = [
   'js/progress.js',
   'js/sanitize.js',
   'js/pwa.js',
+  'js/runroutes.js',
   'js/dom.js',
   'js/signkey.js',
   'js/storage.js',

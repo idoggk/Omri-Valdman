@@ -100,6 +100,9 @@ export function scheduleOf(attempts) {
   return { due, streak, mastered: streak >= MASTERED_STREAK, lastOutcome: last.outcome, lastTs: last.ts, attempts: list.length };
 }
 
+/** Attempts whose own topic is reserved (see isReservedTopic) removed; js/ceiling.js reads the full log instead. */
+export const withoutReserved = (log) => log.filter((a) => !isReservedTopic(a.topic));
+
 export function groupByExercise(log) {
   const m = new Map();
   for (const a of log) {
@@ -112,13 +115,14 @@ export function groupByExercise(log) {
 /** Schedules for every attempted exercise: Map id -> schedule. */
 export function schedules(log) {
   const out = new Map();
-  for (const [id, list] of groupByExercise(log)) out.set(id, scheduleOf(list));
+  // blind/pressure/recovery/... attempts reuse the source bank's exerciseId: they must not shape practice schedules or stats
+  for (const [id, list] of groupByExercise(withoutReserved(log))) out.set(id, scheduleOf(list));
   return out;
 }
 
 /** Ids due at `now`, most overdue first (ties by id). Mastered exercises are due too once their interval passed. */
 export function dueReviews(log, now) {
-  return [...schedules(log.filter((a) => !isReservedTopic(a.topic)))].filter(([, s]) => s.due <= now)
+  return [...schedules(log)].filter(([, s]) => s.due <= now)
     .sort((a, b) => a[1].due - b[1].due || (a[0] < b[0] ? -1 : 1)).map(([id]) => id);
 }
 
@@ -142,6 +146,7 @@ function statsFor(attempts, scheds) {
 
 function bucketStats(log, exercises, keyOf) {
   const info = new Map(exercises.map((e) => [e.id, e]));
+  log = withoutReserved(log);
   const sch = schedules(log);
   const att = {}, scs = {};
   for (const a of log) {
@@ -183,7 +188,7 @@ export function levelInfo(log, exercises) {
   const lvl = new Map(exercises.map((e) => [e.id, e.level]));
   const solved = {};
   const seen = new Set();
-  for (const a of log) {
+  for (const a of withoutReserved(log)) {
     if (a.outcome !== 'alone' || seen.has(a.exerciseId) || !lvl.has(a.exerciseId)) continue;
     seen.add(a.exerciseId);
     solved[lvl.get(a.exerciseId)] = (solved[lvl.get(a.exerciseId)] || 0) + 1;

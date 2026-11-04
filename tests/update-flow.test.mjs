@@ -5,6 +5,7 @@ import { readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 
 const src = readFileSync(fileURLToPath(new URL('../js/pwa.js', import.meta.url)), 'utf8');
+const runSrc = readFileSync(fileURLToPath(new URL('../js/runroutes.js', import.meta.url)), 'utf8');
 const MIN = 60_000;
 
 // Runs pwa.js in a fake browser. `fields` = current text inputs ({value, disabled?}); hash can change per test.
@@ -42,7 +43,9 @@ function boot({ controller = {}, standalone = false, fields = [], hash = '#/', s
     window: { addEventListener: (t, f) => { listeners.win[t] = f; }, matchMedia: standalone ? () => ({ matches: true }) : undefined },
   };
   ctx.matchMedia = ctx.window.matchMedia;
-  vm.runInNewContext(src, ctx);
+  vm.createContext(ctx);
+  vm.runInContext(runSrc, ctx); // like index.html: the shared run-screen predicate loads before pwa.js
+  vm.runInContext(src, ctx);
   return { ctx, listeners, local, state, banners, persist, reloads: () => reloads, updates: () => updates };
 }
 const settle = () => new Promise((r) => setTimeout(r, 15));
@@ -126,6 +129,38 @@ test('takeover during a timed exam or transfer test is deferred; submitted/disab
   assert.equal(idle.ctx.window.omriPwa.isBusy(), false);
   idle.listeners.sw.controllerchange();
   assert.equal(idle.reloads(), 1);
+});
+
+const RUN_HASHES = ['#/exam/run', '#/transfer/run', '#/blind/run', '#/recovery/run', '#/pressure/run', '#/sprint/run/120/mixed', '#/sprint/run/300/fractions',
+  '#/workout/1', '#/workout/10', '#/booklet/paper/math/4/17', '#/booklet/enter/physics/3/9'];
+
+test('every run screen is busy and defers the controllerchange reload until the learner leaves', async () => {
+  for (const hash of RUN_HASHES) {
+    const r = boot({ hash });
+    await settle();
+    assert.equal(r.ctx.window.omriPwa.isBusy(), true, hash);
+    r.listeners.sw.controllerchange();
+    assert.equal(r.reloads(), 0, hash);
+    assert.equal(r.ctx.window.omriPwa.isReloadPending(), true, hash);
+    r.state.hash = '#/';
+    r.listeners.win.hashchange();
+    assert.equal(r.reloads(), 1, hash);
+  }
+  for (const hash of ['#/', '#/blind', '#/blind/result', '#/sprint', '#/workout/summary', '#/booklet', '#/pressure']) {
+    const r = boot({ hash });
+    await settle();
+    assert.equal(r.ctx.window.omriPwa.isBusy(), false, hash);
+  }
+});
+
+test('nav.tabsHidden and pwa.isBusy share one predicate: every tab-hidden hash is busy', async () => {
+  const nav = await import('../js/nav.js');
+  for (const hash of RUN_HASHES) {
+    const r = boot({ hash });
+    if (nav.tabsHidden(hash)) assert.equal(r.ctx.window.omriPwa.isBusy(), true, hash);
+  }
+  assert.equal(nav.tabsHidden('#/sprint/run/120/mixed'), true);
+  assert.equal(nav.tabsHidden('#/booklet/paper/math/4/17'), false);
 });
 
 test('first install (no controller at load) never reloads, even when deferred logic exists', async () => {

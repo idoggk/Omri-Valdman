@@ -1,5 +1,6 @@
 // Navigation: route table, bottom tab bar and the home / practice-hub screens.
 // Pure helpers (resolveRoute, activeTab, tabsHidden) are testable without the DOM.
+import './runroutes.js';
 import { h } from './dom.js';
 import * as store from './store.js';
 import { weakTopics, withVirtual } from './srs.js';
@@ -46,11 +47,8 @@ export function activeTab(hash) {
 
 /** Distraction-free screens: a running exam and the questions of a workout. */
 export function tabsHidden(hash) {
-  const { name, args } = resolveRoute(hash);
-  if (name === 'exam') return args[0] === 'run';
-  if (name === 'workout') return /^\d+$/.test(args[0] || '');
-  if (name === 'transfer' || name === 'blind' || name === 'recovery' || name === 'pressure') return args[0] === 'run';
-  return false;
+  const r = globalThis.omriRunScreen(hash); // shared with js/pwa.js (reload deferral), see runroutes.js
+  return !!(r && r.hideTabs);
 }
 
 /** Fills the <nav> element for the current hash (hidden attribute when distraction-free). */

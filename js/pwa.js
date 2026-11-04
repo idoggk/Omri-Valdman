@@ -155,10 +155,10 @@ function injectVersion() {
 // When a new worker takes over, reload once so a stale page updates itself.
 // While the learner has typed an answer that is not submitted yet, or a timed test (exam, transfer) is open, the
 // reload waits: the banner is shown instead and the page reloads on the next route change once nothing is open.
-const TIMED_ROUTE = /^#\/(exam|transfer)\/run(\/|$)/;
+// The run-screen predicate is shared with nav.js (js/runroutes.js, loaded before this script).
 function isBusy() {
   try {
-    if (TIMED_ROUTE.test(location.hash || '')) return true;
+    if (typeof omriRunScreen === 'function' && omriRunScreen(location.hash || '')) return true;
     if (typeof document.querySelectorAll !== 'function') return false;
     return [...document.querySelectorAll('textarea, input:not([type]), input[type="text"], input[type="number"], input[type="search"]')]
       .some((el) => !el.disabled && !el.readOnly && String(el.value || '').trim() !== '');

@@ -223,3 +223,24 @@ test('createLog.setReason attaches a valid reason to a stored record and persist
   assert.equal(S.createLog(st).all()[0].errorReason, 'sign');
   assert.equal(log.setReason({ exerciseId: 'zzz' }, 'sign'), false);
 });
+
+test('leak: blind/pressure/recovery attempts reusing a practice id stay out of topic stats, levels, weak topics and schedules', () => {
+  const ex = ['mh-rad-1', 'mh-rad-2', 'mh-rad-3'].map((id, i) => ({ id, topic: 'mathhard-rad', level: 4 + (i % 2) }));
+  const T = 1_000_000;
+  const practice = ex.map((e, i) => ({ exerciseId: e.id, ts: T + i, outcome: 'wrong', hintsUsed: 0, seconds: 30 }));
+  const blind = ex.map((e, i) => ({ exerciseId: e.id, ts: T + 100 + i, outcome: 'alone', hintsUsed: 0, seconds: 30, topic: 'blind-weakness' }));
+  const log = [...practice, ...blind];
+  const st = S.topicStats(log, ex)['mathhard-rad'];
+  assert.equal(st.attempts, 3);
+  assert.equal(st.alone, 0);
+  assert.equal(S.levelStats(log, ex)[4].alone, 0);
+  assert.deepEqual(S.levelInfo(log, ex).progress, {});
+  assert.equal(S.weakTopics(log, ex)[0].aloneRate, 0);
+  for (const id of ex.map((e) => e.id)) assert.equal(S.schedules(log).get(id).lastOutcome, 'wrong');
+  for (const topic of ['pressure-x', 'recovery-x', 'transfer-x', 'booklet-x']) {
+    const only = ex.map((e, i) => ({ exerciseId: e.id, ts: T + i, outcome: 'alone', hintsUsed: 0, seconds: 5, topic }));
+    assert.deepEqual(S.topicStats(only, ex), {}, topic);
+    assert.equal(S.schedules(only).size, 0, topic);
+    assert.deepEqual(S.dueReviews(only, T + 99 * S.DAY_MS), [], topic);
+  }
+});
