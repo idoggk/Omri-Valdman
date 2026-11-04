@@ -35,7 +35,9 @@ function makeSw({ fetchImpl, caches: initial = {}, src = swSrc }) {
       keys: async () => [...store.keys()],
       delete: async (n) => store.delete(n),
     },
-    fetch: fetchImpl, URL, Request: class { constructor(url) { this.url = url; } }, Promise, setTimeout, clearTimeout, Error,
+    fetch: fetchImpl, URL, Request: class { constructor(url, opts) { this.url = url; this.opts = opts; } }, Promise, setTimeout, clearTimeout, Error,
+    Response: class { constructor(body) { this.body = body; this.ok = true; this.status = 200; } async text() { return this.body; } },
+    crypto: globalThis.crypto, TextEncoder, TextDecoder, JSON, Uint8Array, Array,
   };
   vm.runInNewContext(src, ctx);
   const install = async () => {
@@ -74,7 +76,7 @@ test('install: flaky once -> retried and succeeds, then skipWaiting', async () =
   await sw.install();
   assert.equal(calls[flaky], 2);
   assert.equal(sw.ctx.skipped, true);
-  assert.equal(sw.store.get(NEW).size, URLS.length);
+  assert.equal(sw.store.get(NEW).size, URLS.length + 1, 'every shell entry plus the recorded manifest');
 });
 
 test('install: a file that fails twice is copied from the previous cache instead of failing the install', async () => {
@@ -281,7 +283,116 @@ test('home notice: only hard sets failing -> one-line notice about hard slots, n
 test('app.js wires retry to loadData + route and resets the hard-set caches', () => {
   const app = readFileSync(new URL('../js/app.js', import.meta.url), 'utf8');
   assert.match(app, /retry: async \(\) => \{ await loadData\(\); route\(\); \}/);
-  assert.match(app, /resets: \[resetMathHardCache, multipart\.resetMultipartCache, resetLogsCache\]/);
+  assert.match(app, /resets: \[mathhard\.resetMathHardCache, multipart\.resetMultipartCache, logs\.resetLogsCache\]/);
+});
+
+/* ---------- (4b) delta install: only changed files are downloaded ---------- */
+const ROOT = new URL('../', import.meta.url);
+const bodyOf = (u) => readFileSync(new URL(u === './' ? 'index.html' : u, ROOT));
+const diskRes = (u, tag = 'disk') => {
+  const b = bodyOf(u);
+  const res = { ok: true, status: 200, tag, size: b.length, clone() { return res; }, arrayBuffer: async () => b.buffer.slice(b.byteOffset, b.byteOffset + b.length) };
+  return res;
+};
+const MANIFEST_KEY = '__precache-manifest__';
+const RAW_URLS = [...swSrc.match(/const PRECACHE = \[([\s\S]*?)\];/)[1].matchAll(/'([^']+)'/g)].map((m) => m[1]); // './' kept
+const OLD_MANIFEST = STAMP.computeManifest();
+const oldCache = (manifest = OLD_MANIFEST) => {
+  const c = Object.fromEntries(RAW_URLS.map((u) => [u, diskRes(u, 'old')]));
+  if (manifest) c[MANIFEST_KEY] = { ok: true, text: async () => JSON.stringify(manifest) };
+  return c;
+};
+const CHANGED = [URLS[4], URLS[20], URLS[60]]; // pretend these three files differ in the new build
+const withChanged = (files) => files.reduce((src, f) => src.replace(`'${f}': '${OLD_MANIFEST[f]}'`, `'${f}': '${'0'.repeat(32)}'`), swSrc);
+function deltaRun({ old = oldCache(), changed = CHANGED }) {
+  const fetched = []; let bytes = 0;
+  const sw = makeSw({
+    src: withChanged(changed), caches: { 'omri-study-v1': old },
+    fetchImpl: async (req) => { fetched.push(req.url); assert.equal(req.opts.cache, 'reload'); const r = diskRes(req.url, 'net'); bytes += r.size; return r; },
+  });
+  return { sw, fetched, get bytes() { return bytes; } };
+}
+
+test('delta install: only changed files are fetched, the rest is copied from the previous cache', async () => {
+  const r = deltaRun({});
+  await r.sw.install();
+  assert.deepEqual([...new Set(r.fetched)].sort(), [...new Set(CHANGED)].sort());
+  const fresh = r.sw.store.get(NEW);
+  assert.equal(fresh.size, URLS.length + 1, 'every shell entry plus the recorded manifest');
+  assert.equal(fresh.get(URLS[10]).tag, 'old');
+  assert.equal(fresh.get(CHANGED[1]).tag, 'net');
+  assert.ok(fresh.has(MANIFEST_KEY));
+  assert.equal(r.sw.ctx.skipped, true);
+  assert.ok(r.sw.store.has('omri-study-v1'), 'old cache is only removed at activate');
+  const total = URLS.reduce((n, u) => n + bodyOf(u).length, 0);
+  console.log(`delta fixture: ${r.bytes} bytes fetched (3 changed files) vs ${total} bytes for a full download`);
+  assert.ok(r.bytes < total / 10);
+});
+
+test('delta install: a corrupted old entry (hash mismatch) is downloaded again', async () => {
+  const old = oldCache();
+  const bad = URLS[30];
+  old[bad] = { ok: true, tag: 'corrupt', clone() { return this; }, arrayBuffer: async () => new TextEncoder().encode('truncated').buffer };
+  const r = deltaRun({ old });
+  await r.sw.install();
+  assert.ok(r.fetched.includes(bad), 'corrupted entry refetched');
+  assert.equal(r.sw.store.get(NEW).get(bad).tag, 'net');
+  assert.equal(r.fetched.length, new Set([...CHANGED, bad]).size);
+});
+
+test('delta install: an old cache without a manifest means a full download', async () => {
+  const r = deltaRun({ old: oldCache(null) });
+  await r.sw.install();
+  assert.equal(r.fetched.length, URLS.length);
+  assert.equal(r.sw.store.get(NEW).size, URLS.length + 1);
+});
+
+test('delta install: unchanged files with a missing old entry are fetched; a changed file that cannot be fetched rejects the install', async () => {
+  const old = oldCache();
+  const gone = URLS[40];
+  delete old[gone];
+  const fetched = [];
+  const sw = makeSw({
+    caches: { 'omri-study-v1': old },
+    fetchImpl: async (req) => { fetched.push(req.url); return req.url === gone ? { ok: false, status: 404 } : diskRes(req.url, 'net'); },
+  });
+  await assert.rejects(sw.install(), /precache incomplete: /);
+  assert.equal(sw.ctx.skipped, false);
+  assert.equal(sw.store.has(NEW), false);
+  assert.ok(fetched.includes(gone));
+});
+
+test('delta install: the previous manifest is read from the newest old cache that has one', async () => {
+  const r = deltaRun({});
+  r.sw.store.set('omri-study-v0', new Map(Object.entries(oldCache(null))));
+  await r.sw.install();
+  assert.equal(new Set(r.fetched).size, new Set(CHANGED).size);
+});
+
+test('stamp manifest: one entry per precache file, identical for LF and CRLF checkouts', async () => {
+  const { mkdtempSync, mkdirSync, writeFileSync, rmSync } = await import('node:fs');
+  const { tmpdir } = await import('node:os');
+  const mk = (eol) => {
+    const dir = mkdtempSync(tmpdir() + '/stamp-');
+    mkdirSync(dir + '/js');
+    writeFileSync(dir + '/sw.js', `const PRECACHE = [\n  './',\n  'index.html',\n  'js/a.js',\n];\n`.replace(/\n/g, eol));
+    writeFileSync(dir + '/index.html', `<p>hi</p>\n<p>x</p>\n`.replace(/\n/g, eol));
+    writeFileSync(dir + '/js/a.js', `export const a = 1;\nexport const b = 2;\n`.replace(/\n/g, eol));
+    return dir;
+  };
+  const lf = mk('\n'); const crlf = mk('\r\n');
+  try {
+    assert.deepEqual(STAMP.computeManifest(crlf + '/'), STAMP.computeManifest(lf + '/'));
+    assert.equal(STAMP.computeHash(crlf + '/'), STAMP.computeHash(lf + '/'));
+    assert.deepEqual(Object.keys(STAMP.computeManifest(lf + '/')), ['index.html', 'js/a.js']);
+  } finally { rmSync(lf, { recursive: true, force: true }); rmSync(crlf, { recursive: true, force: true }); }
+});
+
+test('sw.js embeds a manifest block that matches the files (and survives a CRLF checkout)', () => {
+  assert.equal(STAMP.stampedManifestBlock(swSrc), STAMP.manifestBlock(STAMP.computeManifest()));
+  assert.equal(STAMP.stampedManifestBlock(swSrc.replace(/\r?\n/g, '\r\n')), STAMP.manifestBlock(STAMP.computeManifest()));
+  assert.equal(STAMP.stampedManifestBlock(swSrc.replace(/\r\n/g, '\n')), STAMP.manifestBlock(STAMP.computeManifest()));
+  for (const u of URLS) assert.match(STAMP.computeManifest()[u === './' ? 'index.html' : u], /^[0-9a-f]{32}$/);
 });
 
 /* ---------- (5) version stamp ---------- */

@@ -12,44 +12,20 @@ import { topicsWithEngine, topicTitle, itemHref } from './engine.js';
 import { loadFeedback } from './feedback.js';
 import { outgrownTopics } from './ceiling.js';
 import { firstAttemptStats, formatSeconds } from './tryfirst.js';
-import { loadLadder } from './ladder.js';
 import { trapAccuracySection } from './drills-ui.js';
 import { findMistakeSection } from './findmistake-ui.js';
 import { endlessSection } from './endless-ui.js';
 import { orderSection } from './order-ui.js';
 
-export const WORKOUT_SIZE = 10;
-
-/** How the picked ids split: scheduled reviews due now, practice in weak topics, brand-new exercises. */
-export function workoutMix(log, exercises, now, ids) {
-  const due = new Set(dueReviews(log, now));
-  const seen = schedules(log);
-  const mix = { due: 0, weak: 0, fresh: 0 };
-  for (const id of ids) {
-    if (due.has(id)) mix.due++;
-    else if (seen.has(id)) mix.weak++;
-    else mix.fresh++;
-  }
-  return mix;
-}
-
-/** Inputs of the workout picker that live outside the attempt log: difficulty feedback and the ladder stages. */
-export function workoutOpts(ladder, hard = null) {
-  return { feedback: loadFeedback(), ladder: Array.isArray(ladder) ? ladder : null, skip: loadLadder().skip, hard };
-}
+// the home-screen helpers live in home-data.js (so the home route does not load this module); re-exported unchanged
+import { WORKOUT_SIZE, workoutMix, workoutOpts, workoutResults } from './home-data.js';
+export { WORKOUT_SIZE, workoutMix, workoutOpts, workoutResults };
 
 export function startWorkout(exercises, now = Date.now(), ladder = null, hard = null) {
   const ids = pickWorkout(store.getAttempts(), exercises, now, WORKOUT_SIZE, workoutOpts(ladder, hard));
   if (!ids.length) return false;
   store.saveWorkout({ ids, startedAt: now });
   return true;
-}
-
-/** Latest outcome of each workout exercise recorded since the workout started (undefined = skipped). */
-export function workoutResults(workout, log) {
-  const res = {};
-  for (const a of log) if (a.ts >= workout.startedAt && workout.ids.includes(a.exerciseId)) res[a.exerciseId] = a;
-  return res;
 }
 
 /* ---------- home card ---------- */

@@ -4,15 +4,13 @@ import './runroutes.js';
 import { h } from './dom.js';
 import * as store from './store.js';
 import { weakTopics, withVirtual } from './srs.js';
-import { workoutMix, workoutResults, workoutOpts, WORKOUT_SIZE } from './practice-ui.js';
+import { workoutMix, workoutResults, workoutOpts, WORKOUT_SIZE, collectPlan } from './home-data.js';
 import { pickWorkout, levelLine, pickHard, hardHref } from './workout.js';
 import { loadFeedback } from './feedback.js';
 import { onlyHardFailed } from './boot.js';
-import * as repair from './skills-ui.js';
-import { homeReminder } from './backup.js';
+import { homeReminder } from './backup-lite.js';
 import { dueCount } from './notebook.js';
-import { collectPlan } from './plan-ui.js';
-import { dueCount as deriveDueCount } from './derive.js';
+import { dueCount as deriveDueCount } from './derive-state.js';
 
 export const TABS = [
   { id: 'today', href: '#/', label: 'היום', icon: '🏠' },
@@ -188,6 +186,13 @@ function statusCard(plan) {
     h('ul', { class: 'more-links' }, lines.map((l) => h('li', {}, l.href ? h('a', { href: l.href }, l.text) : l.text))));
 }
 
+/** The repair card fills itself asynchronously anyway (it waits for data/skills.json), so its module is loaded the same way. */
+function lazyRepairCard(ctx) {
+  const box = h('div');
+  import('./skills-ui.js').then((m) => box.append(m.homeCard(ctx))).catch(() => {});
+  return box;
+}
+
 export function viewHome(ctx, loadErrors = []) {
   document.title = 'Brain Gains – היום';
   const log = store.getAttempts();
@@ -222,8 +227,8 @@ export function viewHome(ctx, loadErrors = []) {
       h('p', { class: 'muted' }, next.label),
       h('a', { class: 'btn primary cta', href: next.href }, 'ההמשך המומלץ')),
     statusCard(plan),
-    ctx.exercises.length ? repair.homeCard(ctx) : null,
+    ctx.exercises.length ? lazyRepairCard(ctx) : null,
     h('p', {}, h('a', { href: '#/practice-hub' }, 'כל המצבים')));
 }
 
-export { HUB_GROUPS, viewHub, hubTileCount } from './hub.js';
+// The practice hub (HUB_GROUPS, viewHub, hubTileCount) lives in js/hub.js and is loaded by routes.js on first visit.

@@ -5,7 +5,7 @@ import { installFakeDom } from './fake-dom.mjs';
 
 const dom = installFakeDom();
 const W = await import('../js/workout.js');
-const nav = await import('../js/nav.js');
+const nav = { ...(await import('../js/nav.js')), ...(await import('../js/hub.js')) }; // hub.js is loaded lazily by the app
 const store = await import('../js/store.js');
 
 const rd = (f) => JSON.parse(readFileSync(new URL(`../data/${f}.json`, import.meta.url), 'utf8'));

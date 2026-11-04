@@ -78,13 +78,4 @@ export function historyBlock(state = load()) {
       cmp.topic.hit === null ? '' : cmp.topic.hit ? ' · פגעתם בנושא' : ` · הקשה בפועל: ${isolateTitle(cmp.topic.act)}`))));
 }
 
-/** Compact lines for the plan screen's progress panel: null when there is no entry yet. */
-export function planLines(state = load()) {
-  const s = summary(state, HISTORY);
-  if (!s.n) return null;
-  return {
-    text: `פער ממוצע בין התחזית לציון (${s.n} מבחנים אחרונים): ${sign(s.avgScoreGap)} נקודות`,
-    time: s.timeN ? `פער ממוצע בזמן הסיום: ${sign(s.avgTimeGap)} דקות` : null,
-    topic: s.topicN ? `פגיעה בנושא הקשה: ${s.topicHits} מתוך ${s.topicN}` : null,
-  };
-}
+export { planLines } from './journal.js'; // lives in journal.js so that the home screen does not load this UI module

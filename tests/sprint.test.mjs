@@ -10,7 +10,7 @@ const B = await import('../js/backup.js');
 const SRS = await import('../js/srs.js');
 const E = await import('../js/engine.js');
 const C = await import('../js/ceiling.js');
-const N = await import('../js/nav.js');
+const N = { ...(await import('../js/nav.js')), ...(await import('../js/hub.js')) };
 const { verifyAll } = await import('../tools/verify-sprint.mjs');
 
 const fake = () => { const m = new Map(); return { m, getItem: (k) => (m.has(k) ? m.get(k) : null), setItem: (k, v) => { m.set(k, String(v)); }, removeItem: (k) => { m.delete(k); } }; };

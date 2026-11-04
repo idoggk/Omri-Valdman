@@ -7,7 +7,7 @@ const dom = installFakeDom();
 const L = await import('../js/ladder.js');
 const U = await import('../js/ladder-ui.js');
 const B = await import('../js/backup.js');
-const nav = await import('../js/nav.js');
+const nav = { ...(await import('../js/nav.js')), ...(await import('../js/hub.js')) }; // hub.js is loaded lazily by the app
 const { renderExercise } = await import('../js/exercise-view.js');
 const store = await import('../js/store.js');
 

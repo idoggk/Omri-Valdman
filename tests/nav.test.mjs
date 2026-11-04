@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import { installFakeDom, FakeElement } from './fake-dom.mjs';
 
 const dom = installFakeDom();
-const nav = await import('../js/nav.js');
+const nav = { ...(await import('../js/nav.js')), ...(await import('../js/hub.js')) }; // hub.js is loaded lazily by the app
 
 // Every hash route that existed before the tab bar (v20) plus the new hub.
 const OLD = {

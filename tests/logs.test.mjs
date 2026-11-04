@@ -8,7 +8,7 @@ const dom = installFakeDom();
 const L = await import('../js/logs.js');
 const M = await import('../js/mathhard.js');
 const UI = await import('../js/logs-ui.js');
-const nav = await import('../js/nav.js');
+const nav = { ...(await import('../js/nav.js')), ...(await import('../js/hub.js')) }; // hub.js is loaded lazily by the app
 const fb = await import('../js/feedback.js');
 
 const data = loadAll();

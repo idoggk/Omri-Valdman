@@ -1,15 +1,8 @@
 // #/plan: exam countdown and study plan. Setup form, phase timeline, weekday list, progress panel. Logic: js/plan.js.
 import { h } from './dom.js';
-import * as store from './store.js';
-import { loadFeedback } from './feedback.js';
-import { dueCount } from './notebook.js';
-import { dueCount as deriveDueCount } from './derive.js';
-import { loadSaved as loadBooklet } from './booklet.js';
-import { planLines } from './journal-ui.js';
-import { load as loadExamday } from './examday.js';
-import { topicTitle, topicHref } from './engine.js';
+import { collectPlan } from './home-data.js';
 import {
-  buildPlan, loadSettings, saveSettings, toggleTick, validDate, DEFAULT_WEEKS,
+  loadSettings, saveSettings, toggleTick, validDate, DEFAULT_WEEKS,
 } from './plan.js';
 
 const BTN = 'min-height:44px;';
@@ -175,20 +168,7 @@ export function renderPlan(plan, { onSave = () => {}, onTick = () => {} } = {}) 
   ].filter(Boolean);
 }
 
-export function collectPlan(ctx, now = Date.now()) {
-  const log = store.getAttempts();
-  const titles = new Map((ctx.topics || []).map((t) => [t.id, t.title]));
-  const feedback = loadFeedback();
-  let dueNotebook = null;
-  try { dueNotebook = dueCount(log, feedback, now); } catch (e) { /* optional */ }
-  let dueDerive = 0;
-  try { dueDerive = deriveDueCount(globalThis.localStorage, now); } catch (e) { /* optional */ }
-  return buildPlan({
-    settings: loadSettings(), log, now, exercises: ctx.exercises || [], feedback, mocks: loadBooklet().results, dueNotebook, dueDerive,
-    journal: planLines(), examday: loadExamday(),
-    titleOf: (t) => titles.get(t) || topicTitle(t) || t, hrefOf: (t) => topicHref(t) || `#/topic/${t}`,
-  });
-}
+export { collectPlan }; // defined in home-data.js (the home screen needs it without this UI module)
 
 export function viewPlan(ctx) {
   document.title = 'תוכנית ללמידה – Brain Gains';

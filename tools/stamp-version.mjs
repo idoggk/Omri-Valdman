@@ -35,23 +35,54 @@ export function stampedHash(sw) {
   return m ? m[1] : null;
 }
 
+const MANIFEST_RE = /^\/\/ BEGIN PRECACHE_HASHES[^\n]*\n[\s\S]*?^\/\/ END PRECACHE_HASHES[^\n]*$/m;
+
+/** path -> sha256 (first 32 hex chars) of each precached file; text files are hashed with LF endings. sw.js verifies copied entries against it. */
+export function computeManifest(root = ROOT) {
+  const files = precacheFiles(readFileSync(root + 'sw.js', 'utf8'));
+  const out = {};
+  for (const f of [...new Set(files)]) {
+    let buf = readFileSync(root + f);
+    if (TEXT.test(f)) buf = Buffer.from(buf.toString('utf8').replace(/\r\n/g, '\n'));
+    out[f] = createHash('sha256').update(buf).digest('hex').slice(0, 32);
+  }
+  return out;
+}
+
+export function manifestBlock(manifest) {
+  const rows = Object.entries(manifest).map(([f, h]) => `  '${f}': '${h}',`);
+  return ['// BEGIN PRECACHE_HASHES (written by tools/stamp-version.mjs; do not edit by hand)',
+    'const PRECACHE_HASHES = {', ...rows, '};', '// END PRECACHE_HASHES'].join('\n');
+}
+
+/** The manifest block currently embedded in sw.js (LF-normalized), or null. */
+export function stampedManifestBlock(sw) {
+  const m = MANIFEST_RE.exec(sw.replace(/\r\n/g, '\n'));
+  return m ? m[0] : null;
+}
+
 function main() {
   const swPath = ROOT + 'sw.js';
   const sw = readFileSync(swPath, 'utf8');
   const fresh = computeHash();
   const have = stampedHash(sw);
+  const block = manifestBlock(computeManifest());
+  const blockOk = stampedManifestBlock(sw) === block;
   if (process.argv.includes('--check')) {
-    if (have === fresh) { console.log('stamp ok: ' + fresh); return; }
-    console.error(`BUILD_HASH is ${have} but the precached files hash to ${fresh}. ` +
+    if (have === fresh && blockOk) { console.log('stamp ok: ' + fresh); return; }
+    console.error(`BUILD_HASH is ${have} but the precached files hash to ${fresh}` + (blockOk ? '' : ' (PRECACHE_HASHES is also stale)') + '. ' +
       'Run: node tools/stamp-version.mjs, then bump CACHE_VERSION (sw.js), APP_VERSION (js/pwa.js) and tests/sw.test.mjs.');
     process.exitCode = 1;
     return;
   }
   const line = `const BUILD_HASH = '${fresh}'; // written by tools/stamp-version.mjs; do not edit by hand`;
-  let next = have === null ? sw.replace(/^(const CACHE_NAME = .*)$/m, `$1\n${line}`) : sw.replace(STAMP_RE, line);
-  if (sw.includes('\r\n')) next = next.replace(/\r?\n/g, '\r\n'); // keep the file's own line endings
+  const crlf = sw.includes('\r\n');
+  let next = sw.replace(/\r\n/g, '\n');
+  next = have === null ? next.replace(/^(const CACHE_NAME = .*)$/m, `$1\n${line}`) : next.replace(STAMP_RE, line);
+  next = MANIFEST_RE.test(next) ? next.replace(MANIFEST_RE, () => block) : next.replace(/^(const PRECACHE = \[[\s\S]*?\];)$/m, (m) => `${m}\n\n${block}`);
+  if (crlf) next = next.replace(/\n/g, '\r\n'); // keep the file's own line endings
   if (next !== sw) writeFileSync(swPath, next);
-  console.log((have === fresh ? 'unchanged: ' : 'stamped: ') + fresh);
+  console.log((have === fresh && blockOk ? 'unchanged: ' : 'stamped: ') + fresh);
 }
 
 if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) main();

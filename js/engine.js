@@ -1,8 +1,7 @@
 // Glue between the standalone modes (hard math, multipart, trig, logs) and the attempt-log engine.
 // Pure: no DOM, no storage. The modes call store.recordAttempt with the topic ids below, and the progress,
 // summary and home screens use topicTitle / topicHref to show them in Hebrew with a working link.
-import { FAMILIES } from './mathhard.js';
-import { familyTitle } from './sprint.js';
+import { MATHHARD_TITLES, sprintFamilyTitle as familyTitle } from './family-titles.js';
 
 export const MULTIPART_TOPIC = 'multipart';
 export const TRIG_TOPIC = 'trig';
@@ -35,8 +34,8 @@ export function topicTitle(id) {
   if (id === 'booklet-physics') return 'חוברת מבחן: פיזיקה';
   if (id === 'recover-math') return 'תקנו ותמשיכו: מתמטיקה';
   if (id === 'recover-physics') return 'תקנו ותמשיכו: פיזיקה';
-  const fam = FAMILIES.find((f) => mathHardTopic(f.id) === id);
-  return fam ? `מתמטיקה ברמה גבוהה: ${fam.title}` : null;
+  const fam = Object.keys(MATHHARD_TITLES).find((f) => mathHardTopic(f) === id);
+  return fam ? `מתמטיקה ברמה גבוהה: ${MATHHARD_TITLES[fam]}` : null;
 }
 
 /** Page that practices the topic, or null for data/*.json topics (those use #/topic/<id>). */
@@ -45,7 +44,7 @@ export function topicHref(id) {
   if (id === 'recover-math' || id === 'recover-physics') return '#/recover';
   if (id.startsWith('sprint-')) return '#/sprint';
   if (id === 'booklet-math' || id === 'booklet-physics') return '#/booklet';
-  return FAMILIES.some((f) => mathHardTopic(f.id) === id) ? '#/mathhard' : null;
+  return Object.keys(MATHHARD_TITLES).some((f) => mathHardTopic(f) === id) ? '#/mathhard' : null;
 }
 
 /** Link back to one recorded item (for due reviews), or null for items of the data topics. */

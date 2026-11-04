@@ -191,3 +191,15 @@ export function mergeJournal(localRaw, backupRaw) {
   }
   return JSON.stringify(out);
 }
+
+/** Compact lines for the plan screen's progress panel: null when there is no entry yet. */
+export function planLines(state = load()) {
+  const s = summary(state, HISTORY);
+  if (!s.n) return null;
+  const sign = (n) => (n > 0 ? `+${n}` : String(n));
+  return {
+    text: `פער ממוצע בין התחזית לציון (${s.n} מבחנים אחרונים): ${sign(s.avgScoreGap)} נקודות`,
+    time: s.timeN ? `פער ממוצע בזמן הסיום: ${sign(s.avgTimeGap)} דקות` : null,
+    topic: s.topicN ? `פגיעה בנושא הקשה: ${s.topicHits} מתוך ${s.topicN}` : null,
+  };
+}

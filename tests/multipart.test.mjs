@@ -6,7 +6,7 @@ import { validate, physics, bodyModel, roots, simModel, graphModel } from '../to
 
 const dom = installFakeDom();
 const M = await import('../js/multipart.js');
-const nav = await import('../js/nav.js');
+const nav = { ...(await import('../js/nav.js')), ...(await import('../js/hub.js')) }; // hub.js is loaded lazily by the app
 
 const raw = readFileSync(new URL('../data/multipart.json', import.meta.url), 'utf8');
 const load = () => JSON.parse(raw);
