@@ -152,6 +152,7 @@ function viewCards(ctx, res) {
   const total = queue.length;
   let right = 0;
   let wrong = 0;
+  let lastSecs = 0;
   const box = h('div');
   if (!total) {
     const c = boxCounts(state, res.cards);
@@ -171,6 +172,8 @@ function viewCards(ctx, res) {
     const mark = (ok) => {
       gradeCard(state, card.id, ok);
       saveCards(state);
+      store.recordAttempt({ exerciseId: `logs-card-${card.id}`, topic: LOGS_TOPIC, outcome: ok ? 'alone' : 'wrong', hintsUsed: 0, seconds: sw.seconds() - lastSecs });
+      lastSecs = sw.seconds();
       queue.shift();
       if (ok) right++; else { wrong++; queue.splice(requeueGap(queue.length), 0, card); }
       show();
@@ -187,7 +190,6 @@ function viewCards(ctx, res) {
         reveal, answer, grade));
   }
   function finish() {
-    store.recordAttempt({ exerciseId: 'logs-cards', topic: LOGS_TOPIC, outcome: wrong === 0 ? 'alone' : 'hinted', hintsUsed: 0, seconds: sw.seconds() });
     box.replaceChildren(
       h('div', { class: 'feedback ok', role: 'status' }, `סיימנו: ${right} נכונות, ${wrong} טעויות (חזרו לתור עד שנזכרו).`),
       feedbackCard({

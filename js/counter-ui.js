@@ -5,6 +5,9 @@ import { h } from './dom.js';
 import { isolateTitle } from './bidi.js';
 import { mathBlock, mathInline } from './mathdir.js';
 import * as store from './store.js';
+import { tryFirst } from './tryfirst-ui.js';
+import { attemptExtra } from './tryfirst.js';
+import { confidenceBar, predExtra } from './calibration-ui.js';
 import { TASKS, TOPIC, byId, load, save, applyCheck, doneCount, checkCounterexample, outcomeOf } from './counter.js';
 
 const BTN = 'min-height:44px;';
@@ -47,6 +50,10 @@ function viewTask(ctx, task) {
   const check = h('button', { class: 'btn primary', type: 'button', style: BTN }, 'בדיקה');
   const giveUp = h('button', { class: 'btn', type: 'button', style: BTN }, 'אין לי רעיון, להציג דוגמה והסבר');
 
+  const tf = tryFirst([giveUp]); // the "show the example" escape stays hidden until a first attempt or 60 s, when the mode is on
+  const conf = confidenceBar();
+  Object.values(inputs).forEach((el) => el.addEventListener('input', () => { if (String(el.value || '').trim()) tf.attempt(); }));
+
   function explain(solved) {
     const w = task.witness;
     return h('section', { class: 'panel', 'aria-label': 'הסבר' },
@@ -62,13 +69,15 @@ function viewTask(ctx, task) {
     const state = load();
     applyCheck(state, task.id, solved);
     save(state);
-    store.recordAttempt({ exerciseId: task.id, topic: TOPIC, outcome: outcomeOf({ solved, wrongs: st.wrongs }), hintsUsed: 0, seconds: Math.round((Date.now() - t0) / 1000) });
+    store.recordAttempt({ exerciseId: task.id, topic: TOPIC, outcome: outcomeOf({ solved, wrongs: st.wrongs }), hintsUsed: 0, seconds: Math.round((Date.now() - t0) / 1000), ...attemptExtra(tf.gate), ...predExtra(conf) });
     out.append(explain(solved), h('div', { class: 'btn-row' },
       next ? h('a', { class: 'btn primary', href: `#/counter/t/${next.id}` }, 'הטענה הבאה ←') : null,
       h('a', { class: 'btn', href: '#/counter' }, 'לרשימת הטענות')));
   }
   check.addEventListener('click', () => {
     if (st.over) return;
+    tf.attempt();
+    conf.lock();
     const r = checkCounterexample(task, Object.fromEntries(Object.entries(inputs).map(([k, el]) => [k, el.value])));
     if (r.ok) { out.replaceChildren(h('div', { class: 'feedback ok', role: 'status' }, 'נכון! זו דוגמה נגדית: הערכים בתחום והטענה נכשלת בהם.')); finish(true); return; }
     if (r.reason !== 'input') st.wrongs += 1;
@@ -81,5 +90,6 @@ function viewTask(ctx, task) {
     h('div', { class: 'panel' }, h('p', {}, h('strong', {}, 'הטענה: '), task.claim), mathBlock(task.eq)),
     h('p', { class: 'muted' }, `תחום: ${task.domainText}`),
     h('p', {}, 'הקלידו ערכים שמפריכים את הטענה. מותר מספר שלם, עשרוני או שבר (1/2).'),
+    conf.node, tf.bar,
     h('div', { class: 'btn-row' }, fields), h('div', { class: 'btn-row' }, check, giveUp), out);
 }

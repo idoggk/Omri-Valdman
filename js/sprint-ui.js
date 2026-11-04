@@ -2,6 +2,7 @@
 // #/sprint/run/<120|300>/<mixed|family>. Logic, generators and scoring are in js/sprint.js.
 import { h } from './dom.js';
 import * as store from './store.js';
+import { mathInline } from './mathdir.js';
 import {
   FAMILIES, DURATIONS, MAX_LEVEL, loadSaved, saveSaved, levelOf, newSession, currentItem, submitAnswer, skipItem, finishSession, setAttempt, familyTitle,
 } from './sprint.js';
@@ -10,7 +11,7 @@ const TITLE = '⏱️ ספרינטים באלגברה';
 const BTN = 'min-height:44px;';
 const crumbs = (href = '#/practice-hub', label = '→ חזרה לתרגול') => h('p', { class: 'crumbs' }, h('a', { href }, label));
 /** A left-to-right expression as plain text (h() would insert bidi marks inside it). */
-const code = (text, cls = '') => { const el = h('bdi', { dir: 'ltr', class: cls || null }); el.textContent = text; return el; };
+const code = mathInline;
 const minutes = (dur) => (dur === 300 ? '5 דקות' : '2 דקות');
 const dateText = (ts) => new Date(ts).toLocaleDateString('he-IL', { day: 'numeric', month: 'numeric' });
 const pct = (x) => `${Math.round(x * 100)}%`;

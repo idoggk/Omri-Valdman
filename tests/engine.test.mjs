@@ -105,8 +105,14 @@ test('logs: an exercise and a flashcard round are recorded with topic logs', asy
   await LGUI.viewLogsRoute(ctx, 'cards');
   for (let i = 0; i < 40 && dom.root.byText('button', 'הצג תשובה'); i++) { press('הצג תשובה'); press('ידעתי ✓'); }
   log = store.getAttempts();
-  assert.deepEqual(log.map((a) => a.exerciseId), ['lg-1-06', 'logs-cards']);
-  assert.equal(log[1].topic, 'logs');
+  assert.equal(log[0].exerciseId, 'lg-1-06');
+  assert.ok(log.length > 2, 'one row per card, not one per round');
+  for (const a of log.slice(1)) {
+    assert.match(a.exerciseId, /^logs-card-/);
+    assert.deepEqual([a.topic, a.outcome, a.hintsUsed], ['logs', 'alone', 0]);
+    assert.equal(typeof a.seconds, 'number');
+    assert.equal(E.itemHref(a.exerciseId, a.topic), '#/logs/cards');
+  }
 });
 
 test('trig: a flashcard round is recorded with topic trig', () => {
@@ -114,8 +120,13 @@ test('trig: a flashcard round is recorded with topic trig', () => {
   TRUI.viewTrigRoute(ctx, 'cards');
   for (let i = 0; i < 60 && dom.root.byText('button', 'הצג תשובה'); i++) { press('הצג תשובה'); press('ידעתי ✓'); }
   const log = store.getAttempts();
-  assert.equal(log.length, 1);
-  assert.deepEqual([log[0].exerciseId, log[0].topic, log[0].outcome], ['trig-cards', 'trig', 'alone']);
+  assert.ok(log.length > 1, 'one row per card, not one per round');
+  for (const a of log) {
+    assert.match(a.exerciseId, /^trig-card-/);
+    assert.deepEqual([a.topic, a.outcome, a.hintsUsed], ['trig', 'alone', 0]);
+    assert.equal(typeof a.seconds, 'number');
+    assert.equal(E.itemHref(a.exerciseId, a.topic), '#/trig/cards');
+  }
 });
 
 test('every engine topic has a Hebrew title; progress screen renders them without throwing', async () => {
@@ -133,6 +144,7 @@ test('every engine topic has a Hebrew title; progress screen renders them withou
   assert.equal(E.itemHref('mh-rad-1', 'math-hard-radical'), '#/mathhard/mh-rad-1');
   assert.equal(E.itemHref('lg-1-06', 'logs'), '#/logs/ex/lg-1-06');
   assert.equal(E.itemHref('trig-cards', 'trig'), '#/trig/cards');
+  assert.equal(E.itemHref('trig-drill-x1', 'trig'), '#/trig/drill');
   assert.equal(E.itemHref('m-1', 'math-3'), null);
 });
 

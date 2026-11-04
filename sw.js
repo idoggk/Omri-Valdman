@@ -1,8 +1,8 @@
 // Service worker. Bump CACHE_VERSION when the shell list changes.
 // All URLs are relative to the SW scope, so it works under /Omri-Valdman/.
-const CACHE_VERSION = 'v64';
+const CACHE_VERSION = 'v65';
 const CACHE_NAME = 'omri-study-' + CACHE_VERSION;
-const BUILD_HASH = '5a56433d23400543'; // written by tools/stamp-version.mjs; do not edit by hand
+const BUILD_HASH = 'bc7d2e9943373ef1'; // written by tools/stamp-version.mjs; do not edit by hand
 
 const PRECACHE = [
   './',

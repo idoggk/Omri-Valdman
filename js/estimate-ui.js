@@ -2,6 +2,7 @@
 // Routes: #/estimate (groups, hit rate), #/estimate/run[/<group>] (a session of 8). Logic: js/estimate.js, data: js/estimate-data.js.
 import { h } from './dom.js';
 import * as store from './store.js';
+import { mathInline } from './mathdir.js';
 import {
   QUESTIONS, GROUPS, TOPIC, SESSION_SIZE, SLIDER_STEPS, MAX_RATIO, exactOf, rangesOf, rangeLabel, fmtVal, judgeChoice, judgeSlider, sliderValue,
   loadSaved, saveSaved, recordResult, hitRate, pickSession,
@@ -10,7 +11,7 @@ import {
 const TITLE = '🎯 קודם מעריכים';
 const BTN = 'min-height:44px;';
 const crumbs = (href = '#/practice-hub', label = '→ חזרה לתרגול') => h('p', { class: 'crumbs' }, h('a', { href }, label));
-const code = (text, cls = '') => { const el = h('bdi', { dir: 'ltr', class: cls || null }); el.textContent = text; return el; };
+const code = mathInline;
 const withUnit = (q, v) => `${fmtVal(v)}${q.unit ? ` ${q.unit}` : ''}`;
 
 export function viewEstimate(ctx, mode, group) {

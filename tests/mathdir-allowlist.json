@@ -1,0 +1,15 @@
+{
+  "entries": [
+    { "file": "booklet-ui.js", "text": "בכל החישובים g = 10 מ/ש²; מתעלמים מהתנגדות האוויר.", "why": "Hebrew sentence with one short token; the bdi isolation of the whole paragraph is not needed, 'g = 10' is read in sentence order." },
+    { "file": "counter-ui.js", "text": "הקלידו ערכים שמפריכים את הטענה. מותר מספר שלם, עשרוני או שבר", "why": "Hebrew instruction; the 'fraction' hit is prose, no math expression is displayed." },
+    { "file": "derive-ui.js", "text": "כתבו את השורה בסימון של המחשב: * לכפל, ^ לחזקה, sin(a), cos(", "why": "Keyboard-syntax help line: operators are single separated symbols inside Hebrew prose, each followed by its Hebrew name." },
+    { "file": "mathhard-ui.js", "text": "כתבו כל פתרון בשורה נפרדת: מספר, שבר (3/4) או שורש (sqrt(7)", "why": "Input-format hint with tiny examples inside Hebrew prose; moving them to ltr spans would split the sentence." },
+    { "file": "mathhard-ui.js", "text": "כתבו מספר, שבר (3/4) או ביטוי עם שורש (3*sqrt(2)).", "why": "Input-format hint, same as above." },
+    { "file": "notes-ui.js", "text": "חזקה בבסיס חיובי היא חיובית תמיד. לכן a^x = מספר שלילי אין ל", "why": "Class-note sentence in Hebrew with a^x embedded; renders correctly after a Hebrew word, covered by notes tests." },
+    { "file": "sprint-ui.js", "text": "אפשר להקליד כפל בלי כוכבית (2x, (x+1)(x+2)), חזקה עם ^ ושורש", "why": "Input-format hint with examples inside Hebrew prose." },
+    { "file": "transfer-ui.js", "text": "בפיזיקה g = 10 מ/ש² והתנגדות האוויר זניחה. אם לא כתוב אחרת,", "why": "Hebrew policy sentence with one short token 'g = 10'." },
+    { "file": "trig-ui.js", "text": "בדיקה מספרית ב־a = 30°, b = 60°", "why": "Short heading; the Hebrew words come first and the values trail, no operator is reordered." },
+    { "file": "trig-ui.js", "text": "· פריטים, עם בדיקה מספרית ב־a = 30°", "why": "Short caption, same shape as above." },
+    { "file": "trig-ui.js", "text": "הרגל טוב: לפני שסומכים על זהות, מציבים a = 30° ובודקים שני צ", "why": "Hebrew advice sentence with one 'a = 30°' value in the middle." }
+  ]
+}

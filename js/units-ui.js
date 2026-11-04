@@ -2,6 +2,7 @@
 // up to 10 questions: the ones not yet answered first, then the ones missed last time). Logic and data: js/units.js, js/units-data.js.
 import { h } from './dom.js';
 import * as store from './store.js';
+import { mathInline } from './mathdir.js';
 import {
   QUESTIONS, CATS, TOPIC, SESSION_SIZE, answerOf, checkUnitsAnswer, expectedText, fmtUnit, loadSaved, saveSaved, recordResult, knownCount, pickSession, shuffleSeeded,
 } from './units.js';
@@ -9,7 +10,7 @@ import {
 const TITLE = '📏 יחידות וניתוח ממדים';
 const BTN = 'min-height:44px;';
 const crumbs = (href = '#/practice-hub', label = '→ חזרה לתרגול') => h('p', { class: 'crumbs' }, h('a', { href }, label));
-const code = (text, cls = '') => { const el = h('bdi', { dir: 'ltr', class: cls || null }); el.textContent = text; return el; };
+const code = mathInline;
 
 export function viewUnits(ctx, mode, cat) {
   document.title = 'יחידות – Brain Gains';
