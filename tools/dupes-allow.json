@@ -1,0 +1,17 @@
+{
+  "about": "Benign overlaps reported by tools/verify-dupes.mjs. Every entry needs a reason. An entry that matches nothing makes the tool fail, so delete entries when the overlap is fixed. type 'stmt': key = the sorted ids joined by '|'. type 'pair': key = 'idA|idB' (sorted) for an equation shared by a reserved item and a practice item.",
+  "notes": [
+    "bk-p4 (booklet) and phys-vertical-040 share a scenario (ball thrown up at 20 m/s, maximum height) but no typeset equation, so the tool cannot see it; accepted in the 2026-11-04 audit.",
+    "Traps like 2^x + 4 = 0 and shared intermediates appear inside solution steps of several banks; only displayed equations (eq / equations / ltr spans of the statement) are compared, so they are not reported."
+  ],
+  "allow": [
+    { "type": "stmt", "key": "cp-math-04|cp-math-06", "reason": "checkpoint items: identical introduction text, the equations field (not compared here) holds the system" },
+    { "type": "stmt", "key": "cp-math-07|cp-math-08|cp-math-09", "reason": "checkpoint items: identical introduction text, the equations field holds the system" },
+    { "type": "stmt", "key": "cp-math-10|cp-math-12", "reason": "checkpoint items: identical introduction text, the equations field holds the system" },
+    { "type": "stmt", "key": "ec-m-03|ec-m-04|ec-m-10", "reason": "edge-case prompts: one generic question sentence, the equations field holds the system" },
+    { "type": "pair", "key": "mh-cir-7|tr-m-11", "reason": "x^2 + y^2 = 25 is the circle of the course; accepted in the 2026-11-04 audit" },
+    { "type": "pair", "key": "lad-m6-09|tr-m-11", "reason": "x^2 + y^2 = 25 is the circle of the course; accepted in the 2026-11-04 audit" },
+    { "type": "pair", "key": "bk-m4|mh-cir-6", "reason": "same circle equation in a different question; accepted in the 2026-11-04 audit" },
+    { "type": "pair", "key": "bk-m4|fm-m-014", "reason": "y = 2x - 3 is a generic line; accepted in the 2026-11-04 audit" }
+  ]
+}
