@@ -2,6 +2,8 @@
 // checked by tools/verify-derive.mjs). Hub with the due list, one derivation per page: read it (level 0), then pick the next step,
 // type the hidden lines, and finally rebuild the three key lines on a blank page. Math is always a dir=ltr isolate (mathdir.js).
 import { h } from './dom.js';
+import { startVisible } from './clock.js';
+import { budgetOf } from './ceiling.js';
 import { isolateTitle } from './bidi.js';
 import { mathBlock } from './mathdir.js';
 import * as store from './store.js';
@@ -15,7 +17,6 @@ import { DAY_MS } from './srs.js';
 
 const BTN = 'min-height:44px;';
 const crumbs = (href = '#/practice-hub', label = '→ חזרה לתרגול') => h('p', { class: 'crumbs' }, h('a', { href }, label));
-const secs = (t0) => Math.round((Date.now() - t0) / 1000);
 const SUBJECT = { math: 'מתמטיקה', physics: 'פיזיקה' };
 
 export async function viewDeriveRoute(ctx, sub, id) {
@@ -82,6 +83,7 @@ function viewTask(ctx, task) {
   }
 
   const t0 = Date.now();
+  const sw = startVisible(budgetOf('derive')); // recorded seconds: visible time only (js/clock.js)
   const session = createSession(task, level);
   const tf = tryFirst([], { gate: createGate({ on: true }), save: () => {} });
   const board = h('div');
@@ -154,7 +156,7 @@ function viewTask(ctx, task) {
     const st = load();
     const next = applyResult(st, task.id, { clean: r.clean }, Date.now());
     save(st);
-    store.recordAttempt({ exerciseId: task.id, topic: TOPIC, outcome: r.outcome, hintsUsed: session.hints, seconds: secs(t0), ...attemptExtra(tf.gate) });
+    store.recordAttempt({ exerciseId: task.id, topic: TOPIC, outcome: r.outcome, hintsUsed: session.hints, seconds: sw.seconds(), ...attemptExtra(tf.gate) });
     const days = Math.max(1, Math.round((next.due - Date.now()) / DAY_MS));
     const moved = r.clean && dueNow ? `השלב עלה (קופסה ${next.b} מתוך ${MAX_BOX}). החזרה הבאה בעוד ${days} ${days === 1 ? 'יום' : 'ימים'}.`
       : r.clean ? 'שחזרתם בלי טעות, אבל עוד לא הגיע זמן החזרה, ולכן הלוח לא התקדם.'

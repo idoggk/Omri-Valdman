@@ -2,6 +2,8 @@
 // List with a method card per family, and one exercise page with set / point / interval answer inputs,
 // two progressive hints, a domain step, typical-mistake feedback and the difficulty feedback card.
 import { h, ltr } from './dom.js';
+import { startVisible } from './clock.js';
+import { budgetOf } from './ceiling.js';
 import { isolateTitle } from './bidi.js';
 import { feedbackCard } from './feedback-ui.js';
 import * as store from './store.js';
@@ -117,6 +119,7 @@ function runExercise(ctx, data, ex) {
   const next = data[data.indexOf(ex) + 1];
   const want = canonSpec(ex.answer);
   const t0 = Date.now();
+  const sw = startVisible(budgetOf(mathHardTopic(ex.family))); // recorded seconds: visible time only (js/clock.js)
   const st = { hints: 0, wrongs: 0, over: false, solved: false };
   const widget = answerWidget(ex);
   const out = h('div', { 'aria-live': 'polite' });
@@ -143,11 +146,11 @@ function runExercise(ctx, data, ex) {
     widget.lock();
     [checkBtn, hintBtn, solBtn].forEach((b) => { b.disabled = true; });
     recordAttempt(ex.id, { solved: st.solved, hints: st.hints, wrongs: st.wrongs });
-    store.recordAttempt({ exerciseId: ex.id, topic: mathHardTopic(ex.family), outcome: visitOutcome(st), hintsUsed: st.hints, seconds: Math.round((Date.now() - t0) / 1000), ...attemptExtra(tf.gate), ...predExtra(conf) });
+    store.recordAttempt({ exerciseId: ex.id, topic: mathHardTopic(ex.family), outcome: visitOutcome(st), hintsUsed: st.hints, seconds: sw.seconds(), ...attemptExtra(tf.gate), ...predExtra(conf) });
     showSolution();
     out.append(feedbackCard({
       exerciseId: ex.id, topic: 'math', mode: 'mathhard', level: ex.tier, attemptId: t0,
-      context: () => ({ correct: st.solved, hintsUsed: st.hints, solutionViewed: !st.solved, secondsSpent: Math.round((Date.now() - t0) / 1000) }),
+      context: () => ({ correct: st.solved, hintsUsed: st.hints, solutionViewed: !st.solved, secondsSpent: sw.seconds() }),
     }), h('div', { class: 'btn-row' },
       next ? h('a', { class: 'btn primary', href: `#/mathhard/${next.id}` }, 'התרגיל הבא ←') : null,
       h('a', { class: 'btn', href: '#/mathhard' }, 'לרשימת התרגילים')));

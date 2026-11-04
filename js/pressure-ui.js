@@ -1,5 +1,6 @@
 // #/pressure: the optional pressure ladder. Routes: #/pressure (switch + choose a family), #/pressure/run (the current rung), #/pressure/result.
 import { h } from './dom.js';
+import { startVisible } from './clock.js';
 import * as store from './store.js';
 import { loadBlindPool, questionBlock, answerBody } from './blind-ui.js';
 import { attemptFor } from './blind.js';
@@ -66,6 +67,7 @@ function run({ ctx, pool, fams }) {
   if (idx < 0) return result({ ctx, pool, fams });
   const rung = s.rungs[idx];
   startRung(rung, rung.startedAt || Date.now());
+  const sw = startVisible(rung.seconds); // visible seconds for the recorded per-item time; the rung's countdown stays wall-clock
   save(st);
   const items = rung.uids.map((u) => pool.find((it) => it.uid === u));
   if (items.some((i) => !i)) { st.active = null; save(st); return home({ ctx, pool, fams }); }
@@ -78,7 +80,7 @@ function run({ ctx, pool, fams }) {
     items.forEach((it, i) => { try { const v = bodies[i].read(); readings[it.uid] = v; } catch (e) { /* unreadable = unanswered */ } });
     const res = finishRung(pool, s, idx, readings, s.seed, Date.now());
     if (!res) return;
-    const per = Math.max(1, Math.round(res.rung.used / items.length));
+    const per = Math.max(1, Math.round(Math.min(res.rung.used, sw.seconds()) / items.length));
     for (const it of items) store.recordAttempt({ ...attemptFor(it, res.grades[it.uid], per), topic: pressureTopic(it.topic) });
     if (s.finishedAt) { st.history = [...st.history, s].slice(-12); st.active = null; }
     save(st);

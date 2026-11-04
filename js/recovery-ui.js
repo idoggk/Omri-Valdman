@@ -1,5 +1,6 @@
 // #/recovery: recovery under pressure. Routes: #/recovery (start), #/recovery/run (the 20-minute mini-mock), #/recovery/result.
 import { h } from './dom.js';
+import { startVisible } from './clock.js';
 import * as store from './store.js';
 import { loadBlindPool, questionBlock, answerBody } from './blind-ui.js';
 import { gradeBlind, skipBlind, attemptFor } from './blind.js';
@@ -61,7 +62,8 @@ function run(env) {
   const items = s.uids.map((u) => (hards.find((q) => q.id === u) ? hardItem(hards.find((q) => q.id === u)) : pool.find((it) => it.uid === u)));
   if (items.some((i) => !i)) { st.active = null; save(st); return home(env); }
   const bodies = items.map((it) => answerBody(it, s.seed));
-  const opened = new Map(); // uid -> time of the current visit
+  const watch = (u) => startVisible((items[s.uids.indexOf(u)] || {}).budget);
+  const opened = new Map(); // uid -> visible-time stopwatch of the current visit
   const spent = new Map(); // uid -> seconds on the question so far
   let cur = -1;
   const persist = () => save(st);
@@ -73,7 +75,7 @@ function run(env) {
   const leave = () => {
     if (cur < 0) return;
     const u = s.uids[cur];
-    spent.set(u, (spent.get(u) || 0) + Math.round((Date.now() - opened.get(u)) / 1000));
+    spent.set(u, (spent.get(u) || 0) + (opened.get(u) ? opened.get(u).seconds() : 0)); // visible seconds only (js/clock.js); the mock's own countdown stays wall-clock
   };
   const open = (i) => {
     if (s.finishedAt) return;
@@ -81,7 +83,7 @@ function run(env) {
     cur = i;
     const u = s.uids[i];
     event(s, 'open', u, Date.now());
-    opened.set(u, Date.now());
+    opened.set(u, watch(u));
     persist();
     paint();
   };
@@ -104,7 +106,7 @@ function run(env) {
     const it = items[i];
     const g = gradeBlind(it, bodies[i].read(), s.seed);
     if (!g.valid) { msg.replaceChildren(h('p', { class: 'error', role: 'alert' }, g.error)); return; }
-    leave(); opened.set(s.uids[i], Date.now());
+    leave(); opened.set(s.uids[i], watch(s.uids[i]));
     if (recordResult(s, s.uids[i], g, spent.get(s.uids[i]) || 0, Date.now())) { event(s, 'answer', s.uids[i], Date.now()); bodies[i].lock && bodies[i].lock(); }
     persist(); msg.replaceChildren();
     const n = nextUnanswered(i);
@@ -142,7 +144,7 @@ function run(env) {
     h('h1', {}, TITLE), h('p', { class: 'muted' }, 'זמן שנותר: ', clock), tabs, panel, msg,
     h('div', { class: 'btn-row' }, h('button', { class: 'btn', type: 'button', style: BTN, onclick: () => finishAll(false) }, 'סיימתי את המבחן')));
   const resume = s.log.events.length ? s.uids.indexOf([...s.log.events].reverse().find((e) => e.type === 'open' || e.type === 'revisit')?.q) : -1;
-  if (resume >= 0) { cur = resume; opened.set(s.uids[cur], Date.now()); paint(); } else paint();
+  if (resume >= 0) { cur = resume; opened.set(s.uids[cur], watch(s.uids[cur])); paint(); } else paint();
 }
 
 function result({ ctx, hards, pool }) {

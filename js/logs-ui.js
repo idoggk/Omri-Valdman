@@ -2,6 +2,8 @@
 // Leitner flashcards for the ten key rules, and 70 graded exercises in 5 tiers that reuse the #/mathhard answer inputs.
 // Logic is in logs.js, content in data/logs-*.json (checked by tools/verify-logs.mjs).
 import { h } from './dom.js';
+import { startVisible } from './clock.js';
+import { budgetOf } from './ceiling.js';
 import { isolateTitle } from './bidi.js';
 import { mathBlock } from './mathdir.js';
 import { feedbackCard } from './feedback-ui.js';
@@ -146,6 +148,7 @@ function viewCards(ctx, res) {
   const state = loadCards();
   const queue = dueCards(state, res.cards, Date.now(), 12);
   const t0 = Date.now();
+  const sw = startVisible(30 * Math.max(1, queue.length)); // recorded seconds: visible time only (js/clock.js)
   const total = queue.length;
   let right = 0;
   let wrong = 0;
@@ -184,12 +187,12 @@ function viewCards(ctx, res) {
         reveal, answer, grade));
   }
   function finish() {
-    store.recordAttempt({ exerciseId: 'logs-cards', topic: LOGS_TOPIC, outcome: wrong === 0 ? 'alone' : 'hinted', hintsUsed: 0, seconds: Math.round((Date.now() - t0) / 1000) });
+    store.recordAttempt({ exerciseId: 'logs-cards', topic: LOGS_TOPIC, outcome: wrong === 0 ? 'alone' : 'hinted', hintsUsed: 0, seconds: sw.seconds() });
     box.replaceChildren(
       h('div', { class: 'feedback ok', role: 'status' }, `סיימנו: ${right} נכונות, ${wrong} טעויות (חזרו לתור עד שנזכרו).`),
       feedbackCard({
         exerciseId: 'logs-cards', topic: 'math', mode: 'logs', attemptId: t0,
-        context: () => ({ correct: wrong === 0, hintsUsed: 0, solutionViewed: wrong > 0, secondsSpent: Math.round((Date.now() - t0) / 1000) }),
+        context: () => ({ correct: wrong === 0, hintsUsed: 0, solutionViewed: wrong > 0, secondsSpent: sw.seconds() }),
       }),
       h('div', { class: 'btn-row' }, h('a', { class: 'btn primary', href: '#/logs/cards' }, 'סבב נוסף'), h('a', { class: 'btn', href: '#/logs' }, 'לתפריט')));
   }
@@ -227,6 +230,7 @@ function viewExercise(ctx, res, id) {
   const next = res.exercises[res.exercises.indexOf(ex) + 1];
   const want = canonSpec(ex.answer);
   const t0 = Date.now();
+  const sw = startVisible(budgetOf('logs')); // recorded seconds: visible time only (js/clock.js)
   const st = { hints: 0, wrongs: 0, over: false, solved: false };
   const widget = answerWidget(ex);
   const out = h('div', { 'aria-live': 'polite' });
@@ -253,11 +257,11 @@ function viewExercise(ctx, res, id) {
     widget.lock();
     [checkBtn, hintBtn, solBtn].forEach((b) => { b.disabled = true; });
     recordAttempt(ex.id, { solved: st.solved, hints: st.hints, wrongs: st.wrongs });
-    store.recordAttempt({ exerciseId: ex.id, topic: LOGS_TOPIC, outcome: visitOutcome(st), hintsUsed: st.hints, seconds: Math.round((Date.now() - t0) / 1000), ...attemptExtra(tf.gate), ...predExtra(conf) });
+    store.recordAttempt({ exerciseId: ex.id, topic: LOGS_TOPIC, outcome: visitOutcome(st), hintsUsed: st.hints, seconds: sw.seconds(), ...attemptExtra(tf.gate), ...predExtra(conf) });
     showSolution();
     out.append(feedbackCard({
       exerciseId: ex.id, topic: 'math', mode: 'logs', level: ex.tier, attemptId: t0,
-      context: () => ({ correct: st.solved, hintsUsed: st.hints, solutionViewed: !st.solved, secondsSpent: Math.round((Date.now() - t0) / 1000) }),
+      context: () => ({ correct: st.solved, hintsUsed: st.hints, solutionViewed: !st.solved, secondsSpent: sw.seconds() }),
     }), h('div', { class: 'btn-row' },
       next ? h('a', { class: 'btn primary', href: `#/logs/ex/${next.id}` }, 'התרגיל הבא ←') : null,
       h('a', { class: 'btn', href: '#/logs/practice' }, 'לרשימת התרגילים')));

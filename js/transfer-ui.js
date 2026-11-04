@@ -1,6 +1,7 @@
 // #/transfer: cold-start transfer test. One page per question (first attempt only, no hints, nothing revealed),
 // a count-up timer next to the suggested time, and a Hebrew result screen at the end of the 6-question session.
 import { h, ltr } from './dom.js';
+import { startVisible } from './clock.js';
 import { isolateTitle } from './bidi.js';
 import { sanitizeSvg } from './sanitize.js';
 import * as store from './store.js';
@@ -99,7 +100,8 @@ function runQuestion(ctx, items) {
   const item = items.find((q) => q.id === id);
   if (!item) return home(ctx, items);
   const n = session.ids.indexOf(id) + 1;
-  const t0 = Date.now();
+  const t0 = Date.now(); // display timer: wall clock
+  const sw = startVisible(item.budget); // recorded seconds: visible time only
   const body = item.subject === 'math' ? { widget: answerWidget(item) } : { widget: physicsBody(item) };
   const widget = body.widget;
   const conf = confidenceBar(); // optional "chance of full marks" chips (calibration.js), off by default
@@ -121,7 +123,7 @@ function runQuestion(ctx, items) {
   track('transfer', rkey, 'open', id, { start: true }); // strategy replay: the question page was opened
   const finish = (grade) => {
     clearInterval(tick);
-    const seconds = Math.round((Date.now() - t0) / 1000);
+    const seconds = sw.seconds();
     if (widget.lock) widget.lock();
     submit.disabled = true; skip.disabled = true;
     if (submitResult(items, id, grade, seconds)) store.recordAttempt({ ...attemptFor(item, grade, seconds), ...predExtra(conf) });

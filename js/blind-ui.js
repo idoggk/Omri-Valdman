@@ -1,6 +1,7 @@
 // #/blind: blind weakness tournament. Routes: #/blind (start), #/blind/run (one question per page, no labels), #/blind/result.
 // The shared question widgets (questionBlock / answerBody) are also used by the pressure ladder and the recovery mini-mock.
 import { h } from './dom.js';
+import { startVisible } from './clock.js';
 import * as store from './store.js';
 import { sanitizeHtml } from './sanitize.js';
 import { isolateFormulasHtml } from './bidi.js';
@@ -108,7 +109,8 @@ function run(ctx, pool) {
   const item = pool.find((it) => it.uid === uid);
   if (!item) return home(ctx, pool);
   const n = s.uids.indexOf(uid) + 1;
-  const t0 = Date.now();
+  const t0 = Date.now(); // display timer: wall clock
+  const sw = startVisible(item.budget); // recorded seconds: visible time only
   const body = answerBody(item, s.seed);
   const out = h('div', { 'aria-live': 'polite' });
   const timer = h('strong', { dir: 'ltr', 'aria-label': 'זמן שעבר' }, '0:00');
@@ -120,7 +122,7 @@ function run(ctx, pool) {
   const skipBtn = h('button', { class: 'btn', type: 'button', style: BTN }, 'אין לי תשובה, לדלג');
   const finish = (grade) => {
     clearInterval(tick);
-    const seconds = Math.round((Date.now() - t0) / 1000);
+    const seconds = sw.seconds();
     if (body.lock) body.lock();
     submitBtn.disabled = true; skipBtn.disabled = true;
     if (submit(pool, uid, grade, seconds)) store.recordAttempt(attemptFor(item, grade, seconds));
