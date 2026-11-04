@@ -224,6 +224,41 @@ test('createLog.setReason attaches a valid reason to a stored record and persist
   assert.equal(log.setReason({ exerciseId: 'zzz' }, 'sign'), false);
 });
 
+// FIXTURE: bucketStats as it was BEFORE the leak fix (task 1 of the 2026-11-04 audit). The only difference from js/srs.js is the
+// missing `log = withoutReserved(log)` line, so blind/pressure/recovery attempts that reuse a source-bank exerciseId were
+// counted as ordinary practice of that exercise's topic and level. statsFor is copied from js/srs.js (attempt counters only).
+function preFixBucketStats(log, exercises, keyOf) {
+  const info = new Map(exercises.map((e) => [e.id, e]));
+  const att = {};
+  for (const a of log) {
+    const e = info.get(a.exerciseId);
+    if (!e) continue;
+    (att[keyOf(e)] || (att[keyOf(e)] = [])).push(a);
+  }
+  const out = {};
+  for (const k of Object.keys(att)) {
+    const list = att[k];
+    const alone = list.filter((a) => a.outcome === 'alone').length;
+    out[k] = { attempts: list.length, alone, aloneRate: alone / list.length };
+  }
+  return out;
+}
+
+test('leak scenario fails against the pre-fix bucketStats and passes against the real one', () => {
+  const ex = ['mh-rad-1', 'mh-rad-2', 'mh-rad-3'].map((id) => ({ id, topic: 'mathhard-rad', level: 4 }));
+  const T = 1_000_000;
+  const practice = ex.map((e, i) => ({ exerciseId: e.id, ts: T + i, outcome: 'wrong', hintsUsed: 0, seconds: 30 }));
+  const blind = ex.map((e, i) => ({ exerciseId: e.id, ts: T + 100 + i, outcome: 'alone', hintsUsed: 0, seconds: 30, topic: 'blind-weakness' }));
+  const log = [...practice, ...blind];
+  const old = preFixBucketStats(log, ex, (e) => e.topic)['mathhard-rad'];
+  assert.equal(old.attempts, 6, 'pre-fix logic counted the blind attempts');
+  assert.equal(old.aloneRate, 0.5, 'pre-fix logic reported an independent-solve rate the learner never earned in practice');
+  const now = S.topicStats(log, ex)['mathhard-rad'];
+  assert.equal(now.attempts, 3);
+  assert.equal(now.aloneRate, 0);
+  assert.notEqual(old.aloneRate, now.aloneRate);
+});
+
 test('leak: blind/pressure/recovery attempts reusing a practice id stay out of topic stats, levels, weak topics and schedules', () => {
   const ex = ['mh-rad-1', 'mh-rad-2', 'mh-rad-3'].map((id, i) => ({ id, topic: 'mathhard-rad', level: 4 + (i % 2) }));
   const T = 1_000_000;

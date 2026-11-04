@@ -116,9 +116,8 @@ test('registration: backup key, feedback mode, route, home link, engine title an
   assert.equal(engine.topicHref('notes'), '#/notes');
   assert.equal(engine.itemHref('nt-c03', 'notes'), '#/notes/cards');
   assert.equal(engine.itemHref('nt-q03', 'notes'), '#/notes/ex/nt-q03');
-  const src = readFileSync(new URL('../js/nav.js', import.meta.url), 'utf8');
+  const src = readFileSync(new URL('../js/hub.js', import.meta.url), 'utf8');
   assert.match(src, /\['#\/notes'/);
-  assert.match(src, /tile\('#\/notes'/);
   assert.match(readFileSync(new URL('../js/logs-ui.js', import.meta.url), 'utf8'), /tile\('#\/notes'/);
   const sw = readFileSync(new URL('../sw.js', import.meta.url), 'utf8');
   for (const f of ['js/notes.js', 'js/notes-ui.js', 'js/mathdir.js', 'data/notes.json']) assert.ok(sw.includes(`'${f}'`), f);

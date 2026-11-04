@@ -100,8 +100,8 @@ test('routes, feedback mode, hub and home links, cache version', () => {
   nav.viewHub(ctx);
   assert.ok(dom.root.all((n) => n.attrs && n.attrs.href === '#/logs').length >= 1);
   dom.show();
-  nav.viewHome({ ...ctx, topics: [], exercises: [] });
-  assert.ok(dom.root.all((n) => n.attrs && n.attrs.href === '#/logs').length >= 1);
+  nav.viewHome({ ...ctx, topics: [], exercises: [] }); // the home screen no longer lists modes; it must still render
+  assert.ok(dom.root.all((n) => n.attrs && n.attrs.href === '#/practice-hub').length === 1);
 });
 
 test('UI: hub, lesson list, a full lesson page with examples, mistake box and quiz', async () => {

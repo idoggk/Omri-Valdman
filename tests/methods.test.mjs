@@ -123,7 +123,7 @@ test('unknown id and round flow', async () => {
 test('wiring: app route, home tile, sw asset list', () => {
   const read = (f) => readFileSync(new URL('../' + f, import.meta.url), 'utf8');
   assert.match(read('js/app.js'), /name === 'methods'/);
-  assert.match(read('js/nav.js'), /tile\('#\/methods'/);
+  assert.match(read('js/hub.js'), /'#\/methods'/);
   assert.match(read('sw.js'), /'js\/methods-ui\.js'/);
   assert.match(read('sw.js'), /'data\/methods\.json'/);
 });
