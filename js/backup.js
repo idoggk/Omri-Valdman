@@ -199,6 +199,12 @@ export function restoreCounts(storage, parsed) {
   };
 }
 
+/** Keys that are merged with the data on the device instead of replaced: [storage key, (localRaw, backupRaw) => merged raw]. */
+const MERGERS = [
+  [LOG_KEY, mergeAttempts], [FEEDBACK_KEY, mergeFeedback], [NOTEBOOK_KEY, mergeNotebook], [DERIVE_KEY, mergeDerive], [JOURNAL_KEY, mergeJournal],
+  [EXAMDAY_KEY, mergeExamday], [COUNTER_KEY, mergeCounter], [REPLAY_KEY, mergeReplay], [BLIND_KEY, mergeBlind], [RECOVERY_KEY, mergeRecovery], [PRESSURE_KEY, mergePressure],
+];
+
 /**
  * Restores a parsed backup. Atomic: every known key is snapshotted first and put back if any write throws.
  * The attempts log, feedback records, the error notebook (by exerciseId) and the derivation schedule (by task id), the prediction journal (by entry id), the exam-day record and the counterexample progress (by task id) are merged with what is on the device; every other key is replaced.
@@ -210,13 +216,9 @@ export function restoreBackup(storage, parsed, now = Date.now()) {
   for (const k of Object.keys(KNOWN_KEYS)) snapshot[k] = readKey(storage, k);
   const entries = { ...parsed.data };
   try {
-    if (parsed.data[LOG_KEY] != null && snapshot[LOG_KEY] != null) entries[LOG_KEY] = mergeAttempts(snapshot[LOG_KEY], parsed.data[LOG_KEY]);
-    if (parsed.data[FEEDBACK_KEY] != null && snapshot[FEEDBACK_KEY] != null) entries[FEEDBACK_KEY] = mergeFeedback(snapshot[FEEDBACK_KEY], parsed.data[FEEDBACK_KEY]);
-    if (parsed.data[NOTEBOOK_KEY] != null && snapshot[NOTEBOOK_KEY] != null) entries[NOTEBOOK_KEY] = mergeNotebook(snapshot[NOTEBOOK_KEY], parsed.data[NOTEBOOK_KEY]);
-    if (parsed.data[DERIVE_KEY] != null && snapshot[DERIVE_KEY] != null) entries[DERIVE_KEY] = mergeDerive(snapshot[DERIVE_KEY], parsed.data[DERIVE_KEY]);
-    if (parsed.data[JOURNAL_KEY] != null && snapshot[JOURNAL_KEY] != null) entries[JOURNAL_KEY] = mergeJournal(snapshot[JOURNAL_KEY], parsed.data[JOURNAL_KEY]);
-    if (parsed.data[EXAMDAY_KEY] != null && snapshot[EXAMDAY_KEY] != null) entries[EXAMDAY_KEY] = mergeExamday(snapshot[EXAMDAY_KEY], parsed.data[EXAMDAY_KEY]);
-    if (parsed.data[COUNTER_KEY] != null && snapshot[COUNTER_KEY] != null) entries[COUNTER_KEY] = mergeCounter(snapshot[COUNTER_KEY], parsed.data[COUNTER_KEY]);
+    for (const [key, merge] of MERGERS) {
+      if (typeof parsed.data[key] === 'string' && snapshot[key] != null) entries[key] = merge(snapshot[key], parsed.data[key]);
+    }
   } catch (e) { return { ok: false, undo: false, rolledBack: true }; }
   try { if (typeof storage.removeItem === 'function') storage.removeItem(UNDO_KEY); } catch (e) { /* frees space; ignore */ }
   const res = writeAll(storage, entries);

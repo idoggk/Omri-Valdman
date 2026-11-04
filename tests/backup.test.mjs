@@ -231,3 +231,32 @@ test('reverse problems: key in backup allowlist, verifier catches errors, UI che
   assert.equal(JSON.parse(localStorage.getItem(R.REVERSE_KEY)).items['rv-p-02'].done, true);
   assert.deepEqual(R.sanitizeReverse({ items: { a: { tries: -3, hints: 9, done: 'x' }, b: 5 } }), { v: 1, items: { a: { done: false, tries: 0, hints: 2, solution: false, ts: 0 } } });
 });
+
+/* ---------- corrupt-backup fuzz: the merge functions on their own ---------- */
+{
+  const { HOSTILE, MERGES, assertSane } = await import('./fixtures/hostile.mjs');
+  for (const m of MERGES) {
+    test(`fuzz ${m.name}: valid local survives 12 hostile backups, a valid backup survives 12 hostile local values, nothing throws`, () => {
+      assert.match(m.fn(m.local, m.local), m.sentinel, 'sample is valid');
+      for (const [label, bad] of HOSTILE) {
+        const keep = m.fn(m.local, bad);
+        assertSane(assert, keep, `${m.name} backup=${label}`);
+        assert.match(keep, m.sentinel, `${m.name}: local lost when backup is "${label}"`);
+        const take = m.fn(bad, m.local);
+        assertSane(assert, take, `${m.name} local=${label}`);
+        assert.match(take, m.sentinel, `${m.name}: backup lost when local is "${label}"`);
+        assertSane(assert, m.fn(bad, bad), `${m.name} both=${label}`);
+      }
+    });
+  }
+  test('fuzz buildBackup/parseBackup: hostile stored values never throw', () => {
+    const mem = (init) => { const m = new Map(Object.entries(init)); return { getItem: (k) => (m.has(k) ? m.get(k) : null), setItem: (k, v) => m.set(k, String(v)), removeItem: (k) => m.delete(k) }; };
+    for (const [label, bad] of HOSTILE) {
+      const init = Object.fromEntries(MERGES.map((m) => [m.key, bad]));
+      let code;
+      assert.doesNotThrow(() => { code = B.buildBackup(mem(init), 1000); }, label);
+      assert.doesNotThrow(() => B.parseBackup(code), label);
+      assert.doesNotThrow(() => B.parseBackup(bad), label);
+    }
+  });
+}

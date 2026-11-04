@@ -212,3 +212,27 @@ test('backup screen: share button falls back to copy, preview shows timestamp an
   assert.equal(JSON.parse(dom.store.get(LOG)).length, 3);
   assert.match(dom.root.textContent, /השחזור בוטל/);
 });
+
+/* ---------- corrupt-backup fuzz through restoreBackup ---------- */
+{
+  const { HOSTILE, MERGES, assertSane } = await import('./fixtures/hostile.mjs');
+  for (const m of MERGES) {
+    test(`fuzz restore of ${m.key}: hostile backup keeps the local data, hostile local data takes the backup, nothing throws`, () => {
+      for (const [label, bad] of HOSTILE) {
+        const s = fake({ [m.key]: m.local });
+        let res;
+        assert.doesNotThrow(() => { res = B.restoreBackup(s, { ok: true, data: { [m.key]: bad } }, 5000); }, `backup=${label}`);
+        assert.equal(res.ok, true, `backup=${label}`);
+        assertSane(assert, s.getItem(m.key), `${m.key} backup=${label}`);
+        assert.match(s.getItem(m.key), m.sentinel, `${m.key}: local lost when backup is "${label}"`);
+        assert.equal(B.undoRestore(s, 5001), true, label);
+        assert.equal(s.getItem(m.key), m.local, `undo restores the exact local value (${label})`);
+
+        const t = fake({ [m.key]: bad });
+        assert.doesNotThrow(() => { res = B.restoreBackup(t, { ok: true, data: { [m.key]: m.local } }, 5000); }, `local=${label}`);
+        assert.equal(res.ok, true, `local=${label}`);
+        assert.match(t.getItem(m.key), m.sentinel, `${m.key}: backup lost when local is "${label}"`);
+      }
+    });
+  }
+}
