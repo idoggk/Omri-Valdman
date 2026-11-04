@@ -42,7 +42,7 @@ test('sw: skipWaiting, clients.claim, old caches deleted, network-first, version
   assert.match(sw, /caches\.delete/);
   assert.doesNotMatch(sw, /cacheFirst/);
   assert.match(sw, /event\.respondWith\(networkFirst\(req, event\)\)/);
-  assert.equal(sw.match(/CACHE_VERSION = 'v(\d+)'/)[1], '65');
+  assert.equal(sw.match(/CACHE_VERSION = 'v(\d+)'/)[1], '66');
   assert.ok(files.includes('js/summary.js'));
 });
 
