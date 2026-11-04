@@ -3,7 +3,7 @@
 import { h } from './dom.js';
 import * as store from './store.js';
 import {
-  FAMILIES, DURATIONS, MAX_LEVEL, loadSaved, saveSaved, levelOf, newSession, currentItem, submitAnswer, skipItem, finishSession, sprintTopic, familyTitle,
+  FAMILIES, DURATIONS, MAX_LEVEL, loadSaved, saveSaved, levelOf, newSession, currentItem, submitAnswer, skipItem, finishSession, setAttempt, familyTitle,
 } from './sprint.js';
 
 const TITLE = '⏱️ ספרינטים באלגברה';
@@ -78,8 +78,7 @@ function runSprint(ctx, dur, family) {
     if (typeof input.focus === 'function') input.focus();
   };
   const record = (res) => {
-    store.recordAttempt({ exerciseId: res.id, topic: sprintTopic(res.fam), outcome: res.correct ? 'alone' : 'wrong', hintsUsed: 0, seconds: res.seconds });
-    saveSaved(sess.saved);
+    saveSaved(sess.saved); // the attempts log gets one aggregated row per set, written in finish()
   };
   const feedback = (res) => {
     last.replaceChildren(res.correct
@@ -103,6 +102,8 @@ function runSprint(ctx, dur, family) {
     if (timer) clearInterval(timer);
     const out = finishSession(sess, Date.now());
     saveSaved(sess.saved);
+    const row = setAttempt(sess, Date.now());
+    if (row) store.recordAttempt(row);
     document.title = 'ספרינטים באלגברה – Brain Gains';
     const { score } = out;
     ctx.show(crumbs('#/sprint', '→ לספרינטים'), h('h1', {}, 'סיימנו!'),

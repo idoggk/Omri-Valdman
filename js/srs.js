@@ -43,6 +43,8 @@ export function makeAttempt(a) {
   if (REASON_IDS.includes(a.errorReason)) r.errorReason = a.errorReason;
   if (Number.isFinite(a.timeToFirstAttempt) && a.timeToFirstAttempt >= 0 && a.timeToFirstAttempt <= 86400) r.timeToFirstAttempt = Math.round(a.timeToFirstAttempt); // optional: seconds until the first typed answer
   if (CHIPS.includes(a.predicted)) r.predicted = a.predicted; // optional: stated chance of full marks (50/70/90/100), see calibration.js
+  if (Number.isInteger(a.items) && a.items >= 0 && a.items <= 1000) r.items = a.items; // aggregated rows (a sprint set): items shown / answered correctly
+  if (Number.isInteger(a.correct) && a.correct >= 0 && a.correct <= 1000) r.correct = a.correct;
   if (a.migrated) r.migrated = true;
   if (typeof a.topic === 'string' && a.topic && a.topic.length <= 60) r.topic = a.topic;
   if (Number.isFinite(a.score) && a.score >= 0 && a.score <= 1) r.score = Math.round(a.score * 100) / 100; // partial-credit fraction (writing trainer)
@@ -277,6 +279,19 @@ export const MAX_LOG_ROWS = 5000;
  */
 export function compactLog(log, max = MAX_LOG_ROWS) {
   if (log.length <= max) return log;
+  // Fluency-sprint rows are the first to go: they never push a real practice, exam or review row out of the log.
+  const isSprint = (a) => typeof a.topic === 'string' && a.topic.startsWith('sprint-');
+  const real = log.filter((a) => !isSprint(a)).length;
+  if (real < log.length) {
+    const room = Math.max(0, max - real);
+    let drop = log.length - real - room; // sprint rows to drop, oldest first
+    const keep = [];
+    const order = log.map((a, i) => ({ a, i })).filter((x) => isSprint(x.a)).sort((x, y) => x.a.ts - y.a.ts || x.i - y.i);
+    const gone = new Set(order.slice(0, Math.max(0, drop)).map((x) => x.i));
+    log.forEach((a, i) => { if (!gone.has(i)) keep.push(a); });
+    if (keep.length <= max) return keep;
+    log = keep;
+  }
   const order = log.map((a, i) => ({ a, i })).sort((x, y) => x.a.ts - y.a.ts || x.i - y.i);
   const keepN = Math.floor(max * 0.9);
   const recent = order.slice(order.length - keepN);

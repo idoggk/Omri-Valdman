@@ -215,15 +215,46 @@ test('screen: home, then a run records attempts under sprint-<family> and ends w
   input.value = second.wrong[0];
   check().click();
   assert.match(text(), /✗ לא נכון/);
-  const log = JSON.parse(dom.store.get('omri-study-attempts-v1'));
-  assert.deepEqual(log.map((a) => [a.topic, a.outcome]), [['sprint-lineq', 'alone'], ['sprint-lineq', 'wrong']]);
+  assert.equal(dom.store.get('omri-study-attempts-v1'), undefined, 'no per-item rows while the set runs');
   assert.equal(JSON.parse(dom.store.get(S.KEY)).recent.lineq.length, 2);
   dom.clock.now += 121_000;
   check().click(); // time is up: the click ends the set instead of counting
   assert.match(text(), /סיימנו/);
   assert.match(text(), /נכונות ב־2 דקות/);
-  assert.equal(JSON.parse(dom.store.get(S.KEY)).history.length, 1);
-  assert.equal(JSON.parse(dom.store.get('omri-study-attempts-v1')).length, 2);
+  const saved = JSON.parse(dom.store.get(S.KEY));
+  assert.equal(saved.history.length, 1);
+  assert.deepEqual(saved.history[0].items.map((x) => [x[0], x[1]]), [['lineq', 1], ['lineq', 0]], 'per-item detail stays in the sprint store');
+  const log = JSON.parse(dom.store.get('omri-study-attempts-v1'));
+  assert.equal(log.length, 1, 'one aggregated row per set');
+  assert.deepEqual([log[0].topic, log[0].items, log[0].correct, log[0].score, log[0].outcome], ['sprint-lineq', 2, 1, 0.5, 'wrong']);
+});
+
+test('log capacity: 60 simulated sets add 60 rows (not thousands), and sprint rows never evict real history', () => {
+  let log = [];
+  for (let i = 0; i < 5000 - 60; i++) log.push({ exerciseId: `ex-${i}`, ts: 1000 + i, outcome: 'alone', hintsUsed: 0, seconds: 30 });
+  const real = log.length;
+  for (let n = 0; n < 60; n++) {
+    const sess = S.newSession({ seed: n + 1, dur: n % 2 ? 300 : 120, family: n % 3 ? 'mixed' : 'lineq' });
+    for (let k = 0; k < 40; k++) {
+      const item = S.currentItem(sess);
+      if (k % 5) S.submitAnswer(sess, item.answer, 3); else S.skipItem(sess, 3);
+    }
+    const row = S.setAttempt(sess, 10_000 + n);
+    assert.equal(row.items, 40);
+    log.push(SRS.makeAttempt(row));
+  }
+  assert.equal(log.length, 5000);
+  assert.equal(new Set(log.map((a) => a.exerciseId)).size, 5000);
+  // 600 more sets would overflow the cap: only sprint rows go
+  for (let n = 60; n < 660; n++) log.push(SRS.makeAttempt({ exerciseId: `sprint-mixed-${n}-120`, topic: 'sprint-mixed', ts: 10_000 + n, outcome: 'alone', items: 30, correct: 30, seconds: 100 }));
+  const out = SRS.compactLog(log);
+  assert.ok(out.length <= SRS.MAX_LOG_ROWS);
+  assert.equal(out.filter((a) => !a.topic).length, real, 'every real row kept');
+  assert.ok(out.filter((a) => a.topic === 'sprint-mixed').some((a) => a.exerciseId === 'sprint-mixed-659-120'), 'newest sprint rows kept');
+  assert.ok(!out.some((a) => a.exerciseId === 'sprint-mixed-60-120'), 'oldest sprint rows dropped first');
+  // a log that is all real rows still compacts as before
+  const allReal = Array.from({ length: 5100 }, (_, i) => ({ exerciseId: `r-${i}`, ts: i, outcome: 'alone', hintsUsed: 0, seconds: 1 }));
+  assert.ok(SRS.compactLog(allReal).length <= SRS.MAX_LOG_ROWS);
 });
 
 test('cleanup', () => dom.restore());

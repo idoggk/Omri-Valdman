@@ -260,3 +260,49 @@ test('reverse problems: key in backup allowlist, verifier catches errors, UI che
     }
   });
 }
+
+/* ---------- backup size guard ---------- */
+{
+  const NB = await import('../js/notebook.js');
+  const R = await import('../js/replay.js');
+  const maximal = () => {
+    const rows = Array.from({ length: 5000 }, (_, i) => ({ exerciseId: 'mathhard-rad-' + String(i).padStart(6, '0'), ts: 1.7e12 + i * 1000, outcome: 'wrong', hintsUsed: 3, seconds: 123, errorReason: 'arithmetic', timeToFirstAttempt: 45, predicted: 90, topic: 'math-hard-radical', score: 0.55 }));
+    const entries = {};
+    for (let i = 0; i < NB.MAX_ENTRIES; i++) entries['e-' + i] = { title: 't'.repeat(NB.TITLE_MAX), key: 'k'.repeat(NB.KEY_MAX), note: 'n'.repeat(NB.NOTE_MAX), count: 5, lastTs: 1.7e12, firstTs: 1.7e12, topic: 'math-hard-radical', reason: 'arithmetic', tags: ['a', 'b'], href: '#/ex/e-' + i, seen: 1.7e12, hints: 2, seconds: 99 };
+    const logs = {};
+    for (let i = 0; i < R.MAX_LOGS; i++) logs['bk-' + i] = { kind: 'booklet', startedAt: 1 + i, finishedAt: 1e9, events: Array.from({ length: R.MAX_EVENTS }, (_, j) => ({ t: j * 1000, type: 'open', q: 'bk-m' + (j % 9) })) };
+    return fake({ 'omri-study-attempts-v1': JSON.stringify(rows), [NB.KEY]: JSON.stringify(NB.sanitize({ v: 1, entries })), [R.KEY]: JSON.stringify(R.sanitize({ v: 1, logs })) });
+  };
+  test('size guard: warning appears at 70% of the cap, in Hebrew, and not below', () => {
+    assert.equal(B.sizeWarning(B.MAX_CODE_CHARS * 0.69), null);
+    assert.match(B.sizeWarning(B.MAX_CODE_CHARS * 0.7), /^הגיבוי כבר גדול: 70%/);
+    assert.match(B.sizeWarning(B.MAX_CODE_CHARS * 0.95), /95%/);
+    assert.equal(B.sizeWarning(NaN), null);
+    assert.equal(B.storageSizeWarning(fake()), null);
+    const big = fake({ 'omri-study-notebook-v1': JSON.stringify({ v: 1, junk: 'x'.repeat(B.MAX_CODE_CHARS * 0.71) }) });
+    assert.match(B.storageSizeWarning(big), /הגיבוי כבר גדול/);
+  });
+  test('size guard: the home reminder and #/backup show the warning for a big store', () => {
+    const big = JSON.stringify({ v: 1, junk: 'x'.repeat(B.MAX_CODE_CHARS * 0.72) });
+    dom.store.clear();
+    dom.store.set('omri-study-notebook-v1', big);
+    B.markBackedUp(globalThis.localStorage);
+    const p = B.homeReminder();
+    assert.ok(p && /הגיבוי כבר גדול/.test(p.textContent));
+    dom.store.clear();
+    assert.equal(B.homeReminder(), null);
+  });
+  test('a maximal notebook + replay + 5000-row log backup round-trips under the cap (and would show the warning only near it)', () => {
+    const st = maximal();
+    const code = B.buildBackup(st, 1);
+    assert.ok(code.length > 1_500_000, 'the scenario is really large: ' + code.length);
+    assert.ok(code.length < B.MAX_CODE_CHARS, 'under the cap: ' + code.length);
+    const parsed = B.parseBackup(code);
+    assert.equal(parsed.ok, true);
+    const target = fake();
+    assert.equal(B.restoreBackup(target, parsed).ok, true);
+    assert.equal(JSON.parse(target.getItem('omri-study-attempts-v1')).length, 5000);
+    assert.equal(B.sizeWarning(code.length), code.length >= B.MAX_CODE_CHARS * B.SIZE_WARN_RATIO ? B.sizeWarning(code.length) : null);
+    assert.equal(B.parseBackup(code + 'x'.repeat(B.MAX_CODE_CHARS)).ok, false, 'over the cap is still refused');
+  });
+}

@@ -16,6 +16,7 @@ export const sprintTopic = (fam) => `${TOPIC_PREFIX}${fam}`;
 export const DURATIONS = [120, 300];
 export const MAX_LEVEL = 3;
 export const HISTORY_CAP = 30;
+export const ITEM_DETAIL_CAP = 300;
 export const ADAPT_WINDOW = 6;
 export const UP_MIN = 5; // results in the window before a level-up
 export const UP_ACC = 0.85;
@@ -550,6 +551,8 @@ export function sanitizeSaved(raw) {
     out.history = raw.history.filter(isRec).map((h) => ({
       ts: nn(h.ts), dur: DURATIONS.includes(h.dur) ? h.dur : 120, mode: typeof h.mode === 'string' && h.mode.length < 20 ? h.mode : 'mixed',
       correct: Math.floor(nn(h.correct)), wrong: Math.floor(nn(h.wrong)), skipped: Math.floor(nn(h.skipped)), cpm: nn(h.cpm), acc: Math.min(1, nn(h.acc)),
+      items: Array.isArray(h.items) ? h.items.slice(0, ITEM_DETAIL_CAP).filter((x) => Array.isArray(x) && FAMILIES.some((f) => f.id === x[0]))
+        .map((x) => [x[0], x[1] ? 1 : 0, x[2] ? 1 : 0, Math.min(3600, Math.round(nn(x[3])))]) : [],
     })).slice(-HISTORY_CAP);
   }
   if (isRec(raw.best)) {
@@ -627,6 +630,27 @@ export function skipItem(sess, seconds = 0) {
   const item = currentItem(sess);
   return { valid: true, correct: false, skipped: true, result: settle(sess, false, true, '', seconds), expected: item.answer };
 }
+/** Per-item detail kept inside the sprint store (not in the attempts log): [[family, correct 0|1, skipped 0|1, seconds], ...]. */
+export const detailOf = (sess) => sess.results.slice(0, ITEM_DETAIL_CAP).map((r) => [r.fam, r.correct ? 1 : 0, r.skipped ? 1 : 0, r.seconds]);
+
+/**
+ * The ONE attempts-log row of a finished set (instead of one row per item with a unique seeded id): { exerciseId, topic: sprint-<family|mixed>,
+ * outcome, score (accuracy), items, correct, seconds (sum of the item times) }. Null when nothing was answered.
+ * 'alone' = typed accuracy of at least BEST_MIN_ACCURACY; the row stays under a reserved topic, see srs.isReservedTopic.
+ */
+export function setAttempt(sess, ts = Date.now()) {
+  if (!sess.results.length) return null;
+  const correct = sess.results.filter((r) => r.correct).length;
+  const skipped = sess.results.filter((r) => r.skipped).length;
+  const typed = sess.results.length - skipped;
+  const acc = typed ? correct / typed : 0;
+  return {
+    exerciseId: `sprint-${sess.mode}-${sess.seed}-${sess.dur}`, topic: sprintTopic(sess.mode), ts,
+    outcome: acc >= BEST_MIN_ACCURACY ? 'alone' : 'wrong', hintsUsed: 0, score: acc,
+    items: sess.results.length, correct, seconds: sess.results.reduce((s, r) => s + r.seconds, 0),
+  };
+}
+
 /** Closes a session: score, history entry, personal best. Mutates and returns { score, isBest, byFamily }. */
 export function finishSession(sess, now = Date.now()) {
   const c = sess.results.filter((r) => r.correct).length;
@@ -636,7 +660,7 @@ export function finishSession(sess, now = Date.now()) {
   const prev = saved.best[sess.dur];
   const isBest = score.acc >= BEST_MIN_ACCURACY && score.correct > 0 && (!prev || score.cpm > prev.cpm);
   if (isBest) saved.best[sess.dur] = { cpm: score.cpm, acc: score.acc, ts: now };
-  saved.history = [...saved.history, { ts: now, dur: sess.dur, mode: sess.mode, correct: score.correct, wrong: score.wrong, skipped: score.skipped, cpm: score.cpm, acc: score.acc }].slice(-HISTORY_CAP);
+  saved.history = [...saved.history, { ts: now, dur: sess.dur, mode: sess.mode, correct: score.correct, wrong: score.wrong, skipped: score.skipped, cpm: score.cpm, acc: score.acc, items: detailOf(sess) }].slice(-HISTORY_CAP);
   const byFamily = {};
   for (const r of sess.results) {
     const f = byFamily[r.fam] || (byFamily[r.fam] = { correct: 0, total: 0 });

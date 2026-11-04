@@ -28,7 +28,7 @@ const FIXED = {
 /** Hebrew title of an engine topic, or null when the id is not one of the standalone modes. */
 export function topicTitle(id) {
   if (FIXED[id]) return FIXED[id][0];
-  if (id.startsWith('sprint-')) return `ספרינט אלגברה: ${familyTitle(id.slice(7))}`;
+  if (id.startsWith('sprint-')) return `ספרינט אלגברה: ${id === 'sprint-mixed' ? 'מעורב' : familyTitle(id.slice(7))}`;
   if (id === 'transfer-math') return 'מבחן העברה: מתמטיקה';
   if (id === 'transfer-physics') return 'מבחן העברה: פיזיקה';
   if (id === 'booklet-math') return 'חוברת מבחן: מתמטיקה';

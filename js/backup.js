@@ -17,7 +17,21 @@ import { KEY as PRESSURE_KEY, mergePressure } from './pressure.js';
 
 export const BACKUP_APP = 'brain-gains';
 export const BACKUP_VERSION = 2;
-export const MAX_CODE_CHARS = 2_000_000;
+// Raised from 2 MB: a maximal notebook (400 entries) + replay logs + a 5000-row attempts log alone measure 2.05 MB (tests/backup.test.mjs),
+// so the old cap could refuse the owner's own full backup. localStorage holds about 5M characters per origin, so 4 MB still bounds the memory a pasted code can use.
+export const MAX_CODE_CHARS = 4_000_000;
+export const SIZE_WARN_RATIO = 0.7;
+
+/** Hebrew warning once a backup reaches 70% of what restore accepts; null below that. `chars` = length of the backup code. */
+export function sizeWarning(chars) {
+  if (!Number.isFinite(chars) || chars < MAX_CODE_CHARS * SIZE_WARN_RATIO) return null;
+  const pctUsed = Math.min(999, Math.round((chars / MAX_CODE_CHARS) * 100));
+  return `הגיבוי כבר גדול: ${pctUsed}% מהגודל המרבי שאפשר לשחזר. גבו עכשיו ושמרו את הקובץ. אם הוא יעבור את הגבול, אי אפשר יהיה לשחזר אותו.`;
+}
+/** Warning for the data currently on the device (or null). */
+export function storageSizeWarning(storage = globalThis.localStorage) {
+  try { return sizeWarning(buildBackup(storage).length); } catch (e) { return null; }
+}
 export const LAST_BACKUP_KEY = 'omri-study-lastbackup-v1'; // device-local, never part of a backup
 export const UNDO_KEY = 'omri-study-undo-v1'; // snapshot taken before the last restore, device-local
 export const UNDO_TTL = 86_400_000; // 24 h
@@ -318,7 +332,7 @@ export function homeReminder() {
   let days = null;
   let n = 0;
   try { days = daysSinceBackup(localStorage); n = store.getAttempts().length; } catch (e) { /* none */ }
-  const text = homeReminderText(days, n);
+  const text = [homeReminderText(days, n), storageSizeWarning()].filter(Boolean).join(' ');
   return text ? h('p', { class: 'muted backup-nag', role: 'status' }, text, ' ', h('a', { href: '#/backup' }, 'גיבוי והעברה')) : null;
 }
 
@@ -340,6 +354,8 @@ export function viewBackup(ctx) {
     return d == null ? 'עוד לא נוצר גיבוי במכשיר הזה.' : `גיבוי אחרון: ${d === 0 ? 'היום' : d === 1 ? 'אתמול' : `לפני ${d} ימים`}.`;
   };
   const last = h('p', { class: 'muted' }, lastLine());
+  const sizeWarn = storageSizeWarning();
+  const sizeNote = sizeWarn ? h('p', { class: 'feedback bad', role: 'alert' }, sizeWarn) : null;
   const done = () => { markBackedUp(localStorage); last.textContent = lastLine(); };
 
   const showCode = (code, msg) => {
@@ -447,7 +463,7 @@ export function viewBackup(ctx) {
   refreshUndo();
   ctx.show(crumbs(), h('h1', {}, 'גיבוי והעברה'),
     h('p', { class: 'muted' }, 'ההתקדמות נשמרת רק במכשיר הזה. כדי לא לאבד אותה או להעביר למכשיר אחר, צרו קוד גיבוי.'),
-    last, persistLine,
+    last, sizeNote, persistLine,
     h('section', { 'aria-labelledby': 'bk-h' },
       h('h2', { id: 'bk-h' }, 'יצירת גיבוי'),
       h('div', { class: 'btn-row' },
