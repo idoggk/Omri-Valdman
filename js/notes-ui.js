@@ -4,6 +4,9 @@ import { isolateTitle } from './bidi.js';
 import { mathBlock } from './mathdir.js';
 import { feedbackCard } from './feedback-ui.js';
 import * as store from './store.js';
+import { tryFirst } from './tryfirst-ui.js';
+import { attemptExtra } from './tryfirst.js';
+import { confidenceBar, predExtra } from './calibration-ui.js';
 import { visitOutcome } from './engine.js';
 import { answerWidget } from './mathhard-ui.js';
 import { canonSpec, studentCanon, sameCanon, diagnose, prettyAnswer } from './mathhard.js';
@@ -76,7 +79,7 @@ function viewRead(ctx, res) {
  * Builds the question block (statement, answer inputs, check / hint / solution buttons).
  * Calls opts.onFinish(state) exactly once: solved, or the solution was shown. state = { solved, hints, wrongs, peeked }.
  */
-function questionBlock(ex, { onFinish, solutionLabel = 'הצגת פתרון מלא' }) {
+function questionBlock(ex, { onFinish, solutionLabel = 'הצגת פתרון מלא', practice = false }) {
   const want = canonSpec(ex.answer);
   const st = { hints: 0, wrongs: 0, over: false, solved: false, peeked: false };
   const widget = answerWidget(ex);
@@ -86,10 +89,15 @@ function questionBlock(ex, { onFinish, solutionLabel = 'הצגת פתרון מל
   const checkBtn = h('button', { class: 'btn primary', type: 'button', style: BTN }, 'בדיקה');
   const hintBtn = h('button', { class: 'btn', type: 'button', style: BTN }, 'רמז 1');
   const solBtn = h('button', { class: 'btn', type: 'button', style: BTN }, solutionLabel);
+  // practice (drill) pages: optional try-first gate over the hints and "chance of full marks" chips; the cards stay quick recall
+  const tf = practice ? tryFirst([hintBtn, solBtn, hintBox]) : null;
+  const conf = practice ? confidenceBar() : null;
+  if (tf) widget.el.addEventListener('input', (ev) => { if (ev && ev.target && String(ev.target.value || '').trim()) tf.attempt(); });
 
   function finish() {
     if (st.over) return;
     st.over = true;
+    st.extra = { ...attemptExtra(tf && tf.gate), ...predExtra(conf) };
     widget.lock();
     [checkBtn, hintBtn, solBtn].forEach((b) => { b.disabled = true; });
     solBox.replaceChildren(h('section', { class: 'panel', 'aria-label': 'פתרון מלא' }, h('strong', {}, 'פתרון: '),
@@ -100,6 +108,8 @@ function questionBlock(ex, { onFinish, solutionLabel = 'הצגת פתרון מל
   }
   checkBtn.addEventListener('click', () => {
     if (st.over) return;
+    if (tf) tf.attempt();
+    if (conf) conf.lock();
     const r = studentCanon(ex.answer.kind, widget.read());
     if (!r.ok) { out.replaceChildren(h('p', { class: 'error', role: 'alert' }, r.error)); return; }
     if (sameCanon(r.canon, want)) {
@@ -122,6 +132,7 @@ function questionBlock(ex, { onFinish, solutionLabel = 'הצגת פתרון מל
   solBtn.addEventListener('click', () => { if (!st.over) { st.peeked = true; finish(); } });
 
   const el = h('div', {},
+    conf ? conf.node : null, tf ? tf.bar : null,
     para(ex.ask),
     h('div', { class: 'panel' }, ...ex.eq.map((e) => line(e))),
     widget.el,
@@ -171,7 +182,6 @@ function viewCards(ctx, res) {
         h('p', { class: 'muted' }, 'קודם שאלה קצרה. הכלל והמלכודת יוצגו אחרי התשובה.'), q.el));
   }
   function finish() {
-    store.recordAttempt({ exerciseId: 'notes-cards', topic: NOTES_TOPIC, outcome: wrong === 0 ? 'alone' : 'hinted', hintsUsed: 0, seconds: secs(t0) });
     box.replaceChildren(
       h('div', { class: 'feedback ok', role: 'status' }, `סיימנו: ${right} כרטיסים בלי טעות, ${wrong} חזרו לתור.`),
       feedbackCard({
@@ -207,11 +217,12 @@ function viewQuestion(ctx, res, id) {
   const next = res.questions[res.questions.indexOf(ex) + 1];
   const t0 = Date.now();
   const q = questionBlock(ex, {
+    practice: true,
     onFinish: (r, out) => {
       const state = loadNotes();
       recordDrill(state, ex.id, r.solved);
       saveNotes(state);
-      store.recordAttempt({ exerciseId: ex.id, topic: NOTES_TOPIC, outcome: visitOutcome(r), hintsUsed: r.hints, seconds: secs(t0) });
+      store.recordAttempt({ exerciseId: ex.id, topic: NOTES_TOPIC, outcome: visitOutcome(r), hintsUsed: r.hints, seconds: secs(t0), ...r.extra });
       out.append(feedbackCard({
         exerciseId: ex.id, topic: 'math', mode: 'notes', level: ex.tier, attemptId: t0,
         context: () => ({ correct: r.solved, hintsUsed: r.hints, solutionViewed: !r.solved, secondsSpent: secs(t0) }),

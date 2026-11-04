@@ -3,6 +3,9 @@
 import { h } from './dom.js';
 import { feedbackCard } from './feedback-ui.js';
 import * as store from './store.js';
+import { tryFirst } from './tryfirst-ui.js';
+import { attemptExtra } from './tryfirst.js';
+import { confidenceBar, predExtra } from './calibration-ui.js';
 import { TRIG_TOPIC, visitOutcome } from './engine.js';
 import { mathBlock, mathInline, mathButton, orderBlankOptions } from './mathdir.js';
 import { LESSONS, CARDS, FILL, WRONG, PROOFS, CHAIN } from './trig-data.js';
@@ -124,6 +127,7 @@ function viewCards(ctx) {
   const total = queue.length;
   let right = 0;
   let wrong = 0;
+  let shownAt = t0;
   const box = h('div');
   if (!total) {
     const c = boxCounts(state, CARDS);
@@ -143,6 +147,8 @@ function viewCards(ctx) {
     const mark = (ok) => {
       gradeCard(state, card.id, ok);
       saveState(state);
+      store.recordAttempt({ exerciseId: `trig-card-${card.id}`, topic: TRIG_TOPIC, outcome: ok ? 'alone' : 'wrong', hintsUsed: 0, seconds: Math.round((Date.now() - shownAt) / 1000) });
+      shownAt = Date.now();
       queue.shift();
       if (ok) right++; else { wrong++; queue.splice(requeueGap(queue.length), 0, card); }
       show();
@@ -161,7 +167,6 @@ function viewCards(ctx) {
         reveal, answer, grade));
   }
   function finish() {
-    store.recordAttempt({ exerciseId: 'trig-cards', topic: TRIG_TOPIC, outcome: wrong === 0 ? 'alone' : 'hinted', hintsUsed: 0, seconds: Math.round((Date.now() - t0) / 1000) });
     box.replaceChildren(
       h('div', { class: 'feedback ok', role: 'status' }, `סיימנו: ${right} נכונות, ${wrong} טעויות (חזרו לתור עד שנזכרו).`),
       feedbackCard({
@@ -192,12 +197,15 @@ function viewDrill(ctx) {
     const out = h('div', { 'aria-live': 'polite' });
     const spot = h('div');
     let done = false;
+    let itemHints = 0;
+    const itemAt = Date.now();
     const answer = (ok, statement) => {
       if (done) return;
       done = true;
       if (ok) right++;
       recordDrill(state, it.id, ok);
       saveState(state);
+      store.recordAttempt({ exerciseId: `trig-drill-${it.id}`, topic: TRIG_TOPIC, outcome: ok ? (itemHints ? 'hinted' : 'alone') : 'wrong', hintsUsed: itemHints, seconds: Math.round((Date.now() - itemAt) / 1000) });
       out.replaceChildren(h('div', { class: `feedback ${ok ? 'ok' : 'bad'}`, role: ok ? 'status' : 'alert' }, ok ? 'נכון!' : 'לא נכון.'),
         h('p', {}, it.kind === 'fill' ? it.tip : it.why),
         spotPanel(statement),
@@ -216,14 +224,12 @@ function viewDrill(ctx) {
       body = [h('p', {}, 'איזו מהזהויות הבאות שגויה? אפשר לבדוק מספרית לפני שבוחרים.'),
         ...it.statements.map((s, k) => h('div', { class: 'panel' }, eq(s),
           h('div', { class: 'btn-row' },
-            h('button', { class: 'btn', type: 'button', style: BTN, onclick: () => { if (!done) hints++; spot.replaceChildren(spotPanel(s)); } }, 'בדיקה ב־a=30°'),
+            h('button', { class: 'btn', type: 'button', style: BTN, onclick: () => { if (!done) { hints++; itemHints++; } spot.replaceChildren(spotPanel(s)); } }, 'בדיקה ב־a=30°'),
             h('button', { class: 'btn primary', type: 'button', style: BTN, onclick: () => answer(k === it.wrong, it.statements[it.wrong]) }, 'זו השגויה')))), spot];
     }
     box.replaceChildren(h('p', { class: 'muted' }, `${i + 1} מתוך ${items.length}`), h('section', { class: 'panel' }, ...body, out));
   }
   function finish() {
-    const outcome = right === items.length && !hints ? 'alone' : right >= items.length * 0.7 ? 'hinted' : 'wrong';
-    store.recordAttempt({ exerciseId: 'trig-drill', topic: TRIG_TOPIC, outcome, hintsUsed: hints, seconds: Math.round((Date.now() - t0) / 1000) });
     box.replaceChildren(
       h('div', { class: `feedback ${right === items.length ? 'ok' : 'bad'}`, role: 'status' }, `${right} מתוך ${items.length} נכונות.`),
       h('p', { class: 'muted' }, 'הרגל טוב: לפני שסומכים על זהות, מציבים a = 30° ובודקים שני צדדים.'),
@@ -264,6 +270,8 @@ function viewProof(ctx, id) {
   let si = 0;
   let mistakes = 0;
   let hints = 0;
+  const tf = tryFirst(); // hints of each step stay hidden until the first choice or 60 s, when the mode is on
+  const conf = confidenceBar();
   history.append(h('div', { class: 'panel' }, h('strong', {}, 'מתחילים מ: '), eq(p.lhs)));
 
   function step() {
@@ -277,9 +285,12 @@ function viewProof(ctx, id) {
       if (!hinted) { hinted = true; hints++; }
       hintBox.replaceChildren(h('p', { class: 'notice' }, `רמז: ${s.hint}`));
     } }, 'רמז: איזו זהות?');
+    tf.add(hintBtn); tf.add(hintBox);
     const buttons = opts.map((o) => {
       const b = mathButton(eq(o.to), { style: BTN + 'display:block;width:100%;text-align:left;margin:6px 0' });
       b.addEventListener('click', () => {
+        tf.attempt();
+        conf.lock();
         if (o.ok) {
           history.append(h('div', { class: 'panel' }, h('span', { class: 'muted' }, `צעד ${si + 1}: `), eq(`= ${s.ok}`), h('p', { class: 'muted' }, s.why)));
           si++;
@@ -300,7 +311,7 @@ function viewProof(ctx, id) {
   function finish() {
     recordProof(state, p.id, { mistakes, hints });
     saveState(state);
-    store.recordAttempt({ exerciseId: `trig-${p.id}`, topic: TRIG_TOPIC, outcome: visitOutcome({ solved: true, hints, wrongs: mistakes }), hintsUsed: hints, seconds: Math.round((Date.now() - t0) / 1000) });
+    store.recordAttempt({ exerciseId: `trig-${p.id}`, topic: TRIG_TOPIC, outcome: visitOutcome({ solved: true, hints, wrongs: mistakes }), hintsUsed: hints, seconds: Math.round((Date.now() - t0) / 1000), ...attemptExtra(tf.gate), ...predExtra(conf) });
     area.replaceChildren(
       h('div', { class: 'feedback ok', role: 'status' }, `הוכחתם! טעויות: ${mistakes}, רמזים: ${hints}.`),
       h('p', {}, h('strong', {}, 'מה שהוכחנו: '), eq(`${p.lhs} = ${p.rhs}`)),
@@ -313,7 +324,7 @@ function viewProof(ctx, id) {
       h('div', { class: 'btn-row' }, next ? h('a', { class: 'btn primary', href: `#/trig/proof/${next.id}` }, 'ההוכחה הבאה ←') : null, h('a', { class: 'btn', href: '#/trig/proof' }, 'לרשימה')));
   }
   ctx.show(crumbs('#/trig/proof', '→ לרשימת ההוכחות'), h('h1', {}, p.title), h('p', {}, h('strong', {}, 'להוכיח: '), eq(`${p.lhs} = ${p.rhs}`)),
-    h('p', { class: 'muted' }, `הזהות נכונה ${WHERE_DEFINED}.`), condNote(p.cond), history, area);
+    h('p', { class: 'muted' }, `הזהות נכונה ${WHERE_DEFINED}.`), condNote(p.cond), conf.node, tf.bar, history, area);
   step();
 }
 

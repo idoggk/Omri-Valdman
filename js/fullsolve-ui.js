@@ -211,7 +211,7 @@ function viewSolve(ctx, ex) {
     const ts = Date.now();
     const correct = gradeQuestion(ex, answer) === 'right';
     // independent solve: no hints, wrong answers join the mistakes queue
-    store.recordAttempt({ exerciseId: ex.id, outcome: correct ? 'alone' : 'wrong', hintsUsed: 0, seconds });
+    store.recordAttempt({ exerciseId: ex.id, topic: ex.topic, outcome: correct ? 'alone' : 'wrong', hintsUsed: 0, seconds });
     store.recordExamResults([{ id: ex.id, correct }]);
     recordConf({ id: ex.id, ts, correct, confident, seconds, rubric: null });
     submitBtn.disabled = true;

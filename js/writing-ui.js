@@ -4,6 +4,8 @@ import { h } from './dom.js';
 import { sanitizeHtml } from './sanitize.js';
 import { isolateTitle, isolateFormulasHtml } from './bidi.js';
 import * as store from './store.js';
+import { createGate, attemptExtra } from './tryfirst.js';
+import { confidenceBar, predExtra } from './calibration-ui.js';
 import {
   STAGES, SUBJECTS, UNOFFICIAL, TOPIC, loadWritingData, loadSaved, recordResult, scoreOf, graderEstimate, outcomeOf, missedStages, weakestStage, totalOf, stageLabel, ltr,
 } from './writing.js';
@@ -69,7 +71,11 @@ function runTask(ctx, data, task) {
   const stage = h('div');
   const outBox = h('div', { 'aria-live': 'polite' });
 
+  const gate = createGate({ on: false }); // writing has no hints to hide; the gate only times the first attempt (pressing "done writing")
+  const conf = confidenceBar();
   const reveal = () => {
+    gate.attempt();
+    conf.lock();
     revealBtn.disabled = true;
     const sum = h('p', { class: 'wr-sum', role: 'status' });
     const est = h('div', { class: 'notice', role: 'note' });
@@ -92,7 +98,7 @@ function runTask(ctx, data, task) {
       saveBtn.disabled = true;
       boxes.forEach((li) => { li.querySelector('input').disabled = true; });
       const { score } = recordResult(task, [...got]);
-      store.recordAttempt({ exerciseId: task.id, topic: TOPIC, outcome: outcomeOf(score.fraction), hintsUsed: 0, seconds: Math.round((Date.now() - t0) / 1000), score: score.fraction });
+      store.recordAttempt({ exerciseId: task.id, topic: TOPIC, outcome: outcomeOf(score.fraction), hintsUsed: 0, seconds: Math.round((Date.now() - t0) / 1000), score: score.fraction, ...attemptExtra(gate), ...predExtra(conf) });
       const missed = task.rubric.filter((r) => !got.has(r.id));
       outBox.replaceChildren(
         h('div', { class: `feedback ${missed.length ? 'bad' : 'ok'}`, role: 'status' }, missed.length ? 'נשמר. אלה השורות שהוחמצו:' : 'נשמר. קיבלתם את כל הנקודות.'),
@@ -120,5 +126,5 @@ function runTask(ctx, data, task) {
     h('section', { class: 'panel', 'aria-label': 'מבנה הפתרון' },
       h('h2', {}, 'כתבו על דף, בחמישה שלבים'),
       h('ol', {}, STAGES.map((s) => h('li', {}, h('strong', {}, `${s.label}: `), s.hint)))),
-    h('div', { class: 'btn-row' }, revealBtn), stage, outBox);
+    conf.node, h('div', { class: 'btn-row' }, revealBtn), stage, outBox);
 }

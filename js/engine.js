@@ -50,7 +50,7 @@ export function topicHref(id) {
 
 /** Link back to one recorded item (for due reviews), or null for items of the data topics. */
 export function itemHref(id, topic) {
-  if (topic === LOGS_TOPIC) return id === 'logs-cards' ? '#/logs/cards' : `#/logs/ex/${id}`;
+  if (topic === LOGS_TOPIC) return id === 'logs-cards' || id.startsWith('logs-card-') ?'#/logs/cards' : `#/logs/ex/${id}`;
   if (topic === MULTIPART_TOPIC) return `#/multipart/${id}`;
   if (topic === 'writing') return `#/writing/${id}`;
   if (topic === 'formulas') return '#/formulas';
@@ -62,8 +62,8 @@ export function itemHref(id, topic) {
   if (topic === 'estimate' || String(topic).startsWith('sprint-')) return topic === 'estimate' ? '#/estimate' : '#/sprint';
   if (topic === 'recover-math' || topic === 'recover-physics') return `#/recover/${id}`;
   if (topic === TRIG_TOPIC) {
-    if (id === 'trig-cards') return '#/trig/cards';
-    if (id === 'trig-drill') return '#/trig/drill';
+    if (id === 'trig-cards' || id.startsWith('trig-card-')) return '#/trig/cards';
+    if (id === 'trig-drill' || id.startsWith('trig-drill-')) return '#/trig/drill';
     return id.startsWith('trig-') ? `#/trig/proof/${id.slice(5)}` : '#/trig';
   }
   return topicHref(topic) ? `#/mathhard/${id}` : null;
