@@ -189,7 +189,7 @@ test('sprint attempts: own topic, reserved from mastery and review, titled and l
 test('routes and hub', () => {
   assert.equal(N.resolveRoute('#/sprint/run/120/factor').name, 'sprint');
   assert.deepEqual(N.resolveRoute('#/sprint/run/300/mixed').args, ['run', '300', 'mixed']);
-  assert.ok(N.HUB_GROUPS.some((g) => g.id === 'more'));
+  assert.ok(N.HUB_GROUPS.some((g) => g.id === 'speed'));
 });
 
 test('screen: home, then a run records attempts under sprint-<family> and ends with the list', () => {

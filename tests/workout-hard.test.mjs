@@ -93,20 +93,14 @@ const ctx = {
 };
 const hrefs = () => dom.root.all((n) => n.tagName === 'A').map((a) => a.getAttribute('href'));
 
-test('home: path card has 3 steps (workout, math, physics), links are unique, "עוד" group holds the extra links', () => {
+test('home: recommended button, links are unique and at most 8; the other modes live in the hub', () => {
   globalThis.fetch = async () => ({ ok: false });
   nav.viewHome(ctx);
-  assert.ok(dom.root.byText('strong', 'המסלול של היום'));
-  const steps = dom.root.all((n) => n.tagName === 'LI' && n.className !== undefined && n.children.some((c) => c.className && c.className.includes('tick')));
-  assert.equal(steps.length, 3);
-  assert.ok(steps.every((s) => s.textContent.includes('○')));
+  assert.ok(dom.root.byText('strong', 'ההמשך המומלץ'));
   const hs = hrefs();
   assert.equal(new Set(hs).size, hs.length, hs.join());
-  assert.ok(hs.some((h) => h.startsWith('#/mathhard/mh-') || h.startsWith('#/logs/ex/')));
-  assert.ok(hs.some((h) => h.startsWith('#/multipart/mp-')));
-  assert.ok(dom.root.byText('strong', 'עוד'));
-  for (const r of ['#/trig', '#/logs', '#/ladder']) assert.ok(hs.includes(r), r);
-  assert.ok(dom.root.byText('a', 'מתחילים אימון'));
+  assert.ok(hs.length <= 8, hs.join());
+  assert.ok(hs.includes('#/practice-hub'));
 });
 
 test('dailyPath: done marks come from today\'s attempts only', () => {

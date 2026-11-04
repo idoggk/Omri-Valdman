@@ -8,11 +8,10 @@ import { workoutMix, workoutResults, workoutOpts, WORKOUT_SIZE } from './practic
 import { pickWorkout, levelLine, pickHard, hardHref } from './workout.js';
 import { loadFeedback } from './feedback.js';
 import { onlyHardFailed } from './boot.js';
-import { openFormulaSheet } from './sheet.js';
 import * as repair from './skills-ui.js';
 import { homeReminder } from './backup.js';
 import { dueCount } from './notebook.js';
-import { homeSummary, loadSettings } from './plan.js';
+import { collectPlan } from './plan-ui.js';
 import { dueCount as deriveDueCount } from './derive.js';
 
 export const TABS = [
@@ -128,17 +127,43 @@ export function planCardText(s) {
   return { title: left, line: `${s.phase.title} · השבוע: ${s.sessions.done} מתוך ${s.sessions.target} ימי לימוד` };
 }
 
-const MORE_LINKS = [
-  ['#/multipart', '🧮 שאלות מבחן בכמה סעיפים'],
-  ['#/ladder', '🪜 סולם הקושי בפיזיקה'],
-  ['#/mathhard', '🧠 מתמטיקה ברמה גבוהה: שורשים, מעריכי, אי־שוויונות, פרמטר ומעגלים'],
-  ['#/logs', '📏 לוגריתמים: 12 שיעורים מהיסוד, כרטיסיות ו־70 תרגילים'],
-  ['#/notes', '📌 דגשים: חזקות חיוביות תמיד, כפל באי־שוויון וכללי לוגריתם'],
-  ['#/derive', '🧩 גזירה מהזיכרון: 24 הוכחות וגזירות עם חזרות מרווחות'],
-  ['#/counter', '🔍 אתגר הדוגמה הנגדית: 20 טענות שנשמעות נכונות ואינן'],
-  ['#/calibration', '🎲 כיול: כמה אתם יודעים שאתם יודעים'],
-  ['#/trig', '📐 זהויות טריגונומטריות: שלושה עוגנים וכל השאר נגזר'],
-];
+/**
+ * "ההמשך המומלץ": one target for the home button -> { label, href, source: 'plan' | 'path' | 'repair' }.
+ * 1. exam date set: today's slot of the weekly plan (plan.days, the same list #/plan shows) when it is not done yet;
+ * 2. else (or when today's slot is done / a rest day): the first undone step of dailyPath;
+ * 3. else repair of the weakest topic (plan.weak[0]), or the plain workout. A missing or corrupt plan counts as "no exam date".
+ */
+export function recommendedNext({ log = [], hard = null, plan = null, now = Date.now(), ...pathOpts } = {}) {
+  const p = plan && typeof plan === 'object' ? plan : {};
+  const hasDate = !!(p.hz && p.hz.hasDate && !p.hz.past);
+  if (hasDate && Array.isArray(p.days)) {
+    const today = p.days.find((d) => d && d.today && d.slot && !d.done);
+    if (today) return { label: today.slot.label, href: today.slot.href, source: 'plan' };
+  }
+  const step = dailyPath({ log, hard, now, ...pathOpts }).find((s) => !s.done);
+  if (step) return { label: step.label, href: step.href, source: 'path' };
+  const weak = Array.isArray(p.weak) ? p.weak[0] : null;
+  if (weak && weak.href) return { label: `תיקון נושא חלש: ${weak.title}`, href: weak.href, source: 'repair' };
+  return { label: 'תיקון נושא חלש', href: '#/repair', source: 'repair' };
+}
+
+/** Three short status lines for the home strip: [{ text, href }] (exam countdown, reviews due, weekly goal). */
+export function statusStrip(plan) {
+  const p = plan && typeof plan === 'object' ? plan : {};
+  const hz = p.hz || {};
+  const t = planCardText({ hasDate: !!hz.hasDate, past: !!hz.past, days: hz.days, phase: hz.phase || { title: '' }, sessions: p.sessions || { done: 0, target: 0 } });
+  const d = p.due || {};
+  const n = (x) => (Number.isFinite(x) ? x : 0);
+  const reviews = n(d.reviews) + n(d.notebook) + n(d.derive);
+  const goals = Array.isArray(p.goals) ? p.goals.filter((g) => g && g.known) : [];
+  const done = goals.filter((g) => g.done).length;
+  const sess = p.sessions ? `, ${p.sessions.done} מתוך ${p.sessions.target} ימי לימוד` : '';
+  return [
+    { text: hz.hasDate ? t.title : 'לא נקבע תאריך מבחן', href: '#/plan' },
+    { text: reviews ? `חזרות לפי מועד: ${reviews}` : 'אין חזרות שמחכות', href: n(d.reviews) ? '#/review/start' : n(d.notebook) ? '#/notebook' : n(d.derive) ? '#/derive' : null },
+    { text: goals.length ? `יעד שבועי: ${done} מתוך ${goals.length}${sess}` : `יעד שבועי: אין נתונים${sess}`, href: null },
+  ];
+}
 
 /** Plain message plus a retry button when boot data failed; a one-line notice when only hard sets are missing. */
 export function bootNotice(failed, retry) {
@@ -152,10 +177,15 @@ export function bootNotice(failed, retry) {
     ' ', btn);
 }
 
-function planCard(log, now) {
-  let t;
-  try { t = planCardText(homeSummary(loadSettings(), log, now)); } catch (e) { return null; }
-  return h('a', { class: 'card plan-card', href: '#/plan' }, h('strong', {}, `🗓️ ${t.title}`), h('span', { class: 'muted' }, t.line));
+/** The plan as #/plan shows it (one source for the home button, the status strip and the plan screen); null if it cannot be built. */
+function homePlan(ctx, log, now) {
+  try { return collectPlan(ctx, now); } catch (e) { return null; }
+}
+
+function statusCard(plan) {
+  const lines = statusStrip(plan);
+  return h('section', { class: 'card status-strip', 'aria-label': 'מצב נוכחי' },
+    h('ul', { class: 'more-links' }, lines.map((l) => h('li', {}, l.href ? h('a', { href: l.href }, l.text) : l.text))));
 }
 
 export function viewHome(ctx, loadErrors = []) {
@@ -174,7 +204,8 @@ export function viewHome(ctx, loadErrors = []) {
   try { notebookDue = dueCount(log, fb, now); } catch (e) { /* the notebook is optional on the home screen */ }
   let deriveDue = 0;
   try { deriveDue = deriveDueCount(globalThis.localStorage, now); } catch (e) { /* optional on the home screen */ }
-  const path = dailyPath({ log, hard: ctx.hard, now, workout: store.loadWorkout(), title: ctx.hardTitle || ((id) => id), workoutExists: exists, notebookDue, deriveDue });
+  const plan = homePlan(ctx, log, now);
+  const next = recommendedNext({ log, hard: ctx.hard, plan, now, workout: store.loadWorkout(), title: ctx.hardTitle || ((id) => id), workoutExists: exists, notebookDue, deriveDue });
   ctx.show(
     h('h1', {}, 'היום'),
     bootNotice(loadErrors, ctx.retry),
@@ -186,108 +217,13 @@ export function viewHome(ctx, loadErrors = []) {
           lvlLine ? h('p', { class: 'muted workout-level' }, lvlLine) : null,
           cont ? h('p', {}, h('a', { href: cont }, 'להמשיך מאיפה שעצרתם')) : null]
         : h('span', { class: 'muted' }, 'אין תרגילים זמינים לאימון.')),
-    h('section', { class: 'card path-card', 'aria-labelledby': 'path-h' },
-      h('strong', { id: 'path-h' }, 'המסלול של היום'),
-      h('ol', { class: 'path-steps' }, path.map((s, i) => h('li', { class: s.done ? 'done' : '' },
-        h('span', { class: `tick o-${s.done ? 'alone' : 'none'}`, role: 'img', 'aria-label': s.done ? 'הושלם' : 'טרם הושלם' }, s.done ? '✓' : '○'), ' ',
-        i === 0 && ids.length
-          ? h('a', { class: 'btn primary cta', href: s.href }, 'מתחילים אימון')
-          : i === 0 ? h('span', { class: 'muted' }, s.label)
-            : h('a', { href: s.href }, s.label))))),
-    planCard(log, now),
+    h('section', { class: 'card path-card', 'aria-labelledby': 'next-h' },
+      h('strong', { id: 'next-h' }, 'ההמשך המומלץ'),
+      h('p', { class: 'muted' }, next.label),
+      h('a', { class: 'btn primary cta', href: next.href }, 'ההמשך המומלץ')),
+    statusCard(plan),
     ctx.exercises.length ? repair.homeCard(ctx) : null,
-    h('section', { class: 'card', 'aria-labelledby': 'more-h' },
-      h('strong', { id: 'more-h' }, 'עוד'),
-      h('ul', { class: 'more-links' }, MORE_LINKS.filter(([href]) => !path.some((s) => s.href === href)).map(([href, text]) => h('li', {}, h('a', { href }, text))))));
+    h('p', {}, h('a', { href: '#/practice-hub' }, 'כל המצבים')));
 }
 
-/* ---------- practice hub (תרגול) ---------- */
-const tile = (href, title, desc) => h('a', { class: 'card', href }, h('strong', {}, title), h('span', { class: 'muted' }, desc));
-
-/** Groups in learning order. Topic tiles are built separately because they carry counts. */
-export const HUB_GROUPS = [
-  { id: 'learn', title: 'לימוד' },
-  { id: 'repair', title: 'חיזוק יסודות' },
-  { id: 'guided', title: 'תרגול מונחה' },
-  { id: 'traps', title: 'מלכודות וטעויות' },
-  { id: 'endless', title: 'תרגול ללא הגבלה' },
-  { id: 'exams', title: 'מבחנים' },
-  { id: 'more', title: 'עוד: מהירות, יחידות והערכה' },
-  { id: 'backup', title: 'גיבוי' },
-];
-
-export function viewHub(ctx) {
-  document.title = 'תרגול – Brain Gains';
-  const topicTiles = ctx.topics.map((t) => {
-    const list = ctx.exercises.filter((e) => e.topic === t.id);
-    const done = store.countDone(list.map((e) => e.id));
-    const pct = list.length ? Math.round((done / list.length) * 100) : 0;
-    return h('a', { class: 'card', href: `#/topic/${t.id}` },
-      h('strong', {}, t.title),
-      h('span', { class: 'muted' }, `${list.length} תרגילים · הושלמו ${done}`),
-      h('div', { class: 'progress-bar', 'aria-hidden': 'true' }, h('span', { style: `width:${pct}%` })));
-  });
-  const firstTopic = ctx.topics[0] ? ctx.topics[0].id : 'math-3';
-  const content = {
-    learn: [
-      h('button', { class: 'card card-btn', type: 'button', onclick: (ev) => openFormulaSheet(null, ev.currentTarget) },
-        h('strong', {}, '📐 דף נוסחאות'), h('span', { class: 'muted' }, 'כל הנוסחאות וטעויות נפוצות במקום אחד')),
-      tile(`#/topic/${firstTopic}`, '📖 דוגמאות פתורות', 'בראש עמוד כל נושא: דוגמה פתורה צעד אחר צעד'),
-      tile('#/trig', '📐 זהויות טריגונומטריות', 'שלושה עוגנים, גזירה צעד אחר צעד, כרטיסיות זכירה, תרגול ומאמן הוכחות'),
-      tile('#/logs', '📏 לוגריתמים מהיסוד', '12 שיעורים מפורטים עם דוגמאות פתורות ומבחן עצמי, כרטיסיות זכירה לעשרה כללים, ו־70 תרגילים בחמש רמות עם תחום, מלכודות וכרטיס שיטה'),
-      tile('#/mathhard', '🧠 מתמטיקה ברמה גבוהה', '42 תרגילים בחמישה נושאים ושלוש רמות: משוואות שורש, מעריכי, אי־שוויונות רציונליים, פרמטר ומעגלים. תשובות מדויקות וכרטיס שיטה'),
-      tile('#/formulas', '📋 הדף שלי: נוסחאות מהזיכרון', '50 נוסחאות במתמטיקה ובפיזיקה: כותבים כל אחת מהזיכרון, הבדיקה מספרית ולא לפי צורה, וכך נבנה דף נוסחאות אישי להדפסה. טעויות חוזרות בכרטיסיות ובמחברת הטעויות'),
-      tile('#/fading', '🌓 דוגמאות מתפוגגות', 'אותה דוגמה בארבעה שלבים: מפתרון מלא ועד פתרון עצמאי, עם הסתרה הדרגתית'),
-    ],
-    repair: [tile('#/repair', '🩹 חיזוק יסודות', 'מיני־שיעור ו־3 שאלות על מיומנות בסיס שבה יש טעויות חוזרות')],
-    guided: [
-      ...topicTiles,
-      tile('#/checkpoints', '🎯 נקודות ביניים', 'פתרון צעד אחר צעד: מזינים כל תוצאת ביניים ומקבלים משוב מיד'),
-      tile('#/methods', '🧭 איך מתחילים?', 'בוחרים שיטה או צעד הבא נכון, ומקבלים הסבר לכל תשובה'),
-      tile('#/order', '🧩 סדרו את שלבי הפתרון', 'שלבי פתרון מעורבבים: סדרו אותם נכון וקבלו ציון'),
-      tile('#/edge', '🧪 מקרי קצה ופתרונות מרובים', 'מסמנים אילו פתרונות תקפים ואילו נפסלים: שורש זר, חילוק באפס, זמן שלילי או אין פתרון'),
-      tile('#/reverse', '🔄 בעיות הפוכות', 'נתונה התוצאה: מוצאים פרמטר, מקדמים או מהירות התחלתית שמובילים אליה'),
-      tile('#/multipart', '🧮 שאלה בכמה סעיפים', '22 שאלות מבחן: 8 חימום ו־14 ברמת מבחן, סעיפים א-ו שנשענים זה על זה, עם קרדיט על שיטה כשהטעות עברה מסעיף קודם'),
-    ],
-    traps: [
-      tile('#/drills', '⚡ תרגולים מהירים', 'מלכודות, בדיקות שפיות וכרטיסיות בסשן של 10 פריטים'),
-      tile('#/hunt', '🔎 מצאו את הטעות', 'פתרון מלא עם טעות אחת: מצאו את השלב הראשון השגוי'),
-      tile('#/recover', '🩹 תקנו ותמשיכו', '24 פתרונות עם טעות אחת בשלב מוקדם: מוצאים אותה, מתקנים את הערך וממשיכים עד הסוף מהערך הנכון, עם ניקוד חלקי'),
-      tile('#/notebook', '📓 מחברת טעויות', 'כל תרגיל שטעיתם בו נכנס לכאן לבד, עם הצעד המרכזי, הערה אישית וחזרה אחרי 1, 3, 7 ו־14 ימים'),
-      tile('#/review/start', '🔁 חזרה על טעויות', 'תרגילים שנפתרו עם רמזים או עם הצגת פתרון'),
-    ],
-    endless: [tile('#/endless', '♾️ תרגול ללא הגבלה', 'תרגילים חדשים בכל פעם, באותה רמה ועם רמזים ופתרון מלא')],
-    exams: [
-      tile('#/solve', '✍️ פתרון מלא כמו במבחן', 'פותרים על דף, בלי רמזים: תשובה, רמת ביטחון, פתרון רשמי ורשימת בדיקה עצמית'),
-      tile('#/exam', '📝 מצב מבחן', 'שאלות מעורבות, שעון, בלי רמזים ועם דוח בסוף. במסך ההגדרות אפשר לסמן "מבחן חכם", שנבנה לפי החולשות שלכם'),
-      tile('#/writing', '✍️ כתיבת פתרון לניקוד חלקי', '16 משימות: כותבים על דף נתונים, נוסחאות, הצבה, חישוב ומסקנה עם יחידות, ומנקדים את עצמכם מול פתרון מודל ורשימת בדיקה'),
-      tile('#/transfer', '🧊 מבחן העברה', '24 שאלות חדשות לגמרי שלא מופיעות בשום מקום אחר, בניסוח לא מוכר. מבחן של 6 שאלות, ניסיון ראשון בלבד, בלי רמזים ועם הערכת זמן'),
-      tile('#/booklet', '📄 חוברת מבחן להדפסה', 'מבחן A4 של 90 דקות ו־100 נקודות במתמטיקה או בפיזיקה, שאלות ארוכות חדשות עם מקום לפתרון, מפתח ניקוד בדפים נפרדים והזנת הציון שנתתם לעצמכם'),
-      tile('#/blind', '🕶️ טורניר חולשות עיוור', '12 שאלות מעורבות בלי שם נושא ובלי רמת קושי, ניסיון אחד לכל שאלה. בסוף: שלושת הנושאים החלשים לפי דיוק, זמן וסוג הטעות. הטעויות נכנסות למחברת'),
-      tile('#/recovery', '🛟 התאוששות תחת לחץ', 'מיני־מבחן של 20 דקות ו־4 שאלות, שאחת מהן (השנייה) קשה מאוד ולא מוכרת. מאמנים דילוג בזמן וחזרה, ומקבלים ציון אסטרטגיה והסבר'),
-      tile('#/pressure', '🪜 סולם לחץ (רשות)', 'אותה מיומנות ב־100%, 85% ו־70% מהזמן, עם פריטים שונים בכל שלב. הדיוק מוצג לפני הזמן ואין ציון מהירות. כבוי כברירת מחדל'),
-      tile('#/plan', '🗓️ ספירה לאחור והתוכנית שלי', 'תאריך המבחן, שבועות שנשארו, שלב נוכחי, תוכנית שבועית עם קישורים והתקדמות. התאריך מוזן ידנית'),
-      tile('#/summary', '🖨️ סיכום להדפסה', 'דף אחד מהנתונים שלכם: חולשות, נוסחאות ורשימת בדיקה לפני המבחן'),
-    ],
-    more: [
-      tile('#/sprint', '⏱️ ספרינטים באלגברה', 'סטים של 2 או 5 דקות: פירוק לגורמים, שברים, חזקות ושורשים, משוואות, בידוד משתנה, אי־שוויונות ולוגריתמים. משוב מיד, נכונות לדקה, שיא אישי וקושי שמתאים את עצמו לכל נושא'),
-      tile('#/units', '📏 יחידות וניתוח ממדים', '30 שאלות קצרות: יחידות SI, המרות, האם נוסחה תקינה מבחינת יחידות, סקלר מול וקטור, שיפוע ושטח בגרף ודוגמאות הנדסיות'),
-      tile('#/notes', '📌 דגשים', '12 כרטיסי זכירה ו־16 תרגילים על מלכודות מבחן: חזקה חיובית תמיד, מתי מותר להכפיל אי־שוויון, וכללי הלוגריתם'),
-      tile('#/derive', '🧩 גזירה מהזיכרון', '24 גזירות (12 במתמטיקה, 12 בפיזיקה): קוראים פעם אחת, ואז משחזרים שלב אחר שלב עם חזרות אחרי 1, 3, 7 ו־14 ימים. בחירת הצעד הבא, הקלדת שורות, ובסוף דף ריק'),
-      tile('#/counter', '🔍 אתגר הדוגמה הנגדית', '20 טענות שנשמעות נכונות (העלאה בריבוע, חילוק במשתנה, לוגריתם של סכום, מהירות ממוצעת ועוד): מקלידים מספרים שמפריכים כל טענה, והבדיקה מוודאת שהם בתחום ושהטענה נכשלת בהם'),
-      tile('#/calibration', '🎲 כיול הביטחון', 'לפני תרגיל קשה מעריכים כמה סביר שתקבלו ציון מלא (50, 70, 90 או 100 אחוז). טבלת כיול, ציון בריאר, ביטחון יתר או נמוך ורשימת הפעמים שהייתם בטוחים וטעיתם. מופעל בהגדרה'),
-      tile('#/estimate', '🎯 קודם מעריכים', '24 שאלות שבהן בוחרים טווח או הערכה בסדר גודל לפני שמחשבים, ואז רואים את החישוב המדויק ואם ההערכה תפסה אותו'),
-    ],
-    backup: [
-      tile('#/backup', '💾 גיבוי והעברה', 'שמרו את ההתקדמות או העבירו אותה למכשיר אחר'),
-      tile('#/feedback', '📊 משוב על קושי', 'דירוגי קושי, מה היה קשה, וייצוא קובץ לשליחה בוואטסאפ'),
-    ],
-  };
-  ctx.show(
-    h('h1', {}, 'תרגול'),
-    h('p', { class: 'muted' }, 'כל מצבי התרגול, לפי סדר למידה מומלץ.'),
-    h('div', { class: 'cards hub-ladder' }, tile('#/ladder', '🪜 הסלם לרמת מבחן', 'שישה שלבים בפיזיקה: מנוסחה אחת ועד תרגיל מלא בסגנון מבחן, כל שלב נפתח אחרי שפותרים לבד 70% מהקודם')),
-    HUB_GROUPS.map((g) => h('section', { class: 'hub-group', 'aria-labelledby': `hub-${g.id}` },
-      h('h2', { id: `hub-${g.id}` }, g.title),
-      h('div', { class: 'cards' }, content[g.id]))));
-}
+export { HUB_GROUPS, viewHub, hubTileCount } from './hub.js';

@@ -103,8 +103,8 @@ test('routes: #/ladder resolves, hub shows the ladder card first', () => {
   assert.deepEqual(nav.resolveRoute('#/ladder/S2/4').args, ['S2', '4']);
   assert.equal(nav.activeTab('#/ladder/S1'), 'practice');
   nav.viewHub({ topics: [], exercises: [], show: dom.show });
-  const links = dom.root.all((n) => n.tagName === 'A');
-  assert.equal(links[0].getAttribute('href'), '#/ladder');
+  const links = dom.root.all((n) => n.tagName === 'A' && n.getAttribute('href') === '#/ladder');
+  assert.equal(links.length, 1);
   assert.match(links[0].textContent, /הסלם לרמת מבחן/);
 });
 
